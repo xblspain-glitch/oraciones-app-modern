@@ -378,7 +378,7 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 
 
 <style>
-/* Oraciones V2.2 */
+/* Oraciones V2.2b - arreglo seguro */
 #modernActionBar,
 #readerActionBar{
   display:flex;
@@ -776,7 +776,7 @@ function syncTabs(){
   document.getElementById("counterInfo").textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | ❤️ ${state.verses?state.verses.length:0}`;
 }
 function switchSection(s){
-  section=s;state.section=s;saveState();syncTabs();setModernSectionClass();renderModernActionBar();renderReaderActionBar();renderList();
+  section=s;state.section=s;saveState();syncTabs();renderModernActionBar();renderReaderActionBar();renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
   renderReader();openReader();
 }
@@ -969,7 +969,6 @@ function smartBack(){
 }
 
 function openReader(){
-  try{document.body.classList.remove('modern-clean-titles')}catch(e){}
   clearNavModes();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
 function openList(){
   clearNavModes();
@@ -979,7 +978,6 @@ function enterFullscreenReading(){document.getElementById("readerView").classLis
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
 function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
 function openEditor(){
-  try{document.body.classList.remove('modern-clean-titles')}catch(e){}
   clearNavModes();
   const item=currentItem();if(!item) return;
   const cat=document.getElementById("editCategory");
@@ -1660,7 +1658,6 @@ function clearNavModes(){
 }
 
 function openTitlesView(){
-  document.body.classList.add('modern-clean-titles');
   clearNavModes();
   document.body.classList.add("titles-only");
   if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);
@@ -1674,7 +1671,6 @@ function openTitlesView(){
 }
 
 function openTrash(){
-  try{document.body.classList.remove('modern-clean-titles')}catch(e){}
   clearNavModes();document.getElementById("trashView").classList.remove("hidden");document.getElementById("readerView").classList.add("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");renderTrash()}
 function renderTrash(){const box=document.getElementById("trashList");box.innerHTML="";const trash=getTrash();if(!trash.length){box.innerHTML='<div class="empty">La papelera está vacía.</div>';return}trash.forEach(item=>{const div=document.createElement("div");div.className="trash-item";div.innerHTML='<div class="trash-title">'+escapeHtml(item.title||"Sin título")+'</div><div class="row"><button class="btn soft" type="button" onclick="restoreFromTrash(\''+item.id+'\')">Restaurar</button><button class="btn danger" type="button" onclick="deleteForever(\''+item.id+'\')">Borrar definitivo</button></div>';box.appendChild(div)})}
 function restoreFromTrash(id){const trash=getTrash();const idx=trash.findIndex(x=>x.id===id);if(idx<0) return;const item=trash.splice(idx,1)[0];const items=getItems();items.unshift(item);setItems(items);setCurrentId(item.id);saveState();syncTabs();renderList();renderReader();renderTrash();toast("Restaurado")}
@@ -1766,7 +1762,6 @@ function openFavoritesView(){
 function toggleFavorite(){const item=currentItem();if(!item) return;item.favorite=!item.favorite;item.updatedAt=Date.now();saveState();renderList();renderReader();toast(item.favorite?"Marcado como favorito":"Quitado de favoritos")}
 function changeReaderSize(delta){readerSize+=delta;if(readerSize<20) readerSize=20;if(readerSize>34) readerSize=34;localStorage.setItem(SIZE_KEY, String(readerSize));renderReader()}
 function openBackup(){
-  try{document.body.classList.remove('modern-clean-titles')}catch(e){}
   clearNavModes();
   document.body.classList.add("backup-only");
   clearNavModes();document.getElementById("backupView").classList.remove("hidden");document.getElementById("readerView").classList.add("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden")}
@@ -1790,7 +1785,189 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'�
 }
 
 #editorView{padding-bottom:90px}
-</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
+</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
+<script>
+/* Oraciones V2.2b - overrides seguros */
+(function(){
+  function setModernSectionClassSafe(){
+    try{
+      document.body.classList.toggle("section-verses", window.section==="verses");
+      document.body.classList.toggle("section-basic", window.section!=="verses");
+    }catch(e){}
+  }
+
+  window.closeBasicMoreMenu = function(){
+    const m=document.getElementById("basicMoreDropdown");
+    if(m) m.remove();
+  };
+
+  window.openBasicMoreMenu = function(ev){
+    try{
+      if(ev) ev.stopPropagation();
+      window.closeBasicMoreMenu();
+      if(typeof window.closeMoreMenu==="function") window.closeMoreMenu();
+
+      const btn = ev && ev.currentTarget ? ev.currentTarget : null;
+      const menu=document.createElement("div");
+      menu.id="basicMoreDropdown";
+      menu.className="more-dropdown";
+      menu.innerHTML =
+        '<button type="button" onclick="closeBasicMoreMenu(); openTrash()">🗑️ Papelera</button>' +
+        '<button type="button" onclick="closeBasicMoreMenu(); exportCurrentHTML()">🌐 Exportar</button>' +
+        '<button type="button" onclick="closeBasicMoreMenu(); alert(\\'Información de la sección\\')">ℹ️ Información</button>';
+      document.body.appendChild(menu);
+
+      let left=12, top=120;
+      if(btn){
+        const r=btn.getBoundingClientRect();
+        left=r.left;
+        top=r.bottom+6;
+      }
+      const maxLeft=window.innerWidth-menu.offsetWidth-8;
+      if(left>maxLeft) left=Math.max(8,maxLeft);
+      if(left<8) left=8;
+      menu.style.left=left+"px";
+      menu.style.top=top+"px";
+    }catch(e){console.error(e);}
+  };
+
+  window.modernButton = function(label, action, cls){
+    return '<button class="btn '+(cls||'soft')+'" type="button" onclick="'+action+'">'+label+'</button>';
+  };
+
+  window.renderModernActionBar = function(){
+    try{
+      setModernSectionClassSafe();
+      const bar=document.getElementById("modernActionBar");
+      if(!bar) return;
+
+      const basic = [
+        modernButton("➕ Nueva","newItem()","primary"),
+        modernButton("📖 Leer","enterFullscreenReading()","soft"),
+        modernButton("📋 Títulos","openTitlesView()","soft"),
+        modernButton("⭐ Favoritos","openFavoritesView()","soft"),
+        modernButton("✏️ Editar","openEditor()","soft"),
+        modernButton("🌟 Favorito","toggleFavorite()","soft"),
+        modernButton("A-","changeReaderFont(-2)","soft"),
+        modernButton("A+","changeReaderFont(2)","soft"),
+        modernButton("📋 Copiar","copyCurrent()","soft"),
+        modernButton("🔗 Compartir","shareCurrent()","soft"),
+        '<button class="btn soft" type="button" data-basic-more="1" onclick="openBasicMoreMenu(event)">📖 Más</button>'
+      ];
+
+      const verses = [
+        modernButton("➕ Nuevo","newItem()","primary"),
+        modernButton("📖 Leer","enterFullscreenReading()","soft"),
+        modernButton("🌅 Hoy","openDailyVerse()","soft"),
+        modernButton("🎲 Aleatorio","openRandomVerse()","soft"),
+        modernButton("🗂️ Categorías","openVerseCategories()","soft"),
+        modernButton("📋 Títulos","openTitlesView()","soft"),
+        modernButton("✏️ Editar","openEditor()","soft"),
+        modernButton("⭐ Favoritos","openFavoritesView()","soft"),
+        modernButton("🌟 Favorito","toggleFavorite()","soft"),
+        modernButton("🗑️ Papelera","openTrash()","soft"),
+        modernButton("🖼️ Tarjeta","shareVerseCard()","soft"),
+        modernButton("📤 Compartir","shareCurrent()","soft"),
+        modernButton("A-","changeReaderFont(-2)","soft"),
+        modernButton("A+","changeReaderFont(2)","soft")
+      ];
+
+      bar.innerHTML = (window.section==="verses" ? verses : basic).join("");
+    }catch(e){console.error(e);}
+  };
+
+  window.renderReaderActionBar = function(){
+    try{
+      setModernSectionClassSafe();
+      const bar=document.getElementById("readerActionBar");
+      if(!bar) return;
+      function b(label, action, cls){
+        return '<button class="btn '+(cls||'soft')+'" type="button" onclick="'+action+'">'+label+'</button>';
+      }
+
+      const basic = [
+        b("← Volver","smartBack()"),
+        b("📋 Títulos","openTitlesView()"),
+        b("🌟 Favorito","toggleFavorite()"),
+        b("✏️ Editar","openEditor()"),
+        b("📋 Copiar","copyCurrent()"),
+        b("🔗 Compartir","shareCurrent()"),
+        b("A-","changeReaderFont(-2)"),
+        b("A+","changeReaderFont(2)"),
+        '<button class="btn soft" type="button" data-basic-more="1" onclick="openBasicMoreMenu(event)">📖 Más</button>'
+      ];
+
+      const verses = [
+        b("← Volver","smartBack()"),
+        b("📋 Títulos","openTitlesView()"),
+        b("✏️ Editar","openEditor()"),
+        b("A-","changeReaderFont(-2)"),
+        b("A+","changeReaderFont(2)"),
+        b("📋 Ref","copyCurrentReference()"),
+        b("📋 Copiar","copyCurrent()"),
+        b("📖 Más","openMoreMenu(event)"),
+        b("🔗 Compartir","shareCurrent()"),
+        b("🖼️ Tarjeta","markCurrentVerseCardSentDirect(); shareVerseCard()"),
+        b("⭐","toggleFavorite()"),
+        b("🌐 Exportar lectura","exportCurrentHTML()")
+      ];
+
+      bar.innerHTML = (window.section==="verses" ? verses : basic).join("");
+    }catch(e){console.error(e);}
+  };
+
+  const oldSwitchSection = window.switchSection;
+  if(typeof oldSwitchSection === "function"){
+    window.switchSection = function(s){
+      oldSwitchSection(s);
+      setTimeout(function(){
+        renderModernActionBar();
+        renderReaderActionBar();
+      }, 30);
+    };
+  }
+
+  const oldRenderReader = window.renderReader;
+  if(typeof oldRenderReader === "function"){
+    window.renderReader = function(){
+      oldRenderReader();
+      setTimeout(renderReaderActionBar, 30);
+    };
+  }
+
+  const oldOpenTitlesView = window.openTitlesView;
+  if(typeof oldOpenTitlesView === "function"){
+    window.openTitlesView = function(){
+      document.body.classList.add("modern-clean-titles");
+      oldOpenTitlesView();
+    };
+  }
+
+  ["openReader","openEditor","openModernHome","openBackup","openTrash"].forEach(function(fn){
+    const old = window[fn];
+    if(typeof old === "function"){
+      window[fn] = function(){
+        try{document.body.classList.remove("modern-clean-titles");}catch(e){}
+        const r = old.apply(this, arguments);
+        setTimeout(function(){
+          renderModernActionBar();
+          renderReaderActionBar();
+        }, 30);
+        return r;
+      };
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function(){
+    setTimeout(function(){
+      renderModernActionBar();
+      renderReaderActionBar();
+    }, 120);
+  });
+})();
+</script>
+
+</body></html>`}
 async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
@@ -1874,131 +2051,24 @@ function importBackupFromFile(file){const reader=new FileReader();reader.onload=
 
 
 
-
-
-
-
-
-
-
-
-function setModernSectionClass(){
-  try{
-    document.body.classList.toggle("section-verses", section==="verses");
-    document.body.classList.toggle("section-basic", section!=="verses");
-  }catch(e){}
-}
-
-function modernButton(label, action, cls){
-  return '<button class="btn '+(cls||'soft')+'" type="button" onclick="'+action+'">'+label+'</button>';
-}
-
-function closeBasicMoreMenu(){
-  const m=document.getElementById("basicMoreDropdown");
-  if(m) m.remove();
-}
-
-function openBasicMoreMenu(ev){
-  try{
-    if(ev) ev.stopPropagation();
-    closeBasicMoreMenu();
-    if(typeof closeMoreMenu==="function") closeMoreMenu();
-
-    const btn = ev && ev.currentTarget ? ev.currentTarget : null;
-    const menu=document.createElement("div");
-    menu.id="basicMoreDropdown";
-    menu.className="more-dropdown";
-    menu.innerHTML =
-      '<button type="button" onclick="closeBasicMoreMenu(); openTrash()">🗑️ Papelera</button>' +
-      '<button type="button" onclick="closeBasicMoreMenu(); exportCurrentHTML()">🌐 Exportar</button>' +
-      '<button type="button" onclick="closeBasicMoreMenu(); alert(\\'Sección: \\'+section)">ℹ️ Información</button>';
-    document.body.appendChild(menu);
-
-    let left=12, top=120;
-    if(btn){
-      const r=btn.getBoundingClientRect();
-      left=r.left;
-      top=r.bottom+6;
-    }
-    const maxLeft=window.innerWidth-menu.offsetWidth-8;
-    if(left>maxLeft) left=Math.max(8,maxLeft);
-    if(left<8) left=8;
-    menu.style.left=left+"px";
-    menu.style.top=top+"px";
-
-    setTimeout(()=>document.addEventListener("click", function h(e){
-      const m=document.getElementById("basicMoreDropdown");
-      if(!m){document.removeEventListener("click",h,true);return;}
-      if(m.contains(e.target)) return;
-      if(e.target && e.target.closest && e.target.closest('[data-basic-more="1"]')) return;
-      m.remove();
-      document.removeEventListener("click",h,true);
-    }, true),0);
-  }catch(e){console.error(e);}
-}
-
-function renderModernActionBar(){
-  try{
-    setModernSectionClass();
-    const bar=document.getElementById("modernActionBar");
-    if(!bar) return;
-
-    const basic = [
-      modernButton("➕ Nueva","newItem()","primary"),
-      modernButton("📖 Leer","enterFullscreenReading()","soft"),
-      modernButton("📋 Títulos","openTitlesView()","soft"),
-      modernButton("⭐ Favoritos","openFavoritesView()","soft"),
-      modernButton("✍️ Editar","openEditor()","soft"),
-      modernButton("🌟 Favorito","toggleFavorite()","soft"),
-      modernButton("A-","changeReaderFont(-2)","soft"),
-      modernButton("A+","changeReaderFont(2)","soft"),
-      modernButton("📋 Copiar","copyCurrent()","soft"),
-      modernButton("🔗 Compartir","shareCurrent()","soft"),
-      '<button class="btn soft" type="button" data-basic-more="1" onclick="openBasicMoreMenu(event)">📖 Más</button>'
-    ];
-
-    const verses = [
-      modernButton("➕ Nuevo","newItem()","primary"),
-      modernButton("📖 Leer","enterFullscreenReading()","soft"),
-      modernButton("🌅 Hoy","openDailyVerse()","soft"),
-      modernButton("🎲 Aleatorio","openRandomVerse()","soft"),
-      modernButton("🗂️ Categorías","openVerseCategories()","soft"),
-      modernButton("📋 Títulos","openTitlesView()","soft"),
-      modernButton("✍️ Editar","openEditor()","soft"),
-      modernButton("⭐ Favoritos","openFavoritesView()","soft"),
-      modernButton("🌟 Favorito","toggleFavorite()","soft"),
-      modernButton("🗑️ Papelera","openTrash()","soft"),
-      modernButton("🖼️ Tarjeta","shareVerseCard()","soft"),
-      modernButton("📤 Compartir","shareCurrent()","soft"),
-      modernButton("A-","changeReaderFont(-2)","soft"),
-      modernButton("A+","changeReaderFont(2)","soft")
-    ];
-
-    bar.innerHTML = (section==="verses" ? verses : basic).join("");
-  }catch(e){console.error(e);}
-}
-
 function renderReaderActionBar(){
   try{
-    setModernSectionClass();
     const bar=document.getElementById("readerActionBar");
     if(!bar) return;
     function b(label, action, cls){
       return '<button class="btn '+(cls||'soft')+'" type="button" onclick="'+action+'">'+label+'</button>';
     }
-
-    const basic = [
+    const common = [
       b("← Volver","smartBack()"),
       b("📋 Títulos","openTitlesView()"),
-      b("🌟 Favorito","toggleFavorite()"),
       b("✍️ Editar","openEditor()"),
-      b("📋 Copiar","copyCurrent()"),
-      b("🔗 Compartir","shareCurrent()"),
       b("A-","changeReaderFont(-2)"),
       b("A+","changeReaderFont(2)"),
-      '<button class="btn soft" type="button" data-basic-more="1" onclick="openBasicMoreMenu(event)">📖 Más</button>'
+      b("📋 Copiar","copyCurrent()"),
+      b("🔗 Compartir","shareCurrent()"),
+      b("⭐","toggleFavorite()"),
+      b("🌐 Exportar lectura","exportCurrentHTML()")
     ];
-
     const verses = [
       b("← Volver","smartBack()"),
       b("📋 Títulos","openTitlesView()"),
@@ -2013,10 +2083,36 @@ function renderReaderActionBar(){
       b("⭐","toggleFavorite()"),
       b("🌐 Exportar lectura","exportCurrentHTML()")
     ];
-
-    bar.innerHTML = (section==="verses" ? verses : basic).join("");
+    bar.innerHTML = (section==="verses" ? verses : common).join("");
   }catch(e){console.error(e);}
 }
+
+function modernButton(label, action, cls){
+  return '<button class="btn '+(cls||'soft')+'" type="button" onclick="'+action+'">'+label+'</button>';
+}
+
+function renderModernActionBar(){
+  try{
+    const bar=document.getElementById("modernActionBar");
+    if(!bar) return;
+    function btn(t,a,c){return '<button class="btn '+(c||'soft')+'" type="button" onclick="'+a+'">'+t+'</button>';}
+    const common=[
+      btn("➕ Nueva","newItem()","primary"),
+      btn("📖 Leer","enterFullscreenReading()"),
+      btn("📋 Títulos","openTitlesView()"),
+      btn("⭐ Favoritos","openFavoritesView()"),
+      btn("✏️ Editar","openEditor()"),
+      btn("A-","changeReaderFont(-2)"),
+      btn("A+","changeReaderFont(2)"),
+      btn("📋 Copiar","copyCurrent()"),
+      btn("🔗 Compartir","shareCurrent()"),
+      btn("📖 Más","openMoreMenu(event)")
+    ];
+    const verses=common;
+    bar.innerHTML=(section==="verses"?verses:common).join("");
+  }catch(e){}
+}
+
 
 function updateModernHomeCounts(){
   try{
@@ -2028,7 +2124,6 @@ function updateModernHomeCounts(){
   }catch(e){}
 }
 function openModernHome(){
-  try{document.body.classList.remove('modern-clean-titles')}catch(e){}
   try{
     updateModernHomeCounts();
     const home=document.getElementById("modernHomeView");
@@ -2066,7 +2161,7 @@ window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPr
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
-applyTheme();loadState();syncTabs();setModernSectionClass();renderModernActionBar();renderReaderActionBar();renderList();renderReader();applyReaderFont();openModernHome();maybeShowInstall();
+applyTheme();loadState();syncTabs();renderModernActionBar();renderReaderActionBar();renderList();renderReader();applyReaderFont();openModernHome();maybeShowInstall();
 
 
 
@@ -2503,4 +2598,4 @@ setInterval(updateVersePositionCounter, 1000);
 
 <!-- Oraciones V2 Modern v1.5 cache reset -->
 
-<!-- Oraciones V2.2 limpieza básicas -->
+<!-- Oraciones V2.2b arreglo seguro -->
