@@ -5,11 +5,11 @@
 <!-- V7.8 BOTON REF EN BARRA -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V2</title>
+<title>Oraciones Modern</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Oraciones V2">
+<meta name="apple-mobile-web-app-title" content="Oraciones Modern">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -339,41 +339,6 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 }
 </style>
 
-
-<style>
-/* Oraciones V2 clean v1 */
-#modernActionBar{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  align-items:center;
-}
-#modernActionBar .btn,
-#readerView .panel-head .btn{
-  border-radius:999px!important;
-  padding:8px 12px!important;
-  margin:0!important;
-}
-body.v2-basic #modernActionBar .verse-tool{
-  display:none!important;
-}
-body.v2-verses #modernActionBar .basic-tool{
-  display:none!important;
-}
-body.v2-basic #readerView .panel-head .verse-reader-tool{
-  display:none!important;
-}
-body.v2-basic #readerView .panel-head button[onclick*="openList"],
-body.v2-basic #readerView .panel-head button[onclick*="copyCurrentReference"],
-body.v2-basic #readerView .panel-head button[onclick*="moveVerseToCategory"],
-body.v2-basic #readerView .panel-head button[onclick*="shareVerseCard"]{
-  display:none!important;
-}
-body.v2-basic #readerView .panel-head button[data-more-button="1"]{
-  display:none!important;
-}
-</style>
-
 </head>
 <body>
 <div id="installBanner" class="install-banner hidden">
@@ -449,7 +414,18 @@ body.v2-basic #readerView .panel-head button[data-more-button="1"]{
       <button id="tabGuides" type="button" onclick="switchSection('guides')">📜 Guía</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
     </div>
-    <div id="modernActionBar"></div>
+    <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
+    <button class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
+    <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
+    <button class="btn soft" type="button" onclick="openRandomVerse()">🎲 Aleatorio</button>
+    <button class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
+        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
+    <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+    <button class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
+    <button class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
+    <button class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
+    <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
+    <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList()">
     <div id="counterInfo" class="counter"></div>
   </div>
@@ -1779,131 +1755,7 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'�
 }
 
 #editorView{padding-bottom:90px}
-</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
-<script>
-/* Oraciones V2 clean v1 overrides */
-(function(){
-  function btn(label, action, kind, extraClass){
-    return '<button class="btn '+(kind||'soft')+' '+(extraClass||'')+'" type="button" onclick="'+action+'">'+label+'</button>';
-  }
-
-  window.v2RefreshClasses = function(){
-    try{
-      document.body.classList.toggle("v2-verses", window.section === "verses");
-      document.body.classList.toggle("v2-basic", window.section !== "verses");
-    }catch(e){}
-  };
-
-  window.v2RenderActionBar = function(){
-    try{
-      v2RefreshClasses();
-      const bar = document.getElementById("modernActionBar");
-      if(!bar) return;
-
-      const basic = [
-        btn("➕ Nueva","newItem()","primary","basic-tool"),
-        btn("📖 Leer","enterFullscreenReading()","soft","basic-tool"),
-        btn("📋 Títulos","openTitlesView()","soft","basic-tool"),
-        btn("⭐ Favoritos","openFavoritesView()","soft","basic-tool"),
-        btn("✏️ Editar","openEditor()","soft","basic-tool"),
-        btn("🌟 Favorito","toggleFavorite()","soft","basic-tool"),
-        btn("A-","changeReaderFont(-2)","soft","basic-tool"),
-        btn("A+","changeReaderFont(2)","soft","basic-tool"),
-        btn("📋 Copiar","copyCurrent()","soft","basic-tool"),
-        btn("🔗 Compartir","shareCurrent()","soft","basic-tool"),
-        btn("📖 Más","v2OpenBasicMore(event)","soft","basic-tool")
-      ];
-
-      const verses = [
-        btn("➕ Nuevo","newItem()","primary","verse-tool"),
-        btn("📖 Leer","enterFullscreenReading()","soft","verse-tool"),
-        btn("🌅 Hoy","openDailyVerse()","soft","verse-tool"),
-        btn("🎲 Aleatorio","openRandomVerse()","soft","verse-tool"),
-        btn("🗂️ Categorías","openVerseCategories()","soft","verse-tool"),
-        btn("📋 Títulos","openTitlesView()","soft","verse-tool"),
-        btn("✏️ Editar","openEditor()","soft","verse-tool"),
-        btn("⭐ Favoritos","openFavoritesView()","soft","verse-tool"),
-        btn("🖼️ Tarjeta","shareVerseCard()","soft","verse-tool"),
-        btn("📤 Compartir","shareCurrent()","soft","verse-tool"),
-        btn("A-","changeReaderFont(-2)","soft","verse-tool"),
-        btn("A+","changeReaderFont(2)","soft","verse-tool")
-      ];
-
-      bar.innerHTML = (window.section === "verses" ? verses : basic).join("");
-    }catch(e){console.error(e);}
-  };
-
-  window.v2CloseBasicMore = function(){
-    const m = document.getElementById("v2BasicMore");
-    if(m) m.remove();
-  };
-
-  window.v2OpenBasicMore = function(ev){
-    try{
-      if(ev) ev.stopPropagation();
-      v2CloseBasicMore();
-      if(typeof closeMoreMenu === "function") closeMoreMenu();
-
-      const button = ev && ev.currentTarget ? ev.currentTarget : null;
-      const menu = document.createElement("div");
-      menu.id = "v2BasicMore";
-      menu.className = "more-dropdown";
-      menu.innerHTML =
-        '<button type="button" onclick="v2CloseBasicMore(); openTrash()">🗑️ Papelera</button>' +
-        '<button type="button" onclick="v2CloseBasicMore(); exportCurrentHTML()">🌐 Exportar</button>' +
-        '<button type="button" onclick="v2CloseBasicMore(); alert(\\'Información de la sección\\')">ℹ️ Información</button>';
-      document.body.appendChild(menu);
-
-      let left = 12, top = 120;
-      if(button){
-        const r = button.getBoundingClientRect();
-        left = r.left;
-        top = r.bottom + 6;
-      }
-      const maxLeft = window.innerWidth - menu.offsetWidth - 8;
-      if(left > maxLeft) left = Math.max(8, maxLeft);
-      if(left < 8) left = 8;
-      menu.style.left = left + "px";
-      menu.style.top = top + "px";
-    }catch(e){console.error(e);}
-  };
-
-  const oldSwitchSection = window.switchSection;
-  if(typeof oldSwitchSection === "function"){
-    window.switchSection = function(s){
-      const r = oldSwitchSection.apply(this, arguments);
-      setTimeout(function(){ v2RefreshClasses(); v2RenderActionBar(); }, 50);
-      return r;
-    };
-  }
-
-  const oldOpenReader = window.openReader;
-  if(typeof oldOpenReader === "function"){
-    window.openReader = function(){
-      const r = oldOpenReader.apply(this, arguments);
-      setTimeout(function(){ v2RefreshClasses(); v2RenderActionBar(); }, 50);
-      return r;
-    };
-  }
-
-  const oldRenderReader = window.renderReader;
-  if(typeof oldRenderReader === "function"){
-    window.renderReader = function(){
-      const r = oldRenderReader.apply(this, arguments);
-      setTimeout(function(){ v2RefreshClasses(); v2RenderActionBar(); }, 50);
-      return r;
-    };
-  }
-
-  document.addEventListener("DOMContentLoaded", function(){
-    setTimeout(function(){ v2RefreshClasses(); v2RenderActionBar(); }, 150);
-  });
-
-  setTimeout(function(){ v2RefreshClasses(); v2RenderActionBar(); }, 500);
-})();
-</script>
-
-</body></html>`}
+</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
 async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
@@ -2454,5 +2306,3 @@ setInterval(updateVersePositionCounter, 1000);
 <!-- Oraciones Modern V1.1: pantalla principal -->
 
 <!-- Oraciones Modern V1.2: inicio sin cabecera y tarjetas compactas -->
-
-<!-- Oraciones V2 clean v1 basicas -->

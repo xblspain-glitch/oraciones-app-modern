@@ -1,13 +1,13 @@
 {
-  "name": "Oraciones V2",
-  "short_name": "Oraciones V2",
+  "name":"Oraciones Modern",
+  "short_name":"Modern",
   "id": "/oraciones-app/",
-  "start_url": "./?v=clean1",
-  "scope": "./",
+  "start_url": "/oraciones-app/?source=pwa",
+  "scope": "/oraciones-app/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#111111",
-  "theme_color": "#083b78",
+  "theme_color": "#111111",
   "icons": [
     {
       "src": "icon-192.png",
