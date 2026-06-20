@@ -5,11 +5,11 @@
 <!-- V7.8 BOTON REF EN BARRA -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones Modern</title>
+<title>Oraciones V2</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Oraciones Modern">
+<meta name="apple-mobile-web-app-title" content="Oraciones V2">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -250,7 +250,7 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   margin:0 auto 18px;
   padding:20px 18px;
   border-radius:28px;
-  background:var(--panel,#fff);
+  background:var(--card,#fff);
   box-shadow:0 8px 28px rgba(0,0,0,.10);
   border:1px solid rgba(0,0,0,.06);
 }
@@ -278,7 +278,7 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   text-align:left;
   border-radius:24px;
   padding:18px 18px;
-  background:var(--panel,#fff);
+  background:var(--card,#fff);
   color:var(--text,#222);
   box-shadow:0 7px 22px rgba(0,0,0,.09);
   border:1px solid rgba(0,0,0,.06);
@@ -303,14 +303,22 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   opacity:.45;
 }
 .modern-tools{
-  background:linear-gradient(135deg, rgba(54,74,103,.12), rgba(255,255,255,.85));
+  background:linear-gradient(135deg, rgba(54,74,103,.12), var(--card,#fff));
 }
+body.dark .modern-card{border-color:var(--line);box-shadow:0 7px 22px rgba(0,0,0,.32)}
+body.dark .modern-tools{background:linear-gradient(135deg, rgba(255,255,255,.10), var(--card,#1a1a1a));}
 .modern-home .modern-card:active{
   transform:scale(.985);
 }
 @media (min-width:640px){
   .modern-grid{grid-template-columns:1fr 1fr;}
   .modern-card.tools-wide{grid-column:1 / -1;}
+}
+
+/* V2 prueba conservadora: en lectura móvil se reduce la botonera sin tocar la lógica */
+@media (max-width:860px){
+  body.reading-mobile.reader-simple [data-list-only="1"]{display:none!important;}
+  body.reading-mobile.reader-simple .topbar{position:sticky;top:0;}
 }
 </style>
 
@@ -478,17 +486,17 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
       <button id="tabGuides" type="button" onclick="switchSection('guides')">📜 Guía</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
     </div>
-    <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
-    <button class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
+    <button class="btn primary" type="button" data-list-only="1" onclick="newItem()">➕ Nueva</button>
+    <button class="btn soft" type="button" data-list-only="1" onclick="enterFullscreenReading()">📖 Leer</button>
     <button class="btn soft" type="button" data-main-normal="1" onclick="openTitlesView()">📋 Títulos</button>
-    <button class="btn soft" type="button" data-main-normal="1" onclick="openFavoritesView()">⭐ Favoritos</button>
-    <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
+    <button class="btn soft" type="button" data-main-normal="1" data-list-only="1" onclick="openFavoritesView()">⭐ Favoritos</button>
+    <button class="btn soft" type="button" data-more-button="1" data-list-only="1" onclick="openMoreMenu(event)">📖 Más</button>
     <button class="btn soft" type="button" data-main-normal="1" onclick="openEditor()">✏️ Editar</button>
-    <button class="btn soft" type="button" data-main-normal="1" onclick="toggleFavorite()">🌟 Favorito</button>
+    <button class="btn soft" type="button" data-main-normal="1" data-list-only="1" onclick="toggleFavorite()">🌟 Favorito</button>
     <button class="btn soft" type="button" data-main-normal="1" onclick="changeReaderFont(-2)">A-</button>
     <button class="btn soft" type="button" data-main-normal="1" onclick="changeReaderFont(2)">A+</button>
     <button class="btn soft" type="button" data-main-normal="1" onclick="copyCurrent()">📋 Copiar</button>
-    <button class="btn soft" type="button" data-main-normal="1" onclick="shareCurrent()">🔗 Compartir</button>
+    <button class="btn soft" type="button" data-main-normal="1" data-list-only="1" onclick="shareCurrent()">🔗 Compartir</button>
     <button class="btn soft icon-only" type="button" onclick="toggleTheme()" aria-label="Modo oscuro">🌙</button>
     <button class="btn soft" type="button" data-main-normal="1" onclick="smartBack()">← Volver</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openDailyVerse()">🌅 Versículo del día</button>
@@ -810,7 +818,7 @@ function syncTabs(){
 function switchSection(s){
   section=s;state.section=s;saveState();syncTabs();renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
-  renderReader();openReader();
+  renderReader();openList();
 }
 function getItems(){
   return section==="prayers"?state.prayers:section==="notes"?state.notes:section==="guides"?state.guides:state.verses
@@ -1946,6 +1954,35 @@ function enterModernTools(){
   closeModernHome();
   openBackup();
 }
+
+
+
+/* V2 prueba conservadora: toolbar de lectura y lista sin salto directo */
+function updateReaderSimpleToolbar(){
+  try{
+    const readerVisible=!document.getElementById("readerView").classList.contains("hidden");
+    const simple=isNormalSection() && readerVisible && document.body.classList.contains("reading-mobile");
+    document.body.classList.toggle("reader-simple", !!simple);
+  }catch(e){}
+}
+(function(){
+  const _openReader=openReader;
+  openReader=function(){ _openReader(); updateReaderSimpleToolbar(); };
+  const _openList=openList;
+  openList=function(){ _openList(); document.body.classList.remove("reader-simple"); };
+  const _enterFullscreenReading=enterFullscreenReading;
+  enterFullscreenReading=function(){ _enterFullscreenReading(); updateReaderSimpleToolbar(); };
+  const _exitFullscreenReading=exitFullscreenReading;
+  exitFullscreenReading=function(){ _exitFullscreenReading(); updateReaderSimpleToolbar(); };
+  const _toggleReadingUI=toggleReadingUI;
+  toggleReadingUI=function(){
+    if(document.body.classList.contains("reading-mobile") && isNormalSection()){
+      document.body.classList.toggle("hide-reading-ui");
+      return;
+    }
+    _toggleReadingUI();
+  };
+})();
 
 function dismissInstall(){localStorage.setItem(INSTALL_DISMISSED_KEY,"1");document.getElementById("installBanner").classList.add("hidden")}
 function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(INSTALL_DISMISSED_KEY)==="1") return;document.getElementById("installBanner").classList.remove("hidden");const help=document.getElementById("installHelp");if(deferredPrompt) help.textContent="Pulsa Instalar. Si no te deja, usa el menú del navegador y elige Añadir a pantalla de inicio.";else help.textContent="Si no aparece el instalador automático, usa el menú del navegador y elige Añadir a pantalla de inicio."}
