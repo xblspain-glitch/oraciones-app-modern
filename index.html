@@ -281,28 +281,19 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 </div>
 <script>
 (function(){
-  function showOrHideWelcome(){
+  // Oraciones V2 v1.2: la bienvenida aparece siempre al abrir.
+  function showWelcome(){
     var w=document.getElementById('ov2Welcome');
-    if(!w)return;
-    var force=new URLSearchParams(location.search).get('welcome')==='1';
-    if(force){
-      localStorage.removeItem('ov2WelcomeSeen');
-      w.classList.remove('ov2-hidden');
-      return;
-    }
-    if(localStorage.getItem('ov2WelcomeSeen')==='1'){
-      w.classList.add('ov2-hidden');
-    }
+    if(w)w.classList.remove('ov2-hidden');
   }
   window.enterOv2Welcome=function(){
-    localStorage.setItem('ov2WelcomeSeen','1');
     var w=document.getElementById('ov2Welcome');
     if(w)w.classList.add('ov2-hidden');
   };
   if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',showOrHideWelcome);
+    document.addEventListener('DOMContentLoaded',showWelcome);
   }else{
-    showOrHideWelcome();
+    showWelcome();
   }
 })();
 </script>
