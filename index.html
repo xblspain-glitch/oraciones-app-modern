@@ -133,6 +133,14 @@ body.dark .segment button{color:var(--text)}body.dark .segment button.active{col
 }
 .reader-daily-date.hidden{display:none}
 
+
+/* Ajuste Oraciones V2: lector normal y botones oscuros */
+body.dark .topbar{background:rgba(17,17,17,.98)!important;}
+body.dark .btn.soft{background:#1b1b1b!important;color:#f2eee7!important;border:1px solid #2f2f2f!important;box-shadow:none!important;}
+body.dark .btn.primary{background:#9b612c!important;color:#fff!important;}
+body.dark .search, body.dark .panel, body.dark .item{background:#151515!important;border-color:#2b2b2b!important;}
+body.reading-mobile.hide-reading-ui .topbar{display:none!important;}
+body.reading-mobile.hide-reading-ui .content{padding-top:0!important;}
 </style>
 
 <style>
@@ -497,17 +505,17 @@ body.hide-reading-ui .topbar{
     </div>
     <button class="btn primary" type="button" data-main-toolbar="1" onclick="newItem()">➕ Nueva</button>
     <button class="btn soft" type="button" data-main-toolbar="1" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button class="btn soft" type="button" data-reader-toolbar="1" onclick="openTitlesView()">📋 Títulos</button>
+    <button class="btn soft" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="openTitlesView()">📋 Títulos</button>
     <button class="btn soft" type="button" data-main-toolbar="1" onclick="openFavoritesView()">⭐ Favoritos</button>
     <button class="btn soft" type="button" data-main-toolbar="1" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
-    <button class="btn soft" type="button" data-reader-toolbar="1" onclick="openEditor()">✏️ Editar</button>
+    <button class="btn soft" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="openEditor()">✏️ Editar</button>
     <button class="btn soft" type="button" data-main-toolbar="1" onclick="toggleFavorite()">🌟 Favorito</button>
-    <button class="btn soft" type="button" data-reader-toolbar="1" onclick="changeReaderFont(-2)">A-</button>
-    <button class="btn soft" type="button" data-reader-toolbar="1" onclick="changeReaderFont(2)">A+</button>
-    <button class="btn soft" type="button" data-reader-toolbar="1" onclick="copyCurrent()">📋 Copiar</button>
+    <button class="btn soft" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="changeReaderFont(-2)">A-</button>
+    <button class="btn soft" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="changeReaderFont(2)">A+</button>
+    <button class="btn soft" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="copyCurrent()">📋 Copiar</button>
     <button class="btn soft" type="button" data-main-toolbar="1" onclick="shareCurrent()">🔗 Compartir</button>
     <button class="btn soft icon-only" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="toggleTheme()" aria-label="Modo oscuro">🌙</button>
-    <button class="btn soft" type="button" data-reader-toolbar="1" onclick="openTitlesView()">← Volver</button>
+    <button class="btn soft" type="button" data-reader-toolbar="1" onclick="openList()">← Volver</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openDailyVerse()">🌅 Versículo del día</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openRandomVerse()">🎲 Aleatorio</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openVerseCategories()">🗂️ Categorías</button>
@@ -806,6 +814,7 @@ function updateSectionButtons(){
 
   document.querySelectorAll("[data-main-toolbar]").forEach(el=>el.classList.toggle("hidden", !normal || normalReader));
   document.querySelectorAll("[data-reader-toolbar]").forEach(el=>el.classList.toggle("hidden", !normalReader));
+  document.querySelectorAll("[data-main-toolbar][data-reader-toolbar]").forEach(el=>el.classList.toggle("hidden", !normal));
   document.querySelectorAll("[data-main-normal]").forEach(el=>el.classList.toggle("hidden",!normal));
   document.querySelectorAll("[data-main-verses]").forEach(el=>el.classList.toggle("hidden",normal));
   document.querySelectorAll("[data-reader-normal]").forEach(el=>el.classList.toggle("hidden",!normal));
