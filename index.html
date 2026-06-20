@@ -146,8 +146,13 @@ body.dark .segment button{color:var(--text)}body.dark .segment button.active{col
   width:min(420px,100%); border:1px solid rgba(255,255,255,.18); border-radius:32px;
   padding:30px 22px 24px; background:rgba(255,255,255,.10); box-shadow:0 24px 80px rgba(0,0,0,.35);
   backdrop-filter:blur(14px);
+  animation:ov2CardIn .42s ease-out both;
 }
-.ov2-logo{width:132px;height:132px;border-radius:32px;box-shadow:0 18px 45px rgba(0,0,0,.35); margin:0 auto 18px; display:block;}
+@keyframes ov2CardIn{
+  from{opacity:0;transform:translateY(14px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.ov2-logo{width:132px;height:132px;border-radius:32px;box-shadow:0 18px 45px rgba(0,80,180,.38),0 18px 45px rgba(0,0,0,.35); margin:0 auto 18px; display:block;}
 .ov2-kicker{font-size:13px;letter-spacing:.16em;text-transform:uppercase;opacity:.78;margin-bottom:8px;font-weight:700;}
 .ov2-title{font-size:34px;line-height:1.05;margin:0 0 10px;font-weight:800;}
 .ov2-sub{font-size:17px;line-height:1.55;margin:0 auto 18px;max-width:330px;opacity:.94;}
@@ -270,10 +275,37 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
     <h1 class="ov2-title">Oraciones V2</h1>
     <p class="ov2-sub">Un lugar sencillo para orar, leer, guardar notas y descansar en la fidelidad de Dios.</p>
     <p class="ov2-verse">“Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.”<br><strong>Salmo 34:18</strong></p>
-    <button class="ov2-enter" type="button" onclick="document.getElementById('ov2Welcome').classList.add('ov2-hidden')">Entrar</button>
-    <div class="ov2-small">La app original permanece intacta</div>
+    <button class="ov2-enter" type="button" onclick="enterOv2Welcome()">Entrar</button>
+    <div class="ov2-small">📖 Diseñada para la oración diaria</div>
   </div>
 </div>
+<script>
+(function(){
+  function showOrHideWelcome(){
+    var w=document.getElementById('ov2Welcome');
+    if(!w)return;
+    var force=new URLSearchParams(location.search).get('welcome')==='1';
+    if(force){
+      localStorage.removeItem('ov2WelcomeSeen');
+      w.classList.remove('ov2-hidden');
+      return;
+    }
+    if(localStorage.getItem('ov2WelcomeSeen')==='1'){
+      w.classList.add('ov2-hidden');
+    }
+  }
+  window.enterOv2Welcome=function(){
+    localStorage.setItem('ov2WelcomeSeen','1');
+    var w=document.getElementById('ov2Welcome');
+    if(w)w.classList.add('ov2-hidden');
+  };
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',showOrHideWelcome);
+  }else{
+    showOrHideWelcome();
+  }
+})();
+</script>
 
 <div id="installBanner" class="install-banner hidden">
   <div class="install-title">Instalar app</div>

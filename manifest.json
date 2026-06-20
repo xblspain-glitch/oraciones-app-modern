@@ -1,9 +1,9 @@
 {
   "name": "Oraciones V2",
   "short_name": "Oraciones V2",
-  "id": "/oraciones-app/",
-  "start_url": "/oraciones-app/?v=ov2intro",
-  "scope": "/oraciones-app/",
+  "id": "./",
+  "start_url": "./?v=ov2intro11",
+  "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#111111",
