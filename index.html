@@ -360,6 +360,13 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 }
 </style>
 
+
+<style>
+/* Oraciones Modern V1.4: lector limpio por sección */
+#readerActionBar{gap:8px;}
+#readerActionBar .btn{margin:0!important;}
+</style>
+
 </head>
 <body>
 <div id="installBanner" class="install-banner hidden">
@@ -445,24 +452,7 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   <aside class="sidebar"><div id="list" class="list"></div></aside>
   <section class="content">
     <div id="readerView" class="panel">
-      <div class="panel-head">
-        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button class="btn soft" type="button" onclick="openList()">☰ Lista</button>
-        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
-        <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
-        <button class="btn soft" type="button" onclick="changeReaderFont(-2)">A-</button>
-        <button class="btn soft" type="button" onclick="changeReaderFont(2)">A+</button>
-        <button class="btn soft" type="button" onclick="copyCurrentReference()">📋 Ref</button>
-        <button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button><button class="btn soft" type="button" onclick="moveVerseToCategory()">📂 Mover</button>
-        <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
-        
-        
-        
-        <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
-        <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
-        <button class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-        <button class="btn soft" type="button" onclick="exportCurrentHTML()">🌐 Exportar lectura</button>
-      </div>
+      <div id="readerActionBar" class="panel-head"></div>
       <div id="readerCode" class="reader-code"></div>
       <div id="readerDailyDate" class="reader-daily-date hidden"></div>
       <div id="readerTitle" class="reader-title"></div>
@@ -756,7 +746,7 @@ function syncTabs(){
   document.getElementById("counterInfo").textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | ❤️ ${state.verses?state.verses.length:0}`;
 }
 function switchSection(s){
-  section=s;state.section=s;saveState();syncTabs();renderModernActionBar();renderList();
+  section=s;state.section=s;saveState();syncTabs();renderModernActionBar();renderReaderActionBar();renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
   renderReader();openReader();
 }
@@ -1848,6 +1838,43 @@ function importBackupFromText(){const text=document.getElementById("backupText")
 function importBackupFromFile(file){const reader=new FileReader();reader.onload=()=>{try{const text=String(reader.result||"");document.getElementById("backupText").value=text;applyImportedData(JSON.parse(text))}catch(e){alert("El archivo no es un JSON válido.")}};reader.onerror=()=>alert("No se pudo leer el archivo.");reader.readAsText(file, "utf-8")}
 
 
+
+function renderReaderActionBar(){
+  try{
+    const bar=document.getElementById("readerActionBar");
+    if(!bar) return;
+    function b(label, action, cls){
+      return '<button class="btn '+(cls||'soft')+'" type="button" onclick="'+action+'">'+label+'</button>';
+    }
+    const common = [
+      b("← Volver","smartBack()"),
+      b("📋 Títulos","openTitlesView()"),
+      b("✍️ Editar","openEditor()"),
+      b("A-","changeReaderFont(-2)"),
+      b("A+","changeReaderFont(2)"),
+      b("📋 Copiar","copyCurrent()"),
+      b("🔗 Compartir","shareCurrent()"),
+      b("⭐","toggleFavorite()"),
+      b("🌐 Exportar lectura","exportCurrentHTML()")
+    ];
+    const verses = [
+      b("← Volver","smartBack()"),
+      b("📋 Títulos","openTitlesView()"),
+      b("✍️ Editar","openEditor()"),
+      b("A-","changeReaderFont(-2)"),
+      b("A+","changeReaderFont(2)"),
+      b("📋 Ref","copyCurrentReference()"),
+      b("📋 Copiar","copyCurrent()"),
+      b("📖 Más","openMoreMenu(event)"),
+      b("🔗 Compartir","shareCurrent()"),
+      b("🖼️ Tarjeta","markCurrentVerseCardSentDirect(); shareVerseCard()"),
+      b("⭐","toggleFavorite()"),
+      b("🌐 Exportar lectura","exportCurrentHTML()")
+    ];
+    bar.innerHTML = (section==="verses" ? verses : common).join("");
+  }catch(e){console.error(e);}
+}
+
 function modernButton(label, action, cls){
   return '<button class="btn '+(cls||'soft')+'" type="button" onclick="'+action+'">'+label+'</button>';
 }
@@ -1934,7 +1961,7 @@ window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPr
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
-applyTheme();loadState();syncTabs();renderModernActionBar();renderList();renderReader();applyReaderFont();openModernHome();maybeShowInstall();
+applyTheme();loadState();syncTabs();renderModernActionBar();renderReaderActionBar();renderList();renderReader();applyReaderFont();openModernHome();maybeShowInstall();
 
 
 
@@ -2291,6 +2318,13 @@ function updateVersePositionCounter(){
   }catch(e){}
 }
 
+
+const oldRenderReaderForModernBar = renderReader;
+renderReader = function(){
+  oldRenderReaderForModernBar();
+  setTimeout(renderReaderActionBar, 20);
+};
+
 const oldRenderReaderForCounter = renderReader;
 renderReader = function(){
   oldRenderReaderForCounter();
@@ -2359,3 +2393,5 @@ setInterval(updateVersePositionCounter, 1000);
 <!-- Oraciones Modern V1.2: inicio sin cabecera y tarjetas compactas -->
 
 <!-- Oraciones Modern V1.3: herramientas propias por sección -->
+
+<!-- Oraciones Modern V1.4: lector limpio por sección -->
