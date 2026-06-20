@@ -2,11 +2,11 @@
   "name": "Oraciones V2",
   "short_name": "Oraciones V2",
   "id": "/oraciones-app/",
-  "start_url": "./?v=22b",
+  "start_url": "./?v=clean1",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f8f2e8",
+  "background_color": "#111111",
   "theme_color": "#083b78",
   "icons": [
     {
