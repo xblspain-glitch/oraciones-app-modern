@@ -1,6 +1,6 @@
 {
-  "name": "Oraciones y Notas",
-  "short_name": "Oraciones",
+  "name":"Oraciones Modern",
+  "short_name":"Modern",
   "id": "/oraciones-app/",
   "start_url": "/oraciones-app/?source=pwa",
   "scope": "/oraciones-app/",

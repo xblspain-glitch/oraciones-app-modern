@@ -5,11 +5,11 @@
 <!-- V7.8 BOTON REF EN BARRA -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones y Notas</title>
+<title>Oraciones Modern</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Oraciones">
+<meta name="apple-mobile-web-app-title" content="Oraciones Modern">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -235,6 +235,85 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 }
 </style>
 
+
+<style>
+.modern-home{
+  min-height:100vh;
+  padding:22px 16px 34px;
+  background:
+    radial-gradient(circle at top left, rgba(125,94,42,.18), transparent 38%),
+    linear-gradient(180deg, var(--bg,#f8f2e8), var(--bg,#f8f2e8));
+}
+.modern-home.hidden{display:none!important;}
+.modern-hero{
+  max-width:680px;
+  margin:0 auto 18px;
+  padding:20px 18px;
+  border-radius:28px;
+  background:var(--panel,#fff);
+  box-shadow:0 8px 28px rgba(0,0,0,.10);
+  border:1px solid rgba(0,0,0,.06);
+}
+.modern-hero-title{
+  font-size:30px;
+  font-weight:850;
+  line-height:1.1;
+  margin:0 0 8px;
+}
+.modern-hero-sub{
+  opacity:.72;
+  font-size:16px;
+  line-height:1.35;
+}
+.modern-grid{
+  max-width:680px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:13px;
+}
+.modern-card{
+  border:0;
+  width:100%;
+  text-align:left;
+  border-radius:24px;
+  padding:18px 18px;
+  background:var(--panel,#fff);
+  color:var(--text,#222);
+  box-shadow:0 7px 22px rgba(0,0,0,.09);
+  border:1px solid rgba(0,0,0,.06);
+}
+.modern-card-main{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.modern-card-title{
+  font-size:24px;
+  font-weight:850;
+}
+.modern-card-count{
+  font-size:15px;
+  opacity:.7;
+  margin-top:7px;
+}
+.modern-card-arrow{
+  font-size:26px;
+  opacity:.45;
+}
+.modern-tools{
+  background:linear-gradient(135deg, rgba(54,74,103,.12), rgba(255,255,255,.85));
+}
+.modern-home .modern-card:active{
+  transform:scale(.985);
+}
+@media (min-width:640px){
+  .modern-grid{grid-template-columns:1fr 1fr;}
+  .modern-card.tools-wide{grid-column:1 / -1;}
+}
+</style>
+
 </head>
 <body>
 <div id="installBanner" class="install-banner hidden">
@@ -246,8 +325,69 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   </div>
 </div>
 
+
+<div id="modernHomeView" class="modern-home hidden">
+  <div class="modern-hero">
+    <div class="modern-hero-title">✝️ Oraciones Modern</div>
+    <div class="modern-hero-sub">Tu biblioteca espiritual organizada por secciones.</div>
+  </div>
+
+  <div class="modern-grid">
+    <button class="modern-card" type="button" onclick="enterModernSection('prayers')">
+      <div class="modern-card-main">
+        <div>
+          <div class="modern-card-title">✝️ Oraciones</div>
+          <div id="modernCountPrayers" class="modern-card-count">0 elementos</div>
+        </div>
+        <div class="modern-card-arrow">›</div>
+      </div>
+    </button>
+
+    <button class="modern-card" type="button" onclick="enterModernSection('notes')">
+      <div class="modern-card-main">
+        <div>
+          <div class="modern-card-title">📝 Notas</div>
+          <div id="modernCountNotes" class="modern-card-count">0 elementos</div>
+        </div>
+        <div class="modern-card-arrow">›</div>
+      </div>
+    </button>
+
+    <button class="modern-card" type="button" onclick="enterModernSection('guides')">
+      <div class="modern-card-main">
+        <div>
+          <div class="modern-card-title">📜 Guía</div>
+          <div id="modernCountGuides" class="modern-card-count">0 elementos</div>
+        </div>
+        <div class="modern-card-arrow">›</div>
+      </div>
+    </button>
+
+    <button class="modern-card" type="button" onclick="enterModernSection('verses')">
+      <div class="modern-card-main">
+        <div>
+          <div class="modern-card-title">❤️ Versículos</div>
+          <div id="modernCountVerses" class="modern-card-count">0 elementos</div>
+        </div>
+        <div class="modern-card-arrow">›</div>
+      </div>
+    </button>
+
+    <button class="modern-card modern-tools tools-wide" type="button" onclick="enterModernTools()">
+      <div class="modern-card-main">
+        <div>
+          <div class="modern-card-title">⚙️ Herramientas</div>
+          <div class="modern-card-count">Backup, importar y exportar</div>
+        </div>
+        <div class="modern-card-arrow">›</div>
+      </div>
+    </button>
+  </div>
+</div>
+
 <div class="topbar">
   <div class="topbar-row">
+    <button class="btn soft" type="button" onclick="openModernHome()">🏠 Inicio</button>
     <div class="segment">
       <button id="tabPrayers" class="active" type="button" onclick="switchSection('prayers')">✝️ Oraciones</button>
       <button id="tabNotes" type="button" onclick="switchSection('notes')">📝 Notas</button>
@@ -1676,13 +1816,54 @@ function applyImportedData(parsed){
 }
 function importBackupFromText(){const text=document.getElementById("backupText").value.trim();if(!text) return alert("Pega primero una copia.");try{applyImportedData(JSON.parse(text))}catch(e){alert("La copia no es válida.")}}
 function importBackupFromFile(file){const reader=new FileReader();reader.onload=()=>{try{const text=String(reader.result||"");document.getElementById("backupText").value=text;applyImportedData(JSON.parse(text))}catch(e){alert("El archivo no es un JSON válido.")}};reader.onerror=()=>alert("No se pudo leer el archivo.");reader.readAsText(file, "utf-8")}
+
+function updateModernHomeCounts(){
+  try{
+    const set=(id,n)=>{const el=document.getElementById(id); if(el) el.textContent=n+" "+(n===1?"elemento":"elementos");};
+    set("modernCountPrayers", (state.prayers||[]).length);
+    set("modernCountNotes", (state.notes||[]).length);
+    set("modernCountGuides", (state.guides||[]).length);
+    set("modernCountVerses", (state.verses||[]).length);
+  }catch(e){}
+}
+function openModernHome(){
+  try{
+    updateModernHomeCounts();
+    const home=document.getElementById("modernHomeView");
+    const top=document.querySelector(".topbar");
+    const main=document.querySelector(".main");
+    if(home) home.classList.remove("hidden");
+    if(top) top.classList.add("hidden");
+    if(main) main.classList.add("hidden");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  }catch(e){console.error(e);}
+}
+function closeModernHome(){
+  try{
+    const home=document.getElementById("modernHomeView");
+    const top=document.querySelector(".topbar");
+    const main=document.querySelector(".main");
+    if(home) home.classList.add("hidden");
+    if(top) top.classList.remove("hidden");
+    if(main) main.classList.remove("hidden");
+  }catch(e){}
+}
+function enterModernSection(s){
+  closeModernHome();
+  switchSection(s);
+}
+function enterModernTools(){
+  closeModernHome();
+  openBackup();
+}
+
 function dismissInstall(){localStorage.setItem(INSTALL_DISMISSED_KEY,"1");document.getElementById("installBanner").classList.add("hidden")}
 function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(INSTALL_DISMISSED_KEY)==="1") return;document.getElementById("installBanner").classList.remove("hidden");const help=document.getElementById("installHelp");if(deferredPrompt) help.textContent="Pulsa Instalar. Si no te deja, usa el menú del navegador y elige Añadir a pantalla de inicio.";else help.textContent="Si no aparece el instalador automático, usa el menú del navegador y elige Añadir a pantalla de inicio."}
 window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
-applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();maybeShowInstall();
+applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openModernHome();maybeShowInstall();
 
 
 
@@ -2101,3 +2282,5 @@ setInterval(updateVersePositionCounter, 1000);
 <!-- V11.7 Menú Más desplegable real compacto -->
 
 <!-- V11.9 Resumen de enviados/pendientes por categoría -->
+
+<!-- Oraciones Modern V1.1: pantalla principal -->
