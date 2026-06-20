@@ -1,8 +1,8 @@
 {
-  "name":"Oraciones Modern",
-  "short_name":"Modern",
+  "name": "Oraciones V2",
+  "short_name": "Oraciones V2",
   "id": "/oraciones-app/",
-  "start_url": "/oraciones-app/?source=pwa",
+  "start_url": "./?v=css1",
   "scope": "/oraciones-app/",
   "display": "standalone",
   "orientation": "portrait",
