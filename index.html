@@ -1887,41 +1887,29 @@ function renderReaderActionBar(){
 function modernButton(label, action, cls){
   return '<button class="btn '+(cls||'soft')+'" type="button" onclick="'+action+'">'+label+'</button>';
 }
+
 function renderModernActionBar(){
   try{
     const bar=document.getElementById("modernActionBar");
     if(!bar) return;
-    const common = [
-      modernButton("➕ Nueva","newItem()","primary"),
-      modernButton("📖 Leer","enterFullscreenReading()","soft"),
-      modernButton("📋 Títulos","openTitlesView()","soft"),
-      modernButton("✍️ Editar","openEditor()","soft"),
-      modernButton("⭐ Favoritos","openFavoritesView()","soft"),
-      modernButton("🗑️ Papelera","openTrash()","soft"),
-      modernButton("📤 Compartir","shareCurrent()","soft"),
-      modernButton("A-","changeReaderFont(-2)","soft"),
-      modernButton("A+","changeReaderFont(2)","soft")
+    function btn(t,a,c){return '<button class="btn '+(c||'soft')+'" type="button" onclick="'+a+'">'+t+'</button>';}
+    const common=[
+      btn("➕ Nueva","newItem()","primary"),
+      btn("📖 Leer","enterFullscreenReading()"),
+      btn("📋 Títulos","openTitlesView()"),
+      btn("⭐ Favoritos","openFavoritesView()"),
+      btn("✏️ Editar","openEditor()"),
+      btn("A-","changeReaderFont(-2)"),
+      btn("A+","changeReaderFont(2)"),
+      btn("📋 Copiar","copyCurrent()"),
+      btn("🔗 Compartir","shareCurrent()"),
+      btn("📖 Más","openMoreMenu(event)")
     ];
-
-    const verses = [
-      modernButton("➕ Nuevo","newItem()","primary"),
-      modernButton("📖 Leer","enterFullscreenReading()","soft"),
-      modernButton("🌅 Hoy","openDailyVerse()","soft"),
-      modernButton("🎲 Aleatorio","openRandomVerse()","soft"),
-      modernButton("🗂️ Categorías","openVerseCategories()","soft"),
-      modernButton("📋 Títulos","openTitlesView()","soft"),
-      modernButton("✍️ Editar","openEditor()","soft"),
-      modernButton("⭐ Favoritos","openFavoritesView()","soft"),
-      modernButton("🗑️ Papelera","openTrash()","soft"),
-      modernButton("🖼️ Tarjeta","shareVerseCard()","soft"),
-      modernButton("📤 Compartir","shareCurrent()","soft"),
-      modernButton("A-","changeReaderFont(-2)","soft"),
-      modernButton("A+","changeReaderFont(2)","soft")
-    ];
-
-    bar.innerHTML = (section==="verses" ? verses : common).join("");
-  }catch(e){console.error(e);}
+    const verses=common;
+    bar.innerHTML=(section==="verses"?verses:common).join("");
+  }catch(e){}
 }
+
 
 function updateModernHomeCounts(){
   try{
