@@ -339,6 +339,27 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 }
 </style>
 
+
+<style>
+/* Oraciones Modern V1.3: herramientas propias por sección */
+.modern-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+.modern-actions .btn{
+  margin:0!important;
+}
+.modern-actions-separator{
+  width:100%;
+  height:0;
+}
+@media (max-width:480px){
+  .modern-actions{gap:8px;}
+}
+</style>
+
 </head>
 <body>
 <div id="installBanner" class="install-banner hidden">
@@ -414,18 +435,7 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
       <button id="tabGuides" type="button" onclick="switchSection('guides')">📜 Guía</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
     </div>
-    <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
-    <button class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
-    <button class="btn soft" type="button" onclick="openRandomVerse()">🎲 Aleatorio</button>
-    <button class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
-        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
-    <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
-    <button class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
-    <button class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
-    <button class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-    <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
-    <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
+    <div id="modernActionBar" class="modern-actions"></div>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList()">
     <div id="counterInfo" class="counter"></div>
   </div>
@@ -746,7 +756,7 @@ function syncTabs(){
   document.getElementById("counterInfo").textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | ❤️ ${state.verses?state.verses.length:0}`;
 }
 function switchSection(s){
-  section=s;state.section=s;saveState();syncTabs();renderList();
+  section=s;state.section=s;saveState();syncTabs();renderModernActionBar();renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
   renderReader();openReader();
 }
@@ -1837,6 +1847,46 @@ function applyImportedData(parsed){
 function importBackupFromText(){const text=document.getElementById("backupText").value.trim();if(!text) return alert("Pega primero una copia.");try{applyImportedData(JSON.parse(text))}catch(e){alert("La copia no es válida.")}}
 function importBackupFromFile(file){const reader=new FileReader();reader.onload=()=>{try{const text=String(reader.result||"");document.getElementById("backupText").value=text;applyImportedData(JSON.parse(text))}catch(e){alert("El archivo no es un JSON válido.")}};reader.onerror=()=>alert("No se pudo leer el archivo.");reader.readAsText(file, "utf-8")}
 
+
+function modernButton(label, action, cls){
+  return '<button class="btn '+(cls||'soft')+'" type="button" onclick="'+action+'">'+label+'</button>';
+}
+function renderModernActionBar(){
+  try{
+    const bar=document.getElementById("modernActionBar");
+    if(!bar) return;
+    const common = [
+      modernButton("➕ Nueva","newItem()","primary"),
+      modernButton("📖 Leer","enterFullscreenReading()","soft"),
+      modernButton("📋 Títulos","openTitlesView()","soft"),
+      modernButton("✍️ Editar","openEditor()","soft"),
+      modernButton("⭐ Favoritos","openFavoritesView()","soft"),
+      modernButton("🗑️ Papelera","openTrash()","soft"),
+      modernButton("📤 Compartir","shareCurrent()","soft"),
+      modernButton("A-","changeReaderFont(-2)","soft"),
+      modernButton("A+","changeReaderFont(2)","soft")
+    ];
+
+    const verses = [
+      modernButton("➕ Nuevo","newItem()","primary"),
+      modernButton("📖 Leer","enterFullscreenReading()","soft"),
+      modernButton("🌅 Hoy","openDailyVerse()","soft"),
+      modernButton("🎲 Aleatorio","openRandomVerse()","soft"),
+      modernButton("🗂️ Categorías","openVerseCategories()","soft"),
+      modernButton("📋 Títulos","openTitlesView()","soft"),
+      modernButton("✍️ Editar","openEditor()","soft"),
+      modernButton("⭐ Favoritos","openFavoritesView()","soft"),
+      modernButton("🗑️ Papelera","openTrash()","soft"),
+      modernButton("🖼️ Tarjeta","shareVerseCard()","soft"),
+      modernButton("📤 Compartir","shareCurrent()","soft"),
+      modernButton("A-","changeReaderFont(-2)","soft"),
+      modernButton("A+","changeReaderFont(2)","soft")
+    ];
+
+    bar.innerHTML = (section==="verses" ? verses : common).join("");
+  }catch(e){console.error(e);}
+}
+
 function updateModernHomeCounts(){
   try{
     const set=(id,n)=>{const el=document.getElementById(id); if(el) el.textContent=n+" "+(n===1?"elemento":"elementos");};
@@ -1871,6 +1921,7 @@ function closeModernHome(){
 function enterModernSection(s){
   closeModernHome();
   switchSection(s);
+  renderModernActionBar();
 }
 function enterModernTools(){
   closeModernHome();
@@ -1883,7 +1934,7 @@ window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPr
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
-applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openModernHome();maybeShowInstall();
+applyTheme();loadState();syncTabs();renderModernActionBar();renderList();renderReader();applyReaderFont();openModernHome();maybeShowInstall();
 
 
 
@@ -2306,3 +2357,5 @@ setInterval(updateVersePositionCounter, 1000);
 <!-- Oraciones Modern V1.1: pantalla principal -->
 
 <!-- Oraciones Modern V1.2: inicio sin cabecera y tarjetas compactas -->
+
+<!-- Oraciones Modern V1.3: herramientas propias por sección -->
