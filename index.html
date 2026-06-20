@@ -480,16 +480,22 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
     </div>
     <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
-    <button class="btn soft" type="button" onclick="openRandomVerse()">🎲 Aleatorio</button>
-    <button class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
-        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
-    <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
-    <button class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
-    <button class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
-    <button class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-    <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
-    <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="openTitlesView()">📋 Títulos</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="openFavoritesView()">⭐ Favoritos</button>
+    <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="openEditor()">✏️ Editar</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="toggleFavorite()">🌟 Favorito</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="changeReaderFont(-2)">A-</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="changeReaderFont(2)">A+</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="copyCurrent()">📋 Copiar</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="shareCurrent()">🔗 Compartir</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="toggleFavorite()">Añadir a favoritos</button>
+    <button class="btn soft" type="button" onclick="toggleTheme()">Modo oscuro</button>
+    <button class="btn soft" type="button" data-main-verses="1" onclick="openDailyVerse()">🌅 Versículo del día</button>
+    <button class="btn soft" type="button" data-main-verses="1" onclick="openRandomVerse()">🎲 Aleatorio</button>
+    <button class="btn soft" type="button" data-main-verses="1" onclick="openVerseCategories()">🗂️ Categorías</button>
+    <button class="btn soft" type="button" data-main-verses="1" onclick="openBackup()">☁️ Backup</button>
+    <button class="btn soft" type="button" data-main-verses="1" onclick="openTrash()">🗑️ Papelera</button>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList()">
     <div id="counterInfo" class="counter"></div>
   </div>
@@ -501,21 +507,24 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
     <div id="readerView" class="panel">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button class="btn soft" type="button" onclick="openList()">☰ Lista</button>
-        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
-        <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
-        <button class="btn soft" type="button" onclick="changeReaderFont(-2)">A-</button>
-        <button class="btn soft" type="button" onclick="changeReaderFont(2)">A+</button>
-        <button class="btn soft" type="button" onclick="copyCurrentReference()">📋 Ref</button>
-        <button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button><button class="btn soft" type="button" onclick="moveVerseToCategory()">📂 Mover</button>
+        <button class="btn soft" type="button" data-reader-normal="1" onclick="openTitlesView()">📋 Títulos</button>
+        <button class="btn soft" type="button" data-reader-normal="1" onclick="toggleFavorite()">🌟 Favorito</button>
+        <button class="btn soft" type="button" data-reader-normal="1" onclick="openEditor()">✏️ Editar</button>
+        <button class="btn soft" type="button" data-reader-normal="1" onclick="copyCurrent()">📋 Copiar</button>
+        <button class="btn soft" type="button" data-reader-normal="1" onclick="shareCurrent()">🔗 Compartir</button>
+        <button class="btn soft" type="button" data-reader-normal="1" onclick="changeReaderFont(-2)">A-</button>
+        <button class="btn soft" type="button" data-reader-normal="1" onclick="changeReaderFont(2)">A+</button>
         <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
-        
-        
-        
-        <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
-        <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
-        <button class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-        <button class="btn soft" type="button" onclick="exportCurrentHTML()">🌐 Exportar lectura</button>
+        <button class="btn soft" type="button" data-reader-verses="1" onclick="openTitlesView()">📋 Títulos</button>
+        <button class="btn soft" type="button" data-reader-verses="1" onclick="openEditor()">✏️ Editar</button>
+        <button class="btn soft" type="button" data-reader-verses="1" onclick="changeReaderFont(-2)">A-</button>
+        <button class="btn soft" type="button" data-reader-verses="1" onclick="changeReaderFont(2)">A+</button>
+        <button class="btn soft" type="button" data-reader-verses="1" onclick="copyCurrentReference()">📋 Ref</button>
+        <button class="btn soft" type="button" data-reader-verses="1" onclick="copyCurrent()">📋 Copiar</button>
+        <button class="btn soft" type="button" data-reader-verses="1" onclick="moveVerseToCategory()">📂 Mover</button>
+        <button class="btn soft" type="button" data-reader-verses="1" onclick="shareCurrent()">🔗 Compartir</button>
+        <button class="btn soft" type="button" data-reader-verses="1" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
+        <button class="btn soft" type="button" data-reader-verses="1" onclick="toggleFavorite()">⭐</button>
       </div>
       <div id="readerCode" class="reader-code"></div>
       <div id="readerDailyDate" class="reader-daily-date hidden"></div>
@@ -588,7 +597,7 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
     <div id="titlesView" class="panel hidden">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button class="btn soft" type="button" onclick="openList()">☰ Lista completa</button>
+        
       </div>
       <div id="titlesList" class="title-list"></div>
     </div>
@@ -792,6 +801,15 @@ function openVersesFilePicker(){
 function restoreAutoBackup(){const raw=localStorage.getItem(AUTO_BACKUP_KEY);if(!raw) return alert("No hay backup automático.");if(!confirm("¿Restaurar el backup automático?")) return;try{const parsed=JSON.parse(raw);state={"section":parsed.section||"prayers","currentPrayerId":parsed.currentPrayerId||null,"currentNoteId":parsed.currentNoteId||null,"currentGuideId":parsed.currentGuideId||null,"currentVerseId":parsed.currentVerseId||null,"prayers":Array.isArray(parsed.prayers)?parsed.prayers:[],"notes":Array.isArray(parsed.notes)?parsed.notes:[],"guides":Array.isArray(parsed.guides)?parsed.guides:[],"verses":Array.isArray(parsed.verses)?parsed.verses:[],"trashPrayers":Array.isArray(parsed.trashPrayers)?parsed.trashPrayers:[],"trashNotes":Array.isArray(parsed.trashNotes)?parsed.trashNotes:[],"trashGuides":Array.isArray(parsed.trashGuides)?parsed.trashGuides:[],"trashVerses":Array.isArray(parsed.trashVerses)?parsed.trashVerses:[]};normalizeGuides();saveState();section=state.section;syncTabs();renderList();renderReader();applyReaderFont();openReader();toast("Backup automático restaurado")}catch(e){alert("No se pudo restaurar.")}}
 function applyTheme(){if(localStorage.getItem(THEME_KEY)==="dark") document.body.classList.add("dark")}
 function toggleTheme(){document.body.classList.toggle("dark");localStorage.setItem(THEME_KEY, document.body.classList.contains("dark")?"dark":"light")}
+function isNormalSection(){return section==="prayers"||section==="notes"||section==="guides"}
+function updateSectionButtons(){
+  const normal=isNormalSection();
+  document.querySelectorAll("[data-main-normal]").forEach(el=>el.classList.toggle("hidden",!normal));
+  document.querySelectorAll("[data-main-verses]").forEach(el=>el.classList.toggle("hidden",normal));
+  document.querySelectorAll("[data-reader-normal]").forEach(el=>el.classList.toggle("hidden",!normal));
+  document.querySelectorAll("[data-reader-verses]").forEach(el=>el.classList.toggle("hidden",normal));
+}
+
 function getDisplayCode(idx, kind){
   return (kind==="prayers"?"O":kind==="notes"?"N":kind==="guides"?"G":"V")+(idx+1)
 }
@@ -808,6 +826,7 @@ function syncTabs(){
   const verseTab=document.getElementById("tabVerses");if(verseTab)verseTab.classList.toggle("active",section==="verses");
   document.getElementById("search").placeholder=section==="prayers"?"Buscar oración o código (ej. O3)":section==="notes"?"Buscar nota o código (ej. N2)":section==="guides"?"Buscar guía o código (ej. G1)":"Buscar versículo, referencia o palabra";
   document.getElementById("counterInfo").textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | ❤️ ${state.verses?state.verses.length:0}`;
+  updateSectionButtons();
 }
 function switchSection(s){
   section=s;state.section=s;saveState();syncTabs();renderList();
@@ -888,7 +907,7 @@ function formatDailyDateEs(){
 
 
 
-function renderReader(){applyReaderFont();
+function renderReader(){applyReaderFont();updateSectionButtons();
   const dailyDateEl=document.getElementById("readerDailyDate");
   if(dailyDateEl){dailyDateEl.classList.add("hidden");dailyDateEl.textContent="";}
   const item=currentItem();
@@ -1003,12 +1022,13 @@ function smartBack(){
 }
 
 function openReader(){
+  updateSectionButtons();
   clearNavModes();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
 function openList(){
   clearNavModes();
   renderList();
 document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");document.getElementById("search").focus()}
-function enterFullscreenReading(){document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
+function enterFullscreenReading(){updateSectionButtons();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
 function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
 function openEditor(){
@@ -1364,11 +1384,17 @@ function openMoreMenu(ev){
     const menu=document.createElement("div");
     menu.id="moreDropdown";
     menu.className="more-dropdown";
-    menu.innerHTML =
-      '<button type="button" onclick="closeMoreMenu(); openDailyVerse()">🌅 Hoy</button>' +
-      '<button type="button" onclick="closeMoreMenu(); openRandomVerse()">🎲 Aleatorio</button>' +
-      '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📤 Nunca enviados</button>' +
-      '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📋 Enviados</button>';
+    if(isNormalSection()){
+      menu.innerHTML =
+        '<button type="button" onclick="closeMoreMenu(); moveToTrash()">🗑️ Eliminar</button>' +
+        '<button type="button" onclick="closeMoreMenu(); exportCurrentHTML()">🌐 Exportar lectura</button>';
+    }else{
+      menu.innerHTML =
+        '<button type="button" onclick="closeMoreMenu(); openDailyVerse()">🌅 Hoy</button>' +
+        '<button type="button" onclick="closeMoreMenu(); openRandomVerse()">🎲 Aleatorio</button>' +
+        '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📤 Nunca enviados</button>' +
+        '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📋 Enviados</button>';
+    }
 
     document.body.appendChild(menu);
 
@@ -1819,8 +1845,9 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'�
 }
 
 #editorView{padding-bottom:90px}
-</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
-async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
+</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div><!-- Oraciones V2 fase botonera principal limpia: lista completa eliminada; Más normal = eliminar/exportar lectura. -->
+</body></html>`}
+async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":section==="notes"?"Nota":section==="guides"?"Guía":"Versículo";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
   const payload={"exportedAt":new Date().toISOString(),...state};
@@ -2313,6 +2340,7 @@ renderReader = function(){
 setInterval(updateVersePositionCounter, 1000);
 
 </script>
+<!-- Oraciones V2 fase botonera principal limpia: lista completa eliminada; Más normal = eliminar/exportar lectura. -->
 </body>
 </html>
 <!-- V9.1 pulido: Hoy/Aleatorio/Generado para hoy -->
