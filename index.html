@@ -170,6 +170,38 @@ body.dark .segment{background:#222} body.dark .segment button.active{background:
   .topbar-row{gap:7px}.segment{width:100%;overflow:auto;flex-wrap:nowrap}.segment button{white-space:nowrap}.v2-home-btn{order:-2}.search{order:5}
   .panel{border-radius:0;box-shadow:none}.reader-title{font-size:24px}
 }
+
+
+/* ===== V2 LISTAS MODERNAS REALES ===== */
+body.v2-list-mode .topbar{display:none!important}
+body.v2-list-mode .main{max-width:980px;margin:0 auto;padding:14px;display:block}
+body.v2-list-mode .sidebar{display:block;width:100%;border:0;padding:0;background:transparent}
+body.v2-list-mode .content{display:none!important}
+body.v2-list-mode .list{gap:12px}
+.v2-section-head{background:linear-gradient(135deg,var(--card),var(--soft));border:1px solid var(--line);border-radius:28px;padding:18px;margin-bottom:10px;box-shadow:0 14px 36px rgba(0,0,0,.06)}
+.v2-section-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.v2-section-title{font-size:28px;font-weight:850;letter-spacing:-.04em;margin:0}
+.v2-section-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.v2-search-wrap{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 12px}
+.v2-search-wrap span{font-size:20px;opacity:.72}.v2-search-wrap input{width:100%;border:0;outline:0;background:transparent;color:var(--text);font-size:17px}
+.v2-list-block{margin-top:18px}.v2-list-heading{display:flex;align-items:center;justify-content:space-between;margin:0 4px 10px;color:var(--muted);font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.06em}
+.v2-item-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:15px 16px;box-shadow:0 10px 28px rgba(0,0,0,.055);cursor:pointer;display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;transition:transform .12s ease, border-color .12s ease}
+.v2-item-card:active{transform:scale(.99)}.v2-item-icon{width:42px;height:42px;border-radius:16px;background:var(--soft);display:grid;place-items:center;font-size:20px;flex:0 0 auto}.v2-item-main{min-width:0;flex:1}.v2-item-title{font-size:18px;font-weight:800;line-height:1.2;margin-bottom:5px}.v2-item-sub{color:var(--muted);font-size:14px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.v2-item-meta{font-size:12px;color:var(--muted);margin-top:7px}.v2-empty-card{background:var(--card);border:1px dashed var(--line);border-radius:20px;padding:18px;color:var(--muted);text-align:center}
+body.dark .v2-section-head,body.dark .v2-item-card{box-shadow:0 14px 36px rgba(0,0,0,.22)}
+body.v2-reader-mode .topbar{display:none!important}
+body.v2-reader-mode .main{max-width:920px;margin:0 auto;padding:12px;display:block}
+body.v2-reader-mode .sidebar{display:none!important}
+body.v2-reader-mode .content{display:block;width:100%}
+body.v2-reader-mode .panel{min-height:calc(100dvh - 24px);border-radius:28px;box-shadow:0 18px 50px rgba(0,0,0,.08)}
+body.v2-reader-mode .panel-head{justify-content:center;gap:8px;padding:12px;background:color-mix(in srgb,var(--card) 94%,transparent);backdrop-filter:blur(10px)}
+body.v2-reader-mode .reader-title{font-size:30px;text-align:center;margin-top:18px}
+body.v2-reader-mode .reader-code{text-align:center;color:var(--muted)}
+body.v2-reader-mode .reader-text{max-width:760px;margin:0 auto;padding:24px 22px 48px;line-height:2.05}
+body.v2-reader-mode.hide-reading-ui .panel-head,body.v2-reader-mode.hide-reading-ui .reader-code,body.v2-reader-mode.hide-reading-ui .reader-title{display:none!important}
+body.v2-reader-mode.hide-reading-ui .panel{border-color:transparent;box-shadow:none;background:transparent}
+body.v2-reader-mode.hide-reading-ui .reader-text{padding-top:28px}
+@media(max-width:700px){.v2-section-title{font-size:24px}.v2-section-top{align-items:flex-start}.v2-section-actions .btn{padding:9px 11px}.v2-item-card{border-radius:20px;padding:13px}.v2-item-title{font-size:17px}body.v2-reader-mode .main{padding:0}body.v2-reader-mode .panel{border-radius:0;min-height:100dvh;border:0}body.v2-reader-mode .reader-title{font-size:25px}}
+
 </style>
 
 <style>
@@ -1656,7 +1688,117 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'�
 }
 
 #editorView{padding-bottom:90px}
-</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
+</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
+<script>
+/* ===== V2: listas modernas y lector moderno sobre lógica original ===== */
+(function(){
+  function sectionLabel(){return section==='prayers'?'Oraciones':section==='notes'?'Notas':section==='guides'?'Guía':'Versículos'}
+  function sectionIcon(){return section==='prayers'?'✝️':section==='notes'?'📝':section==='guides'?'📜':'❤️'}
+  function codeFor(item, idx){try{return getDisplayCode(idx, section)}catch(e){return ''}}
+  function previewText(item){return String(item.content||item.text||'').trim().replace(/\n+/g,' ').slice(0,110)||'Sin contenido'}
+  function openV2List(){
+    document.body.classList.add('v2-list-mode');
+    document.body.classList.remove('v2-reader-mode','reading-mobile','fullscreen-reading','hide-reading-ui','titles-only','backup-only');
+    ['readerView','editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(id=>{var el=document.getElementById(id); if(el) el.classList.add('hidden')});
+    var hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+  }
+  function openV2Reader(){
+    document.body.classList.add('v2-reader-mode');
+    document.body.classList.remove('v2-list-mode','reading-mobile','fullscreen-reading','hide-reading-ui','titles-only','backup-only');
+    var hv=document.getElementById('homeView'); if(hv) hv.style.display='none';
+    setupV2ReaderToolbar();
+    if(typeof clearNavModes==='function') clearNavModes();
+    ['editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(id=>{var el=document.getElementById(id); if(el) el.classList.add('hidden')});
+    var rv=document.getElementById('readerView'); if(rv) rv.classList.remove('hidden');
+    try{window.scrollTo({top:0,behavior:'smooth'})}catch(e){}
+  }
+  function setupV2ReaderToolbar(){
+    var head=document.querySelector('#readerView .panel-head'); if(!head) return;
+    if(!head.dataset.originalHtml) head.dataset.originalHtml=head.innerHTML;
+    if(section==='verses'){
+      if(head.dataset.mode!=='original'){head.innerHTML=head.dataset.originalHtml;head.dataset.mode='original'}
+      return;
+    }
+    if(head.dataset.mode==='v2') return;
+    head.innerHTML = '<button class="btn soft" type="button" onclick="openList()">← Volver</button>'+
+      '<button class="btn soft" type="button" onclick="openTitlesView()">📋 Títulos</button>'+
+      '<button class="btn soft" type="button" onclick="openEditor()">✏️ Editar</button>'+
+      '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>'+
+      '<button class="btn soft" type="button" onclick="changeReaderFont(-2)">A-</button>'+
+      '<button class="btn soft" type="button" onclick="changeReaderFont(2)">A+</button>'+
+      '<button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>';
+    head.dataset.mode='v2';
+  }
+  function renderModernList(){
+    if(section==='verses') return false;
+    var list=document.getElementById('list'); if(!list) return false;
+    var qEl=document.getElementById('search');
+    var q=(qEl?qEl.value:'').trim().toLowerCase();
+    var all=[...getItems()].map((item,idx)=>Object.assign({},item,{__idx:idx,__code:codeFor(item,idx)}));
+    var filtered=all.filter(item=>!q || String(item.title||'').toLowerCase().includes(q) || String(item.content||'').toLowerCase().includes(q) || String(item.__code||'').toLowerCase()===q);
+    filtered.sort((a,b)=>(b.favorite===true)-(a.favorite===true)||(b.updatedAt||0)-(a.updatedAt||0));
+    var favs=filtered.filter(x=>x.favorite);
+    var normal=filtered;
+    var ph=section==='prayers'?'Buscar oración...':section==='notes'?'Buscar nota...':'Buscar en guía...';
+    list.innerHTML='';
+    var head=document.createElement('div'); head.className='v2-section-head';
+    head.innerHTML='<div class="v2-section-top"><h1 class="v2-section-title">'+sectionIcon()+' '+sectionLabel()+'</h1><div class="v2-section-actions"><button class="btn soft" type="button" onclick="showV2Home()">🏠</button><button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button><button class="btn soft" type="button" onclick="openFavoritesView()">⭐</button><button class="btn soft" type="button" onclick="toggleTheme()">🌙</button></div></div><div class="v2-search-wrap"><span>🔍</span><input id="v2Search" placeholder="'+ph+'" value="'+escapeHtml(q)+'"></div>';
+    list.appendChild(head);
+    setTimeout(function(){var vs=document.getElementById('v2Search'); if(vs && !vs.dataset.bound){vs.dataset.bound='1';vs.oninput=function(){if(qEl) qEl.value=this.value; renderList();};}},0);
+    function block(title,items,empty){
+      var wrap=document.createElement('div'); wrap.className='v2-list-block';
+      wrap.innerHTML='<div class="v2-list-heading"><span>'+title+'</span><span>'+items.length+'</span></div>';
+      if(!items.length){var emp=document.createElement('div'); emp.className='v2-empty-card'; emp.textContent=empty; wrap.appendChild(emp)}
+      items.forEach(function(item){
+        var card=document.createElement('div'); card.className='v2-item-card';
+        card.innerHTML='<div class="v2-item-icon">'+(item.favorite?'⭐':sectionIcon())+'</div><div class="v2-item-main"><div class="v2-item-title">'+escapeHtml(item.title||'Sin título')+'</div><div class="v2-item-sub">'+escapeHtml(previewText(item))+'</div><div class="v2-item-meta">'+escapeHtml(item.__code||'')+'</div></div>';
+        card.onclick=function(){if(!document.getElementById('editorView').classList.contains('hidden')) saveCurrent(false,true); specialVerseMode=null; setCurrentId(item.id); renderList(); renderReader(); openReader();};
+        wrap.appendChild(card);
+      });
+      list.appendChild(wrap);
+    }
+    block('⭐ Favoritas', favs, 'No hay favoritas todavía.');
+    block('📚 Todas', normal, filtered.length?'':'No hay elementos.');
+    openV2List();
+    return true;
+  }
+  var oldRenderList=window.renderList;
+  window.renderList=function(){
+    if(section!=='verses' && document.body.classList.contains('v2-list-mode')) return renderModernList();
+    return oldRenderList.apply(this,arguments);
+  };
+  var oldOpenList=window.openList;
+  window.openList=function(){
+    if(section!=='verses'){ renderModernList(); return; }
+    return oldOpenList.apply(this,arguments);
+  };
+  var oldOpenReader=window.openReader;
+  window.openReader=function(){
+    if(section!=='verses'){ openV2Reader(); return; }
+    document.body.classList.remove('v2-list-mode','v2-reader-mode');
+    return oldOpenReader.apply(this,arguments);
+  };
+  var oldSwitchSection=window.switchSection;
+  window.switchSection=function(s){
+    section=s; state.section=s; saveState(); syncTabs();
+    if(s==='verses'){document.body.classList.remove('v2-list-mode','v2-reader-mode'); currentVerseCategory=currentVerseCategory||'fe'; verseNavigationMode='categories'; openVerseCategories(); return;}
+    renderModernList();
+  };
+  window.openV2Section=function(s){
+    showV2App(); section=s; state.section=s; saveState(); syncTabs();
+    if(s==='verses'){document.body.classList.remove('v2-list-mode','v2-reader-mode'); currentVerseCategory=currentVerseCategory||'fe'; verseNavigationMode='categories'; openVerseCategories(); return;}
+    renderModernList();
+    try{window.scrollTo({top:0,behavior:'smooth'})}catch(e){}
+  };
+  var oldToggleReadingUI=window.toggleReadingUI;
+  window.toggleReadingUI=function(){
+    if(document.body.classList.contains('v2-reader-mode')){document.body.classList.toggle('hide-reading-ui');return;}
+    return oldToggleReadingUI.apply(this,arguments);
+  };
+})();
+</script>
+
+</body></html>`}
 async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
