@@ -169,6 +169,38 @@ body.dark .segment{background:#222} body.dark .segment button.active{background:
   .topbar-row{gap:7px}.segment{width:100%;overflow:auto;flex-wrap:nowrap}.segment button{white-space:nowrap}.v2-home-btn{order:-2}.search{order:5}
   .panel{border-radius:0;box-shadow:none}.reader-title{font-size:24px}
 }
+
+
+/* ===== ORACIONES V2 - FASE LISTAS Y LECTOR MODERNO ===== */
+body.v2-list-modern .topbar{display:none!important}
+body.v2-list-modern .main{display:block;min-height:100dvh;background:radial-gradient(circle at top left, rgba(197,151,99,.18), transparent 34%), var(--bg)}
+body.v2-list-modern .sidebar{display:block!important;border:0;max-height:none;min-height:100dvh;padding:calc(14px + env(safe-area-inset-top)) 14px calc(28px + env(safe-area-inset-bottom));background:transparent}
+body.v2-list-modern .content{display:none!important}
+.v2-section-shell{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.v2-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:linear-gradient(135deg, rgba(138,90,43,.16), rgba(197,151,99,.06));border:1px solid var(--line);border-radius:28px;padding:18px;box-shadow:0 16px 42px rgba(0,0,0,.06)}
+.v2-section-title{display:flex;gap:13px;align-items:center}.v2-section-icon{width:52px;height:52px;border-radius:19px;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:27px;flex:0 0 auto}.v2-section-title h2{margin:0;font-size:28px;line-height:1.1}.v2-section-title p{margin:5px 0 0;color:var(--muted);font-size:14px}
+.v2-mini-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.v2-icon-btn{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:10px 12px;font-weight:800;font-size:15px;box-shadow:0 6px 18px rgba(0,0,0,.05)}
+.v2-search-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:12px;box-shadow:0 12px 34px rgba(0,0,0,.045)}
+.v2-search{width:100%;border:0;outline:0;background:var(--soft);color:var(--text);border-radius:18px;padding:14px 16px;font-size:17px}
+.v2-block-title{font-size:15px;font-weight:900;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin:8px 4px 0}
+.v2-card-list{display:flex;flex-direction:column;gap:10px}.v2-modern-item{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:15px 16px;box-shadow:0 12px 34px rgba(0,0,0,.055);cursor:pointer;display:flex;gap:12px;align-items:flex-start}.v2-modern-item:active{transform:scale(.99)}
+.v2-modern-code{min-width:48px;height:34px;border-radius:999px;background:var(--soft);color:var(--primary);display:grid;place-items:center;font-weight:900;font-size:13px}.v2-modern-body{min-width:0;flex:1}.v2-modern-title{font-weight:900;font-size:17px;line-height:1.25;margin-bottom:5px}.v2-modern-sub{color:var(--muted);font-size:14px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.v2-modern-fav{font-size:19px;color:var(--accent)}
+body.dark .v2-section-head, body.dark .v2-search-card, body.dark .v2-modern-item{box-shadow:0 16px 42px rgba(0,0,0,.25)}
+body.dark .v2-icon-btn{background:#202020;border-color:#34302b;color:#f2eee7} body.dark .v2-search{background:#23211e}
+body.v2-reader-modern .topbar{display:none!important}
+body.v2-reader-modern .main{grid-template-columns:1fr;min-height:100dvh;background:var(--bg)}
+body.v2-reader-modern .sidebar{display:none!important} body.v2-reader-modern .content{padding:0;min-height:100dvh}
+body.v2-reader-modern #readerView{border:0;border-radius:0;min-height:100dvh;background:var(--card)}
+body.v2-reader-modern #readerView .panel-head{position:sticky;top:0;z-index:50;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);justify-content:center}
+body.dark.v2-reader-modern #readerView .panel-head{background:rgba(26,26,26,.92)}
+body.v2-reader-modern #readerView .btn{border-radius:999px;padding:10px 12px;font-weight:800}
+body.v2-reader-modern .reader-code{max-width:850px;width:100%;margin:0 auto;padding:24px 20px 0;color:var(--muted)}
+body.v2-reader-modern .reader-title{max-width:850px;width:100%;margin:0 auto;padding:8px 20px 0;font-size:30px;line-height:1.2}
+body.v2-reader-modern .reader-text{max-width:850px;width:100%;margin:0 auto;padding:22px 20px 70px;font-family:Georgia,'Times New Roman',serif;line-height:2.05}
+body.v2-reader-modern.hide-reading-ui #readerView .panel-head, body.v2-reader-modern.hide-reading-ui .reader-code, body.v2-reader-modern.hide-reading-ui .reader-title{opacity:0;pointer-events:none;transform:translateY(-10px);transition:.18s ease}
+body.v2-reader-modern.hide-reading-ui .reader-text{padding-top:calc(24px + env(safe-area-inset-top))}
+@media(max-width:860px){.v2-section-head{border-radius:24px;padding:15px}.v2-section-title h2{font-size:24px}.v2-section-icon{width:46px;height:46px;border-radius:17px;font-size:24px}.v2-mini-actions{justify-content:flex-start}.v2-icon-btn{font-size:14px;padding:9px 11px}.v2-modern-item{border-radius:21px;padding:14px}.v2-modern-title{font-size:16px}body.v2-reader-modern .reader-title{font-size:25px}body.v2-reader-modern .reader-text{font-size:23px!important;padding-left:17px;padding-right:17px}.v2-section-shell{gap:12px}}
+
 </style>
 
 <style>
@@ -463,6 +495,102 @@ setInterval(decorateDailyVerseNote, 1200);
 
 function openVerseCategories(){
   categoryListActive=true; clearNavModes(); openVerseCategoriesView(); }
+
+
+
+/* ===== ORACIONES V2 - LISTAS Y LECTOR MODERNO (sin tocar datos) ===== */
+(function(){
+  const sectionInfo={
+    prayers:{icon:'✝️',title:'Oraciones',sub:'Tus oraciones guardadas, favoritas y personales.',search:'Buscar oración...'},
+    notes:{icon:'📝',title:'Notas',sub:'Apuntes personales y reflexiones.',search:'Buscar nota...'},
+    guides:{icon:'📜',title:'Guía',sub:'Textos de ayuda y enseñanza.',search:'Buscar guía...'}
+  };
+  const oldRenderList=renderList;
+  const oldOpenReader=openReader;
+  const oldOpenList=openList;
+  const oldSwitchSection=switchSection;
+  const originalReaderHead=document.querySelector('#readerView .panel-head')?.innerHTML || '';
+
+  function isModernSection(){return section==='prayers'||section==='notes'||section==='guides'}
+  function setModernListMode(){
+    document.body.classList.add('v2-list-modern');
+    document.body.classList.remove('v2-reader-modern','reading-mobile','fullscreen-reading','hide-reading-ui','titles-only','backup-only');
+  }
+  function clearModernModes(){document.body.classList.remove('v2-list-modern','v2-reader-modern','hide-reading-ui')}
+  function modernHeaderHTML(q){
+    const info=sectionInfo[section]||sectionInfo.prayers;
+    return `<div class="v2-section-shell">
+      <div class="v2-section-head">
+        <div class="v2-section-title"><div class="v2-section-icon">${info.icon}</div><div><h2>${info.title}</h2><p>${info.sub}</p></div></div>
+        <div class="v2-mini-actions">
+          <button class="v2-icon-btn" type="button" onclick="showV2Home()">🏠</button>
+          <button class="v2-icon-btn" type="button" onclick="newItem()">➕ Nueva</button>
+          <button class="v2-icon-btn" type="button" onclick="openFavoritesView()">⭐</button>
+          <button class="v2-icon-btn" type="button" onclick="toggleTheme()">🌙</button>
+        </div>
+      </div>
+      <div class="v2-search-card"><input id="v2Search" class="v2-search" placeholder="${info.search}" value="${escapeHtml(q)}"></div>
+      <div id="v2ListInner"></div>
+    </div>`;
+  }
+  function modernItemHTML(item){
+    const preview=(item.content||item.text||'').trim().replace(/\n+/g,' ').slice(0,110)||'Sin contenido';
+    return `<div class="v2-modern-code">${escapeHtml(item.__code)}</div><div class="v2-modern-body"><div class="v2-modern-title">${escapeHtml(item.title||'Sin título')}</div><div class="v2-modern-sub">${escapeHtml(preview)}</div></div><div class="v2-modern-fav">${item.favorite?'⭐':''}</div>`;
+  }
+  renderList=function(){
+    if(!isModernSection()){clearModernModes();return oldRenderList();}
+    setModernListMode();
+    const list=document.getElementById('list');
+    const search=document.getElementById('search');
+    const q=(search?search.value:'').trim().toLowerCase();
+    list.innerHTML=modernHeaderHTML(q);
+    const input=document.getElementById('v2Search');
+    input.oninput=function(){ if(search) search.value=this.value; renderList(); };
+    const inner=document.getElementById('v2ListInner');
+    let items=[...getItems()].map((item,idx)=>({...item,__idx:idx,__code:getDisplayCode(idx,section)}));
+    items=items.filter(item=>!q || (item.title||'').toLowerCase().includes(q) || (item.content||'').toLowerCase().includes(q) || item.__code.toLowerCase()===q);
+    items.sort((a,b)=>(b.favorite===true)-(a.favorite===true)||b.updatedAt-a.updatedAt);
+    if(!items.length){inner.innerHTML='<div class="empty">No hay elementos.</div>';return;}
+    const favs=items.filter(x=>x.favorite), all=items;
+    function block(title, arr){
+      if(!arr.length) return '';
+      return `<div class="v2-block-title">${title}</div><div class="v2-card-list" data-block="${title}"></div>`;
+    }
+    inner.innerHTML=block('⭐ Favoritas',favs)+block('📚 Todas',all);
+    function fill(title, arr){
+      const cont=inner.querySelector(`[data-block="${title}"]`); if(!cont) return;
+      arr.forEach(item=>{const div=document.createElement('div');div.className='v2-modern-item';div.innerHTML=modernItemHTML(item);div.onclick=()=>{if(!document.getElementById('editorView').classList.contains('hidden')) saveCurrent(false,true);specialVerseMode=null;setCurrentId(item.id);renderReader();openReader();};cont.appendChild(div);});
+    }
+    fill('⭐ Favoritas',favs); fill('📚 Todas',all);
+  };
+  openReader=function(){
+    if(isModernSection()){
+      document.body.classList.remove('v2-list-modern','fullscreen-reading','reading-mobile');
+      document.body.classList.add('v2-reader-modern');
+      const head=document.querySelector('#readerView .panel-head');
+      if(head){head.innerHTML='<button class="btn soft" type="button" onclick="openList()">← Volver</button><button class="btn soft" type="button" onclick="openTitlesView()">📋 Títulos</button><button class="btn soft" type="button" onclick="openEditor()">✏️ Editar</button><button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button><button class="btn soft" type="button" onclick="changeReaderFont(-2)">A-</button><button class="btn soft" type="button" onclick="changeReaderFont(2)">A+</button><button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>';}
+    }else{
+      const head=document.querySelector('#readerView .panel-head'); if(head && originalReaderHead) head.innerHTML=originalReaderHead;
+      clearModernModes();
+    }
+    oldOpenReader();
+    if(isModernSection()) document.body.classList.add('v2-reader-modern');
+  };
+  openList=function(){
+    if(isModernSection()){renderList(); try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){} return;}
+    clearModernModes(); oldOpenList();
+  };
+  switchSection=function(s){
+    section=s;state.section=s;saveState();syncTabs();
+    if(s==='verses'){clearModernModes();currentVerseCategory=currentVerseCategory||'fe';verseNavigationMode='categories';openVerseCategories();return;}
+    renderList();
+  };
+  window.toggleReadingUI=function(){
+    if(document.body.classList.contains('v2-reader-modern')){document.body.classList.toggle('hide-reading-ui');return;}
+    if(!document.body.classList.contains('fullscreen-reading')) return;
+    document.body.classList.toggle('hide-reading-ui');
+  };
+})();
 
 </script>
 <script>
@@ -2144,6 +2272,102 @@ try{
     showV2Home();
   });
 }catch(e){}
+
+
+/* ===== ORACIONES V2 - LISTAS Y LECTOR MODERNO (sin tocar datos) ===== */
+(function(){
+  const sectionInfo={
+    prayers:{icon:'✝️',title:'Oraciones',sub:'Tus oraciones guardadas, favoritas y personales.',search:'Buscar oración...'},
+    notes:{icon:'📝',title:'Notas',sub:'Apuntes personales y reflexiones.',search:'Buscar nota...'},
+    guides:{icon:'📜',title:'Guía',sub:'Textos de ayuda y enseñanza.',search:'Buscar guía...'}
+  };
+  const oldRenderList=renderList;
+  const oldOpenReader=openReader;
+  const oldOpenList=openList;
+  const oldSwitchSection=switchSection;
+  const originalReaderHead=document.querySelector('#readerView .panel-head')?.innerHTML || '';
+
+  function isModernSection(){return section==='prayers'||section==='notes'||section==='guides'}
+  function setModernListMode(){
+    document.body.classList.add('v2-list-modern');
+    document.body.classList.remove('v2-reader-modern','reading-mobile','fullscreen-reading','hide-reading-ui','titles-only','backup-only');
+  }
+  function clearModernModes(){document.body.classList.remove('v2-list-modern','v2-reader-modern','hide-reading-ui')}
+  function modernHeaderHTML(q){
+    const info=sectionInfo[section]||sectionInfo.prayers;
+    return `<div class="v2-section-shell">
+      <div class="v2-section-head">
+        <div class="v2-section-title"><div class="v2-section-icon">${info.icon}</div><div><h2>${info.title}</h2><p>${info.sub}</p></div></div>
+        <div class="v2-mini-actions">
+          <button class="v2-icon-btn" type="button" onclick="showV2Home()">🏠</button>
+          <button class="v2-icon-btn" type="button" onclick="newItem()">➕ Nueva</button>
+          <button class="v2-icon-btn" type="button" onclick="openFavoritesView()">⭐</button>
+          <button class="v2-icon-btn" type="button" onclick="toggleTheme()">🌙</button>
+        </div>
+      </div>
+      <div class="v2-search-card"><input id="v2Search" class="v2-search" placeholder="${info.search}" value="${escapeHtml(q)}"></div>
+      <div id="v2ListInner"></div>
+    </div>`;
+  }
+  function modernItemHTML(item){
+    const preview=(item.content||item.text||'').trim().replace(/\n+/g,' ').slice(0,110)||'Sin contenido';
+    return `<div class="v2-modern-code">${escapeHtml(item.__code)}</div><div class="v2-modern-body"><div class="v2-modern-title">${escapeHtml(item.title||'Sin título')}</div><div class="v2-modern-sub">${escapeHtml(preview)}</div></div><div class="v2-modern-fav">${item.favorite?'⭐':''}</div>`;
+  }
+  renderList=function(){
+    if(!isModernSection()){clearModernModes();return oldRenderList();}
+    setModernListMode();
+    const list=document.getElementById('list');
+    const search=document.getElementById('search');
+    const q=(search?search.value:'').trim().toLowerCase();
+    list.innerHTML=modernHeaderHTML(q);
+    const input=document.getElementById('v2Search');
+    input.oninput=function(){ if(search) search.value=this.value; renderList(); };
+    const inner=document.getElementById('v2ListInner');
+    let items=[...getItems()].map((item,idx)=>({...item,__idx:idx,__code:getDisplayCode(idx,section)}));
+    items=items.filter(item=>!q || (item.title||'').toLowerCase().includes(q) || (item.content||'').toLowerCase().includes(q) || item.__code.toLowerCase()===q);
+    items.sort((a,b)=>(b.favorite===true)-(a.favorite===true)||b.updatedAt-a.updatedAt);
+    if(!items.length){inner.innerHTML='<div class="empty">No hay elementos.</div>';return;}
+    const favs=items.filter(x=>x.favorite), all=items;
+    function block(title, arr){
+      if(!arr.length) return '';
+      return `<div class="v2-block-title">${title}</div><div class="v2-card-list" data-block="${title}"></div>`;
+    }
+    inner.innerHTML=block('⭐ Favoritas',favs)+block('📚 Todas',all);
+    function fill(title, arr){
+      const cont=inner.querySelector(`[data-block="${title}"]`); if(!cont) return;
+      arr.forEach(item=>{const div=document.createElement('div');div.className='v2-modern-item';div.innerHTML=modernItemHTML(item);div.onclick=()=>{if(!document.getElementById('editorView').classList.contains('hidden')) saveCurrent(false,true);specialVerseMode=null;setCurrentId(item.id);renderReader();openReader();};cont.appendChild(div);});
+    }
+    fill('⭐ Favoritas',favs); fill('📚 Todas',all);
+  };
+  openReader=function(){
+    if(isModernSection()){
+      document.body.classList.remove('v2-list-modern','fullscreen-reading','reading-mobile');
+      document.body.classList.add('v2-reader-modern');
+      const head=document.querySelector('#readerView .panel-head');
+      if(head){head.innerHTML='<button class="btn soft" type="button" onclick="openList()">← Volver</button><button class="btn soft" type="button" onclick="openTitlesView()">📋 Títulos</button><button class="btn soft" type="button" onclick="openEditor()">✏️ Editar</button><button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button><button class="btn soft" type="button" onclick="changeReaderFont(-2)">A-</button><button class="btn soft" type="button" onclick="changeReaderFont(2)">A+</button><button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>';}
+    }else{
+      const head=document.querySelector('#readerView .panel-head'); if(head && originalReaderHead) head.innerHTML=originalReaderHead;
+      clearModernModes();
+    }
+    oldOpenReader();
+    if(isModernSection()) document.body.classList.add('v2-reader-modern');
+  };
+  openList=function(){
+    if(isModernSection()){renderList(); try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){} return;}
+    clearModernModes(); oldOpenList();
+  };
+  switchSection=function(s){
+    section=s;state.section=s;saveState();syncTabs();
+    if(s==='verses'){clearModernModes();currentVerseCategory=currentVerseCategory||'fe';verseNavigationMode='categories';openVerseCategories();return;}
+    renderList();
+  };
+  window.toggleReadingUI=function(){
+    if(document.body.classList.contains('v2-reader-modern')){document.body.classList.toggle('hide-reading-ui');return;}
+    if(!document.body.classList.contains('fullscreen-reading')) return;
+    document.body.classList.toggle('hide-reading-ui');
+  };
+})();
+
 </script>
 </body>
 </html>
