@@ -5,11 +5,11 @@
 <!-- V7.8 BOTON REF EN BARRA -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V2</title>
+<title>Oraciones y Notas</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Oraciones V2">
+<meta name="apple-mobile-web-app-title" content="Oraciones">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -134,77 +134,12 @@ body.dark .segment button{color:var(--text)}body.dark .segment button.active{col
 .reader-daily-date.hidden{display:none}
 
 
-
-/* ===== ORACIONES V2 - DISEÑO GRANDE POR TARJETAS ===== */
-body.v2-home-mode .topbar, body.v2-home-mode .main{display:none!important}
-.v2-home{min-height:100dvh;padding:calc(18px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));background:radial-gradient(circle at top left, rgba(197,151,99,.24), transparent 34%), var(--bg);}
-.v2-hero{max-width:980px;margin:0 auto 18px;display:flex;gap:16px;align-items:center;background:linear-gradient(135deg, rgba(138,90,43,.16), rgba(197,151,99,.06));border:1px solid var(--line);border-radius:28px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.08)}
-.v2-hero-icon{width:62px;height:62px;border-radius:22px;display:grid;place-items:center;font-size:32px;background:var(--primary);color:white;box-shadow:0 10px 24px rgba(0,0,0,.18);flex:0 0 auto}
-.v2-kicker{font-weight:800;color:var(--primary);letter-spacing:.08em;text-transform:uppercase;font-size:12px;margin-bottom:4px}
-.v2-hero h1{margin:0;font-size:31px;line-height:1.08}
-.v2-hero p{margin:7px 0 0;color:var(--muted);font-size:15px;line-height:1.45}
-.v2-card-grid{max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.v2-card{border:1px solid var(--line);border-radius:26px;padding:18px;min-height:154px;text-align:left;background:var(--card);color:var(--text);box-shadow:0 16px 42px rgba(0,0,0,.07);cursor:pointer;display:flex;flex-direction:column;gap:8px;transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease}
-.v2-card:active{transform:scale(.985)}
-.v2-card span{width:48px;height:48px;border-radius:18px;display:grid;place-items:center;font-size:27px;background:var(--soft)}
-.v2-card strong{font-size:20px}
-.v2-card small{color:var(--muted);font-size:14px;line-height:1.35}
-.v2-card.prayer span{background:rgba(138,90,43,.16)} .v2-card.notes span{background:rgba(90,128,160,.16)} .v2-card.guide span{background:rgba(108,130,88,.16)} .v2-card.verses span{background:rgba(184,74,60,.14)} .v2-card.favs span{background:rgba(255,210,125,.20)} .v2-card.tools span{background:rgba(110,110,130,.14)}
-.v2-home-actions{max-width:980px;margin:16px auto 0;display:flex;gap:10px;justify-content:center}
-body.dark .v2-home{background:radial-gradient(circle at top left, rgba(200,151,99,.20), transparent 36%), #101010}
-body.dark .v2-hero, body.dark .v2-card{box-shadow:0 18px 46px rgba(0,0,0,.28)}
-body.dark .btn.soft{background:#242424;color:#f4eee6;border:1px solid #36302a}
-body.dark .segment{background:#222} body.dark .segment button.active{background:#32302d}
-/* aspecto general más moderno sin cambiar lógica */
-.topbar{box-shadow:0 8px 24px rgba(0,0,0,.06)}
-.btn{border-radius:999px;font-weight:700;box-shadow:none}
-.item{border-radius:20px;box-shadow:0 8px 22px rgba(0,0,0,.045)}
-.panel{border-radius:28px;box-shadow:0 14px 42px rgba(0,0,0,.06)}
-.panel-head{gap:7px}
-.reader-title{font-size:28px}.reader-text{max-width:900px;margin:0 auto;width:100%;font-family:Georgia, 'Times New Roman', serif}
-@media (max-width:860px){
-  .v2-home{padding:calc(14px + env(safe-area-inset-top)) 12px calc(18px + env(safe-area-inset-bottom))}
-  .v2-hero{border-radius:24px;padding:15px;align-items:flex-start}.v2-hero h1{font-size:25px}.v2-hero-icon{width:54px;height:54px;border-radius:19px;font-size:28px}
-  .v2-card-grid{grid-template-columns:1fr 1fr;gap:10px}.v2-card{border-radius:22px;padding:14px;min-height:138px}.v2-card strong{font-size:17px}.v2-card small{font-size:12.5px}.v2-card span{width:42px;height:42px;border-radius:16px;font-size:24px}
-  .topbar-row{gap:7px}.segment{width:100%;overflow:auto;flex-wrap:nowrap}.segment button{white-space:nowrap}.v2-home-btn{order:-2}.search{order:5}
-  .panel{border-radius:0;box-shadow:none}.reader-title{font-size:24px}
-}
-
-
-/* ===== V2 REAL LISTAS VISUALES SEGURAS ===== */
-body:not(.v2-home-mode) .topbar{box-shadow:0 8px 28px rgba(0,0,0,.08);border-bottom:0}
-body:not(.v2-home-mode) .main{display:block;min-height:calc(100dvh - 70px);padding:12px;max-width:980px;margin:0 auto}
-body:not(.v2-home-mode) .sidebar{border:0;background:transparent;padding:0;max-height:none;overflow:visible}
-body:not(.v2-home-mode) .content{padding:12px 0 0}
-body:not(.v2-home-mode) .list{gap:12px}
-.v2-list-header{background:linear-gradient(135deg, rgba(138,90,43,.14), rgba(197,151,99,.07));border:1px solid var(--line);border-radius:24px;padding:18px;margin-bottom:6px}
-.v2-list-title{font-size:28px;font-weight:900;line-height:1.05;margin-bottom:6px}
-.v2-list-sub{color:var(--muted);font-size:14px;line-height:1.35}
-.v2-section-title{font-weight:900;color:var(--text);font-size:15px;letter-spacing:.02em;margin:8px 4px 2px}
-.v2-card-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-.v2-list-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:15px;box-shadow:0 12px 34px rgba(0,0,0,.06);cursor:pointer;transition:transform .12s ease, border-color .12s ease}
-.v2-list-card:active{transform:scale(.985)}
-.v2-list-card.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(138,90,43,.18),0 12px 34px rgba(0,0,0,.06)}
-.v2-list-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px}
-.v2-list-card-title{font-weight:850;font-size:17px;line-height:1.28}
-.v2-list-card-code{font-size:12px;color:var(--muted);font-weight:800;background:var(--soft);border-radius:999px;padding:4px 8px;white-space:nowrap}
-.v2-list-card-preview{color:var(--muted);font-size:14px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.v2-empty{background:var(--card);border:1px dashed var(--line);border-radius:20px;padding:22px;color:var(--muted);text-align:center}
-body:not(.v2-home-mode) #readerView.panel{margin-top:12px;border-radius:26px;box-shadow:0 16px 46px rgba(0,0,0,.07)}
-body:not(.v2-home-mode) #readerView .panel-head{gap:7px;justify-content:center;border-bottom:0;background:linear-gradient(180deg,var(--card),rgba(255,255,255,0));position:sticky;top:0}
-body.dark:not(.v2-home-mode) #readerView .panel-head{background:linear-gradient(180deg,var(--card),rgba(0,0,0,0))}
-body:not(.v2-home-mode) #readerView .reader-title{font-size:30px;line-height:1.12;padding-top:18px;text-align:center}
-body:not(.v2-home-mode) #readerView .reader-code{text-align:center}
-body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;font-size:var(--reader-font-size,28px);line-height:2.05}
-@media(max-width:860px){
- body:not(.v2-home-mode) .main{padding:10px}
- body:not(.v2-home-mode) .sidebar{display:block;border:0;max-height:none}
- body:not(.v2-home-mode) .content{padding-top:10px}
- .v2-list-title{font-size:25px}
- .v2-card-list{grid-template-columns:1fr}
- body:not(.v2-home-mode) #readerView.panel{border:1px solid var(--line);border-radius:24px;min-height:auto}
- body:not(.v2-home-mode) .panel-head .btn{padding:9px 10px;font-size:13px}
-}
+#welcomeOverlay{position:fixed;inset:0;background:linear-gradient(180deg,#071a3d,#0d3f9b);z-index:9999;display:flex;align-items:center;justify-content:center;color:white}
+#welcomeCard{text-align:center;padding:24px}
+#welcomeCard img{width:140px;height:140px;border-radius:28px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#welcomeCard h1{margin:18px 0 8px;font-size:34px}
+#welcomeCard p{opacity:.9;max-width:320px}
+#welcomeBtn{margin-top:18px;background:white;color:#0d3f9b;border:none;border-radius:16px;padding:12px 24px;font-size:18px;font-weight:bold}
 
 </style>
 
@@ -212,41 +147,12 @@ body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;f
 body.titles-only .sidebar{display:none!important;}
 body.titles-only .content{width:100%!important;max-width:100%!important;}
 
-
-/* ===== V2 REAL LISTAS VISUALES SEGURAS ===== */
-body:not(.v2-home-mode) .topbar{box-shadow:0 8px 28px rgba(0,0,0,.08);border-bottom:0}
-body:not(.v2-home-mode) .main{display:block;min-height:calc(100dvh - 70px);padding:12px;max-width:980px;margin:0 auto}
-body:not(.v2-home-mode) .sidebar{border:0;background:transparent;padding:0;max-height:none;overflow:visible}
-body:not(.v2-home-mode) .content{padding:12px 0 0}
-body:not(.v2-home-mode) .list{gap:12px}
-.v2-list-header{background:linear-gradient(135deg, rgba(138,90,43,.14), rgba(197,151,99,.07));border:1px solid var(--line);border-radius:24px;padding:18px;margin-bottom:6px}
-.v2-list-title{font-size:28px;font-weight:900;line-height:1.05;margin-bottom:6px}
-.v2-list-sub{color:var(--muted);font-size:14px;line-height:1.35}
-.v2-section-title{font-weight:900;color:var(--text);font-size:15px;letter-spacing:.02em;margin:8px 4px 2px}
-.v2-card-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-.v2-list-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:15px;box-shadow:0 12px 34px rgba(0,0,0,.06);cursor:pointer;transition:transform .12s ease, border-color .12s ease}
-.v2-list-card:active{transform:scale(.985)}
-.v2-list-card.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(138,90,43,.18),0 12px 34px rgba(0,0,0,.06)}
-.v2-list-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px}
-.v2-list-card-title{font-weight:850;font-size:17px;line-height:1.28}
-.v2-list-card-code{font-size:12px;color:var(--muted);font-weight:800;background:var(--soft);border-radius:999px;padding:4px 8px;white-space:nowrap}
-.v2-list-card-preview{color:var(--muted);font-size:14px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.v2-empty{background:var(--card);border:1px dashed var(--line);border-radius:20px;padding:22px;color:var(--muted);text-align:center}
-body:not(.v2-home-mode) #readerView.panel{margin-top:12px;border-radius:26px;box-shadow:0 16px 46px rgba(0,0,0,.07)}
-body:not(.v2-home-mode) #readerView .panel-head{gap:7px;justify-content:center;border-bottom:0;background:linear-gradient(180deg,var(--card),rgba(255,255,255,0));position:sticky;top:0}
-body.dark:not(.v2-home-mode) #readerView .panel-head{background:linear-gradient(180deg,var(--card),rgba(0,0,0,0))}
-body:not(.v2-home-mode) #readerView .reader-title{font-size:30px;line-height:1.12;padding-top:18px;text-align:center}
-body:not(.v2-home-mode) #readerView .reader-code{text-align:center}
-body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;font-size:var(--reader-font-size,28px);line-height:2.05}
-@media(max-width:860px){
- body:not(.v2-home-mode) .main{padding:10px}
- body:not(.v2-home-mode) .sidebar{display:block;border:0;max-height:none}
- body:not(.v2-home-mode) .content{padding-top:10px}
- .v2-list-title{font-size:25px}
- .v2-card-list{grid-template-columns:1fr}
- body:not(.v2-home-mode) #readerView.panel{border:1px solid var(--line);border-radius:24px;min-height:auto}
- body:not(.v2-home-mode) .panel-head .btn{padding:9px 10px;font-size:13px}
-}
+#welcomeOverlay{position:fixed;inset:0;background:linear-gradient(180deg,#071a3d,#0d3f9b);z-index:9999;display:flex;align-items:center;justify-content:center;color:white}
+#welcomeCard{text-align:center;padding:24px}
+#welcomeCard img{width:140px;height:140px;border-radius:28px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#welcomeCard h1{margin:18px 0 8px;font-size:34px}
+#welcomeCard p{opacity:.9;max-width:320px}
+#welcomeBtn{margin-top:18px;background:white;color:#0d3f9b;border:none;border-radius:16px;padding:12px 24px;font-size:18px;font-weight:bold}
 
 </style>
 
@@ -255,41 +161,12 @@ body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;f
 body.backup-only .sidebar{display:none!important;}
 body.backup-only .content{width:100%!important;max-width:100%!important;}
 
-
-/* ===== V2 REAL LISTAS VISUALES SEGURAS ===== */
-body:not(.v2-home-mode) .topbar{box-shadow:0 8px 28px rgba(0,0,0,.08);border-bottom:0}
-body:not(.v2-home-mode) .main{display:block;min-height:calc(100dvh - 70px);padding:12px;max-width:980px;margin:0 auto}
-body:not(.v2-home-mode) .sidebar{border:0;background:transparent;padding:0;max-height:none;overflow:visible}
-body:not(.v2-home-mode) .content{padding:12px 0 0}
-body:not(.v2-home-mode) .list{gap:12px}
-.v2-list-header{background:linear-gradient(135deg, rgba(138,90,43,.14), rgba(197,151,99,.07));border:1px solid var(--line);border-radius:24px;padding:18px;margin-bottom:6px}
-.v2-list-title{font-size:28px;font-weight:900;line-height:1.05;margin-bottom:6px}
-.v2-list-sub{color:var(--muted);font-size:14px;line-height:1.35}
-.v2-section-title{font-weight:900;color:var(--text);font-size:15px;letter-spacing:.02em;margin:8px 4px 2px}
-.v2-card-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-.v2-list-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:15px;box-shadow:0 12px 34px rgba(0,0,0,.06);cursor:pointer;transition:transform .12s ease, border-color .12s ease}
-.v2-list-card:active{transform:scale(.985)}
-.v2-list-card.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(138,90,43,.18),0 12px 34px rgba(0,0,0,.06)}
-.v2-list-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px}
-.v2-list-card-title{font-weight:850;font-size:17px;line-height:1.28}
-.v2-list-card-code{font-size:12px;color:var(--muted);font-weight:800;background:var(--soft);border-radius:999px;padding:4px 8px;white-space:nowrap}
-.v2-list-card-preview{color:var(--muted);font-size:14px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.v2-empty{background:var(--card);border:1px dashed var(--line);border-radius:20px;padding:22px;color:var(--muted);text-align:center}
-body:not(.v2-home-mode) #readerView.panel{margin-top:12px;border-radius:26px;box-shadow:0 16px 46px rgba(0,0,0,.07)}
-body:not(.v2-home-mode) #readerView .panel-head{gap:7px;justify-content:center;border-bottom:0;background:linear-gradient(180deg,var(--card),rgba(255,255,255,0));position:sticky;top:0}
-body.dark:not(.v2-home-mode) #readerView .panel-head{background:linear-gradient(180deg,var(--card),rgba(0,0,0,0))}
-body:not(.v2-home-mode) #readerView .reader-title{font-size:30px;line-height:1.12;padding-top:18px;text-align:center}
-body:not(.v2-home-mode) #readerView .reader-code{text-align:center}
-body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;font-size:var(--reader-font-size,28px);line-height:2.05}
-@media(max-width:860px){
- body:not(.v2-home-mode) .main{padding:10px}
- body:not(.v2-home-mode) .sidebar{display:block;border:0;max-height:none}
- body:not(.v2-home-mode) .content{padding-top:10px}
- .v2-list-title{font-size:25px}
- .v2-card-list{grid-template-columns:1fr}
- body:not(.v2-home-mode) #readerView.panel{border:1px solid var(--line);border-radius:24px;min-height:auto}
- body:not(.v2-home-mode) .panel-head .btn{padding:9px 10px;font-size:13px}
-}
+#welcomeOverlay{position:fixed;inset:0;background:linear-gradient(180deg,#071a3d,#0d3f9b);z-index:9999;display:flex;align-items:center;justify-content:center;color:white}
+#welcomeCard{text-align:center;padding:24px}
+#welcomeCard img{width:140px;height:140px;border-radius:28px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#welcomeCard h1{margin:18px 0 8px;font-size:34px}
+#welcomeCard p{opacity:.9;max-width:320px}
+#welcomeBtn{margin-top:18px;background:white;color:#0d3f9b;border:none;border-radius:16px;padding:12px 24px;font-size:18px;font-weight:bold}
 
 </style>
 
@@ -326,41 +203,12 @@ body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;f
   background:var(--soft,#f3eee4);
 }
 
-
-/* ===== V2 REAL LISTAS VISUALES SEGURAS ===== */
-body:not(.v2-home-mode) .topbar{box-shadow:0 8px 28px rgba(0,0,0,.08);border-bottom:0}
-body:not(.v2-home-mode) .main{display:block;min-height:calc(100dvh - 70px);padding:12px;max-width:980px;margin:0 auto}
-body:not(.v2-home-mode) .sidebar{border:0;background:transparent;padding:0;max-height:none;overflow:visible}
-body:not(.v2-home-mode) .content{padding:12px 0 0}
-body:not(.v2-home-mode) .list{gap:12px}
-.v2-list-header{background:linear-gradient(135deg, rgba(138,90,43,.14), rgba(197,151,99,.07));border:1px solid var(--line);border-radius:24px;padding:18px;margin-bottom:6px}
-.v2-list-title{font-size:28px;font-weight:900;line-height:1.05;margin-bottom:6px}
-.v2-list-sub{color:var(--muted);font-size:14px;line-height:1.35}
-.v2-section-title{font-weight:900;color:var(--text);font-size:15px;letter-spacing:.02em;margin:8px 4px 2px}
-.v2-card-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-.v2-list-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:15px;box-shadow:0 12px 34px rgba(0,0,0,.06);cursor:pointer;transition:transform .12s ease, border-color .12s ease}
-.v2-list-card:active{transform:scale(.985)}
-.v2-list-card.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(138,90,43,.18),0 12px 34px rgba(0,0,0,.06)}
-.v2-list-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px}
-.v2-list-card-title{font-weight:850;font-size:17px;line-height:1.28}
-.v2-list-card-code{font-size:12px;color:var(--muted);font-weight:800;background:var(--soft);border-radius:999px;padding:4px 8px;white-space:nowrap}
-.v2-list-card-preview{color:var(--muted);font-size:14px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.v2-empty{background:var(--card);border:1px dashed var(--line);border-radius:20px;padding:22px;color:var(--muted);text-align:center}
-body:not(.v2-home-mode) #readerView.panel{margin-top:12px;border-radius:26px;box-shadow:0 16px 46px rgba(0,0,0,.07)}
-body:not(.v2-home-mode) #readerView .panel-head{gap:7px;justify-content:center;border-bottom:0;background:linear-gradient(180deg,var(--card),rgba(255,255,255,0));position:sticky;top:0}
-body.dark:not(.v2-home-mode) #readerView .panel-head{background:linear-gradient(180deg,var(--card),rgba(0,0,0,0))}
-body:not(.v2-home-mode) #readerView .reader-title{font-size:30px;line-height:1.12;padding-top:18px;text-align:center}
-body:not(.v2-home-mode) #readerView .reader-code{text-align:center}
-body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;font-size:var(--reader-font-size,28px);line-height:2.05}
-@media(max-width:860px){
- body:not(.v2-home-mode) .main{padding:10px}
- body:not(.v2-home-mode) .sidebar{display:block;border:0;max-height:none}
- body:not(.v2-home-mode) .content{padding-top:10px}
- .v2-list-title{font-size:25px}
- .v2-card-list{grid-template-columns:1fr}
- body:not(.v2-home-mode) #readerView.panel{border:1px solid var(--line);border-radius:24px;min-height:auto}
- body:not(.v2-home-mode) .panel-head .btn{padding:9px 10px;font-size:13px}
-}
+#welcomeOverlay{position:fixed;inset:0;background:linear-gradient(180deg,#071a3d,#0d3f9b);z-index:9999;display:flex;align-items:center;justify-content:center;color:white}
+#welcomeCard{text-align:center;padding:24px}
+#welcomeCard img{width:140px;height:140px;border-radius:28px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#welcomeCard h1{margin:18px 0 8px;font-size:34px}
+#welcomeCard p{opacity:.9;max-width:320px}
+#welcomeBtn{margin-top:18px;background:white;color:#0d3f9b;border:none;border-radius:16px;padding:12px 24px;font-size:18px;font-weight:bold}
 
 </style>
 
@@ -418,46 +266,26 @@ body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;f
   font-size:14px;
 }
 
-
-/* ===== V2 REAL LISTAS VISUALES SEGURAS ===== */
-body:not(.v2-home-mode) .topbar{box-shadow:0 8px 28px rgba(0,0,0,.08);border-bottom:0}
-body:not(.v2-home-mode) .main{display:block;min-height:calc(100dvh - 70px);padding:12px;max-width:980px;margin:0 auto}
-body:not(.v2-home-mode) .sidebar{border:0;background:transparent;padding:0;max-height:none;overflow:visible}
-body:not(.v2-home-mode) .content{padding:12px 0 0}
-body:not(.v2-home-mode) .list{gap:12px}
-.v2-list-header{background:linear-gradient(135deg, rgba(138,90,43,.14), rgba(197,151,99,.07));border:1px solid var(--line);border-radius:24px;padding:18px;margin-bottom:6px}
-.v2-list-title{font-size:28px;font-weight:900;line-height:1.05;margin-bottom:6px}
-.v2-list-sub{color:var(--muted);font-size:14px;line-height:1.35}
-.v2-section-title{font-weight:900;color:var(--text);font-size:15px;letter-spacing:.02em;margin:8px 4px 2px}
-.v2-card-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-.v2-list-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:15px;box-shadow:0 12px 34px rgba(0,0,0,.06);cursor:pointer;transition:transform .12s ease, border-color .12s ease}
-.v2-list-card:active{transform:scale(.985)}
-.v2-list-card.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(138,90,43,.18),0 12px 34px rgba(0,0,0,.06)}
-.v2-list-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px}
-.v2-list-card-title{font-weight:850;font-size:17px;line-height:1.28}
-.v2-list-card-code{font-size:12px;color:var(--muted);font-weight:800;background:var(--soft);border-radius:999px;padding:4px 8px;white-space:nowrap}
-.v2-list-card-preview{color:var(--muted);font-size:14px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.v2-empty{background:var(--card);border:1px dashed var(--line);border-radius:20px;padding:22px;color:var(--muted);text-align:center}
-body:not(.v2-home-mode) #readerView.panel{margin-top:12px;border-radius:26px;box-shadow:0 16px 46px rgba(0,0,0,.07)}
-body:not(.v2-home-mode) #readerView .panel-head{gap:7px;justify-content:center;border-bottom:0;background:linear-gradient(180deg,var(--card),rgba(255,255,255,0));position:sticky;top:0}
-body.dark:not(.v2-home-mode) #readerView .panel-head{background:linear-gradient(180deg,var(--card),rgba(0,0,0,0))}
-body:not(.v2-home-mode) #readerView .reader-title{font-size:30px;line-height:1.12;padding-top:18px;text-align:center}
-body:not(.v2-home-mode) #readerView .reader-code{text-align:center}
-body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;font-size:var(--reader-font-size,28px);line-height:2.05}
-@media(max-width:860px){
- body:not(.v2-home-mode) .main{padding:10px}
- body:not(.v2-home-mode) .sidebar{display:block;border:0;max-height:none}
- body:not(.v2-home-mode) .content{padding-top:10px}
- .v2-list-title{font-size:25px}
- .v2-card-list{grid-template-columns:1fr}
- body:not(.v2-home-mode) #readerView.panel{border:1px solid var(--line);border-radius:24px;min-height:auto}
- body:not(.v2-home-mode) .panel-head .btn{padding:9px 10px;font-size:13px}
-}
+#welcomeOverlay{position:fixed;inset:0;background:linear-gradient(180deg,#071a3d,#0d3f9b);z-index:9999;display:flex;align-items:center;justify-content:center;color:white}
+#welcomeCard{text-align:center;padding:24px}
+#welcomeCard img{width:140px;height:140px;border-radius:28px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#welcomeCard h1{margin:18px 0 8px;font-size:34px}
+#welcomeCard p{opacity:.9;max-width:320px}
+#welcomeBtn{margin-top:18px;background:white;color:#0d3f9b;border:none;border-radius:16px;padding:12px 24px;font-size:18px;font-weight:bold}
 
 </style>
 
 </head>
 <body>
+<div id="welcomeOverlay">
+ <div id="welcomeCard">
+  <img src="icon-512.png" alt="">
+  <h1>Oraciones V2</h1>
+  <p>Descansa en la fidelidad de Dios.</p>
+  <button id="welcomeBtn" onclick="document.getElementById('welcomeOverlay').style.display='none'">Entrar</button>
+ </div>
+</div>
+
 <div id="installBanner" class="install-banner hidden">
   <div class="install-title">Instalar app</div>
   <div id="installHelp" class="install-sub">Puedes instalarla para abrirla como app real desde tu móvil.</div>
@@ -467,32 +295,8 @@ body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;f
   </div>
 </div>
 
-<section id="homeView" class="v2-home">
-  <div class="v2-hero">
-    <div class="v2-hero-icon">✝️</div>
-    <div>
-      <div class="v2-kicker">Oraciones V2</div>
-      <h1>Tu rincón de oración</h1>
-      <p>Oraciones, notas, guía y versículos en una pantalla más limpia y moderna.</p>
-    </div>
-  </div>
-  <div class="v2-card-grid">
-    <button class="v2-card prayer" type="button" onclick="openV2Section('prayers')"><span>✝️</span><strong>Oraciones</strong><small>Leer, editar y guardar tus oraciones.</small></button>
-    <button class="v2-card notes" type="button" onclick="openV2Section('notes')"><span>📝</span><strong>Notas</strong><small>Apuntes personales y reflexiones.</small></button>
-    <button class="v2-card guide" type="button" onclick="openV2Section('guides')"><span>📜</span><strong>Guía</strong><small>Textos de ayuda y enseñanza.</small></button>
-    <button class="v2-card verses" type="button" onclick="openV2Section('verses')"><span>❤️</span><strong>Versículos</strong><small>Categorías, favoritos y tarjetas.</small></button>
-    <button class="v2-card favs" type="button" onclick="openV2Favorites()"><span>⭐</span><strong>Favoritos</strong><small>Acceso rápido a lo marcado.</small></button>
-    <button class="v2-card tools" type="button" onclick="openV2Tools()"><span>☁️</span><strong>Herramientas</strong><small>Backup, exportar y papelera.</small></button>
-  </div>
-  <div class="v2-home-actions">
-    <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
-    <button class="btn primary" type="button" onclick="openV2Section('prayers')">Entrar</button>
-  </div>
-</section>
-
 <div class="topbar">
   <div class="topbar-row">
-    <button class="btn soft v2-home-btn" type="button" onclick="showV2Home()">🏠 Inicio</button>
     <div class="segment">
       <button id="tabPrayers" class="active" type="button" onclick="switchSection('prayers')">✝️ Oraciones</button>
       <button id="tabNotes" type="button" onclick="switchSection('notes')">📝 Notas</button>
@@ -878,50 +682,7 @@ function displayItemSub(item){
   return (item.content||"").slice(0,70);
 }
 
-function renderList(){
-  const searchEl=document.getElementById("search"), list=document.getElementById("list");
-  const q=(searchEl?searchEl.value:"").trim().toLowerCase();
-  list.innerHTML="";
-  let items=[...getItems()].map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));
-  items=items.filter(item=>{
-    const title=(item.title||item.reference||"").toLowerCase();
-    const content=(item.content||item.text||"").toLowerCase();
-    const code=(item.__code||"").toLowerCase();
-    return !q || title.includes(q) || content.includes(q) || code===q;
-  });
-  items.sort((a,b)=>(b.favorite===true)-(a.favorite===true)||(b.updatedAt||0)-(a.updatedAt||0));
-  const current=currentItem();
-
-  if(section!=="verses"){
-    const titles={prayers:["✝️ Oraciones","Tus oraciones guardadas, organizadas en tarjetas."],notes:["📝 Notas","Apuntes personales y reflexiones."],guides:["📜 Guía","Textos de ayuda y enseñanza."]};
-    const t=titles[section]||["📖 Lista",""];
-    const header=document.createElement("div");
-    header.className="v2-list-header";
-    header.innerHTML='<div class="v2-list-title">'+escapeHtml(t[0])+'</div><div class="v2-list-sub">'+escapeHtml(t[1])+'</div>';
-    list.appendChild(header);
-    if(!items.length){list.insertAdjacentHTML('beforeend','<div class="v2-empty">No hay elementos.</div>');return;}
-    const makeBlock=(label, arr)=>{
-      if(!arr.length) return;
-      const h=document.createElement("div");h.className="v2-section-title";h.textContent=label;list.appendChild(h);
-      const grid=document.createElement("div");grid.className="v2-card-list";
-      arr.forEach(item=>{
-        const card=document.createElement("div");
-        card.className="v2-list-card"+(current&&item.id===current.id?" active":"");
-        const preview=(item.content||"").trim().replace(/\n+/g," ").slice(0,155)||"Sin contenido";
-        card.innerHTML='<div class="v2-list-card-top"><div class="v2-list-card-title">'+escapeHtml((item.favorite?"⭐ ":"")+(item.title||"Sin título"))+'</div><div class="v2-list-card-code">'+escapeHtml(item.__code)+'</div></div><div class="v2-list-card-preview">'+escapeHtml(preview)+'</div>';
-        card.onclick=()=>{if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);specialVerseMode=null;setCurrentId(item.id);renderList();renderReader();openReader();};
-        grid.appendChild(card);
-      });
-      list.appendChild(grid);
-    };
-    makeBlock("⭐ Favoritas", items.filter(x=>x.favorite));
-    makeBlock(section==="prayers"?"📚 Todas las oraciones":section==="notes"?"📚 Todas las notas":"📚 Toda la guía", items.filter(x=>!x.favorite));
-    return;
-  }
-
-  if(!items.length){list.innerHTML='<div class="empty">No hay elementos.</div>';return}
-  items.forEach(item=>{const div=document.createElement("div");div.className="item"+(current&&item.id===current.id?" active":"");const preview=(item.content||item.text||"").trim().replace(/\n+/g," ").slice(0,70)||"Sin contenido";div.innerHTML='<div class="item-code">'+escapeHtml(item.__code)+'</div><div class="item-title-row"><div class="item-title">'+escapeHtml(item.reference||item.title||"Sin título")+'</div><div class="fav">'+(item.favorite?'⭐':'')+'</div></div><div class="item-sub">'+escapeHtml(preview)+'</div>';div.onclick=()=>{if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);specialVerseMode=null;setCurrentId(item.id);currentVerseCategory=item.category||currentVerseCategory||"fe";verseNavigationMode="verse";renderList();renderReader();openReader()};list.appendChild(div)});
-}
+function renderList(){const q=document.getElementById("search").value.trim().toLowerCase(),list=document.getElementById("list");list.innerHTML="";let items=[...getItems()].map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));items=items.filter(item=>!q || item.title.toLowerCase().includes(q) || item.content.toLowerCase().includes(q) || item.__code.toLowerCase()===q);items.sort((a,b)=>(b.favorite===true)-(a.favorite===true)||b.updatedAt-a.updatedAt);if(!items.length){list.innerHTML='<div class="empty">No hay elementos.</div>';return}const current=currentItem();items.forEach(item=>{const div=document.createElement("div");div.className="item"+(current&&item.id===current.id?" active":"");const preview=item.content.trim().replace(/\n+/g," ").slice(0,70)||"Sin contenido";div.innerHTML='<div class="item-code">'+escapeHtml(item.__code)+'</div><div class="item-title-row"><div class="item-title">'+escapeHtml(item.title||"Sin título")+'</div><div class="fav">'+(item.favorite?'⭐':'')+'</div></div><div class="item-sub">'+escapeHtml(preview)+'</div>';div.onclick=()=>{if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);specialVerseMode=null;setCurrentId(item.id);if(section==="verses"){currentVerseCategory=item.category||currentVerseCategory||"fe";verseNavigationMode="verse";}renderList();renderReader();openReader()};list.appendChild(div)})}
 
 function applyReaderFont(){
   const size=state.readerFontSize||28;
@@ -1884,41 +1645,12 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'�
 
 #editorView{padding-bottom:90px}
 
-
-/* ===== V2 REAL LISTAS VISUALES SEGURAS ===== */
-body:not(.v2-home-mode) .topbar{box-shadow:0 8px 28px rgba(0,0,0,.08);border-bottom:0}
-body:not(.v2-home-mode) .main{display:block;min-height:calc(100dvh - 70px);padding:12px;max-width:980px;margin:0 auto}
-body:not(.v2-home-mode) .sidebar{border:0;background:transparent;padding:0;max-height:none;overflow:visible}
-body:not(.v2-home-mode) .content{padding:12px 0 0}
-body:not(.v2-home-mode) .list{gap:12px}
-.v2-list-header{background:linear-gradient(135deg, rgba(138,90,43,.14), rgba(197,151,99,.07));border:1px solid var(--line);border-radius:24px;padding:18px;margin-bottom:6px}
-.v2-list-title{font-size:28px;font-weight:900;line-height:1.05;margin-bottom:6px}
-.v2-list-sub{color:var(--muted);font-size:14px;line-height:1.35}
-.v2-section-title{font-weight:900;color:var(--text);font-size:15px;letter-spacing:.02em;margin:8px 4px 2px}
-.v2-card-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-.v2-list-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:15px;box-shadow:0 12px 34px rgba(0,0,0,.06);cursor:pointer;transition:transform .12s ease, border-color .12s ease}
-.v2-list-card:active{transform:scale(.985)}
-.v2-list-card.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(138,90,43,.18),0 12px 34px rgba(0,0,0,.06)}
-.v2-list-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:7px}
-.v2-list-card-title{font-weight:850;font-size:17px;line-height:1.28}
-.v2-list-card-code{font-size:12px;color:var(--muted);font-weight:800;background:var(--soft);border-radius:999px;padding:4px 8px;white-space:nowrap}
-.v2-list-card-preview{color:var(--muted);font-size:14px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.v2-empty{background:var(--card);border:1px dashed var(--line);border-radius:20px;padding:22px;color:var(--muted);text-align:center}
-body:not(.v2-home-mode) #readerView.panel{margin-top:12px;border-radius:26px;box-shadow:0 16px 46px rgba(0,0,0,.07)}
-body:not(.v2-home-mode) #readerView .panel-head{gap:7px;justify-content:center;border-bottom:0;background:linear-gradient(180deg,var(--card),rgba(255,255,255,0));position:sticky;top:0}
-body.dark:not(.v2-home-mode) #readerView .panel-head{background:linear-gradient(180deg,var(--card),rgba(0,0,0,0))}
-body:not(.v2-home-mode) #readerView .reader-title{font-size:30px;line-height:1.12;padding-top:18px;text-align:center}
-body:not(.v2-home-mode) #readerView .reader-code{text-align:center}
-body:not(.v2-home-mode) #readerView .reader-text{max-width:760px;margin:0 auto;font-size:var(--reader-font-size,28px);line-height:2.05}
-@media(max-width:860px){
- body:not(.v2-home-mode) .main{padding:10px}
- body:not(.v2-home-mode) .sidebar{display:block;border:0;max-height:none}
- body:not(.v2-home-mode) .content{padding-top:10px}
- .v2-list-title{font-size:25px}
- .v2-card-list{grid-template-columns:1fr}
- body:not(.v2-home-mode) #readerView.panel{border:1px solid var(--line);border-radius:24px;min-height:auto}
- body:not(.v2-home-mode) .panel-head .btn{padding:9px 10px;font-size:13px}
-}
+#welcomeOverlay{position:fixed;inset:0;background:linear-gradient(180deg,#071a3d,#0d3f9b);z-index:9999;display:flex;align-items:center;justify-content:center;color:white}
+#welcomeCard{text-align:center;padding:24px}
+#welcomeCard img{width:140px;height:140px;border-radius:28px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+#welcomeCard h1{margin:18px 0 8px;font-size:34px}
+#welcomeCard p{opacity:.9;max-width:320px}
+#welcomeBtn{margin-top:18px;background:white;color:#0d3f9b;border:none;border-radius:16px;padding:12px 24px;font-size:18px;font-weight:bold}
 
 </style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
 async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
@@ -2372,43 +2104,6 @@ renderReader = function(){
 
 setInterval(updateVersePositionCounter, 1000);
 
-
-
-/* ===== ORACIONES V2 HOME / FLUJO NUEVO VISUAL ===== */
-function showV2Home(){
-  document.body.classList.add('v2-home-mode');
-  document.body.classList.remove('reading-mobile','fullscreen-reading','hide-reading-ui','titles-only','backup-only');
-  try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){}
-}
-function showV2App(){
-  document.body.classList.remove('v2-home-mode');
-}
-function openV2Section(s){
-  showV2App();
-  switchSection(s);
-  openList();
-}
-function openV2Favorites(){
-  showV2App();
-  if(section==='verses') openVerseFavorites();
-  else openFavoritesView();
-}
-function openV2Tools(){
-  showV2App();
-  openBackup();
-}
-try{
-  const oldSwitchSectionV2 = switchSection;
-  switchSection = function(s){
-    showV2App();
-    oldSwitchSectionV2(s);
-  };
-}catch(e){}
-try{
-  window.addEventListener('DOMContentLoaded', function(){
-    showV2Home();
-  });
-}catch(e){}
 </script>
 </body>
 </html>
