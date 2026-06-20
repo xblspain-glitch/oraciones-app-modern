@@ -1,8 +1,8 @@
 {
   "name": "Oraciones V2",
   "short_name": "Oraciones V2",
-  "id": "/oraciones-app-v2/",
-  "start_url": "/oraciones-app/?v=oraciones-v2-bienvenida-final&source=pwa",
+  "id": "/oraciones-app/",
+  "start_url": "/oraciones-app/?v=ov2intro",
   "scope": "/oraciones-app/",
   "display": "standalone",
   "orientation": "portrait",
