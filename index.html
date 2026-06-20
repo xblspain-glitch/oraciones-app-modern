@@ -5,11 +5,11 @@
 <!-- V7.8 BOTON REF EN BARRA -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V2</title>
+<title>Oraciones Modern</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Oraciones V2">
+<meta name="apple-mobile-web-app-title" content="Oraciones Modern">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -133,14 +133,6 @@ body.dark .segment button{color:var(--text)}body.dark .segment button.active{col
 }
 .reader-daily-date.hidden{display:none}
 
-
-/* Ajuste Oraciones V2: lector normal y botones oscuros */
-body.dark .topbar{background:rgba(17,17,17,.98)!important;}
-body.dark .btn.soft{background:#1b1b1b!important;color:#f2eee7!important;border:1px solid #2f2f2f!important;box-shadow:none!important;}
-body.dark .btn.primary{background:#9b612c!important;color:#fff!important;}
-body.dark .search, body.dark .panel, body.dark .item{background:#151515!important;border-color:#2b2b2b!important;}
-body.reading-mobile.hide-reading-ui .topbar{display:none!important;}
-body.reading-mobile.hide-reading-ui .content{padding-top:0!important;}
 </style>
 
 <style>
@@ -363,17 +355,6 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 .btn.soft{
   background:rgba(239,232,218,.92)!important;
 }
-body.dark .btn.soft{
-  background:rgba(36,33,29,.94)!important;
-  color:var(--text)!important;
-  border:1px solid rgba(255,255,255,.08)!important;
-}
-body.dark .segment{
-  background:rgba(36,33,29,.94)!important;
-}
-body.dark .segment button.active{
-  background:rgba(0,0,0,.35)!important;
-}
 
 .btn.primary{
   border-radius:999px!important;
@@ -409,12 +390,6 @@ body.dark .segment button.active{
   padding-top:10px!important;
 }
 
-body.hide-reading-ui .topbar{
-  opacity:0!important;
-  pointer-events:none!important;
-  transform:translateY(-10px);
-  transition:opacity .18s ease, transform .18s ease;
-}
 @media (max-width: 640px){
   .topbar{
     padding:12px 14px 10px!important;
@@ -496,33 +471,33 @@ body.hide-reading-ui .topbar{
 
 <div class="topbar">
   <div class="topbar-row">
-    <button class="btn soft" type="button" data-main-toolbar="1" onclick="openModernHome()">🏠 Inicio</button>
-    <div class="segment" data-main-toolbar="1">
+    <button class="btn soft" type="button" onclick="openModernHome()">🏠 Inicio</button>
+    <div class="segment">
       <button id="tabPrayers" class="active" type="button" onclick="switchSection('prayers')">✝️ Oraciones</button>
       <button id="tabNotes" type="button" onclick="switchSection('notes')">📝 Notas</button>
       <button id="tabGuides" type="button" onclick="switchSection('guides')">📜 Guía</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
     </div>
-    <button class="btn primary" type="button" data-main-toolbar="1" onclick="newItem()">➕ Nueva</button>
-    <button class="btn soft" type="button" data-main-toolbar="1" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button class="btn soft" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="openTitlesView()">📋 Títulos</button>
-    <button class="btn soft" type="button" data-main-toolbar="1" onclick="openFavoritesView()">⭐ Favoritos</button>
-    <button class="btn soft" type="button" data-main-toolbar="1" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
-    <button class="btn soft" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="openEditor()">✏️ Editar</button>
-    <button class="btn soft" type="button" data-main-toolbar="1" onclick="toggleFavorite()">🌟 Favorito</button>
-    <button class="btn soft" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="changeReaderFont(-2)">A-</button>
-    <button class="btn soft" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="changeReaderFont(2)">A+</button>
-    <button class="btn soft" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="copyCurrent()">📋 Copiar</button>
-    <button class="btn soft" type="button" data-main-toolbar="1" onclick="shareCurrent()">🔗 Compartir</button>
-    <button class="btn soft icon-only" type="button" data-main-toolbar="1" data-reader-toolbar="1" onclick="toggleTheme()" aria-label="Modo oscuro">🌙</button>
-    <button class="btn soft" type="button" data-reader-toolbar="1" onclick="openList()">← Volver</button>
+    <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
+    <button class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="openTitlesView()">📋 Títulos</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="openFavoritesView()">⭐ Favoritos</button>
+    <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="openEditor()">✏️ Editar</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="toggleFavorite()">🌟 Favorito</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="changeReaderFont(-2)">A-</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="changeReaderFont(2)">A+</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="copyCurrent()">📋 Copiar</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="shareCurrent()">🔗 Compartir</button>
+    <button class="btn soft icon-only" type="button" onclick="toggleTheme()" aria-label="Modo oscuro">🌙</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="smartBack()">← Volver</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openDailyVerse()">🌅 Versículo del día</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openRandomVerse()">🎲 Aleatorio</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openVerseCategories()">🗂️ Categorías</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openBackup()">☁️ Backup</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openTrash()">🗑️ Papelera</button>
-    <input id="search" class="search" data-main-toolbar="1" placeholder="Buscar..." oninput="renderList()">
-    <div id="counterInfo" class="counter" data-main-toolbar="1"></div>
+    <input id="search" class="search" placeholder="Buscar..." oninput="renderList()">
+    <div id="counterInfo" class="counter"></div>
   </div>
 </div>
 
@@ -808,13 +783,6 @@ function toggleTheme(){document.body.classList.toggle("dark");localStorage.setIt
 function isNormalSection(){return section==="prayers"||section==="notes"||section==="guides"}
 function updateSectionButtons(){
   const normal=isNormalSection();
-  const reader=document.getElementById("readerView");
-  const readerVisible=reader && !reader.classList.contains("hidden") && !!currentItem();
-  const normalReader=normal && readerVisible;
-
-  document.querySelectorAll("[data-main-toolbar]").forEach(el=>el.classList.toggle("hidden", !normal || normalReader));
-  document.querySelectorAll("[data-reader-toolbar]").forEach(el=>el.classList.toggle("hidden", !normalReader));
-  document.querySelectorAll("[data-main-toolbar][data-reader-toolbar]").forEach(el=>el.classList.toggle("hidden", !normal));
   document.querySelectorAll("[data-main-normal]").forEach(el=>el.classList.toggle("hidden",!normal));
   document.querySelectorAll("[data-main-verses]").forEach(el=>el.classList.toggle("hidden",normal));
   document.querySelectorAll("[data-reader-normal]").forEach(el=>el.classList.toggle("hidden",!normal));
@@ -1033,14 +1001,15 @@ function smartBack(){
 }
 
 function openReader(){
-  clearNavModes();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile");updateSectionButtons()}
+  updateSectionButtons();
+  clearNavModes();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
 function openList(){
   clearNavModes();
   renderList();
-document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");updateSectionButtons();document.getElementById("search").focus()}
-function enterFullscreenReading(){document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");updateSectionButtons();window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
+document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");document.getElementById("search").focus()}
+function enterFullscreenReading(){updateSectionButtons();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
-function toggleReadingUI(){const r=document.getElementById("readerView");if(!r || r.classList.contains("hidden")) return;document.body.classList.toggle("hide-reading-ui")}
+function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
 function openEditor(){
   clearNavModes();
   const item=currentItem();if(!item) return;
@@ -1728,7 +1697,6 @@ function clearNavModes(){
 }
 
 function openTitlesView(){
-  document.body.classList.remove("hide-reading-ui");
   clearNavModes();
   document.body.classList.add("titles-only");
   if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);
@@ -1739,7 +1707,6 @@ function openTitlesView(){
   document.getElementById("trashView").classList.add("hidden");
   document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
   renderTitles();
-  updateSectionButtons();
 }
 
 function openTrash(){
