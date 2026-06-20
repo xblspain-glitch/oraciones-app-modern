@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- V8.0 CATEGORIAS DINAMICAS -->
+<!-- V7.8 BOTON REF EN BARRA -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Oraciones y Notas</title>
+<meta name="theme-color" content="#111111">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Oraciones">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#f8f6f1;--card:#ffffff;--text:#181818;--muted:#6b665d;--line:#e5dece;--primary:#8a5a2b;--soft:#efe7da;--danger:#b84a3c;--accent:#c59763}
+body.dark{--bg:#111111;--card:#1a1a1a;--text:#f2eee7;--muted:#b5ab9c;--line:#2f2a24;--primary:#c89763;--soft:#24211d;--danger:#d56d61;--accent:#ffd27d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,textarea{font-family:inherit}
+.topbar{position:sticky;top:0;z-index:40;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:rgba(248,246,241,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body.dark .topbar{background:rgba(17,17,17,.96)}
+.topbar-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{border:none;border-radius:14px;padding:10px 12px;font-size:14px;cursor:pointer}
+.btn.primary{background:var(--primary);color:#fff}
+.btn.soft{background:var(--soft);color:var(--text)}
+.btn.danger{background:var(--danger);color:#fff}
+.segment{display:flex;gap:6px;background:var(--soft);padding:4px;border-radius:14px}
+.segment button{border:none;background:transparent;padding:8px 12px;border-radius:10px;cursor:pointer}
+.segment button.active{background:var(--card);font-weight:bold}
+.search{flex:1;min-width:180px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:14px;padding:10px 12px;font-size:15px}
+.counter{font-size:13px;color:var(--muted);padding:0 2px}
+.main{display:grid;grid-template-columns:300px 1fr;min-height:calc(100dvh - 68px)}
+.sidebar{border-right:1px solid var(--line);overflow:auto;background:var(--bg);padding:10px}
+.list{display:flex;flex-direction:column;gap:8px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;cursor:pointer}
+.item.active{outline:2px solid var(--primary)}
+.item-title-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.item-title{font-weight:bold;margin-bottom:4px}
+.item-code{font-size:12px;color:var(--muted);font-weight:bold;margin-bottom:6px}
+.item-sub{color:var(--muted);font-size:13px}
+.fav{color:var(--accent);font-size:18px}
+.content{min-width:0;overflow:auto;padding:12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;min-height:calc(100dvh - 92px);display:flex;flex-direction:column;overflow:hidden}
+.panel-head{position:sticky;top:0;z-index:3;display:flex;gap:8px;flex-wrap:wrap;padding:10px;border-bottom:1px solid var(--line);background:var(--card)}
+.reader-code{font-size:13px;color:var(--muted);font-weight:bold;padding:16px 18px 0}
+.reader-title{font-size:24px;font-weight:bold;padding:6px 18px 0}
+.reader-text{white-space:pre-wrap;padding:18px 18px 40px;font-size:24px;line-height:2.05}
+.title-input{width:100%;border:none;border-bottom:1px solid var(--line);outline:none;background:var(--card);color:var(--text);font-size:22px;font-weight:bold;padding:14px 16px}
+.text-input,.backup-text{flex:1;width:100%;border:none;outline:none;resize:none;background:var(--card);color:var(--text);font-size:18px;line-height:1.7;padding:18px;min-height:50dvh}
+.hidden{display:none!important}
+.empty{color:var(--muted);padding:18px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:95}
+.toast.show{opacity:1}
+.title-list{padding:12px;display:flex;flex-direction:column;gap:8px}.title-row{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;gap:10px;align-items:center;cursor:pointer}.title-row.active{outline:2px solid var(--primary)}.title-code{min-width:42px;color:var(--muted);font-weight:bold;font-size:13px}.title-name{font-weight:bold;line-height:1.35}.trash-list{padding:12px;display:flex;flex-direction:column;gap:8px}
+.trash-item{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px}
+.trash-title{font-weight:bold;margin-bottom:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.small-note{color:var(--muted);font-size:13px;padding:0 18px 18px}
+.status{color:var(--muted);font-size:13px;padding:10px 12px;margin-left:auto}
+.install-banner{position:fixed;left:10px;right:10px;bottom:10px;z-index:100;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.install-title{font-weight:bold;margin-bottom:6px}
+.install-sub{color:var(--muted);font-size:13px;margin-bottom:10px}
+.file-row{display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 12px}
+.file-input{display:none}
+.fullscreen-reading .topbar,.fullscreen-reading .sidebar{display:none!important}
+.fullscreen-reading .main{grid-template-columns:1fr;min-height:100dvh}
+.fullscreen-reading .content{padding:0}
+.fullscreen-reading .panel{border:none;border-radius:0;min-height:100dvh}
+.fullscreen-reading .panel-head{position:sticky;top:0;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;border-radius:0}
+.fullscreen-reading .reader-code{font-size:13px;padding:16px 16px 0}
+.fullscreen-reading .reader-title{font-size:22px;padding:6px 16px 0}
+.fullscreen-reading .reader-text{font-size:25px;line-height:2.1;padding:16px 16px 48px;min-height:100dvh}
+.fullscreen-reading.hide-reading-ui .panel-head{opacity:0;pointer-events:none;transform:translateY(-12px)}
+@media (display-mode: standalone){
+  body .topbar{padding-top:calc(14px + env(safe-area-inset-top))}
+  body .panel{border-radius:0;border:none}
+  body .content{padding:0}
+}
+@media (max-width:860px){
+  .main{grid-template-columns:1fr}
+  .sidebar{display:block;border-right:none;border-bottom:1px solid var(--line);max-height:34dvh}
+  body.reading-mobile .sidebar{display:none}
+  .content{padding:0}
+  .panel{border:none;border-radius:0;min-height:calc(100dvh - 62px)}
+  .panel-head{padding:8px;border-radius:0}
+  .reader-code{font-size:13px;padding:14px 16px 0}
+  .reader-title{font-size:22px;padding:6px 16px 0}
+  .reader-text{font-size:23px;line-height:2;padding:16px 16px 34px}
+  .text-input,.backup-text{font-size:18px;line-height:1.7;min-height:56dvh}
+  .search{order:2;width:100%;flex-basis:100%}
+  .status{width:100%;margin-left:0;padding-top:0}
+}
+body.dark .segment button{color:var(--text)}body.dark .segment button.active{color:var(--text)}
+.category-grid{padding:12px;display:flex;flex-direction:column;gap:10px}
+.category-card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;font-weight:bold}
+.category-count{color:var(--muted);font-size:13px;margin-top:4px}
+
+#readerText{font-size:var(--reader-font-size, 28px) !important}
+
+#editorView .panel-head{
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+}
+#editorView textarea{
+  min-height:60vh;
+}
+
+#editorView{padding-bottom:90px}
+
+.vdaily-note{
+  display:inline-block;
+  margin: 8px 0 4px 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(166, 107, 45, 0.10);
+  color: #7b552f;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+
+.reader-daily-date{
+  padding: 0 18px 4px;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 15px;
+}
+.reader-daily-date.hidden{display:none}
+
+</style>
+
+<style>
+body.titles-only .sidebar{display:none!important;}
+body.titles-only .content{width:100%!important;max-width:100%!important;}
+</style>
+
+
+<style>
+body.backup-only .sidebar{display:none!important;}
+body.backup-only .content{width:100%!important;max-width:100%!important;}
+</style>
+
+
+
+<style>
+.more-dropdown{
+  position:absolute;
+  z-index:99999;
+  background:var(--card,#fff);
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:14px;
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+  padding:6px;
+  width:max-content;
+  min-width:190px;
+  max-width:240px;
+}
+.more-dropdown button{
+  display:block;
+  width:100%;
+  border:0;
+  background:transparent;
+  text-align:left;
+  font:inherit;
+  font-size:18px;
+  padding:10px 12px;
+  border-radius:10px;
+  color:var(--text,#222);
+  white-space:nowrap;
+}
+.more-dropdown button:active,
+.more-dropdown button:hover{
+  background:var(--soft,#f3eee4);
+}
+</style>
+
+
+<style>
+.send-stats-panel{
+  position:fixed;
+  z-index:100000;
+  left:12px;
+  right:12px;
+  top:92px;
+  max-width:520px;
+  margin:0 auto;
+  background:var(--panel,#fff);
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:18px;
+  box-shadow:0 10px 28px rgba(0,0,0,.20);
+  padding:12px;
+}
+.send-stats-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  font-weight:800;
+  font-size:18px;
+  margin-bottom:8px;
+}
+.send-stats-close{
+  border:0;
+  border-radius:999px;
+  padding:4px 10px;
+  background:var(--soft,#f3eee4);
+  font-size:18px;
+}
+.send-stats-summary{
+  opacity:.75;
+  font-size:14px;
+  margin:0 0 8px 0;
+}
+.send-stats-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:8px 6px;
+  border-top:1px solid rgba(0,0,0,.06);
+}
+.send-stats-cat{
+  font-weight:650;
+}
+.send-stats-counts{
+  opacity:.78;
+  white-space:nowrap;
+  font-size:14px;
+}
+</style>
+
+</head>
+<body>
+<div id="installBanner" class="install-banner hidden">
+  <div class="install-title">Instalar app</div>
+  <div id="installHelp" class="install-sub">Puedes instalarla para abrirla como app real desde tu móvil.</div>
+  <div class="row">
+    <button class="btn primary" id="installBtn" type="button">Instalar</button>
+    <button class="btn soft" type="button" onclick="dismissInstall()">Ahora no</button>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="topbar-row">
+    <div class="segment">
+      <button id="tabPrayers" class="active" type="button" onclick="switchSection('prayers')">✝️ Oraciones</button>
+      <button id="tabNotes" type="button" onclick="switchSection('notes')">📝 Notas</button>
+      <button id="tabGuides" type="button" onclick="switchSection('guides')">📜 Guía</button>
+      <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
+    </div>
+    <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
+    <button class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
+    <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
+    <button class="btn soft" type="button" onclick="openRandomVerse()">🎲 Aleatorio</button>
+    <button class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
+        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
+    <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+    <button class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
+    <button class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
+    <button class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
+    <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
+    <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
+    <input id="search" class="search" placeholder="Buscar..." oninput="renderList()">
+    <div id="counterInfo" class="counter"></div>
+  </div>
+</div>
+
+<div class="main">
+  <aside class="sidebar"><div id="list" class="list"></div></aside>
+  <section class="content">
+    <div id="readerView" class="panel">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
+        <button class="btn soft" type="button" onclick="openList()">☰ Lista</button>
+        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
+        <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+        <button class="btn soft" type="button" onclick="changeReaderFont(-2)">A-</button>
+        <button class="btn soft" type="button" onclick="changeReaderFont(2)">A+</button>
+        <button class="btn soft" type="button" onclick="copyCurrentReference()">📋 Ref</button>
+        <button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button><button class="btn soft" type="button" onclick="moveVerseToCategory()">📂 Mover</button>
+        <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
+        
+        
+        
+        <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
+        <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
+        <button class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
+        <button class="btn soft" type="button" onclick="exportCurrentHTML()">🌐 Exportar lectura</button>
+      </div>
+      <div id="readerCode" class="reader-code"></div>
+      <div id="readerDailyDate" class="reader-daily-date hidden"></div>
+      <div id="readerTitle" class="reader-title"></div>
+      <div id="readerText" class="reader-text" onclick="toggleReadingUI()"></div>
+    </div>
+
+    <div id="editorView" class="panel hidden">
+      <div class="panel-head">
+        <button class="btn primary" type="button" onclick="saveCurrent(true,false)">💾 Guardar</button>
+        <button class="btn primary" type="button" onclick="saveCurrent(false,false)">✅ Guardar y volver</button>
+        <button class="btn soft" type="button" onclick="leaveEditor()">← Volver</button>
+        <div id="saveStatus" class="status">Sin cambios</div>
+      </div>
+      <input id="editTitle" class="title-input" placeholder="Título">
+      
+      <select id="editCategory" class="search hidden" style="width:100%;border-radius:0;border:none;border-bottom:1px solid var(--line);font-size:18px">
+        <option value="salvacion">❤️ Salvación</option>
+        <option value="fe">🙏🏾 Fe</option>
+        <option value="esperanza">🕊️ Esperanza</option>
+        <option value="fortaleza">💪🏾 Fortaleza</option>
+        <option value="amor">❤️ Amor</option>
+        <option value="descanso">🌿 Descanso</option>
+        <option value="sabiduria">📚 Sabiduría</option>
+        <option value="alabanza">🙌🏾 Alabanza</option>
+        <option value="santidad">⚖️ Santidad</option>
+        <option value="reino">👑 Reino de Dios</option>
+        <option value="espiritu">🔥 Espíritu Santo</option>
+        <option value="segunda_venida">⏳ Segunda Venida</option>
+        <option value="juicio">⚖️ Juicio</option>
+        <option value="matrimonio">🤝 Matrimonio</option>
+      </select>
+
+      <textarea id="editText" class="text-input" placeholder="Escribe aquí..."></textarea>
+    </div>
+
+    <div id="backupView" class="panel hidden">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
+        <button class="btn primary" type="button" onclick="downloadBackupJson()">⬇ Descargar JSON</button>
+        <button class="btn soft" type="button" onclick="shareBackupJson()">📤 Compartir JSON</button>
+        <button class="btn soft" type="button" onclick="copyBackupJson()">📋 Copiar JSON</button>
+        <button class="btn soft" type="button" onclick="importBackupFromText()">⬆ Importar texto</button>
+        <button class="btn soft" type="button" onclick="restoreAutoBackup()">♻️ Recuperar automático</button>
+        <button class="btn soft" type="button" onclick="exportVersesOnly()">📤 Exportar versículos</button>
+        <button class="btn soft" type="button" onclick="importVersesOnly()">📥 Importar versículos</button>
+        <button class="btn soft" type="button" onclick="exportAllZip()">📦 Exportar todo ZIP</button>
+      </div>
+      <div class="file-row">
+        <button class="btn soft" type="button" onclick="openBackupFilePicker()">📥 Importar backup JSON</button>
+        <button class="btn soft" type="button" onclick="openVersesFilePicker()">❤️ Importar archivo de versículos</button>
+        <input id="jsonFileInput" class="file-input" type="file" accept=".json,application/json">
+        <input id="versesFileInput" class="file-input" type="file" accept=".json,application/json">
+        <div id="fileNameInfo" class="small-note" style="padding:10px 0 0 0;">También puedes pegar el JSON abajo e importar desde texto.</div>
+      </div>
+      <textarea id="backupText" class="backup-text" placeholder="Aquí aparecerá tu copia de seguridad. También puedes pegar aquí una copia para importar."></textarea>
+      <div class="small-note">El backup incluye oraciones, notas, las dos papeleras y además se guarda una copia automática local en cada cambio.</div>
+    </div>
+
+
+
+    <div id="verseCategoriesView" class="panel hidden">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
+        <button class="btn soft" type="button" onclick="openVerseFavorites()">⭐ Favoritos</button><button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Hoy</button><button class="btn soft" type="button" onclick="openRandomVerse()">🎲 Aleatorio</button><button class="btn soft" type="button" onclick="createVerseCategory()">➕ Categoría</button><button class="btn soft" type="button" onclick="renameVerseCategory()">✏️ Renombrar</button><button class="btn soft" type="button" onclick="deleteVerseCategory()">🗑️ Eliminar</button>
+      </div>
+      <div id="verseCategoriesList" class="category-grid"></div>
+    </div>
+
+    <div id="titlesView" class="panel hidden">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
+        <button class="btn soft" type="button" onclick="openList()">☰ Lista completa</button>
+      </div>
+      <div id="titlesList" class="title-list"></div>
+    </div>
+
+    <div id="trashView" class="panel hidden">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
+        <button class="btn danger" type="button" onclick="emptyTrash()">Vaciar papelera</button>
+      </div>
+      <div id="trashList" class="trash-list"></div>
+    </div>
+  </section>
+</div>
+
+<div id="toast" class="toast">Guardado</div>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js">
+function decorateDailyVerseNote(){
+  try{
+    const main = document.querySelector("#content") || document.querySelector("main") || document.body;
+    if(!main || document.querySelector(".vdaily-note")) return;
+    const txt = main.innerText || "";
+    if(txt.includes("Versículo del día")){
+      const h = Array.from(main.querySelectorAll("h1,h2,h3,.verse-title,.reading-title,strong,b"))
+        .find(el => (el.innerText || "").includes("Versículo del día"));
+      if(h){
+        const note = document.createElement("div");
+        note.className = "vdaily-note";
+        note.textContent = "📅 Generado para hoy";
+        h.insertAdjacentElement("afterend", note);
+      }
+    }
+  }catch(e){}
+}
+setInterval(decorateDailyVerseNote, 1200);
+
+
+function openVerseCategories(){
+  categoryListActive=true; clearNavModes(); openVerseCategoriesView(); }
+
+</script>
+<script>
+let categoryListActive=false;
+
+let sentListActive=false;
+
+const STORAGE_KEY="oraciones_full_numeracion_v1";
+const AUTO_BACKUP_KEY="oraciones_full_numeracion_auto_backup_v1";
+const THEME_KEY="oraciones_full_numeracion_theme_v1";
+const SIZE_KEY="oraciones_full_numeracion_reader_size_v1";
+const INSTALL_DISMISSED_KEY="oraciones_install_dismiss_v92f";
+let deferredPrompt=null;
+let readerSize=parseInt(localStorage.getItem(SIZE_KEY)||"24",10);
+let returnToSentList=false;
+let section="prayers";
+let state={"section":"prayers","currentPrayerId":null,"currentNoteId":null,"prayers":[],"notes":[],"trashPrayers":[],"trashNotes":[],"guides":[],"trashGuides":[],"currentGuideId":null,"verses":[],"trashVerses":[],"currentVerseId":null};
+let isDirty=false;
+let autosaveTimer=null;
+const seedPrayer="\ud83c\udf05 \u271d\ufe0f Oraci\u00f3n diaria completa\n\nSe\u00f1or Dios Todopoderoso,\ndamos gracias por este nuevo d\u00eda que me concede.\n\nDamos gracias por la vida que me ha dado,\npor el regalo de la vida, desde la creaci\u00f3n y el nacimiento,\nhasta el regalo de la vida eterna.\n\nPor ser el centro de mi vida,\npor llevar las riendas de mi vida\ny darle sentido.\n";
+const seedNote="Aqu\u00ed puedes guardar ideas, reflexiones, vers\u00edculos sueltos o recordatorios.";
+function isStandalone(){return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone===true}
+function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>el.classList.remove("show"),1300)}
+function setSaveStatus(msg){const el=document.getElementById("saveStatus");if(el) el.textContent=msg}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+function buildInitialState(){const prayerId=uid(),noteId=uid();return {"section":"prayers","currentPrayerId":prayerId,"currentNoteId":noteId,"prayers":[{"id":prayerId,"title":"🌅 ✝️ Oración diaria completa","content":seedPrayer,"updatedAt":Date.now(),"favorite":true}],"notes":[{"id":noteId,"title":"📝 Mi primera nota","content":seedNote,"updatedAt":Date.now(),"favorite":false}],"trashPrayers":[],"trashNotes":[],"guides":[],"trashGuides":[],"currentGuideId":null,"verses":[],"trashVerses":[],"currentVerseId":null}}
+
+
+const VERSE_CATEGORIES=[
+  {id:"salvacion",label:"❤️ Salvación"},
+  {id:"fe",label:"🙏🏾 Fe"},
+  {id:"esperanza",label:"🕊️ Esperanza"},
+  {id:"fortaleza",label:"💪🏾 Fortaleza"},
+  {id:"amor",label:"❤️ Amor"},
+  {id:"descanso",label:"🌿 Descanso"},
+  {id:"sabiduria",label:"📚 Sabiduría"},
+  {id:"alabanza",label:"🙌🏾 Alabanza"},
+  {id:"santidad",label:"⚖️ Santidad"},
+  {id:"reino",label:"👑 Reino de Dios"},
+  {id:"espiritu",label:"🔥 Espíritu Santo"},
+  {id:"segunda_venida",label:"⏳ Segunda Venida"},
+  {id:"juicio",label:"⚖️ Juicio"},
+  {id:"matrimonio",label:"🤝 Matrimonio"}
+];
+let currentVerseCategory="fe";
+let verseNavigationMode="categories";
+let specialVerseMode=null;
+function verseCategoryLabel(id){
+  if(!id) return "📖 Sin categoría";
+  const dynamicCats = (state && Array.isArray(state.verseCategories)) ? state.verseCategories : [];
+  const c = dynamicCats.find(x=>x.id===id) || VERSE_CATEGORIES.find(x=>x.id===id);
+  return c ? c.label : "📖 Sin categoría";
+}
+function normalizeVerses(){
+  if(!Array.isArray(state.verses)) state.verses=[];
+  if(!Array.isArray(state.trashVerses)) state.trashVerses=[];
+  state.verses=state.verses.map(v=>({
+    id:v.id||uid(),
+    reference:v.reference||v.title||"Nueva referencia",
+    title:v.title||v.reference||"Nueva referencia",
+    category:v.category||"fe",
+    content:v.content||v.text||"",
+    text:v.text||v.content||"",
+    updatedAt:v.updatedAt||Date.now(),
+    favorite:!!v.favorite,
+    shared:!!v.shared,
+    lastCardSentAt:v.lastCardSentAt||0
+  }));
+  state.trashVerses=state.trashVerses.map(v=>({
+    ...v,
+    reference:v.reference||v.title||"Nueva referencia",
+    title:v.title||v.reference||"Nueva referencia",
+    category:v.category||"fe",
+    content:v.content||v.text||"",
+    text:v.text||v.content||"",
+    favorite:!!v.favorite,
+    shared:!!v.shared,
+    lastCardSentAt:v.lastCardSentAt||0
+  }));
+  if(!state.currentVerseId && state.verses.length) state.currentVerseId=state.verses[0].id;
+}
+
+function normalizeGuides(){
+  if(!Array.isArray(state.guides)) state.guides=[];
+  if(!Array.isArray(state.trashGuides)) state.trashGuides=[];
+  if(!state.currentGuideId && state.guides.length) state.currentGuideId=state.guides[0].id;
+  normalizeVerses();
+}
+
+
+function cleanTextBreaks(t){
+  return String(t || "").replace(/\\n/g, "\n");
+}
+
+function cleanAllVerseBreaks(){
+  try{
+    if(!state || !Array.isArray(state.verses)) return;
+    state.verses.forEach(v=>{
+      ["ref","reference","title","text","body","content"].forEach(k=>{
+        if(typeof v[k] === "string") v[k] = cleanTextBreaks(v[k]);
+      });
+    });
+  }catch(e){}
+}
+
+function saveState(){
+ cleanAllVerseBreaks();localStorage.setItem(STORAGE_KEY, JSON.stringify(state));const backup={"exportedAt":new Date().toISOString(),...state};localStorage.setItem(AUTO_BACKUP_KEY, JSON.stringify(backup))}
+function loadState(){const raw=localStorage.getItem(STORAGE_KEY);if(raw){try{state=JSON.parse(raw);if(!state||!Array.isArray(state.prayers)||!Array.isArray(state.notes)) throw new Error("bad")}catch(e){state=buildInitialState();saveState()}}else{state=buildInitialState();saveState()}section=state.section||"prayers";normalizeGuides()}
+
+function exportVersesOnly(){
+  normalizeVerses();
+  const payload={type:"verses",exportedAt:new Date().toISOString(),verses:state.verses,trashVerses:state.trashVerses||[]};
+  const text=JSON.stringify(payload,null,2);
+  document.getElementById("backupText").value=text;
+  downloadBlob("versiculos_app.json", new Blob([text],{type:"application/json;charset=utf-8"}));
+  toast("Versículos exportados");
+}
+function applyVersesImport(parsed){
+  if(!parsed || parsed.type!=="verses" || !Array.isArray(parsed.verses)) throw new Error("bad_verses_json");
+  if(!confirm("¿Importar versículos sin tocar oraciones, notas ni guía?")) return false;
+  state.verses=parsed.verses;
+  state.trashVerses=Array.isArray(parsed.trashVerses)?parsed.trashVerses:[];
+  normalizeVerses();
+  saveState();
+  section="verses";state.section="verses";
+  syncTabs();renderList();openVerseCategories();
+  toast("Versículos importados: "+state.verses.length);
+  return true;
+}
+function importVersesOnly(){
+  const text=document.getElementById("backupText").value.trim();
+  if(!text) return alert("Pega primero un JSON de versículos o usa ❤️ Importar archivo de versículos.");
+  try{
+    applyVersesImport(JSON.parse(text));
+  }catch(e){alert("JSON de versículos no válido.")}
+}
+function importVersesFromFile(file){
+  if(!file) return alert("No se ha seleccionado ningún archivo.");
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const text=String(reader.result||"");
+      document.getElementById("backupText").value=text;
+      applyVersesImport(JSON.parse(text));
+    }catch(e){alert("El archivo no es un JSON de versículos válido.")}
+  };
+  reader.onerror=()=>alert("No se pudo leer el archivo.");
+  reader.readAsText(file,"utf-8");
+}
+function openBackupFilePicker(){
+  const input=document.getElementById("jsonFileInput");
+  if(!input) return alert("Selector de archivo no disponible.");
+  input.value="";
+  input.click();
+}
+function openVersesFilePicker(){
+  const input=document.getElementById("versesFileInput");
+  if(!input) return alert("Selector de versículos no disponible.");
+  input.value="";
+  input.click();
+}
+
+function restoreAutoBackup(){const raw=localStorage.getItem(AUTO_BACKUP_KEY);if(!raw) return alert("No hay backup automático.");if(!confirm("¿Restaurar el backup automático?")) return;try{const parsed=JSON.parse(raw);state={"section":parsed.section||"prayers","currentPrayerId":parsed.currentPrayerId||null,"currentNoteId":parsed.currentNoteId||null,"currentGuideId":parsed.currentGuideId||null,"currentVerseId":parsed.currentVerseId||null,"prayers":Array.isArray(parsed.prayers)?parsed.prayers:[],"notes":Array.isArray(parsed.notes)?parsed.notes:[],"guides":Array.isArray(parsed.guides)?parsed.guides:[],"verses":Array.isArray(parsed.verses)?parsed.verses:[],"trashPrayers":Array.isArray(parsed.trashPrayers)?parsed.trashPrayers:[],"trashNotes":Array.isArray(parsed.trashNotes)?parsed.trashNotes:[],"trashGuides":Array.isArray(parsed.trashGuides)?parsed.trashGuides:[],"trashVerses":Array.isArray(parsed.trashVerses)?parsed.trashVerses:[]};normalizeGuides();saveState();section=state.section;syncTabs();renderList();renderReader();applyReaderFont();openReader();toast("Backup automático restaurado")}catch(e){alert("No se pudo restaurar.")}}
+function applyTheme(){if(localStorage.getItem(THEME_KEY)==="dark") document.body.classList.add("dark")}
+function toggleTheme(){document.body.classList.toggle("dark");localStorage.setItem(THEME_KEY, document.body.classList.contains("dark")?"dark":"light")}
+function getDisplayCode(idx, kind){
+  return (kind==="prayers"?"O":kind==="notes"?"N":kind==="guides"?"G":"V")+(idx+1)
+}
+function getCurrentCode(){
+  const items=section==="prayers"?state.prayers:section==="notes"?state.notes:section==="guides"?state.guides:state.verses;
+  const id=section==="prayers"?state.currentPrayerId:section==="notes"?state.currentNoteId:section==="guides"?state.currentGuideId:state.currentVerseId;
+  const idx=items.findIndex(x=>x.id===id);
+  return idx>=0?getDisplayCode(idx, section):"";
+}
+function syncTabs(){
+  document.getElementById("tabPrayers").classList.toggle("active",section==="prayers");
+  document.getElementById("tabNotes").classList.toggle("active",section==="notes");
+  const guideTab=document.getElementById("tabGuides");if(guideTab)guideTab.classList.toggle("active",section==="guides");
+  const verseTab=document.getElementById("tabVerses");if(verseTab)verseTab.classList.toggle("active",section==="verses");
+  document.getElementById("search").placeholder=section==="prayers"?"Buscar oración o código (ej. O3)":section==="notes"?"Buscar nota o código (ej. N2)":section==="guides"?"Buscar guía o código (ej. G1)":"Buscar versículo, referencia o palabra";
+  document.getElementById("counterInfo").textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | ❤️ ${state.verses?state.verses.length:0}`;
+}
+function switchSection(s){
+  section=s;state.section=s;saveState();syncTabs();renderList();
+  if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
+  renderReader();openReader();
+}
+function getItems(){
+  return section==="prayers"?state.prayers:section==="notes"?state.notes:section==="guides"?state.guides:state.verses
+}
+function setItems(items){
+  if(section==="prayers") state.prayers=items;
+  else if(section==="notes") state.notes=items;
+  else if(section==="guides") state.guides=items;
+  else state.verses=items;
+}
+function getTrash(){
+  return section==="prayers"?state.trashPrayers:section==="notes"?state.trashNotes:section==="guides"?state.trashGuides:state.trashVerses
+}
+function setTrash(items){
+  if(section==="prayers") state.trashPrayers=items;
+  else if(section==="notes") state.trashNotes=items;
+  else if(section==="guides") state.trashGuides=items;
+  else state.trashVerses=items;
+}
+function currentItem(){
+  normalizeGuides();
+  const items=getItems();
+  const id=section==="prayers"?state.currentPrayerId:section==="notes"?state.currentNoteId:section==="guides"?state.currentGuideId:state.currentVerseId;
+  return items.find(x=>x.id===id)||items[0]||null;
+}
+function setCurrentId(id){
+  if(section==="prayers") state.currentPrayerId=id;
+  else if(section==="notes") state.currentNoteId=id;
+  else if(section==="guides") state.currentGuideId=id;
+  else state.currentVerseId=id;
+  saveState();
+}
+function escapeHtml(str){return String(str).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
+function slugify(str){return String(str).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^\w\s-]/g,"").trim().replace(/\s+/g,"-").toLowerCase() || "sin-titulo"}
+
+function displayItemTitle(item){
+  if(section==="verses") return (item.shared?"✓ ":"")+(item.favorite?"⭐ ":"")+(item.reference||item.title||"Sin referencia");
+  return (item.favorite?"⭐ ":"")+(item.title||"Sin título");
+}
+function displayItemSub(item){
+  if(section==="verses") return verseCategoryLabel(item.category)+" · "+((item.text||item.content||"").slice(0,70));
+  return (item.content||"").slice(0,70);
+}
+
+function renderList(){const q=document.getElementById("search").value.trim().toLowerCase(),list=document.getElementById("list");list.innerHTML="";let items=[...getItems()].map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));items=items.filter(item=>!q || item.title.toLowerCase().includes(q) || item.content.toLowerCase().includes(q) || item.__code.toLowerCase()===q);items.sort((a,b)=>(b.favorite===true)-(a.favorite===true)||b.updatedAt-a.updatedAt);if(!items.length){list.innerHTML='<div class="empty">No hay elementos.</div>';return}const current=currentItem();items.forEach(item=>{const div=document.createElement("div");div.className="item"+(current&&item.id===current.id?" active":"");const preview=item.content.trim().replace(/\n+/g," ").slice(0,70)||"Sin contenido";div.innerHTML='<div class="item-code">'+escapeHtml(item.__code)+'</div><div class="item-title-row"><div class="item-title">'+escapeHtml(item.title||"Sin título")+'</div><div class="fav">'+(item.favorite?'⭐':'')+'</div></div><div class="item-sub">'+escapeHtml(preview)+'</div>';div.onclick=()=>{if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);specialVerseMode=null;setCurrentId(item.id);if(section==="verses"){currentVerseCategory=item.category||currentVerseCategory||"fe";verseNavigationMode="verse";}renderList();renderReader();openReader()};list.appendChild(div)})}
+
+function applyReaderFont(){
+  const size=state.readerFontSize||28;
+  document.documentElement.style.setProperty("--reader-font-size", size+"px");
+  const rt=document.getElementById("readerText");
+  if(rt) rt.style.fontSize=size+"px";
+}
+function changeReaderFont(delta){
+  state.readerFontSize=Math.max(18,Math.min(42,(state.readerFontSize||28)+delta));
+  applyReaderFont();
+  saveState();
+}
+
+
+function formatDailyDateEs(){
+  try{
+    return new Date().toLocaleDateString("es-ES", {
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    });
+  }catch(e){
+    return new Date().toLocaleDateString();
+  }
+}
+
+
+
+
+function renderReader(){applyReaderFont();
+  const dailyDateEl=document.getElementById("readerDailyDate");
+  if(dailyDateEl){dailyDateEl.classList.add("hidden");dailyDateEl.textContent="";}
+  const item=currentItem();
+  if(!item){
+    document.getElementById("readerCode").textContent="";
+    document.getElementById("readerTitle").textContent=section==="verses"?"❤️ Versículos":"";
+    document.getElementById("readerText").textContent=section==="verses"?"Pulsa ❤️ Versículos para ver categorías o ➕ Nueva para añadir uno.":"";
+    return;
+  }
+  if(section==="verses"){
+    document.getElementById("readerCode").textContent=(item.shared?"✓ Compartido · ":"")+(specialVerseMode==="daily"?"🌅 Versículo del día · ":specialVerseMode==="random"?"🎲 Versículo aleatorio · ":"")+formatLastCardSentAt(item.lastCardSentAt)+" · "+verseCategoryLabel(item.category);
+    if(specialVerseMode==="daily" && dailyDateEl){
+      dailyDateEl.textContent="📅 "+formatDailyDateEs();
+      dailyDateEl.classList.remove("hidden");
+    }
+    document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.reference||item.title||"Sin referencia");
+    document.getElementById("readerText").textContent=item.text||item.content||"";
+  }else{
+    document.getElementById("readerCode").textContent=getCurrentCode();
+    document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.title||"Sin título");
+    document.getElementById("readerText").textContent=item.content;
+  }
+}
+
+
+function setReturnToSentList(){
+  try{ sessionStorage.setItem("returnToSentList","1"); }catch(e){}
+}
+function consumeReturnToSentList(){
+  try{
+    const v=sessionStorage.getItem("returnToSentList");
+    if(v==="1"){
+      sessionStorage.removeItem("returnToSentList");
+      return true;
+    }
+  }catch(e){}
+  return false;
+}
+
+function smartBack(){
+  if(typeof categoryListActive !== "undefined" && categoryListActive){
+    categoryListActive=false;
+    try{
+      section="verses";
+      state.section="verses";
+      if(typeof syncTabs==="function") syncTabs();
+      if(typeof renderList==="function") renderList();
+      if(typeof renderReader==="function") renderReader();
+      if(typeof openReader==="function") openReader();
+    }catch(e){}
+    return;
+  }
+
+  if(typeof sentListActive !== "undefined" && sentListActive){
+    sentListActive=false;
+    try{
+      section="verses";
+      state.section="verses";
+      if(typeof syncTabs==="function") syncTabs();
+      if(typeof renderList==="function") renderList();
+      if(typeof renderReader==="function") renderReader();
+      if(typeof openReader==="function") openReader();
+    }catch(e){}
+    return;
+  }
+
+  if(consumeReturnToSentList()){
+    openSentVersesList();
+    return;
+  }
+
+  if(returnToSentList){
+    returnToSentList=false;
+    openSentVersesList();
+    return;
+  }
+
+  if(section==="verses"){
+    const readerVisible=!document.getElementById("readerView").classList.contains("hidden");
+    const titlesVisible=!document.getElementById("titlesView").classList.contains("hidden");
+    const catsVisible=!document.getElementById("verseCategoriesView").classList.contains("hidden");
+
+    if(readerVisible){
+      document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+      if(currentVerseCategory){
+        verseNavigationMode="category";
+        renderVerseReferenceList(currentVerseCategory);
+        setTimeout(()=>{
+          const active=document.querySelector("#titlesList .title-row.active");
+          if(active) active.scrollIntoView({block:"center"});
+        },50);
+        return;
+      }
+      verseNavigationMode="categories";
+      openVerseCategories();
+      return;
+    }
+
+    if(titlesVisible){
+      verseNavigationMode="categories";
+      openVerseCategories();
+      return;
+    }
+
+    if(catsVisible){
+      openReader();
+      return;
+    }
+  }
+
+  exitFullscreenReading();
+}
+
+function openReader(){
+  clearNavModes();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
+function openList(){
+  clearNavModes();
+  renderList();
+document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");document.getElementById("search").focus()}
+function enterFullscreenReading(){document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
+function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
+function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
+function openEditor(){
+  clearNavModes();
+  const item=currentItem();if(!item) return;
+  const cat=document.getElementById("editCategory");
+  if(section==="verses"){
+    document.getElementById("editTitle").value=item.reference||item.title||"";
+    cat.classList.remove("hidden");
+    cat.value=item.category||"fe";
+    document.getElementById("editText").value=item.text||item.content||"";
+  }else{
+    document.getElementById("editTitle").value=item.title||"";
+    cat.classList.add("hidden");
+    document.getElementById("editText").value=item.content||"";
+  }
+  document.getElementById("editorView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+  document.getElementById("titlesView").classList.add("hidden");
+  var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
+  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+}
+function scheduleAutosave(){isDirty=true;setSaveStatus("Cambios sin guardar");if(autosaveTimer) clearTimeout(autosaveTimer);autosaveTimer=setTimeout(()=>saveCurrent(true,true),1200)}
+function saveCurrentOriginal(stay, silent){
+  const item=currentItem();if(!item)return;
+  if(section==="verses"){
+    item.reference=document.getElementById("editTitle").value.trim()||"Sin referencia";
+    item.title=item.reference;
+    item.category=(document.getElementById("editCategory").value||currentVerseCategory||"fe"); currentVerseCategory=item.category;
+    item.text=document.getElementById("editText").value;
+    item.content=item.text;
+  }else{
+    item.title=document.getElementById("editTitle").value.trim()||"Sin título";
+    item.content=document.getElementById("editText").value;
+  }
+  item.updatedAt=Date.now();
+  isDirty=false;setSaveStatus("Guardado");
+  saveState();renderList();renderReader();
+  if(!stay)openReader();
+  if(!silent)toast("Guardado")
+}
+
+function normalizeVerseDuplicateKey(s){
+  return cleanTextBreaks(String(s||""))
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/\brvr\s*1960\b/g,"")
+    .replace(/\breina\s*valera\s*1960\b/g,"")
+    .replace(/[–—]/g,"-")
+    .replace(/[.,;:()\[\]{}"“”'’]/g,"")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function extractReferenceFromPastedText(raw){
+  const lines=String(raw||"").split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  const refRe=/^((?:[1-3]\s*)?(?:san\s+)?[a-záéíóúñü]+(?:\s+[a-záéíóúñü]+){0,3})\s+\d{1,3}:\d{1,3}(?:[-–—]\d{1,3})?/i;
+  for(const line of lines){
+    const clean=line.replace(/^[^\wáéíóúñü0-9]+/i,"").trim();
+    const m=clean.match(refRe);
+    if(m) return m[0].trim();
+  }
+  return "";
+}
+
+function removePastedHeadersForDuplicate(raw){
+  let s=String(raw||"");
+  const ref=extractReferenceFromPastedText(s);
+  if(ref){
+    s=s.replace(ref," ");
+  }
+  // Quita líneas tipo "❤️ Salvación", "🌅 Versículo del día", etc.
+  s=s.split(/\n+/).filter(line=>{
+    const t=line.trim();
+    if(!t) return false;
+    if(/^(❤️|🌿|✨|🙏🏾?|🙌🏾?|💪🏾?|🔥|👑|⏳|🕊️?|📖|🌅)/.test(t) && !/\[\d+\]/.test(t)) return false;
+    if(/versículo del día/i.test(t)) return false;
+    return true;
+  }).join(" ");
+  return s;
+}
+
+function findDuplicateVerseStrong(currentId, ref, body){
+  const refCandidate = normalizeVerseDuplicateKey(ref) || normalizeVerseDuplicateKey(extractReferenceFromPastedText(body));
+  const bodyKey = normalizeVerseDuplicateKey(removePastedHeadersForDuplicate(body));
+
+  if(!Array.isArray(state.verses)) return null;
+
+  return state.verses.find(v=>{
+    if(v.id === currentId) return false;
+    const vRefKey = normalizeVerseDuplicateKey(v.reference || v.title || "");
+    const vBodyKey = normalizeVerseDuplicateKey(removePastedHeadersForDuplicate(v.text || v.content || ""));
+
+    if(refCandidate && vRefKey && refCandidate === vRefKey) return true;
+    if(bodyKey && bodyKey.length > 25 && vBodyKey && bodyKey === vBodyKey) return true;
+
+    return false;
+  }) || null;
+}
+
+function saveCurrent(stay, silent){
+  try{
+    if(section==="verses"){
+      const item=currentItem();
+      const titleEl=document.getElementById("editTitle");
+      const textEl=document.getElementById("editText");
+
+      if(item && !item.duplicateAllowed){
+        const newRef=titleEl ? (titleEl.value.trim() || "Sin referencia") : (item.reference||item.title||"");
+        const newText=textEl ? textEl.value : (item.text||item.content||"");
+        const dup=findDuplicateVerseStrong(item.id,newRef,newText);
+
+        if(dup){
+          if(silent){
+            setSaveStatus("Duplicado detectado");
+            return;
+          }
+
+          const msg =
+            "⚠️ Este versículo ya existe:\n\n" +
+            (dup.reference || dup.title || "Sin referencia") + "\n" +
+            "Categoría: " + verseCategoryLabel(dup.category) + "\n\n" +
+            "Aceptar = añadir igualmente\n" +
+            "Cancelar = borrar esta copia y abrir el existente";
+
+          if(confirm(msg)){
+            item.duplicateAllowed=true;
+          }else{
+            // En pruebas detectamos que a veces el autosave ya había creado la copia.
+            // Por eso eliminamos siempre el item actual al cancelar.
+            state.verses = state.verses.filter(v => v.id !== item.id);
+            state.currentVerseId = dup.id;
+            currentVerseCategory = dup.category || currentVerseCategory || "sin_categoria";
+            saveState();
+            renderList();
+            renderReader();
+            openReader();
+            toast("Duplicado descartado");
+            return;
+          }
+        }
+      }
+    }
+  }catch(e){
+    console.error("Detector duplicados:", e);
+  }
+
+  saveCurrentOriginal(stay, silent);
+
+  try{
+    const item=currentItem();
+    if(section==="verses" && item && !silent){
+      item.isNewVerse=false;
+      saveState();
+    }
+  }catch(e){}
+}
+
+function leaveEditor(){if(isDirty) saveCurrent(false,true);else openReader()}
+function newItem(){
+  const id=uid();
+  const title=section==="prayers"?"Nueva oración":section==="notes"?"Nueva nota":section==="guides"?"Nueva guía":"Nueva referencia";
+  const item=section==="verses"
+    ? {id,reference:title,title,category:(currentVerseCategory||"fe"),content:"",text:"",updatedAt:Date.now(),favorite:false,shared:false,isNewVerse:true}
+    : {id,title,content:"",updatedAt:Date.now(),favorite:false};
+  const items=getItems();
+  items.unshift(item);
+  setItems(items);
+  setCurrentId(id);
+  normalizeGuides();
+  saveState();
+  renderList();
+  renderReader();
+  openEditor();
+}
+function moveToTrash(){const item=currentItem();if(!item) return;const items=getItems();if(items.length===1) return alert("Debe quedar al menos un elemento.");const typeName=section==="prayers"?"oración":section==="notes"?"nota":section==="guides"?"guía":"versículo";if(!confirm('¿Mover a papelera esta '+typeName+'?\n"'+item.title+'"')) return;const trash=getTrash();trash.unshift({...item,"deletedAt":Date.now()});const filtered=items.filter(x=>x.id!==item.id);setItems(filtered);if(section==="prayers") state.currentPrayerId=filtered[0].id;else if(section==="notes") state.currentNoteId=filtered[0].id;else if(section==="guides") state.currentGuideId=filtered[0].id;else state.currentVerseId=filtered[0].id;saveState();syncTabs();renderList();renderReader();applyReaderFont();openReader();toast("Movido a papelera")}
+
+
+async function shareCurrent(){
+  const item=currentItem();if(!item)return;
+  const text=section==="verses"?buildVerseShareText(item):((item.title||"")+"\n\n"+(item.content||""));
+  try{
+    if(navigator.share){
+      await navigator.share({title:section==="verses"?(item.reference||"Versículo"):(item.title||"Compartir"), text});
+    }else{
+      await navigator.clipboard.writeText(cleanTextBreaks(text));
+    }
+    if(section==="verses"){item.shared=true;saveState();renderList();renderReader();}
+    toast(navigator.share?"Compartido":"Copiado");
+  }catch(e){}
+}
+
+function todayKey(){
+  const d=new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+function allVersesForDay(){
+  normalizeVerses();
+  return (state.verses||[]).filter(v=>(v.reference||v.title||v.text||v.content));
+}
+function pickRandomVerse(){
+  const verses=allVersesForDay();
+  if(!verses.length) return null;
+  return verses[Math.floor(Math.random()*verses.length)];
+}
+function getDailyVerse(){
+  const verses=allVersesForDay();
+  if(!verses.length) return null;
+  const key=todayKey();
+  if(!state.dailyVerse || state.dailyVerse.date!==key || !verses.find(v=>v.id===state.dailyVerse.id)){
+    const chosen=verses[Math.floor(Math.random()*verses.length)];
+    state.dailyVerse={date:key,id:chosen.id};
+    saveState();
+    return chosen;
+  }
+  return verses.find(v=>v.id===state.dailyVerse.id)||verses[0];
+}
+function openVerseSpecial(v,mode){
+  if(!v) return alert("Todavía no hay versículos guardados.");
+  section="verses";state.section="verses";
+  specialVerseMode=mode;
+  currentVerseCategory=v.category||"sin_categoria";
+  state.currentVerseId=v.id;
+  saveState();
+  syncTabs();
+  renderList();
+  renderReader();
+  applyReaderFont();
+  openReader();
+}
+function openDailyVerse(){ openVerseSpecial(getDailyVerse(),"daily"); }
+
+
+
+
+
+function startOfLocalDayMs(ts){
+  const d = ts ? new Date(ts) : new Date();
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+}
+
+function daysByCalendar(ts){
+  if(!ts) return null;
+  const today = startOfLocalDayMs(Date.now());
+  const sentDay = startOfLocalDayMs(ts);
+  return Math.round((today - sentDay) / 86400000);
+}
+
+function formatLastCardSentAt(ts){
+  const d = daysByCalendar(ts);
+  if(d === null) return "📤 Nunca enviada";
+  if(d <= 0) return "📤 Enviada hoy";
+  if(d === 1) return "📤 Enviada ayer";
+  return "📤 Enviada hace " + d + " días";
+}
+
+function formatSentListDate(ts){
+  const d = daysByCalendar(ts);
+  if(d === null) return "";
+  if(d <= 0) return "Enviada hoy";
+  if(d === 1) return "Enviada ayer";
+  return "Enviada hace " + d + " días";
+}
+
+function clearSentMark(id){
+  try{
+    const v = (state.verses||[]).find(x => x.id === id);
+    if(!v) return;
+    if(!confirm("¿Quitar este versículo de Enviados?")) return;
+    v.lastCardSentAt = 0;
+    v.shared = false;
+    saveState();
+    openSentVersesList();
+    toast("Quitado de Enviados");
+  }catch(e){
+    console.error(e);
+  }
+}
+
+
+
+function closeMoreMenu(){
+  const old=document.getElementById("moreDropdown");
+  if(old) old.remove();
+  document.removeEventListener("click", closeMoreMenuOutside, true);
+}
+function closeMoreMenuOutside(e){
+  const menu=document.getElementById("moreDropdown");
+  if(!menu) return;
+  if(menu.contains(e.target)) return;
+  const btn=e.target && e.target.closest ? e.target.closest('[data-more-button="1"]') : null;
+  if(btn) return;
+  closeMoreMenu();
+}
+
+function closeSendStatsPanel(){
+  const p=document.getElementById("sendStatsPanel");
+  if(p) p.remove();
+}
+function openNeverSentStatsMenu(){
+  try{
+    closeSendStatsPanel();
+
+    if(!state || !Array.isArray(state.verses)) return;
+
+    if(typeof ensureVerseCategories==="function") ensureVerseCategories();
+    const cats=(state.verseCategories && state.verseCategories.length)
+      ? state.verseCategories
+      : (typeof VERSE_CATEGORIES!=="undefined" ? VERSE_CATEGORIES : []);
+
+    const total=state.verses.length;
+    const sentTotal=state.verses.filter(v=>!!v.lastCardSentAt).length;
+    const pendingTotal=total-sentTotal;
+
+    const panel=document.createElement("div");
+    panel.id="sendStatsPanel";
+    panel.className="send-stats-panel";
+
+    let html =
+      '<div class="send-stats-head"><span>📤 Resumen de envíos</span><button class="send-stats-close" type="button" onclick="closeSendStatsPanel()">×</button></div>' +
+      '<div class="send-stats-summary">📥 Pendientes: '+pendingTotal+' · 📋 Enviados: '+sentTotal+' · 📚 Total: '+total+'</div>';
+
+    cats.forEach(cat=>{
+      const verses=state.verses.filter(v=>(v.category||"sin_categoria")===cat.id);
+      if(!verses.length) return;
+      const sent=verses.filter(v=>!!v.lastCardSentAt).length;
+      const pending=verses.length-sent;
+      html +=
+        '<div class="send-stats-row">' +
+          '<div class="send-stats-cat">'+escapeHtml(cat.label||cat.id)+'</div>' +
+          '<div class="send-stats-counts">📥 '+pending+' · 📋 '+sent+'</div>' +
+        '</div>';
+    });
+
+    panel.innerHTML=html;
+    document.body.appendChild(panel);
+  }catch(e){
+    console.error("openNeverSentStatsMenu", e);
+    alert("No se pudo abrir el resumen de envíos.");
+  }
+}
+
+function openMoreMenu(ev){
+  try{
+    if(ev) ev.stopPropagation();
+
+    const existing=document.getElementById("moreDropdown");
+    if(existing){ closeMoreMenu(); return; }
+
+    const btn = ev && ev.currentTarget ? ev.currentTarget : null;
+    const menu=document.createElement("div");
+    menu.id="moreDropdown";
+    menu.className="more-dropdown";
+    menu.innerHTML =
+      '<button type="button" onclick="closeMoreMenu(); openDailyVerse()">🌅 Hoy</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openRandomVerse()">🎲 Aleatorio</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📤 Nunca enviados</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📋 Enviados</button>';
+
+    document.body.appendChild(menu);
+
+    let left=12, top=120;
+    if(btn){
+      const r=btn.getBoundingClientRect();
+      left=r.left;
+      top=r.bottom+6;
+    }
+
+    const maxLeft=window.innerWidth - menu.offsetWidth - 8;
+    if(left > maxLeft) left = Math.max(8, maxLeft);
+    if(left < 8) left = 8;
+
+    menu.style.left = left + "px";
+    menu.style.top = top + "px";
+
+    setTimeout(()=>document.addEventListener("click", closeMoreMenuOutside, true),0);
+  }catch(e){
+    console.error("openMoreMenu", e);
+  }
+}
+
+function openSentVersesList(){
+  sentListActive=true;
+  try{
+    if(!state || !Array.isArray(state.verses)) return;
+
+    section = "verses";
+    state.section = "verses";
+    specialVerseMode = null;
+    if(typeof syncTabs === "function") syncTabs();
+
+    const sent = state.verses
+      .filter(v => !!v.lastCardSentAt)
+      .sort((a,b) => (b.lastCardSentAt||0) - (a.lastCardSentAt||0));
+
+    const box = document.getElementById("titlesList");
+    if(!box) return;
+
+    if(typeof clearNavModes === "function") clearNavModes();
+    document.body.classList.add("titles-only");
+
+    document.getElementById("titlesView").classList.remove("hidden");
+    document.getElementById("readerView").classList.add("hidden");
+    document.getElementById("editorView").classList.add("hidden");
+    document.getElementById("backupView").classList.add("hidden");
+    document.getElementById("trashView").classList.add("hidden");
+    var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
+
+    box.innerHTML = "";
+
+    if(!sent.length){
+      box.innerHTML = '<div class="empty">Todavía no hay versículos enviados.</div>';
+      return;
+    }
+
+    sent.forEach(v => {
+      const div = document.createElement("div");
+      div.className = "title-row";
+      const ref = escapeHtml(v.reference || v.title || "Sin referencia");
+      const cat = typeof verseCategoryLabel === "function" ? verseCategoryLabel(v.category) : "";
+      const when = formatSentListDate(v.lastCardSentAt);
+      div.innerHTML =
+        '<div class="title-name">📋 ' + ref + '</div>' +
+        '<div class="small-note">' + escapeHtml(when + (cat ? " · " + cat : "")) + '</div>' +
+        '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\'' + v.id + '\')">🗑️ Quitar de enviados</button>';
+      div.onclick = () => {
+        state.currentVerseId = v.id;
+        currentVerseCategory = v.category || currentVerseCategory || "sin_categoria";
+        specialVerseMode = null;
+        sentListActive=false;
+        setReturnToSentList();
+        if(typeof saveState === "function") saveState();
+        if(typeof renderList === "function") renderList();
+        if(typeof renderReader === "function") renderReader();
+        sentListActive=false;
+        setReturnToSentList();
+        if(typeof openReader === "function") openReader();
+      };
+      box.appendChild(div);
+    });
+  }catch(e){
+    console.error("openSentVersesList", e);
+    alert("No se pudo abrir la lista de enviados.");
+  }
+}
+
+function openNeverSentVerse(){
+  try{
+    if(!state || !Array.isArray(state.verses)) return;
+
+    const list = state.verses.filter(v => !v.lastCardSentAt);
+    if(!list.length){
+      alert("No quedan versículos nunca enviados.");
+      return;
+    }
+
+    // Prioriza uno de la categoría actual si estás leyendo una categoría.
+    const current = (typeof currentItem === "function") ? currentItem() : null;
+    const cat = (current && current.category) || currentVerseCategory || "";
+    let chosen = null;
+
+    if(cat && cat !== "favoritos"){
+      chosen = list.find(v => v.category === cat);
+    }
+    if(!chosen) chosen = list[Math.floor(Math.random() * list.length)];
+
+    state.currentVerseId = chosen.id;
+    currentVerseCategory = chosen.category || currentVerseCategory || "sin_categoria";
+    specialVerseMode = "neverSent";
+
+    if(typeof saveState === "function") saveState();
+    if(typeof renderList === "function") renderList();
+    if(typeof renderReader === "function") renderReader();
+    if(typeof openReader === "function") openReader();
+
+    if(typeof toast === "function"){
+      toast("Nunca enviados: " + list.length);
+    }
+  }catch(e){
+    console.error("openNeverSentVerse", e);
+    alert("No se pudo abrir nunca enviados.");
+  }
+}
+
+
+function openRandomVerse(){ openVerseSpecial(pickRandomVerse(),"random"); }
+function buildVerseShareText(item){
+  if(!item) return "";
+  const heading=specialVerseMode==="daily"?"🌅 Versículo del día\n\n":specialVerseMode==="random"?"🎲 Versículo aleatorio\n\n":"";
+  const cat=verseCategoryLabel(item.category);
+  return cleanTextBreaks(heading+cat+"\n\n"+(item.reference||item.title||"Versículo")+"\n\n"+(item.text||item.content||""));
+}
+
+function openVerseCategories(){
+  // Categorías pertenece siempre a Versículos.
+  // Si se pulsa desde Oraciones/Notas/Guía, primero cambiamos a Versículos
+  // para que no quede mezclado el listado lateral anterior.
+  specialVerseMode=null;
+  verseNavigationMode="categories";
+  section="verses";
+  state.section="verses";
+  currentVerseCategory=currentVerseCategory||"sin_categoria";
+  normalizeVerses();
+  saveState();
+  syncTabs();
+  renderList();
+
+  document.getElementById("verseCategoriesView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+  document.getElementById("titlesView").classList.add("hidden");
+  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  renderVerseCategories();
+}
+
+function ensureVerseCategories(){
+ if(!state.verseCategories || !state.verseCategories.length){
+   state.verseCategories=VERSE_CATEGORIES.map(v=>({id:v.id,label:v.label}));
+ }
+}
+
+function createVerseCategory(){
+ ensureVerseCategories();
+ const name=prompt("Nombre de la categoría:");
+ if(!name) return;
+ const emoji=prompt("Emoji o icono (ej: ✨ ❤️ 📖 🙏):","✨")||"✨";
+ const id="cat_"+Date.now();
+ state.verseCategories.push({id:id,label:(emoji+" "+name).trim()});
+ saveState();
+ renderVerseCategories();
+ toast("Categoría creada");
+}
+
+
+function renameVerseCategory(){
+ ensureVerseCategories();
+ const labels=state.verseCategories.map((c,i)=>(i+1)+". "+c.label).join("\n");
+ const choice=prompt("Renombrar categoría:\n\n"+labels+"\n\nNúmero:");
+ if(!choice) return;
+ const idx=parseInt(choice,10)-1;
+ if(idx<0 || idx>=state.verseCategories.length) return;
+ const nuevo=prompt("Nuevo nombre:",state.verseCategories[idx].label);
+ if(!nuevo) return;
+ state.verseCategories[idx].label=nuevo;
+ saveState(); renderVerseCategories(); toast("Categoría renombrada");
+}
+
+function deleteVerseCategory(){
+ ensureVerseCategories();
+ const labels=state.verseCategories.map((c,i)=>(i+1)+". "+c.label).join("\n");
+ const choice=prompt("Eliminar categoría:\n\n"+labels+"\n\nNúmero:");
+ if(!choice) return;
+ const idx=parseInt(choice,10)-1;
+ if(idx<0 || idx>=state.verseCategories.length) return;
+ const cat=state.verseCategories[idx];
+ if(cat.id==="sin_categoria"){ alert("📖 Sin categoría es una categoría del sistema y no puede eliminarse."); return; }
+ if(!confirm('Eliminar "'+cat.label+'"? Sus versículos pasarán a Sin categoría.')) return;
+ state.verses.forEach(v=>{ if(v.category===cat.id) v.category='sin_categoria'; });
+ state.verseCategories.splice(idx,1);
+ const exists=state.verseCategories.find(c=>c.id==='sin_categoria');
+ if(!exists) state.verseCategories.unshift({id:'sin_categoria',label:'📖 Sin categoría'});
+ saveState(); renderVerseCategories(); toast("Categoría eliminada");
+}
+
+function moveVerseToCategory(){
+ const item=currentItem();
+ if(!item || section!=="verses") return;
+ ensureVerseCategories();
+ const cats=state.verseCategories;
+ const labels=cats.map((c,i)=>(i+1)+". "+c.label).join("\n");
+ const choice=prompt("Mover a:\n\n"+labels+"\n\nEscribe el número");
+ if(!choice) return;
+ const idx=parseInt(choice,10)-1;
+ if(idx<0 || idx>=cats.length) return;
+ item.category=cats[idx].id;
+ currentVerseCategory=item.category;
+ saveState();
+ if(verseNavigationMode==="category"){
+   renderVerseReferenceList(currentVerseCategory);
+ }else{
+   renderList();
+   renderReader();
+ }
+ toast("Versículo movido");
+}
+
+function renderVerseCategories(){
+  const box=document.getElementById("verseCategoriesList");if(!box)return;
+  box.innerHTML="";
+  (state.verseCategories&&state.verseCategories.length?state.verseCategories:VERSE_CATEGORIES).forEach(cat=>{
+    const count=state.verses.filter(v=>v.category===cat.id).length;
+    const div=document.createElement("div");
+    div.className="category-card";
+    div.innerHTML='<div>'+escapeHtml(cat.label)+'</div><div class="category-count">'+count+' versículos</div>';
+    div.onclick=()=>openVerseCategory(cat.id);
+    box.appendChild(div);
+  });
+}
+function openVerseCategory(catId){
+  categoryListActive=false;
+  specialVerseMode=null;
+  verseNavigationMode="category";
+  currentVerseCategory=catId||"fe";
+  section="verses";state.section="verses";saveState();syncTabs();
+  const first=state.verses.find(v=>v.category===catId);
+  if(first) setCurrentId(first.id);
+  renderVerseReferenceList(catId);
+}
+function renderVerseReferenceList(catId){
+  const box=document.getElementById("titlesList");if(!box)return;
+  document.getElementById("titlesView").classList.remove("hidden");
+  document.getElementById("verseCategoriesView").classList.add("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+  const verses=state.verses.filter(v=>v.category===catId);
+  box.innerHTML="";
+  if(!verses.length){box.innerHTML='<div class="empty">No hay versículos en esta categoría.</div>';return;}
+  verses.forEach((v,idx)=>{
+    const div=document.createElement("div");
+    div.className="title-row"+(state.currentVerseId===v.id?" active":"");
+    div.innerHTML='<div class="title-code">V'+(idx+1)+'</div><div class="title-name">'+escapeHtml((v.shared?'✓ ':'')+(v.favorite?'⭐ ':'')+(v.reference||v.title||"Sin referencia"))+'</div>';
+    div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=v.category||currentVerseCategory||"fe";setCurrentId(v.id);renderList();renderReader();applyReaderFont();openReader();};
+    box.appendChild(div);
+  });
+}
+function openVerseFavorites(){
+  specialVerseMode=null;
+  section="verses";state.section="verses";saveState();syncTabs();
+  const box=document.getElementById("titlesList");if(!box)return;
+  document.getElementById("titlesView").classList.remove("hidden");
+  document.getElementById("verseCategoriesView").classList.add("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  const verses=state.verses.filter(v=>v.favorite);
+  box.innerHTML="";
+  if(!verses.length){box.innerHTML='<div class="empty">No hay versículos favoritos.</div>';return;}
+  verses.forEach((v,idx)=>{
+    const div=document.createElement("div");
+    div.className="title-row"+(state.currentVerseId===v.id?" active":"");
+    div.innerHTML='<div class="title-code">★</div><div class="title-name">'+escapeHtml((v.shared?'✓ ':'')+(v.reference||v.title||"Sin referencia"))+'</div>';
+    div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=catId;setCurrentId(v.id);renderList();renderReader();applyReaderFont();openReader();};
+    box.appendChild(div);
+  });
+}
+
+function renderTitles(){
+  const box=document.getElementById("titlesList");
+  if(!box) return;
+  box.innerHTML="";
+  const items=getItems().map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));
+  const current=currentItem();
+  if(!items.length){
+    box.innerHTML='<div class="empty">No hay títulos.</div>';
+    return;
+  }
+  items.forEach(item=>{
+    const div=document.createElement("div");
+    div.className="title-row"+(current&&item.id===current.id?" active":"");
+    div.innerHTML='<div class="title-code">'+escapeHtml(item.__code)+'</div><div class="title-name">'+escapeHtml(displayItemTitle(item))+'</div>';
+    div.onclick=()=>{
+      setCurrentId(item.id);
+      renderList();
+      renderReader();
+      openReader();
+    };
+    box.appendChild(div);
+  });
+}
+
+function clearNavModes(){
+  try{
+    document.body.classList.remove("titles-only");
+    document.body.classList.remove("list-only");
+    document.body.classList.remove("backup-only");
+  }catch(e){}
+}
+
+function openTitlesView(){
+  clearNavModes();
+  document.body.classList.add("titles-only");
+  if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);
+  document.getElementById("titlesView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  renderTitles();
+}
+
+function openTrash(){
+  clearNavModes();document.getElementById("trashView").classList.remove("hidden");document.getElementById("readerView").classList.add("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");renderTrash()}
+function renderTrash(){const box=document.getElementById("trashList");box.innerHTML="";const trash=getTrash();if(!trash.length){box.innerHTML='<div class="empty">La papelera está vacía.</div>';return}trash.forEach(item=>{const div=document.createElement("div");div.className="trash-item";div.innerHTML='<div class="trash-title">'+escapeHtml(item.title||"Sin título")+'</div><div class="row"><button class="btn soft" type="button" onclick="restoreFromTrash(\''+item.id+'\')">Restaurar</button><button class="btn danger" type="button" onclick="deleteForever(\''+item.id+'\')">Borrar definitivo</button></div>';box.appendChild(div)})}
+function restoreFromTrash(id){const trash=getTrash();const idx=trash.findIndex(x=>x.id===id);if(idx<0) return;const item=trash.splice(idx,1)[0];const items=getItems();items.unshift(item);setItems(items);setCurrentId(item.id);saveState();syncTabs();renderList();renderReader();renderTrash();toast("Restaurado")}
+function deleteForever(id){const trash=getTrash();const item=trash.find(x=>x.id===id);if(!item) return;if(!confirm('¿Borrar definitivamente "'+item.title+'"?')) return;setTrash(trash.filter(x=>x.id!==id));saveState();renderTrash();toast("Borrado definitivo")}
+function emptyTrash(){const trash=getTrash();if(!trash.length) return alert("La papelera ya está vacía.");if(!confirm("¿Vaciar toda la papelera? Esta acción no se puede deshacer.")) return;setTrash([]);saveState();renderTrash();toast("Papelera vaciada")}
+
+async function copyCurrentReference(){
+  const item=currentItem();
+  if(!item) return;
+  const ref=(item.reference||item.title||"").trim();
+  if(!ref) return;
+  try{
+    await navigator.clipboard.writeText(ref);
+    toast("Referencia copiada: "+ref);
+  }catch(e){
+    const ta=document.createElement("textarea");
+    ta.value=ref;
+    ta.setAttribute("readonly","");
+    ta.style.position="fixed";
+    ta.style.left="-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    ta.remove();
+    toast("Referencia copiada: "+ref);
+  }
+}
+
+function copyCurrent(){
+  const item=currentItem();if(!item)return;
+  const text=section==="verses"?buildVerseShareText(item):(item.content||"");
+  navigator.clipboard.writeText(cleanTextBreaks(text)).then(()=>{
+    if(section==="verses"){item.shared=true;saveState();renderList();renderReader();}
+    toast("Copiado")
+  })
+}
+
+function openFavoritesView(){
+  try{
+    const favs = (getItems()||[]).filter(i => i.favorite);
+    const box = document.getElementById("titlesList");
+    if(!box) return;
+
+    if(typeof clearNavModes === "function") clearNavModes();
+    document.body.classList.add("titles-only");
+
+    document.getElementById("titlesView").classList.remove("hidden");
+    document.getElementById("readerView").classList.add("hidden");
+    document.getElementById("editorView").classList.add("hidden");
+    document.getElementById("backupView").classList.add("hidden");
+    document.getElementById("trashView").classList.add("hidden");
+    var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
+
+    box.innerHTML = "";
+    if(!favs.length){
+      box.innerHTML = '<div class="empty">No hay favoritos.</div>';
+      return;
+    }
+
+    favs.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "title-row";
+      const code = typeof getDisplayCode === "function"
+        ? getDisplayCode(getItems().findIndex(x => x.id === item.id), section)
+        : "";
+      div.innerHTML =
+        '<div class="title-name">⭐ ' + escapeHtml(item.title || "Sin título") + '</div>' +
+        (code ? '<div class="small-note">' + escapeHtml(code) + '</div>' : '');
+      div.onclick = () => {
+        setCurrentId(item.id);
+        specialVerseMode = null;
+        if(section === "verses"){
+          currentVerseCategory = item.category || currentVerseCategory || "sin_categoria";
+          verseNavigationMode = "verse";
+        }
+        if(typeof saveState === "function") saveState();
+        if(typeof renderList === "function") renderList();
+        if(typeof renderReader === "function") renderReader();
+        if(typeof openReader === "function") openReader();
+      };
+      box.appendChild(div);
+    });
+  }catch(e){
+    console.error("openFavoritesView", e);
+    alert("No se pudieron abrir los favoritos.");
+  }
+}
+
+function toggleFavorite(){const item=currentItem();if(!item) return;item.favorite=!item.favorite;item.updatedAt=Date.now();saveState();renderList();renderReader();toast(item.favorite?"Marcado como favorito":"Quitado de favoritos")}
+function changeReaderSize(delta){readerSize+=delta;if(readerSize<20) readerSize=20;if(readerSize>34) readerSize=34;localStorage.setItem(SIZE_KEY, String(readerSize));renderReader()}
+function openBackup(){
+  clearNavModes();
+  document.body.classList.add("backup-only");
+  clearNavModes();document.getElementById("backupView").classList.remove("hidden");document.getElementById("readerView").classList.add("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden")}
+function downloadBlob(filename, blob){const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1500)}
+function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'⭐ '+item.title:item.title;const bg=document.body.classList.contains("dark") ? "#111111" : "#f8f6f1";const card=document.body.classList.contains("dark") ? "#1a1a1a" : "#ffffff";const text=document.body.classList.contains("dark") ? "#f2eee7" : "#181818";return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><title>${escapeHtml(item.title)}</title><style>body{margin:0;background:${bg};color:${text};font-family:Arial,sans-serif}.wrap{max-width:900px;margin:0 auto;padding:24px}.card{background:${card};border-radius:20px;padding:24px}.badge{font-size:13px;opacity:.7;margin-bottom:10px}h1{font-size:24px;margin:0 0 18px 0}.content{white-space:pre-wrap;font-size:${readerSize}px;line-height:2.05}body.dark .segment button{color:var(--text)}body.dark .segment button.active{color:var(--text)}
+.category-grid{padding:12px;display:flex;flex-direction:column;gap:10px}
+.category-card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;font-weight:bold}
+.category-count{color:var(--muted);font-size:13px;margin-top:4px}
+
+#readerText{font-size:var(--reader-font-size, 28px) !important}
+
+#editorView .panel-head{
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+}
+#editorView textarea{
+  min-height:60vh;
+}
+
+#editorView{padding-bottom:90px}
+</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
+async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
+async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
+function buildBackupText(){
+  const payload={"exportedAt":new Date().toISOString(),...state};
+  const text=JSON.stringify(payload,null,2);
+  document.getElementById("backupText").value=text;
+  return text;
+}
+function backupFilename(){
+  const now=new Date();
+  const stamp=now.getFullYear().toString()+String(now.getMonth()+1).padStart(2,"0")+String(now.getDate()).padStart(2,"0")+"_"+String(now.getHours()).padStart(2,"0")+String(now.getMinutes()).padStart(2,"0");
+  return "backup_oraciones_notas_"+stamp+".json";
+}
+function downloadBackupJson(){
+  const text=buildBackupText();
+  downloadBlob(backupFilename(), new Blob([text],{type:"application/json;charset=utf-8"}));
+  toast("JSON descargado");
+}
+async function copyBackupJson(){
+  const text=buildBackupText();
+  try{
+    await navigator.clipboard.writeText(cleanTextBreaks(text));
+    toast("JSON copiado");
+  }catch(e){
+    alert("No se pudo copiar automáticamente. El JSON queda visible para copiarlo manualmente.");
+  }
+}
+async function shareBackupJson(){
+  const text=buildBackupText();
+  const filename=backupFilename();
+  const file=new File([text], filename, {type:"application/json"});
+  try{
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({title:"Backup Oraciones y Notas", text:"Backup de Oraciones y Notas", files:[file]});
+      toast("Compartido");
+      return;
+    }
+    if(navigator.share){
+      await navigator.share({title:"Backup Oraciones y Notas", text:text});
+      toast("Compartido como texto");
+      return;
+    }
+    downloadBlob(filename, new Blob([text],{type:"application/json;charset=utf-8"}));
+    alert("Tu navegador no permite compartir desde aquí. Se ha descargado el JSON.");
+  }catch(e){
+    downloadBlob(filename, new Blob([text],{type:"application/json;charset=utf-8"}));
+    toast("Compartir cancelado o no disponible");
+  }
+}
+async function exportBackup(){
+  downloadBackupJson();
+}
+function applyImportedData(parsed){
+  if(!Array.isArray(parsed.prayers)||!Array.isArray(parsed.notes)) throw new Error("bad");
+  state={
+    "section":parsed.section||"prayers",
+    "currentPrayerId":parsed.currentPrayerId||(parsed.prayers[0]&&parsed.prayers[0].id)||null,
+    "currentNoteId":parsed.currentNoteId||(parsed.notes[0]&&parsed.notes[0].id)||null,
+    "currentGuideId":parsed.currentGuideId||(Array.isArray(parsed.guides)&&parsed.guides[0]&&parsed.guides[0].id)||null,
+    "currentVerseId":parsed.currentVerseId||(Array.isArray(parsed.verses)&&parsed.verses[0]&&parsed.verses[0].id)||null,
+    "prayers":parsed.prayers,
+    "notes":parsed.notes,
+    "guides":Array.isArray(parsed.guides)?parsed.guides:[],
+    "verses":Array.isArray(parsed.verses)?parsed.verses:[],
+    "trashPrayers":Array.isArray(parsed.trashPrayers)?parsed.trashPrayers:[],
+    "trashNotes":Array.isArray(parsed.trashNotes)?parsed.trashNotes:[],
+    "trashGuides":Array.isArray(parsed.trashGuides)?parsed.trashGuides:[],
+    "trashVerses":Array.isArray(parsed.trashVerses)?parsed.trashVerses:[]
+  };
+  normalizeGuides();
+  saveState();
+  section=state.section;
+  syncTabs();
+  renderList();
+  renderReader();
+  openReader();
+  toast("Backup importado")
+}
+function importBackupFromText(){const text=document.getElementById("backupText").value.trim();if(!text) return alert("Pega primero una copia.");try{applyImportedData(JSON.parse(text))}catch(e){alert("La copia no es válida.")}}
+function importBackupFromFile(file){const reader=new FileReader();reader.onload=()=>{try{const text=String(reader.result||"");document.getElementById("backupText").value=text;applyImportedData(JSON.parse(text))}catch(e){alert("El archivo no es un JSON válido.")}};reader.onerror=()=>alert("No se pudo leer el archivo.");reader.readAsText(file, "utf-8")}
+function dismissInstall(){localStorage.setItem(INSTALL_DISMISSED_KEY,"1");document.getElementById("installBanner").classList.add("hidden")}
+function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(INSTALL_DISMISSED_KEY)==="1") return;document.getElementById("installBanner").classList.remove("hidden");const help=document.getElementById("installHelp");if(deferredPrompt) help.textContent="Pulsa Instalar. Si no te deja, usa el menú del navegador y elige Añadir a pantalla de inicio.";else help.textContent="Si no aparece el instalador automático, usa el menú del navegador y elige Añadir a pantalla de inicio."}
+window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
+document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
+window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
+applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();maybeShowInstall();
+
+
+
+function getCardTextLayout(txt){
+  const n = String(txt || "").length;
+  if(n <= 150) return {font:50, line:75, max:8, y:795};
+  if(n <= 240) return {font:48, line:70, max:10, y:785};
+  if(n <= 340) return {font:44, line:64, max:12, y:765};
+  if(n <= 480) return {font:40, line:58, max:15, y:735};
+  return {font:37, line:52, max:18, y:710};
+}
+
+
+function markCurrentVerseCardSentDirect(){
+  try{
+    if(typeof section !== "undefined" && section !== "verses") return;
+    if(!state || !Array.isArray(state.verses)) return;
+
+    let id = state.currentVerseId;
+    let v = state.verses.find(x => x.id === id);
+
+    // Fallback por si currentVerseId no está actualizado
+    if(!v && typeof currentItem === "function"){
+      const ci = currentItem();
+      if(ci && ci.id){
+        v = state.verses.find(x => x.id === ci.id) || ci;
+      }
+    }
+
+    if(!v) return;
+
+    v.shared = true;
+    v.lastCardSentAt = Date.now();
+
+    if(typeof saveState === "function") saveState();
+    if(typeof renderReader === "function") setTimeout(renderReader, 120);
+    if(typeof toast === "function") toast("Tarjeta marcada como enviada");
+  }catch(e){
+    console.error("markCurrentVerseCardSentDirect", e);
+  }
+}
+
+async function shareVerseCard(){
+  try{
+    const item = (typeof currentItem === "function") ? currentItem() : null;
+
+    // Marcamos la tarjeta como enviada al pulsar el botón Tarjeta.
+    // Así queda registrada aunque WhatsApp no devuelva correctamente el resultado del compartir.
+    if(item && typeof section !== "undefined" && section === "verses"){
+      item.shared = true;
+      item.lastCardSentAt = Date.now();
+      if(typeof saveState === "function") saveState();
+      if(typeof renderReader === "function") setTimeout(renderReader, 80);
+    }
+
+    const codeEl = document.getElementById("readerCode");
+    const titleEl = document.getElementById("readerTitle");
+    const textEl = document.getElementById("readerText");
+
+    const code = codeEl ? codeEl.textContent : "";
+    const ref = cleanTextBreaks((item && (item.reference || item.title)) || (titleEl ? titleEl.textContent : "Sin referencia"));
+    const body = cleanTextBreaks((item && (item.text || item.content)) || (textEl ? textEl.textContent : ""));
+    let category = "📖 Versículo";
+
+    if(typeof verseCategoryLabel === "function" && item){
+      category = verseCategoryLabel(item.category);
+    }else if(code.includes("·")){
+      category = code.split("·").pop().trim();
+    }
+
+    if(!ref || !body){
+      alert("Abre primero un versículo para crear la tarjeta.");
+      return;
+    }
+
+    function iconFromCategory(c){
+      c=String(c||"");
+      if(c.includes("❤️")) return "❤️";
+      if(c.includes("🌿")) return "🌿";
+      if(c.includes("✨")) return "✨";
+      if(c.includes("🕊")) return "🕊️";
+      if(c.includes("👑")) return "👑";
+      if(c.includes("🛡")) return "🛡️";
+      if(c.includes("🙏") || c.includes("Fe")) return "✝️";
+      if(c.includes("Salvación")) return "❤️";
+      return "📖";
+    }
+
+    function wrapText(ctx, t, x, y, maxWidth, lineHeight, maxLines){
+      const words=String(t||"").replace(/\s+/g," ").trim().split(" ");
+      let line="";
+      let lines=[];
+      for(let i=0;i<words.length;i++){
+        const test=line ? line+" "+words[i] : words[i];
+        if(ctx.measureText(test).width > maxWidth && line){
+          lines.push(line);
+          line=words[i];
+          if(lines.length>=maxLines) break;
+        }else{
+          line=test;
+        }
+      }
+      if(lines.length<maxLines && line) lines.push(line);
+      if(words.join(" ").length > lines.join(" ").length && lines.length){
+        lines[lines.length-1]=lines[lines.length-1].replace(/[.,;:]*$/,"")+"...";
+      }
+      lines.forEach(l=>{
+        ctx.fillText(l,x,y);
+        y += lineHeight;
+      });
+    }
+
+    const canvas=document.createElement("canvas");
+    canvas.width=1080;
+    canvas.height=1920;
+    const ctx=canvas.getContext("2d");
+
+    const grad=ctx.createLinearGradient(0,0,0,1920);
+    grad.addColorStop(0,"#28c3d4");
+    grad.addColorStop(1,"#20b3c4");
+    ctx.fillStyle=grad;
+    ctx.fillRect(0,0,1080,1920);
+
+    ctx.save();
+    ctx.globalAlpha=0.08;
+    ctx.font="520px Arial, sans-serif";
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+    ctx.fillStyle="#ffffff";
+    ctx.fillText(iconFromCategory(category),540,920);
+    ctx.restore();
+
+    ctx.textAlign="center";
+    ctx.fillStyle="#ffffff";
+    ctx.shadowColor="rgba(0,0,0,0.25)";
+    ctx.shadowBlur=10;
+    ctx.shadowOffsetY=3;
+
+    ctx.font="italic 56px Georgia, serif";
+    ctx.fillText("🌅 Versículo del día",540,355);
+
+    ctx.font="54px Georgia, serif";
+    ctx.fillText(category,540,480);
+
+    ctx.font="bold 74px Georgia, serif";
+    ctx.fillText(ref,540,645);
+
+    const textLayout=getCardTextLayout(body);
+    ctx.font="italic "+textLayout.font+"px Georgia, serif";
+    wrapText(ctx,body,540,textLayout.y,930,textLayout.line,textLayout.max);
+
+    ctx.font="34px Georgia, serif";
+    ctx.globalAlpha=0.88;
+    // pie eliminado
+    ctx.globalAlpha=1;
+
+    const blob = await new Promise(resolve=>canvas.toBlob(resolve,"image/png",0.95));
+    if(!blob){
+      alert("No se pudo crear la tarjeta.");
+      return;
+    }
+
+    const file = new File([blob],"versiculo-del-dia.png",{type:"image/png"});
+
+    if(navigator.canShare && navigator.canShare({files:[file]}) && navigator.share){
+      await navigator.share({
+        files:[file],
+        title:"Versículo del día",
+        text:category+"\n"+ref
+      });
+      if(item){
+        item.shared=true;
+        item.lastCardSentAt=Date.now();
+        saveState();
+        renderReader();
+      }
+      toast("Tarjeta compartida");
+    }else{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      a.href=url;
+      a.download="versiculo-del-dia.png";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1500);
+      if(item){
+        item.shared=true;
+        item.lastCardSentAt=Date.now();
+        saveState();
+        renderReader();
+      }
+      toast("Tarjeta descargada");
+    }
+  }catch(e){
+    console.error(e);
+    alert("Error creando la tarjeta: "+(e && e.message ? e.message : e));
+  }
+}
+
+
+
+function getCurrentVerseListForSwipe(){
+  try{
+    if(section !== "verses" || !state || !Array.isArray(state.verses)) return [];
+    if(specialVerseMode === "daily" || specialVerseMode === "random") return [];
+
+    if(currentVerseCategory === "favoritos"){
+      return state.verses.filter(v => v.favorite);
+    }
+
+    const item = currentItem();
+    const cat = currentVerseCategory || (item && item.category) || "sin_categoria";
+    return state.verses.filter(v => (v.category || "sin_categoria") === cat);
+  }catch(e){
+    return [];
+  }
+}
+
+function swipeVerse(dir){
+  try{
+    if(section !== "verses") return;
+    if(specialVerseMode === "daily" || specialVerseMode === "random") return;
+
+    const item = currentItem();
+    if(!item) return;
+
+    const list = getCurrentVerseListForSwipe();
+    if(!list || list.length <= 1) return;
+
+    const idx = list.findIndex(v => v.id === item.id);
+    if(idx < 0) return;
+
+    const nextIdx = idx + dir;
+
+    if(nextIdx < 0){
+      if(typeof toast === "function") toast("Inicio de la categoría");
+      return;
+    }
+    if(nextIdx >= list.length){
+      if(typeof toast === "function") toast("Fin de la categoría");
+      return;
+    }
+
+    state.currentVerseId = list[nextIdx].id;
+    saveState();
+    renderReader();
+
+    const reader = document.getElementById("readerText") || document.getElementById("readerTitle");
+    if(reader && reader.animate){
+      reader.animate(
+        [
+          {opacity:0.35, transform:"translateX(" + (dir > 0 ? "18px" : "-18px") + ")"},
+          {opacity:1, transform:"translateX(0)"}
+        ],
+        {duration:180, easing:"ease-out"}
+      );
+    }
+  }catch(e){
+    console.error("swipeVerse", e);
+  }
+}
+
+let swipeStartX = 0;
+let swipeStartY = 0;
+let swipeTracking = false;
+
+function installVerseSwipe(){
+  try{
+    const reader = document.getElementById("readerText");
+    if(!reader || reader.dataset.swipeInstalled === "1") return;
+    reader.dataset.swipeInstalled = "1";
+
+    reader.addEventListener("touchstart", function(e){
+      if(!e.touches || e.touches.length !== 1) return;
+      swipeStartX = e.touches[0].clientX;
+      swipeStartY = e.touches[0].clientY;
+      swipeTracking = true;
+    }, {passive:true});
+
+    reader.addEventListener("touchend", function(e){
+      if(!swipeTracking || !e.changedTouches || e.changedTouches.length !== 1) return;
+      swipeTracking = false;
+
+      const dx = e.changedTouches[0].clientX - swipeStartX;
+      const dy = e.changedTouches[0].clientY - swipeStartY;
+
+      if(Math.abs(dx) < 70) return;
+      if(Math.abs(dy) > 55) return;
+
+      if(dx < 0){
+        swipeVerse(1);
+      }else{
+        swipeVerse(-1);
+      }
+    }, {passive:true});
+  }catch(e){}
+}
+
+setInterval(installVerseSwipe, 1000);
+
+
+
+function getVersePositionText(){
+  try{
+    if(section !== "verses") return "";
+    const item = currentItem();
+    if(!item || !Array.isArray(state.verses)) return "";
+
+    let list = [];
+    if(currentVerseCategory === "favoritos"){
+      list = state.verses.filter(v => v.favorite);
+    }else{
+      const cat = currentVerseCategory || item.category || "sin_categoria";
+      list = state.verses.filter(v => (v.category || "sin_categoria") === cat);
+    }
+
+    const idx = list.findIndex(v => v.id === item.id);
+    if(idx < 0) return "";
+
+    return "V" + (idx + 1) + " / " + list.length;
+  }catch(e){
+    return "";
+  }
+}
+
+function updateVersePositionCounter(){
+  try{
+    const existing = document.getElementById("versePositionCounter");
+
+    if(section !== "verses"){
+      if(existing) existing.remove();
+      return;
+    }
+
+    const titleEl = document.getElementById("readerTitle");
+    if(!titleEl) return;
+
+    let counter = document.getElementById("versePositionCounter");
+    if(!counter){
+      counter = document.createElement("div");
+      counter.id = "versePositionCounter";
+      counter.style.opacity = "0.62";
+      counter.style.fontSize = "15px";
+      counter.style.margin = "8px 0 14px 0";
+      counter.style.textAlign = "center";
+      counter.style.width = "100%";
+      counter.style.fontWeight = "600";
+      titleEl.parentNode.insertBefore(counter, titleEl);
+    }
+
+    const txt = getVersePositionText();
+    counter.textContent = txt || "";
+  }catch(e){}
+}
+
+const oldRenderReaderForCounter = renderReader;
+renderReader = function(){
+  oldRenderReaderForCounter();
+  setTimeout(updateVersePositionCounter, 50);
+};
+
+setInterval(updateVersePositionCounter, 1000);
+
+</script>
+</body>
+</html>
+<!-- V9.1 pulido: Hoy/Aleatorio/Generado para hoy -->
+
+<!-- V9.2e limpia: fecha visible, sin botones vibracion/instalar -->
+
+<!-- V9.2f: instalador emergente como antes, sin botones fijos -->
+
+<!-- V9.3c tarjetas WhatsApp REAL -->
+
+<!-- V9.3d tarjetas pulidas: sin pie y bloque subido -->
+
+<!-- V9.4 tarjetas texto inteligente -->
+
+<!-- V9.5 autoajuste máximo para aprovechar mejor la altura -->
+
+<!-- V9.6e detector duplicados mejorado ref/texto/paste -->
+
+<!-- V9.7 deslizar versiculos dentro de categoria -->
+
+<!-- V9.8b contador visible antes del titulo -->
+
+<!-- V9.9b ultima tarjeta segura -->
+
+<!-- V9.9c ultima tarjeta marcada al pulsar tarjeta -->
+
+<!-- V9.9d ultima tarjeta marcado directo desde boton -->
+
+<!-- V10.1b Nunca enviados corregido barra lectura -->
+
+<!-- V10.2c categorías directas corregido: solo categorías cambia a Versículos; Títulos queda intacto -->
+
+<!-- V10.4 Títulos y lista separados -->
+
+<!-- V10.4c Backup sin lista lateral -->
+
+<!-- V10.7 Lista de versículos enviados -->
+
+<!-- V10.8 Enviados: día natural + quitar falsos -->
+
+<!-- V10.9 Volver desde enviados a lista de enviados -->
+
+<!-- V10.9b Volver desde enviados usando sessionStorage -->
+
+<!-- V11.0b sin texto suelto + volver enviados/categorias -->
+
+<!-- V11.1 Favoritos restaurados arriba; estrella inferior sigue marcando -->
+
+<!-- V11.2 Menú Más agrupando acciones inferiores de versículos -->
+
+<!-- V11.7 Menú Más desplegable real compacto -->
+
+<!-- V11.9 Resumen de enviados/pendientes por categoría -->
