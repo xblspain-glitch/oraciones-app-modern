@@ -489,8 +489,8 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
     <button class="btn soft" type="button" data-main-normal="1" onclick="changeReaderFont(2)">A+</button>
     <button class="btn soft" type="button" data-main-normal="1" onclick="copyCurrent()">📋 Copiar</button>
     <button class="btn soft" type="button" data-main-normal="1" onclick="shareCurrent()">🔗 Compartir</button>
-    <button class="btn soft" type="button" data-main-normal="1" onclick="toggleFavorite()">Añadir a favoritos</button>
-    <button class="btn soft" type="button" onclick="toggleTheme()">Modo oscuro</button>
+    <button class="btn soft icon-only" type="button" onclick="toggleTheme()" aria-label="Modo oscuro">🌙</button>
+    <button class="btn soft" type="button" data-main-normal="1" onclick="smartBack()">← Volver</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openDailyVerse()">🌅 Versículo del día</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openRandomVerse()">🎲 Aleatorio</button>
     <button class="btn soft" type="button" data-main-verses="1" onclick="openVerseCategories()">🗂️ Categorías</button>
@@ -505,27 +505,6 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   <aside class="sidebar"><div id="list" class="list"></div></aside>
   <section class="content">
     <div id="readerView" class="panel">
-      <div class="panel-head">
-        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button class="btn soft" type="button" data-reader-normal="1" onclick="openTitlesView()">📋 Títulos</button>
-        <button class="btn soft" type="button" data-reader-normal="1" onclick="toggleFavorite()">🌟 Favorito</button>
-        <button class="btn soft" type="button" data-reader-normal="1" onclick="openEditor()">✏️ Editar</button>
-        <button class="btn soft" type="button" data-reader-normal="1" onclick="copyCurrent()">📋 Copiar</button>
-        <button class="btn soft" type="button" data-reader-normal="1" onclick="shareCurrent()">🔗 Compartir</button>
-        <button class="btn soft" type="button" data-reader-normal="1" onclick="changeReaderFont(-2)">A-</button>
-        <button class="btn soft" type="button" data-reader-normal="1" onclick="changeReaderFont(2)">A+</button>
-        <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
-        <button class="btn soft" type="button" data-reader-verses="1" onclick="openTitlesView()">📋 Títulos</button>
-        <button class="btn soft" type="button" data-reader-verses="1" onclick="openEditor()">✏️ Editar</button>
-        <button class="btn soft" type="button" data-reader-verses="1" onclick="changeReaderFont(-2)">A-</button>
-        <button class="btn soft" type="button" data-reader-verses="1" onclick="changeReaderFont(2)">A+</button>
-        <button class="btn soft" type="button" data-reader-verses="1" onclick="copyCurrentReference()">📋 Ref</button>
-        <button class="btn soft" type="button" data-reader-verses="1" onclick="copyCurrent()">📋 Copiar</button>
-        <button class="btn soft" type="button" data-reader-verses="1" onclick="moveVerseToCategory()">📂 Mover</button>
-        <button class="btn soft" type="button" data-reader-verses="1" onclick="shareCurrent()">🔗 Compartir</button>
-        <button class="btn soft" type="button" data-reader-verses="1" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
-        <button class="btn soft" type="button" data-reader-verses="1" onclick="toggleFavorite()">⭐</button>
-      </div>
       <div id="readerCode" class="reader-code"></div>
       <div id="readerDailyDate" class="reader-daily-date hidden"></div>
       <div id="readerTitle" class="reader-title"></div>
