@@ -5,11 +5,11 @@
 <!-- V7.8 BOTON REF EN BARRA -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones y Notas</title>
+<title>Oraciones V2</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Oraciones">
+<meta name="apple-mobile-web-app-title" content="Oraciones V2">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -133,6 +133,42 @@ body.dark .segment button{color:var(--text)}body.dark .segment button.active{col
 }
 .reader-daily-date.hidden{display:none}
 
+
+
+/* ===== ORACIONES V2 - DISEÑO GRANDE POR TARJETAS ===== */
+body.v2-home-mode .topbar, body.v2-home-mode .main{display:none!important}
+.v2-home{min-height:100dvh;padding:calc(18px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom));background:radial-gradient(circle at top left, rgba(197,151,99,.24), transparent 34%), var(--bg);}
+.v2-hero{max-width:980px;margin:0 auto 18px;display:flex;gap:16px;align-items:center;background:linear-gradient(135deg, rgba(138,90,43,.16), rgba(197,151,99,.06));border:1px solid var(--line);border-radius:28px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.08)}
+.v2-hero-icon{width:62px;height:62px;border-radius:22px;display:grid;place-items:center;font-size:32px;background:var(--primary);color:white;box-shadow:0 10px 24px rgba(0,0,0,.18);flex:0 0 auto}
+.v2-kicker{font-weight:800;color:var(--primary);letter-spacing:.08em;text-transform:uppercase;font-size:12px;margin-bottom:4px}
+.v2-hero h1{margin:0;font-size:31px;line-height:1.08}
+.v2-hero p{margin:7px 0 0;color:var(--muted);font-size:15px;line-height:1.45}
+.v2-card-grid{max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.v2-card{border:1px solid var(--line);border-radius:26px;padding:18px;min-height:154px;text-align:left;background:var(--card);color:var(--text);box-shadow:0 16px 42px rgba(0,0,0,.07);cursor:pointer;display:flex;flex-direction:column;gap:8px;transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease}
+.v2-card:active{transform:scale(.985)}
+.v2-card span{width:48px;height:48px;border-radius:18px;display:grid;place-items:center;font-size:27px;background:var(--soft)}
+.v2-card strong{font-size:20px}
+.v2-card small{color:var(--muted);font-size:14px;line-height:1.35}
+.v2-card.prayer span{background:rgba(138,90,43,.16)} .v2-card.notes span{background:rgba(90,128,160,.16)} .v2-card.guide span{background:rgba(108,130,88,.16)} .v2-card.verses span{background:rgba(184,74,60,.14)} .v2-card.favs span{background:rgba(255,210,125,.20)} .v2-card.tools span{background:rgba(110,110,130,.14)}
+.v2-home-actions{max-width:980px;margin:16px auto 0;display:flex;gap:10px;justify-content:center}
+body.dark .v2-home{background:radial-gradient(circle at top left, rgba(200,151,99,.20), transparent 36%), #101010}
+body.dark .v2-hero, body.dark .v2-card{box-shadow:0 18px 46px rgba(0,0,0,.28)}
+body.dark .btn.soft{background:#242424;color:#f4eee6;border:1px solid #36302a}
+body.dark .segment{background:#222} body.dark .segment button.active{background:#32302d}
+/* aspecto general más moderno sin cambiar lógica */
+.topbar{box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.btn{border-radius:999px;font-weight:700;box-shadow:none}
+.item{border-radius:20px;box-shadow:0 8px 22px rgba(0,0,0,.045)}
+.panel{border-radius:28px;box-shadow:0 14px 42px rgba(0,0,0,.06)}
+.panel-head{gap:7px}
+.reader-title{font-size:28px}.reader-text{max-width:900px;margin:0 auto;width:100%;font-family:Georgia, 'Times New Roman', serif}
+@media (max-width:860px){
+  .v2-home{padding:calc(14px + env(safe-area-inset-top)) 12px calc(18px + env(safe-area-inset-bottom))}
+  .v2-hero{border-radius:24px;padding:15px;align-items:flex-start}.v2-hero h1{font-size:25px}.v2-hero-icon{width:54px;height:54px;border-radius:19px;font-size:28px}
+  .v2-card-grid{grid-template-columns:1fr 1fr;gap:10px}.v2-card{border-radius:22px;padding:14px;min-height:138px}.v2-card strong{font-size:17px}.v2-card small{font-size:12.5px}.v2-card span{width:42px;height:42px;border-radius:16px;font-size:24px}
+  .topbar-row{gap:7px}.segment{width:100%;overflow:auto;flex-wrap:nowrap}.segment button{white-space:nowrap}.v2-home-btn{order:-2}.search{order:5}
+  .panel{border-radius:0;box-shadow:none}.reader-title{font-size:24px}
+}
 </style>
 
 <style>
@@ -246,8 +282,32 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   </div>
 </div>
 
+<section id="homeView" class="v2-home">
+  <div class="v2-hero">
+    <div class="v2-hero-icon">✝️</div>
+    <div>
+      <div class="v2-kicker">Oraciones V2</div>
+      <h1>Tu rincón de oración</h1>
+      <p>Oraciones, notas, guía y versículos en una pantalla más limpia y moderna.</p>
+    </div>
+  </div>
+  <div class="v2-card-grid">
+    <button class="v2-card prayer" type="button" onclick="openV2Section('prayers')"><span>✝️</span><strong>Oraciones</strong><small>Leer, editar y guardar tus oraciones.</small></button>
+    <button class="v2-card notes" type="button" onclick="openV2Section('notes')"><span>📝</span><strong>Notas</strong><small>Apuntes personales y reflexiones.</small></button>
+    <button class="v2-card guide" type="button" onclick="openV2Section('guides')"><span>📜</span><strong>Guía</strong><small>Textos de ayuda y enseñanza.</small></button>
+    <button class="v2-card verses" type="button" onclick="openV2Section('verses')"><span>❤️</span><strong>Versículos</strong><small>Categorías, favoritos y tarjetas.</small></button>
+    <button class="v2-card favs" type="button" onclick="openV2Favorites()"><span>⭐</span><strong>Favoritos</strong><small>Acceso rápido a lo marcado.</small></button>
+    <button class="v2-card tools" type="button" onclick="openV2Tools()"><span>☁️</span><strong>Herramientas</strong><small>Backup, exportar y papelera.</small></button>
+  </div>
+  <div class="v2-home-actions">
+    <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
+    <button class="btn primary" type="button" onclick="openV2Section('prayers')">Entrar</button>
+  </div>
+</section>
+
 <div class="topbar">
   <div class="topbar-row">
+    <button class="btn soft v2-home-btn" type="button" onclick="showV2Home()">🏠 Inicio</button>
     <div class="segment">
       <button id="tabPrayers" class="active" type="button" onclick="switchSection('prayers')">✝️ Oraciones</button>
       <button id="tabNotes" type="button" onclick="switchSection('notes')">📝 Notas</button>
@@ -2047,6 +2107,43 @@ renderReader = function(){
 
 setInterval(updateVersePositionCounter, 1000);
 
+
+
+/* ===== ORACIONES V2 HOME / FLUJO NUEVO VISUAL ===== */
+function showV2Home(){
+  document.body.classList.add('v2-home-mode');
+  document.body.classList.remove('reading-mobile','fullscreen-reading','hide-reading-ui','titles-only','backup-only');
+  try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){}
+}
+function showV2App(){
+  document.body.classList.remove('v2-home-mode');
+}
+function openV2Section(s){
+  showV2App();
+  switchSection(s);
+  openList();
+}
+function openV2Favorites(){
+  showV2App();
+  if(section==='verses') openVerseFavorites();
+  else openFavoritesView();
+}
+function openV2Tools(){
+  showV2App();
+  openBackup();
+}
+try{
+  const oldSwitchSectionV2 = switchSection;
+  switchSection = function(s){
+    showV2App();
+    oldSwitchSectionV2(s);
+  };
+}catch(e){}
+try{
+  window.addEventListener('DOMContentLoaded', function(){
+    showV2Home();
+  });
+}catch(e){}
 </script>
 </body>
 </html>
