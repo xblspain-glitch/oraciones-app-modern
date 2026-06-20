@@ -5,11 +5,11 @@
 <!-- V7.8 BOTON REF EN BARRA -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V2</title>
+<title>Oraciones y Notas</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Oraciones V2">
+<meta name="apple-mobile-web-app-title" content="Oraciones">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -235,182 +235,6 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 }
 </style>
 
-
-<style>
-.modern-home{
-  min-height:100vh;
-  padding:22px 16px 34px;
-  background:
-    radial-gradient(circle at top left, rgba(125,94,42,.18), transparent 38%),
-    linear-gradient(180deg, var(--bg,#f8f2e8), var(--bg,#f8f2e8));
-}
-.modern-home.hidden{display:none!important;}
-.modern-hero{
-  max-width:680px;
-  margin:0 auto 18px;
-  padding:20px 18px;
-  border-radius:28px;
-  background:var(--card,#fff);
-  box-shadow:0 8px 28px rgba(0,0,0,.10);
-  border:1px solid rgba(0,0,0,.06);
-}
-.modern-hero-title{
-  font-size:30px;
-  font-weight:850;
-  line-height:1.1;
-  margin:0 0 8px;
-}
-.modern-hero-sub{
-  opacity:.72;
-  font-size:16px;
-  line-height:1.35;
-}
-.modern-grid{
-  max-width:680px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:1fr;
-  gap:13px;
-}
-.modern-card{
-  border:0;
-  width:100%;
-  text-align:left;
-  border-radius:24px;
-  padding:18px 18px;
-  background:var(--card,#fff);
-  color:var(--text,#222);
-  box-shadow:0 7px 22px rgba(0,0,0,.09);
-  border:1px solid rgba(0,0,0,.06);
-}
-.modern-card-main{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-.modern-card-title{
-  font-size:24px;
-  font-weight:850;
-}
-.modern-card-count{
-  font-size:15px;
-  opacity:.7;
-  margin-top:7px;
-}
-.modern-card-arrow{
-  font-size:26px;
-  opacity:.45;
-}
-.modern-tools{
-  background:linear-gradient(135deg, rgba(54,74,103,.12), var(--card,#fff));
-}
-body.dark .modern-card{border-color:var(--line);box-shadow:0 7px 22px rgba(0,0,0,.32)}
-body.dark .modern-tools{background:linear-gradient(135deg, rgba(255,255,255,.10), var(--card,#1a1a1a));}
-.modern-home .modern-card:active{
-  transform:scale(.985);
-}
-@media (min-width:640px){
-  .modern-grid{grid-template-columns:1fr 1fr;}
-  .modern-card.tools-wide{grid-column:1 / -1;}
-}
-
-/* V2 prueba conservadora: en lectura móvil se reduce la botonera sin tocar la lógica */
-@media (max-width:860px){
-  body.reading-mobile.reader-simple [data-list-only="1"]{display:none!important;}
-  body.reading-mobile.reader-simple .topbar{position:sticky;top:0;}
-}
-</style>
-
-
-<style>
-/* Oraciones Modern V1.2: inicio limpio y compacto */
-.modern-home{
-  padding-top:28px!important;
-}
-.modern-grid{
-  gap:12px!important;
-}
-.modern-card{
-  padding:15px 16px!important;
-  border-radius:22px!important;
-}
-.modern-card-title{
-  font-size:23px!important;
-}
-.modern-card-count{
-  margin-top:5px!important;
-  font-size:15px!important;
-}
-.modern-card-arrow{
-  font-size:25px!important;
-}
-</style>
-
-
-<style>
-/* Oraciones V2 CSS v1 - solo pulido visual, sin tocar lógica */
-.topbar-row{
-  gap:9px!important;
-}
-
-.btn{
-  border-radius:999px!important;
-  padding:9px 13px!important;
-  box-shadow:0 4px 12px rgba(0,0,0,.055)!important;
-}
-
-.btn.soft{
-  background:rgba(239,232,218,.92)!important;
-}
-
-.btn.primary{
-  border-radius:999px!important;
-  box-shadow:0 6px 16px rgba(123,78,32,.20)!important;
-}
-
-.segment{
-  border-radius:24px!important;
-  padding:5px!important;
-  gap:4px!important;
-}
-
-.segment button{
-  border-radius:18px!important;
-  padding:11px 13px!important;
-}
-
-.search{
-  margin-top:4px!important;
-  border-radius:19px!important;
-}
-
-.panel-head{
-  gap:8px!important;
-  padding:9px!important;
-}
-
-.panel-head .btn{
-  padding:8px 12px!important;
-}
-
-.reader-title{
-  padding-top:10px!important;
-}
-
-@media (max-width: 640px){
-  .topbar{
-    padding:12px 14px 10px!important;
-  }
-  .btn{
-    padding:8px 12px!important;
-  }
-  .segment button{
-    padding:10px 11px!important;
-  }
-}
-</style>
-
 </head>
 <body>
 <div id="installBanner" class="install-banner hidden">
@@ -422,88 +246,26 @@ body.dark .modern-tools{background:linear-gradient(135deg, rgba(255,255,255,.10)
   </div>
 </div>
 
-
-<div id="modernHomeView" class="modern-home hidden">
-  <div class="modern-grid">
-    <button class="modern-card" type="button" onclick="enterModernSection('prayers')">
-      <div class="modern-card-main">
-        <div>
-          <div class="modern-card-title">✝️ Oraciones</div>
-          <div id="modernCountPrayers" class="modern-card-count">0 elementos</div>
-        </div>
-        <div class="modern-card-arrow">›</div>
-      </div>
-    </button>
-
-    <button class="modern-card" type="button" onclick="enterModernSection('notes')">
-      <div class="modern-card-main">
-        <div>
-          <div class="modern-card-title">📝 Notas</div>
-          <div id="modernCountNotes" class="modern-card-count">0 elementos</div>
-        </div>
-        <div class="modern-card-arrow">›</div>
-      </div>
-    </button>
-
-    <button class="modern-card" type="button" onclick="enterModernSection('guides')">
-      <div class="modern-card-main">
-        <div>
-          <div class="modern-card-title">📜 Guía</div>
-          <div id="modernCountGuides" class="modern-card-count">0 elementos</div>
-        </div>
-        <div class="modern-card-arrow">›</div>
-      </div>
-    </button>
-
-    <button class="modern-card" type="button" onclick="enterModernSection('verses')">
-      <div class="modern-card-main">
-        <div>
-          <div class="modern-card-title">❤️ Versículos</div>
-          <div id="modernCountVerses" class="modern-card-count">0 elementos</div>
-        </div>
-        <div class="modern-card-arrow">›</div>
-      </div>
-    </button>
-
-    <button class="modern-card modern-tools tools-wide" type="button" onclick="enterModernTools()">
-      <div class="modern-card-main">
-        <div>
-          <div class="modern-card-title">⚙️ Herramientas</div>
-          <div class="modern-card-count">Backup, importar y exportar</div>
-        </div>
-        <div class="modern-card-arrow">›</div>
-      </div>
-    </button>
-  </div>
-</div>
-
 <div class="topbar">
   <div class="topbar-row">
-    <button class="btn soft" type="button" onclick="openModernHome()">🏠 Inicio</button>
     <div class="segment">
       <button id="tabPrayers" class="active" type="button" onclick="switchSection('prayers')">✝️ Oraciones</button>
       <button id="tabNotes" type="button" onclick="switchSection('notes')">📝 Notas</button>
       <button id="tabGuides" type="button" onclick="switchSection('guides')">📜 Guía</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
     </div>
-    <button class="btn primary" type="button" data-list-only="1" onclick="newItem()">➕ Nueva</button>
-    <button class="btn soft" type="button" data-list-only="1" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button class="btn soft" type="button" data-main-normal="1" onclick="openTitlesView()">📋 Títulos</button>
-    <button class="btn soft" type="button" data-main-normal="1" data-list-only="1" onclick="openFavoritesView()">⭐ Favoritos</button>
-    <button class="btn soft" type="button" data-more-button="1" data-list-only="1" onclick="openMoreMenu(event)">📖 Más</button>
-    <button class="btn soft" type="button" data-main-normal="1" onclick="openEditor()">✏️ Editar</button>
-    <button class="btn soft" type="button" data-main-normal="1" data-list-only="1" onclick="toggleFavorite()">🌟 Favorito</button>
-    <button class="btn soft" type="button" data-main-normal="1" onclick="changeReaderFont(-2)">A-</button>
-    <button class="btn soft" type="button" data-main-normal="1" onclick="changeReaderFont(2)">A+</button>
-    <button class="btn soft" type="button" data-main-normal="1" onclick="copyCurrent()">📋 Copiar</button>
-    <button class="btn soft" type="button" data-main-normal="1" data-list-only="1" onclick="shareCurrent()">🔗 Compartir</button>
-    <button class="btn soft icon-only" type="button" onclick="toggleTheme()" aria-label="Modo oscuro">🌙</button>
-    <button class="btn soft" type="button" data-main-normal="1" onclick="smartBack()">← Volver</button>
-    <button class="btn soft" type="button" data-main-verses="1" onclick="openDailyVerse()">🌅 Versículo del día</button>
-    <button class="btn soft" type="button" data-main-verses="1" onclick="openRandomVerse()">🎲 Aleatorio</button>
-    <button class="btn soft" type="button" data-main-verses="1" onclick="openVerseCategories()">🗂️ Categorías</button>
-    <button class="btn soft" type="button" data-main-verses="1" onclick="openBackup()">☁️ Backup</button>
-    <button class="btn soft" type="button" data-main-verses="1" onclick="openTrash()">🗑️ Papelera</button>
+    <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
+    <button class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
+    <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
+    <button class="btn soft" type="button" onclick="openRandomVerse()">🎲 Aleatorio</button>
+    <button class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
+        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
+    <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+    <button class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
+    <button class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
+    <button class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
+    <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
+    <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList()">
     <div id="counterInfo" class="counter"></div>
   </div>
@@ -513,6 +275,24 @@ body.dark .modern-tools{background:linear-gradient(135deg, rgba(255,255,255,.10)
   <aside class="sidebar"><div id="list" class="list"></div></aside>
   <section class="content">
     <div id="readerView" class="panel">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
+        <button class="btn soft" type="button" onclick="openList()">☰ Lista</button>
+        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
+        <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+        <button class="btn soft" type="button" onclick="changeReaderFont(-2)">A-</button>
+        <button class="btn soft" type="button" onclick="changeReaderFont(2)">A+</button>
+        <button class="btn soft" type="button" onclick="copyCurrentReference()">📋 Ref</button>
+        <button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button><button class="btn soft" type="button" onclick="moveVerseToCategory()">📂 Mover</button>
+        <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
+        
+        
+        
+        <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
+        <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
+        <button class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
+        <button class="btn soft" type="button" onclick="exportCurrentHTML()">🌐 Exportar lectura</button>
+      </div>
       <div id="readerCode" class="reader-code"></div>
       <div id="readerDailyDate" class="reader-daily-date hidden"></div>
       <div id="readerTitle" class="reader-title"></div>
@@ -584,7 +364,7 @@ body.dark .modern-tools{background:linear-gradient(135deg, rgba(255,255,255,.10)
     <div id="titlesView" class="panel hidden">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        
+        <button class="btn soft" type="button" onclick="openList()">☰ Lista completa</button>
       </div>
       <div id="titlesList" class="title-list"></div>
     </div>
@@ -788,15 +568,6 @@ function openVersesFilePicker(){
 function restoreAutoBackup(){const raw=localStorage.getItem(AUTO_BACKUP_KEY);if(!raw) return alert("No hay backup automático.");if(!confirm("¿Restaurar el backup automático?")) return;try{const parsed=JSON.parse(raw);state={"section":parsed.section||"prayers","currentPrayerId":parsed.currentPrayerId||null,"currentNoteId":parsed.currentNoteId||null,"currentGuideId":parsed.currentGuideId||null,"currentVerseId":parsed.currentVerseId||null,"prayers":Array.isArray(parsed.prayers)?parsed.prayers:[],"notes":Array.isArray(parsed.notes)?parsed.notes:[],"guides":Array.isArray(parsed.guides)?parsed.guides:[],"verses":Array.isArray(parsed.verses)?parsed.verses:[],"trashPrayers":Array.isArray(parsed.trashPrayers)?parsed.trashPrayers:[],"trashNotes":Array.isArray(parsed.trashNotes)?parsed.trashNotes:[],"trashGuides":Array.isArray(parsed.trashGuides)?parsed.trashGuides:[],"trashVerses":Array.isArray(parsed.trashVerses)?parsed.trashVerses:[]};normalizeGuides();saveState();section=state.section;syncTabs();renderList();renderReader();applyReaderFont();openReader();toast("Backup automático restaurado")}catch(e){alert("No se pudo restaurar.")}}
 function applyTheme(){if(localStorage.getItem(THEME_KEY)==="dark") document.body.classList.add("dark")}
 function toggleTheme(){document.body.classList.toggle("dark");localStorage.setItem(THEME_KEY, document.body.classList.contains("dark")?"dark":"light")}
-function isNormalSection(){return section==="prayers"||section==="notes"||section==="guides"}
-function updateSectionButtons(){
-  const normal=isNormalSection();
-  document.querySelectorAll("[data-main-normal]").forEach(el=>el.classList.toggle("hidden",!normal));
-  document.querySelectorAll("[data-main-verses]").forEach(el=>el.classList.toggle("hidden",normal));
-  document.querySelectorAll("[data-reader-normal]").forEach(el=>el.classList.toggle("hidden",!normal));
-  document.querySelectorAll("[data-reader-verses]").forEach(el=>el.classList.toggle("hidden",normal));
-}
-
 function getDisplayCode(idx, kind){
   return (kind==="prayers"?"O":kind==="notes"?"N":kind==="guides"?"G":"V")+(idx+1)
 }
@@ -813,12 +584,11 @@ function syncTabs(){
   const verseTab=document.getElementById("tabVerses");if(verseTab)verseTab.classList.toggle("active",section==="verses");
   document.getElementById("search").placeholder=section==="prayers"?"Buscar oración o código (ej. O3)":section==="notes"?"Buscar nota o código (ej. N2)":section==="guides"?"Buscar guía o código (ej. G1)":"Buscar versículo, referencia o palabra";
   document.getElementById("counterInfo").textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | ❤️ ${state.verses?state.verses.length:0}`;
-  updateSectionButtons();
 }
 function switchSection(s){
   section=s;state.section=s;saveState();syncTabs();renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
-  renderReader();openList();
+  renderReader();openReader();
 }
 function getItems(){
   return section==="prayers"?state.prayers:section==="notes"?state.notes:section==="guides"?state.guides:state.verses
@@ -894,7 +664,7 @@ function formatDailyDateEs(){
 
 
 
-function renderReader(){applyReaderFont();updateSectionButtons();
+function renderReader(){applyReaderFont();
   const dailyDateEl=document.getElementById("readerDailyDate");
   if(dailyDateEl){dailyDateEl.classList.add("hidden");dailyDateEl.textContent="";}
   const item=currentItem();
@@ -1009,13 +779,12 @@ function smartBack(){
 }
 
 function openReader(){
-  updateSectionButtons();
   clearNavModes();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
 function openList(){
   clearNavModes();
   renderList();
 document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");document.getElementById("search").focus()}
-function enterFullscreenReading(){updateSectionButtons();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
+function enterFullscreenReading(){document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
 function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
 function openEditor(){
@@ -1371,17 +1140,11 @@ function openMoreMenu(ev){
     const menu=document.createElement("div");
     menu.id="moreDropdown";
     menu.className="more-dropdown";
-    if(isNormalSection()){
-      menu.innerHTML =
-        '<button type="button" onclick="closeMoreMenu(); moveToTrash()">🗑️ Eliminar</button>' +
-        '<button type="button" onclick="closeMoreMenu(); exportCurrentHTML()">🌐 Exportar lectura</button>';
-    }else{
-      menu.innerHTML =
-        '<button type="button" onclick="closeMoreMenu(); openDailyVerse()">🌅 Hoy</button>' +
-        '<button type="button" onclick="closeMoreMenu(); openRandomVerse()">🎲 Aleatorio</button>' +
-        '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📤 Nunca enviados</button>' +
-        '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📋 Enviados</button>';
-    }
+    menu.innerHTML =
+      '<button type="button" onclick="closeMoreMenu(); openDailyVerse()">🌅 Hoy</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openRandomVerse()">🎲 Aleatorio</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📤 Nunca enviados</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📋 Enviados</button>';
 
     document.body.appendChild(menu);
 
@@ -1832,9 +1595,8 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'�
 }
 
 #editorView{padding-bottom:90px}
-</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div><!-- Oraciones V2 fase botonera principal limpia: lista completa eliminada; Más normal = eliminar/exportar lectura. -->
-</body></html>`}
-async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":section==="notes"?"Nota":section==="guides"?"Guía":"Versículo";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
+</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
+async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
   const payload={"exportedAt":new Date().toISOString(),...state};
@@ -1914,83 +1676,13 @@ function applyImportedData(parsed){
 }
 function importBackupFromText(){const text=document.getElementById("backupText").value.trim();if(!text) return alert("Pega primero una copia.");try{applyImportedData(JSON.parse(text))}catch(e){alert("La copia no es válida.")}}
 function importBackupFromFile(file){const reader=new FileReader();reader.onload=()=>{try{const text=String(reader.result||"");document.getElementById("backupText").value=text;applyImportedData(JSON.parse(text))}catch(e){alert("El archivo no es un JSON válido.")}};reader.onerror=()=>alert("No se pudo leer el archivo.");reader.readAsText(file, "utf-8")}
-
-function updateModernHomeCounts(){
-  try{
-    const set=(id,n)=>{const el=document.getElementById(id); if(el) el.textContent=n+" "+(n===1?"elemento":"elementos");};
-    set("modernCountPrayers", (state.prayers||[]).length);
-    set("modernCountNotes", (state.notes||[]).length);
-    set("modernCountGuides", (state.guides||[]).length);
-    set("modernCountVerses", (state.verses||[]).length);
-  }catch(e){}
-}
-function openModernHome(){
-  try{
-    updateModernHomeCounts();
-    const home=document.getElementById("modernHomeView");
-    const top=document.querySelector(".topbar");
-    const main=document.querySelector(".main");
-    if(home) home.classList.remove("hidden");
-    if(top) top.classList.add("hidden");
-    if(main) main.classList.add("hidden");
-    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
-  }catch(e){console.error(e);}
-}
-function closeModernHome(){
-  try{
-    const home=document.getElementById("modernHomeView");
-    const top=document.querySelector(".topbar");
-    const main=document.querySelector(".main");
-    if(home) home.classList.add("hidden");
-    if(top) top.classList.remove("hidden");
-    if(main) main.classList.remove("hidden");
-  }catch(e){}
-}
-function enterModernSection(s){
-  closeModernHome();
-  switchSection(s);
-}
-function enterModernTools(){
-  closeModernHome();
-  openBackup();
-}
-
-
-
-/* V2 prueba conservadora: toolbar de lectura y lista sin salto directo */
-function updateReaderSimpleToolbar(){
-  try{
-    const readerVisible=!document.getElementById("readerView").classList.contains("hidden");
-    const simple=isNormalSection() && readerVisible && document.body.classList.contains("reading-mobile");
-    document.body.classList.toggle("reader-simple", !!simple);
-  }catch(e){}
-}
-(function(){
-  const _openReader=openReader;
-  openReader=function(){ _openReader(); updateReaderSimpleToolbar(); };
-  const _openList=openList;
-  openList=function(){ _openList(); document.body.classList.remove("reader-simple"); };
-  const _enterFullscreenReading=enterFullscreenReading;
-  enterFullscreenReading=function(){ _enterFullscreenReading(); updateReaderSimpleToolbar(); };
-  const _exitFullscreenReading=exitFullscreenReading;
-  exitFullscreenReading=function(){ _exitFullscreenReading(); updateReaderSimpleToolbar(); };
-  const _toggleReadingUI=toggleReadingUI;
-  toggleReadingUI=function(){
-    if(document.body.classList.contains("reading-mobile") && isNormalSection()){
-      document.body.classList.toggle("hide-reading-ui");
-      return;
-    }
-    _toggleReadingUI();
-  };
-})();
-
 function dismissInstall(){localStorage.setItem(INSTALL_DISMISSED_KEY,"1");document.getElementById("installBanner").classList.add("hidden")}
 function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(INSTALL_DISMISSED_KEY)==="1") return;document.getElementById("installBanner").classList.remove("hidden");const help=document.getElementById("installHelp");if(deferredPrompt) help.textContent="Pulsa Instalar. Si no te deja, usa el menú del navegador y elige Añadir a pantalla de inicio.";else help.textContent="Si no aparece el instalador automático, usa el menú del navegador y elige Añadir a pantalla de inicio."}
 window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
-applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openModernHome();maybeShowInstall();
+applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();maybeShowInstall();
 
 
 
@@ -2356,7 +2048,6 @@ renderReader = function(){
 setInterval(updateVersePositionCounter, 1000);
 
 </script>
-<!-- Oraciones V2 fase botonera principal limpia: lista completa eliminada; Más normal = eliminar/exportar lectura. -->
 </body>
 </html>
 <!-- V9.1 pulido: Hoy/Aleatorio/Generado para hoy -->
@@ -2410,9 +2101,3 @@ setInterval(updateVersePositionCounter, 1000);
 <!-- V11.7 Menú Más desplegable real compacto -->
 
 <!-- V11.9 Resumen de enviados/pendientes por categoría -->
-
-<!-- Oraciones Modern V1.1: pantalla principal -->
-
-<!-- Oraciones Modern V1.2: inicio sin cabecera y tarjetas compactas -->
-
-<!-- Oraciones V2 CSS v1: solo pulido visual -->

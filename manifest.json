@@ -2,7 +2,7 @@
   "name": "Oraciones V2",
   "short_name": "Oraciones V2",
   "id": "/oraciones-app/",
-  "start_url": "./?v=css1",
+  "start_url": "/oraciones-app/?source=pwa",
   "scope": "/oraciones-app/",
   "display": "standalone",
   "orientation": "portrait",
