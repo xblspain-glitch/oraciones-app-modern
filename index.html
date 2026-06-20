@@ -169,6 +169,27 @@ body.dark .segment{background:#222} body.dark .segment button.active{background:
   .topbar-row{gap:7px}.segment{width:100%;overflow:auto;flex-wrap:nowrap}.segment button{white-space:nowrap}.v2-home-btn{order:-2}.search{order:5}
   .panel{border-radius:0;box-shadow:none}.reader-title{font-size:24px}
 }
+
+/* V2 SAFE: solo estética, sin tocar navegación */
+.main{background:linear-gradient(180deg,rgba(197,151,99,.06),transparent 230px),var(--bg)}
+.sidebar{padding:16px;background:transparent;border-right:0}
+.list{display:flex;flex-direction:column;gap:12px}
+.item{border-radius:24px;padding:16px 16px 15px;background:var(--card);border:1px solid var(--line);box-shadow:0 12px 28px rgba(0,0,0,.06)}
+.item.active{outline:none;border-color:var(--primary);box-shadow:0 14px 34px rgba(138,90,43,.16)}
+.item-code{display:inline-flex;width:auto;border-radius:999px;background:var(--soft);padding:4px 9px;margin-bottom:10px;font-size:12px}
+.item-title{font-size:17px;line-height:1.25}
+.item-sub{margin-top:6px;line-height:1.45}
+.content{padding:16px 16px 20px}
+.panel{border-radius:28px;box-shadow:0 18px 45px rgba(0,0,0,.08);overflow:hidden}
+.panel-head{gap:8px;padding:12px;background:linear-gradient(135deg,rgba(197,151,99,.10),transparent)}
+.reader-title{font-size:30px;line-height:1.15;padding:20px 22px 6px}
+.reader-code{padding:18px 22px 0}
+.reader-text{padding:18px 22px 32px;line-height:1.85}
+body.dark .main{background:linear-gradient(180deg,rgba(200,151,99,.08),transparent 230px),#101010}
+body.dark .item, body.dark .panel{background:#1a1a1a;border-color:#2f2a24;box-shadow:0 14px 34px rgba(0,0,0,.28)}
+body.dark .item-code{background:#24211d;color:#cfc3b2}
+@media(max-width:860px){.sidebar{padding:12px}.content{padding:12px}.panel{border-radius:24px}.reader-title{font-size:26px}.panel-head{position:sticky;top:0;z-index:5}}
+
 </style>
 
 <style>
@@ -269,50 +290,6 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   white-space:nowrap;
   font-size:14px;
 }
-
-
-/* ===== FASE V2 SOLO ORACIONES: LISTA MODERNA REAL ===== */
-body.prayers-v2-list .topbar{display:none!important}
-body.prayers-v2-list .main{display:block;min-height:100dvh;background:radial-gradient(circle at top left, rgba(197,151,99,.18), transparent 35%), var(--bg);}
-body.prayers-v2-list .sidebar{display:block!important;border:0;max-height:none;min-height:100dvh;background:transparent;padding:calc(14px + env(safe-area-inset-top)) 14px 28px;}
-body.prayers-v2-list .content{display:none!important}
-.prayers-v2-shell{max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
-.prayers-v2-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(135deg, rgba(138,90,43,.14), rgba(197,151,99,.06));box-shadow:0 14px 38px rgba(0,0,0,.07)}
-.prayers-v2-title{display:flex;gap:13px;align-items:center}
-.prayers-v2-icon{width:54px;height:54px;border-radius:20px;background:var(--primary);color:white;display:grid;place-items:center;font-size:28px;box-shadow:0 10px 24px rgba(0,0,0,.16)}
-.prayers-v2-title h1{margin:0;font-size:28px;line-height:1.1}
-.prayers-v2-title p{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.35}
-.prayers-v2-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.prayers-v2-search-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.045)}
-.prayers-v2-search{width:100%;border:0;outline:0;background:var(--soft);color:var(--text);border-radius:18px;padding:14px 16px;font-size:17px}
-.prayers-v2-section{display:flex;flex-direction:column;gap:10px}
-.prayers-v2-section-title{display:flex;align-items:center;gap:8px;color:var(--muted);font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:.06em;padding:0 4px}
-.prayers-v2-card{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:24px;padding:15px 16px;text-align:left;box-shadow:0 12px 34px rgba(0,0,0,.055);cursor:pointer;display:flex;gap:12px;align-items:flex-start;width:100%}
-.prayers-v2-card:active{transform:scale(.99)}
-.prayers-v2-card-mark{width:42px;height:42px;border-radius:16px;background:var(--soft);display:grid;place-items:center;font-size:21px;flex:0 0 auto}
-.prayers-v2-card-body{min-width:0;flex:1}
-.prayers-v2-card-title{font-weight:900;font-size:17px;line-height:1.25;margin-bottom:6px}
-.prayers-v2-card-preview{color:var(--muted);font-size:14px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.prayers-v2-empty{background:var(--card);border:1px dashed var(--line);border-radius:22px;padding:18px;color:var(--muted);text-align:center}
-body.prayers-v2-reader .topbar{display:none!important}
-body.prayers-v2-reader .main{grid-template-columns:1fr;min-height:100dvh}
-body.prayers-v2-reader .sidebar{display:none!important}
-body.prayers-v2-reader .content{padding:0;background:var(--bg)}
-body.prayers-v2-reader #readerView{border:0;border-radius:0;min-height:100dvh;background:var(--bg)}
-body.prayers-v2-reader #readerView .panel-head{position:sticky;top:0;background:rgba(248,246,241,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);justify-content:center;padding:calc(8px + env(safe-area-inset-top)) 8px 8px}
-body.dark.prayers-v2-reader #readerView .panel-head{background:rgba(17,17,17,.94)}
-body.prayers-v2-reader #readerCode{max-width:860px;margin:0 auto;width:100%;padding-top:24px}
-body.prayers-v2-reader #readerTitle{max-width:860px;margin:0 auto;width:100%;font-size:30px;padding-top:8px}
-body.prayers-v2-reader #readerText{max-width:860px;margin:0 auto;width:100%;font-size:var(--reader-font-size,28px)!important;line-height:2.1;background:var(--card);border:1px solid var(--line);border-radius:28px;margin-top:16px;margin-bottom:28px;box-shadow:0 14px 42px rgba(0,0,0,.055)}
-body.prayers-v2-reader.hide-reading-ui #readerView .panel-head, body.prayers-v2-reader.hide-reading-ui #readerCode, body.prayers-v2-reader.hide-reading-ui #readerTitle{opacity:0;pointer-events:none;max-height:0;overflow:hidden;padding:0;margin:0;border:0}
-body.prayers-v2-reader.hide-reading-ui #readerText{border-color:transparent;box-shadow:none;margin-top:0;border-radius:0;min-height:100dvh}
-@media(max-width:860px){
-  .prayers-v2-head{border-radius:24px;padding:15px;flex-direction:column}.prayers-v2-title h1{font-size:25px}.prayers-v2-actions{justify-content:flex-start}.prayers-v2-card{border-radius:22px;padding:14px}.prayers-v2-card-title{font-size:16px}
-  body.prayers-v2-reader #readerTitle{font-size:25px;padding-left:16px;padding-right:16px}
-  body.prayers-v2-reader #readerCode{padding-left:16px;padding-right:16px}
-  body.prayers-v2-reader #readerText{border-left:0;border-right:0;border-radius:0;margin-top:12px;margin-bottom:0}
-}
-
 </style>
 
 </head>
@@ -1699,44 +1676,7 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'�
 }
 
 #editorView{padding-bottom:90px}
-</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
-
-<script>
-/* ===== FIX V2: abrir Oraciones de forma directa y segura ===== */
-(function(){
-  function forcePrayerV2Open(){
-    try{ showV2App(); }catch(e){ document.body.classList.remove('v2-home-mode'); }
-    try{ section='prayers'; state.section='prayers'; saveState(); syncTabs(); }catch(e){}
-    try{ document.body.classList.remove('v2-home-mode','prayers-v2-reader','reading-mobile','fullscreen-reading','hide-reading-ui','titles-only','backup-only'); }catch(e){}
-    try{ document.body.classList.add('prayers-v2-list'); }catch(e){}
-    try{
-      const main=document.querySelector('.main');
-      const sidebar=document.querySelector('.sidebar');
-      const content=document.querySelector('.content');
-      if(main) main.style.display='block';
-      if(sidebar) sidebar.style.display='block';
-      if(content) content.style.display='none';
-    }catch(e){}
-    try{ renderList(); }catch(e){ console.error(e); }
-    try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){}
-  }
-  const previousOpenV2Section = window.openV2Section;
-  window.openPrayerV2List = forcePrayerV2Open;
-  window.openV2Section = function(s){
-    if(s==='prayers') return forcePrayerV2Open();
-    if(typeof previousOpenV2Section==='function') return previousOpenV2Section(s);
-    try{ showV2App(); switchSection(s); openList(); }catch(e){ console.error(e); }
-  };
-  window.addEventListener('DOMContentLoaded', function(){
-    const card=document.querySelector('.v2-card.prayer');
-    if(card) card.onclick=forcePrayerV2Open;
-    const tab=document.getElementById('tabPrayers');
-    if(tab) tab.onclick=forcePrayerV2Open;
-  });
-})();
-</script>
-
-</body></html>`}
+</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
 async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
@@ -2225,165 +2165,7 @@ try{
     showV2Home();
   });
 }catch(e){}
-
-
-/* ===== FASE V2 SOLO ORACIONES: comportamiento aislado ===== */
-(function(){
-  const originalRenderList = window.renderList || renderList;
-  const originalOpenList = window.openList || openList;
-  const originalOpenReader = window.openReader || openReader;
-  const originalSmartBack = window.smartBack || smartBack;
-  let prayerQuery = '';
-
-  function cleanText(t){ return String(t||'').replace(/\s+/g,' ').trim(); }
-
-  function prayerCard(item){
-    const btn=document.createElement('button');
-    btn.type='button';
-    btn.className='prayers-v2-card';
-    const title=escapeHtml(item.title||'Sin título');
-    const preview=escapeHtml(cleanText(item.content).slice(0,150)||'Sin contenido');
-    btn.innerHTML='<div class="prayers-v2-card-mark">'+(item.favorite?'⭐':'✝️')+'</div><div class="prayers-v2-card-body"><div class="prayers-v2-card-title">'+title+'</div><div class="prayers-v2-card-preview">'+preview+'</div></div>';
-    btn.onclick=function(){
-      if(!document.getElementById('editorView').classList.contains('hidden')) saveCurrent(false,true);
-      specialVerseMode=null;
-      setCurrentId(item.id);
-      renderReader();
-      openReader();
-    };
-    return btn;
-  }
-
-  function renderPrayerV2List(){
-    const list=document.getElementById('list');
-    if(!list) return;
-    const q=(prayerQuery || '').trim().toLowerCase();
-    let items=[...(state.prayers||[])];
-    items=items.filter(item=>!q || String(item.title||'').toLowerCase().includes(q) || String(item.content||'').toLowerCase().includes(q));
-    items.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
-    const favs=items.filter(x=>x.favorite);
-    const all=items;
-    list.innerHTML='';
-    const shell=document.createElement('div');
-    shell.className='prayers-v2-shell';
-    shell.innerHTML=''+
-      '<div class="prayers-v2-head"><div class="prayers-v2-title"><div class="prayers-v2-icon">✝️</div><div><h1>Oraciones</h1><p>Busca, lee y guarda tus oraciones en una vista más limpia.</p></div></div><div class="prayers-v2-actions"><button class="btn soft" type="button" data-action="home">🏠 Inicio</button><button class="btn primary" type="button" data-action="new">➕ Nueva</button><button class="btn soft" type="button" data-action="theme">🌙</button></div></div>'+
-      '<div class="prayers-v2-search-card"><input id="prayerSearchV2" class="prayers-v2-search" placeholder="Buscar oración..." value="'+escapeHtml(prayerQuery)+'"></div>';
-    list.appendChild(shell);
-    shell.querySelector('[data-action="home"]').onclick=showV2Home;
-    shell.querySelector('[data-action="new"]').onclick=function(){ newItem(); };
-    shell.querySelector('[data-action="theme"]').onclick=toggleTheme;
-    const input=shell.querySelector('#prayerSearchV2');
-    input.oninput=function(){ prayerQuery=this.value; renderPrayerV2List(); setTimeout(()=>{const n=document.getElementById('prayerSearchV2'); if(n){n.focus(); const l=n.value.length; n.setSelectionRange(l,l);}},0); };
-
-    function addSection(label, arr, empty){
-      const sec=document.createElement('div');
-      sec.className='prayers-v2-section';
-      sec.innerHTML='<div class="prayers-v2-section-title">'+label+'</div>';
-      if(!arr.length){
-        const e=document.createElement('div'); e.className='prayers-v2-empty'; e.textContent=empty; sec.appendChild(e);
-      }else{ arr.forEach(item=>sec.appendChild(prayerCard(item))); }
-      shell.appendChild(sec);
-    }
-    if(!q) addSection('⭐ Favoritas', favs, 'Aún no tienes oraciones favoritas.');
-    addSection('📚 Todas las oraciones', all, q?'No hay resultados para esta búsqueda.':'No hay oraciones guardadas.');
-  }
-
-  window.renderList = renderList = function(){
-    if(section==='prayers'){
-      renderPrayerV2List();
-      return;
-    }
-    document.body.classList.remove('prayers-v2-list','prayers-v2-reader');
-    originalRenderList();
-  };
-
-  window.openList = openList = function(){
-    if(section==='prayers'){
-      document.body.classList.add('prayers-v2-list');
-      document.body.classList.remove('prayers-v2-reader','reading-mobile','fullscreen-reading','hide-reading-ui','titles-only','backup-only');
-      renderPrayerV2List();
-      try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
-      return;
-    }
-    document.body.classList.remove('prayers-v2-list','prayers-v2-reader');
-    originalOpenList();
-  };
-
-  window.openReader = openReader = function(){
-    if(section==='prayers'){
-      document.body.classList.remove('prayers-v2-list','reading-mobile','fullscreen-reading','titles-only','backup-only');
-      document.body.classList.add('prayers-v2-reader');
-      document.getElementById('readerView').classList.remove('hidden');
-      document.getElementById('editorView').classList.add('hidden');
-      document.getElementById('backupView').classList.add('hidden');
-      document.getElementById('trashView').classList.add('hidden');
-      document.getElementById('titlesView').classList.add('hidden');
-      var vc=document.getElementById('verseCategoriesView');if(vc)vc.classList.add('hidden');
-      try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
-      return;
-    }
-    document.body.classList.remove('prayers-v2-list','prayers-v2-reader');
-    originalOpenReader();
-  };
-
-  window.smartBack = smartBack = function(){
-    if(section==='prayers' && document.body.classList.contains('prayers-v2-reader')){
-      document.body.classList.remove('hide-reading-ui');
-      openList();
-      return;
-    }
-    originalSmartBack();
-  };
-
-  const oldToggleReadingUI = window.toggleReadingUI || toggleReadingUI;
-  window.toggleReadingUI = toggleReadingUI = function(){
-    if(section==='prayers' && document.body.classList.contains('prayers-v2-reader')){
-      document.body.classList.toggle('hide-reading-ui');
-      return;
-    }
-    oldToggleReadingUI();
-  };
-})();
-
 </script>
-
-
-<script>
-/* ===== FIX V2: abrir Oraciones de forma directa y segura ===== */
-(function(){
-  function forcePrayerV2Open(){
-    try{ showV2App(); }catch(e){ document.body.classList.remove('v2-home-mode'); }
-    try{ section='prayers'; state.section='prayers'; saveState(); syncTabs(); }catch(e){}
-    try{ document.body.classList.remove('v2-home-mode','prayers-v2-reader','reading-mobile','fullscreen-reading','hide-reading-ui','titles-only','backup-only'); }catch(e){}
-    try{ document.body.classList.add('prayers-v2-list'); }catch(e){}
-    try{
-      const main=document.querySelector('.main');
-      const sidebar=document.querySelector('.sidebar');
-      const content=document.querySelector('.content');
-      if(main) main.style.display='block';
-      if(sidebar) sidebar.style.display='block';
-      if(content) content.style.display='none';
-    }catch(e){}
-    try{ renderList(); }catch(e){ console.error(e); }
-    try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){}
-  }
-  const previousOpenV2Section = window.openV2Section;
-  window.openPrayerV2List = forcePrayerV2Open;
-  window.openV2Section = function(s){
-    if(s==='prayers') return forcePrayerV2Open();
-    if(typeof previousOpenV2Section==='function') return previousOpenV2Section(s);
-    try{ showV2App(); switchSection(s); openList(); }catch(e){ console.error(e); }
-  };
-  window.addEventListener('DOMContentLoaded', function(){
-    const card=document.querySelector('.v2-card.prayer');
-    if(card) card.onclick=forcePrayerV2Open;
-    const tab=document.getElementById('tabPrayers');
-    if(tab) tab.onclick=forcePrayerV2Open;
-  });
-})();
-</script>
-
 </body>
 </html>
 <!-- V9.1 pulido: Hoy/Aleatorio/Generado para hoy -->
