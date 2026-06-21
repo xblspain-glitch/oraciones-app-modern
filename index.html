@@ -279,6 +279,13 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 .calendar-event-desc{color:var(--muted);font-size:14px;line-height:1.45}
 .calendar-empty{color:var(--muted);font-size:15px}
 .calendar-note{color:var(--muted);font-size:13px;line-height:1.45;padding:0 4px 8px}
+.btn.calendar-alert{
+  background:linear-gradient(135deg,#d88428,#b45b16)!important;
+  color:#fff!important;
+  box-shadow:0 6px 18px rgba(216,132,40,.35);
+  font-weight:800;
+}
+.btn.calendar-alert::after{content:" • Hoy";font-weight:800}
 </style>
 
 </head>
@@ -419,7 +426,7 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
     <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
     <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
-    <button class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
+    <button id="calendarBtn" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
     <button class="btn soft" type="button" onclick="openRandomVerse()">🎲 Aleatorio</button>
     <button class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
         <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
@@ -1846,6 +1853,13 @@ function openChristianCalendar(){
   renderChristianCalendar(new Date());
 }
 
+function updateCalendarAlert(){
+  const btn=document.getElementById("calendarBtn");
+  if(!btn || typeof getChristianEventsFor!=="function") return;
+  const hasEvents=getChristianEventsFor(new Date()).length>0;
+  btn.classList.toggle("calendar-alert",hasEvents);
+}
+
 function openBackup(){
   clearNavModes();
   document.body.classList.add("backup-only");
@@ -1957,7 +1971,7 @@ window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPr
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
-applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();maybeShowInstall();
+applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateCalendarAlert();maybeShowInstall();
 
 
 
