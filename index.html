@@ -1461,8 +1461,9 @@ function buildVerseShareText(item){
 
 function openVerseCategories(){
   // Categorías pertenece siempre a Versículos.
-  // Si se pulsa desde Oraciones/Notas/Guía, primero cambiamos a Versículos
-  // para que no quede mezclado el listado lateral anterior.
+  // Si se pulsa desde Oraciones/Notas/Guía o desde Calendario, primero limpiamos
+  // cualquier pantalla especial para que Categorías pueda mostrarse.
+  clearNavModes();
   specialVerseMode=null;
   verseNavigationMode="categories";
   section="verses";
@@ -1479,6 +1480,7 @@ function openVerseCategories(){
   document.getElementById("backupView").classList.add("hidden");
   document.getElementById("trashView").classList.add("hidden");
   document.getElementById("titlesView").classList.add("hidden");
+  var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
   document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
   renderVerseCategories();
 }
