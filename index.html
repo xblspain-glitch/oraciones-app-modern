@@ -263,6 +263,22 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   white-space:nowrap;
   font-size:14px;
 }
+
+
+/* Calendario Cristiano V2 */
+.calendar-wrap{padding:14px;display:flex;flex-direction:column;gap:12px}
+.calendar-hero{background:linear-gradient(135deg,rgba(29,79,134,.18),rgba(197,151,99,.16));border:1px solid var(--line);border-radius:22px;padding:18px}
+.calendar-title{font-size:24px;font-weight:800;margin-bottom:6px}
+.calendar-date{color:var(--muted);font-weight:700}
+.calendar-grid{display:grid;grid-template-columns:1fr;gap:10px}
+.calendar-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}
+.calendar-card-head{font-weight:800;font-size:18px;margin-bottom:8px}
+.calendar-event{padding:10px 0;border-top:1px solid var(--line)}
+.calendar-event:first-of-type{border-top:none}
+.calendar-event-title{font-weight:800;font-size:17px;margin-bottom:4px}
+.calendar-event-desc{color:var(--muted);font-size:14px;line-height:1.45}
+.calendar-empty{color:var(--muted);font-size:15px}
+.calendar-note{color:var(--muted);font-size:13px;line-height:1.45;padding:0 4px 8px}
 </style>
 
 </head>
@@ -403,6 +419,7 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
     <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
     <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
+    <button class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
     <button class="btn soft" type="button" onclick="openRandomVerse()">🎲 Aleatorio</button>
     <button class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
         <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
@@ -495,6 +512,15 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
       </div>
       <textarea id="backupText" class="backup-text" placeholder="Aquí aparecerá tu copia de seguridad. También puedes pegar aquí una copia para importar."></textarea>
       <div class="small-note">El backup incluye oraciones, notas, las dos papeleras y además se guarda una copia automática local en cada cambio.</div>
+    </div>
+
+    <div id="calendarView" class="panel hidden">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
+        <button class="btn soft" type="button" onclick="renderChristianCalendar(new Date())">📅 Hoy</button>
+        <button class="btn soft" type="button" onclick="renderChristianCalendar(addCalendarDays(new Date(),1))">Mañana</button>
+      </div>
+      <div id="calendarContent" class="calendar-wrap"></div>
     </div>
 
 
@@ -930,7 +956,7 @@ function openList(){
   clearNavModes();
   renderList();
 document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");document.getElementById("search").focus()}
-function enterFullscreenReading(){document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
+function enterFullscreenReading(){document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
 function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
 function openEditor(){
@@ -1610,6 +1636,7 @@ function clearNavModes(){
     document.body.classList.remove("titles-only");
     document.body.classList.remove("list-only");
     document.body.classList.remove("backup-only");
+    var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
   }catch(e){}
 }
 
@@ -1717,6 +1744,108 @@ function openFavoritesView(){
 
 function toggleFavorite(){const item=currentItem();if(!item) return;item.favorite=!item.favorite;item.updatedAt=Date.now();saveState();renderList();renderReader();toast(item.favorite?"Marcado como favorito":"Quitado de favoritos")}
 function changeReaderSize(delta){readerSize+=delta;if(readerSize<20) readerSize=20;if(readerSize>34) readerSize=34;localStorage.setItem(SIZE_KEY, String(readerSize));renderReader()}
+
+function padCalendar(n){return String(n).padStart(2,"0")}
+function calendarKey(d){return d.getFullYear()+"-"+padCalendar(d.getMonth()+1)+"-"+padCalendar(d.getDate())}
+function addCalendarDays(date,days){const d=new Date(date.getFullYear(),date.getMonth(),date.getDate());d.setDate(d.getDate()+days);return d}
+function sameCalendarDay(a,b){return calendarKey(a)===calendarKey(b)}
+function formatCalendarDate(d){return d.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}
+function westernEaster(y){
+  const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;
+  return new Date(y,month-1,day);
+}
+function julianToGregorian(y,m,d){
+  const a=Math.floor((14-m)/12), yy=y+4800-a, mm=m+12*a-3;
+  const jdn=d+Math.floor((153*mm+2)/5)+365*yy+Math.floor(yy/4)-32083;
+  const A=jdn+32044, B=Math.floor((4*A+3)/146097), C=A-Math.floor(146097*B/4), D=Math.floor((4*C+3)/1461), E=C-Math.floor(1461*D/4), M=Math.floor((5*E+2)/153);
+  const day=E-Math.floor((153*M+2)/5)+1, month=M+3-12*Math.floor(M/10), year=100*B+D-4800+Math.floor(M/10);
+  return new Date(year,month-1,day);
+}
+function orthodoxEaster(y){
+  const a=y%4,b=y%7,c=y%19,d=(19*c+15)%30,e=(2*a+4*b-d+34)%7;
+  const month=Math.floor((d+e+114)/31), day=((d+e+114)%31)+1;
+  return julianToGregorian(y,month,day);
+}
+function addEvent(map,date,trad,title,desc){
+  const k=calendarKey(date); if(!map[k])map[k]=[]; map[k].push({trad,title,desc});
+}
+function addFixed(map,y,m,d,trad,title,desc){addEvent(map,new Date(y,m-1,d),trad,title,desc)}
+function buildChristianCalendarYear(y){
+  const map={};
+  const west=westernEaster(y), east=orthodoxEaster(y);
+  // General / Católico / Protestante occidental
+  addFixed(map,y,1,6,"catolica","⛪ Epifanía del Señor","Manifestación de Cristo a las naciones.");
+  addFixed(map,y,12,25,"catolica","🎄 Navidad","Celebramos el nacimiento de nuestro Señor Jesucristo.");
+  addFixed(map,y,12,25,"protestante","🎄 Navidad","Celebramos el nacimiento de Jesucristo, Salvador del mundo.");
+  addFixed(map,y,10,31,"protestante","📖 Día de la Reforma","Recuerdo histórico de la Reforma protestante.");
+  addEvent(map,addCalendarDays(west,-46),"catolica","✝️ Miércoles de Ceniza","Comienzo de la Cuaresma en el calendario occidental.");
+  addEvent(map,addCalendarDays(west,-7),"catolica","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
+  addEvent(map,addCalendarDays(west,-7),"protestante","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
+  addEvent(map,addCalendarDays(west,-2),"catolica","✝️ Viernes Santo","Recordamos la pasión y muerte de Cristo.");
+  addEvent(map,addCalendarDays(west,-2),"protestante","✝️ Viernes Santo","Recordamos la cruz de nuestro Señor Jesucristo.");
+  addEvent(map,west,"catolica","🌅 Domingo de Resurrección","Cristo ha resucitado.");
+  addEvent(map,west,"protestante","🌅 Domingo de Resurrección","Cristo ha resucitado.");
+  addEvent(map,addCalendarDays(west,39),"catolica","👑 Ascensión del Señor","Cristo asciende al Padre.");
+  addEvent(map,addCalendarDays(west,39),"protestante","👑 Ascensión del Señor","Cristo asciende al Padre.");
+  addEvent(map,addCalendarDays(west,49),"catolica","🔥 Pentecostés","Venida del Espíritu Santo sobre la Iglesia.");
+  addEvent(map,addCalendarDays(west,49),"protestante","🔥 Pentecostés","Venida del Espíritu Santo.");
+  // Ortodoxo oriental y etíope, con Pascua según cómputo oriental
+  addFixed(map,y,1,7,"ortodoxa","🎄 Navidad ortodoxa","Celebración de la Natividad de Cristo en muchas iglesias de calendario juliano.");
+  addFixed(map,y,1,19,"ortodoxa","💧 Teofanía","Celebración del bautismo del Señor.");
+  addFixed(map,y,1,19,"etiope","💧 Timkat","Celebración etíope del bautismo de nuestro Señor Jesucristo.");
+  addFixed(map,y,9,27,"etiope","✝️ Meskel","Conmemoración del hallazgo de la Vera Cruz en la tradición etíope.");
+  addEvent(map,addCalendarDays(east,-55),"etiope","✝️ Gran Ayuno","Comienza el tiempo de preparación hacia Fasika.");
+  addEvent(map,addCalendarDays(east,-48),"ortodoxa","✝️ Gran Cuaresma","Comienza el camino hacia la Santa Pascua.");
+  addEvent(map,addCalendarDays(east,-7),"etiope","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
+  addEvent(map,addCalendarDays(east,-7),"ortodoxa","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
+  addEvent(map,addCalendarDays(east,-2),"etiope","✝️ Viernes Santo","Recordamos la pasión y muerte de Cristo.");
+  addEvent(map,addCalendarDays(east,-2),"ortodoxa","✝️ Viernes Santo","Recordamos la pasión y muerte de Cristo.");
+  addEvent(map,east,"etiope","🌅 Fasika","Pascua etíope: celebramos la Resurrección de Cristo.");
+  addEvent(map,east,"ortodoxa","🌅 Pascua ortodoxa","Cristo ha resucitado.");
+  addEvent(map,addCalendarDays(east,39),"etiope","👑 Ascensión del Señor","Cristo asciende al Padre.");
+  addEvent(map,addCalendarDays(east,39),"ortodoxa","👑 Ascensión del Señor","Cristo asciende al Padre.");
+  addEvent(map,addCalendarDays(east,49),"etiope","🔥 Pentecostés","Venida del Espíritu Santo sobre la Iglesia.");
+  addEvent(map,addCalendarDays(east,49),"ortodoxa","🔥 Pentecostés","Venida del Espíritu Santo.");
+  return map;
+}
+function getChristianEventsFor(date){
+  const y=date.getFullYear();
+  const all=Object.assign({},buildChristianCalendarYear(y-1),buildChristianCalendarYear(y),buildChristianCalendarYear(y+1));
+  return all[calendarKey(date)]||[];
+}
+function renderCalendarTradition(events,key,label){
+  const ev=events.filter(e=>e.trad===key);
+  let html='<div class="calendar-card"><div class="calendar-card-head">'+label+'</div>';
+  if(!ev.length){html+='<div class="calendar-empty">Sin festividad especial hoy.</div>'}
+  else ev.forEach(e=>{html+='<div class="calendar-event"><div class="calendar-event-title">'+escapeHtml(e.title)+'</div><div class="calendar-event-desc">'+escapeHtml(e.desc)+'</div></div>'});
+  return html+'</div>';
+}
+function renderChristianCalendar(date){
+  date=date||new Date();
+  const box=document.getElementById("calendarContent"); if(!box)return;
+  const events=getChristianEventsFor(date);
+  const whenLabel=sameCalendarDay(date,new Date())?'Hoy':'Fecha';
+  box.innerHTML='<div class="calendar-hero"><div class="calendar-title">📅 Calendario Cristiano</div><div class="calendar-date">'+whenLabel+' · '+escapeHtml(formatCalendarDate(date))+'</div></div><div class="calendar-grid">'
+    +renderCalendarTradition(events,"etiope","🇪🇹 Ortodoxo etíope")
+    +renderCalendarTradition(events,"ortodoxa","☦️ Ortodoxo")
+    +renderCalendarTradition(events,"protestante","✝️ Protestante")
+    +renderCalendarTradition(events,"catolica","⛪ Católico")
+    +'</div><div class="calendar-note">Las fechas móviles se calculan según el cómputo occidental u oriental. Algunas iglesias pueden variar celebraciones locales.</div>';
+}
+function openChristianCalendar(){
+  clearNavModes();
+  const cal=document.getElementById("calendarView"); if(!cal)return;
+  cal.classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+  document.getElementById("titlesView").classList.add("hidden");
+  var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
+  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  renderChristianCalendar(new Date());
+}
+
 function openBackup(){
   clearNavModes();
   document.body.classList.add("backup-only");
