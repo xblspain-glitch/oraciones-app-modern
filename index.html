@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- V24 SEARCH DIRECT TITLES -->
+<!-- V24 BUSCADOR REAL SIMPLE -->
 <!-- V23 FIX REAL OPENVERSECATEGORIES -->
 <!-- V22 SIN LISTA FIX -->
 <!-- V8.0 CATEGORIAS DINAMICAS -->
@@ -583,7 +583,7 @@ button[onclick*="openList"]{display:none!important;}
     <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
     <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
     <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
-    <input id="search" class="search" placeholder="Buscar..." oninput="smartSearchV24()">
+    <input id="search" class="search" placeholder="Buscar..." oninput="renderList();renderTitles();renderVerseCategories()">
     <div id="counterInfo" class="counter"></div>
   </div>
 </div>
@@ -970,7 +970,41 @@ function displayItemSub(item){
   return (item.content||"").slice(0,70);
 }
 
-function renderList(){const q=document.getElementById("search").value.trim().toLowerCase(),list=document.getElementById("list");list.innerHTML="";let items=[...getItems()].map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));items=items.filter(item=>!q || item.title.toLowerCase().includes(q) || item.content.toLowerCase().includes(q) || item.__code.toLowerCase()===q);items.sort((a,b)=>(b.favorite===true)-(a.favorite===true)||b.updatedAt-a.updatedAt);if(!items.length){list.innerHTML='<div class="empty">No hay elementos.</div>';return}const current=currentItem();items.forEach(item=>{const div=document.createElement("div");div.className="item"+(current&&item.id===current.id?" active":"");const preview=item.content.trim().replace(/\n+/g," ").slice(0,70)||"Sin contenido";div.innerHTML='<div class="item-code">'+escapeHtml(item.__code)+'</div><div class="item-title-row"><div class="item-title">'+escapeHtml(item.title||"Sin título")+'</div><div class="fav">'+(item.favorite?'⭐':'')+'</div></div><div class="item-sub">'+escapeHtml(preview)+'</div>';div.onclick=()=>{if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);specialVerseMode=null;setCurrentId(item.id);if(section==="verses"){currentVerseCategory=item.category||currentVerseCategory||"fe";verseNavigationMode="verse";}renderList();renderReader();openReader()};list.appendChild(div)})}
+function renderList(){
+  const q=(document.getElementById("search")?.value||"").trim().toLowerCase();
+  const list=document.getElementById("list");
+  if(!list) return;
+  list.innerHTML="";
+  let items=[...getItems()].map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));
+  items=items.filter(item=>{
+    if(!q) return true;
+    const hay=[
+      item.title,
+      item.content,
+      item.reference,
+      item.category,
+      item.__code
+    ].filter(Boolean).join(" ").toLowerCase();
+    return hay.includes(q);
+  });
+  items.sort((a,b)=>(b.favorite===true)-(a.favorite===true)||(b.updatedAt||0)-(a.updatedAt||0));
+  if(!items.length){list.innerHTML='<div class="empty">No hay elementos.</div>';return}
+  const current=currentItem();
+  items.forEach(item=>{
+    const div=document.createElement("div");
+    div.className="item"+(current&&item.id===current.id?" active":"");
+    const preview=String(item.content||"").trim().replace(/\n+/g," ").slice(0,70)||"Sin contenido";
+    div.innerHTML='<div class="item-code">'+escapeHtml(item.__code)+'</div><div class="item-title-row"><div class="item-title">'+escapeHtml(item.reference||item.title||"Sin título")+'</div><div class="fav">'+(item.favorite?'⭐':'')+'</div></div><div class="item-sub">'+escapeHtml(preview)+'</div>';
+    div.onclick=()=>{
+      if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);
+      specialVerseMode=null;
+      setCurrentId(item.id);
+      if(section==="verses"){currentVerseCategory=item.category||currentVerseCategory||"fe";verseNavigationMode="verse";}
+      renderList();renderReader();openReader()
+    };
+    list.appendChild(div)
+  })
+}
 
 function applyReaderFont(){
   const size=state.readerFontSize||28;
@@ -1726,6 +1760,38 @@ function moveVerseToCategory(){
 function renderVerseCategories(){
   const box=document.getElementById("verseCategoriesList");if(!box)return;
   box.innerHTML="";
+  const q=(document.getElementById("search")?.value||"").trim().toLowerCase();
+
+  if(q){
+    const cats=(state.verseCategories&&state.verseCategories.length?state.verseCategories:VERSE_CATEGORIES);
+    const catLabel=(id)=>{const c=cats.find(x=>x.id===id);return c?c.label:id;};
+    const verses=state.verses.filter(v=>{
+      const hay=[
+        v.reference,
+        v.title,
+        v.content,
+        v.category,
+        catLabel(v.category)
+      ].filter(Boolean).join(" ").toLowerCase();
+      return hay.includes(q);
+    });
+
+    if(!verses.length){
+      box.innerHTML='<div class="empty">No hay resultados.</div>';
+      return;
+    }
+
+    verses.forEach((v,idx)=>{
+      const div=document.createElement("div");
+      div.className="category-card";
+      const preview=String(v.content||"").replace(/\n+/g," ").slice(0,95);
+      div.innerHTML='<div><strong>'+escapeHtml(v.reference||v.title||"Sin referencia")+'</strong></div><div class="category-count">'+escapeHtml(catLabel(v.category))+(preview?' · '+escapeHtml(preview):'')+'</div>';
+      div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=v.category||currentVerseCategory||"fe";section="verses";state.section="verses";setCurrentId(v.id);renderList();renderReader();applyReaderFont();openReader();};
+      box.appendChild(div);
+    });
+    return;
+  }
+
   (state.verseCategories&&state.verseCategories.length?state.verseCategories:VERSE_CATEGORIES).forEach(cat=>{
     const count=state.verses.filter(v=>v.category===cat.id).length;
     const div=document.createElement("div");
@@ -1792,7 +1858,13 @@ function renderTitles(){
   let items=getItems().map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));
   if(q){
     items=items.filter(item=>{
-      const hay=[item.title,item.content,item.__code,item.category].filter(Boolean).join(" ").toLowerCase();
+      const hay=[
+        item.title,
+        item.content,
+        item.reference,
+        item.category,
+        item.__code
+      ].filter(Boolean).join(" ").toLowerCase();
       return hay.includes(q);
     });
   }
@@ -1813,26 +1885,6 @@ function renderTitles(){
     };
     box.appendChild(div);
   });
-}
-
-function smartSearchV24(){
-  const q=(document.getElementById("search")?.value||"").trim();
-  const inTitles=document.body.classList.contains("titles-only");
-  const inVerseCategories=document.getElementById("verseCategoriesView") && !document.getElementById("verseCategoriesView").classList.contains("hidden");
-  const inCalendar=document.getElementById("calendarView") && !document.getElementById("calendarView").classList.contains("hidden");
-
-  if(q && (inTitles || inVerseCategories || inCalendar || section==="verses")){
-    openTitlesView();
-    renderTitles();
-    return;
-  }
-
-  if(inTitles){
-    renderTitles();
-    return;
-  }
-
-  renderList();
 }
 
 function clearNavModes(){
