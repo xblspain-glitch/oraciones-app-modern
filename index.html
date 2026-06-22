@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- V24 SEARCH REAL FIX -->
+<!-- V24 SEARCH DIRECT TITLES -->
 <!-- V23 FIX REAL OPENVERSECATEGORIES -->
 <!-- V22 SIN LISTA FIX -->
 <!-- V8.0 CATEGORIAS DINAMICAS -->
@@ -583,7 +583,7 @@ button[onclick*="openList"]{display:none!important;}
     <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
     <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
     <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
-    <input id="search" class="search" placeholder="Buscar..." oninput="handleSearch()">
+    <input id="search" class="search" placeholder="Buscar..." oninput="smartSearchV24()">
     <div id="counterInfo" class="counter"></div>
   </div>
 </div>
@@ -968,16 +968,6 @@ function displayItemTitle(item){
 function displayItemSub(item){
   if(section==="verses") return verseCategoryLabel(item.category)+" · "+((item.text||item.content||"").slice(0,70));
   return (item.content||"").slice(0,70);
-}
-
-
-function handleSearch(){
-  const q=document.getElementById("search").value.trim();
-  if(document.body.classList.contains("titles-only")){
-    renderTitles();
-    return;
-  }
-  renderList();
 }
 
 function renderList(){const q=document.getElementById("search").value.trim().toLowerCase(),list=document.getElementById("list");list.innerHTML="";let items=[...getItems()].map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));items=items.filter(item=>!q || item.title.toLowerCase().includes(q) || item.content.toLowerCase().includes(q) || item.__code.toLowerCase()===q);items.sort((a,b)=>(b.favorite===true)-(a.favorite===true)||b.updatedAt-a.updatedAt);if(!items.length){list.innerHTML='<div class="empty">No hay elementos.</div>';return}const current=currentItem();items.forEach(item=>{const div=document.createElement("div");div.className="item"+(current&&item.id===current.id?" active":"");const preview=item.content.trim().replace(/\n+/g," ").slice(0,70)||"Sin contenido";div.innerHTML='<div class="item-code">'+escapeHtml(item.__code)+'</div><div class="item-title-row"><div class="item-title">'+escapeHtml(item.title||"Sin título")+'</div><div class="fav">'+(item.favorite?'⭐':'')+'</div></div><div class="item-sub">'+escapeHtml(preview)+'</div>';div.onclick=()=>{if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);specialVerseMode=null;setCurrentId(item.id);if(section==="verses"){currentVerseCategory=item.category||currentVerseCategory||"fe";verseNavigationMode="verse";}renderList();renderReader();openReader()};list.appendChild(div)})}
@@ -1801,15 +1791,14 @@ function renderTitles(){
   const q=(document.getElementById("search")?.value||"").trim().toLowerCase();
   let items=getItems().map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));
   if(q){
-    items=items.filter(item=>
-      (item.title||"").toLowerCase().includes(q) ||
-      (item.content||"").toLowerCase().includes(q) ||
-      (item.__code||"").toLowerCase().includes(q)
-    );
+    items=items.filter(item=>{
+      const hay=[item.title,item.content,item.__code,item.category].filter(Boolean).join(" ").toLowerCase();
+      return hay.includes(q);
+    });
   }
   const current=currentItem();
   if(!items.length){
-    box.innerHTML='<div class="empty">No hay títulos.</div>';
+    box.innerHTML='<div class="empty">No hay resultados.</div>';
     return;
   }
   items.forEach(item=>{
@@ -1824,6 +1813,26 @@ function renderTitles(){
     };
     box.appendChild(div);
   });
+}
+
+function smartSearchV24(){
+  const q=(document.getElementById("search")?.value||"").trim();
+  const inTitles=document.body.classList.contains("titles-only");
+  const inVerseCategories=document.getElementById("verseCategoriesView") && !document.getElementById("verseCategoriesView").classList.contains("hidden");
+  const inCalendar=document.getElementById("calendarView") && !document.getElementById("calendarView").classList.contains("hidden");
+
+  if(q && (inTitles || inVerseCategories || inCalendar || section==="verses")){
+    openTitlesView();
+    renderTitles();
+    return;
+  }
+
+  if(inTitles){
+    renderTitles();
+    return;
+  }
+
+  renderList();
 }
 
 function clearNavModes(){
