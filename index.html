@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- V23 FIX REAL OPENVERSECATEGORIES -->
 <!-- V22 SIN LISTA FIX -->
 <!-- V8.0 CATEGORIAS DINAMICAS -->
 <!-- V7.8 BOTON REF EN BARRA -->
@@ -1645,7 +1646,8 @@ function openVerseCategories(){
   document.getElementById("trashView").classList.add("hidden");
   document.getElementById("titlesView").classList.add("hidden");
   var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
-  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  document.body.classList.remove("fullscreen-reading","hide-reading-ui");
+  document.body.classList.add("reading-mobile");
   renderVerseCategories();
 }
 
@@ -1733,6 +1735,7 @@ function renderVerseCategories(){
   });
 }
 function openVerseCategory(catId){
+  document.body.classList.add("reading-mobile");
   categoryListActive=false;
   specialVerseMode=null;
   verseNavigationMode="category";
@@ -2019,7 +2022,8 @@ function openChristianCalendar(){
   document.getElementById("trashView").classList.add("hidden");
   document.getElementById("titlesView").classList.add("hidden");
   var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
-  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  document.body.classList.remove("fullscreen-reading","hide-reading-ui");
+  document.body.classList.add("reading-mobile");
   renderChristianCalendar(new Date());
 }
 
