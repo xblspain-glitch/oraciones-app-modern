@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- V23 OCULTAR LISTADO CALENDARIO CATEGORIAS FIX INDEX -->
+<!-- V23 SOLO OCULTAR LISTA EN CALENDARIO Y CATEGORIAS -->
 <!-- V22 SIN LISTA FIX -->
 <!-- V8.0 CATEGORIAS DINAMICAS -->
 <!-- V7.8 BOTON REF EN BARRA -->
@@ -435,14 +435,14 @@ button[onclick*="openList"]{display:none!important;}
 </style>
 
 
-<style id="v23-ocultar-listado-fix-index">
-body.special-no-sidebar .sidebar{
+<style id="v23-solo-ocultar-lista-especial">
+body.hide-list-special .sidebar{
   display:none!important;
 }
-body.special-no-sidebar .main{
+body.hide-list-special .main{
   grid-template-columns:1fr!important;
 }
-body.special-no-sidebar .content{
+body.hide-list-special .content{
   width:100%!important;
   max-width:100%!important;
 }
@@ -2188,43 +2188,44 @@ button[onclick*="openList"]{display:none!important;}
 </style>
 
 
-<style id="v23-ocultar-listado-fix-index">
-body.special-no-sidebar .sidebar{
+<style id="v23-solo-ocultar-lista-especial">
+body.hide-list-special .sidebar{
   display:none!important;
 }
-body.special-no-sidebar .main{
+body.hide-list-special .main{
   grid-template-columns:1fr!important;
 }
-body.special-no-sidebar .content{
+body.hide-list-special .content{
   width:100%!important;
   max-width:100%!important;
 }
 </style>
 
 </head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
-<script id="v23-ocultar-listado-fix-index-js">
+<script id="v23-solo-ocultar-lista-especial-js">
 (function(){
-  function hideSide(){ document.body.classList.add("special-no-sidebar"); }
-  function showSide(){ document.body.classList.remove("special-no-sidebar"); }
+  function hideList(){ document.body.classList.add("hide-list-special"); }
+  function showList(){ document.body.classList.remove("hide-list-special"); }
 
-  function wrap(name, after){
+  function wrapAfter(name, fn){
     var old = window[name];
-    if (typeof old !== "function" || old.__v23Wrapped) return;
+    if (typeof old !== "function" || old.__v23HideListWrapped) return;
     var wrapped = function(){
-      var result = old.apply(this, arguments);
-      try { after(); } catch(e){}
-      return result;
+      var r = old.apply(this, arguments);
+      try { fn(); } catch(e){}
+      return r;
     };
-    wrapped.__v23Wrapped = true;
+    wrapped.__v23HideListWrapped = true;
     window[name] = wrapped;
   }
 
-  function applyV23(){
-    wrap("openChristianCalendar", hideSide);
-    wrap("openVerseCategories", hideSide);
-    wrap("openVerseCategory", hideSide);
+  function apply(){
+    wrapAfter("openChristianCalendar", hideList);
+    wrapAfter("openVerseCategories", hideList);
+    wrapAfter("openVerseCategory", hideList);
 
     [
+      "switchSection",
       "openReader",
       "openTitlesView",
       "openFavoritesView",
@@ -2233,15 +2234,16 @@ body.special-no-sidebar .content{
       "openDailyVerse",
       "openRandomVerse",
       "openEditor",
-      "switchSection",
       "newItem"
-    ].forEach(function(name){ wrap(name, showSide); });
+    ].forEach(function(name){
+      wrapAfter(name, showList);
+    });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", applyV23);
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", apply);
   } else {
-    applyV23();
+    apply();
   }
 })();
 </script>
@@ -2700,29 +2702,30 @@ setInterval(updateVersePositionCounter, 1000);
 
 </script>
 
-<script id="v23-ocultar-listado-fix-index-js">
+<script id="v23-solo-ocultar-lista-especial-js">
 (function(){
-  function hideSide(){ document.body.classList.add("special-no-sidebar"); }
-  function showSide(){ document.body.classList.remove("special-no-sidebar"); }
+  function hideList(){ document.body.classList.add("hide-list-special"); }
+  function showList(){ document.body.classList.remove("hide-list-special"); }
 
-  function wrap(name, after){
+  function wrapAfter(name, fn){
     var old = window[name];
-    if (typeof old !== "function" || old.__v23Wrapped) return;
+    if (typeof old !== "function" || old.__v23HideListWrapped) return;
     var wrapped = function(){
-      var result = old.apply(this, arguments);
-      try { after(); } catch(e){}
-      return result;
+      var r = old.apply(this, arguments);
+      try { fn(); } catch(e){}
+      return r;
     };
-    wrapped.__v23Wrapped = true;
+    wrapped.__v23HideListWrapped = true;
     window[name] = wrapped;
   }
 
-  function applyV23(){
-    wrap("openChristianCalendar", hideSide);
-    wrap("openVerseCategories", hideSide);
-    wrap("openVerseCategory", hideSide);
+  function apply(){
+    wrapAfter("openChristianCalendar", hideList);
+    wrapAfter("openVerseCategories", hideList);
+    wrapAfter("openVerseCategory", hideList);
 
     [
+      "switchSection",
       "openReader",
       "openTitlesView",
       "openFavoritesView",
@@ -2731,15 +2734,16 @@ setInterval(updateVersePositionCounter, 1000);
       "openDailyVerse",
       "openRandomVerse",
       "openEditor",
-      "switchSection",
       "newItem"
-    ].forEach(function(name){ wrap(name, showSide); });
+    ].forEach(function(name){
+      wrapAfter(name, showList);
+    });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", applyV23);
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", apply);
   } else {
-    applyV23();
+    apply();
   }
 })();
 </script>
