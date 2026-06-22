@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- V22 SIN LISTA FIX -->
 <!-- V8.0 CATEGORIAS DINAMICAS -->
 <!-- V7.8 BOTON REF EN BARRA -->
 <meta charset="UTF-8">
@@ -427,6 +428,11 @@ body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
 }
 </style>
 
+
+<style id="v22-sin-lista-fix">
+button[onclick*="openList"]{display:none!important;}
+</style>
+
 </head>
 <body>
 
@@ -586,7 +592,7 @@ body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
     <div id="readerView" class="panel">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button id="btnList" data-view-btn="list" class="btn soft" type="button" onclick="openList()">☰ Lista</button>
+        
         <button data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
         <button data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
         <button class="btn soft" type="button" onclick="changeReaderFont(-2)">A-</button>
@@ -682,7 +688,7 @@ body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
     <div id="titlesView" class="panel hidden">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button class="btn soft" type="button" onclick="openList()">☰ Lista completa</button>
+        
       </div>
       <div id="titlesList" class="title-list"></div>
     </div>
@@ -2159,6 +2165,11 @@ body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
   color:#fff!important;
   border:none!important;
 }
+</style>
+
+
+<style id="v22-sin-lista-fix">
+button[onclick*="openList"]{display:none!important;}
 </style>
 
 </head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
