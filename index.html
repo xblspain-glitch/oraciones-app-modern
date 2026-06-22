@@ -14,7 +14,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
-:root{--bg:#f8f6f1;--card:#ffffff;--text:#181818;--muted:#6b665d;--line:#e5dece;--primary:#8a5a2b;--soft:#efe7da;--danger:#b84a3c;--accent:#c59763}
+:root{--bg:#f8f6f1;--card:#ffffff;--text:#181818;--muted:#6b665d;--line:#d9e5f5;--primary:#2f6fb3;--soft:#edf3fb;--danger:#b84a3c;--accent:#c59763}
 body.dark{--bg:#111111;--card:#1a1a1a;--text:#f2eee7;--muted:#b5ab9c;--line:#2f2a24;--primary:#c89763;--soft:#24211d;--danger:#d56d61;--accent:#ffd27d}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;min-height:100%}
@@ -315,6 +315,22 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 .btn.calendar-alert::after{content:" • Hoy";font-weight:800}
 </style>
 
+
+<style id="v2-blue-panels-final">
+:root{
+ --panel-blue:#eaf4ff;
+}
+.segment,
+.topbar,
+.topbar-row,
+.panel-head{
+ background:var(--panel-blue)!important;
+}
+.btn.primary{
+ background:#2f6fb3!important;
+ color:#fff!important;
+}
+</style>
 </head>
 <body>
 
@@ -1936,7 +1952,23 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'�
 }
 
 #editorView{padding-bottom:90px}
-</style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
+</style>
+<style id="v2-blue-panels-final">
+:root{
+ --panel-blue:#eaf4ff;
+}
+.segment,
+.topbar,
+.topbar-row,
+.panel-head{
+ background:var(--panel-blue)!important;
+}
+.btn.primary{
+ background:#2f6fb3!important;
+ color:#fff!important;
+}
+</style>
+</head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
