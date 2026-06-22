@@ -1,3 +1,4 @@
+// oraciones-v2-blue-real-v1
 const CACHE_NAME="oraciones-v2-bienvenida-20260621-19";
 const CORE=["./","./index.html","./manifest.json","./icon-192.png","./icon-512.png","https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"];
 self.addEventListener("install",event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.map(k=>caches.delete(k)));const cache=await caches.open(CACHE_NAME);await cache.addAll(CORE);})());self.skipWaiting();});
