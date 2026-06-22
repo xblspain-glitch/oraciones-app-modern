@@ -93,6 +93,21 @@ body.dark .topbar{background:rgba(17,17,17,.96)}
   .search{order:2;width:100%;flex-basis:100%}
   .status{width:100%;margin-left:0;padding-top:0}
 }
+
+/* V1.8: resaltado de vista activa */
+.btn.active-view{
+  background:#fff!important;
+  color:#181818!important;
+  font-weight:800!important;
+  border:2px solid var(--primary)!important;
+  box-shadow:0 4px 14px rgba(138,90,43,.16);
+}
+body.dark .btn.active-view{
+  background:#f2eee7!important;
+  color:#111!important;
+  border-color:var(--accent)!important;
+}
+
 body.dark .segment button{color:var(--text)}body.dark .segment button.active{color:var(--text)}
 .category-grid{padding:12px;display:flex;flex-direction:column;gap:10px}
 .category-card{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:14px;cursor:pointer;font-weight:bold}
@@ -423,17 +438,17 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
       <button id="tabGuides" type="button" onclick="switchSection('guides')">📜 Guía</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
     </div>
-    <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
-    <button class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
-    <button id="calendarBtn" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
-    <button class="btn soft" type="button" onclick="openRandomVerse()">🎲 Aleatorio</button>
-    <button class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
-        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
-    <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
-    <button class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
-    <button class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
-    <button class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
+    <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
+    <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
+    <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
+    <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
+    <button id="btnRandom" data-view-btn="random" class="btn soft" type="button" onclick="openRandomVerse()">🎲 Aleatorio</button>
+    <button id="btnCategories" data-view-btn="categories" class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
+        <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
+    <button id="btnEdit" data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+    <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
+    <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
+    <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
     <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
     <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList()">
@@ -581,7 +596,7 @@ setInterval(decorateDailyVerseNote, 1200);
 
 
 function openVerseCategories(){
-  categoryListActive=true; clearNavModes(); openVerseCategoriesView(); }
+  setActiveView("categories"); categoryListActive=true; clearNavModes(); openVerseCategoriesView(); }
 
 </script>
 <script>
@@ -764,8 +779,18 @@ function syncTabs(){
   document.getElementById("search").placeholder=section==="prayers"?"Buscar oración o código (ej. O3)":section==="notes"?"Buscar nota o código (ej. N2)":section==="guides"?"Buscar guía o código (ej. G1)":"Buscar versículo, referencia o palabra";
   document.getElementById("counterInfo").textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | ❤️ ${state.verses?state.verses.length:0}`;
 }
+
+function setActiveView(view){
+  document.querySelectorAll('[data-view-btn]').forEach(btn=>btn.classList.remove('active-view'));
+  if(!view) return;
+  const map={new:'btnNew',read:'btnRead',daily:'btnDaily',calendar:'calendarBtn',random:'btnRandom',categories:'btnCategories',titles:'btnTitles',edit:'btnEdit',favorites:'btnFavorites',backup:'btnBackup',trash:'btnTrash'};
+  const id=map[view]||view;
+  const btn=document.getElementById(id);
+  if(btn) btn.classList.add('active-view');
+}
+
 function switchSection(s){
-  section=s;state.section=s;saveState();syncTabs();renderList();
+  section=s;state.section=s;saveState();syncTabs();setActiveView(null);renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
   renderReader();openReader();
 }
@@ -960,13 +985,15 @@ function smartBack(){
 function openReader(){
   clearNavModes();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
 function openList(){
+  setActiveView(null);
   clearNavModes();
   renderList();
 document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");document.getElementById("search").focus()}
-function enterFullscreenReading(){document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
+function enterFullscreenReading(){setActiveView("read");document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
 function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
 function openEditor(){
+  setActiveView("edit");
   clearNavModes();
   const item=currentItem();if(!item) return;
   const cat=document.getElementById("editCategory");
@@ -1126,6 +1153,7 @@ function saveCurrent(stay, silent){
 
 function leaveEditor(){if(isDirty) saveCurrent(false,true);else openReader()}
 function newItem(){
+  setActiveView("new");
   const id=uid();
   const title=section==="prayers"?"Nueva oración":section==="notes"?"Nueva nota":section==="guides"?"Nueva guía":"Nueva referencia";
   const item=section==="verses"
@@ -1196,7 +1224,7 @@ function openVerseSpecial(v,mode){
   applyReaderFont();
   openReader();
 }
-function openDailyVerse(){ openVerseSpecial(getDailyVerse(),"daily"); }
+function openDailyVerse(){ openVerseSpecial(getDailyVerse(),"daily"); setActiveView("daily"); }
 
 
 
@@ -1451,7 +1479,7 @@ function openNeverSentVerse(){
 }
 
 
-function openRandomVerse(){ openVerseSpecial(pickRandomVerse(),"random"); }
+function openRandomVerse(){ openVerseSpecial(pickRandomVerse(),"random"); setActiveView("random"); }
 function buildVerseShareText(item){
   if(!item) return "";
   const heading=specialVerseMode==="daily"?"🌅 Versículo del día\n\n":specialVerseMode==="random"?"🎲 Versículo aleatorio\n\n":"";
@@ -1460,10 +1488,10 @@ function buildVerseShareText(item){
 }
 
 function openVerseCategories(){
+  setActiveView("categories");
   // Categorías pertenece siempre a Versículos.
-  // Si se pulsa desde Oraciones/Notas/Guía o desde Calendario, primero limpiamos
-  // cualquier pantalla especial para que Categorías pueda mostrarse.
-  clearNavModes();
+  // Si se pulsa desde Oraciones/Notas/Guía, primero cambiamos a Versículos
+  // para que no quede mezclado el listado lateral anterior.
   specialVerseMode=null;
   verseNavigationMode="categories";
   section="verses";
@@ -1480,7 +1508,6 @@ function openVerseCategories(){
   document.getElementById("backupView").classList.add("hidden");
   document.getElementById("trashView").classList.add("hidden");
   document.getElementById("titlesView").classList.add("hidden");
-  var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
   document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
   renderVerseCategories();
 }
@@ -1650,6 +1677,7 @@ function clearNavModes(){
 }
 
 function openTitlesView(){
+  setActiveView("titles");
   clearNavModes();
   document.body.classList.add("titles-only");
   if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);
@@ -1663,6 +1691,7 @@ function openTitlesView(){
 }
 
 function openTrash(){
+  setActiveView("trash");
   clearNavModes();document.getElementById("trashView").classList.remove("hidden");document.getElementById("readerView").classList.add("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");renderTrash()}
 function renderTrash(){const box=document.getElementById("trashList");box.innerHTML="";const trash=getTrash();if(!trash.length){box.innerHTML='<div class="empty">La papelera está vacía.</div>';return}trash.forEach(item=>{const div=document.createElement("div");div.className="trash-item";div.innerHTML='<div class="trash-title">'+escapeHtml(item.title||"Sin título")+'</div><div class="row"><button class="btn soft" type="button" onclick="restoreFromTrash(\''+item.id+'\')">Restaurar</button><button class="btn danger" type="button" onclick="deleteForever(\''+item.id+'\')">Borrar definitivo</button></div>';box.appendChild(div)})}
 function restoreFromTrash(id){const trash=getTrash();const idx=trash.findIndex(x=>x.id===id);if(idx<0) return;const item=trash.splice(idx,1)[0];const items=getItems();items.unshift(item);setItems(items);setCurrentId(item.id);saveState();syncTabs();renderList();renderReader();renderTrash();toast("Restaurado")}
@@ -1702,6 +1731,7 @@ function copyCurrent(){
 
 function openFavoritesView(){
   try{
+    setActiveView("favorites");
     const favs = (getItems()||[]).filter(i => i.favorite);
     const box = document.getElementById("titlesList");
     if(!box) return;
@@ -1842,6 +1872,7 @@ function renderChristianCalendar(date){
     +'</div><div class="calendar-note">Las fechas móviles se calculan según el cómputo occidental u oriental. Algunas iglesias pueden variar celebraciones locales.</div>';
 }
 function openChristianCalendar(){
+  setActiveView("calendar");
   clearNavModes();
   const cal=document.getElementById("calendarView"); if(!cal)return;
   cal.classList.remove("hidden");
@@ -1863,6 +1894,7 @@ function updateCalendarAlert(){
 }
 
 function openBackup(){
+  setActiveView("backup");
   clearNavModes();
   document.body.classList.add("backup-only");
   clearNavModes();document.getElementById("backupView").classList.remove("hidden");document.getElementById("readerView").classList.add("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden")}
