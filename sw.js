@@ -1,3 +1,4 @@
+// oraciones-v2-v21-active-border
 // oraciones-v2-v20-azul-limpio
 const CACHE_NAME="oraciones-v2-bienvenida-20260621-19";
 const CORE=["./","./index.html","./manifest.json","./icon-192.png","./icon-512.png","https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"];

@@ -403,6 +403,30 @@ body:not(.dark) .btn.favorite-active{
 }
 </style>
 
+
+<style id="v2-active-border-fix-v21">
+/* Refuerzo final para que el botón activo siempre muestre marco visible */
+body:not(.dark) .topbar-row .btn.active-view,
+body:not(.dark) #readerView .panel-head .btn.active-view,
+body:not(.dark) .btn.active-view,
+body:not(.dark) button.active-view,
+body:not(.dark) .segment button.active{
+  background:#ffffff !important;
+  border:2px solid #8a5a2b !important;
+  color:#181818 !important;
+  font-weight:800 !important;
+  box-shadow:0 4px 14px rgba(138,90,43,.18) !important;
+  outline:none !important;
+}
+
+/* Mantener el botón Nueva azul aunque sea primary */
+body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
+  background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
+  color:#fff!important;
+  border:none!important;
+}
+</style>
+
 </head>
 <body>
 
@@ -2110,6 +2134,30 @@ body:not(.dark) .btn.favorite-active{
   font-weight:800!important;
   border:2px solid #8a5a2b!important;
   box-shadow:0 4px 14px rgba(138,90,43,.16)!important;
+}
+</style>
+
+
+<style id="v2-active-border-fix-v21">
+/* Refuerzo final para que el botón activo siempre muestre marco visible */
+body:not(.dark) .topbar-row .btn.active-view,
+body:not(.dark) #readerView .panel-head .btn.active-view,
+body:not(.dark) .btn.active-view,
+body:not(.dark) button.active-view,
+body:not(.dark) .segment button.active{
+  background:#ffffff !important;
+  border:2px solid #8a5a2b !important;
+  color:#181818 !important;
+  font-weight:800 !important;
+  box-shadow:0 4px 14px rgba(138,90,43,.18) !important;
+  outline:none !important;
+}
+
+/* Mantener el botón Nueva azul aunque sea primary */
+body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
+  background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
+  color:#fff!important;
+  border:none!important;
 }
 </style>
 
