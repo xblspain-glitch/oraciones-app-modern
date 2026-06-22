@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- V24 LUPA SEGURA BUSCADOR -->
 <!-- V23 FIX REAL OPENVERSECATEGORIES -->
 <!-- V22 SIN LISTA FIX -->
 <!-- V8.0 CATEGORIAS DINAMICAS -->
@@ -434,6 +435,34 @@ body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
 button[onclick*="openList"]{display:none!important;}
 </style>
 
+
+<style id="v24-lupa-segura-css">
+body:not(.dark) .topbar-row{
+  position:relative;
+}
+#search{
+  padding-right:56px!important;
+}
+#searchBtnV24{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,.9);
+  font-size:20px;
+  cursor:pointer;
+  z-index:50;
+  box-shadow:0 3px 10px rgba(31,91,150,.10);
+}
+body.dark #searchBtnV24{
+  background:var(--soft);
+  color:var(--text);
+}
+</style>
+
 </head>
 <body>
 
@@ -583,6 +612,7 @@ button[onclick*="openList"]{display:none!important;}
     <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
     <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList()">
+    <button id="searchBtnV24" type="button" aria-label="Buscar" title="Buscar">🔍</button>
     <div id="counterInfo" class="counter"></div>
   </div>
 </div>
@@ -2176,7 +2206,54 @@ body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
 button[onclick*="openList"]{display:none!important;}
 </style>
 
-</head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
+
+<style id="v24-lupa-segura-css">
+body:not(.dark) .topbar-row{
+  position:relative;
+}
+#search{
+  padding-right:56px!important;
+}
+#searchBtnV24{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:14px;
+  background:rgba(255,255,255,.9);
+  font-size:20px;
+  cursor:pointer;
+  z-index:50;
+  box-shadow:0 3px 10px rgba(31,91,150,.10);
+}
+body.dark #searchBtnV24{
+  background:var(--soft);
+  color:var(--text);
+}
+</style>
+
+</head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
+<script id="v24-lupa-segura-js">
+(function(){
+  function doSearchV24(){
+    var s=document.getElementById("search");
+    if(!s) return;
+    try{ s.dispatchEvent(new Event("input",{bubbles:true})); }catch(e){}
+    try{ if(typeof renderList==="function") renderList(); }catch(e){}
+  }
+  document.addEventListener("DOMContentLoaded",function(){
+    var btn=document.getElementById("searchBtnV24");
+    if(btn && !btn.dataset.ready){
+      btn.dataset.ready="1";
+      btn.addEventListener("click",doSearchV24);
+    }
+  });
+})();
+</script>
+
+</body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
@@ -2629,6 +2706,25 @@ renderReader = function(){
 setInterval(updateVersePositionCounter, 1000);
 
 </script>
+
+<script id="v24-lupa-segura-js">
+(function(){
+  function doSearchV24(){
+    var s=document.getElementById("search");
+    if(!s) return;
+    try{ s.dispatchEvent(new Event("input",{bubbles:true})); }catch(e){}
+    try{ if(typeof renderList==="function") renderList(); }catch(e){}
+  }
+  document.addEventListener("DOMContentLoaded",function(){
+    var btn=document.getElementById("searchBtnV24");
+    if(btn && !btn.dataset.ready){
+      btn.dataset.ready="1";
+      btn.addEventListener("click",doSearchV24);
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
 <!-- V9.1 pulido: Hoy/Aleatorio/Generado para hoy -->
