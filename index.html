@@ -316,85 +316,29 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 </style>
 
 
-<style id="v2-blue-panels-real">
-/* V2 tema azul suave definitivo:
-   paneles azul claro, botones blancos, Nueva azul */
-body:not(.dark) .topbar{
-  background:rgba(248,246,241,.96) !important;
-  border-bottom:1px solid #d9e8f7 !important;
-}
-
-body:not(.dark) .topbar-row{
-  background:#eaf4ff !important;
-  border:1px solid #d7e8f8 !important;
-  border-radius:24px !important;
-  padding:10px !important;
-  gap:8px !important;
-}
-
-body:not(.dark) .segment{
-  background:#e3f0ff !important;
-  border:1px solid #d2e5f7 !important;
-  border-radius:22px !important;
-  padding:6px !important;
-}
-
-body:not(.dark) .segment button{
-  background:transparent !important;
-  color:var(--text) !important;
-}
-
-body:not(.dark) .segment button.active{
-  background:#ffffff !important;
-  color:var(--text) !important;
-  font-weight:700 !important;
-  box-shadow:0 6px 18px rgba(31,91,150,.08) !important;
-}
-
-body:not(.dark) .topbar-row .btn.soft{
-  background:rgba(255,255,255,.72) !important;
-  border:1px solid rgba(255,255,255,.78) !important;
-  color:var(--text) !important;
-  box-shadow:0 4px 12px rgba(31,91,150,.04) !important;
-}
-
-body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
-  background:linear-gradient(135deg,#2f78bd,#1f5f9b) !important;
-  color:#ffffff !important;
-  box-shadow:0 5px 14px rgba(31,95,155,.26) !important;
-}
-
-body:not(.dark) .btn.danger{
-  background:var(--danger) !important;
-  color:#ffffff !important;
-}
-
-body:not(.dark) .topbar-row .search{
-  background:#ffffff !important;
-  border:1px solid #cfddeb !important;
-}
-
+<style id="xavi-blue-theme">
+body:not(.dark) .topbar-row,
 body:not(.dark) #readerView .panel-head{
-  background:#eaf4ff !important;
-  border:1px solid #d7e8f8 !important;
-  border-radius:24px !important;
-  margin:10px !important;
-  padding:10px !important;
+ background:#eaf4ff !important;
+ border:1px solid #d7e8f8 !important;
+ border-radius:24px !important;
 }
-
+body:not(.dark) .segment{
+ background:#e3f0ff !important;
+ border:1px solid #d2e5f7 !important;
+}
+body:not(.dark) .segment button.active{
+ background:#fff !important;
+ box-shadow:0 6px 18px rgba(31,91,150,.08)!important;
+}
+body:not(.dark) .topbar-row .btn.soft,
 body:not(.dark) #readerView .panel-head .btn.soft{
-  background:rgba(255,255,255,.72) !important;
-  border:1px solid rgba(255,255,255,.78) !important;
-  color:var(--text) !important;
-  box-shadow:0 4px 12px rgba(31,91,150,.04) !important;
+ background:rgba(255,255,255,.82)!important;
+ border:1px solid #eef5fc!important;
 }
-
-/* Mantener resaltados activos claros y distinguibles */
-body:not(.dark) .btn.active-view,
-body:not(.dark) button.active-view{
-  background:#ffffff !important;
-  border:2px solid #8a5a2b !important;
-  font-weight:700 !important;
+body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
+ background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
+ color:#fff!important;
 }
 </style>
 
@@ -2020,85 +1964,29 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'тн
 
 #editorView{padding-bottom:90px}
 </style>
-<style id="v2-blue-panels-real">
-/* V2 tema azul suave definitivo:
-   paneles azul claro, botones blancos, Nueva azul */
-body:not(.dark) .topbar{
-  background:rgba(248,246,241,.96) !important;
-  border-bottom:1px solid #d9e8f7 !important;
-}
-
-body:not(.dark) .topbar-row{
-  background:#eaf4ff !important;
-  border:1px solid #d7e8f8 !important;
-  border-radius:24px !important;
-  padding:10px !important;
-  gap:8px !important;
-}
-
-body:not(.dark) .segment{
-  background:#e3f0ff !important;
-  border:1px solid #d2e5f7 !important;
-  border-radius:22px !important;
-  padding:6px !important;
-}
-
-body:not(.dark) .segment button{
-  background:transparent !important;
-  color:var(--text) !important;
-}
-
-body:not(.dark) .segment button.active{
-  background:#ffffff !important;
-  color:var(--text) !important;
-  font-weight:700 !important;
-  box-shadow:0 6px 18px rgba(31,91,150,.08) !important;
-}
-
-body:not(.dark) .topbar-row .btn.soft{
-  background:rgba(255,255,255,.72) !important;
-  border:1px solid rgba(255,255,255,.78) !important;
-  color:var(--text) !important;
-  box-shadow:0 4px 12px rgba(31,91,150,.04) !important;
-}
-
-body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
-  background:linear-gradient(135deg,#2f78bd,#1f5f9b) !important;
-  color:#ffffff !important;
-  box-shadow:0 5px 14px rgba(31,95,155,.26) !important;
-}
-
-body:not(.dark) .btn.danger{
-  background:var(--danger) !important;
-  color:#ffffff !important;
-}
-
-body:not(.dark) .topbar-row .search{
-  background:#ffffff !important;
-  border:1px solid #cfddeb !important;
-}
-
+<style id="xavi-blue-theme">
+body:not(.dark) .topbar-row,
 body:not(.dark) #readerView .panel-head{
-  background:#eaf4ff !important;
-  border:1px solid #d7e8f8 !important;
-  border-radius:24px !important;
-  margin:10px !important;
-  padding:10px !important;
+ background:#eaf4ff !important;
+ border:1px solid #d7e8f8 !important;
+ border-radius:24px !important;
 }
-
+body:not(.dark) .segment{
+ background:#e3f0ff !important;
+ border:1px solid #d2e5f7 !important;
+}
+body:not(.dark) .segment button.active{
+ background:#fff !important;
+ box-shadow:0 6px 18px rgba(31,91,150,.08)!important;
+}
+body:not(.dark) .topbar-row .btn.soft,
 body:not(.dark) #readerView .panel-head .btn.soft{
-  background:rgba(255,255,255,.72) !important;
-  border:1px solid rgba(255,255,255,.78) !important;
-  color:var(--text) !important;
-  box-shadow:0 4px 12px rgba(31,91,150,.04) !important;
+ background:rgba(255,255,255,.82)!important;
+ border:1px solid #eef5fc!important;
 }
-
-/* Mantener resaltados activos claros y distinguibles */
-body:not(.dark) .btn.active-view,
-body:not(.dark) button.active-view{
-  background:#ffffff !important;
-  border:2px solid #8a5a2b !important;
-  font-weight:700 !important;
+body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
+ background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
+ color:#fff!important;
 }
 </style>
 
