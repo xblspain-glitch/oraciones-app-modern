@@ -107,6 +107,18 @@ body.dark .btn.active-view{
   color:#111!important;
   border-color:var(--accent)!important;
 }
+.btn.favorite-active{
+  background:#fff!important;
+  color:#181818!important;
+  font-weight:800!important;
+  border:2px solid var(--primary)!important;
+  box-shadow:0 4px 14px rgba(138,90,43,.16);
+}
+body.dark .btn.favorite-active{
+  background:#f2eee7!important;
+  color:#111!important;
+  border-color:var(--accent)!important;
+}
 
 body.dark .segment button{color:var(--text)}body.dark .segment button.active{color:var(--text)}
 .category-grid{padding:12px;display:flex;flex-direction:column;gap:10px}
@@ -462,9 +474,9 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
     <div id="readerView" class="panel">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button class="btn soft" type="button" onclick="openList()">☰ Lista</button>
-        <button class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
-        <button class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+        <button id="btnList" data-view-btn="list" class="btn soft" type="button" onclick="openList()">☰ Lista</button>
+        <button data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
+        <button data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
         <button class="btn soft" type="button" onclick="changeReaderFont(-2)">A-</button>
         <button class="btn soft" type="button" onclick="changeReaderFont(2)">A+</button>
         <button class="btn soft" type="button" onclick="copyCurrentReference()">📋 Ref</button>
@@ -475,8 +487,8 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
         
         <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
         <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
-        <button class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-        <button class="btn soft" type="button" onclick="exportCurrentHTML()">🌐 Exportar lectura</button>
+        <button data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
+        <button data-view-btn="export" class="btn soft" type="button" onclick="exportCurrentHTML()">🌐 Exportar lectura</button>
       </div>
       <div id="readerCode" class="reader-code"></div>
       <div id="readerDailyDate" class="reader-daily-date hidden"></div>
@@ -783,7 +795,8 @@ function syncTabs(){
 function setActiveView(view){
   document.querySelectorAll('[data-view-btn]').forEach(btn=>btn.classList.remove('active-view'));
   if(!view) return;
-  const map={new:'btnNew',read:'btnRead',daily:'btnDaily',calendar:'calendarBtn',random:'btnRandom',categories:'btnCategories',titles:'btnTitles',edit:'btnEdit',favorites:'btnFavorites',backup:'btnBackup',trash:'btnTrash'};
+  document.querySelectorAll('[data-view-btn="'+view+'"]').forEach(btn=>btn.classList.add('active-view'));
+  const map={new:'btnNew',read:'btnRead',daily:'btnDaily',calendar:'calendarBtn',random:'btnRandom',categories:'btnCategories',titles:'btnTitles',edit:'btnEdit',favorites:'btnFavorites',backup:'btnBackup',trash:'btnTrash',list:'btnList'};
   const id=map[view]||view;
   const btn=document.getElementById(id);
   if(btn) btn.classList.add('active-view');
@@ -891,8 +904,13 @@ function renderReader(){applyReaderFont();
     document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.title||"Sin título");
     document.getElementById("readerText").textContent=item.content;
   }
+  updateFavoriteButtons();
 }
 
+function updateFavoriteButtons(){
+  const item=currentItem&&currentItem();
+  document.querySelectorAll('[data-fav-btn]').forEach(btn=>btn.classList.toggle('favorite-active',!!(item&&item.favorite)));
+}
 
 function setReturnToSentList(){
   try{ sessionStorage.setItem("returnToSentList","1"); }catch(e){}
@@ -985,7 +1003,7 @@ function smartBack(){
 function openReader(){
   clearNavModes();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
 function openList(){
-  setActiveView(null);
+  setActiveView("list");
   clearNavModes();
   renderList();
 document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");document.getElementById("search").focus()}
@@ -1919,7 +1937,7 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'�
 
 #editorView{padding-bottom:90px}
 </style></head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
-async function exportCurrentHTML(){const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
+async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
   const payload={"exportedAt":new Date().toISOString(),...state};
