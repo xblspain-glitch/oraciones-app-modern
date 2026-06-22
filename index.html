@@ -316,29 +316,90 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 </style>
 
 
-<style id="xavi-blue-theme">
-body:not(.dark) .topbar-row,
-body:not(.dark) #readerView .panel-head{
- background:#eaf4ff !important;
- border:1px solid #d7e8f8 !important;
- border-radius:24px !important;
+<style id="v2-azul-suave-limpio-v20">
+body:not(.dark) .topbar{
+  background:rgba(248,246,241,.96)!important;
+  border-bottom:1px solid #dce8f5!important;
 }
+
+/* Panel general superior: azul suave */
+body:not(.dark) .topbar-row{
+  background:#eaf4ff!important;
+  border:1px solid #d5e7f8!important;
+  border-radius:24px!important;
+  padding:10px!important;
+  gap:8px!important;
+}
+
+/* Selector principal */
 body:not(.dark) .segment{
- background:#e3f0ff !important;
- border:1px solid #d2e5f7 !important;
+  background:#dfeeff!important;
+  border:1px solid #cfe3f7!important;
+  border-radius:22px!important;
+  padding:6px!important;
+}
+body:not(.dark) .segment button{
+  background:transparent!important;
+  color:var(--text)!important;
 }
 body:not(.dark) .segment button.active{
- background:#fff !important;
- box-shadow:0 6px 18px rgba(31,91,150,.08)!important;
+  background:#fff!important;
+  color:var(--text)!important;
+  font-weight:700!important;
+  box-shadow:0 5px 15px rgba(31,95,155,.08)!important;
 }
-body:not(.dark) .topbar-row .btn.soft,
-body:not(.dark) #readerView .panel-head .btn.soft{
- background:rgba(255,255,255,.82)!important;
- border:1px solid #eef5fc!important;
+
+/* Botones normales blancos sobre el panel azul */
+body:not(.dark) .topbar-row .btn.soft{
+  background:rgba(255,255,255,.84)!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  color:var(--text)!important;
+  box-shadow:0 4px 12px rgba(31,95,155,.045)!important;
 }
+
+/* Nueva azul */
 body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
- background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
- color:#fff!important;
+  background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
+  color:#fff!important;
+  box-shadow:0 5px 14px rgba(31,95,155,.26)!important;
+}
+
+/* Eliminar rojo siempre */
+body:not(.dark) .btn.danger{
+  background:var(--danger)!important;
+  color:#fff!important;
+}
+
+/* Buscador blanco */
+body:not(.dark) .topbar-row .search{
+  background:#fff!important;
+  border:1px solid #cdddeb!important;
+}
+
+/* Panel inferior de lectura */
+body:not(.dark) #readerView .panel-head{
+  background:#eaf4ff!important;
+  border:1px solid #d5e7f8!important;
+  border-radius:24px!important;
+  margin:10px!important;
+  padding:10px!important;
+}
+body:not(.dark) #readerView .panel-head .btn.soft{
+  background:rgba(255,255,255,.84)!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  color:var(--text)!important;
+  box-shadow:0 4px 12px rgba(31,95,155,.045)!important;
+}
+
+/* Los activos mandan sobre cualquier color */
+body:not(.dark) .btn.active-view,
+body:not(.dark) button.active-view,
+body:not(.dark) .btn.favorite-active{
+  background:#fff!important;
+  color:#181818!important;
+  font-weight:800!important;
+  border:2px solid #8a5a2b!important;
+  box-shadow:0 4px 14px rgba(138,90,43,.16)!important;
 }
 </style>
 
@@ -1553,6 +1614,7 @@ function openVerseCategories(){
   document.getElementById("backupView").classList.add("hidden");
   document.getElementById("trashView").classList.add("hidden");
   document.getElementById("titlesView").classList.add("hidden");
+  var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
   document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
   renderVerseCategories();
 }
@@ -1964,29 +2026,90 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'тн
 
 #editorView{padding-bottom:90px}
 </style>
-<style id="xavi-blue-theme">
-body:not(.dark) .topbar-row,
-body:not(.dark) #readerView .panel-head{
- background:#eaf4ff !important;
- border:1px solid #d7e8f8 !important;
- border-radius:24px !important;
+<style id="v2-azul-suave-limpio-v20">
+body:not(.dark) .topbar{
+  background:rgba(248,246,241,.96)!important;
+  border-bottom:1px solid #dce8f5!important;
 }
+
+/* Panel general superior: azul suave */
+body:not(.dark) .topbar-row{
+  background:#eaf4ff!important;
+  border:1px solid #d5e7f8!important;
+  border-radius:24px!important;
+  padding:10px!important;
+  gap:8px!important;
+}
+
+/* Selector principal */
 body:not(.dark) .segment{
- background:#e3f0ff !important;
- border:1px solid #d2e5f7 !important;
+  background:#dfeeff!important;
+  border:1px solid #cfe3f7!important;
+  border-radius:22px!important;
+  padding:6px!important;
+}
+body:not(.dark) .segment button{
+  background:transparent!important;
+  color:var(--text)!important;
 }
 body:not(.dark) .segment button.active{
- background:#fff !important;
- box-shadow:0 6px 18px rgba(31,91,150,.08)!important;
+  background:#fff!important;
+  color:var(--text)!important;
+  font-weight:700!important;
+  box-shadow:0 5px 15px rgba(31,95,155,.08)!important;
 }
-body:not(.dark) .topbar-row .btn.soft,
-body:not(.dark) #readerView .panel-head .btn.soft{
- background:rgba(255,255,255,.82)!important;
- border:1px solid #eef5fc!important;
+
+/* Botones normales blancos sobre el panel azul */
+body:not(.dark) .topbar-row .btn.soft{
+  background:rgba(255,255,255,.84)!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  color:var(--text)!important;
+  box-shadow:0 4px 12px rgba(31,95,155,.045)!important;
 }
+
+/* Nueva azul */
 body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
- background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
- color:#fff!important;
+  background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
+  color:#fff!important;
+  box-shadow:0 5px 14px rgba(31,95,155,.26)!important;
+}
+
+/* Eliminar rojo siempre */
+body:not(.dark) .btn.danger{
+  background:var(--danger)!important;
+  color:#fff!important;
+}
+
+/* Buscador blanco */
+body:not(.dark) .topbar-row .search{
+  background:#fff!important;
+  border:1px solid #cdddeb!important;
+}
+
+/* Panel inferior de lectura */
+body:not(.dark) #readerView .panel-head{
+  background:#eaf4ff!important;
+  border:1px solid #d5e7f8!important;
+  border-radius:24px!important;
+  margin:10px!important;
+  padding:10px!important;
+}
+body:not(.dark) #readerView .panel-head .btn.soft{
+  background:rgba(255,255,255,.84)!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  color:var(--text)!important;
+  box-shadow:0 4px 12px rgba(31,95,155,.045)!important;
+}
+
+/* Los activos mandan sobre cualquier color */
+body:not(.dark) .btn.active-view,
+body:not(.dark) button.active-view,
+body:not(.dark) .btn.favorite-active{
+  background:#fff!important;
+  color:#181818!important;
+  font-weight:800!important;
+  border:2px solid #8a5a2b!important;
+  box-shadow:0 4px 14px rgba(138,90,43,.16)!important;
 }
 </style>
 
