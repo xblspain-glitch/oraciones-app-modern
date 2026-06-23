@@ -688,6 +688,7 @@ body.dark .font-combo-v27{
       </div>
       <div id="readerCode" class="reader-code"></div>
       <div id="readerDailyDate" class="reader-daily-date hidden"></div>
+      <div id="readerCategory" class="reader-daily-date hidden"></div>
       <div id="readerTitle" class="reader-title"></div>
       <div id="readerText" class="reader-text" onclick="toggleReadingUI()"></div>
     </div>
@@ -1122,7 +1123,7 @@ function formatDailyDateEs(){
 
 
 function renderReader(){applyReaderFont();
-  const dailyDateEl=document.getElementById("readerDailyDate");
+  const dailyDateEl=document.getElementById("readerDailyDate"); const catReadEl=document.getElementById('readerCategory'); if(catReadEl){catReadEl.classList.add('hidden');catReadEl.textContent='';}
   if(dailyDateEl){dailyDateEl.classList.add("hidden");dailyDateEl.textContent="";}
   const item=currentItem();
   if(!item){
@@ -1132,6 +1133,11 @@ function renderReader(){applyReaderFont();
     return;
   }
   if(section==="verses"){
+    const catEl=document.getElementById("readerCategory");
+    if(catEl){
+      catEl.textContent=verseCategoryLabel(item.category);
+      catEl.classList.remove("hidden");
+    }
     document.getElementById("readerCode").textContent=(item.shared?"✓ Compartido · ":"")+(specialVerseMode==="daily"?"🌅 Versículo del día · ":specialVerseMode==="random"?"🎲 Versículo aleatorio · ":"")+formatLastCardSentAt(item.lastCardSentAt)+" · "+verseCategoryLabel(item.category);
     if(specialVerseMode==="daily" && dailyDateEl){
       dailyDateEl.textContent="📅 "+formatDailyDateEs();
