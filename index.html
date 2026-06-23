@@ -222,6 +222,17 @@ button[data-fav-btn]:not(.favorite-active){
   opacity:.82;
 }
 
+
+/* v37 historial compacto */
+.sent-item,.sent-card{
+  padding-top:10px!important;
+  padding-bottom:10px!important;
+}
+.sent-item .btn,.sent-card .btn{
+  min-height:auto!important;
+  padding:8px 10px!important;
+}
+
 </style>
 
 <style>
@@ -1512,17 +1523,17 @@ function daysByCalendar(ts){
 function formatLastCardSentAt(ts){
   const d = daysByCalendar(ts);
   if(d === null) return "📤 Nunca enviada";
-  if(d <= 0) return "📤 Enviada hoy";
-  if(d === 1) return "📤 Enviada ayer";
-  return "📤 Enviada hace " + d + " días";
+  if(d <= 0) return "📤 Hoy";
+  if(d === 1) return "📤 Ayer";
+  return "📤 " + d + " días";
 }
 
 function formatSentListDate(ts){
   const d = daysByCalendar(ts);
   if(d === null) return "";
-  if(d <= 0) return "Enviada hoy";
-  if(d === 1) return "Enviada ayer";
-  return "Enviada hace " + d + " días";
+  if(d <= 0) return "Hoy";
+  if(d === 1) return "Ayer";
+  return "" + d + " días";
 }
 
 function clearSentMark(id){
@@ -1685,7 +1696,7 @@ function openSentVersesList(){
       div.innerHTML =
         '<div class="title-name">📋 ' + ref + '</div>' +
         '<div class="small-note">' + escapeHtml(when + (cat ? " · " + cat : "")) + '</div>' +
-        '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\'' + v.id + '\')">🗑️ Quitar de enviados</button>';
+        '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\'' + v.id + '\')">🗑️ Quitar</button>';
       div.onclick = () => {
         state.currentVerseId = v.id;
         currentVerseCategory = v.category || currentVerseCategory || "sin_categoria";
