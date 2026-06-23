@@ -234,17 +234,17 @@ button[data-fav-btn]:not(.favorite-active){
 }
 
 
-/* v40 - Backup ordenado */
-.v40-backup-title{
+/* v40B - Backup ordenado real */
+.backup-title-v40{
   width:100%;
   flex-basis:100%;
   font-weight:800;
   font-size:15px;
-  opacity:.68;
+  opacity:.70;
   margin:12px 0 2px 4px;
   letter-spacing:.02em;
 }
-#backupView .panel-head{
+.backup-head-v40{
   align-items:center;
 }
 
@@ -738,20 +738,26 @@ body.dark .font-combo-v27{
     </div>
 
     <div id="backupView" class="panel hidden">
-      <div class="panel-head">
+      <div class="panel-head backup-head-v40">
         <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
+
+        <div class="backup-title-v40">📤 EXPORTAR</div>
         <button class="btn primary" type="button" onclick="downloadBackupJson()">⬇ Descargar JSON</button>
         <button class="btn soft" type="button" onclick="shareBackupJson()">📤 Compartir JSON</button>
         <button class="btn soft" type="button" onclick="copyBackupJson()">📋 Copiar JSON</button>
-        <button class="btn soft" type="button" onclick="importBackupFromText()">⬆ Importar texto</button>
-        <button class="btn soft" type="button" onclick="restoreAutoBackup()">♻️ Recuperar automático</button>
         <button class="btn soft" type="button" onclick="exportVersesOnly()">📤 Exportar versículos</button>
-        <button class="btn soft" type="button" onclick="importVersesOnly()">📥 Importar versículos</button>
         <button class="btn soft" type="button" onclick="exportAllZip()">📦 Exportar todo ZIP</button>
-      </div>
-      <div class="file-row">
+
+        <div class="backup-title-v40">📥 IMPORTAR</div>
+        <button class="btn soft" type="button" onclick="importBackupFromText()">⬆ Importar texto</button>
+        <button class="btn soft" type="button" onclick="importVersesOnly()">📥 Importar versículos</button>
         <button class="btn soft" type="button" onclick="openBackupFilePicker()">📥 Importar backup JSON</button>
         <button class="btn soft" type="button" onclick="openVersesFilePicker()">❤️ Importar archivo de versículos</button>
+
+        <div class="backup-title-v40">♻️ RECUPERACIÓN</div>
+        <button class="btn soft" type="button" onclick="restoreAutoBackup()">♻️ Recuperar automático</button>
+      </div>
+      <div class="file-row">
         <input id="jsonFileInput" class="file-input" type="file" accept=".json,application/json">
         <input id="versesFileInput" class="file-input" type="file" accept=".json,application/json">
         <div id="fileNameInfo" class="small-note" style="padding:10px 0 0 0;">También puedes pegar el JSON abajo e importar desde texto.</div>
