@@ -1129,7 +1129,7 @@ function renderReader(){applyReaderFont();
     document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.reference||item.title||"Sin referencia");
     document.getElementById("readerText").textContent=item.text||item.content||"";
   }else{
-    document.getElementById("readerCode").textContent=getCurrentCode();
+    document.getElementById("readerCode").textContent="";
     document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.title||"Sin título");
     document.getElementById("readerText").textContent=item.content;
   }
