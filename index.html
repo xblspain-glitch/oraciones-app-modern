@@ -641,7 +641,7 @@ body.dark .font-combo-v27{
         <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
         <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
         <button data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-        <button data-view-btn="export" class="btn soft" type="button" onclick="exportCurrentHTML()">🌐 Exportar lectura</button>
+        
       </div>
       <div id="readerCode" class="reader-code"></div>
       <div id="readerDailyDate" class="reader-daily-date hidden"></div>
@@ -1572,7 +1572,7 @@ function openMoreMenu(ev){
       '<button type="button" onclick="closeMoreMenu(); openDailyVerse()">🌅 Hoy</button>' +
       '<button type="button" onclick="closeMoreMenu(); openRandomVerse()">🎲 Aleatorio</button>' +
       '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📤 Nunca enviados</button>' +
-      '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📋 Enviados</button>';
+      '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📋 Enviados</button>' +      '<button type="button" onclick="closeMoreMenu(); exportCurrentHTML()">🌐 Exportar lectura</button>';
 
     document.body.appendChild(menu);
 
