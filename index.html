@@ -264,6 +264,32 @@ button[data-fav-btn]:not(.favorite-active){
   margin-top:6px!important;
 }
 
+
+/* v41 editor pantalla completa */
+body.editor-full .topbar,
+body.editor-full .sidebar,
+body.editor-full #search,
+body.editor-full #counterInfo{
+  display:none!important;
+}
+body.editor-full .main{
+  display:block!important;
+}
+body.editor-full .content{
+  width:100%!important;
+  max-width:none!important;
+}
+body.editor-full #editorView{
+  position:fixed!important;
+  inset:0!important;
+  z-index:9999!important;
+  background:var(--bg)!important;
+  padding-bottom:120px!important;
+}
+body.editor-full #editorView textarea{
+  min-height:75vh!important;
+}
+
 </style>
 
 <style>
@@ -655,6 +681,18 @@ body.dark .font-combo-v27{
     setupWelcome();
   }
 })();
+
+const __origOpenEditor=openEditor;
+openEditor=function(){
+ document.body.classList.add('editor-full');
+ return __origOpenEditor.apply(this,arguments);
+}
+const __origLeaveEditor=leaveEditor;
+leaveEditor=function(){
+ document.body.classList.remove('editor-full');
+ return __origLeaveEditor.apply(this,arguments);
+}
+
 </script>
 
 <div id="installBanner" class="install-banner hidden">
