@@ -2835,9 +2835,19 @@ function swipeGeneric(dir){
 
 function getVersePositionText(){
   try{
-    if(section !== "verses") return "";
     const item = currentItem();
-    if(!item || !Array.isArray(state.verses)) return "";
+    if(!item) return "";
+
+    if(section !== "verses"){
+      const list=getItems();
+      if(!list || !list.length) return "";
+      const idx=list.findIndex(v => v.id === item.id);
+      if(idx < 0) return "";
+      const prefix=section==="prayers"?"O":section==="notes"?"N":section==="guides"?"G":"";
+      return prefix + (idx + 1) + " / " + list.length;
+    }
+
+    if(!Array.isArray(state.verses)) return "";
 
     let list = [];
     if(verseNavigationMode === "titles"){
@@ -2862,7 +2872,7 @@ function updateVersePositionCounter(){
   try{
     const existing = document.getElementById("versePositionCounter");
 
-    if(section !== "verses"){
+    if(!["verses","prayers","notes","guides"].includes(section)){
       if(existing) existing.remove();
       return;
     }
