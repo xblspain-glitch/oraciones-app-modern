@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- V28 BUSCADOR GLOBAL LIMPIO -->
 <!-- V24 BUSCADOR REAL SIMPLE -->
 <!-- V23 FIX REAL OPENVERSECATEGORIES -->
 <!-- V22 SIN LISTA FIX -->
@@ -435,6 +436,13 @@ body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
 button[onclick*="openList"]{display:none!important;}
 </style>
 
+
+<style id="v28-global-search-css">
+.search-hit-preview{color:var(--muted);font-size:13px;line-height:1.35;margin-top:5px}
+.search-hit-section{color:var(--muted);font-size:12px;font-weight:700;margin-bottom:4px}
+.search-hit-count{color:var(--muted);padding:12px 12px 4px;font-size:14px}
+</style>
+
 </head>
 <body>
 
@@ -583,7 +591,7 @@ button[onclick*="openList"]{display:none!important;}
     <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
     <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
     <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
-    <input id="search" class="search" placeholder="Buscar..." oninput="renderList();renderTitles();renderVerseCategories()">
+    <input id="search" class="search" placeholder="Buscar..." oninput="globalSearchV28()">
     <div id="counterInfo" class="counter"></div>
   </div>
 </div>
@@ -2256,7 +2264,124 @@ body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
 button[onclick*="openList"]{display:none!important;}
 </style>
 
-</head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
+</head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
+<script id="v28-global-search-js">
+function v28Norm(s){
+  return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+function v28Esc(s){
+  return String(s||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];});
+}
+function v28CatLabel(id){
+  try{
+    const cats=(state.verseCategories&&state.verseCategories.length?state.verseCategories:VERSE_CATEGORIES);
+    const c=cats.find(x=>x.id===id);
+    return c?c.label:id;
+  }catch(e){return id||"";}
+}
+function v28CurrentCollection(){
+  if(section==="prayers") return {name:"Oraciones", items:state.prayers||[]};
+  if(section==="notes") return {name:"Notas", items:state.notes||[]};
+  if(section==="guides") return {name:"Guía", items:state.guides||[]};
+  return {name:"Versículos", items:state.verses||[]};
+}
+function v28SearchText(item, idx){
+  return [
+    getDisplayCode ? getDisplayCode(idx, section) : "",
+    item.title,
+    item.content,
+    item.text,
+    item.reference,
+    item.category,
+    section==="verses" ? v28CatLabel(item.category) : ""
+  ].filter(Boolean).join(" ");
+}
+function v28Title(item, idx){
+  if(section==="verses") return item.reference || item.title || getDisplayCode(idx, section) || "Sin referencia";
+  return item.title || getDisplayCode(idx, section) || "Sin título";
+}
+function v28Preview(item){
+  const t=String(item.content || item.text || "").replace(/\s+/g," ").trim();
+  return t.length>120 ? t.slice(0,120)+"..." : t;
+}
+function v28ShowResults(results, q, label){
+  try{ clearNavModes(); }catch(e){}
+  try{ setActiveView("titles"); }catch(e){}
+  try{ document.body.classList.add("titles-only"); }catch(e){}
+
+  ["readerView","editorView","backupView","trashView","verseCategoriesView","calendarView"].forEach(function(id){
+    const el=document.getElementById(id); if(el) el.classList.add("hidden");
+  });
+  const tv=document.getElementById("titlesView");
+  const box=document.getElementById("titlesList");
+  if(tv) tv.classList.remove("hidden");
+  if(!box) return;
+  box.innerHTML="";
+
+  const count=document.createElement("div");
+  count.className="search-hit-count";
+  count.innerHTML='🔎 <strong>'+results.length+'</strong> resultado(s) en <strong>'+v28Esc(label)+'</strong> para: <strong>'+v28Esc(q)+'</strong>';
+  box.appendChild(count);
+
+  if(!results.length){
+    const empty=document.createElement("div");
+    empty.className="empty";
+    empty.textContent="No hay resultados.";
+    box.appendChild(empty);
+    return;
+  }
+
+  results.forEach(function(r){
+    const div=document.createElement("div");
+    div.className="title-row";
+    const code=(typeof getDisplayCode==="function") ? getDisplayCode(r.idx, section) : "";
+    const cat=(section==="verses" && r.item.category) ? v28CatLabel(r.item.category) : label;
+    div.innerHTML =
+      '<div class="title-code">'+v28Esc(code||"•")+'</div>'+
+      '<div style="flex:1">'+
+        '<div class="search-hit-section">'+v28Esc(cat)+'</div>'+
+        '<div class="title-name">'+v28Esc(v28Title(r.item,r.idx))+'</div>'+
+        (v28Preview(r.item)?'<div class="search-hit-preview">'+v28Esc(v28Preview(r.item))+'</div>':'')+
+      '</div>';
+    div.onclick=function(){
+      try{
+        if(section==="verses"){
+          currentVerseCategory=r.item.category||currentVerseCategory||"fe";
+          verseNavigationMode="verse";
+        }
+        setCurrentId(r.item.id);
+        renderList();
+        renderReader();
+        openReader();
+      }catch(e){ console.warn(e); }
+    };
+    box.appendChild(div);
+  });
+}
+function globalSearchV28(){
+  const input=document.getElementById("search");
+  const q=(input?.value||"").trim();
+  if(!q){
+    try{
+      const tv=document.getElementById("titlesView");
+      const cats=document.getElementById("verseCategoriesView");
+      if(tv && !tv.classList.contains("hidden")){ renderTitles(); return; }
+      if(cats && !cats.classList.contains("hidden")){ renderVerseCategories(); return; }
+      renderList();
+    }catch(e){}
+    return;
+  }
+  const col=v28CurrentCollection();
+  const nq=v28Norm(q);
+  const results=[];
+  (col.items||[]).forEach(function(item,idx){
+    if(v28Norm(v28SearchText(item,idx)).includes(nq)) results.push({item:item,idx:idx});
+  });
+  v28ShowResults(results,q,col.name);
+}
+</script>
+
+</body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
