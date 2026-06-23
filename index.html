@@ -855,7 +855,8 @@ function applyVersesImport(parsed){
   normalizeVerses();
   saveState();
   section="verses";state.section="verses";
-  syncTabs();renderList();openVerseCategories();
+  syncTabs();
+  updateSearchVisibility();renderList();openVerseCategories();
   toast("Versículos importados: "+state.verses.length);
   return true;
 }
@@ -1887,6 +1888,15 @@ function renderTitles(){
     };
     box.appendChild(div);
   });
+}
+
+
+function updateSearchVisibility(){
+ const s=document.getElementById("search");
+ if(!s) return;
+ const hide=((section==="prayers"||section==="notes"||section==="guides")
+   && !document.body.classList.contains("titles-only"));
+ s.style.display=hide?"none":"";
 }
 
 function clearNavModes(){
