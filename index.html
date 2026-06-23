@@ -1193,6 +1193,14 @@ function smartBack(){
 
     if(readerVisible){
       document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+      if(verseNavigationMode==="titles"){
+        openTitlesView();
+        setTimeout(()=>{
+          const active=document.querySelector("#titlesList .title-row.active");
+          if(active) active.scrollIntoView({block:"center"});
+        },50);
+        return;
+      }
       if(currentVerseCategory){
         verseNavigationMode="category";
         renderVerseReferenceList(currentVerseCategory);
@@ -1949,6 +1957,11 @@ function renderTitles(){
     div.className="title-row"+(current&&item.id===current.id?" active":"");
     div.innerHTML='<div class="title-code">'+escapeHtml(item.__code)+'</div><div class="title-name">'+escapeHtml(displayItemTitle(item))+'</div>';
     div.onclick=()=>{
+      if(section==="verses"){
+        specialVerseMode=null;
+        verseNavigationMode="titles";
+        currentVerseCategory=null;
+      }
       setCurrentId(item.id);
       renderList();
       renderReader();
@@ -1969,6 +1982,11 @@ function clearNavModes(){
 
 function openTitlesView(){
   setSearchVisibleV26(true);
+  if(section==="verses"){
+    specialVerseMode=null;
+    verseNavigationMode="titles";
+    currentVerseCategory=null;
+  }
   setActiveView("titles");
   clearNavModes();
   document.body.classList.add("titles-only");
@@ -2657,6 +2675,10 @@ function getCurrentVerseListForSwipe(){
     if(section !== "verses" || !state || !Array.isArray(state.verses)) return [];
     if(specialVerseMode === "daily" || specialVerseMode === "random") return [];
 
+    if(verseNavigationMode === "titles"){
+      return state.verses;
+    }
+
     if(currentVerseCategory === "favoritos"){
       return state.verses.filter(v => v.favorite);
     }
@@ -2760,7 +2782,9 @@ function getVersePositionText(){
     if(!item || !Array.isArray(state.verses)) return "";
 
     let list = [];
-    if(currentVerseCategory === "favoritos"){
+    if(verseNavigationMode === "titles"){
+      list = state.verses;
+    }else if(currentVerseCategory === "favoritos"){
       list = state.verses.filter(v => v.favorite);
     }else{
       const cat = currentVerseCategory || item.category || "sin_categoria";
