@@ -1356,9 +1356,9 @@ function enterFullscreenReading(){setActiveView("read");document.getElementById(
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
 function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
 function openEditor(){
-  document.body.classList.add("editing-focus");
   setActiveView("edit");
   clearNavModes();
+  document.body.classList.add("editing-focus");
   const item=currentItem();if(!item) return;
   const cat=document.getElementById("editCategory");
   if(section==="verses"){
