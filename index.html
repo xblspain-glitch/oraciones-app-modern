@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- V25 BUSCAR PALABRAS EN TITULOS -->
 <!-- V24 BUSCADOR REAL SIMPLE -->
 <!-- V23 FIX REAL OPENVERSECATEGORIES -->
 <!-- V22 SIN LISTA FIX -->
@@ -1856,23 +1857,27 @@ function renderTitles(){
   box.innerHTML="";
   const q=(document.getElementById("search")?.value||"").trim().toLowerCase();
   let items=getItems().map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));
+
   if(q){
     items=items.filter(item=>{
       const hay=[
+        item.__code,
         item.title,
+        displayItemTitle(item),
         item.content,
         item.reference,
-        item.category,
-        item.__code
+        item.category
       ].filter(Boolean).join(" ").toLowerCase();
       return hay.includes(q);
     });
   }
+
   const current=currentItem();
   if(!items.length){
     box.innerHTML='<div class="empty">No hay resultados.</div>';
     return;
   }
+
   items.forEach(item=>{
     const div=document.createElement("div");
     div.className="title-row"+(current&&item.id===current.id?" active":"");
@@ -2256,7 +2261,16 @@ body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
 button[onclick*="openList"]{display:none!important;}
 </style>
 
-</head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
+</head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
+<script id="v25-buscar-palabras-titulos-js">
+document.addEventListener("input",function(e){
+  if(e.target && e.target.id==="search" && document.body.classList.contains("titles-only")){
+    try{ renderTitles(); }catch(err){}
+  }
+});
+</script>
+
+</body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
 function buildBackupText(){
@@ -2709,6 +2723,15 @@ renderReader = function(){
 setInterval(updateVersePositionCounter, 1000);
 
 </script>
+
+<script id="v25-buscar-palabras-titulos-js">
+document.addEventListener("input",function(e){
+  if(e.target && e.target.id==="search" && document.body.classList.contains("titles-only")){
+    try{ renderTitles(); }catch(err){}
+  }
+});
+</script>
+
 </body>
 </html>
 <!-- V9.1 pulido: Hoy/Aleatorio/Generado para hoy -->
