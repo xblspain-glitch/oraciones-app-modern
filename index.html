@@ -209,6 +209,19 @@ body.dark .font-combo-separator-v31{
   background:rgba(255,255,255,.28)!important;
 }
 
+
+/* v33 - Favorito activo más claro */
+button[data-fav-btn].favorite-active{
+  border:2px solid rgba(245,190,35,.95)!important;
+  background:linear-gradient(180deg,#fff9d9,#ffffff)!important;
+  box-shadow:0 0 0 3px rgba(245,190,35,.16), 0 6px 14px rgba(0,0,0,.06)!important;
+  color:#111!important;
+  font-weight:800!important;
+}
+button[data-fav-btn]:not(.favorite-active){
+  opacity:.82;
+}
+
 </style>
 
 <style>
@@ -1126,7 +1139,13 @@ function renderReader(){applyReaderFont();
 
 function updateFavoriteButtons(){
   const item=currentItem&&currentItem();
-  document.querySelectorAll('[data-fav-btn]').forEach(btn=>btn.classList.toggle('favorite-active',!!(item&&item.favorite)));
+  document.querySelectorAll('[data-fav-btn]').forEach(btn=>{
+    const active=!!(item&&item.favorite);
+    btn.classList.toggle('favorite-active',active);
+    btn.textContent=active?'⭐':'☆';
+    btn.title=active?'Quitar de favoritos':'Añadir a favoritos';
+    btn.setAttribute('aria-label', active?'Quitar de favoritos':'Añadir a favoritos');
+  });
 }
 
 function updateMoveVerseButtonVisibility(){
