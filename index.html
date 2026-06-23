@@ -264,6 +264,46 @@ button[data-fav-btn]:not(.favorite-active){
   margin-top:6px!important;
 }
 
+
+/* v41B - Modo escritura para Nueva y Editar */
+body.editing-focus .topbar{
+  display:none!important;
+}
+body.editing-focus .sidebar{
+  display:none!important;
+}
+body.editing-focus .main{
+  display:block!important;
+  min-height:100dvh!important;
+}
+body.editing-focus .content{
+  padding:0!important;
+  overflow:visible!important;
+}
+body.editing-focus #editorView{
+  min-height:100dvh!important;
+  border:none!important;
+  border-radius:0!important;
+}
+body.editing-focus #editorView .panel-head{
+  position:sticky!important;
+  top:0!important;
+  z-index:50!important;
+  padding:10px!important;
+}
+body.editing-focus #editTitle{
+  font-size:24px!important;
+  padding:18px!important;
+}
+body.editing-focus #editText{
+  min-height:calc(100dvh - 190px)!important;
+  font-size:20px!important;
+  line-height:1.75!important;
+}
+body.editing-focus #editCategory:not(.hidden){
+  display:block!important;
+}
+
 </style>
 
 <style>
@@ -1304,8 +1344,10 @@ function smartBack(){
 }
 
 function openReader(){
+  document.body.classList.remove("editing-focus");
   clearNavModes();updateSearchForReaderV26();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
 function openList(){
+  document.body.classList.remove("editing-focus");
   setActiveView("list");
   clearNavModes();
   renderList();
@@ -1314,6 +1356,7 @@ function enterFullscreenReading(){setActiveView("read");document.getElementById(
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
 function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
 function openEditor(){
+  document.body.classList.add("editing-focus");
   setActiveView("edit");
   clearNavModes();
   const item=currentItem();if(!item) return;
@@ -1335,6 +1378,7 @@ function openEditor(){
   document.getElementById("titlesView").classList.add("hidden");
   var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
   document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  setTimeout(()=>{try{window.scrollTo({top:0,behavior:"smooth"});document.getElementById("editText").focus({preventScroll:true});}catch(e){}},80);
 }
 function scheduleAutosave(){isDirty=true;setSaveStatus("Cambios sin guardar");if(autosaveTimer) clearTimeout(autosaveTimer);autosaveTimer=setTimeout(()=>saveCurrent(true,true),1200)}
 function saveCurrentOriginal(stay, silent){
@@ -2046,6 +2090,7 @@ function renderTitles(){
 
 function clearNavModes(){
   try{
+    if(!document.getElementById("editorView") || document.getElementById("editorView").classList.contains("hidden")) document.body.classList.remove("editing-focus");
     document.body.classList.remove("titles-only");
     document.body.classList.remove("list-only");
     document.body.classList.remove("backup-only");
