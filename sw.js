@@ -1,6 +1,6 @@
 // oraciones-v2-v21-active-border
 // oraciones-v2-v20-azul-limpio
-const CACHE_NAME="oraciones-v2-v25-filtro-minimo";
+const CACHE_NAME="oraciones-v2-v26-hide-search-direct";
 const CORE=["./","./index.html","./manifest.json","./icon-192.png","./icon-512.png","https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"];
 self.addEventListener("install",event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.map(k=>caches.delete(k)));const cache=await caches.open(CACHE_NAME);await cache.addAll(CORE);})());self.skipWaiting();});
 self.addEventListener("activate",event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)));await self.clients.claim();})());});

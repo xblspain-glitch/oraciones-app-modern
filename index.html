@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- V26 OCULTAR BUSCADOR DIRECTO -->
 <!-- V25 FILTRO MINIMO TITULOS -->
 <!-- V24 BUSCADOR REAL SIMPLE -->
 <!-- V23 FIX REAL OPENVERSECATEGORIES -->
@@ -729,6 +730,7 @@ setInterval(decorateDailyVerseNote, 1200);
 
 
 function openVerseCategories(){
+  setSearchVisibleV26(true);
   setActiveView("categories"); categoryListActive=true; clearNavModes(); openVerseCategoriesView(); }
 
 </script>
@@ -904,6 +906,15 @@ function getCurrentCode(){
   const idx=items.findIndex(x=>x.id===id);
   return idx>=0?getDisplayCode(idx, section):"";
 }
+
+function setSearchVisibleV26(show){
+  const s=document.getElementById("search");
+  if(s) s.classList.toggle("hidden", !show);
+}
+function updateSearchForReaderV26(){
+  setSearchVisibleV26(!(section==="prayers" || section==="notes" || section==="guides"));
+}
+
 function syncTabs(){
   document.getElementById("tabPrayers").classList.toggle("active",section==="prayers");
   document.getElementById("tabNotes").classList.toggle("active",section==="notes");
@@ -924,7 +935,7 @@ function setActiveView(view){
 }
 
 function switchSection(s){
-  section=s;state.section=s;saveState();syncTabs();setActiveView(null);renderList();
+  section=s;state.section=s;saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
   renderReader();openReader();
 }
@@ -1156,7 +1167,7 @@ function smartBack(){
 }
 
 function openReader(){
-  clearNavModes();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
+  clearNavModes();updateSearchForReaderV26();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
 function openList(){
   setActiveView("list");
   clearNavModes();
@@ -1661,6 +1672,7 @@ function buildVerseShareText(item){
 }
 
 function openVerseCategories(){
+  setSearchVisibleV26(true);
   setActiveView("categories");
   // Categorías pertenece siempre a Versículos.
   // Si se pulsa desde Oraciones/Notas/Guía, primero cambiamos a Versículos
@@ -1899,6 +1911,7 @@ function clearNavModes(){
 }
 
 function openTitlesView(){
+  setSearchVisibleV26(true);
   setActiveView("titles");
   clearNavModes();
   document.body.classList.add("titles-only");
@@ -2094,6 +2107,7 @@ function renderChristianCalendar(date){
     +'</div><div class="calendar-note">Las fechas móviles se calculan según el cómputo occidental u oriental. Algunas iglesias pueden variar celebraciones locales.</div>';
 }
 function openChristianCalendar(){
+  setSearchVisibleV26(true);
   setActiveView("calendar");
   clearNavModes();
   const cal=document.getElementById("calendarView"); if(!cal)return;
@@ -2345,7 +2359,7 @@ window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPr
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
-applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateCalendarAlert();maybeShowInstall();
+applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
 
 
 
