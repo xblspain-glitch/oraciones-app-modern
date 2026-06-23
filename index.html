@@ -2782,9 +2782,9 @@ function installVerseSwipe(){
       if(Math.abs(dy) > 55) return;
 
       if(dx < 0){
-        swipeVerse(1);
+        swipeGeneric(1);
       }else{
-        swipeVerse(-1);
+        swipeGeneric(-1);
       }
     }, {passive:true});
   }catch(e){}
@@ -2793,6 +2793,45 @@ function installVerseSwipe(){
 setInterval(installVerseSwipe, 1000);
 
 
+
+
+function swipeGeneric(dir){
+  try{
+    if(section==="verses"){ swipeVerse(dir); return; }
+
+    const list=getItems();
+    const item=currentItem();
+    if(!item || !list || list.length<=1) return;
+
+    const idx=list.findIndex(v=>v.id===item.id);
+    if(idx<0) return;
+
+    const nextIdx=idx+dir;
+    if(nextIdx<0){
+      if(typeof toast==="function") toast("Inicio");
+      return;
+    }
+    if(nextIdx>=list.length){
+      if(typeof toast==="function") toast("Fin");
+      return;
+    }
+
+    setCurrentId(list[nextIdx].id);
+    renderList();
+    renderReader();
+
+    const reader=document.getElementById("readerText")||document.getElementById("readerTitle");
+    if(reader && reader.animate){
+      reader.animate(
+        [
+          {opacity:0.35, transform:"translateX(" + (dir > 0 ? "18px" : "-18px") + ")"},
+          {opacity:1, transform:"translateX(0)"}
+        ],
+        {duration:180, easing:"ease-out"}
+      );
+    }
+  }catch(e){}
+}
 
 function getVersePositionText(){
   try{
