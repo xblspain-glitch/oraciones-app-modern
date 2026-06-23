@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- V25 FILTRO MINIMO TITULOS -->
 <!-- V24 BUSCADOR REAL SIMPLE -->
 <!-- V23 FIX REAL OPENVERSECATEGORIES -->
 <!-- V22 SIN LISTA FIX -->
@@ -1859,11 +1860,12 @@ function renderTitles(){
   if(q){
     items=items.filter(item=>{
       const hay=[
+        item.__code,
         item.title,
+        displayItemTitle(item),
         item.content,
         item.reference,
-        item.category,
-        item.__code
+        item.category
       ].filter(Boolean).join(" ").toLowerCase();
       return hay.includes(q);
     });
