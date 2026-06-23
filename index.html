@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- V27 A COMBO TEST -->
+<!-- V27 A COMBO REAL -->
 <!-- V26 OCULTAR BUSCADOR DIRECTO -->
 <!-- V25 FILTRO MINIMO TITULOS -->
 <!-- V24 BUSCADOR REAL SIMPLE -->
@@ -439,8 +439,31 @@ button[onclick*="openList"]{display:none!important;}
 </style>
 
 
-<style id="v27-a-combo-css">
-button{position:relative}
+<style id="v27-a-combo-real-css">
+.font-combo-v27{
+  display:inline-flex;
+  align-items:center;
+  border-radius:14px;
+  overflow:hidden;
+  background:rgba(255,255,255,.84);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 4px 12px rgba(31,95,155,.045);
+}
+.font-combo-v27 .font-half-v27{
+  border-radius:0!important;
+  margin:0!important;
+  box-shadow:none!important;
+  border:none!important;
+  background:transparent!important;
+  min-width:46px;
+}
+.font-combo-v27 .font-half-v27:first-child{
+  border-right:1px solid rgba(0,0,0,.08)!important;
+}
+body.dark .font-combo-v27{
+  background:var(--soft);
+  border:1px solid var(--line);
+}
 </style>
 
 </head>
@@ -605,8 +628,10 @@ button{position:relative}
         
         <button data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
         <button data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
-        <button class="btn soft" type="button" onclick="changeReaderFont(-2)">A-</button>
-        <button class="btn soft" type="button" onclick="changeReaderFont(2)">A+</button>
+        <span class="font-combo-v27">
+          <button class="btn soft font-half-v27" type="button" onclick="changeReaderFont(-2)">A-</button>
+          <button class="btn soft font-half-v27" type="button" onclick="changeReaderFont(2)">A+</button>
+        </span>
         <button class="btn soft" type="button" onclick="copyCurrentReference()">📋 Ref</button>
         <button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button><button class="btn soft" type="button" onclick="moveVerseToCategory()">📂 Mover</button>
         <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
@@ -2279,8 +2304,31 @@ button[onclick*="openList"]{display:none!important;}
 </style>
 
 
-<style id="v27-a-combo-css">
-button{position:relative}
+<style id="v27-a-combo-real-css">
+.font-combo-v27{
+  display:inline-flex;
+  align-items:center;
+  border-radius:14px;
+  overflow:hidden;
+  background:rgba(255,255,255,.84);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 4px 12px rgba(31,95,155,.045);
+}
+.font-combo-v27 .font-half-v27{
+  border-radius:0!important;
+  margin:0!important;
+  box-shadow:none!important;
+  border:none!important;
+  background:transparent!important;
+  min-width:46px;
+}
+.font-combo-v27 .font-half-v27:first-child{
+  border-right:1px solid rgba(0,0,0,.08)!important;
+}
+body.dark .font-combo-v27{
+  background:var(--soft);
+  border:1px solid var(--line);
+}
 </style>
 
 </head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
