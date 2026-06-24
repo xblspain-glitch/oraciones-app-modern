@@ -579,6 +579,29 @@ body.dark .font-combo-v27{
 }
 </style>
 
+
+<style id="v43F-alerta-calendario-fix">
+/* v43F - alerta naranja real del calendario */
+#calendarBtn.calendar-alert::after{
+  content:""!important;
+  display:none!important;
+}
+body:not(.dark) .topbar-row #calendarBtn.calendar-alert,
+body:not(.dark) .topbar-row #calendarBtn.calendar-alert.active-view,
+body:not(.dark) #calendarBtn.calendar-alert,
+body:not(.dark) #calendarBtn.calendar-alert.active-view,
+body.dark .topbar-row #calendarBtn.calendar-alert,
+body.dark .topbar-row #calendarBtn.calendar-alert.active-view,
+body.dark #calendarBtn.calendar-alert,
+body.dark #calendarBtn.calendar-alert.active-view{
+  background:linear-gradient(135deg,#d88428,#b45b16)!important;
+  color:#fff!important;
+  border:2px solid #9a5418!important;
+  box-shadow:0 6px 18px rgba(216,132,40,.35)!important;
+  font-weight:800!important;
+}
+</style>
+
 </head>
 <body>
 
@@ -2425,6 +2448,17 @@ function updateCalendarAlert(){
   if(!btn || typeof getChristianEventsFor!=="function") return;
   const hasEvents=getChristianEventsFor(new Date()).length>0;
   btn.classList.toggle("calendar-alert",hasEvents);
+  if(hasEvents){
+    btn.style.setProperty("background","linear-gradient(135deg,#d88428,#b45b16)","important");
+    btn.style.setProperty("color","#fff","important");
+    btn.style.setProperty("border","2px solid #9a5418","important");
+    btn.style.setProperty("font-weight","800","important");
+  }else{
+    btn.style.removeProperty("background");
+    btn.style.removeProperty("color");
+    btn.style.removeProperty("border");
+    btn.style.removeProperty("font-weight");
+  }
 }
 
 setTimeout(updateCalendarAlert,300);
