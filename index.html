@@ -1379,9 +1379,11 @@ function openEditor(){
   document.getElementById("titlesView").classList.add("hidden");
   var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
   document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  isDirty=false;
+  setSaveStatus("Sin cambios");
   setTimeout(()=>{try{window.scrollTo({top:0,behavior:"smooth"});document.getElementById("editText").focus({preventScroll:true});}catch(e){}},80);
 }
-function scheduleAutosave(){isDirty=true;setSaveStatus("Cambios sin guardar");if(autosaveTimer) clearTimeout(autosaveTimer);autosaveTimer=setTimeout(()=>saveCurrent(true,true),1200)}
+function scheduleAutosave(){isDirty=true;setSaveStatus("Cambios sin guardar");if(autosaveTimer) clearTimeout(autosaveTimer);/* v42C: autoguardado desactivado; solo guarda al pulsar Guardar */}
 function saveCurrentOriginal(stay, silent){
   const item=currentItem();if(!item)return;
   if(section==="verses"){
@@ -1521,6 +1523,7 @@ function saveCurrent(stay, silent){
 
 function discardEditorChanges(){
   if(!confirm('¿Descartar cambios?')) return;
+  if(autosaveTimer) clearTimeout(autosaveTimer);
 
   const item=currentItem();
   if(!item){
