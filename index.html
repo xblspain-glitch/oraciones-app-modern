@@ -358,6 +358,23 @@ body.editing-focus #editCategory:not(.hidden){
   resize:vertical;
 }
 
+
+/* v44E - Pasajes en modo lectura */
+.festivity-passage-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:0 18px 12px;
+}
+.festivity-passage-readonly{
+  background:var(--card)!important;
+  color:var(--text)!important;
+  border:1px solid var(--line)!important;
+}
+.festivity-passage-textarea[readonly]{
+  cursor:default;
+}
+
 </style>
 
 <style>
@@ -2584,6 +2601,7 @@ const FESTIVITY_LIBRARY_V44 = [
 
 let currentFestivityIdV44=null;
 let currentFestivityPassageRefV44=null;
+let currentFestivityPassageEditingV44=false;
 function getFestivityNotesStore(){try{return JSON.parse(localStorage.getItem("oraciones_festivity_notes_v44")||"{}")}catch(e){return {}}}
 function saveFestivityNotesStore(store){localStorage.setItem("oraciones_festivity_notes_v44",JSON.stringify(store||{}))}
 function openFestivityLibrary(){const modal=document.getElementById("festivityModal");if(!modal)return;modal.classList.remove("hidden");backToFestivityList()}
@@ -2634,7 +2652,8 @@ function openFestivityDetail(id){
     });
   }
 }
-function openFestivityPassage(id,ref){
+
+function openFestivityPassage(id,ref,forceEdit){
   const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===id);
   if(!f)return;
   currentFestivityIdV44=id;
@@ -2644,18 +2663,39 @@ function openFestivityPassage(id,ref){
   const box=document.getElementById("festivityDetailContent");
   const data=getFestivityDataV44(id);
   const txt=(data.passages&&data.passages[ref])||"";
+  const hasText=String(txt||"").trim().length>0;
+  currentFestivityPassageEditingV44 = forceEdit || !hasText;
+
   if(listView)listView.classList.add("hidden");
   if(detailView)detailView.classList.remove("hidden");
   if(!box)return;
+
+  const readonlyAttr = currentFestivityPassageEditingV44 ? "" : " readonly";
+  const editButtons = currentFestivityPassageEditingV44
+    ? '<button class="btn primary" type="button" onclick="saveFestivityNotes()">💾 Guardar pasaje</button>'
+    : '<button class="btn primary" type="button" onclick="enableFestivityPassageEdit()">✏️ Editar pasaje</button>';
+
   box.innerHTML=
     '<button class="btn soft festivity-back" type="button" id="backToFestivityDetailBtn">← Volver a la festividad</button>'+
     '<div class="festivity-passage-title">📖 Pasaje bíblico</div>'+
     '<div class="festivity-passage-ref">'+escapeHtml(ref)+'</div>'+
-    '<div class="festivity-section"><textarea id="festivityPassageText" class="festivity-passage-textarea" placeholder="Pega aquí el texto RVR1960 de '+escapeHtml(ref)+'...">'+escapeHtml(txt)+'</textarea><div class="festivity-hint">Puedes pegar el texto completo, revisarlo y guardarlo. Luego quedará asociado a este pasaje.</div></div>';
+    '<div class="festivity-passage-actions">'+editButtons+'</div>'+
+    '<div class="festivity-section"><textarea id="festivityPassageText" class="festivity-passage-textarea festivity-passage-readonly"'+readonlyAttr+' placeholder="Pega aquí el texto RVR1960 de '+escapeHtml(ref)+'...">'+escapeHtml(txt)+'</textarea><div class="festivity-hint">'+
+    (currentFestivityPassageEditingV44 ? 'Puedes pegar o editar el texto y guardarlo.' : 'Modo lectura: el texto está protegido. Pulsa ✏️ Editar pasaje para modificarlo.')+
+    '</div></div>';
+
   const back=document.getElementById("backToFestivityDetailBtn");
   if(back)back.addEventListener("click",function(){openFestivityDetail(id)});
-  setTimeout(function(){try{document.getElementById("festivityPassageText").focus({preventScroll:true})}catch(e){}},80);
+  if(currentFestivityPassageEditingV44){
+    setTimeout(function(){try{document.getElementById("festivityPassageText").focus({preventScroll:true})}catch(e){}},80);
+  }
 }
+function enableFestivityPassageEdit(){
+  if(!currentFestivityIdV44 || !currentFestivityPassageRefV44)return;
+  openFestivityPassage(currentFestivityIdV44,currentFestivityPassageRefV44,true);
+}
+
+
 function saveFestivityNotes(){
   if(!currentFestivityIdV44){toast("Elige una festividad");return}
   const data=getFestivityDataV44(currentFestivityIdV44);
@@ -2665,6 +2705,7 @@ function saveFestivityNotes(){
     data.passages[currentFestivityPassageRefV44]=txt?txt.value:"";
     setFestivityDataV44(currentFestivityIdV44,data);
     toast("Pasaje guardado");
+    openFestivityPassage(currentFestivityIdV44,currentFestivityPassageRefV44,false);
     return;
   }
   const txt=document.getElementById("festivityNotesText");
@@ -2672,6 +2713,7 @@ function saveFestivityNotes(){
   setFestivityDataV44(currentFestivityIdV44,data);
   toast("Notas guardadas");
 }
+
 
 
 
