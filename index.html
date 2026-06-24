@@ -304,6 +304,29 @@ body.editing-focus #editCategory:not(.hidden){
   display:block!important;
 }
 
+
+/* v44 - Biblioteca de festividades */
+.festivity-modal{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:200;display:flex;align-items:stretch;justify-content:center;padding:12px}
+.festivity-sheet{width:min(760px,100%);max-height:calc(100dvh - 24px);overflow:auto;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.festivity-head{position:sticky;top:0;z-index:2;display:flex;gap:8px;flex-wrap:wrap;padding:10px;background:var(--card);border-bottom:1px solid var(--line)}
+.festivity-title-main{font-size:24px;font-weight:900;padding:18px 18px 4px}
+.festivity-sub{padding:0 18px 14px;color:var(--muted);line-height:1.45}
+.festivity-list{display:flex;flex-direction:column;gap:8px;padding:0 14px 18px}
+.festivity-row{border:1px solid var(--line);background:var(--bg);border-radius:16px;padding:12px;cursor:pointer}
+.festivity-row-title{font-weight:850;margin-bottom:4px}
+.festivity-row-date{color:var(--muted);font-size:14px}
+.festivity-back{margin:12px 18px 0}
+.festivity-detail-title{font-size:25px;font-weight:900;padding:16px 18px 4px}
+.festivity-detail-date{padding:0 18px 12px;color:var(--muted);font-weight:700}
+.festivity-section{padding:12px 18px;border-top:1px solid var(--line)}
+.festivity-section h3{margin:0 0 8px;font-size:18px}
+.festivity-section p{margin:0;line-height:1.55}
+.festivity-passages{display:flex;flex-direction:column;gap:8px}
+.festivity-passage{padding:10px 12px;border-radius:14px;background:var(--bg);border:1px solid var(--line);font-weight:700}
+.festivity-notes{width:100%;min-height:220px;border:1px solid var(--line);border-radius:16px;padding:14px;background:var(--bg);color:var(--text);font-size:17px;line-height:1.6;resize:vertical}
+.festivity-hint{color:var(--muted);font-size:14px;line-height:1.4;margin-top:8px}
+@media(max-width:860px){.festivity-modal{padding:0}.festivity-sheet{border-radius:0;max-height:100dvh;min-height:100dvh}}
+
 </style>
 
 <style>
@@ -868,6 +891,7 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
         <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
         <button class="btn soft" type="button" onclick="renderChristianCalendar(new Date())">📅 Hoy</button>
         <button class="btn soft" type="button" onclick="renderChristianCalendar(addCalendarDays(new Date(),1))">Mañana</button>
+        <button class="btn soft" type="button" onclick="openFestivityLibrary()">📚 Festividades</button>
       </div>
       <div id="calendarContent" class="calendar-wrap"></div>
     </div>
@@ -898,6 +922,25 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
       <div id="trashList" class="trash-list"></div>
     </div>
   </section>
+</div>
+
+
+<div id="festivityModal" class="festivity-modal hidden">
+  <div class="festivity-sheet">
+    <div class="festivity-head">
+      <button class="btn soft" type="button" onclick="closeFestivityModal()">← Cerrar</button>
+      <button class="btn primary" type="button" onclick="saveFestivityNotes()">💾 Guardar</button>
+    </div>
+    <div id="festivityListView">
+      <div class="festivity-title-main">📚 Festividades cristianas</div>
+      <div class="festivity-sub">Selecciona una festividad para ver su explicación y completar sus pasajes bíblicos.</div>
+      <div id="festivityLibraryList" class="festivity-list"></div>
+    </div>
+    <div id="festivityDetailView" class="hidden">
+      <button class="btn soft festivity-back" type="button" onclick="backToFestivityList()">← Festividades</button>
+      <div id="festivityDetailContent"></div>
+    </div>
+  </div>
 </div>
 
 <div id="toast" class="toast">Guardado</div>
@@ -2483,6 +2526,40 @@ function updateCalendarAlert(){
 
 setTimeout(updateCalendarAlert,300);
 setInterval(updateCalendarAlert,60000);
+
+
+const FESTIVITY_LIBRARY_V44 = [
+{id:"anunciacion",date:"25 de marzo",title:"⛪ Anunciación",summary:"La Anunciación recuerda el anuncio del ángel Gabriel a María: el Hijo de Dios será concebido por obra del Espíritu Santo.",meaning:"Nos recuerda que la salvación nace de la iniciativa de Dios y de la respuesta humilde de fe.",passages:["Lucas 1:26-38","Mateo 1:18-25","Juan 1:14"]},
+{id:"juan_bautista_natividad",date:"24 de junio",title:"👶 Natividad de San Juan Bautista",summary:"Juan Bautista fue el precursor de Cristo. Su nacimiento fue anunciado por Dios y preparó el camino para la venida del Señor.",meaning:"Esta festividad señala que Dios prepara su obra de salvación antes de que sea visible para todos.",passages:["Lucas 1:5-25","Lucas 1:57-66","Lucas 1:67-80","Mateo 3:1-17","Juan 1:19-34"]},
+{id:"pedro_pablo",date:"29 de junio",title:"✝️ San Pedro y San Pablo",summary:"Pedro y Pablo son dos apóstoles fundamentales en el testimonio de la Iglesia primitiva.",meaning:"Recuerda la misión apostólica y la proclamación de Cristo como Señor.",passages:["Mateo 16:13-19","Hechos 2:14-41","Hechos 9:1-22","Gálatas 2:7-9","2 Timoteo 4:6-8"]},
+{id:"santiago_mayor",date:"25 de julio",title:"✝️ Santiago el Mayor",summary:"Santiago el Mayor fue uno de los apóstoles cercanos a Jesús y testigo de momentos centrales de su ministerio.",meaning:"Recuerda el llamado a seguir a Cristo con fidelidad, incluso en el sufrimiento.",passages:["Mateo 4:18-22","Marcos 5:35-43","Marcos 9:2-8","Marcos 10:35-45","Hechos 12:1-2"]},
+{id:"transfiguracion",date:"6 de agosto",title:"✨ Transfiguración del Señor",summary:"Cristo manifestó su gloria en el monte ante Pedro, Santiago y Juan.",meaning:"Revela la gloria divina de Cristo y anticipa la luz de la Resurrección.",passages:["Mateo 17:1-9","Marcos 9:2-10","Lucas 9:28-36","2 Pedro 1:16-18"]},
+{id:"asuncion_dormicion",date:"15 de agosto",title:"⛪ Asunción / ☦️ Dormición",summary:"Esta festividad recuerda la culminación de la vida terrenal de María, contemplada de modo distinto según las tradiciones cristianas.",meaning:"Invita a mirar la esperanza de la vida en Dios y la fidelidad de María al plan divino.",passages:["Lucas 1:46-55","Juan 19:25-27","Apocalipsis 12:1-6"]},
+{id:"martirio_juan_bautista",date:"29 de agosto",title:"👶 Martirio de San Juan Bautista",summary:"Juan Bautista murió por dar testimonio de la verdad y denunciar el pecado.",meaning:"Recuerda el precio de la fidelidad a Dios y la valentía profética.",passages:["Marcos 6:14-29","Mateo 14:1-12","Lucas 3:18-20"]},
+{id:"exaltacion_cruz",date:"14 de septiembre",title:"✝️ Exaltación de la Santa Cruz",summary:"La cruz, instrumento de muerte, es contemplada por los cristianos como signo de la victoria de Cristo.",meaning:"Centra la mirada en la redención realizada por Cristo mediante su entrega.",passages:["Juan 3:14-17","1 Corintios 1:18-25","Gálatas 6:14","Filipenses 2:5-11"]},
+{id:"todos_los_santos",date:"1 de noviembre",title:"⛪ Todos los Santos",summary:"Todos los Santos recuerda a todos los fieles que vivieron y murieron en la fe, conocidos y desconocidos.",meaning:"Recuerda la esperanza cristiana, la comunión de los creyentes y el llamado universal a la santidad.",passages:["Mateo 5:1-12","Hebreos 12:1-2","Apocalipsis 7:9-17"]},
+{id:"san_andres",date:"30 de noviembre",title:"✝️ San Andrés",summary:"Andrés fue uno de los primeros discípulos llamados por Jesús y hermano de Pedro.",meaning:"Recuerda el llamado inmediato a seguir a Cristo y a conducir a otros hacia Él.",passages:["Juan 1:35-42","Mateo 4:18-22","Juan 6:8-9","Juan 12:20-22"]},
+{id:"san_juan_evangelista",date:"27 de diciembre",title:"📖 San Juan Evangelista",summary:"Juan fue apóstol y testigo de Cristo. La tradición cristiana lo vincula especialmente con el Evangelio de Juan y las cartas joánicas.",meaning:"Su testimonio resalta la divinidad de Cristo, el amor, la luz y la vida eterna.",passages:["Juan 1:1-18","Juan 13:21-30","Juan 19:25-27","Juan 20:1-10","1 Juan 4:7-16"]},
+{id:"navidad",date:"25 de diciembre",title:"🎄 Navidad",summary:"Navidad celebra el nacimiento de Jesucristo, el Hijo de Dios hecho hombre.",meaning:"Dios entra en la historia humana para salvar al mundo por amor.",passages:["Lucas 2:1-20","Mateo 1:18-25","Juan 1:1-14","Isaías 9:6-7"]},
+{id:"epifania_teofania",date:"6 / 19 de enero",title:"💧 Epifanía / Teofanía",summary:"Epifanía recuerda la manifestación de Cristo. En Oriente se centra especialmente en el Bautismo del Señor.",meaning:"Cristo se revela como Salvador y luz para el mundo.",passages:["Mateo 2:1-12","Mateo 3:13-17","Marcos 1:9-11","Lucas 3:21-22"]},
+{id:"domingo_ramos",date:"Variable",title:"🌿 Domingo de Ramos",summary:"Jesús entra en Jerusalén y es recibido como Rey, iniciando los acontecimientos de su pasión.",meaning:"Une la aclamación a Cristo Rey con el camino hacia la cruz.",passages:["Mateo 21:1-11","Marcos 11:1-11","Lucas 19:28-44","Juan 12:12-19"]},
+{id:"viernes_santo",date:"Variable",title:"✝️ Viernes Santo",summary:"Viernes Santo recuerda la pasión y muerte de Jesucristo en la cruz.",meaning:"En la cruz se manifiesta el amor sacrificial de Cristo y la redención del mundo.",passages:["Mateo 27","Marcos 15","Lucas 23","Juan 18:28-40","Juan 19"]},
+{id:"resurreccion",date:"Variable",title:"🌅 Pascua de Resurrección",summary:"La Pascua celebra la resurrección de Jesucristo de entre los muertos.",meaning:"Es el centro de la fe cristiana: Cristo ha vencido la muerte.",passages:["Mateo 28","Marcos 16","Lucas 24","Juan 20","1 Corintios 15:1-28"]},
+{id:"ascension",date:"Variable",title:"👑 Ascensión del Señor",summary:"La Ascensión recuerda que Cristo resucitado sube al Padre y reina glorificado.",meaning:"Cristo no abandona a sus discípulos, sino que los envía y promete el Espíritu Santo.",passages:["Lucas 24:50-53","Hechos 1:1-11","Marcos 16:19-20","Efesios 1:17-23"]},
+{id:"pentecostes",date:"Variable",title:"🔥 Pentecostés",summary:"Pentecostés celebra la venida del Espíritu Santo sobre los discípulos.",meaning:"El Espíritu Santo fortalece a la Iglesia para dar testimonio de Cristo.",passages:["Hechos 2:1-41","Juan 14:15-27","Juan 16:7-15","Romanos 8:1-17"]},
+{id:"timkat",date:"19 de enero",title:"💧 Timkat",summary:"Timkat es la celebración etíope del Bautismo del Señor.",meaning:"Recuerda la manifestación de Cristo en el Jordán y la revelación trinitaria.",passages:["Mateo 3:13-17","Marcos 1:9-11","Lucas 3:21-22","Juan 1:29-34"]},
+{id:"meskel",date:"27 de septiembre",title:"✝️ Meskel",summary:"Meskel conmemora en la tradición etíope el hallazgo de la Vera Cruz.",meaning:"La cruz es signo de victoria, vida y redención en Cristo.",passages:["Juan 3:14-17","1 Corintios 1:18-25","Gálatas 6:14"]}
+];
+
+let currentFestivityIdV44=null;
+function getFestivityNotesStore(){try{return JSON.parse(localStorage.getItem("oraciones_festivity_notes_v44")||"{}")}catch(e){return {}}}
+function saveFestivityNotesStore(store){localStorage.setItem("oraciones_festivity_notes_v44",JSON.stringify(store||{}))}
+function openFestivityLibrary(){const modal=document.getElementById("festivityModal");if(!modal)return;modal.classList.remove("hidden");backToFestivityList()}
+function closeFestivityModal(){const modal=document.getElementById("festivityModal");if(modal)modal.classList.add("hidden")}
+function backToFestivityList(){currentFestivityIdV44=null;document.getElementById("festivityListView")?.classList.remove("hidden");document.getElementById("festivityDetailView")?.classList.add("hidden");renderFestivityLibraryList()}
+function renderFestivityLibraryList(){const box=document.getElementById("festivityLibraryList");if(!box)return;box.innerHTML="";FESTIVITY_LIBRARY_V44.forEach(f=>{const div=document.createElement("div");div.className="festivity-row";div.innerHTML='<div class="festivity-row-title">'+escapeHtml(f.title)+'</div><div class="festivity-row-date">'+escapeHtml(f.date)+'</div>';div.onclick=()=>openFestivityDetail(f.id);box.appendChild(div)})}
+function openFestivityDetail(id){const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===id);if(!f)return;currentFestivityIdV44=id;document.getElementById("festivityListView")?.classList.add("hidden");document.getElementById("festivityDetailView")?.classList.remove("hidden");const box=document.getElementById("festivityDetailContent");const notes=getFestivityNotesStore()[id]||"";if(!box)return;box.innerHTML='<div class="festivity-detail-title">'+escapeHtml(f.title)+'</div><div class="festivity-detail-date">📅 '+escapeHtml(f.date)+'</div><div class="festivity-section"><h3>📖 Sentido</h3><p>'+escapeHtml(f.summary)+'</p></div><div class="festivity-section"><h3>✝️ Significado cristiano</h3><p>'+escapeHtml(f.meaning)+'</p></div><div class="festivity-section"><h3>📖 Pasajes bíblicos</h3><div class="festivity-passages">'+f.passages.map(p=>'<div class="festivity-passage">'+escapeHtml(p)+'</div>').join("")+'</div><div class="festivity-hint">Puedes copiar estos pasajes en tu Biblia RVR1960 y pegar aquí el texto cuando quieras.</div></div><div class="festivity-section"><h3>✍️ Tus pasajes y notas</h3><textarea id="festivityNotesText" class="festivity-notes" placeholder="Pega aquí los pasajes bíblicos, tus notas o una explicación personal...">'+escapeHtml(notes)+'</textarea><div class="festivity-hint">Se guarda en este dispositivo.</div></div>'}
+function saveFestivityNotes(){if(!currentFestivityIdV44){toast("Elige una festividad");return}const txt=document.getElementById("festivityNotesText");const store=getFestivityNotesStore();store[currentFestivityIdV44]=txt?txt.value:"";saveFestivityNotesStore(store);toast("Festividad guardada")}
 
 function openBackup(){
   setActiveView("backup");
