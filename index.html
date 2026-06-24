@@ -2340,17 +2340,38 @@ function buildChristianCalendarYear(y){
   addEvent(map,addCalendarDays(east,49),"etiope","🔥 Pentecostés","Venida del Espíritu Santo sobre la Iglesia.");
   addEvent(map,addCalendarDays(east,49),"ortodoxa","🔥 Pentecostés","Venida del Espíritu Santo.");
   
-  addFixed(map,y,3,25,"⛪ Anunciación");
-  addFixed(map,y,6,24,"👶 Natividad de San Juan Bautista");
-  addFixed(map,y,6,29,"✝️ San Pedro y San Pablo");
-  addFixed(map,y,7,25,"✝️ Santiago el Mayor");
-  addFixed(map,y,8,6,"✨ Transfiguración del Señor");
-  addFixed(map,y,8,15,"⛪ Asunción / ☦️ Dormición");
-  addFixed(map,y,8,29,"👶 Martirio de San Juan Bautista");
-  addFixed(map,y,9,14,"✝️ Exaltación de la Santa Cruz");
-  addFixed(map,y,11,1,"⛪ Todos los Santos");
-  addFixed(map,y,11,30,"✝️ San Andrés");
-  addFixed(map,y,12,27,"📖 San Juan Evangelista");
+  // v43B - Festividades cristianas universales y bíblicas
+  addFixed(map,y,3,25,"catolica","⛪ Anunciación","El anuncio del ángel Gabriel a María sobre el nacimiento de Jesús.");
+  addFixed(map,y,3,25,"ortodoxa","⛪ Anunciación","El anuncio del ángel Gabriel a María sobre el nacimiento de Cristo.");
+
+  addFixed(map,y,6,24,"catolica","👶 Natividad de San Juan Bautista","Nacimiento de Juan Bautista, el profeta que preparó el camino del Señor.");
+  addFixed(map,y,6,24,"ortodoxa","👶 Natividad de San Juan Bautista","Nacimiento de Juan Bautista, precursor de Cristo.");
+
+  addFixed(map,y,6,29,"catolica","✝️ San Pedro y San Pablo","Conmemoración de los apóstoles Pedro y Pablo.");
+  addFixed(map,y,6,29,"ortodoxa","✝️ San Pedro y San Pablo","Conmemoración de los santos apóstoles Pedro y Pablo.");
+
+  addFixed(map,y,7,25,"catolica","✝️ Santiago el Mayor","Conmemoración de Santiago el Mayor, apóstol de Jesucristo.");
+  addFixed(map,y,7,25,"ortodoxa","✝️ Santiago el Mayor","Conmemoración de Santiago, apóstol del Señor.");
+
+  addFixed(map,y,8,6,"catolica","✨ Transfiguración del Señor","Cristo manifiesta su gloria en el monte.");
+  addFixed(map,y,8,6,"ortodoxa","✨ Transfiguración del Señor","Cristo manifiesta su gloria ante sus discípulos.");
+
+  addFixed(map,y,8,15,"catolica","⛪ Asunción de María","Celebración de María llevada a la gloria de Dios.");
+  addFixed(map,y,8,15,"ortodoxa","☦️ Dormición de la Madre de Dios","Celebración de la Dormición de la Madre de Dios.");
+
+  addFixed(map,y,8,29,"catolica","👶 Martirio de San Juan Bautista","Conmemoración de la muerte de Juan Bautista.");
+  addFixed(map,y,8,29,"ortodoxa","👶 Decapitación de San Juan Bautista","Conmemoración del martirio de Juan Bautista.");
+
+  addFixed(map,y,9,14,"catolica","✝️ Exaltación de la Santa Cruz","Celebración de la cruz de Cristo.");
+  addFixed(map,y,9,14,"ortodoxa","✝️ Exaltación de la Santa Cruz","Celebración de la preciosa y vivificadora Cruz.");
+
+  addFixed(map,y,11,1,"catolica","⛪ Todos los Santos","Conmemoración de todos los fieles que vivieron y murieron en la fe.");
+
+  addFixed(map,y,11,30,"catolica","✝️ San Andrés","Conmemoración de Andrés, apóstol de Jesucristo.");
+  addFixed(map,y,11,30,"ortodoxa","✝️ San Andrés","Conmemoración del apóstol Andrés, el primer llamado.");
+
+  addFixed(map,y,12,27,"catolica","📖 San Juan Evangelista","Conmemoración de Juan, apóstol y evangelista.");
+  addFixed(map,y,12,27,"ortodoxa","📖 San Juan Evangelista","Conmemoración de Juan, apóstol y evangelista.");
 
 return map;
 }
@@ -2401,6 +2422,10 @@ function updateCalendarAlert(){
   const hasEvents=getChristianEventsFor(new Date()).length>0;
   btn.classList.toggle("calendar-alert",hasEvents);
 }
+
+
+setTimeout(updateCalendarAlert, 300);
+setInterval(updateCalendarAlert, 60000);
 
 function openBackup(){
   setActiveView("backup");
