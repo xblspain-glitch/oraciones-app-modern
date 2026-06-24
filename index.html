@@ -768,6 +768,7 @@ body.dark .font-combo-v27{
       <div class="panel-head">
         <button class="btn primary" type="button" onclick="saveCurrent(true,false)">💾 Guardar</button>
         <button class="btn primary" type="button" onclick="saveCurrent(false,false)">✅ Guardar y volver</button>
+        <button class="btn danger" type="button" onclick="discardEditorChanges()">❌ Descartar</button>
         <button class="btn soft" type="button" onclick="leaveEditor()">← Volver</button>
         <div id="saveStatus" class="status">Sin cambios</div>
       </div>
@@ -1514,6 +1515,22 @@ function saveCurrent(stay, silent){
       saveState();
     }
   }catch(e){}
+}
+
+
+function discardEditorChanges(){
+  if(!confirm('¿Descartar cambios?')) return;
+  const item=currentItem();
+  try{
+    if(item && item.isNewVerse){
+      state.verses=(state.verses||[]).filter(v=>v.id!==item.id);
+      saveState();
+      renderList();
+    }
+  }catch(e){}
+  isDirty=false;
+  openReader();
+  toast("Cambios descartados");
 }
 
 function leaveEditor(){if(isDirty) saveCurrent(false,true);else openReader()}
