@@ -2339,7 +2339,20 @@ function buildChristianCalendarYear(y){
   addEvent(map,addCalendarDays(east,39),"ortodoxa","👑 Ascensión del Señor","Cristo asciende al Padre.");
   addEvent(map,addCalendarDays(east,49),"etiope","🔥 Pentecostés","Venida del Espíritu Santo sobre la Iglesia.");
   addEvent(map,addCalendarDays(east,49),"ortodoxa","🔥 Pentecostés","Venida del Espíritu Santo.");
-  return map;
+  
+  addFixed(map,y,3,25,"⛪ Anunciación");
+  addFixed(map,y,6,24,"👶 Natividad de San Juan Bautista");
+  addFixed(map,y,6,29,"✝️ San Pedro y San Pablo");
+  addFixed(map,y,7,25,"✝️ Santiago el Mayor");
+  addFixed(map,y,8,6,"✨ Transfiguración del Señor");
+  addFixed(map,y,8,15,"⛪ Asunción / ☦️ Dormición");
+  addFixed(map,y,8,29,"👶 Martirio de San Juan Bautista");
+  addFixed(map,y,9,14,"✝️ Exaltación de la Santa Cruz");
+  addFixed(map,y,11,1,"⛪ Todos los Santos");
+  addFixed(map,y,11,30,"✝️ San Andrés");
+  addFixed(map,y,12,27,"📖 San Juan Evangelista");
+
+return map;
 }
 function getChristianEventsFor(date){
   const y=date.getFullYear();
