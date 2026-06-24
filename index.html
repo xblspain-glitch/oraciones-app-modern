@@ -2340,7 +2340,7 @@ function buildChristianCalendarYear(y){
   addEvent(map,addCalendarDays(east,49),"etiope","🔥 Pentecostés","Venida del Espíritu Santo sobre la Iglesia.");
   addEvent(map,addCalendarDays(east,49),"ortodoxa","🔥 Pentecostés","Venida del Espíritu Santo.");
   
-  // v43B - Festividades cristianas universales y bíblicas
+  // v43C - Festividades cristianas universales y bíblicas
   addFixed(map,y,3,25,"catolica","⛪ Anunciación","El anuncio del ángel Gabriel a María sobre el nacimiento de Jesús.");
   addFixed(map,y,3,25,"ortodoxa","⛪ Anunciación","El anuncio del ángel Gabriel a María sobre el nacimiento de Cristo.");
 
@@ -2384,7 +2384,11 @@ function renderCalendarTradition(events,key,label){
   const ev=events.filter(e=>e.trad===key);
   let html='<div class="calendar-card"><div class="calendar-card-head">'+label+'</div>';
   if(!ev.length){html+='<div class="calendar-empty">Sin festividad especial hoy.</div>'}
-  else ev.forEach(e=>{html+='<div class="calendar-event"><div class="calendar-event-title">'+escapeHtml(e.title)+'</div><div class="calendar-event-desc">'+escapeHtml(e.desc)+'</div></div>'});
+  else ev.forEach(e=>{
+    const title=e.title||e.trad||"Festividad cristiana";
+    const desc=e.desc||"";
+    html+='<div class="calendar-event"><div class="calendar-event-title">'+escapeHtml(title)+'</div><div class="calendar-event-desc">'+escapeHtml(desc)+'</div></div>';
+  });
   return html+'</div>';
 }
 function renderChristianCalendar(date){
@@ -2423,9 +2427,8 @@ function updateCalendarAlert(){
   btn.classList.toggle("calendar-alert",hasEvents);
 }
 
-
-setTimeout(updateCalendarAlert, 300);
-setInterval(updateCalendarAlert, 60000);
+setTimeout(updateCalendarAlert,300);
+setInterval(updateCalendarAlert,60000);
 
 function openBackup(){
   setActiveView("backup");
