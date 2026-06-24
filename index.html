@@ -359,18 +359,14 @@ body.editing-focus #editCategory:not(.hidden){
 }
 
 
-/* v44E - Pasajes en modo lectura */
-.festivity-passage-actions{
+/* v44E - Edición contextual de festividades */
+.festivity-actions{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
   padding:0 18px 12px;
 }
-.festivity-passage-readonly{
-  background:var(--card)!important;
-  color:var(--text)!important;
-  border:1px solid var(--line)!important;
-}
+.festivity-notes[readonly],
 .festivity-passage-textarea[readonly]{
   cursor:default;
 }
@@ -977,7 +973,7 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
   <div class="festivity-sheet">
     <div class="festivity-head">
       <button class="btn soft" type="button" onclick="closeFestivityModal()">← Cerrar</button>
-      <button class="btn primary" type="button" onclick="saveFestivityNotes()">💾 Guardar</button>
+      
     </div>
     <div id="festivityListView">
       <div class="festivity-title-main">📚 Festividades cristianas</div>
@@ -2601,7 +2597,7 @@ const FESTIVITY_LIBRARY_V44 = [
 
 let currentFestivityIdV44=null;
 let currentFestivityPassageRefV44=null;
-let currentFestivityPassageEditingV44=false;
+let currentFestivityNotesEditingV44=false;
 function getFestivityNotesStore(){try{return JSON.parse(localStorage.getItem("oraciones_festivity_notes_v44")||"{}")}catch(e){return {}}}
 function saveFestivityNotesStore(store){localStorage.setItem("oraciones_festivity_notes_v44",JSON.stringify(store||{}))}
 function openFestivityLibrary(){const modal=document.getElementById("festivityModal");if(!modal)return;modal.classList.remove("hidden");backToFestivityList()}
@@ -2621,7 +2617,8 @@ function setFestivityDataV44(id,data){
   store[id]={notes:(data&&data.notes)||"",passages:(data&&data.passages)||{}};
   saveFestivityNotesStore(store);
 }
-function openFestivityDetail(id){
+
+function openFestivityDetail(id,forceEditNotes){
   const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===id);
   if(!f)return;
   currentFestivityIdV44=id;
@@ -2630,16 +2627,28 @@ function openFestivityDetail(id){
   const detailView=document.getElementById("festivityDetailView");
   const box=document.getElementById("festivityDetailContent");
   const data=getFestivityDataV44(id);
+  const hasNotes=String(data.notes||"").trim().length>0;
+  currentFestivityNotesEditingV44 = forceEditNotes || !hasNotes;
+
   if(listView)listView.classList.add("hidden");
   if(detailView)detailView.classList.remove("hidden");
   if(!box)return;
+
+  const notesReadonly = currentFestivityNotesEditingV44 ? "" : " readonly";
+  const notesButton = currentFestivityNotesEditingV44
+    ? '<button class="btn primary" type="button" onclick="saveFestivityNotes()">💾 Guardar notas</button>'
+    : '<button class="btn primary" type="button" onclick="enableFestivityNotesEdit()">✍️ Editar notas</button>';
+
   box.innerHTML=
     '<div class="festivity-detail-title">'+escapeHtml(f.title)+'</div>'+
     '<div class="festivity-detail-date">📅 '+escapeHtml(f.date)+'</div>'+
     '<div class="festivity-section"><h3>📖 Sentido</h3><p>'+escapeHtml(f.summary)+'</p></div>'+
     '<div class="festivity-section"><h3>✝️ Significado cristiano</h3><p>'+escapeHtml(f.meaning)+'</p></div>'+
     '<div class="festivity-section"><h3>📖 Pasajes bíblicos</h3><div id="festivityPassageButtons" class="festivity-passages"></div><div class="festivity-hint">Toca un pasaje para abrirlo, pegar el texto RVR1960 y guardarlo por separado.</div></div>'+
-    '<div class="festivity-section"><h3>✍️ Tus notas</h3><textarea id="festivityNotesText" class="festivity-notes" placeholder="Añade aquí comentarios generales de la festividad...">'+escapeHtml(data.notes||"")+'</textarea><div class="festivity-hint">Las notas son generales. Los textos bíblicos se guardan dentro de cada pasaje.</div></div>';
+    '<div class="festivity-section"><h3>✍️ Tus notas</h3><div class="festivity-actions">'+notesButton+'</div>'+
+      '<textarea id="festivityNotesText" class="festivity-notes"'+notesReadonly+' placeholder="Añade aquí comentarios generales de la festividad...">'+escapeHtml(data.notes||"")+'</textarea>'+
+      '<div class="festivity-hint">'+(currentFestivityNotesEditingV44?'Puedes escribir o editar tus notas y guardarlas.':'Modo lectura: las notas están protegidas. Pulsa ✍️ Editar notas para modificarlas.')+'</div></div>';
+
   const pbox=document.getElementById("festivityPassageButtons");
   if(pbox){
     f.passages.forEach(function(ref){
@@ -2651,42 +2660,52 @@ function openFestivityDetail(id){
       pbox.appendChild(btn);
     });
   }
+
+  if(currentFestivityNotesEditingV44){
+    setTimeout(function(){try{document.getElementById("festivityNotesText").focus({preventScroll:true})}catch(e){}},80);
+  }
 }
+function enableFestivityNotesEdit(){
+  if(!currentFestivityIdV44)return;
+  openFestivityDetail(currentFestivityIdV44,true);
+}
+
 
 function openFestivityPassage(id,ref,forceEdit){
   const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===id);
   if(!f)return;
   currentFestivityIdV44=id;
   currentFestivityPassageRefV44=ref;
+  currentFestivityNotesEditingV44=false;
   const listView=document.getElementById("festivityListView");
   const detailView=document.getElementById("festivityDetailView");
   const box=document.getElementById("festivityDetailContent");
   const data=getFestivityDataV44(id);
   const txt=(data.passages&&data.passages[ref])||"";
   const hasText=String(txt||"").trim().length>0;
-  currentFestivityPassageEditingV44 = forceEdit || !hasText;
+  const editing = forceEdit || !hasText;
 
   if(listView)listView.classList.add("hidden");
   if(detailView)detailView.classList.remove("hidden");
   if(!box)return;
 
-  const readonlyAttr = currentFestivityPassageEditingV44 ? "" : " readonly";
-  const editButtons = currentFestivityPassageEditingV44
+  const readonlyAttr = editing ? "" : " readonly";
+  const actionButton = editing
     ? '<button class="btn primary" type="button" onclick="saveFestivityNotes()">💾 Guardar pasaje</button>'
-    : '<button class="btn primary" type="button" onclick="enableFestivityPassageEdit()">✏️ Editar pasaje</button>';
+    : '<button class="btn primary" type="button" onclick="enableFestivityPassageEdit()">✍️ Editar pasaje</button>';
 
   box.innerHTML=
     '<button class="btn soft festivity-back" type="button" id="backToFestivityDetailBtn">← Volver a la festividad</button>'+
     '<div class="festivity-passage-title">📖 Pasaje bíblico</div>'+
     '<div class="festivity-passage-ref">'+escapeHtml(ref)+'</div>'+
-    '<div class="festivity-passage-actions">'+editButtons+'</div>'+
-    '<div class="festivity-section"><textarea id="festivityPassageText" class="festivity-passage-textarea festivity-passage-readonly"'+readonlyAttr+' placeholder="Pega aquí el texto RVR1960 de '+escapeHtml(ref)+'...">'+escapeHtml(txt)+'</textarea><div class="festivity-hint">'+
-    (currentFestivityPassageEditingV44 ? 'Puedes pegar o editar el texto y guardarlo.' : 'Modo lectura: el texto está protegido. Pulsa ✏️ Editar pasaje para modificarlo.')+
+    '<div class="festivity-actions">'+actionButton+'</div>'+
+    '<div class="festivity-section"><textarea id="festivityPassageText" class="festivity-passage-textarea"'+readonlyAttr+' placeholder="Pega aquí el texto RVR1960 de '+escapeHtml(ref)+'...">'+escapeHtml(txt)+'</textarea><div class="festivity-hint">'+
+    (editing?'Puedes pegar o editar el texto y guardarlo.':'Modo lectura: el texto está protegido. Pulsa ✍️ Editar pasaje para modificarlo.')+
     '</div></div>';
 
   const back=document.getElementById("backToFestivityDetailBtn");
   if(back)back.addEventListener("click",function(){openFestivityDetail(id)});
-  if(currentFestivityPassageEditingV44){
+  if(editing){
     setTimeout(function(){try{document.getElementById("festivityPassageText").focus({preventScroll:true})}catch(e){}},80);
   }
 }
@@ -2699,6 +2718,7 @@ function enableFestivityPassageEdit(){
 function saveFestivityNotes(){
   if(!currentFestivityIdV44){toast("Elige una festividad");return}
   const data=getFestivityDataV44(currentFestivityIdV44);
+
   if(currentFestivityPassageRefV44){
     const txt=document.getElementById("festivityPassageText");
     data.passages=data.passages||{};
@@ -2708,10 +2728,13 @@ function saveFestivityNotes(){
     openFestivityPassage(currentFestivityIdV44,currentFestivityPassageRefV44,false);
     return;
   }
+
   const txt=document.getElementById("festivityNotesText");
   data.notes=txt?txt.value:"";
   setFestivityDataV44(currentFestivityIdV44,data);
+  currentFestivityNotesEditingV44=false;
   toast("Notas guardadas");
+  openFestivityDetail(currentFestivityIdV44,false);
 }
 
 
