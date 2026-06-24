@@ -1518,19 +1518,65 @@ function saveCurrent(stay, silent){
 }
 
 
+
 function discardEditorChanges(){
   if(!confirm('¿Descartar cambios?')) return;
+
   const item=currentItem();
+  if(!item){
+    isDirty=false;
+    openReader();
+    toast("Cambios descartados");
+    return;
+  }
+
   try{
-    if(item && item.isNewVerse){
-      state.verses=(state.verses||[]).filter(v=>v.id!==item.id);
+    const items=getItems();
+    const isNew =
+      item.isNewVerse ||
+      item.isNewItem ||
+      (item.title==="Nueva oración") ||
+      (item.title==="Nueva nota") ||
+      (item.title==="Nueva guía") ||
+      (item.title==="Nueva referencia") ||
+      (item.reference==="Nueva referencia");
+
+    if(isNew){
+      const filtered=items.filter(x=>x.id!==item.id);
+      setItems(filtered);
+
+      const next=filtered[0]||null;
+      if(next){
+        setCurrentId(next.id);
+      }else{
+        const id=uid();
+        const fallback = section==="verses"
+          ? {id,reference:"Nueva referencia",title:"Nueva referencia",category:(currentVerseCategory||"fe"),content:"",text:"",updatedAt:Date.now(),favorite:false,shared:false,isNewVerse:true}
+          : {id,title:(section==="prayers"?"Nueva oración":section==="notes"?"Nueva nota":"Nueva guía"),content:"",updatedAt:Date.now(),favorite:false,isNewItem:true};
+        setItems([fallback]);
+        setCurrentId(id);
+      }
+
       saveState();
       renderList();
+      renderReader();
+      isDirty=false;
+      openReader();
+      toast("Descartado");
+      return;
     }
-  }catch(e){}
-  isDirty=false;
-  openReader();
-  toast("Cambios descartados");
+
+    // Si no era nuevo, restauramos la vista sin guardar cambios
+    isDirty=false;
+    renderReader();
+    openReader();
+    toast("Cambios descartados");
+  }catch(e){
+    console.error("discardEditorChanges", e);
+    isDirty=false;
+    openReader();
+    toast("Cambios descartados");
+  }
 }
 
 function leaveEditor(){if(isDirty) saveCurrent(false,true);else openReader()}
@@ -1539,8 +1585,8 @@ function newItem(){
   const id=uid();
   const title=section==="prayers"?"Nueva oración":section==="notes"?"Nueva nota":section==="guides"?"Nueva guía":"Nueva referencia";
   const item=section==="verses"
-    ? {id,reference:title,title,category:(currentVerseCategory||"fe"),content:"",text:"",updatedAt:Date.now(),favorite:false,shared:false,isNewVerse:true}
-    : {id,title,content:"",updatedAt:Date.now(),favorite:false};
+    ? {id,reference:title,title,category:(currentVerseCategory||"fe"),content:"",text:"",updatedAt:Date.now(),favorite:false,shared:false,isNewVerse:true,isNewItem:true}
+    : {id,title,content:"",updatedAt:Date.now(),favorite:false,isNewItem:true};
   const items=getItems();
   items.unshift(item);
   setItems(items);
