@@ -328,38 +328,26 @@ body.editing-focus #editCategory:not(.hidden){
 @media(max-width:860px){.festivity-modal{padding:0}.festivity-sheet{border-radius:0;max-height:100dvh;min-height:100dvh}}
 
 
-/* v44B - Pasajes editables de festividades */
+/* v44C - Pasajes editables reales */
 .festivity-passage{
-  cursor:pointer;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:8px;
+  cursor:pointer!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  text-align:left!important;
+  width:100%!important;
+  font-size:17px!important;
 }
-.festivity-passage::after{
-  content:"✍️";
-  opacity:.65;
+.festivity-passage .edit-mark{
+  opacity:.7;
+  font-size:18px;
 }
-.festivity-passage:hover{
-  outline:2px solid rgba(216,132,40,.35);
-}
-.calendar-event{
-  cursor:pointer;
-  border-radius:12px;
-}
-.calendar-event:hover{
-  background:var(--bg);
-}
-.festivity-passage-title{
-  font-size:24px;
-  font-weight:900;
-  padding:16px 18px 4px;
-}
-.festivity-passage-ref{
-  padding:0 18px 12px;
-  color:var(--muted);
-  font-weight:800;
-}
+.festivity-passage:hover{outline:2px solid rgba(216,132,40,.35)}
+.calendar-event{cursor:pointer;border-radius:12px;padding:8px}
+.calendar-event:hover{background:var(--bg)}
+.festivity-passage-title{font-size:24px;font-weight:900;padding:16px 18px 4px}
+.festivity-passage-ref{padding:0 18px 12px;color:var(--muted);font-weight:800}
 .festivity-passage-textarea{
   width:100%;
   min-height:52dvh;
@@ -2509,15 +2497,19 @@ function getChristianEventsFor(date){
   const all=Object.assign({},buildChristianCalendarYear(y-1),buildChristianCalendarYear(y),buildChristianCalendarYear(y+1));
   return all[calendarKey(date)]||[];
 }
+
 function renderCalendarTradition(events,key,label){
   const ev=events.filter(e=>e.trad===key);
   let html='<div class="calendar-card"><div class="calendar-card-head">'+label+'</div>';
-  if(!ev.length){html+='<div class="calendar-empty">Sin festividad especial hoy.</div>'}
-  else ev.forEach(e=>{
-    const title=e.title||e.trad||"Festividad cristiana";
-    const desc=e.desc||"";
-    html+='<div class="calendar-event" onclick="openFestivityFromCalendarTitle(decodeURIComponent(\''+encodeURIComponent(title)+'\'))"><div class="calendar-event-title">'+escapeHtml(title)+'</div><div class="calendar-event-desc">'+escapeHtml(desc)+'</div></div>';
-  });
+  if(!ev.length){
+    html+='<div class="calendar-empty">Sin festividad especial hoy.</div>';
+  }else{
+    ev.forEach((e,i)=>{
+      const title=e.title||e.trad||"Festividad cristiana";
+      const desc=e.desc||"";
+      html+='<div class="calendar-event" data-fest-title="'+escapeHtml(title)+'"><div class="calendar-event-title">'+escapeHtml(title)+'</div><div class="calendar-event-desc">'+escapeHtml(desc)+'</div></div>';
+    });
+  }
   return html+'</div>';
 }
 function renderChristianCalendar(date){
@@ -2531,6 +2523,9 @@ function renderChristianCalendar(date){
     +renderCalendarTradition(events,"protestante","✝️ Protestante")
     +renderCalendarTradition(events,"catolica","⛪ Católico")
     +'</div><div class="calendar-note">Las fechas móviles se calculan según el cómputo occidental u oriental. Algunas iglesias pueden variar celebraciones locales.</div>';
+  box.querySelectorAll(".calendar-event[data-fest-title]").forEach(el=>{
+    el.addEventListener("click",()=>openFestivityFromCalendarTitle(el.getAttribute("data-fest-title")||""));
+  });
 }
 function openChristianCalendar(){
   setSearchVisibleV26(false);
@@ -2602,34 +2597,32 @@ let currentFestivityIdV44=null;
 let currentFestivityPassageRefV44=null;
 
 function normFestTitleV44(s){
-  return String(s||"").toLowerCase()
-    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
-    .replace(/[^\w\s]/g," ").replace(/\s+/g," ").trim();
+  return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^\w\s]/g," ").replace(/\s+/g," ").trim();
 }
 function findFestivityByCalendarTitle(title){
   const n=normFestTitleV44(title);
-  if(n.includes("juan bautista") && n.includes("natividad")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="juan_bautista_natividad");
-  if(n.includes("pedro") && n.includes("pablo")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="pedro_pablo");
-  if(n.includes("santiago")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="santiago_mayor");
-  if(n.includes("transfiguracion")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="transfiguracion");
-  if(n.includes("asuncion") || n.includes("dormicion")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="asuncion_dormicion");
-  if((n.includes("martirio") || n.includes("decapitacion")) && n.includes("juan bautista")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="martirio_juan_bautista");
-  if(n.includes("exaltacion") || n.includes("santa cruz") || n.includes("vera cruz") || n.includes("meskel")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="exaltacion_cruz") || FESTIVITY_LIBRARY_V44.find(x=>x.id==="meskel");
-  if(n.includes("todos los santos")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="todos_los_santos");
-  if(n.includes("andres")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="san_andres");
-  if(n.includes("juan evangelista")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="san_juan_evangelista");
-  if(n.includes("navidad")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="navidad");
-  if(n.includes("epifania") || n.includes("teofania") || n.includes("timkat")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="epifania_teofania") || FESTIVITY_LIBRARY_V44.find(x=>x.id==="timkat");
-  if(n.includes("ramos")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="domingo_ramos");
-  if(n.includes("viernes santo")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="viernes_santo");
-  if(n.includes("resurreccion") || n.includes("pascua")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="resurreccion");
-  if(n.includes("ascension")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="ascension");
-  if(n.includes("pentecostes")) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="pentecostes");
-  return FESTIVITY_LIBRARY_V44.find(f=>normFestTitleV44(f.title).includes(n) || n.includes(normFestTitleV44(f.title)));
+  if(n.indexOf("juan bautista")>=0 && n.indexOf("natividad")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="juan_bautista_natividad");
+  if(n.indexOf("pedro")>=0 && n.indexOf("pablo")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="pedro_pablo");
+  if(n.indexOf("santiago")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="santiago_mayor");
+  if(n.indexOf("transfiguracion")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="transfiguracion");
+  if(n.indexOf("asuncion")>=0 || n.indexOf("dormicion")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="asuncion_dormicion");
+  if((n.indexOf("martirio")>=0 || n.indexOf("decapitacion")>=0) && n.indexOf("juan bautista")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="martirio_juan_bautista");
+  if(n.indexOf("exaltacion")>=0 || n.indexOf("santa cruz")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="exaltacion_cruz");
+  if(n.indexOf("todos los santos")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="todos_los_santos");
+  if(n.indexOf("andres")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="san_andres");
+  if(n.indexOf("juan evangelista")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="san_juan_evangelista");
+  if(n.indexOf("navidad")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="navidad");
+  if(n.indexOf("epifania")>=0 || n.indexOf("teofania")>=0 || n.indexOf("timkat")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="epifania_teofania") || FESTIVITY_LIBRARY_V44.find(x=>x.id==="timkat");
+  if(n.indexOf("ramos")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="domingo_ramos");
+  if(n.indexOf("viernes santo")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="viernes_santo");
+  if(n.indexOf("resurreccion")>=0 || n.indexOf("pascua")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="resurreccion");
+  if(n.indexOf("ascension")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="ascension");
+  if(n.indexOf("pentecostes")>=0) return FESTIVITY_LIBRARY_V44.find(x=>x.id==="pentecostes");
+  return null;
 }
 function openFestivityFromCalendarTitle(title){
   const f=findFestivityByCalendarTitle(title);
-  if(!f){toast("Festividad no encontrada en biblioteca");return;}
+  if(!f){toast("Festividad no encontrada");return}
   openFestivityLibrary();
   openFestivityDetail(f.id);
 }
@@ -2651,9 +2644,6 @@ function setFestivityData(id,data){
   store[id]={notes:(data&&data.notes)||"",passages:(data&&data.passages)||{}};
   saveFestivityRawStore(store);
 }
-function getFestivityNotesStore(){return getFestivityRawStore()}
-function saveFestivityNotesStore(store){saveFestivityRawStore(store)}
-
 function openFestivityLibrary(){
   const modal=document.getElementById("festivityModal");
   if(!modal)return;
@@ -2667,8 +2657,10 @@ function closeFestivityModal(){
 function backToFestivityList(){
   currentFestivityIdV44=null;
   currentFestivityPassageRefV44=null;
-  document.getElementById("festivityListView")?.classList.remove("hidden");
-  document.getElementById("festivityDetailView")?.classList.add("hidden");
+  const lv=document.getElementById("festivityListView");
+  const dv=document.getElementById("festivityDetailView");
+  if(lv)lv.classList.remove("hidden");
+  if(dv)dv.classList.add("hidden");
   renderFestivityLibraryList();
 }
 function renderFestivityLibraryList(){
@@ -2679,7 +2671,7 @@ function renderFestivityLibraryList(){
     const div=document.createElement("div");
     div.className="festivity-row";
     div.innerHTML='<div class="festivity-row-title">'+escapeHtml(f.title)+'</div><div class="festivity-row-date">'+escapeHtml(f.date)+'</div>';
-    div.onclick=()=>openFestivityDetail(f.id);
+    div.addEventListener("click",()=>openFestivityDetail(f.id));
     box.appendChild(div);
   });
 }
@@ -2688,41 +2680,48 @@ function openFestivityDetail(id){
   if(!f)return;
   currentFestivityIdV44=id;
   currentFestivityPassageRefV44=null;
-  document.getElementById("festivityListView")?.classList.add("hidden");
-  document.getElementById("festivityDetailView")?.classList.remove("hidden");
+  const lv=document.getElementById("festivityListView");
+  const dv=document.getElementById("festivityDetailView");
   const box=document.getElementById("festivityDetailContent");
+  if(lv)lv.classList.add("hidden");
+  if(dv)dv.classList.remove("hidden");
   const data=getFestivityData(id);
   if(!box)return;
-  box.innerHTML=
-    '<div class="festivity-detail-title">'+escapeHtml(f.title)+'</div>'+
+  box.innerHTML='<div class="festivity-detail-title">'+escapeHtml(f.title)+'</div>'+
     '<div class="festivity-detail-date">📅 '+escapeHtml(f.date)+'</div>'+
     '<div class="festivity-section"><h3>📖 Sentido</h3><p>'+escapeHtml(f.summary)+'</p></div>'+
     '<div class="festivity-section"><h3>✝️ Significado cristiano</h3><p>'+escapeHtml(f.meaning)+'</p></div>'+
-    '<div class="festivity-section"><h3>📖 Pasajes bíblicos</h3><div class="festivity-passages">'+
-      f.passages.map(p=>'<button class="festivity-passage" type="button" onclick="openFestivityPassage(\\''+f.id+'\\',decodeURIComponent(\\''+encodeURIComponent(p)+'\\'))">'+escapeHtml(p)+'</button>').join("")+
-    '</div><div class="festivity-hint">Toca un pasaje para abrirlo, pegar el texto RVR1960 y guardarlo de forma ordenada.</div></div>'+
-    '<div class="festivity-section"><h3>✍️ Tus notas</h3>'+
-      '<textarea id="festivityNotesText" class="festivity-notes" placeholder="Añade aquí comentarios generales de la festividad...">'+escapeHtml(data.notes||"")+'</textarea>'+
-      '<div class="festivity-hint">Las notas son generales. Los textos bíblicos se guardan dentro de cada pasaje.</div>'+
-    '</div>';
+    '<div class="festivity-section"><h3>📖 Pasajes bíblicos</h3><div id="festivityPassageButtons" class="festivity-passages"></div><div class="festivity-hint">Toca un pasaje para abrirlo, pegar el texto RVR1960 y guardarlo por separado.</div></div>'+
+    '<div class="festivity-section"><h3>✍️ Tus notas</h3><textarea id="festivityNotesText" class="festivity-notes" placeholder="Añade aquí comentarios generales de la festividad...">'+escapeHtml(data.notes||"")+'</textarea><div class="festivity-hint">Las notas son generales. Los textos bíblicos se guardan dentro de cada pasaje.</div></div>';
+  const pbox=document.getElementById("festivityPassageButtons");
+  if(pbox){
+    f.passages.forEach(ref=>{
+      const btn=document.createElement("button");
+      btn.type="button";
+      btn.className="festivity-passage";
+      btn.innerHTML='<span>'+escapeHtml(ref)+'</span><span class="edit-mark">✍️</span>';
+      btn.addEventListener("click",()=>openFestivityPassage(id,ref));
+      pbox.appendChild(btn);
+    });
+  }
 }
 function openFestivityPassage(id,ref){
   const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===id);
   if(!f)return;
   currentFestivityIdV44=id;
   currentFestivityPassageRefV44=ref;
-  document.getElementById("festivityListView")?.classList.add("hidden");
-  document.getElementById("festivityDetailView")?.classList.remove("hidden");
+  const lv=document.getElementById("festivityListView");
+  const dv=document.getElementById("festivityDetailView");
   const box=document.getElementById("festivityDetailContent");
+  if(lv)lv.classList.add("hidden");
+  if(dv)dv.classList.remove("hidden");
   const data=getFestivityData(id);
   const txt=(data.passages&&data.passages[ref])||"";
   if(!box)return;
-  box.innerHTML=
-    '<button class="btn soft festivity-back" type="button" onclick="openFestivityDetail(\\''+id+'\\')">← Volver a la festividad</button>'+
+  box.innerHTML='<button class="btn soft festivity-back" type="button" onclick="openFestivityDetail(currentFestivityIdV44)">← Volver a la festividad</button>'+
     '<div class="festivity-passage-title">📖 Pasaje bíblico</div>'+
     '<div class="festivity-passage-ref">'+escapeHtml(ref)+'</div>'+
-    '<div class="festivity-section"><textarea id="festivityPassageText" class="festivity-passage-textarea" placeholder="Pega aquí el texto RVR1960 de '+escapeHtml(ref)+'...">'+escapeHtml(txt)+'</textarea>'+
-    '<div class="festivity-hint">Puedes pegar el texto completo, revisarlo y guardarlo. Luego quedará asociado a este pasaje.</div></div>';
+    '<div class="festivity-section"><textarea id="festivityPassageText" class="festivity-passage-textarea" placeholder="Pega aquí el texto RVR1960 de '+escapeHtml(ref)+'...">'+escapeHtml(txt)+'</textarea><div class="festivity-hint">Puedes pegar el texto completo, revisarlo y guardarlo. Luego quedará asociado a este pasaje.</div></div>';
   setTimeout(()=>{try{document.getElementById("festivityPassageText").focus({preventScroll:true})}catch(e){}},80);
 }
 function saveFestivityNotes(){
