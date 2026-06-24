@@ -619,31 +619,6 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
 }
 </style>
 
-
-<style id="v43H-alerta-sutil-real">
-#calendarBtn[data-festive="1"],
-body:not(.dark) .topbar-row #calendarBtn[data-festive="1"],
-body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
-  background:rgba(255,255,255,.84)!important;
-  color:#181818!important;
-  border:2px solid #d88428!important;
-  box-shadow:0 4px 12px rgba(216,132,40,.20)!important;
-  font-weight:800!important;
-}
-body.dark #calendarBtn[data-festive="1"],
-body.dark #calendarBtn[data-festive="1"].active-view{
-  background:var(--soft)!important;
-  color:var(--text)!important;
-  border:2px solid #d88428!important;
-  box-shadow:0 4px 12px rgba(216,132,40,.25)!important;
-  font-weight:800!important;
-}
-#calendarBtn[data-festive="1"]::after{
-  content:""!important;
-  display:none!important;
-}
-</style>
-
 </head>
 <body>
 
@@ -2495,11 +2470,11 @@ function updateCalendarAlert(){
 
   if(hasEvents){
     btn.setAttribute("style",
-      "background:rgba(255,255,255,.84)!important;" +
+      "background:#ffffff!important;" +
       "color:#181818!important;" +
-      "border:2px solid #d88428!important;" +
-      "box-shadow:0 4px 12px rgba(216,132,40,.20)!important;" +
-      "font-weight:800!important;"
+      "border:3px solid #d88428!important;" +
+      "box-shadow:0 2px 8px rgba(216,132,40,.18)!important;" +
+      "font-weight:700!important;"
     );
   }else{
     btn.removeAttribute("style");
