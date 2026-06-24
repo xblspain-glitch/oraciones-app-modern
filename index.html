@@ -2404,7 +2404,7 @@ function renderChristianCalendar(date){
     +'</div><div class="calendar-note">Las fechas móviles se calculan según el cómputo occidental u oriental. Algunas iglesias pueden variar celebraciones locales.</div>';
 }
 function openChristianCalendar(){
-  setSearchVisibleV26(true);
+  setSearchVisibleV26(false);
   setActiveView("calendar");
   clearNavModes();
   const cal=document.getElementById("calendarView"); if(!cal)return;
@@ -2603,6 +2603,25 @@ body.dark .font-combo-v27{
   background:var(--soft);
   border:1px solid var(--line);
 }
+
+/* v43E - Calendario limpio */
+#calendarBtn.calendar-alert::after{
+  content:""!important;
+  display:none!important;
+}
+body:not(.dark) #calendarBtn.calendar-alert,
+body:not(.dark) #calendarBtn.calendar-alert.active-view,
+body:not(.dark) .topbar-row #calendarBtn.calendar-alert,
+body:not(.dark) .topbar-row #calendarBtn.calendar-alert.active-view,
+body.dark #calendarBtn.calendar-alert,
+body.dark #calendarBtn.calendar-alert.active-view{
+  background:linear-gradient(135deg,#d88428,#b45b16)!important;
+  color:#fff!important;
+  border:2px solid #9a5418!important;
+  box-shadow:0 6px 18px rgba(216,132,40,.35)!important;
+  font-weight:800!important;
+}
+
 </style>
 
 </head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div></body></html>`}
