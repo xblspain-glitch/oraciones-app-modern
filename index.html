@@ -594,11 +594,11 @@ body.dark .topbar-row #calendarBtn.calendar-alert,
 body.dark .topbar-row #calendarBtn.calendar-alert.active-view,
 body.dark #calendarBtn.calendar-alert,
 body.dark #calendarBtn.calendar-alert.active-view{
-  background:inherit!important;
-  color:inherit!important;
-  border:2px solid #d88428!important;
-  box-shadow:0 0 0 2px rgba(216,132,40,.12)!important;
-  font-weight:700!important;
+  background:linear-gradient(135deg,#d88428,#b45b16)!important;
+  color:#fff!important;
+  border:2px solid #9a5418!important;
+  box-shadow:0 6px 18px rgba(216,132,40,.35)!important;
+  font-weight:800!important;
 }
 </style>
 
@@ -607,11 +607,36 @@ body.dark #calendarBtn.calendar-alert.active-view{
 #calendarBtn[data-festive="1"],
 body:not(.dark) .topbar-row #calendarBtn[data-festive="1"],
 body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
-  background:inherit!important;
-  color:inherit!important;
+  background:linear-gradient(135deg,#d88428,#b45b16)!important;
+  color:#fff!important;
+  border:2px solid #9a5418!important;
+  box-shadow:0 6px 18px rgba(216,132,40,.35)!important;
+  font-weight:800!important;
+}
+#calendarBtn[data-festive="1"]::after{
+  content:""!important;
+  display:none!important;
+}
+</style>
+
+
+<style id="v43H-alerta-sutil-real">
+#calendarBtn[data-festive="1"],
+body:not(.dark) .topbar-row #calendarBtn[data-festive="1"],
+body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
+  background:rgba(255,255,255,.84)!important;
+  color:#181818!important;
   border:2px solid #d88428!important;
-  box-shadow:0 0 0 2px rgba(216,132,40,.12)!important;
-  font-weight:700!important;
+  box-shadow:0 4px 12px rgba(216,132,40,.20)!important;
+  font-weight:800!important;
+}
+body.dark #calendarBtn[data-festive="1"],
+body.dark #calendarBtn[data-festive="1"].active-view{
+  background:var(--soft)!important;
+  color:var(--text)!important;
+  border:2px solid #d88428!important;
+  box-shadow:0 4px 12px rgba(216,132,40,.25)!important;
+  font-weight:800!important;
 }
 #calendarBtn[data-festive="1"]::after{
   content:""!important;
@@ -2470,11 +2495,11 @@ function updateCalendarAlert(){
 
   if(hasEvents){
     btn.setAttribute("style",
-      "background:var(--btn-bg,#f7f3ea)!important;" +
-      "color:inherit!important;" +
+      "background:rgba(255,255,255,.84)!important;" +
+      "color:#181818!important;" +
       "border:2px solid #d88428!important;" +
-      "box-shadow:0 0 0 2px rgba(216,132,40,.12)!important;" +
-      "font-weight:700!important;"
+      "box-shadow:0 4px 12px rgba(216,132,40,.20)!important;" +
+      "font-weight:800!important;"
     );
   }else{
     btn.removeAttribute("style");
@@ -2669,11 +2694,11 @@ body:not(.dark) .topbar-row #calendarBtn.calendar-alert,
 body:not(.dark) .topbar-row #calendarBtn.calendar-alert.active-view,
 body.dark #calendarBtn.calendar-alert,
 body.dark #calendarBtn.calendar-alert.active-view{
-  background:inherit!important;
-  color:inherit!important;
-  border:2px solid #d88428!important;
-  box-shadow:0 0 0 2px rgba(216,132,40,.12)!important;
-  font-weight:700!important;
+  background:linear-gradient(135deg,#d88428,#b45b16)!important;
+  color:#fff!important;
+  border:2px solid #9a5418!important;
+  box-shadow:0 6px 18px rgba(216,132,40,.35)!important;
+  font-weight:800!important;
 }
 
 </style>
