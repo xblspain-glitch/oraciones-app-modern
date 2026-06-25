@@ -807,27 +807,64 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
 })();
 
 /* v46 Base Recientes */
-function getRecentHistory(){try{return JSON.parse(localStorage.getItem("oraciones_recent_history_v46")||'{"read":[],"added":[],"edited":[]}')}catch(e){return {read:[],added:[],edited:[]}}}
-function saveRecentHistory(h){localStorage.setItem("oraciones_recent_history_v46",JSON.stringify(h));}
-function addRecent(type,title){
- const h=getRecentHistory();
- if(!h[type])h[type]=[];
- h[type]=h[type].filter(x=>x.title!==title);
- h[type].unshift({title:title,time:Date.now()});
- if(h[type].length>10)h[type]=h[type].slice(0,10);
- saveRecentHistory(h);
+
+function getRecentHistory(){
+  try{return JSON.parse(localStorage.getItem("oraciones_recent_history_v47")||localStorage.getItem("oraciones_recent_history_v46")||'{"read":[],"added":[],"edited":[]}')}
+  catch(e){return {read:[],added:[],edited:[]}}
+}
+function saveRecentHistory(h){
+  localStorage.setItem("oraciones_recent_history_v47",JSON.stringify(h));
+}
+function recentNowLabel(ts){
+  const d=Math.max(0,Date.now()-(ts||Date.now()));
+  const m=Math.floor(d/60000), h=Math.floor(d/3600000), days=Math.floor(d/86400000);
+  if(m<1)return "ahora";
+  if(m<60)return "hace "+m+" min";
+  if(h<24)return "hace "+h+" h";
+  if(days===1)return "ayer";
+  return "hace "+days+" días";
+}
+function recentTitleFromItem(item){
+  if(!item)return "Sin título";
+  return item.reference||item.title||"Sin título";
+}
+function addRecent(type,entry){
+  const h=getRecentHistory();
+  if(!h[type])h[type]=[];
+  if(typeof entry==="string")entry={title:entry};
+  entry=entry||{};
+  entry.time=Date.now();
+  const key=(entry.kind||"")+"|"+(entry.section||"")+"|"+(entry.id||"")+"|"+(entry.festivityId||"")+"|"+(entry.passageRef||"")+"|"+(entry.title||"");
+  h[type]=h[type].filter(x=>{
+    const k=(x.kind||"")+"|"+(x.section||"")+"|"+(x.id||"")+"|"+(x.festivityId||"")+"|"+(x.passageRef||"")+"|"+(x.title||"");
+    return k!==key;
+  });
+  h[type].unshift(entry);
+  if(h[type].length>10)h[type]=h[type].slice(0,10);
+  saveRecentHistory(h);
+}
+function addRecentCurrent(type){
+  try{
+    const item=currentItem&&currentItem();
+    if(!item)return;
+    addRecent(type,{kind:"item",section:section,id:item.id,title:recentTitleFromItem(item)});
+  }catch(e){}
+}
+function addRecentFestivity(type,id,title,passageRef){
+  addRecent(type,{kind:passageRef?"festivityPassage":"festivity",festivityId:id,passageRef:passageRef||"",title:passageRef?(title+" · "+passageRef):title});
 }
 function openRecentHistory(){
  const h=getRecentHistory();
- let t='🕘 Recientes\n\n';
+ let t='🕘 Recientes\\n\\n';
  [['read','📖 Últimos leídos'],['added','➕ Últimos añadidos'],['edited','✏️ Últimos editados']].forEach(s=>{
-  t+=s[1]+'\n';
-  if(!h[s[0]] || !h[s[0]].length){t+='(Todavía vacío)\n\n';return;}
-  h[s[0]].forEach(i=>t+='• '+i.title+'\n');
-  t+='\n';
+  t+=s[1]+'\\n';
+  if(!h[s[0]] || !h[s[0]].length){t+='(Todavía vacío)\\n\\n';return;}
+  h[s[0]].forEach(i=>t+='• '+(i.title||"Sin título")+' · '+recentNowLabel(i.time)+'\\n');
+  t+='\\n';
  });
  alert(t);
 }
+
 
 </script>
 
@@ -1364,6 +1401,7 @@ function renderReader(){applyReaderFont();
     document.getElementById("readerText").textContent=section==="verses"?"Pulsa ❤️ Versículos para ver categorías o ➕ Nueva para añadir uno.":"";
     return;
   }
+  try{addRecentCurrent('read');}catch(e){}
   if(section==="verses"){
     const catEl=document.getElementById("readerCategory");
     if(catEl){
@@ -1664,6 +1702,8 @@ function saveCurrent(stay, silent){
 
   saveCurrentOriginal(stay, silent);
 
+  try{ if(!silent) addRecentCurrent('edited'); }catch(e){}
+
   try{
     const item=currentItem();
     if(section==="verses" && item && !silent){
@@ -1752,6 +1792,7 @@ function newItem(){
   saveState();
   renderList();
   renderReader();
+  try{addRecent('added',{kind:'item',section:section,id:id,title:recentTitleFromItem(item)});}catch(e){}
   openEditor();
 }
 function moveToTrash(){const item=currentItem();if(!item) return;const items=getItems();if(items.length===1) return alert("Debe quedar al menos un elemento.");const typeName=section==="prayers"?"oración":section==="notes"?"nota":section==="guides"?"guía":"versículo";if(!confirm('¿Mover a papelera esta '+typeName+'?\n"'+item.title+'"')) return;const trash=getTrash();trash.unshift({...item,"deletedAt":Date.now()});const filtered=items.filter(x=>x.id!==item.id);setItems(filtered);if(section==="prayers") state.currentPrayerId=filtered[0].id;else if(section==="notes") state.currentNoteId=filtered[0].id;else if(section==="guides") state.currentGuideId=filtered[0].id;else state.currentVerseId=filtered[0].id;saveState();syncTabs();renderList();renderReader();applyReaderFont();openReader();toast("Movido a papelera")}
@@ -2665,6 +2706,7 @@ function openFestivityDetail(id,forceEditNotes){
   const data=getFestivityDataV44(id);
   const hasNotes=String(data.notes||"").trim().length>0;
   currentFestivityNotesEditingV44 = forceEditNotes || !hasNotes;
+  try{addRecentFestivity('read',id,f.title,'');}catch(e){}
 
   if(listView)listView.classList.add("hidden");
   if(detailView)detailView.classList.remove("hidden");
@@ -2720,6 +2762,7 @@ function openFestivityPassage(id,ref,forceEdit){
   const txt=(data.passages&&data.passages[ref])||"";
   const hasText=String(txt||"").trim().length>0;
   const editing = forceEdit || !hasText;
+  try{addRecentFestivity('read',id,f.title,ref);}catch(e){}
 
   if(listView)listView.classList.add("hidden");
   if(detailView)detailView.classList.remove("hidden");
@@ -2760,6 +2803,10 @@ function saveFestivityNotes(){
     data.passages=data.passages||{};
     data.passages[currentFestivityPassageRefV44]=txt?txt.value:"";
     setFestivityDataV44(currentFestivityIdV44,data);
+    try{
+      const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===currentFestivityIdV44);
+      addRecentFestivity('edited',currentFestivityIdV44,f?f.title:'Festividad',currentFestivityPassageRefV44);
+    }catch(e){}
     toast("Pasaje guardado");
     openFestivityPassage(currentFestivityIdV44,currentFestivityPassageRefV44,false);
     return;
@@ -2768,6 +2815,10 @@ function saveFestivityNotes(){
   const txt=document.getElementById("festivityNotesText");
   data.notes=txt?txt.value:"";
   setFestivityDataV44(currentFestivityIdV44,data);
+  try{
+    const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===currentFestivityIdV44);
+    addRecentFestivity('edited',currentFestivityIdV44,f?f.title:'Festividad','');
+  }catch(e){}
   currentFestivityNotesEditingV44=false;
   toast("Notas guardadas");
   openFestivityDetail(currentFestivityIdV44,false);
