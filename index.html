@@ -989,7 +989,10 @@ function renderRecentHistory(){
     const wrap=document.createElement("div");
     wrap.className="recent-section";
     wrap.innerHTML='<div class="recent-section-title">'+escapeHtml(label)+'</div>';
-    const list=h[key]||[];
+    const list=(h[key]||[]).filter(item=>{
+      const t=item&&item.title;
+      return t!=="Nueva referencia" && t!=="Nueva oración" && t!=="Nueva nota" && t!=="Nueva guía";
+    });
     if(!list.length){
       const empty=document.createElement("div");
       empty.className="recent-empty";
@@ -1899,7 +1902,15 @@ function saveCurrent(stay, silent){
   let wasNewItemForRecent=false;
   try{
     const before=currentItem();
-    wasNewItemForRecent=!!(before&&(before.isNewVerse||before.isNewItem));
+    const beforeTitle=recentTitleFromItem(before);
+    wasNewItemForRecent=!!(before&&(
+      before.isNewVerse ||
+      before.isNewItem ||
+      beforeTitle==="Nueva referencia" ||
+      beforeTitle==="Nueva oración" ||
+      beforeTitle==="Nueva nota" ||
+      beforeTitle==="Nueva guía"
+    ));
   }catch(e){}
 
   saveCurrentOriginal(stay, silent);
@@ -1907,8 +1918,17 @@ function saveCurrent(stay, silent){
   try{
     const after=currentItem();
     if(!silent && after){
-      if(wasNewItemForRecent) addRecent('added',{kind:'item',section:section,id:after.id,title:recentTitleFromItem(after)});
-      else addRecentCurrent('edited');
+      const afterTitle=recentTitleFromItem(after);
+      const validAfterTitle = afterTitle &&
+        afterTitle!=="Nueva referencia" &&
+        afterTitle!=="Nueva oración" &&
+        afterTitle!=="Nueva nota" &&
+        afterTitle!=="Nueva guía";
+      if(wasNewItemForRecent && validAfterTitle){
+        addRecent('added',{kind:'item',section:section,id:after.id,title:afterTitle});
+      }else{
+        addRecentCurrent('edited');
+      }
     }
   }catch(e){}
 
