@@ -371,6 +371,9 @@ body.editing-focus #editCategory:not(.hidden){
   cursor:default;
 }
 
+
+/* v46 Recientes */
+.recent-card{border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0;background:var(--bg)}
 </style>
 
 <style>
@@ -802,6 +805,30 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
     setupWelcome();
   }
 })();
+
+/* v46 Base Recientes */
+function getRecentHistory(){try{return JSON.parse(localStorage.getItem("oraciones_recent_history_v46")||'{"read":[],"added":[],"edited":[]}')}catch(e){return {read:[],added:[],edited:[]}}}
+function saveRecentHistory(h){localStorage.setItem("oraciones_recent_history_v46",JSON.stringify(h));}
+function addRecent(type,title){
+ const h=getRecentHistory();
+ if(!h[type])h[type]=[];
+ h[type]=h[type].filter(x=>x.title!==title);
+ h[type].unshift({title:title,time:Date.now()});
+ if(h[type].length>10)h[type]=h[type].slice(0,10);
+ saveRecentHistory(h);
+}
+function openRecentHistory(){
+ const h=getRecentHistory();
+ let t='🕘 Recientes\n\n';
+ [['read','📖 Últimos leídos'],['added','➕ Últimos añadidos'],['edited','✏️ Últimos editados']].forEach(s=>{
+  t+=s[1]+'\n';
+  if(!h[s[0]].length){t+='(Vacío)\n\n';return;}
+  h[s[0]].forEach(i=>t+='• '+i.title+'\n');
+  t+='\n';
+ });
+ alert(t);
+}
+
 </script>
 
 <div id="installBanner" class="install-banner hidden">
