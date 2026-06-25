@@ -822,7 +822,7 @@ function openRecentHistory(){
  let t='🕘 Recientes\n\n';
  [['read','📖 Últimos leídos'],['added','➕ Últimos añadidos'],['edited','✏️ Últimos editados']].forEach(s=>{
   t+=s[1]+'\n';
-  if(!h[s[0]].length){t+='(Vacío)\n\n';return;}
+  if(!h[s[0]] || !h[s[0]].length){t+='(Todavía vacío)\n\n';return;}
   h[s[0]].forEach(i=>t+='• '+i.title+'\n');
   t+='\n';
  });
@@ -1936,7 +1936,9 @@ function openMoreMenu(ev){
       '<button type="button" onclick="closeMoreMenu(); openDailyVerse()">🌅 Hoy</button>' +
       '<button type="button" onclick="closeMoreMenu(); openRandomVerse()">🎲 Aleatorio</button>' +
       '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📤 Nunca enviados</button>' +
-      '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📋 Enviados</button>' +      '<button type="button" onclick="closeMoreMenu(); exportCurrentHTML()">🌐 Exportar lectura</button>';
+      '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📋 Enviados</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openRecentHistory()">🕘 Recientes</button>' +
+      '<button type="button" onclick="closeMoreMenu(); exportCurrentHTML()">🌐 Exportar lectura</button>';
 
     document.body.appendChild(menu);
 
