@@ -1498,7 +1498,16 @@ function currentItem(){
   normalizeGuides();
   const items=getItems();
   const id=section==="prayers"?state.currentPrayerId:section==="notes"?state.currentNoteId:section==="guides"?state.currentGuideId:state.currentVerseId;
-  return items.find(x=>x.id===id)||items[0]||null;
+  const found=items.find(x=>x.id===id);
+  if(found)return found;
+  const first=items[0]||null;
+  if(first){
+    if(section==="prayers") state.currentPrayerId=first.id;
+    else if(section==="notes") state.currentNoteId=first.id;
+    else if(section==="guides") state.currentGuideId=first.id;
+    else state.currentVerseId=first.id;
+  }
+  return first;
 }
 function setCurrentId(id){
   if(section==="prayers") state.currentPrayerId=id;
@@ -1594,13 +1603,6 @@ function renderReader(){applyReaderFont();
     document.getElementById("readerText").textContent=section==="verses"?"Pulsa ❤️ Versículos para ver categorías o ➕ Nueva para añadir uno.":"";
     return;
   }
-  try{
-  const __ci=currentItem&&currentItem();
-  const __t=__ci?recentTitleFromItem(__ci):"";
-  if(__ci && !(__ci.isNewVerse||__ci.isNewItem||__t==="Nueva referencia"||__t==="Nueva oración"||__t==="Nueva nota"||__t==="Nueva guía")){
-    addRecentCurrent('read');
-  }
-}catch(e){}
   if(section==="verses"){
     const catEl=document.getElementById("readerCategory");
     if(catEl){
@@ -1744,7 +1746,24 @@ function openList(){
   clearNavModes();
   renderList();
 document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");document.getElementById("search").focus()}
-function enterFullscreenReading(){setActiveView("read");document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
+
+function registerCurrentAsReadV47G(){
+  try{
+    const item=currentItem&&currentItem();
+    if(!item)return;
+    const title=recentTitleFromItem(item);
+    const isDraft =
+      item.isNewVerse || item.isNewItem ||
+      title==="Nueva referencia" ||
+      title==="Nueva oración" ||
+      title==="Nueva nota" ||
+      title==="Nueva guía";
+    if(isDraft)return;
+    addRecent("read",{kind:"item",section:section,id:item.id,title:title});
+  }catch(e){}
+}
+
+function enterFullscreenReading(){registerCurrentAsReadV47G();setActiveView("read");document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
 function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
 function openEditor(){
