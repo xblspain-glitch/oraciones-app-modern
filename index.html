@@ -932,7 +932,7 @@ function addRecentCurrent(type){
     if(!item)return;
     const title=recentTitleFromItem(item);
     const isDraft =
-      item.isNewVerse || item.isNewItem ||
+      !title ||
       title==="Nueva referencia" ||
       title==="Nueva oración" ||
       title==="Nueva nota" ||
@@ -1753,12 +1753,17 @@ function registerCurrentAsReadV47G(){
     if(!item)return;
     const title=recentTitleFromItem(item);
     const isDraft =
-      item.isNewVerse || item.isNewItem ||
+      !title ||
       title==="Nueva referencia" ||
       title==="Nueva oración" ||
       title==="Nueva nota" ||
       title==="Nueva guía";
     if(isDraft)return;
+    try{
+      item.isNewVerse=false;
+      item.isNewItem=false;
+      saveState();
+    }catch(e){}
     addRecent("read",{kind:"item",section:section,id:item.id,title:title});
   }catch(e){}
 }
