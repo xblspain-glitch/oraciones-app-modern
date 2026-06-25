@@ -1591,7 +1591,13 @@ function renderReader(){applyReaderFont();
     document.getElementById("readerText").textContent=section==="verses"?"Pulsa ❤️ Versículos para ver categorías o ➕ Nueva para añadir uno.":"";
     return;
   }
-  try{addRecentCurrent('read');}catch(e){}
+  try{
+  const __ci=currentItem&&currentItem();
+  const __t=__ci?recentTitleFromItem(__ci):"";
+  if(__ci && !(__ci.isNewVerse||__ci.isNewItem||__t==="Nueva referencia"||__t==="Nueva oración"||__t==="Nueva nota"||__t==="Nueva guía")){
+    addRecentCurrent('read');
+  }
+}catch(e){}
   if(section==="verses"){
     const catEl=document.getElementById("readerCategory");
     if(catEl){
