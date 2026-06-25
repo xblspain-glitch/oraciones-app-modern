@@ -374,6 +374,89 @@ body.editing-focus #editCategory:not(.hidden){
 
 /* v46 Recientes */
 .recent-card{border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0;background:var(--bg)}
+
+/* v47B - Pantalla de Recientes */
+.recent-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.42);
+  z-index:220;
+  display:flex;
+  align-items:stretch;
+  justify-content:center;
+  padding:12px;
+}
+.recent-sheet{
+  width:min(760px,100%);
+  max-height:calc(100dvh - 24px);
+  overflow:auto;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+.recent-head{
+  position:sticky;
+  top:0;
+  z-index:2;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  padding:10px;
+  background:var(--card);
+  border-bottom:1px solid var(--line);
+}
+.recent-main-title{
+  font-size:26px;
+  font-weight:900;
+  padding:18px 18px 4px;
+}
+.recent-sub{
+  padding:0 18px 14px;
+  color:var(--muted);
+}
+.recent-content{
+  padding:0 14px 18px;
+}
+.recent-section{
+  margin:12px 0 18px;
+}
+.recent-section-title{
+  font-size:20px;
+  font-weight:900;
+  margin:0 0 8px;
+  padding:0 4px;
+}
+.recent-row{
+  border:1px solid var(--line);
+  background:var(--bg);
+  border-radius:16px;
+  padding:12px;
+  margin:8px 0;
+  cursor:pointer;
+}
+.recent-row-title{
+  font-weight:850;
+  line-height:1.35;
+}
+.recent-row-meta{
+  color:var(--muted);
+  font-size:14px;
+  margin-top:4px;
+}
+.recent-empty{
+  color:var(--muted);
+  padding:12px;
+  border:1px dashed var(--line);
+  border-radius:16px;
+  background:var(--bg);
+}
+@media(max-width:860px){
+  .recent-modal{padding:0}
+  .recent-sheet{border-radius:0;max-height:100dvh;min-height:100dvh}
+}
+
 </style>
 
 <style>
@@ -854,15 +937,101 @@ function addRecentFestivity(type,id,title,passageRef){
   addRecent(type,{kind:passageRef?"festivityPassage":"festivity",festivityId:id,passageRef:passageRef||"",title:passageRef?(title+" · "+passageRef):title});
 }
 function openRecentHistory(){
- const h=getRecentHistory();
- let t='🕘 Recientes\\n\\n';
- [['read','📖 Últimos leídos'],['added','➕ Últimos añadidos'],['edited','✏️ Últimos editados']].forEach(s=>{
-  t+=s[1]+'\\n';
-  if(!h[s[0]] || !h[s[0]].length){t+='(Todavía vacío)\\n\\n';return;}
-  h[s[0]].forEach(i=>t+='• '+(i.title||"Sin título")+' · '+recentNowLabel(i.time)+'\\n');
-  t+='\\n';
- });
- alert(t);
+  const modal=document.getElementById("recentModal");
+  const box=document.getElementById("recentContent");
+  if(!modal || !box){
+    alert("Recientes no disponible");
+    return;
+  }
+  modal.classList.remove("hidden");
+  renderRecentHistory();
+}
+function closeRecentHistory(){
+  const modal=document.getElementById("recentModal");
+  if(modal)modal.classList.add("hidden");
+}
+function clearRecentHistory(){
+  if(!confirm("¿Limpiar historial de recientes?"))return;
+  saveRecentHistory({read:[],added:[],edited:[]});
+  renderRecentHistory();
+  toast("Historial limpiado");
+}
+function recentKindLabel(item){
+  if(!item)return "";
+  if(item.kind==="festivityPassage")return "📅 Festividad · 📖 Pasaje";
+  if(item.kind==="festivity")return "📅 Festividad";
+  if(item.section==="verses")return "❤️ Versículo";
+  if(item.section==="prayers")return "✝️ Oración";
+  if(item.section==="notes")return "📝 Nota";
+  if(item.section==="guides")return "📜 Guía";
+  return "Elemento";
+}
+function renderRecentHistory(){
+  const box=document.getElementById("recentContent");
+  if(!box)return;
+  const h=getRecentHistory();
+  const sections=[
+    ["read","📖 Últimos leídos"],
+    ["added","➕ Últimos añadidos"],
+    ["edited","✏️ Últimos editados"]
+  ];
+  box.innerHTML="";
+  sections.forEach(sec=>{
+    const key=sec[0], label=sec[1];
+    const wrap=document.createElement("div");
+    wrap.className="recent-section";
+    wrap.innerHTML='<div class="recent-section-title">'+escapeHtml(label)+'</div>';
+    const list=h[key]||[];
+    if(!list.length){
+      const empty=document.createElement("div");
+      empty.className="recent-empty";
+      empty.textContent="Todavía vacío";
+      wrap.appendChild(empty);
+    }else{
+      list.forEach((item,idx)=>{
+        const row=document.createElement("div");
+        row.className="recent-row";
+        row.innerHTML='<div class="recent-row-title">'+escapeHtml(item.title||"Sin título")+'</div>'+
+          '<div class="recent-row-meta">'+escapeHtml(recentKindLabel(item))+' · '+escapeHtml(recentNowLabel(item.time))+'</div>';
+        row.addEventListener("click",()=>openRecentEntry(key,idx));
+        wrap.appendChild(row);
+      });
+    }
+    box.appendChild(wrap);
+  });
+}
+function openRecentEntry(type,idx){
+  const h=getRecentHistory();
+  const item=(h[type]||[])[idx];
+  if(!item)return;
+  closeRecentHistory();
+  try{
+    if(item.kind==="festivityPassage" && item.festivityId && item.passageRef){
+      openFestivityLibrary();
+      openFestivityPassage(item.festivityId,item.passageRef,false);
+      return;
+    }
+    if(item.kind==="festivity" && item.festivityId){
+      openFestivityLibrary();
+      openFestivityDetail(item.festivityId,false);
+      return;
+    }
+    if(item.kind==="item" && item.section && item.id){
+      section=item.section;
+      if(state)state.section=section;
+      if(section==="verses")state.currentVerseId=item.id;
+      else if(section==="prayers")state.currentPrayerId=item.id;
+      else if(section==="notes")state.currentNoteId=item.id;
+      else if(section==="guides")state.currentGuideId=item.id;
+      if(typeof syncTabs==="function")syncTabs();
+      if(typeof renderList==="function")renderList();
+      if(typeof renderReader==="function")renderReader();
+      if(type==="edited" && typeof openEditor==="function")openEditor();
+      else if(typeof openReader==="function")openReader();
+      return;
+    }
+  }catch(e){console.error("openRecentEntry",e)}
+  toast("No se pudo abrir");
 }
 
 
@@ -1048,6 +1217,19 @@ function openRecentHistory(){
       <button class="btn soft festivity-back" type="button" onclick="backToFestivityList()">← Festividades</button>
       <div id="festivityDetailContent"></div>
     </div>
+  </div>
+</div>
+
+
+<div id="recentModal" class="recent-modal hidden">
+  <div class="recent-sheet">
+    <div class="recent-head">
+      <button class="btn soft" type="button" onclick="closeRecentHistory()">← Cerrar</button>
+      <button class="btn danger" type="button" onclick="clearRecentHistory()">🗑️ Limpiar</button>
+    </div>
+    <div class="recent-main-title">🕘 Recientes</div>
+    <div class="recent-sub">Últimos leídos, añadidos y editados.</div>
+    <div id="recentContent" class="recent-content"></div>
   </div>
 </div>
 
