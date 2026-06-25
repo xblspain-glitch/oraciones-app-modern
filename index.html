@@ -930,7 +930,15 @@ function addRecentCurrent(type){
   try{
     const item=currentItem&&currentItem();
     if(!item)return;
-    addRecent(type,{kind:"item",section:section,id:item.id,title:recentTitleFromItem(item)});
+    const title=recentTitleFromItem(item);
+    const isDraft =
+      item.isNewVerse || item.isNewItem ||
+      title==="Nueva referencia" ||
+      title==="Nueva oración" ||
+      title==="Nueva nota" ||
+      title==="Nueva guía";
+    if(isDraft && type!=="added")return;
+    addRecent(type,{kind:"item",section:section,id:item.id,title:title});
   }catch(e){}
 }
 function addRecentFestivity(type,id,title,passageRef){
@@ -1882,14 +1890,27 @@ function saveCurrent(stay, silent){
     console.error("Detector duplicados:", e);
   }
 
+  let wasNewItemForRecent=false;
+  try{
+    const before=currentItem();
+    wasNewItemForRecent=!!(before&&(before.isNewVerse||before.isNewItem));
+  }catch(e){}
+
   saveCurrentOriginal(stay, silent);
 
-  try{ if(!silent) addRecentCurrent('edited'); }catch(e){}
+  try{
+    const after=currentItem();
+    if(!silent && after){
+      if(wasNewItemForRecent) addRecent('added',{kind:'item',section:section,id:after.id,title:recentTitleFromItem(after)});
+      else addRecentCurrent('edited');
+    }
+  }catch(e){}
 
   try{
     const item=currentItem();
-    if(section==="verses" && item && !silent){
+    if(item && !silent){
       item.isNewVerse=false;
+      item.isNewItem=false;
       saveState();
     }
   }catch(e){}
@@ -1974,7 +1995,6 @@ function newItem(){
   saveState();
   renderList();
   renderReader();
-  try{addRecent('added',{kind:'item',section:section,id:id,title:recentTitleFromItem(item)});}catch(e){}
   openEditor();
 }
 function moveToTrash(){const item=currentItem();if(!item) return;const items=getItems();if(items.length===1) return alert("Debe quedar al menos un elemento.");const typeName=section==="prayers"?"oración":section==="notes"?"nota":section==="guides"?"guía":"versículo";if(!confirm('¿Mover a papelera esta '+typeName+'?\n"'+item.title+'"')) return;const trash=getTrash();trash.unshift({...item,"deletedAt":Date.now()});const filtered=items.filter(x=>x.id!==item.id);setItems(filtered);if(section==="prayers") state.currentPrayerId=filtered[0].id;else if(section==="notes") state.currentNoteId=filtered[0].id;else if(section==="guides") state.currentGuideId=filtered[0].id;else state.currentVerseId=filtered[0].id;saveState();syncTabs();renderList();renderReader();applyReaderFont();openReader();toast("Movido a papelera")}
