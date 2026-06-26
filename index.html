@@ -493,41 +493,17 @@ body[data-section="guides"] #readerText p{
 }
 
 
-/* v50D - Marcapáginas inteligente por doble toque */
-#readerText{
-  position:relative;
-}
-.reader-bookmark-pin-v50d{
-  position:absolute;
-  left:-4px;
-  z-index:8;
-  transform:translateY(-50%);
-  font-size:26px;
-  line-height:1;
-  pointer-events:none;
-  filter:drop-shadow(0 2px 3px rgba(0,0,0,.22));
-}
-.reader-bookmark-line-v50d{
-  position:absolute;
-  left:0;
-  right:0;
-  height:2px;
-  z-index:7;
-  background:rgba(216,132,40,.42);
-  border-radius:999px;
-  pointer-events:none;
-}
-.reader-bookmark-glow-v50d{
-  animation:bookmarkGlowV50D 1.8s ease-in-out 1;
-}
-@keyframes bookmarkGlowV50D{
-  0%{filter:drop-shadow(0 0 0 rgba(216,132,40,0));}
-  35%{filter:drop-shadow(0 0 10px rgba(216,132,40,.9));}
-  100%{filter:drop-shadow(0 2px 3px rgba(0,0,0,.22));}
-}
-body.dark .reader-bookmark-line-v50d{
-  background:rgba(240,196,139,.50);
-}
+/* v50 - Punto de lectura con botón Marcar */
+.reading-mark-dropdown{position:fixed;z-index:250;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 34px rgba(0,0,0,.22);padding:8px;min-width:230px}
+.reading-mark-dropdown button{display:block;width:100%;border:0;background:transparent;color:var(--text);text-align:left;padding:11px 12px;border-radius:12px;font-size:16px;font-weight:750}
+.reading-mark-dropdown button:hover{background:var(--bg)}
+.reading-mark-banner{position:fixed;left:12px;right:12px;bottom:16px;z-index:260;background:rgba(216,132,40,.96);color:#fff;border-radius:18px;padding:12px 14px;text-align:center;font-weight:850;box-shadow:0 10px 30px rgba(0,0,0,.22)}
+#readerText{position:relative}
+.reader-mark-pin-v50{position:absolute;left:-4px;z-index:8;transform:translateY(-50%);font-size:26px;line-height:1;pointer-events:none;filter:drop-shadow(0 2px 3px rgba(0,0,0,.22))}
+.reader-mark-line-v50{position:absolute;left:0;right:0;height:2px;z-index:7;background:rgba(216,132,40,.42);border-radius:999px;pointer-events:none}
+.reader-mark-glow-v50{animation:readerMarkGlowV50 1.8s ease-in-out 1}
+@keyframes readerMarkGlowV50{0%{filter:drop-shadow(0 0 0 rgba(216,132,40,0))}35%{filter:drop-shadow(0 0 10px rgba(216,132,40,.9))}100%{filter:drop-shadow(0 2px 3px rgba(0,0,0,.22))}}
+#readerText.marking-mode-v50{cursor:crosshair;outline:2px dashed rgba(216,132,40,.35);outline-offset:6px;border-radius:14px}
 
 </style>
 
@@ -3920,6 +3896,66 @@ renderReader = function(){
 };
 
 setInterval(updateVersePositionCounter, 1000);
+
+
+/* v50 - Punto de lectura con botón Marcar */
+(function(){
+ const STORE_KEY="oraciones_reading_mark_v50";
+ let markingMode=false;
+ function allowed(){try{return ["prayers","notes","guides"].includes(section)}catch(e){return false}}
+ function item(){try{return currentItem&&currentItem()}catch(e){return null}}
+ function titleOf(it){try{if(typeof recentTitleFromItem==="function")return recentTitleFromItem(it)}catch(e){} return (it&&(it.reference||it.title))||"Lectura"}
+ function keyOfCurrent(){const it=item(); if(!it||!it.id)return null; return section+"|"+it.id}
+ function load(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||"{}")}catch(e){return {}}}
+ function save(data){localStorage.setItem(STORE_KEY,JSON.stringify(data||{}))}
+ function reader(){return document.getElementById("readerText")}
+ function clearVisual(){document.querySelectorAll(".reader-mark-pin-v50,.reader-mark-line-v50").forEach(x=>x.remove())}
+ function hasMark(){const k=keyOfCurrent();return !!(k&&load()[k])}
+ function closeMenu(){const m=document.getElementById("readingMarkDropdown");if(m)m.remove();setTimeout(()=>document.removeEventListener("click",outsideMenu,true),0)}
+ function outsideMenu(ev){const m=document.getElementById("readingMarkDropdown");if(m&&!m.contains(ev.target)&&!(ev.target&&ev.target.closest&&ev.target.closest("[data-mark-button]")))closeMenu()}
+ function draw(animate){
+   clearVisual(); const el=reader(); const k=keyOfCurrent(); if(!el||!k||!allowed())return;
+   const bm=load()[k]; if(!bm||typeof bm.y!=="number")return;
+   const y=Math.max(8,Math.min(bm.y,el.scrollHeight-8));
+   const line=document.createElement("div"); line.className="reader-mark-line-v50"; line.style.top=y+"px";
+   const pin=document.createElement("div"); pin.className="reader-mark-pin-v50"+(animate?" reader-mark-glow-v50":""); pin.style.top=y+"px"; pin.textContent="📍";
+   el.appendChild(line); el.appendChild(pin);
+ }
+ function showBanner(msg){let b=document.getElementById("readingMarkBanner");if(!b){b=document.createElement("div");b.id="readingMarkBanner";b.className="reading-mark-banner";document.body.appendChild(b)}b.textContent=msg}
+ function hideBanner(){const b=document.getElementById("readingMarkBanner");if(b)b.remove()}
+ function snippetFromPoint(x,y){try{let r=null;if(document.caretRangeFromPoint)r=document.caretRangeFromPoint(x,y);else if(document.caretPositionFromPoint){const p=document.caretPositionFromPoint(x,y);if(p){r=document.createRange();r.setStart(p.offsetNode,p.offset)}}if(!r||!r.startContainer)return "";let raw=r.startContainer.textContent||"";raw=raw.replace(/\s+/g," ").trim();return raw.length>140?raw.slice(0,140):raw}catch(e){return ""}}
+ function startMarking(){closeMenu();if(!allowed()){try{toast("Disponible en Oraciones, Notas y Guía")}catch(e){};return}const el=reader();if(!el)return;markingMode=true;el.classList.add("marking-mode-v50");showBanner("📍 Toca la frase donde deseas continuar")}
+ function stopMarking(){markingMode=false;const el=reader();if(el)el.classList.remove("marking-mode-v50");hideBanner()}
+ function saveAtEvent(ev){
+   if(!markingMode)return;
+   if(!allowed())return stopMarking();
+   const el=reader(), it=item(), k=keyOfCurrent(); if(!el||!it||!k)return stopMarking();
+   const p=(ev.touches&&ev.touches[0])||(ev.changedTouches&&ev.changedTouches[0])||ev;
+   const rect=el.getBoundingClientRect(); const y=p.clientY-rect.top+el.scrollTop;
+   const data=load(); const entry={key:k,section:section,id:it.id,title:titleOf(it),y:y,snippet:snippetFromPoint(p.clientX,p.clientY),time:Date.now()};
+   data[k]=entry; data.__last=entry; save(data); stopMarking(); draw(true);
+   try{toast("📍 Punto de lectura guardado")}catch(e){}
+   if(ev.preventDefault)ev.preventDefault(); if(ev.stopPropagation)ev.stopPropagation();
+ }
+ function removeCurrentMark(){closeMenu();const k=keyOfCurrent();if(!k)return;const data=load();if(data[k]){delete data[k];if(data.__last&&data.__last.key===k)delete data.__last;save(data);clearVisual();try{toast("📍 Punto eliminado")}catch(e){}}else{try{toast("No hay punto en esta lectura")}catch(e){}}}
+ function goCurrentMark(){closeMenu();const el=reader(), k=keyOfCurrent(), bm=k?load()[k]:null;if(!el||!bm||typeof bm.y!=="number"){try{toast("No hay punto en esta lectura")}catch(e){};return}const target=Math.max(0,bm.y-120);const top=el.getBoundingClientRect().top+window.scrollY+target;try{window.scrollTo({top:top,behavior:"smooth"})}catch(e){window.scrollTo(0,top)}draw(true)}
+ window.openReadingMarkMenu=function(ev){
+   try{ev&&ev.stopPropagation&&ev.stopPropagation()}catch(e){}
+   const existing=document.getElementById("readingMarkDropdown");if(existing){closeMenu();return}
+   const menu=document.createElement("div");menu.id="readingMarkDropdown";menu.className="reading-mark-dropdown";
+   const marked=hasMark();
+   menu.innerHTML='<button type="button" onclick="startReadingMarkV50()">📍 Guardar punto de lectura</button>'+(marked?'<button type="button" onclick="goReadingMarkV50()">▶️ Ir al punto de lectura</button>':'')+(marked?'<button type="button" onclick="removeReadingMarkV50()">❌ Quitar punto de lectura</button>':'');
+   document.body.appendChild(menu);
+   let left=12,top=120;const btn=ev&&ev.currentTarget?ev.currentTarget:null;if(btn){const r=btn.getBoundingClientRect();left=r.left;top=r.bottom+6}
+   const maxLeft=window.innerWidth-menu.offsetWidth-8;if(left>maxLeft)left=Math.max(8,maxLeft);if(left<8)left=8;menu.style.left=left+"px";menu.style.top=top+"px";
+   setTimeout(()=>document.addEventListener("click",outsideMenu,true),0)
+ };
+ window.startReadingMarkV50=startMarking;window.goReadingMarkV50=goCurrentMark;window.removeReadingMarkV50=removeCurrentMark;
+ function arm(){const el=reader();if(!el||el.dataset.markArmV50==="1")return;el.dataset.markArmV50="1";el.addEventListener("click",saveAtEvent,true);el.addEventListener("touchend",saveAtEvent,{passive:false,capture:true})}
+ const oldRender=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
+ if(oldRender&&!window.__readingMarkWrappedV50){window.__readingMarkWrappedV50=true;window.renderReader=function(){oldRender.apply(this,arguments);setTimeout(()=>{arm();draw(false)},0)};try{renderReader=window.renderReader}catch(e){}}
+ document.addEventListener("DOMContentLoaded",()=>setTimeout(()=>{arm();draw(false)},300));
+})();
 
 </script>
 </body>
