@@ -492,32 +492,6 @@ body[data-section="guides"] #readerText p{
   margin-bottom:0.95em !important;
 }
 
-
-/* v50 - Marcapáginas de lectura */
-.reader-line-v50{
-  display:block;
-  position:relative;
-  border-radius:10px;
-  padding:2px 4px;
-  margin:0 0 .10em 0;
-}
-.reader-line-v50.bookmarked-v50{
-  background:rgba(216,132,40,.10);
-  border-left:4px solid rgba(216,132,40,.75);
-  padding-left:10px;
-}
-.reader-line-v50.bookmarked-v50::before{
-  content:"📍";
-  margin-right:6px;
-}
-.reader-line-v50.touching-v50{
-  background:rgba(216,132,40,.16);
-}
-body.dark .reader-line-v50.bookmarked-v50{
-  background:rgba(216,132,40,.16);
-  border-left-color:rgba(240,196,139,.85);
-}
-
 </style>
 
 <style>
@@ -1714,11 +1688,11 @@ function renderReader(){try{document.body.dataset.section=section;}catch(e){}app
       dailyDateEl.classList.remove("hidden");
     }
     document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.reference||item.title||"Sin referencia");
-    setReaderTextV50(item.text||item.content||"");
+    setReaderTextV49(item.text||item.content||"");
   }else{
     document.getElementById("readerCode").textContent="";
     document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.title||"Sin título");
-    setReaderTextV50(item.content||"");
+    setReaderTextV49(item.content||"");
   }
   updateFavoriteButtons();
   updateMoveVerseButtonVisibility();
