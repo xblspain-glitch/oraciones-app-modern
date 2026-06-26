@@ -457,6 +457,40 @@ body.editing-focus #editCategory:not(.hidden){
   .recent-sheet{border-radius:0;max-height:100dvh;min-height:100dvh}
 }
 
+
+/* v48B - Espaciado de lectura seguro
+   Solo ajusta la presentación del texto del lector.
+   No modifica contenido ni estructura. */
+
+/* Base: un punto más cuidado en la lectura general */
+#readerText{
+  line-height:1.48;
+}
+
+/* Oraciones: mantener lectura contemplativa */
+body[data-section="prayers"] #readerText{
+  line-height:1.53;
+  white-space:pre-wrap;
+}
+
+/* Notas: lectura más fluida y un poco menos alta */
+body[data-section="notes"] #readerText{
+  line-height:1.42;
+  white-space:pre-wrap;
+}
+
+/* Guía: estilo intermedio de estudio */
+body[data-section="guides"] #readerText{
+  line-height:1.45;
+  white-space:pre-wrap;
+}
+
+/* Versículos: conservar casi igual */
+body[data-section="verses"] #readerText{
+  line-height:1.50;
+  white-space:pre-wrap;
+}
+
 </style>
 
 <style>
@@ -1472,7 +1506,7 @@ function setActiveView(view){
 }
 
 function switchSection(s){
-  section=s;state.section=s;saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();
+  section=s;state.section=s;document.body.dataset.section=s;saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
   renderReader();openReader();
 }
@@ -1593,7 +1627,7 @@ function formatDailyDateEs(){
 
 
 
-function renderReader(){applyReaderFont();
+function renderReader(){try{document.body.dataset.section=section;}catch(e){}applyReaderFont();
   const dailyDateEl=document.getElementById("readerDailyDate"); const catReadEl=document.getElementById('readerCategory'); if(catReadEl){catReadEl.classList.add('hidden');catReadEl.textContent='';}
   if(dailyDateEl){dailyDateEl.classList.add("hidden");dailyDateEl.textContent="";}
   const item=currentItem();
