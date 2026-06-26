@@ -528,6 +528,13 @@ body[data-section="guides"] #readerText p{
   transition:opacity .14s ease;
 }
 
+
+/* v53 Pulido Premium */
+.btn{transition:transform .09s ease,box-shadow .14s ease,filter .14s ease,background-color .14s ease,border-color .14s ease}
+.btn:active{transform:scale(.98) translateY(1px)}
+.btn.soft:hover,.btn.primary:hover{filter:brightness(1.03)}
+.reading-mark-dropdown,.more-menu,.menu{box-shadow:0 12px 28px rgba(0,0,0,.16);transition:opacity .15s ease,transform .15s ease}
+.card,.reader-card,#readerView{transition:box-shadow .16s ease}
 </style>
 
 <style>
@@ -4233,6 +4240,21 @@ setInterval(updateVersePositionCounter, 1000);
    };
    try{renderReader=window.renderReader}catch(e){}
  }
+})();
+
+
+(function(){
+if(window.__v53Premium)return;
+window.__v53Premium=true;
+function pulse(btn){
+ if(!btn)return;
+ btn.style.transform="scale(.98) translateY(1px)";
+ setTimeout(function(){btn.style.transform="";},90);
+}
+document.addEventListener("click",function(e){
+ const b=e.target.closest(".btn");
+ if(b)pulse(b);
+},true);
 })();
 
 </script>
