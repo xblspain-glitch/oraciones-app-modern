@@ -512,20 +512,20 @@ body[data-section="guides"] #readerText p{
 .reader-end-card .title{font-weight:800;font-size:1.02em}
 .reader-end-card .msg{margin-top:8px;font-style:italic;opacity:.82}
 
-/* v52B - Transición suave ajustada */
+/* v52 - Transición suave del lector */
 #readerView.reader-fade-out{
   opacity:0;
-  transition:opacity .16s ease;
+  transition:opacity .12s ease;
 }
 #readerView.reader-fade-in{
   opacity:1;
-  transition:opacity .18s ease;
+  transition:opacity .14s ease;
 }
 #readerTitle{
-  transition:opacity .12s ease;
+  transition:opacity .10s ease;
 }
 #readerText{
-  transition:opacity .18s ease;
+  transition:opacity .14s ease;
 }
 
 </style>
@@ -4205,26 +4205,21 @@ setInterval(updateVersePositionCounter, 1000);
 
 (function(){
  const old=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
- if(old&&!window.__readerTransitionV52B){
-   window.__readerTransitionV52B=true;
+ if(old&&!window.__readerTransitionV52){
+   window.__readerTransitionV52=true;
    window.renderReader=function(){
       const view=document.getElementById("readerView");
       const title=document.getElementById("readerTitle");
       const text=document.getElementById("readerText");
-
       if(view){
         view.classList.remove("reader-fade-in");
         view.classList.add("reader-fade-out");
       }
-
       setTimeout(function(){
         old.apply(this,arguments);
-
-        try{window.scrollTo(0,0)}catch(e){}
-
+        try{window.scrollTo({top:0,behavior:"instant"})}catch(e){window.scrollTo(0,0)}
         if(title) title.style.opacity="1";
         if(text) text.style.opacity="0";
-
         requestAnimationFrame(function(){
           if(view){
             view.classList.remove("reader-fade-out");
@@ -4232,9 +4227,9 @@ setInterval(updateVersePositionCounter, 1000);
           }
           setTimeout(function(){
             if(text) text.style.opacity="1";
-          },50);
+          },35);
         });
-      },160);
+      },120);
    };
    try{renderReader=window.renderReader}catch(e){}
  }
