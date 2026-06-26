@@ -4051,7 +4051,13 @@ setInterval(updateVersePositionCounter, 1000);
    try{setActiveView("read")}catch(e){}
    try{renderList()}catch(e){}
    try{renderReader()}catch(e){}
-   try{openReader()}catch(e){}
+   try{
+     if(typeof enterFullscreenReading==="function") enterFullscreenReading();
+     else openReader();
+   }catch(e){
+     try{openReader()}catch(_){}
+   }
+   try{document.body.classList.add("fullscreen-reading");document.body.classList.remove("hide-reading-ui","reading-mobile")}catch(e){}
    return true;
  }
 
@@ -4059,11 +4065,11 @@ setInterval(updateVersePositionCounter, 1000);
    setTimeout(function(){
      const el=reader();
      if(!el||!bm||typeof bm.y!=="number")return;
-     const target=Math.max(0,bm.y-120);
+     const target=Math.max(0,bm.y-80);
      const top=el.getBoundingClientRect().top+window.scrollY+target;
      try{window.scrollTo({top:top,behavior:"smooth"})}catch(e){window.scrollTo(0,top)}
-     draw(animate!==false);
-   },80);
+     setTimeout(function(){draw(animate!==false)},180);
+   },260);
  }
 
  function goGlobalMark(){
