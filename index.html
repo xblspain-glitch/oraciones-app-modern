@@ -505,6 +505,12 @@ body[data-section="guides"] #readerText p{
 @keyframes readerMarkGlowV50{0%{filter:drop-shadow(0 0 0 rgba(216,132,40,0))}35%{filter:drop-shadow(0 0 10px rgba(216,132,40,.9))}100%{filter:drop-shadow(0 2px 3px rgba(0,0,0,.22))}}
 #readerText.marking-mode-v50{cursor:crosshair;outline:2px dashed rgba(216,132,40,.35);outline-offset:6px;border-radius:14px}
 
+
+/* v51 - Fin de la lectura */
+.reader-end-card{margin:40px auto 18px;max-width:520px;text-align:center;opacity:.92}
+.reader-end-card .line{height:1px;background:linear-gradient(to right,transparent,rgba(180,180,180,.55),transparent);margin:14px 0}
+.reader-end-card .title{font-weight:800;font-size:1.02em}
+.reader-end-card .msg{margin-top:8px;font-style:italic;opacity:.82}
 </style>
 
 <style>
@@ -4155,6 +4161,28 @@ setInterval(updateVersePositionCounter, 1000);
    try{renderReader=window.renderReader}catch(e){}
  }
  document.addEventListener("DOMContentLoaded",()=>setTimeout(()=>{arm();draw(false)},300));
+})();
+
+
+(function(){
+ function appendReaderEnd(){
+  try{
+   if(section==="verses") return;
+   const el=document.getElementById("readerText");
+   if(!el||el.querySelector(".reader-end-card")) return;
+   const d=document.createElement("div");
+   d.className="reader-end-card";
+   d.innerHTML='<div class="line"></div><div class="title">✝️ Fin de la lectura</div><div class="msg">Que la paz de Cristo permanezca en su corazón.</div><div class="line"></div>';
+   el.appendChild(d);
+  }catch(e){}
+ }
+ const old=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
+ if(old&&!window.__endCardWrapped){
+  window.__endCardWrapped=true;
+  window.renderReader=function(){old.apply(this,arguments);setTimeout(appendReaderEnd,30);}
+  try{renderReader=window.renderReader}catch(e){}
+ }
+ document.addEventListener("DOMContentLoaded",function(){setTimeout(appendReaderEnd,300)});
 })();
 
 </script>
