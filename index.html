@@ -493,29 +493,40 @@ body[data-section="guides"] #readerText p{
 }
 
 
-/* v50B - Marcapáginas seguro */
+/* v50D - Marcapáginas inteligente por doble toque */
 #readerText{
   position:relative;
 }
-.reading-bookmark-marker-v50b{
+.reader-bookmark-pin-v50d{
   position:absolute;
-  left:-2px;
+  left:-4px;
+  z-index:8;
   transform:translateY(-50%);
-  z-index:4;
   font-size:26px;
   line-height:1;
-  filter:drop-shadow(0 2px 3px rgba(0,0,0,.18));
   pointer-events:none;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.22));
 }
-.reading-bookmark-line-v50b{
+.reader-bookmark-line-v50d{
   position:absolute;
   left:0;
   right:0;
   height:2px;
-  background:rgba(216,132,40,.35);
-  z-index:3;
-  pointer-events:none;
+  z-index:7;
+  background:rgba(216,132,40,.42);
   border-radius:999px;
+  pointer-events:none;
+}
+.reader-bookmark-glow-v50d{
+  animation:bookmarkGlowV50D 1.8s ease-in-out 1;
+}
+@keyframes bookmarkGlowV50D{
+  0%{filter:drop-shadow(0 0 0 rgba(216,132,40,0));}
+  35%{filter:drop-shadow(0 0 10px rgba(216,132,40,.9));}
+  100%{filter:drop-shadow(0 2px 3px rgba(0,0,0,.22));}
+}
+body.dark .reader-bookmark-line-v50d{
+  background:rgba(240,196,139,.50);
 }
 
 </style>
@@ -3909,145 +3920,6 @@ renderReader = function(){
 };
 
 setInterval(updateVersePositionCounter, 1000);
-
-
-/* v50B - Marcapáginas seguro: no reconstruye el lector */
-(function(){
-  const STORE_KEY="oraciones_reading_bookmarks_v50b";
-
-  function allowedSection(){
-    return ["prayers","notes","guides"].includes(window.section || section);
-  }
-
-  function getItemSafe(){
-    try{return currentItem&&currentItem()}catch(e){return null}
-  }
-
-  function keyForCurrent(){
-    try{
-      const item=getItemSafe();
-      if(!item || !item.id)return null;
-      return (window.section || section)+"|"+item.id;
-    }catch(e){return null}
-  }
-
-  function loadBookmarks(){
-    try{return JSON.parse(localStorage.getItem(STORE_KEY)||"{}")}catch(e){return {}}
-  }
-
-  function saveBookmarks(data){
-    localStorage.setItem(STORE_KEY,JSON.stringify(data||{}));
-  }
-
-  function clearBookmarkVisual(){
-    document.querySelectorAll(".reading-bookmark-marker-v50b,.reading-bookmark-line-v50b").forEach(x=>x.remove());
-  }
-
-  function drawBookmark(){
-    clearBookmarkVisual();
-    if(!allowedSection())return;
-    const el=document.getElementById("readerText");
-    const key=keyForCurrent();
-    if(!el || !key)return;
-    const data=loadBookmarks();
-    const bm=data[key];
-    if(!bm || typeof bm.y!=="number")return;
-
-    const y=Math.max(8,Math.min(bm.y,el.scrollHeight-8));
-
-    const line=document.createElement("div");
-    line.className="reading-bookmark-line-v50b";
-    line.style.top=y+"px";
-
-    const mark=document.createElement("div");
-    mark.className="reading-bookmark-marker-v50b";
-    mark.style.top=y+"px";
-    mark.textContent="📍";
-
-    el.appendChild(line);
-    el.appendChild(mark);
-  }
-
-  function toggleBookmarkAt(clientY){
-    if(!allowedSection())return;
-    const el=document.getElementById("readerText");
-    const item=getItemSafe();
-    const key=keyForCurrent();
-    if(!el || !item || !key)return;
-
-    const rect=el.getBoundingClientRect();
-    const y=clientY - rect.top + el.scrollTop;
-
-    const data=loadBookmarks();
-    const current=data[key];
-
-    if(current && typeof current.y==="number" && Math.abs(current.y-y)<38){
-      delete data[key];
-      saveBookmarks(data);
-      clearBookmarkVisual();
-      try{toast("📍 Punto de lectura eliminado")}catch(e){}
-      return;
-    }
-
-    const title=(typeof recentTitleFromItem==="function") ? recentTitleFromItem(item) : (item.title||item.reference||"Lectura");
-    data[key]={
-      section:(window.section || section),
-      id:item.id,
-      title:title,
-      y:y,
-      time:Date.now()
-    };
-    data.__last=data[key];
-    saveBookmarks(data);
-    drawBookmark();
-    try{toast("📍 Punto de lectura guardado")}catch(e){}
-  }
-
-  function armReaderBookmark(){
-    const el=document.getElementById("readerText");
-    if(!el || el.dataset.bookmarkArmedV50b==="1")return;
-    el.dataset.bookmarkArmedV50b="1";
-
-    let timer=null;
-    let startY=null;
-
-    function cancel(){
-      if(timer){clearTimeout(timer);timer=null}
-      el.classList.remove("touching-bookmark-v50b");
-    }
-
-    function start(clientY){
-      if(!allowedSection())return;
-      startY=clientY;
-      timer=setTimeout(function(){
-        timer=null;
-        toggleBookmarkAt(startY);
-      },2000);
-    }
-
-    el.addEventListener("touchstart",function(ev){
-      if(ev.touches && ev.touches[0]) start(ev.touches[0].clientY);
-    },{passive:true});
-
-    el.addEventListener("mousedown",function(ev){
-      start(ev.clientY);
-    });
-
-    ["touchend","touchcancel","mouseup","mouseleave","scroll"].forEach(function(name){
-      el.addEventListener(name,cancel,{passive:true});
-    });
-  }
-
-  const oldRender=window.renderReader || renderReader;
-  window.renderReader=function(){
-    oldRender.apply(this,arguments);
-    setTimeout(function(){
-      armReaderBookmark();
-      drawBookmark();
-    },0);
-  };
-  try{renderReader=window.renderReader}catch(e){}
-})();
 
 </script>
 </body>
