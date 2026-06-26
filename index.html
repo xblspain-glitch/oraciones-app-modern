@@ -466,6 +466,23 @@ body[data-section="notes"] #readerText p{
   margin-bottom:0.95em !important;
 }
 
+
+/* v49 - Referencias bíblicas resaltadas */
+.bible-ref-highlight{
+  font-weight:900;
+  color:#8a5a2b;
+  background:rgba(216,132,40,.12);
+  border:1px solid rgba(216,132,40,.22);
+  border-radius:9px;
+  padding:1px 5px;
+  white-space:nowrap;
+}
+body.dark .bible-ref-highlight{
+  color:#f0c48b;
+  background:rgba(216,132,40,.16);
+  border-color:rgba(216,132,40,.32);
+}
+
 </style>
 
 <style>
@@ -1602,6 +1619,44 @@ function formatDailyDateEs(){
 
 
 
+
+function highlightBibleReferencesV49(text){
+  const safe=escapeHtml(text||"");
+  const books=[
+    "Génesis","Genesis","Éxodo","Exodo","Levítico","Levitico","Números","Numeros","Deuteronomio",
+    "Josué","Josue","Jueces","Rut","1 Samuel","2 Samuel","1 Reyes","2 Reyes","1 Crónicas","2 Crónicas","1 Cronicas","2 Cronicas",
+    "Esdras","Nehemías","Nehemias","Ester","Job","Salmos","Salmo","Proverbios","Eclesiastés","Eclesiastes","Cantares",
+    "Isaías","Isaias","Jeremías","Jeremias","Lamentaciones","Ezequiel","Daniel","Oseas","Joel","Amós","Amos","Abdías","Abdias",
+    "Jonás","Jonas","Miqueas","Nahúm","Nahum","Habacuc","Sofonías","Sofonias","Hageo","Zacarías","Zacarias","Malaquías","Malaquias",
+    "Mateo","Marcos","Lucas","San Mateo","San Marcos","San Lucas","San Juan","Juan","Hechos","Romanos",
+    "1 Corintios","2 Corintios","Gálatas","Galatas","Efesios","Filipenses","Colosenses","1 Tesalonicenses","2 Tesalonicenses",
+    "1 Timoteo","2 Timoteo","Tito","Filemón","Filemon","Hebreos","Santiago","1 Pedro","2 Pedro",
+    "1 Juan","2 Juan","3 Juan","Judas","Apocalipsis"
+  ];
+  const escapedBooks=books
+    .sort((a,b)=>b.length-a.length)
+    .map(b=>b.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/\s+/g,"\\s+"));
+
+  // Detecta referencias con o sin icono previo. Si ya hay 📖, no lo duplica.
+  const re=new RegExp(
+    "(^|[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9])" +
+    "(📖\\s*)?" +
+    "((?:"+escapedBooks.join("|")+")\\s+\\d{1,3}:\\d{1,3}" +
+    "(?:\\s*[-–—]\\s*\\d{1,3})?" +
+    "(?:\\s*,\\s*\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?)*)",
+    "gi"
+  );
+
+  return safe.replace(re,function(_,pre,icon,ref){
+    const cleanRef=String(ref||"").replace(/\s+/g," ").trim();
+    return pre+'<span class="bible-ref-highlight">📖 '+cleanRef+'</span>';
+  });
+}
+function setReaderTextV49(text){
+  const el=document.getElementById("readerText");
+  if(el) el.innerHTML=highlightBibleReferencesV49(text||"");
+}
+
 function renderReader(){try{document.body.dataset.section=section;}catch(e){}applyReaderFont();
   const dailyDateEl=document.getElementById("readerDailyDate"); const catReadEl=document.getElementById('readerCategory'); if(catReadEl){catReadEl.classList.add('hidden');catReadEl.textContent='';}
   if(dailyDateEl){dailyDateEl.classList.add("hidden");dailyDateEl.textContent="";}
@@ -1624,11 +1679,11 @@ function renderReader(){try{document.body.dataset.section=section;}catch(e){}app
       dailyDateEl.classList.remove("hidden");
     }
     document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.reference||item.title||"Sin referencia");
-    document.getElementById("readerText").textContent=item.text||item.content||"";
+    setReaderTextV49(item.text||item.content||"");
   }else{
     document.getElementById("readerCode").textContent="";
     document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.title||"Sin título");
-    document.getElementById("readerText").textContent=item.content;
+    setReaderTextV49(item.content||"");
   }
   updateFavoriteButtons();
   updateMoveVerseButtonVisibility();
