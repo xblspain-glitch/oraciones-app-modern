@@ -511,6 +511,23 @@ body[data-section="guides"] #readerText p{
 .reader-end-card .line{height:1px;background:linear-gradient(to right,transparent,rgba(180,180,180,.55),transparent);margin:14px 0}
 .reader-end-card .title{font-weight:800;font-size:1.02em}
 .reader-end-card .msg{margin-top:8px;font-style:italic;opacity:.82}
+
+/* v52 - Transición suave del lector */
+#readerView.reader-fade-out{
+  opacity:0;
+  transition:opacity .12s ease;
+}
+#readerView.reader-fade-in{
+  opacity:1;
+  transition:opacity .14s ease;
+}
+#readerTitle{
+  transition:opacity .10s ease;
+}
+#readerText{
+  transition:opacity .14s ease;
+}
+
 </style>
 
 <style>
@@ -4183,6 +4200,39 @@ setInterval(updateVersePositionCounter, 1000);
   try{renderReader=window.renderReader}catch(e){}
  }
  document.addEventListener("DOMContentLoaded",function(){setTimeout(appendReaderEnd,300)});
+})();
+
+
+(function(){
+ const old=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
+ if(old&&!window.__readerTransitionV52){
+   window.__readerTransitionV52=true;
+   window.renderReader=function(){
+      const view=document.getElementById("readerView");
+      const title=document.getElementById("readerTitle");
+      const text=document.getElementById("readerText");
+      if(view){
+        view.classList.remove("reader-fade-in");
+        view.classList.add("reader-fade-out");
+      }
+      setTimeout(function(){
+        old.apply(this,arguments);
+        try{window.scrollTo({top:0,behavior:"instant"})}catch(e){window.scrollTo(0,0)}
+        if(title) title.style.opacity="1";
+        if(text) text.style.opacity="0";
+        requestAnimationFrame(function(){
+          if(view){
+            view.classList.remove("reader-fade-out");
+            view.classList.add("reader-fade-in");
+          }
+          setTimeout(function(){
+            if(text) text.style.opacity="1";
+          },35);
+        });
+      },120);
+   };
+   try{renderReader=window.renderReader}catch(e){}
+ }
 })();
 
 </script>
