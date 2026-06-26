@@ -4282,6 +4282,101 @@ setInterval(updateVersePositionCounter, 1000);
  }
 })();
 
+
+/* v58 - Limpieza de puntos de lectura antiguos */
+(function(){
+  const ACTIVE_KEY="oraciones_reading_mark_v50";
+  const LEGACY_KEYS=[
+    "oraciones_reading_bookmarks_v50",
+    "oraciones_reading_bookmarks_v50b",
+    "oraciones_reading_bookmarks_v50d"
+  ];
+
+  function loadActive(){
+    try{return JSON.parse(localStorage.getItem(ACTIVE_KEY)||"{}")}catch(e){return {}}
+  }
+  function saveActive(data){
+    localStorage.setItem(ACTIVE_KEY,JSON.stringify(data||{}));
+  }
+  function newestEntryFrom(data){
+    let newest=null;
+    Object.keys(data||{}).forEach(k=>{
+      const v=data[k];
+      if(k==="__last" || !v || typeof v!=="object")return;
+      if(!newest || (v.time||0)>(newest.time||0)){
+        newest=Object.assign({key:k},v);
+      }
+    });
+    return newest;
+  }
+  function cleanupActive(){
+    const data=loadActive();
+    let keep=data.__last && data.__last.key ? data.__last : newestEntryFrom(data);
+    const clean={};
+    if(keep && keep.key){
+      clean[keep.key]=keep;
+      clean.__last=keep;
+    }
+    saveActive(clean);
+    return clean;
+  }
+  function removeLegacy(){
+    LEGACY_KEYS.forEach(k=>{
+      try{localStorage.removeItem(k)}catch(e){}
+    });
+  }
+  function clearVisualPins(){
+    document.querySelectorAll(
+      ".reader-mark-pin-v50,.reader-mark-line-v50,"+
+      ".reader-bookmark-pin-v50d,.reader-bookmark-line-v50d,"+
+      ".reading-bookmark-marker-v50b,.reading-bookmark-line-v50b"
+    ).forEach(x=>x.remove());
+  }
+
+  // Limpieza automática al cargar.
+  try{
+    cleanupActive();
+    removeLegacy();
+    setTimeout(clearVisualPins,80);
+  }catch(e){}
+
+  // Reforzar: guardar nuevo punto elimina cualquier resto antiguo.
+  const oldStart=window.startReadingMarkV50;
+  if(typeof oldStart==="function" && !window.__v58StartWrapped){
+    window.__v58StartWrapped=true;
+    window.startReadingMarkV50=function(){
+      removeLegacy();
+      cleanupActive();
+      clearVisualPins();
+      return oldStart.apply(this,arguments);
+    };
+  }
+
+  // Reforzar: quitar punto elimina todos los restos.
+  const oldRemove=window.removeReadingMarkV50;
+  if(typeof oldRemove==="function" && !window.__v58RemoveWrapped){
+    window.__v58RemoveWrapped=true;
+    window.removeReadingMarkV50=function(){
+      try{
+        localStorage.removeItem(ACTIVE_KEY);
+        removeLegacy();
+        clearVisualPins();
+      }catch(e){}
+      return oldRemove.apply(this,arguments);
+    };
+  }
+
+  // Exponer limpieza manual por seguridad.
+  window.cleanReadingMarksV58=function(){
+    try{
+      localStorage.removeItem(ACTIVE_KEY);
+      removeLegacy();
+      clearVisualPins();
+      if(typeof toast==="function")toast("📍 Puntos de lectura limpiados");
+    }catch(e){}
+  };
+})();
+
 </script>
 </body>
 </html>
