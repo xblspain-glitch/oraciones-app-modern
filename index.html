@@ -1,12 +1,3 @@
-
-function updateReadingSectionClass(){
- try{
-  document.body.classList.remove('section-oraciones','section-notas','section-versiculos');
-  if(section==='oraciones')document.body.classList.add('section-oraciones');
-  else if(section==='notas')document.body.classList.add('section-notas');
-  else if(section==='versiculos')document.body.classList.add('section-versiculos');
- }catch(e){}
-}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -465,13 +456,6 @@ body.editing-focus #editCategory:not(.hidden){
   .recent-modal{padding:0}
   .recent-sheet{border-radius:0;max-height:100dvh;min-height:100dvh}
 }
-
-
-/* v48 lectura */
-#readerContent,.reader-content,.read-content{line-height:1.48!important;}
-body.section-oraciones #readerContent p,body.section-oraciones .reader-content p{margin:0 0 1.15em 0!important;line-height:1.52!important;}
-body.section-notas #readerContent p,body.section-notas .reader-content p{margin:0 0 .82em 0!important;line-height:1.45!important;}
-body.section-versiculos #readerContent p,body.section-versiculos .reader-content p{margin:0 0 1em 0!important;line-height:1.50!important;}
 
 </style>
 
@@ -1052,7 +1036,7 @@ function openRecentEntry(type,idx){
       else if(section==="guides")state.currentGuideId=item.id;
       if(typeof syncTabs==="function")syncTabs();
       if(typeof renderList==="function")renderList();
-      if(typeof renderReader==="function")updateReadingSectionClass();renderReader();
+      if(typeof renderReader==="function")renderReader();
       if(type==="edited" && typeof openEditor==="function")openEditor();
       else if(typeof openReader==="function")openReader();
       return;
@@ -1447,7 +1431,7 @@ function openVersesFilePicker(){
   input.click();
 }
 
-function restoreAutoBackup(){const raw=localStorage.getItem(AUTO_BACKUP_KEY);if(!raw) return alert("No hay backup automático.");if(!confirm("¿Restaurar el backup automático?")) return;try{const parsed=JSON.parse(raw);state={"section":parsed.section||"prayers","currentPrayerId":parsed.currentPrayerId||null,"currentNoteId":parsed.currentNoteId||null,"currentGuideId":parsed.currentGuideId||null,"currentVerseId":parsed.currentVerseId||null,"prayers":Array.isArray(parsed.prayers)?parsed.prayers:[],"notes":Array.isArray(parsed.notes)?parsed.notes:[],"guides":Array.isArray(parsed.guides)?parsed.guides:[],"verses":Array.isArray(parsed.verses)?parsed.verses:[],"trashPrayers":Array.isArray(parsed.trashPrayers)?parsed.trashPrayers:[],"trashNotes":Array.isArray(parsed.trashNotes)?parsed.trashNotes:[],"trashGuides":Array.isArray(parsed.trashGuides)?parsed.trashGuides:[],"trashVerses":Array.isArray(parsed.trashVerses)?parsed.trashVerses:[]};normalizeGuides();saveState();section=state.section;syncTabs();renderList();updateReadingSectionClass();renderReader();applyReaderFont();openReader();toast("Backup automático restaurado")}catch(e){alert("No se pudo restaurar.")}}
+function restoreAutoBackup(){const raw=localStorage.getItem(AUTO_BACKUP_KEY);if(!raw) return alert("No hay backup automático.");if(!confirm("¿Restaurar el backup automático?")) return;try{const parsed=JSON.parse(raw);state={"section":parsed.section||"prayers","currentPrayerId":parsed.currentPrayerId||null,"currentNoteId":parsed.currentNoteId||null,"currentGuideId":parsed.currentGuideId||null,"currentVerseId":parsed.currentVerseId||null,"prayers":Array.isArray(parsed.prayers)?parsed.prayers:[],"notes":Array.isArray(parsed.notes)?parsed.notes:[],"guides":Array.isArray(parsed.guides)?parsed.guides:[],"verses":Array.isArray(parsed.verses)?parsed.verses:[],"trashPrayers":Array.isArray(parsed.trashPrayers)?parsed.trashPrayers:[],"trashNotes":Array.isArray(parsed.trashNotes)?parsed.trashNotes:[],"trashGuides":Array.isArray(parsed.trashGuides)?parsed.trashGuides:[],"trashVerses":Array.isArray(parsed.trashVerses)?parsed.trashVerses:[]};normalizeGuides();saveState();section=state.section;syncTabs();renderList();renderReader();applyReaderFont();openReader();toast("Backup automático restaurado")}catch(e){alert("No se pudo restaurar.")}}
 function applyTheme(){if(localStorage.getItem(THEME_KEY)==="dark") document.body.classList.add("dark")}
 function toggleTheme(){document.body.classList.toggle("dark");localStorage.setItem(THEME_KEY, document.body.classList.contains("dark")?"dark":"light")}
 function getDisplayCode(idx, kind){
@@ -1490,7 +1474,7 @@ function setActiveView(view){
 function switchSection(s){
   section=s;state.section=s;saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
-  updateReadingSectionClass();renderReader();openReader();
+  renderReader();openReader();
 }
 function getItems(){
   return section==="prayers"?state.prayers:section==="notes"?state.notes:section==="guides"?state.guides:state.verses
@@ -1574,7 +1558,7 @@ function renderList(){
       specialVerseMode=null;
       setCurrentId(item.id);
       if(section==="verses"){currentVerseCategory=item.category||currentVerseCategory||"fe";verseNavigationMode="verse";}
-      renderList();updateReadingSectionClass();renderReader();openReader()
+      renderList();renderReader();openReader()
     };
     list.appendChild(div)
   })
@@ -1679,7 +1663,7 @@ function smartBack(){
       state.section="verses";
       if(typeof syncTabs==="function") syncTabs();
       if(typeof renderList==="function") renderList();
-      if(typeof renderReader==="function") updateReadingSectionClass();renderReader();
+      if(typeof renderReader==="function") renderReader();
       if(typeof openReader==="function") openReader();
     }catch(e){}
     return;
@@ -1692,7 +1676,7 @@ function smartBack(){
       state.section="verses";
       if(typeof syncTabs==="function") syncTabs();
       if(typeof renderList==="function") renderList();
-      if(typeof renderReader==="function") updateReadingSectionClass();renderReader();
+      if(typeof renderReader==="function") renderReader();
       if(typeof openReader==="function") openReader();
     }catch(e){}
     return;
@@ -1829,7 +1813,7 @@ function saveCurrentOriginal(stay, silent){
   }
   item.updatedAt=Date.now();
   isDirty=false;setSaveStatus("Guardado");
-  saveState();renderList();updateReadingSectionClass();renderReader();
+  saveState();renderList();renderReader();
   if(!stay)openReader();
   if(!silent)toast("Guardado")
 }
@@ -1927,7 +1911,7 @@ function saveCurrent(stay, silent){
             currentVerseCategory = dup.category || currentVerseCategory || "sin_categoria";
             saveState();
             renderList();
-            updateReadingSectionClass();renderReader();
+            renderReader();
             openReader();
             toast("Duplicado descartado");
             return;
@@ -2025,7 +2009,7 @@ function discardEditorChanges(){
 
       saveState();
       renderList();
-      updateReadingSectionClass();renderReader();
+      renderReader();
       isDirty=false;
       openReader();
       toast("Descartado");
@@ -2034,7 +2018,7 @@ function discardEditorChanges(){
 
     // Si no era nuevo, restauramos la vista sin guardar cambios
     isDirty=false;
-    updateReadingSectionClass();renderReader();
+    renderReader();
     openReader();
     toast("Cambios descartados");
   }catch(e){
@@ -2060,10 +2044,10 @@ function newItem(){
   normalizeGuides();
   saveState();
   renderList();
-  updateReadingSectionClass();renderReader();
+  renderReader();
   openEditor();
 }
-function moveToTrash(){const item=currentItem();if(!item) return;const items=getItems();if(items.length===1) return alert("Debe quedar al menos un elemento.");const typeName=section==="prayers"?"oración":section==="notes"?"nota":section==="guides"?"guía":"versículo";if(!confirm('¿Mover a papelera esta '+typeName+'?\n"'+item.title+'"')) return;const trash=getTrash();trash.unshift({...item,"deletedAt":Date.now()});const filtered=items.filter(x=>x.id!==item.id);setItems(filtered);if(section==="prayers") state.currentPrayerId=filtered[0].id;else if(section==="notes") state.currentNoteId=filtered[0].id;else if(section==="guides") state.currentGuideId=filtered[0].id;else state.currentVerseId=filtered[0].id;saveState();syncTabs();renderList();updateReadingSectionClass();renderReader();applyReaderFont();openReader();toast("Movido a papelera")}
+function moveToTrash(){const item=currentItem();if(!item) return;const items=getItems();if(items.length===1) return alert("Debe quedar al menos un elemento.");const typeName=section==="prayers"?"oración":section==="notes"?"nota":section==="guides"?"guía":"versículo";if(!confirm('¿Mover a papelera esta '+typeName+'?\n"'+item.title+'"')) return;const trash=getTrash();trash.unshift({...item,"deletedAt":Date.now()});const filtered=items.filter(x=>x.id!==item.id);setItems(filtered);if(section==="prayers") state.currentPrayerId=filtered[0].id;else if(section==="notes") state.currentNoteId=filtered[0].id;else if(section==="guides") state.currentGuideId=filtered[0].id;else state.currentVerseId=filtered[0].id;saveState();syncTabs();renderList();renderReader();applyReaderFont();openReader();toast("Movido a papelera")}
 
 
 async function shareCurrent(){
@@ -2075,7 +2059,7 @@ async function shareCurrent(){
     }else{
       await navigator.clipboard.writeText(cleanTextBreaks(text));
     }
-    if(section==="verses"){item.shared=true;saveState();renderList();updateReadingSectionClass();renderReader();}
+    if(section==="verses"){item.shared=true;saveState();renderList();renderReader();}
     toast(navigator.share?"Compartido":"Copiado");
   }catch(e){}
 }
@@ -2114,7 +2098,7 @@ function openVerseSpecial(v,mode){
   saveState();
   syncTabs();
   renderList();
-  updateReadingSectionClass();renderReader();
+  renderReader();
   applyReaderFont();
   openReader();
 }
@@ -2323,7 +2307,7 @@ function openSentVersesList(){
         setReturnToSentList();
         if(typeof saveState === "function") saveState();
         if(typeof renderList === "function") renderList();
-        if(typeof renderReader === "function") updateReadingSectionClass();renderReader();
+        if(typeof renderReader === "function") renderReader();
         sentListActive=false;
         setReturnToSentList();
         if(typeof openReader === "function") openReader();
@@ -2362,7 +2346,7 @@ function openNeverSentVerse(){
 
     if(typeof saveState === "function") saveState();
     if(typeof renderList === "function") renderList();
-    if(typeof renderReader === "function") updateReadingSectionClass();renderReader();
+    if(typeof renderReader === "function") renderReader();
     if(typeof openReader === "function") openReader();
 
     if(typeof toast === "function"){
@@ -2478,7 +2462,7 @@ function moveVerseToCategory(){
    renderVerseReferenceList(currentVerseCategory);
  }else{
    renderList();
-   updateReadingSectionClass();renderReader();
+   renderReader();
  }
  toast("Versículo movido");
 }
@@ -2512,7 +2496,7 @@ function renderVerseCategories(){
       div.className="category-card";
       const preview=String(v.content||"").replace(/\n+/g," ").slice(0,95);
       div.innerHTML='<div><strong>'+escapeHtml(v.reference||v.title||"Sin referencia")+'</strong></div><div class="category-count">'+escapeHtml(catLabel(v.category))+(preview?' · '+escapeHtml(preview):'')+'</div>';
-      div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=v.category||currentVerseCategory||"fe";section="verses";state.section="verses";setCurrentId(v.id);renderList();updateReadingSectionClass();renderReader();applyReaderFont();openReader();};
+      div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=v.category||currentVerseCategory||"fe";section="verses";state.section="verses";setCurrentId(v.id);renderList();renderReader();applyReaderFont();openReader();};
       box.appendChild(div);
     });
     return;
@@ -2553,7 +2537,7 @@ function renderVerseReferenceList(catId){
     const div=document.createElement("div");
     div.className="title-row"+(state.currentVerseId===v.id?" active":"");
     div.innerHTML='<div class="title-code">V'+(idx+1)+'</div><div class="title-name">'+escapeHtml((v.shared?'✓ ':'')+(v.favorite?'⭐ ':'')+(v.reference||v.title||"Sin referencia"))+'</div>';
-    div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=v.category||currentVerseCategory||"fe";setCurrentId(v.id);renderList();updateReadingSectionClass();renderReader();applyReaderFont();openReader();};
+    div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=v.category||currentVerseCategory||"fe";setCurrentId(v.id);renderList();renderReader();applyReaderFont();openReader();};
     box.appendChild(div);
   });
 }
@@ -2571,7 +2555,7 @@ function openVerseFavorites(){
     const div=document.createElement("div");
     div.className="title-row"+(state.currentVerseId===v.id?" active":"");
     div.innerHTML='<div class="title-code">★</div><div class="title-name">'+escapeHtml((v.shared?'✓ ':'')+(v.reference||v.title||"Sin referencia"))+'</div>';
-    div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=catId;setCurrentId(v.id);renderList();updateReadingSectionClass();renderReader();applyReaderFont();openReader();};
+    div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=catId;setCurrentId(v.id);renderList();renderReader();applyReaderFont();openReader();};
     box.appendChild(div);
   });
 }
@@ -2612,7 +2596,7 @@ function renderTitles(){
       }
       setCurrentId(item.id);
       renderList();
-      updateReadingSectionClass();renderReader();
+      renderReader();
       openReader();
     };
     box.appendChild(div);
@@ -2653,7 +2637,7 @@ function openTrash(){
   setActiveView("trash");
   clearNavModes();document.getElementById("trashView").classList.remove("hidden");document.getElementById("readerView").classList.add("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");renderTrash()}
 function renderTrash(){const box=document.getElementById("trashList");box.innerHTML="";const trash=getTrash();if(!trash.length){box.innerHTML='<div class="empty">La papelera está vacía.</div>';return}trash.forEach(item=>{const div=document.createElement("div");div.className="trash-item";div.innerHTML='<div class="trash-title">'+escapeHtml(item.title||"Sin título")+'</div><div class="row"><button class="btn soft" type="button" onclick="restoreFromTrash(\''+item.id+'\')">Restaurar</button><button class="btn danger" type="button" onclick="deleteForever(\''+item.id+'\')">Borrar definitivo</button></div>';box.appendChild(div)})}
-function restoreFromTrash(id){const trash=getTrash();const idx=trash.findIndex(x=>x.id===id);if(idx<0) return;const item=trash.splice(idx,1)[0];const items=getItems();items.unshift(item);setItems(items);setCurrentId(item.id);saveState();syncTabs();renderList();updateReadingSectionClass();renderReader();renderTrash();toast("Restaurado")}
+function restoreFromTrash(id){const trash=getTrash();const idx=trash.findIndex(x=>x.id===id);if(idx<0) return;const item=trash.splice(idx,1)[0];const items=getItems();items.unshift(item);setItems(items);setCurrentId(item.id);saveState();syncTabs();renderList();renderReader();renderTrash();toast("Restaurado")}
 function deleteForever(id){const trash=getTrash();const item=trash.find(x=>x.id===id);if(!item) return;if(!confirm('¿Borrar definitivamente "'+item.title+'"?')) return;setTrash(trash.filter(x=>x.id!==id));saveState();renderTrash();toast("Borrado definitivo")}
 function emptyTrash(){const trash=getTrash();if(!trash.length) return alert("La papelera ya está vacía.");if(!confirm("¿Vaciar toda la papelera? Esta acción no se puede deshacer.")) return;setTrash([]);saveState();renderTrash();toast("Papelera vaciada")}
 
@@ -2683,7 +2667,7 @@ function copyCurrent(){
   const item=currentItem();if(!item)return;
   const text=section==="verses"?buildVerseShareText(item):(item.content||"");
   navigator.clipboard.writeText(cleanTextBreaks(text)).then(()=>{
-    if(section==="verses"){item.shared=true;saveState();renderList();updateReadingSectionClass();renderReader();}
+    if(section==="verses"){item.shared=true;saveState();renderList();renderReader();}
     toast("Copiado")
   })
 }
@@ -2729,7 +2713,7 @@ function openFavoritesView(){
         }
         if(typeof saveState === "function") saveState();
         if(typeof renderList === "function") renderList();
-        if(typeof renderReader === "function") updateReadingSectionClass();renderReader();
+        if(typeof renderReader === "function") renderReader();
         if(typeof openReader === "function") openReader();
       };
       box.appendChild(div);
@@ -2740,7 +2724,7 @@ function openFavoritesView(){
   }
 }
 
-function toggleFavorite(){const item=currentItem();if(!item) return;item.favorite=!item.favorite;item.updatedAt=Date.now();saveState();renderList();updateReadingSectionClass();renderReader();toast(item.favorite?"Marcado como favorito":"Quitado de favoritos")}
+function toggleFavorite(){const item=currentItem();if(!item) return;item.favorite=!item.favorite;item.updatedAt=Date.now();saveState();renderList();renderReader();toast(item.favorite?"Marcado como favorito":"Quitado de favoritos")}
 function changeReaderSize(delta){readerSize+=delta;if(readerSize<20) readerSize=20;if(readerSize>34) readerSize=34;localStorage.setItem(SIZE_KEY, String(readerSize));renderReader()}
 
 function padCalendar(n){return String(n).padStart(2,"0")}
@@ -3395,7 +3379,7 @@ function applyImportedData(parsed){
   section=state.section;
   syncTabs();
   renderList();
-  updateReadingSectionClass();renderReader();
+  renderReader();
   openReader();
   toast("Backup importado")
 }
@@ -3407,7 +3391,7 @@ window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPr
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
-applyTheme();loadState();syncTabs();renderList();updateReadingSectionClass();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
+applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
 
 
 
@@ -3582,7 +3566,7 @@ async function shareVerseCard(){
         item.shared=true;
         item.lastCardSentAt=Date.now();
         saveState();
-        updateReadingSectionClass();renderReader();
+        renderReader();
       }
       toast("Tarjeta compartida");
     }else{
@@ -3598,7 +3582,7 @@ async function shareVerseCard(){
         item.shared=true;
         item.lastCardSentAt=Date.now();
         saveState();
-        updateReadingSectionClass();renderReader();
+        renderReader();
       }
       toast("Tarjeta descargada");
     }
@@ -3658,7 +3642,7 @@ function swipeVerse(dir){
 
     state.currentVerseId = list[nextIdx].id;
     saveState();
-    updateReadingSectionClass();renderReader();
+    renderReader();
 
     const reader = document.getElementById("readerText") || document.getElementById("readerTitle");
     if(reader && reader.animate){
@@ -3739,7 +3723,7 @@ function swipeGeneric(dir){
 
     setCurrentId(list[nextIdx].id);
     renderList();
-    updateReadingSectionClass();renderReader();
+    renderReader();
 
     const reader=document.getElementById("readerText")||document.getElementById("readerTitle");
     if(reader && reader.animate){
