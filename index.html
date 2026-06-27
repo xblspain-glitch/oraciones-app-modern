@@ -610,6 +610,15 @@ button.btn.premium-pressing{
 .reader-next-label{color:#4f6f95;font-weight:600;margin-bottom:8px}
 .reader-next-link{color:#2f6fb8;font-weight:700;cursor:pointer;display:inline-block;padding:4px 8px;border-radius:8px;transition:background-color .15s ease}
 .reader-next-link:hover{background:rgba(47,111,184,.08)}
+
+/* v59B - Continuar con otra oración y volver al inicio */
+.reader-next{margin:20px auto 8px;text-align:center}
+.reader-next-label{color:#4f6f95;font-weight:650;margin-bottom:8px}
+.reader-next-link,.reader-top-link{color:#2f6fb8;font-weight:800;cursor:pointer;display:inline-block;padding:6px 10px;border-radius:10px;transition:background-color .15s ease,transform .09s ease}
+.reader-next-link:hover,.reader-top-link:hover{background:rgba(47,111,184,.08)}
+.reader-next-link:active,.reader-top-link:active{transform:scale(.98) translateY(1px)}
+.reader-top-link{margin-top:8px;color:#5f7086;font-weight:750}
+
 </style>
 
 <style>
@@ -4449,39 +4458,97 @@ setInterval(updateVersePositionCounter, 1000);
 })();
 
 
+
+
+/* v59B - Continuar con otra oración y volver al inicio */
 (function(){
- if(window.__v59Hook)return;
- window.__v59Hook=true;
- function addSuggestion(){
-  try{
-   if(typeof section==="undefined"||section!=="prayers")return;
-   const end=document.querySelector(".reader-end-card");
-   if(!end||document.querySelector(".reader-next"))return;
-   const list=window.prayers||window.dataPrayers;
-   if(!Array.isArray(list)||list.length<2)return;
-   const current=(window.currentIndex||window.currentPrayerIndex||0);
-   let idx=current;
-   while(idx===current){idx=Math.floor(Math.random()*list.length);}
-   const item=list[idx];
-   const title=item.title||item.name||("Oración "+(idx+1));
-   const d=document.createElement("div");
-   d.className="reader-next";
-   d.innerHTML='<div class="reader-next-label">🌿 Puede continuar con...</div><div class="reader-next-link">'+title+'</div>';
-   d.querySelector(".reader-next-link").onclick=function(){
-    try{
-      if(typeof openPrayer==="function")openPrayer(idx);
-      else if(typeof selectPrayer==="function")selectPrayer(idx);
-    }catch(e){}
-   };
-   end.after(d);
-  }catch(e){}
+ if(window.__v59BHook)return;
+ window.__v59BHook=true;
+ const RECENT_KEY="oraciones_next_prayer_recent_v59b";
+
+ function getRecent(){
+   try{return JSON.parse(localStorage.getItem(RECENT_KEY)||"[]")}catch(e){return []}
+ }
+ function saveRecent(arr){
+   localStorage.setItem(RECENT_KEY,JSON.stringify((arr||[]).slice(0,5)));
+ }
+ function currentPrayer(){
+   try{return currentItem&&currentItem()}catch(e){return null}
+ }
+ function choosePrayer(){
+   try{
+     const list=(state&&Array.isArray(state.prayers))?state.prayers:[];
+     const cur=currentPrayer();
+     if(!cur||list.length<2)return null;
+     const recent=getRecent();
+     let pool=list.filter(p=>p&&p.id!==cur.id&&!recent.includes(p.id));
+     if(!pool.length) pool=list.filter(p=>p&&p.id!==cur.id);
+     if(!pool.length)return null;
+     return pool[Math.floor(Math.random()*pool.length)];
+   }catch(e){return null}
+ }
+ function openSuggestedPrayer(id){
+   try{
+     const list=(state&&Array.isArray(state.prayers))?state.prayers:[];
+     const target=list.find(p=>p.id===id);
+     if(!target)return;
+     const recent=getRecent().filter(x=>x!==id);
+     recent.unshift(id);
+     saveRecent(recent);
+     section="prayers";
+     state.section="prayers";
+     state.currentPrayerId=id;
+     saveState();
+     syncTabs();
+     renderList();
+     renderReader();
+     if(typeof enterFullscreenReading==="function") enterFullscreenReading();
+     else openReader();
+   }catch(e){
+     try{toast("No se pudo abrir la oración")}catch(_){}
+   }
+ }
+ function addEndActions(){
+   try{
+     const end=document.querySelector(".reader-end-card");
+     if(!end)return;
+     const old=document.querySelector(".reader-next");
+     if(old)old.remove();
+
+     const box=document.createElement("div");
+     box.className="reader-next";
+
+     if(section==="prayers"){
+       const suggested=choosePrayer();
+       if(suggested){
+         const title=escapeHtml(suggested.title||"Oración");
+         box.innerHTML='<div class="reader-next-label">🌿 Puede continuar con...</div><div class="reader-next-link" data-next-prayer="'+suggested.id+'">'+title+'</div><div class="reader-top-link" data-back-top="1">⬆️ Volver al inicio</div>';
+       }else{
+         box.innerHTML='<div class="reader-top-link" data-back-top="1">⬆️ Volver al inicio</div>';
+       }
+     }else{
+       box.innerHTML='<div class="reader-top-link" data-back-top="1">⬆️ Volver al inicio</div>';
+     }
+
+     end.after(box);
+
+     const next=box.querySelector("[data-next-prayer]");
+     if(next) next.addEventListener("click",function(){openSuggestedPrayer(this.getAttribute("data-next-prayer"))});
+
+     const top=box.querySelector("[data-back-top]");
+     if(top) top.addEventListener("click",function(){
+       try{window.scrollTo({top:0,behavior:"smooth"})}catch(e){window.scrollTo(0,0)}
+     });
+   }catch(e){}
  }
  const old=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
  if(old){
-   window.renderReader=function(){old.apply(this,arguments);setTimeout(addSuggestion,80);}
+   window.renderReader=function(){old.apply(this,arguments);setTimeout(addEndActions,120);}
    try{renderReader=window.renderReader}catch(e){}
  }
+ document.addEventListener("DOMContentLoaded",function(){setTimeout(addEndActions,500)});
 })();
+
 </script>
 </body>
 </html>
