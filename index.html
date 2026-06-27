@@ -720,6 +720,19 @@ body.dark .reader-end-card{
   color:var(--text)!important;
 }
 
+
+/* v65.2 dark end card */
+body.dark .reader-end-card{
+background:linear-gradient(180deg,#202020 0%,#262626 45%,#1d1d1d 100%)!important;
+border:1px solid rgba(255,255,255,.06)!important;
+box-shadow:0 8px 24px rgba(0,0,0,.35)!important;
+}
+body.dark .reader-end-card h3,
+body.dark .reader-end-card,
+body.dark .reader-end-card p{
+color:#f2f2f2!important;
+text-shadow:none!important;
+}
 </style>
 
 <style>
@@ -4554,7 +4567,7 @@ setInterval(updateVersePositionCounter, 1000);
     clearTimeout(btn.__premiumPressTimer);
     btn.__premiumPressTimer=setTimeout(function(){
       btn.classList.remove("premium-pressing");
-    },70);
+    },58);
   }
 
   document.addEventListener("touchstart",function(e){
@@ -4569,12 +4582,12 @@ setInterval(updateVersePositionCounter, 1000);
 
   document.addEventListener("touchend",function(e){
     const b=e.target.closest&&e.target.closest(".btn");
-    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},70);
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},58);
   },{passive:true,capture:true});
 
   document.addEventListener("mouseup",function(e){
     const b=e.target.closest&&e.target.closest(".btn");
-    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},70);
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},58);
   },true);
 })();
 
