@@ -664,6 +664,11 @@ box-shadow:0 2px 10px rgba(36,74,122,.05)!important;
   vertical-align:middle;
 }
 
+
+/* v62 limpio - vistas especiales sin lista heredada */
+body.special-view-only .sidebar{display:none!important}
+body.special-view-only .content{width:100%!important;max-width:100%!important}
+
 </style>
 
 <style>
@@ -2855,6 +2860,7 @@ function clearNavModes(){
     document.body.classList.remove("titles-only");
     document.body.classList.remove("list-only");
     document.body.classList.remove("backup-only");
+    document.body.classList.remove("special-view-only");
     var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
   }catch(e){}
 }
@@ -2881,7 +2887,18 @@ function openTitlesView(){
 
 function openTrash(){
   setActiveView("trash");
-  clearNavModes();document.getElementById("trashView").classList.remove("hidden");document.getElementById("readerView").classList.add("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");renderTrash()}
+  clearNavModes();
+  document.body.classList.add("special-view-only");
+  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  document.getElementById("trashView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("titlesView").classList.add("hidden");
+  var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
+  var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");
+  renderTrash();
+}
 function renderTrash(){const box=document.getElementById("trashList");box.innerHTML="";const trash=getTrash();if(!trash.length){box.innerHTML='<div class="empty">La papelera está vacía.</div>';return}trash.forEach(item=>{const div=document.createElement("div");div.className="trash-item";div.innerHTML='<div class="trash-title">'+escapeHtml(item.title||"Sin título")+'</div><div class="row"><button class="btn soft" type="button" onclick="restoreFromTrash(\''+item.id+'\')">Restaurar</button><button class="btn danger" type="button" onclick="deleteForever(\''+item.id+'\')">Borrar definitivo</button></div>';box.appendChild(div)})}
 function restoreFromTrash(id){const trash=getTrash();const idx=trash.findIndex(x=>x.id===id);if(idx<0) return;const item=trash.splice(idx,1)[0];const items=getItems();items.unshift(item);setItems(items);setCurrentId(item.id);saveState();syncTabs();renderList();renderReader();renderTrash();toast("Restaurado")}
 function deleteForever(id){const trash=getTrash();const item=trash.find(x=>x.id===id);if(!item) return;if(!confirm('¿Borrar definitivamente "'+item.title+'"?')) return;setTrash(trash.filter(x=>x.id!==id));saveState();renderTrash();toast("Borrado definitivo")}
@@ -3359,8 +3376,16 @@ document.addEventListener("click",function(ev){
 function openBackup(){
   setActiveView("backup");
   clearNavModes();
-  document.body.classList.add("backup-only");
-  clearNavModes();document.getElementById("backupView").classList.remove("hidden");document.getElementById("readerView").classList.add("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden")}
+  document.body.classList.add("backup-only","special-view-only");
+  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  document.getElementById("backupView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+  document.getElementById("titlesView").classList.add("hidden");
+  var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
+  var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");
+}
 function downloadBlob(filename, blob){const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1500)}
 function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'⭐ '+item.title:item.title;const bg=document.body.classList.contains("dark") ? "#111111" : "#f8f6f1";const card=document.body.classList.contains("dark") ? "#1a1a1a" : "#ffffff";const text=document.body.classList.contains("dark") ? "#f2eee7" : "#181818";return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><title>${escapeHtml(item.title)}</title><style>body{margin:0;background:${bg};color:${text};font-family:Arial,sans-serif}.wrap{max-width:900px;margin:0 auto;padding:24px}.card{background:${card};border-radius:20px;padding:24px}.badge{font-size:13px;opacity:.7;margin-bottom:10px}h1{font-size:24px;margin:0 0 18px 0}.content{white-space:pre-wrap;font-size:${readerSize}px;line-height:2.05}body.dark .segment button{color:var(--text)}body.dark .segment button.active{color:var(--text)}
 .category-grid{padding:12px;display:flex;flex-direction:column;gap:10px}
