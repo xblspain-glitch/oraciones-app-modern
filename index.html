@@ -611,7 +611,454 @@ button.btn.premium-pressing{
 .reader-next-link{color:#2f6fb8;font-weight:700;cursor:pointer;display:inline-block;padding:4px 8px;border-radius:8px;transition:background-color .15s ease}
 .reader-next-link:hover{background:rgba(47,111,184,.08)}
 
+/* v59B - Continuar con otra oración y volver al inicio */
+.reader-next{margin:20px auto 8px;text-align:center}
+.reader-next-label{color:#4f6f95;font-weight:650;margin-bottom:8px}
+.reader-next-link,.reader-top-link{color:#2f6fb8;font-weight:800;cursor:pointer;display:inline-block;padding:6px 10px;border-radius:10px;transition:background-color .15s ease,transform .09s ease}
+.reader-next-link:hover,.reader-top-link:hover{background:rgba(47,111,184,.08)}
+.reader-next-link:active,.reader-top-link:active{transform:scale(.98) translateY(1px)}
+.reader-top-link{margin-top:8px;color:#5f7086;font-weight:750}
 
+
+/* v59D - reparación segura continuar/inicio */
+.reader-next{margin:20px auto 8px;text-align:center}
+.reader-next-label{color:#4f6f95;font-weight:650;margin-bottom:8px}
+.reader-next-link,.reader-top-link{color:#2f6fb8;font-weight:800;cursor:pointer;display:inline-block;padding:6px 10px;border-radius:10px;transition:background-color .15s ease,transform .09s ease}
+.reader-next-link:hover,.reader-top-link:hover{background:rgba(47,111,184,.08)}
+.reader-next-link:active,.reader-top-link:active{transform:scale(.98) translateY(1px)}
+.reader-top-link{margin-top:8px;color:#5f7086;font-weight:750}
+
+</style>
+
+<style>
+body.titles-only .sidebar{display:none!important;}
+body.titles-only .content{width:100%!important;max-width:100%!important;}
+</style>
+
+
+<style>
+body.backup-only .sidebar{display:none!important;}
+body.backup-only .content{width:100%!important;max-width:100%!important;}
+</style>
+
+
+
+<style>
+.more-dropdown{
+  position:absolute;
+  z-index:99999;
+  background:var(--card,#fff);
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:14px;
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+  padding:6px;
+  width:max-content;
+  min-width:190px;
+  max-width:240px;
+}
+.more-dropdown button{
+  display:block;
+  width:100%;
+  border:0;
+  background:transparent;
+  text-align:left;
+  font:inherit;
+  font-size:18px;
+  padding:10px 12px;
+  border-radius:10px;
+  color:var(--text,#222);
+  white-space:nowrap;
+}
+.more-dropdown button:active,
+.more-dropdown button:hover{
+  background:var(--soft,#f3eee4);
+}
+</style>
+
+
+<style>
+.send-stats-panel{
+  position:fixed;
+  z-index:100000;
+  left:12px;
+  right:12px;
+  top:92px;
+  max-width:520px;
+  margin:0 auto;
+  background:var(--panel,#fff);
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:18px;
+  box-shadow:0 10px 28px rgba(0,0,0,.20);
+  padding:12px;
+}
+.send-stats-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  font-weight:800;
+  font-size:18px;
+  margin-bottom:8px;
+}
+.send-stats-close{
+  border:0;
+  border-radius:999px;
+  padding:4px 10px;
+  background:var(--soft,#f3eee4);
+  font-size:18px;
+}
+.send-stats-summary{
+  opacity:.75;
+  font-size:14px;
+  margin:0 0 8px 0;
+}
+.send-stats-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:8px 6px;
+  border-top:1px solid rgba(0,0,0,.06);
+}
+.send-stats-cat{
+  font-weight:650;
+}
+.send-stats-counts{
+  opacity:.78;
+  white-space:nowrap;
+  font-size:14px;
+}
+
+
+/* Calendario Cristiano V2 */
+.calendar-wrap{padding:14px;display:flex;flex-direction:column;gap:12px}
+.calendar-hero{background:linear-gradient(135deg,rgba(29,79,134,.18),rgba(197,151,99,.16));border:1px solid var(--line);border-radius:22px;padding:18px}
+.calendar-title{font-size:24px;font-weight:800;margin-bottom:6px}
+.calendar-date{color:var(--muted);font-weight:700}
+.calendar-grid{display:grid;grid-template-columns:1fr;gap:10px}
+.calendar-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px}
+.calendar-card-head{font-weight:800;font-size:18px;margin-bottom:8px}
+.calendar-event{padding:10px 0;border-top:1px solid var(--line)}
+.calendar-event:first-of-type{border-top:none}
+.calendar-event-title{font-weight:800;font-size:17px;margin-bottom:4px}
+.calendar-event-desc{color:var(--muted);font-size:14px;line-height:1.45}
+.calendar-empty{color:var(--muted);font-size:15px}
+.calendar-note{color:var(--muted);font-size:13px;line-height:1.45;padding:0 4px 8px}
+.btn.calendar-alert{
+  background:linear-gradient(135deg,#d88428,#b45b16)!important;
+  color:#fff!important;
+  box-shadow:0 6px 18px rgba(216,132,40,.35);
+  font-weight:800;
+}
+
+</style>
+
+
+<style id="v2-azul-suave-limpio-v20">
+body:not(.dark) .topbar{
+  background:rgba(248,246,241,.96)!important;
+  border-bottom:1px solid #dce8f5!important;
+}
+
+/* Panel general superior: azul suave */
+body:not(.dark) .topbar-row{
+  background:#eaf4ff!important;
+  border:1px solid #d5e7f8!important;
+  border-radius:24px!important;
+  padding:10px!important;
+  gap:8px!important;
+}
+
+/* Selector principal */
+body:not(.dark) .segment{
+  background:#dfeeff!important;
+  border:1px solid #cfe3f7!important;
+  border-radius:22px!important;
+  padding:6px!important;
+}
+body:not(.dark) .segment button{
+  background:transparent!important;
+  color:var(--text)!important;
+}
+body:not(.dark) .segment button.active{
+  background:#fff!important;
+  color:var(--text)!important;
+  font-weight:700!important;
+  box-shadow:0 5px 15px rgba(31,95,155,.08)!important;
+}
+
+/* Botones normales blancos sobre el panel azul */
+body:not(.dark) .topbar-row .btn.soft{
+  background:rgba(255,255,255,.84)!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  color:var(--text)!important;
+  box-shadow:0 4px 12px rgba(31,95,155,.045)!important;
+}
+
+/* Nueva azul */
+body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
+  background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
+  color:#fff!important;
+  box-shadow:0 5px 14px rgba(31,95,155,.26)!important;
+}
+
+/* Eliminar rojo siempre */
+body:not(.dark) .btn.danger{
+  background:var(--danger)!important;
+  color:#fff!important;
+}
+
+/* Buscador blanco */
+body:not(.dark) .topbar-row .search{
+  background:#fff!important;
+  border:1px solid #cdddeb!important;
+}
+
+/* Panel inferior de lectura */
+body:not(.dark) #readerView .panel-head{
+  background:#eaf4ff!important;
+  border:1px solid #d5e7f8!important;
+  border-radius:24px!important;
+  margin:10px!important;
+  padding:10px!important;
+}
+body:not(.dark) #readerView .panel-head .btn.soft{
+  background:rgba(255,255,255,.84)!important;
+  border:1px solid rgba(255,255,255,.9)!important;
+  color:var(--text)!important;
+  box-shadow:0 4px 12px rgba(31,95,155,.045)!important;
+}
+
+/* Los activos mandan sobre cualquier color */
+body:not(.dark) .btn.active-view,
+body:not(.dark) button.active-view,
+body:not(.dark) .btn.favorite-active{
+  background:#fff!important;
+  color:#181818!important;
+  font-weight:800!important;
+  border:2px solid #8a5a2b!important;
+  box-shadow:0 4px 14px rgba(138,90,43,.16)!important;
+}
+</style>
+
+
+<style id="v2-active-border-fix-v21">
+/* Refuerzo final para que el botón activo siempre muestre marco visible */
+body:not(.dark) .topbar-row .btn.active-view,
+body:not(.dark) #readerView .panel-head .btn.active-view,
+body:not(.dark) .btn.active-view,
+body:not(.dark) button.active-view,
+body:not(.dark) .segment button.active{
+  background:#ffffff !important;
+  border:2px solid #8a5a2b !important;
+  color:#181818 !important;
+  font-weight:800 !important;
+  box-shadow:0 4px 14px rgba(138,90,43,.18) !important;
+  outline:none !important;
+}
+
+/* Mantener el botón Nueva azul aunque sea primary */
+body:not(.dark) .topbar-row > button.btn.primary:first-of-type{
+  background:linear-gradient(135deg,#2f78bd,#1f5f9b)!important;
+  color:#fff!important;
+  border:none!important;
+}
+</style>
+
+
+<style id="v22-sin-lista-fix">
+button[onclick*="openList"]{display:none!important;}
+</style>
+
+
+<style id="v27-a-combo-real-css">
+.font-combo-v27{
+  display:inline-flex;
+  align-items:center;
+  border-radius:14px;
+  overflow:hidden;
+  background:rgba(255,255,255,.84);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 4px 12px rgba(31,95,155,.045);
+  gap:0;
+}
+.font-combo-v27 .font-half-v27{
+  border-radius:0!important;
+  font-weight:600;
+  margin:0!important;
+  box-shadow:none!important;
+  border:none!important;
+  background:transparent!important;
+  border-right:1px solid rgba(31,95,155,.15)!important;
+  min-width:52px;
+  padding-left:12px;
+  padding-right:12px;
+}
+.font-combo-v27 .font-half-v27:first-child{
+  border-right:1px solid rgba(0,0,0,.08)!important;
+}
+body.dark .font-combo-v27{
+  background:var(--soft);
+  border:1px solid var(--line);
+}
+</style>
+
+
+<style id="v43F-alerta-calendario-fix">
+/* v43F - alerta naranja real del calendario */
+#calendarBtn.calendar-alert::after{
+  content:""!important;
+  display:none!important;
+}
+body:not(.dark) .topbar-row #calendarBtn.calendar-alert,
+body:not(.dark) .topbar-row #calendarBtn.calendar-alert.active-view,
+body:not(.dark) #calendarBtn.calendar-alert,
+body:not(.dark) #calendarBtn.calendar-alert.active-view,
+body.dark .topbar-row #calendarBtn.calendar-alert,
+body.dark .topbar-row #calendarBtn.calendar-alert.active-view,
+body.dark #calendarBtn.calendar-alert,
+body.dark #calendarBtn.calendar-alert.active-view{
+  background:linear-gradient(135deg,#d88428,#b45b16)!important;
+  color:#fff!important;
+  border:2px solid #9a5418!important;
+  box-shadow:0 6px 18px rgba(216,132,40,.35)!important;
+  font-weight:800!important;
+}
+</style>
+
+
+<style id="v43G-alerta-directa">
+#calendarBtn[data-festive="1"],
+body:not(.dark) .topbar-row #calendarBtn[data-festive="1"],
+body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
+  background:linear-gradient(135deg,#d88428,#b45b16)!important;
+  color:#fff!important;
+  border:2px solid #9a5418!important;
+  box-shadow:0 6px 18px rgba(216,132,40,.35)!important;
+  font-weight:800!important;
+}
+#calendarBtn[data-festive="1"]::after{
+  content:""!important;
+  display:none!important;
+}
+</style>
+
+</head>
+<body>
+
+<div id="ov2Welcome" role="dialog" aria-label="Bienvenida Oraciones V2">
+  <div class="ov2-card">
+    <img class="ov2-logo" src="icon-512.png" alt="Oraciones V2">
+    <div id="ov2Greeting" class="ov2-kicker">Bienvenido</div>
+    <h1 class="ov2-title">Oraciones V2</h1>
+    <p id="ov2IntroText" class="ov2-sub">Un lugar sencillo para orar, leer, guardar notas y descansar en la fidelidad de Dios.</p>
+    <p id="ov2Verse" class="ov2-verse">“Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.”<br><strong>Salmo 34:18</strong></p>
+    <button class="ov2-enter" type="button" onclick="enterOv2Welcome()">Entrar</button>
+    <div id="ov2Phrase" class="ov2-small">📖 Diseñada para la oración diaria</div>
+  </div>
+</div>
+<script>
+(function(){
+  // Oraciones V2 v1.4: bienvenida siempre visible, sincronizada con el Versículo del día y texto largo con puntos suspensivos.
+  var STORAGE_KEY='oraciones_full_numeracion_v1';
+  var fallbackVerses=[
+    {ref:'Salmo 34:18',txt:'Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.'},
+    {ref:'Juan 3:16',txt:'Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.'},
+    {ref:'Juan 3:17',txt:'Porque no envió Dios a su Hijo al mundo para condenar al mundo, sino para que el mundo sea salvo por él.'},
+    {ref:'Romanos 8:1',txt:'Ahora, pues, ninguna condenación hay para los que están en Cristo Jesús.'},
+    {ref:'2 Timoteo 1:7',txt:'Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio.'},
+    {ref:'Proverbios 24:16',txt:'Porque siete veces cae el justo, y vuelve a levantarse; Mas los impíos caerán en el mal.'},
+    {ref:'Isaías 60:1',txt:'Levántate, resplandece; porque ha venido tu luz, y la gloria de Jehová ha nacido sobre ti.'},
+    {ref:'Salmos 23:4',txt:'Aunque ande en valle de sombra de muerte, No temeré mal alguno, porque tú estarás conmigo; Tu vara y tu cayado me infundirán aliento.'},
+    {ref:'Romanos 15:13',txt:'Y el Dios de esperanza os llene de todo gozo y paz en el creer, para que abundéis en esperanza por el poder del Espíritu Santo.'},
+    {ref:'1 Juan 4:18',txt:'En el amor no hay temor, sino que el perfecto amor echa fuera el temor; porque el temor lleva en sí castigo.'}
+  ];
+  var phrases=[
+    '📖 Diseñada para la oración diaria',
+    '🙏🏾 Un momento de paz con Dios',
+    '🌿 Descansa en su fidelidad',
+    '❤️ Su gracia es suficiente',
+    '✝️ Camina con fe, amor y perseverancia'
+  ];
+  var intros=[
+    'Un lugar sencillo para orar, leer, guardar notas y descansar en la fidelidad de Dios.',
+    'Entra con calma, ora con fe y guarda aquello que fortalece tu corazón.',
+    'Un espacio para volver a Dios en medio del día y recordar sus promesas.'
+  ];
+  function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+  function todayKey(){
+    var d=new Date();
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+  function cleanTextBreaks(t){return String(t||'').replace(/\\n/g,'\n').replace(/\s+/g,' ').trim();}
+  function normalizeIntroVerse(v){
+    if(!v)return null;
+    var ref=v.reference||v.title||v.ref||'Versículo';
+    var txt=cleanTextBreaks(v.text||v.content||v.body||v.txt||'');
+    if(!txt)return null;
+    return {id:v.id||ref,ref:ref,txt:txt};
+  }
+  function truncateVerseText(txt){
+    txt=cleanTextBreaks(txt);
+    var max=125;
+    if(txt.length<=max)return txt;
+    var cut=txt.slice(0,max).replace(/\s+\S*$/,'').trim();
+    return (cut||txt.slice(0,max).trim())+'...';
+  }
+  function escapeHtml(text){return String(text).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]||c;});}
+  function getDailyIntroVerse(){
+    try{
+      var raw=localStorage.getItem(STORAGE_KEY);
+      if(!raw)return pick(fallbackVerses);
+      var data=JSON.parse(raw);
+      var verses=(Array.isArray(data.verses)?data.verses:[]).map(normalizeIntroVerse).filter(Boolean);
+      if(!verses.length)return pick(fallbackVerses);
+      var key=todayKey();
+      var daily=data.dailyVerse;
+      var chosen=null;
+      if(daily && daily.date===key && daily.id){
+        chosen=verses.find(function(v){return v.id===daily.id;});
+      }
+      if(!chosen){
+        chosen=pick(verses);
+        data.dailyVerse={date:key,id:chosen.id};
+        try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){}
+      }
+      return chosen;
+    }catch(e){
+      return pick(fallbackVerses);
+    }
+  }
+  function setupWelcome(){
+    var hour=new Date().getHours();
+    var greeting='Bienvenido';
+    if(hour>=5 && hour<13)greeting='Buenos días ☀️';
+    else if(hour>=13 && hour<20)greeting='Buenas tardes 🌤️';
+    else greeting='Buenas noches 🌙';
+
+    var g=document.getElementById('ov2Greeting');
+    var v=document.getElementById('ov2Verse');
+    var ph=document.getElementById('ov2Phrase');
+    var intro=document.getElementById('ov2IntroText');
+    var verse=getDailyIntroVerse();
+    if(g)g.textContent=greeting;
+    if(intro)intro.textContent=pick(intros);
+    if(v)v.innerHTML='🌅 Versículo del día<br>“'+escapeHtml(truncateVerseText(verse.txt))+'”<br><strong>'+escapeHtml(verse.ref)+'</strong>';
+    if(ph)ph.textContent=pick(phrases);
+
+    var w=document.getElementById('ov2Welcome');
+    if(w)w.classList.remove('ov2-hidden');
+  }
+  window.enterOv2Welcome=function(){
+    var w=document.getElementById('ov2Welcome');
+    if(w)w.classList.add('ov2-hidden');
+  };
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',setupWelcome);
+  }else{
+    setupWelcome();
+  }
+})();
 
 /* v46 Base Recientes */
 
@@ -2898,15 +3345,6 @@ function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'�
 }
 
 #editorView{padding-bottom:90px}
-
-/* v59C - Continuar encadenado e inicio global */
-.reader-next{margin:20px auto 8px;text-align:center}
-.reader-next-label{color:#4f6f95;font-weight:650;margin-bottom:8px}
-.reader-next-link,.reader-top-link{color:#2f6fb8;font-weight:800;cursor:pointer;display:inline-block;padding:6px 10px;border-radius:10px;transition:background-color .15s ease,transform .09s ease}
-.reader-next-link:hover,.reader-top-link:hover{background:rgba(47,111,184,.08)}
-.reader-next-link:active,.reader-top-link:active{transform:scale(.98) translateY(1px)}
-.reader-top-link{margin-top:8px;color:#5f7086;font-weight:750}
-
 </style>
 <style id="v2-azul-suave-limpio-v20">
 body:not(.dark) .topbar{
@@ -4121,120 +4559,103 @@ setInterval(updateVersePositionCounter, 1000);
 })();
 
 
-/* v59C - Continuar encadenado e inicio global */
+/* v59D - reparación segura continuar/inicio */
 (function(){
- if(window.__v59CHook)return;
- window.__v59CHook=true;
+  if(window.__v59DSafePatch)return;
+  window.__v59DSafePatch=true;
+  const RECENT_KEY="oraciones_next_prayer_recent_v59d";
 
- const RECENT_KEY="oraciones_next_prayer_recent_v59c";
+  function esc(s){
+    try{return escapeHtml(String(s||""))}catch(e){
+      return String(s||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]});
+    }
+  }
+  function getRecent(){
+    try{return JSON.parse(localStorage.getItem(RECENT_KEY)||"[]")}catch(e){return []}
+  }
+  function saveRecent(a){
+    try{localStorage.setItem(RECENT_KEY,JSON.stringify((a||[]).slice(0,5)))}catch(e){}
+  }
+  function choosePrayer(){
+    try{
+      if(!state||!Array.isArray(state.prayers)||state.prayers.length<2)return null;
+      const cur=(typeof currentItem==="function")?currentItem():null;
+      const curId=cur&&cur.id;
+      const recent=getRecent();
+      let pool=state.prayers.filter(p=>p&&p.id!==curId&&!recent.includes(p.id));
+      if(!pool.length)pool=state.prayers.filter(p=>p&&p.id!==curId);
+      if(!pool.length)return null;
+      return pool[Math.floor(Math.random()*pool.length)];
+    }catch(e){return null}
+  }
+  function renderEndActions(){
+    try{
+      if(typeof section==="undefined"||section==="verses")return;
+      const end=document.querySelector(".reader-end-card");
+      if(!end)return;
 
- function getRecent(){
-   try{return JSON.parse(localStorage.getItem(RECENT_KEY)||"[]")}catch(e){return []}
- }
- function saveRecent(arr){
-   localStorage.setItem(RECENT_KEY,JSON.stringify((arr||[]).slice(0,5)));
- }
- function currentPrayer(){
-   try{return currentItem&&currentItem()}catch(e){return null}
- }
- function choosePrayer(){
-   try{
-     const list=(state&&Array.isArray(state.prayers))?state.prayers:[];
-     const cur=currentPrayer();
-     if(!cur||list.length<2)return null;
-     const recent=getRecent();
-     let pool=list.filter(p=>p&&p.id!==cur.id&&!recent.includes(p.id));
-     if(!pool.length) pool=list.filter(p=>p&&p.id!==cur.id);
-     if(!pool.length)return null;
-     return pool[Math.floor(Math.random()*pool.length)];
-   }catch(e){return null}
- }
- function openSuggestedPrayer(id){
-   try{
-     const list=(state&&Array.isArray(state.prayers))?state.prayers:[];
-     const target=list.find(p=>p.id===id);
-     if(!target)return;
+      document.querySelectorAll(".reader-next").forEach(x=>x.remove());
 
-     const recent=getRecent().filter(x=>x!==id);
-     recent.unshift(id);
-     saveRecent(recent);
+      const box=document.createElement("div");
+      box.className="reader-next";
 
-     section="prayers";
-     state.section="prayers";
-     state.currentPrayerId=id;
-     saveState();
-     syncTabs();
-     renderList();
-     renderReader();
+      if(section==="prayers"){
+        const s=choosePrayer();
+        if(s){
+          box.innerHTML =
+            '<div class="reader-next-label">🌿 Puede continuar con...</div>'+
+            '<div class="reader-next-link" data-v59d-next="'+esc(s.id)+'">'+esc(s.title||"Oración")+'</div>'+
+            '<div class="reader-top-link" data-v59d-top="1">↑ Volver al inicio</div>';
+        }else{
+          box.innerHTML='<div class="reader-top-link" data-v59d-top="1">↑ Volver al inicio</div>';
+        }
+      }else{
+        box.innerHTML='<div class="reader-top-link" data-v59d-top="1">↑ Volver al inicio</div>';
+      }
 
-     setTimeout(function(){
-       try{
-         if(typeof enterFullscreenReading==="function") enterFullscreenReading();
-         else openReader();
-       }catch(e){try{openReader()}catch(_){}}
-       setTimeout(addEndActions,220);
-     },80);
-   }catch(e){
-     try{toast("No se pudo abrir la oración")}catch(_){}
-   }
- }
- function addEndActions(){
-   try{
-     if(section==="verses") return;
+      end.after(box);
 
-     const end=document.querySelector(".reader-end-card");
-     if(!end)return;
+      const next=box.querySelector("[data-v59d-next]");
+      if(next)next.addEventListener("click",function(){
+        const id=this.getAttribute("data-v59d-next");
+        const recent=getRecent().filter(x=>x!==id);
+        recent.unshift(id);
+        saveRecent(recent);
+        try{
+          section="prayers";
+          state.section="prayers";
+          state.currentPrayerId=id;
+          saveState();
+          syncTabs();
+          renderList();
+          renderReader();
+          setTimeout(function(){
+            try{
+              if(typeof enterFullscreenReading==="function")enterFullscreenReading();
+              else openReader();
+            }catch(e){try{openReader()}catch(_){}}
+            setTimeout(renderEndActions,350);
+          },120);
+        }catch(e){try{toast("No se pudo abrir la oración")}catch(_){}}
+      });
 
-     const old=document.querySelector(".reader-next");
-     if(old)old.remove();
+      const top=box.querySelector("[data-v59d-top]");
+      if(top)top.addEventListener("click",function(){
+        try{window.scrollTo({top:0,behavior:"smooth"})}catch(e){window.scrollTo(0,0)}
+      });
+    }catch(e){}
+  }
 
-     const box=document.createElement("div");
-     box.className="reader-next";
-
-     if(section==="prayers"){
-       const suggested=choosePrayer();
-       if(suggested){
-         const title=(typeof escapeHtml==="function")
-          ? escapeHtml(suggested.title||"Oración")
-          : String(suggested.title||"Oración").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]});
-         box.innerHTML =
-          '<div class="reader-next-label">🌿 Puede continuar con...</div>'+
-          '<div class="reader-next-link" data-next-prayer="'+suggested.id+'">'+title+'</div>'+
-          '<div class="reader-top-link" data-back-top="1">↑ Volver al inicio</div>';
-       }else{
-         box.innerHTML='<div class="reader-top-link" data-back-top="1">↑ Volver al inicio</div>';
-       }
-     }else{
-       box.innerHTML='<div class="reader-top-link" data-back-top="1">↑ Volver al inicio</div>';
-     }
-
-     end.after(box);
-
-     const next=box.querySelector("[data-next-prayer]");
-     if(next) next.addEventListener("click",function(){
-       openSuggestedPrayer(this.getAttribute("data-next-prayer"));
-     });
-
-     const top=box.querySelector("[data-back-top]");
-     if(top) top.addEventListener("click",function(){
-       try{window.scrollTo({top:0,behavior:"smooth"})}catch(e){window.scrollTo(0,0)}
-     });
-   }catch(e){}
- }
-
- // Hook after all existing render wrappers. This also fixes chained suggestions.
- const old=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
- if(old){
-   window.renderReader=function(){
-     old.apply(this,arguments);
-     setTimeout(addEndActions,260);
-   };
-   try{renderReader=window.renderReader}catch(e){}
- }
-
- document.addEventListener("DOMContentLoaded",function(){
-   setTimeout(addEndActions,700);
- });
+  const old=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
+  if(old&&!window.__v59DRenderWrapped){
+    window.__v59DRenderWrapped=true;
+    window.renderReader=function(){
+      old.apply(this,arguments);
+      setTimeout(renderEndActions,300);
+    };
+    try{renderReader=window.renderReader}catch(e){}
+  }
+  document.addEventListener("DOMContentLoaded",function(){setTimeout(renderEndActions,700)});
 })();
 
 </script>
