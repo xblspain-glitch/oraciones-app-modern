@@ -733,6 +733,24 @@ body.dark .reader-end-card p{
 color:#f2f2f2!important;
 text-shadow:none!important;
 }
+
+/* v65.5 - Botón activo sin desplazar layout */
+.btn.active-view,
+button.btn.active-view{
+  border-color:transparent!important;
+  outline:2px solid var(--primary)!important;
+  outline-offset:-2px!important;
+  box-shadow:0 4px 14px rgba(138,90,43,.16)!important;
+}
+
+body.dark .btn.active-view,
+body.dark button.btn.active-view{
+  border-color:transparent!important;
+  outline:2px solid #f0c48b!important;
+  outline-offset:-2px!important;
+  box-shadow:0 0 0 3px rgba(240,196,139,.12),0 4px 14px rgba(0,0,0,.24)!important;
+}
+
 </style>
 
 <style>
