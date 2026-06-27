@@ -761,6 +761,34 @@ body.theme-switching *{
   transition:none!important;
 }
 
+
+/* v66 - Fila final estable: modo oscuro + eliminar + contador */
+.topbar-bottom-row-v66{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex:0 0 100%;
+  width:100%;
+  min-width:0;
+}
+.theme-btn-v66{
+  flex:0 0 56px;
+  width:56px;
+  min-width:56px;
+  max-width:56px;
+  padding-left:0!important;
+  padding-right:0!important;
+  text-align:center;
+}
+.delete-btn-v66{
+  flex:0 0 auto;
+}
+.counter-v66{
+  flex:0 1 auto;
+  min-width:0;
+  white-space:nowrap;
+}
+
 </style>
 
 <style>
@@ -1380,10 +1408,12 @@ function openRecentEntry(type,idx){
     <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
     <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
     <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-    <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
-    <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
+    <div class="topbar-bottom-row-v66">
+      <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()">🌙</button>
+      <button class="btn danger delete-btn-v66" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
+      <div id="counterInfo" class="counter counter-v66"></div>
+    </div>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList();renderTitles();renderVerseCategories()">
-    <div id="counterInfo" class="counter"></div>
   </div>
 </div>
 
