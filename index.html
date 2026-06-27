@@ -604,6 +604,12 @@ button.btn.premium-pressing{
   transition:opacity .15s ease, transform .15s ease;
 }
 
+
+/* v59 - Continuar con otra oración */
+.reader-next{margin:18px auto 8px;text-align:center}
+.reader-next-label{color:#4f6f95;font-weight:600;margin-bottom:8px}
+.reader-next-link{color:#2f6fb8;font-weight:700;cursor:pointer;display:inline-block;padding:4px 8px;border-radius:8px;transition:background-color .15s ease}
+.reader-next-link:hover{background:rgba(47,111,184,.08)}
 </style>
 
 <style>
@@ -4442,6 +4448,40 @@ setInterval(updateVersePositionCounter, 1000);
   },true);
 })();
 
+
+(function(){
+ if(window.__v59Hook)return;
+ window.__v59Hook=true;
+ function addSuggestion(){
+  try{
+   if(typeof section==="undefined"||section!=="prayers")return;
+   const end=document.querySelector(".reader-end-card");
+   if(!end||document.querySelector(".reader-next"))return;
+   const list=window.prayers||window.dataPrayers;
+   if(!Array.isArray(list)||list.length<2)return;
+   const current=(window.currentIndex||window.currentPrayerIndex||0);
+   let idx=current;
+   while(idx===current){idx=Math.floor(Math.random()*list.length);}
+   const item=list[idx];
+   const title=item.title||item.name||("Oración "+(idx+1));
+   const d=document.createElement("div");
+   d.className="reader-next";
+   d.innerHTML='<div class="reader-next-label">🌿 Puede continuar con...</div><div class="reader-next-link">'+title+'</div>';
+   d.querySelector(".reader-next-link").onclick=function(){
+    try{
+      if(typeof openPrayer==="function")openPrayer(idx);
+      else if(typeof selectPrayer==="function")selectPrayer(idx);
+    }catch(e){}
+   };
+   end.after(d);
+  }catch(e){}
+ }
+ const old=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);
+ if(old){
+   window.renderReader=function(){old.apply(this,arguments);setTimeout(addSuggestion,80);}
+   try{renderReader=window.renderReader}catch(e){}
+ }
+})();
 </script>
 </body>
 </html>
