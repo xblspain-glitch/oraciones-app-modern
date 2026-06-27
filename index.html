@@ -4694,29 +4694,6 @@ setInterval(updateVersePositionCounter, 1000);
   document.addEventListener("DOMContentLoaded",function(){setTimeout(renderEndActions,700)});
 })();
 
-
-/* v62 fix Titulos->Backup/Papelera */
-(function(){
- if(window.__v62Fix)return;
- window.__v62Fix=true;
- function clearTitlesView(){
-   try{
-     document.querySelectorAll('.titles-view,.titlesList,#titlesView').forEach(e=>e.style.display='none');
-     document.querySelectorAll('.list-view,#listView,.items-list').forEach(e=>e.style.display='none');
-   }catch(e){}
- }
- document.addEventListener('click',function(ev){
-   const b=ev.target.closest('button,.btn');
-   if(!b)return;
-   const t=(b.textContent||'').toLowerCase();
-   if(t.includes('backup')||t.includes('papelera')){
-      clearTitlesView();
-      try{
-        if(window.state) state.showTitles=false;
-      }catch(e){}
-   }
- },true);
-})();
 </script>
 </body>
 </html>
