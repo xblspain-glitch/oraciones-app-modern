@@ -733,6 +733,52 @@ body.dark .reader-end-card p{
 color:#f2f2f2!important;
 text-shadow:none!important;
 }
+
+/* v65.3 - Consistencia geométrica claro/oscuro */
+.btn,
+button.btn{
+  box-sizing:border-box!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  line-height:1.2!important;
+  min-height:54px;
+}
+
+/* El tema oscuro solo cambia color, no geometría */
+body.dark .btn,
+body.dark button.btn{
+  padding:inherit;
+  border-width:1px!important;
+  line-height:1.2!important;
+}
+
+/* Botones solo icono: luna, estrella, etc. siempre centrados */
+.btn.icon-only,
+button.icon-only,
+#darkBtn,
+#themeBtn,
+#btnDark,
+#btnTheme{
+  width:54px!important;
+  min-width:54px!important;
+  height:54px!important;
+  min-height:54px!important;
+  padding:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  line-height:1!important;
+}
+
+/* Evita pequeños desplazamientos visuales por negrita/activo */
+.btn.active-view,
+button.btn.active-view{
+  line-height:1.2!important;
+}
+
 </style>
 
 <style>
