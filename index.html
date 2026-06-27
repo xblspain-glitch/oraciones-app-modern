@@ -105,7 +105,7 @@ body.dark .topbar{background:rgba(17,17,17,.96)}
   background:#fff!important;
   color:#181818!important;
   font-weight:800!important;
-  border:1px solid transparent!important; outline:2px solid var(--primary)!important; outline-offset:-2px!important;
+  border:2px solid var(--primary)!important;
   box-shadow:0 4px 14px rgba(138,90,43,.16);
 }
 body.dark .btn.active-view{
@@ -734,32 +734,11 @@ color:#f2f2f2!important;
 text-shadow:none!important;
 }
 
-/* v65.6 - Modo oscuro sin desplazar botones */
-.btn,
-button.btn{
-  box-sizing:border-box!important;
+/* v65.7 - Panel principal estable al cambiar claro/oscuro */
+.topbar-row > .btn{
+  flex:0 0 auto;
 }
-
-/* El botón activo ya no cambia su tamaño: usa outline interno en vez de borde real */
-.btn.active-view,
-button.btn.active-view,
-body.dark .btn.active-view,
-body.dark button.btn.active-view{
-  border-width:1px!important;
-  box-sizing:border-box!important;
-  outline:2px solid var(--primary)!important;
-  outline-offset:-2px!important;
-}
-
-body.dark .btn.active-view,
-body.dark button.btn.active-view{
-  outline-color:#f0c48b!important;
-}
-
-/* El botón de tema mantiene exactamente la misma caja en claro y oscuro */
-button[onclick="toggleTheme()"]{
-  box-sizing:border-box!important;
-  min-width:54px;
+#btnTheme{
   text-align:center;
 }
 
@@ -1382,7 +1361,7 @@ function openRecentEntry(type,idx){
     <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
     <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
     <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-    <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
+    <button id="btnTheme" class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
     <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList();renderTitles();renderVerseCategories()">
     <div id="counterInfo" class="counter"></div>
@@ -4811,6 +4790,62 @@ setInterval(updateVersePositionCounter, 1000);
     try{renderReader=window.renderReader}catch(e){}
   }
   document.addEventListener("DOMContentLoaded",function(){setTimeout(renderEndActions,700)});
+})();
+
+
+/* v65.7 - Bloqueo suave de anchura del panel principal */
+(function(){
+  if(window.__v657TopbarLock)return;
+  window.__v657TopbarLock=true;
+
+  function buttons(){
+    return Array.from(document.querySelectorAll(".topbar-row > .btn"));
+  }
+
+  function unlock(){
+    buttons().forEach(function(b){
+      b.style.width="";
+      b.style.minWidth="";
+      b.style.maxWidth="";
+    });
+  }
+
+  function lock(){
+    try{
+      unlock();
+      requestAnimationFrame(function(){
+        buttons().forEach(function(b){
+          const w=Math.ceil(b.getBoundingClientRect().width);
+          if(w>0){
+            b.style.width=w+"px";
+            b.style.minWidth=w+"px";
+            b.style.maxWidth=w+"px";
+          }
+        });
+      });
+    }catch(e){}
+  }
+
+  document.addEventListener("DOMContentLoaded",function(){
+    setTimeout(lock,120);
+    setTimeout(lock,700);
+  });
+
+  window.addEventListener("resize",function(){
+    clearTimeout(window.__v657ResizeTimer);
+    window.__v657ResizeTimer=setTimeout(lock,180);
+  });
+
+  const oldToggle=window.toggleTheme || (typeof toggleTheme!=="undefined" ? toggleTheme : null);
+  if(oldToggle && !window.__v657ToggleWrapped){
+    window.__v657ToggleWrapped=true;
+    window.toggleTheme=function(){
+      lock();
+      oldToggle.apply(this,arguments);
+      setTimeout(lock,80);
+    };
+    try{toggleTheme=window.toggleTheme}catch(e){}
+  }
 })();
 
 </script>
