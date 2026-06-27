@@ -640,6 +640,30 @@ box-shadow:0 2px 8px rgba(36,74,122,.05),0 10px 22px rgba(36,74,122,.045)!import
 box-shadow:0 2px 10px rgba(36,74,122,.05)!important;
 }
 
+
+/* v61 - Botones Premium */
+.btn,button.btn{
+  border-radius:14px!important;
+  box-shadow:0 2px 6px rgba(36,74,122,.08)!important;
+  transition:
+    transform .09s ease,
+    box-shadow .14s ease,
+    filter .12s ease,
+    background-color .12s ease!important;
+}
+.btn:hover,button.btn:hover{
+  box-shadow:0 4px 10px rgba(36,74,122,.10)!important;
+}
+.btn:active,button.btn:active,
+.btn.premium-pressing,button.btn.premium-pressing{
+  transform:scale(.98) translateY(1px)!important;
+  filter:brightness(1.04);
+  box-shadow:0 1px 3px rgba(36,74,122,.10)!important;
+}
+.btn i,.btn svg,button.btn i,button.btn svg{
+  vertical-align:middle;
+}
+
 </style>
 
 <style>
