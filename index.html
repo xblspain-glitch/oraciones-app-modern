@@ -733,6 +733,34 @@ body.dark .reader-end-card p{
 color:#f2f2f2!important;
 text-shadow:none!important;
 }
+
+/* v65.9 - Cambio claro/oscuro instantáneo */
+body,
+.topbar,
+.panel,
+.card,
+.reader-card,
+.btn,
+button,
+.segment,
+.segment button,
+.search,
+.item,
+.category-card,
+.title-row,
+.trash-item,
+.reader-end-card,
+.reader-next-link,
+.reader-top-link{
+  transition-property:transform, box-shadow, filter!important;
+}
+
+/* Al cambiar de tema, los colores no hacen fundido */
+body.theme-switching,
+body.theme-switching *{
+  transition:none!important;
+}
+
 </style>
 
 <style>
@@ -4781,6 +4809,27 @@ setInterval(updateVersePositionCounter, 1000);
     try{renderReader=window.renderReader}catch(e){}
   }
   document.addEventListener("DOMContentLoaded",function(){setTimeout(renderEndActions,700)});
+})();
+
+
+/* v65.9 - Cambio claro/oscuro instantáneo */
+(function(){
+  if(window.__v659InstantTheme)return;
+  window.__v659InstantTheme=true;
+
+  const oldToggle=window.toggleTheme || (typeof toggleTheme!=="undefined" ? toggleTheme : null);
+  if(oldToggle){
+    window.toggleTheme=function(){
+      document.body.classList.add("theme-switching");
+      oldToggle.apply(this,arguments);
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          document.body.classList.remove("theme-switching");
+        });
+      });
+    };
+    try{toggleTheme=window.toggleTheme}catch(e){}
+  }
 })();
 
 </script>
