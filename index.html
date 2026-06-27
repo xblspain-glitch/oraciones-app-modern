@@ -669,6 +669,21 @@ box-shadow:0 2px 10px rgba(36,74,122,.05)!important;
 body.special-view-only .sidebar{display:none!important}
 body.special-view-only .content{width:100%!important;max-width:100%!important}
 
+
+/* v65 - Botones con pulsación un poco más profunda */
+.btn:active,
+button.btn:active,
+.btn.premium-pressing,
+button.btn.premium-pressing{
+  transform:scale(.965) translateY(2px)!important;
+  filter:brightness(1.045);
+  box-shadow:0 1px 2px rgba(36,74,122,.12)!important;
+}
+.reader-next-link:active,
+.reader-top-link:active{
+  transform:scale(.965) translateY(2px)!important;
+}
+
 </style>
 
 <style>
@@ -4503,7 +4518,7 @@ setInterval(updateVersePositionCounter, 1000);
     clearTimeout(btn.__premiumPressTimer);
     btn.__premiumPressTimer=setTimeout(function(){
       btn.classList.remove("premium-pressing");
-    },95);
+    },115);
   }
 
   document.addEventListener("touchstart",function(e){
