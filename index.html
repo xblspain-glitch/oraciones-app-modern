@@ -761,28 +761,6 @@ body.theme-switching *{
   transition:none!important;
 }
 
-
-/* v66 - Barra superior estable al cambiar claro/oscuro */
-html{scrollbar-gutter:stable}
-.topbar-row{justify-content:flex-start!important;align-content:flex-start!important}
-.topbar-row > .btn,.topbar-row > .segment{flex-shrink:0!important}
-#counterInfo{flex:0 0 100%!important}
-#btnTheme,
-button[onclick="toggleTheme()"]{
-  width:46px!important;
-  min-width:46px!important;
-  max-width:46px!important;
-  padding-left:0!important;
-  padding-right:0!important;
-  text-align:center!important;
-}
-body.theme-switching .topbar,
-body.theme-switching .topbar *,
-body.theme-switching .btn,
-body.theme-switching button{
-  transition:none!important;
-}
-
 </style>
 
 <style>
@@ -1402,7 +1380,7 @@ function openRecentEntry(type,idx){
     <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
     <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
     <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-    <button id="btnTheme" class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
+    <button class="btn soft" type="button" onclick="toggleTheme()">🌙</button>
     <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList();renderTitles();renderVerseCategories()">
     <div id="counterInfo" class="counter"></div>
@@ -4845,29 +4823,6 @@ setInterval(updateVersePositionCounter, 1000);
       document.body.classList.add("theme-switching");
       oldToggle.apply(this,arguments);
       requestAnimationFrame(function(){
-        requestAnimationFrame(function(){
-          document.body.classList.remove("theme-switching");
-        });
-      });
-    };
-    try{toggleTheme=window.toggleTheme}catch(e){}
-  }
-})();
-
-
-/* v66 - Cambio de tema sin recolocar visualmente */
-(function(){
-  if(window.__v66StableTheme)return;
-  window.__v66StableTheme=true;
-  const oldToggle=window.toggleTheme || (typeof toggleTheme!=="undefined" ? toggleTheme : null);
-  if(oldToggle){
-    window.toggleTheme=function(){
-      const y=window.scrollY;
-      document.body.classList.add("theme-switching");
-      oldToggle.apply(this,arguments);
-      try{window.scrollTo(0,y)}catch(e){}
-      requestAnimationFrame(function(){
-        try{window.scrollTo(0,y)}catch(e){}
         requestAnimationFrame(function(){
           document.body.classList.remove("theme-switching");
         });
