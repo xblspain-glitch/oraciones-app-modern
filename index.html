@@ -105,7 +105,7 @@ body.dark .topbar{background:rgba(17,17,17,.96)}
   background:#fff!important;
   color:#181818!important;
   font-weight:800!important;
-  border:2px solid var(--primary)!important;
+  border:1px solid transparent!important; outline:2px solid var(--primary)!important; outline-offset:-2px!important;
   box-shadow:0 4px 14px rgba(138,90,43,.16);
 }
 body.dark .btn.active-view{
@@ -734,21 +734,33 @@ color:#f2f2f2!important;
 text-shadow:none!important;
 }
 
-/* v65.5 - Botón activo sin desplazar layout */
+/* v65.6 - Modo oscuro sin desplazar botones */
+.btn,
+button.btn{
+  box-sizing:border-box!important;
+}
+
+/* El botón activo ya no cambia su tamaño: usa outline interno en vez de borde real */
 .btn.active-view,
-button.btn.active-view{
-  border-color:transparent!important;
+button.btn.active-view,
+body.dark .btn.active-view,
+body.dark button.btn.active-view{
+  border-width:1px!important;
+  box-sizing:border-box!important;
   outline:2px solid var(--primary)!important;
   outline-offset:-2px!important;
-  box-shadow:0 4px 14px rgba(138,90,43,.16)!important;
 }
 
 body.dark .btn.active-view,
 body.dark button.btn.active-view{
-  border-color:transparent!important;
-  outline:2px solid #f0c48b!important;
-  outline-offset:-2px!important;
-  box-shadow:0 0 0 3px rgba(240,196,139,.12),0 4px 14px rgba(0,0,0,.24)!important;
+  outline-color:#f0c48b!important;
+}
+
+/* El botón de tema mantiene exactamente la misma caja en claro y oscuro */
+button[onclick="toggleTheme()"]{
+  box-sizing:border-box!important;
+  min-width:54px;
+  text-align:center;
 }
 
 </style>
