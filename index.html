@@ -575,6 +575,35 @@ body[data-section="guides"] #readerText p{
   ) !important;
 }
 
+
+/* v58A - Restaurar respuesta táctil premium */
+.btn,
+button.btn{
+  transition:
+    transform .09s ease,
+    box-shadow .14s ease,
+    filter .14s ease,
+    background-color .14s ease,
+    border-color .14s ease !important;
+  will-change:transform;
+}
+.btn:active,
+button.btn:active,
+.btn.premium-pressing,
+button.btn.premium-pressing{
+  transform:scale(.98) translateY(1px) !important;
+}
+.btn.soft:hover,
+.btn.primary:hover{
+  filter:brightness(1.03);
+}
+.reading-mark-dropdown,
+.more-menu,
+.menu{
+  box-shadow:0 12px 28px rgba(0,0,0,.16);
+  transition:opacity .15s ease, transform .15s ease;
+}
+
 </style>
 
 <style>
@@ -4375,6 +4404,42 @@ setInterval(updateVersePositionCounter, 1000);
       if(typeof toast==="function")toast("📍 Puntos de lectura limpiados");
     }catch(e){}
   };
+})();
+
+
+/* v58A - Refuerzo de pulsación táctil premium */
+(function(){
+  if(window.__v58APremiumPress)return;
+  window.__v58APremiumPress=true;
+
+  function press(btn){
+    if(!btn)return;
+    btn.classList.add("premium-pressing");
+    clearTimeout(btn.__premiumPressTimer);
+    btn.__premiumPressTimer=setTimeout(function(){
+      btn.classList.remove("premium-pressing");
+    },95);
+  }
+
+  document.addEventListener("touchstart",function(e){
+    const b=e.target.closest&&e.target.closest(".btn");
+    if(b)press(b);
+  },{passive:true,capture:true});
+
+  document.addEventListener("mousedown",function(e){
+    const b=e.target.closest&&e.target.closest(".btn");
+    if(b)press(b);
+  },true);
+
+  document.addEventListener("touchend",function(e){
+    const b=e.target.closest&&e.target.closest(".btn");
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},70);
+  },{passive:true,capture:true});
+
+  document.addEventListener("mouseup",function(e){
+    const b=e.target.closest&&e.target.closest(".btn");
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},70);
+  },true);
 })();
 
 </script>
