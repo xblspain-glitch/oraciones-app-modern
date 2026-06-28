@@ -1657,7 +1657,7 @@ function openRecentEntry(type,idx){
     <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
     <button id="btnRandom" data-view-btn="random" class="btn soft" type="button" onclick="openRandomVerse()">🌿 Versículo al azar</button>
-    <button id="btnCategories" data-view-btn="categories" class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
+    <!-- v83: botón Categorías eliminado porque ❤️ Versículos ya abre categorías directamente -->
         <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
     <button id="btnEdit" data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
     <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
@@ -6338,3 +6338,5 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
   setTimeout(patchDailySentButtonV813, 100);
 })();
 </script>
+
+<!-- v83_sin_boton_categorias: ❤️ Versículos abre directamente Categorías; botón Categorías retirado de la pantalla principal. -->
