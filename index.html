@@ -1002,6 +1002,23 @@ body.titles-fullscreen-v72 .title-row{
   border-radius:16px!important;
 }
 
+
+/* v73.1 - Forzar Categorías como pantalla completa */
+body.categories-fullscreen-v73 .topbar{
+  display:none!important;
+}
+body.categories-fullscreen-v73 .main,
+body.categories-fullscreen-v73 .content{
+  display:block!important;
+  padding:0!important;
+  min-height:100dvh!important;
+}
+body.categories-fullscreen-v73 #verseCategoriesView{
+  min-height:100dvh!important;
+  border:none!important;
+  border-radius:0!important;
+}
+
 </style>
 
 <style>
@@ -1827,7 +1844,36 @@ setInterval(decorateDailyVerseNote, 1200);
 
 function openVerseCategories(){
   setSearchVisibleV26(true);
-  setActiveView("categories"); categoryListActive=true; clearNavModes(); openVerseCategoriesView(); }
+  setActiveView("categories");
+  categoryListActive=true;
+  clearNavModes();
+
+  specialVerseMode=null;
+  verseNavigationMode="categories";
+  section="verses";
+  state.section="verses";
+  currentVerseCategory=currentVerseCategory||"sin_categoria";
+  normalizeVerses();
+  saveState();
+  syncTabs();
+  renderList();
+
+  document.body.classList.add("categories-fullscreen-v73");
+  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+
+  document.getElementById("verseCategoriesView").classList.remove("hidden");
+  document.getElementById("readerView").classList.add("hidden");
+  document.getElementById("editorView").classList.add("hidden");
+  document.getElementById("backupView").classList.add("hidden");
+  document.getElementById("trashView").classList.add("hidden");
+  document.getElementById("titlesView").classList.add("hidden");
+  var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
+
+  const cs=document.getElementById("categorySearchV73");
+  if(cs) cs.value="";
+  renderVerseCategories();
+  setTimeout(function(){window.scrollTo({top:0,behavior:"auto"});},40);
+}
 
 </script>
 <script>
@@ -2340,7 +2386,7 @@ function smartBack(){
 
 function openReader(){
   document.body.classList.remove("editing-focus");
-  clearNavModes();updateSearchForReaderV26();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui","titles-fullscreen-v72");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
+  clearNavModes();updateSearchForReaderV26();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
 function openList(){
   document.body.classList.remove("editing-focus");
   setActiveView("list");
@@ -2971,9 +3017,9 @@ function buildVerseShareText(item){
 function openVerseCategories(){
   setSearchVisibleV26(true);
   setActiveView("categories");
-  // Categorías pertenece siempre a Versículos.
-  // Si se pulsa desde Oraciones/Notas/Guía, primero cambiamos a Versículos
-  // para que no quede mezclado el listado lateral anterior.
+  categoryListActive=true;
+  clearNavModes();
+
   specialVerseMode=null;
   verseNavigationMode="categories";
   section="verses";
@@ -2984,6 +3030,9 @@ function openVerseCategories(){
   syncTabs();
   renderList();
 
+  document.body.classList.add("categories-fullscreen-v73");
+  document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+
   document.getElementById("verseCategoriesView").classList.remove("hidden");
   document.getElementById("readerView").classList.add("hidden");
   document.getElementById("editorView").classList.add("hidden");
@@ -2991,9 +3040,11 @@ function openVerseCategories(){
   document.getElementById("trashView").classList.add("hidden");
   document.getElementById("titlesView").classList.add("hidden");
   var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
-  document.body.classList.remove("fullscreen-reading","hide-reading-ui");
-  document.body.classList.add("reading-mobile");
+
+  const cs=document.getElementById("categorySearchV73");
+  if(cs) cs.value="";
   renderVerseCategories();
+  setTimeout(function(){window.scrollTo({top:0,behavior:"auto"});},40);
 }
 
 function ensureVerseCategories(){
