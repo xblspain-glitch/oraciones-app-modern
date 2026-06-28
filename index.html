@@ -5509,6 +5509,82 @@ setInterval(updateVersePositionCounter, 1000);
     enterSpecialVerseScreen("random");
   };
   try{openRandomVerse=window.openRandomVerse}catch(e){}
+
+
+/* v75.1 - Hoy/Azar pantalla completa real: oculta cabecera y lista con estilos inline */
+(function(){
+  if(window.__v751SpecialFullScreenFix) return;
+  window.__v751SpecialFullScreenFix=true;
+
+  const hiddenNodes=[];
+  function hideForSpecialV751(){
+    document.body.classList.add("verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73");
+
+    const selectors=[".topbar",".sidebar","#list"];
+    selectors.forEach(sel=>{
+      document.querySelectorAll(sel).forEach(el=>{
+        if(!el.dataset.v751DisplaySaved){
+          el.dataset.v751DisplaySaved="1";
+          el.dataset.v751OldDisplay=el.style.display||"";
+          hiddenNodes.push(el);
+        }
+        el.style.display="none";
+      });
+    });
+
+    const main=document.querySelector(".main");
+    if(main){
+      if(!main.dataset.v751Saved){main.dataset.v751Saved="1";main.dataset.v751OldDisplay=main.style.display||"";main.dataset.v751OldGrid=main.style.gridTemplateColumns||"";main.dataset.v751OldMinHeight=main.style.minHeight||"";}
+      main.style.display="block";
+      main.style.gridTemplateColumns="1fr";
+      main.style.minHeight="100dvh";
+    }
+    const content=document.querySelector(".content");
+    if(content){
+      if(!content.dataset.v751Saved){content.dataset.v751Saved="1";content.dataset.v751OldPadding=content.style.padding||"";content.dataset.v751OldMinHeight=content.style.minHeight||"";}
+      content.style.padding="0";
+      content.style.minHeight="100dvh";
+    }
+    const reader=document.getElementById("readerView");
+    if(reader){
+      reader.classList.remove("hidden");
+      if(!reader.dataset.v751Saved){reader.dataset.v751Saved="1";reader.dataset.v751OldBorder=reader.style.border||"";reader.dataset.v751OldRadius=reader.style.borderRadius||"";reader.dataset.v751OldMinHeight=reader.style.minHeight||"";}
+      reader.style.border="none";
+      reader.style.borderRadius="0";
+      reader.style.minHeight="100dvh";
+    }
+    ["editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.add("hidden");});
+  }
+
+  function restoreFromSpecialV751(){
+    hiddenNodes.splice(0).forEach(el=>{ if(el && el.dataset.v751DisplaySaved){ el.style.display=el.dataset.v751OldDisplay||""; delete el.dataset.v751DisplaySaved; delete el.dataset.v751OldDisplay; }});
+    const main=document.querySelector(".main");
+    if(main && main.dataset.v751Saved){main.style.display=main.dataset.v751OldDisplay||"";main.style.gridTemplateColumns=main.dataset.v751OldGrid||"";main.style.minHeight=main.dataset.v751OldMinHeight||""; delete main.dataset.v751Saved;}
+    const content=document.querySelector(".content");
+    if(content && content.dataset.v751Saved){content.style.padding=content.dataset.v751OldPadding||"";content.style.minHeight=content.dataset.v751OldMinHeight||""; delete content.dataset.v751Saved;}
+    const reader=document.getElementById("readerView");
+    if(reader && reader.dataset.v751Saved){reader.style.border=reader.dataset.v751OldBorder||"";reader.style.borderRadius=reader.dataset.v751OldRadius||"";reader.style.minHeight=reader.dataset.v751OldMinHeight||""; delete reader.dataset.v751Saved;}
+    document.body.classList.remove("verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+  }
+
+  const oldRestore=window.restoreReaderHeadV75;
+  window.restoreReaderHeadV75=function(){ restoreFromSpecialV751(); if(typeof oldRestore==="function") return oldRestore.apply(this,arguments); };
+
+  const oldOpenVerseSpecial=window.openVerseSpecial;
+  window.openVerseSpecial=function(v,mode){
+    const r=oldOpenVerseSpecial ? oldOpenVerseSpecial.apply(this,arguments) : undefined;
+    hideForSpecialV751();
+    setTimeout(function(){ hideForSpecialV751(); window.scrollTo({top:0,behavior:"auto"}); },60);
+    return r;
+  };
+  try{openVerseSpecial=window.openVerseSpecial}catch(e){}
+
+  window.openDailyVerse=function(){ window.openVerseSpecial(getDailyVerse(),"daily"); if(typeof setActiveView==="function") setActiveView("daily"); };
+  try{openDailyVerse=window.openDailyVerse}catch(e){}
+  window.openRandomVerse=function(){ window.openVerseSpecial(pickRandomVerse(),"random"); if(typeof setActiveView==="function") setActiveView("random"); };
+  try{openRandomVerse=window.openRandomVerse}catch(e){}
+})();
 })();
 
 </script>
