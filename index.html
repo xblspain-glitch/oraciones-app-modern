@@ -6524,3 +6524,83 @@ body:not(.dark) .topbar-row #btnNew.btn.primary.active-view{
 }
 #btnCategories{display:none!important;}
 </style>
+
+
+<script id="v85-7-parabolas-codigo-p-lectura-seguro">
+/* v85.7 - Código de lectura para 🌱 Parábolas: P1 / total.
+   Cambio mínimo: no toca el sistema de Oraciones/Notas/Guía/Versículos. */
+(function(){
+  if(window.__v857ParablesReaderCodeSafe) return;
+  window.__v857ParablesReaderCodeSafe = true;
+
+  function getParablesListV857(){
+    try{
+      if(window.state && Array.isArray(state.parables)) return state.parables;
+    }catch(e){}
+    return [];
+  }
+
+  function getCurrentParableV857(){
+    try{
+      if(typeof currentItem === "function") return currentItem();
+    }catch(e){}
+    try{
+      var list = getParablesListV857();
+      var id = state && state.currentParableId;
+      return list.find(function(x){ return x && x.id === id; }) || list[0] || null;
+    }catch(e){}
+    return null;
+  }
+
+  function applyParablesReaderCodeV857(){
+    try{
+      if(typeof section === "undefined" || section !== "parables") return;
+      var codeEl = document.getElementById("readerCode");
+      if(!codeEl) return;
+
+      var list = getParablesListV857();
+      var item = getCurrentParableV857();
+
+      if(!item || !list.length){
+        codeEl.textContent = "";
+        return;
+      }
+
+      var idx = list.findIndex(function(x){ return x && item && x.id === item.id; });
+      if(idx < 0) idx = 0;
+
+      codeEl.textContent = "P" + (idx + 1) + " / " + list.length;
+      codeEl.classList.remove("hidden");
+      codeEl.style.display = "";
+    }catch(e){
+      console.error("v85.7 parables code", e);
+    }
+  }
+
+  var oldRenderReaderV857 = window.renderReader || (typeof renderReader !== "undefined" ? renderReader : null);
+  if(typeof oldRenderReaderV857 === "function"){
+    window.renderReader = function(){
+      var result = oldRenderReaderV857.apply(this, arguments);
+      applyParablesReaderCodeV857();
+      return result;
+    };
+    try{ renderReader = window.renderReader; }catch(e){}
+  }
+
+  var oldSwitchSectionV857 = window.switchSection || (typeof switchSection !== "undefined" ? switchSection : null);
+  if(typeof oldSwitchSectionV857 === "function"){
+    window.switchSection = function(){
+      var result = oldSwitchSectionV857.apply(this, arguments);
+      setTimeout(applyParablesReaderCodeV857, 30);
+      setTimeout(applyParablesReaderCodeV857, 120);
+      return result;
+    };
+    try{ switchSection = window.switchSection; }catch(e){}
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    setTimeout(applyParablesReaderCodeV857, 200);
+  });
+})();
+</script>
+
