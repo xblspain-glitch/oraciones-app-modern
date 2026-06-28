@@ -1652,6 +1652,7 @@ function openRecentEntry(type,idx){
       <button id="tabPrayers" class="active" type="button" onclick="switchSection('prayers')">✝️ Oraciones</button>
       <button id="tabNotes" type="button" onclick="switchSection('notes')">📝 Notas</button>
       <button id="tabGuides" type="button" onclick="switchSection('guides')">📜 Guía</button>
+      <button id="tabParables" type="button" onclick="switchSection('parables')">🌱 Parábolas</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
     </div>
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
@@ -5884,6 +5885,67 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
     try{ eval(name+"=window[\""+name+"\"]") }catch(e){}
   }
   ["openReader","openVerseCategories","openTitlesView","openDailyVerse","openRandomVerse","openBackup","openTrash","openEditor","clearNavModes"].forEach(wrapRestoreV78);
+})();
+</script>
+
+
+
+<script id="v85-parabolas-del-senor">
+/* v85 - Nuevo módulo 🌱 Parábolas del Señor, con la misma lógica base que Oraciones */
+(function(){
+  if(window.__v85ParablesInstalled) return;
+  window.__v85ParablesInstalled = true;
+  function ensureParablesState(){try{if(!state)return;if(!Array.isArray(state.parables))state.parables=[];if(!Array.isArray(state.trashParables))state.trashParables=[];if(!state.currentParableId&&state.parables.length)state.currentParableId=state.parables[0].id;}catch(e){}}
+  window.ensureParablesState=ensureParablesState;
+  function sectionLabelV85(s){if(s==="prayers")return{sing:"oración",empty:"Nueva oración",code:"O",search:"Buscar oración o código (ej. O3)"};if(s==="notes")return{sing:"nota",empty:"Nueva nota",code:"N",search:"Buscar nota o código (ej. N2)"};if(s==="guides")return{sing:"guía",empty:"Nueva guía",code:"G",search:"Buscar guía o código (ej. G1)"};if(s==="parables")return{sing:"parábola",empty:"Nueva parábola",code:"P",search:"Buscar parábola o código (ej. P2)"};return{sing:"versículo",empty:"Nueva referencia",code:"V",search:"Buscar versículo, referencia o palabra"};}
+  window.sectionLabelV85=sectionLabelV85;
+  var oldNormalizeGuidesV85=window.normalizeGuides||(typeof normalizeGuides!=="undefined"?normalizeGuides:null);window.normalizeGuides=function(){if(typeof oldNormalizeGuidesV85==="function")oldNormalizeGuidesV85.apply(this,arguments);ensureParablesState();};try{normalizeGuides=window.normalizeGuides;}catch(e){}
+  var oldBuildInitialStateV85=window.buildInitialState||(typeof buildInitialState!=="undefined"?buildInitialState:null);window.buildInitialState=function(){var st=(typeof oldBuildInitialStateV85==="function")?oldBuildInitialStateV85.apply(this,arguments):{section:"prayers",prayers:[],notes:[],guides:[],verses:[],trashPrayers:[],trashNotes:[],trashGuides:[],trashVerses:[]};if(!Array.isArray(st.parables))st.parables=[];if(!Array.isArray(st.trashParables))st.trashParables=[];if(!("currentParableId" in st))st.currentParableId=null;return st;};try{buildInitialState=window.buildInitialState;}catch(e){}
+  window.getDisplayCode=function(idx,kind){return sectionLabelV85(kind||section).code+(idx+1)};try{getDisplayCode=window.getDisplayCode;}catch(e){}
+  window.getItems=function(){ensureParablesState();if(section==="prayers")return state.prayers;if(section==="notes")return state.notes;if(section==="guides")return state.guides;if(section==="parables")return state.parables;return state.verses};try{getItems=window.getItems;}catch(e){}
+  window.setItems=function(items){ensureParablesState();if(section==="prayers")state.prayers=items;else if(section==="notes")state.notes=items;else if(section==="guides")state.guides=items;else if(section==="parables")state.parables=items;else state.verses=items;};try{setItems=window.setItems;}catch(e){}
+  window.getTrash=function(){ensureParablesState();if(section==="prayers")return state.trashPrayers;if(section==="notes")return state.trashNotes;if(section==="guides")return state.trashGuides;if(section==="parables")return state.trashParables;return state.trashVerses};try{getTrash=window.getTrash;}catch(e){}
+  window.setTrash=function(items){ensureParablesState();if(section==="prayers")state.trashPrayers=items;else if(section==="notes")state.trashNotes=items;else if(section==="guides")state.trashGuides=items;else if(section==="parables")state.trashParables=items;else state.trashVerses=items;};try{setTrash=window.setTrash;}catch(e){}
+  window.currentItem=function(){ensureParablesState();var items=getItems();var id=section==="prayers"?state.currentPrayerId:section==="notes"?state.currentNoteId:section==="guides"?state.currentGuideId:section==="parables"?state.currentParableId:state.currentVerseId;var found=(items||[]).find(function(x){return x.id===id});if(found)return found;var first=(items||[])[0]||null;if(first){if(section==="prayers")state.currentPrayerId=first.id;else if(section==="notes")state.currentNoteId=first.id;else if(section==="guides")state.currentGuideId=first.id;else if(section==="parables")state.currentParableId=first.id;else state.currentVerseId=first.id;}return first;};try{currentItem=window.currentItem;}catch(e){}
+  window.setCurrentId=function(id){ensureParablesState();if(section==="prayers")state.currentPrayerId=id;else if(section==="notes")state.currentNoteId=id;else if(section==="guides")state.currentGuideId=id;else if(section==="parables")state.currentParableId=id;else state.currentVerseId=id;saveState();};try{setCurrentId=window.setCurrentId;}catch(e){}
+  window.recentKindLabel=function(item){if(!item)return"";if(item.kind==="festivityPassage")return"📅 Festividad · 📖 Pasaje";if(item.kind==="festivity")return"📅 Festividad";if(item.section==="verses")return"❤️ Versículo";if(item.section==="prayers")return"✝️ Oración";if(item.section==="notes")return"📝 Nota";if(item.section==="guides")return"📜 Guía";if(item.section==="parables")return"🌱 Parábola";return"Elemento";};try{recentKindLabel=window.recentKindLabel;}catch(e){}
+  window.syncTabs=function(){ensureParablesState();setSearchVisibleV26(!(section==="prayers"||section==="notes"||section==="guides"||section==="parables"));var p=document.getElementById("tabPrayers");if(p)p.classList.toggle("active",section==="prayers");var n=document.getElementById("tabNotes");if(n)n.classList.toggle("active",section==="notes");var g=document.getElementById("tabGuides");if(g)g.classList.toggle("active",section==="guides");var pa=document.getElementById("tabParables");if(pa)pa.classList.toggle("active",section==="parables");var v=document.getElementById("tabVerses");if(v)v.classList.toggle("active",section==="verses");var search=document.getElementById("search");if(search)search.placeholder=sectionLabelV85(section).search;var c=document.getElementById("counterInfo");if(c)c.textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | 🌱 ${state.parables?state.parables.length:0} | ❤️ ${state.verses?state.verses.length:0}`;};try{syncTabs=window.syncTabs;}catch(e){}
+  window.switchSection=function(s){ensureParablesState();section=s;state.section=s;try{document.body.dataset.section=s;}catch(e){};saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}renderReader();openReader();};try{switchSection=window.switchSection;}catch(e){}
+  window.titlesPlaceholderV72=function(){return sectionLabelV85(section).search;};try{titlesPlaceholderV72=window.titlesPlaceholderV72;}catch(e){}
+  var oldRenderReaderV85=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);window.renderReader=function(){ensureParablesState();if(typeof oldRenderReaderV85==="function")oldRenderReaderV85.apply(this,arguments);try{if(section==="parables"&&!currentItem()){document.getElementById("readerCode").textContent="";document.getElementById("readerTitle").textContent="🌱 Parábolas del Señor";document.getElementById("readerText").textContent="Pulsa ➕ Nueva para guardar una parábola del Señor.";}updateMoveVerseButtonVisibility();}catch(e){}};try{renderReader=window.renderReader;}catch(e){}
+  window.updateMoveVerseButtonVisibility=function(){var btn=document.getElementById("moveVerseBtn");if(btn)btn.style.display=(section==="verses"?"":"none")};try{updateMoveVerseButtonVisibility=window.updateMoveVerseButtonVisibility;}catch(e){}
+  window.newItem=function(){ensureParablesState();setActiveView("new");var id=uid();var title=sectionLabelV85(section).empty;var item=section==="verses"?{id:id,reference:title,title:title,category:(currentVerseCategory||"fe"),content:"",text:"",updatedAt:Date.now(),favorite:false,shared:false,isNewVerse:true,isNewItem:true}:{id:id,title:title,content:"",updatedAt:Date.now(),favorite:false,isNewItem:true};var items=getItems();items.unshift(item);setItems(items);setCurrentId(id);normalizeGuides();saveState();renderList();renderReader();openEditor();};try{newItem=window.newItem;}catch(e){}
+  window.moveToTrash=function(){var item=currentItem();if(!item)return;var items=getItems();if(items.length===1)return alert("Debe quedar al menos un elemento.");var typeName=sectionLabelV85(section).sing;if(!confirm('¿Mover a papelera esta '+typeName+'?\n"'+(item.title||item.reference||'Sin título')+'"'))return;var trash=getTrash();trash.unshift(Object.assign({},item,{deletedAt:Date.now()}));var filtered=items.filter(function(x){return x.id!==item.id});setItems(filtered);if(section==="prayers")state.currentPrayerId=filtered[0].id;else if(section==="notes")state.currentNoteId=filtered[0].id;else if(section==="guides")state.currentGuideId=filtered[0].id;else if(section==="parables")state.currentParableId=filtered[0].id;else state.currentVerseId=filtered[0].id;saveState();syncTabs();renderList();renderReader();applyReaderFont();openReader();toast("Movido a papelera")};try{moveToTrash=window.moveToTrash;}catch(e){}
+  var oldDiscardEditorChangesV85=window.discardEditorChanges||(typeof discardEditorChanges!=="undefined"?discardEditorChanges:null);window.discardEditorChanges=function(){if(section!=="parables")return(typeof oldDiscardEditorChangesV85==="function"?oldDiscardEditorChangesV85.apply(this,arguments):undefined);if(!confirm('¿Descartar cambios?'))return;if(autosaveTimer)clearTimeout(autosaveTimer);var item=currentItem();if(!item){isDirty=false;openReader();toast("Cambios descartados");return}try{var items=getItems();var isNew=item.isNewItem||item.title==="Nueva parábola";if(isNew){var filtered=items.filter(function(x){return x.id!==item.id});setItems(filtered);var next=filtered[0]||null;if(next)setCurrentId(next.id);saveState();renderList();renderReader();isDirty=false;openReader();toast("Descartado");return}isDirty=false;renderReader();openReader();toast("Cambios descartados")}catch(e){console.error(e);isDirty=false;openReader();toast("Cambios descartados")}};try{discardEditorChanges=window.discardEditorChanges;}catch(e){}
+  var oldOpenRecentEntryV85=window.openRecentEntry||(typeof openRecentEntry!=="undefined"?openRecentEntry:null);window.openRecentEntry=function(type,idx){var h=getRecentHistory();var item=(h[type]||[])[idx];if(item&&item.kind==="item"&&item.section==="parables"&&item.id){closeRecentHistory();ensureParablesState();section="parables";state.section="parables";state.currentParableId=item.id;syncTabs();renderList();renderReader();if(type==="edited"&&typeof openEditor==="function")openEditor();else openReader();return}return(typeof oldOpenRecentEntryV85==="function"?oldOpenRecentEntryV85.apply(this,arguments):undefined)};try{openRecentEntry=window.openRecentEntry;}catch(e){}
+  function afterV85(){try{ensureParablesState();syncTabs();renderList();renderReader();}catch(e){console.error("v85 parables init",e)}}
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",afterV85);else setTimeout(afterV85,0);
+})();
+</script>
+<style id="v85-parabolas-style">#tabParables{white-space:nowrap;}@media(max-width:520px){.segment{flex-wrap:wrap;justify-content:center}.segment button{font-size:15px;padding:8px 10px}}</style>
+
+
+<script id="v85-parabolas-ajustes-extra">
+(function(){
+  window.getCurrentCode=function(){
+    var items=(typeof getItems==="function")?getItems():[];
+    var item=(typeof currentItem==="function")?currentItem():null;
+    var idx=items.findIndex(function(x){return item&&x.id===item.id});
+    return idx>=0?getDisplayCode(idx,section):"";
+  };
+  try{getCurrentCode=window.getCurrentCode;}catch(e){}
+  var oldExportCurrentHTMLV85=window.exportCurrentHTML||(typeof exportCurrentHTML!=="undefined"?exportCurrentHTML:null);
+  window.exportCurrentHTML=async function(){
+    if(section!=="parables") return (typeof oldExportCurrentHTMLV85==="function"?oldExportCurrentHTMLV85.apply(this,arguments):undefined);
+    setActiveView("export");
+    var item=currentItem(); if(!item) return;
+    var html=buildReadingHTML(item,"Parábola",getCurrentCode());
+    var filename=slugify(item.title)+".html";
+    downloadBlob(filename,new Blob([html],{type:"text/html;charset=utf-8"}));
+    if(navigator.share){try{var file=new File([html],filename,{type:"text/html"});await navigator.share({title:item.title,files:[file]})}catch(e){}}
+    toast("Lectura exportada");
+  };
+  try{exportCurrentHTML=window.exportCurrentHTML;}catch(e){}
 })();
 </script>
 
