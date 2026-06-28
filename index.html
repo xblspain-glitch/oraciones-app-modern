@@ -5938,3 +5938,164 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
 <!-- V11.9 Resumen de enviados/pendientes por categoría -->
 
 <!-- v74 Nunca enviados en Categorías + Hoy/Azar pantalla propia -->
+
+<script>
+/* v79.1 - Favoritos pantalla completa segura sobre v78; solo Volver; no rompe Títulos */
+(function(){
+  if(window.__v791FavoritesFullScreen) return;
+  window.__v791FavoritesFullScreen=true;
+
+  const favHiddenNodes=[];
+  let favSearchOldDisplay=null;
+  let favBackOldOnclick=null;
+
+  function hideForFavoritesV791(){
+    document.body.classList.add("favorites-fullscreen-v791");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","calendar-fullscreen-v78","categories-fullscreen-v73","verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-fullscreen-v76");
+
+    [".topbar",".sidebar","#list"].forEach(sel=>{
+      document.querySelectorAll(sel).forEach(el=>{
+        if(!el.dataset.v791FavDisplaySaved){
+          el.dataset.v791FavDisplaySaved="1";
+          el.dataset.v791FavOldDisplay=el.style.display||"";
+          favHiddenNodes.push(el);
+        }
+        el.style.display="none";
+      });
+    });
+
+    const main=document.querySelector(".main");
+    if(main){
+      if(!main.dataset.v791FavSaved){
+        main.dataset.v791FavSaved="1";
+        main.dataset.v791FavOldDisplay=main.style.display||"";
+        main.dataset.v791FavOldGrid=main.style.gridTemplateColumns||"";
+        main.dataset.v791FavOldMinHeight=main.style.minHeight||"";
+      }
+      main.style.display="block";
+      main.style.gridTemplateColumns="1fr";
+      main.style.minHeight="100dvh";
+    }
+
+    const content=document.querySelector(".content");
+    if(content){
+      if(!content.dataset.v791FavSaved){
+        content.dataset.v791FavSaved="1";
+        content.dataset.v791FavOldPadding=content.style.padding||"";
+        content.dataset.v791FavOldMinHeight=content.style.minHeight||"";
+        content.dataset.v791FavOldWidth=content.style.width||"";
+        content.dataset.v791FavOldMaxWidth=content.style.maxWidth||"";
+      }
+      content.style.padding="0";
+      content.style.minHeight="100dvh";
+      content.style.width="100%";
+      content.style.maxWidth="none";
+    }
+
+    ["readerView","editorView","backupView","trashView","calendarView","verseCategoriesView"].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.classList.add("hidden");
+    });
+
+    const titles=document.getElementById("titlesView");
+    if(titles){
+      titles.classList.remove("hidden");
+      if(!titles.dataset.v791FavSaved){
+        titles.dataset.v791FavSaved="1";
+        titles.dataset.v791FavOldBorder=titles.style.border||"";
+        titles.dataset.v791FavOldRadius=titles.style.borderRadius||"";
+        titles.dataset.v791FavOldMinHeight=titles.style.minHeight||"";
+      }
+      titles.style.border="none";
+      titles.style.borderRadius="0";
+      titles.style.minHeight="100dvh";
+    }
+
+    const search=document.getElementById("titlesSearch");
+    if(search){
+      if(favSearchOldDisplay===null) favSearchOldDisplay=search.style.display||"";
+      search.style.display="none";
+    }
+
+    const backBtn=document.querySelector("#titlesView .panel-head button:first-child");
+    if(backBtn){
+      if(favBackOldOnclick===null) favBackOldOnclick=backBtn.getAttribute("onclick")||"";
+      backBtn.setAttribute("onclick","closeFavoritesFullScreenV791()");
+    }
+  }
+
+  function restoreFavoritesV791(){
+    favHiddenNodes.splice(0).forEach(el=>{
+      if(el && el.dataset.v791FavDisplaySaved){
+        el.style.display=el.dataset.v791FavOldDisplay||"";
+        delete el.dataset.v791FavDisplaySaved;
+        delete el.dataset.v791FavOldDisplay;
+      }
+    });
+
+    const main=document.querySelector(".main");
+    if(main && main.dataset.v791FavSaved){
+      main.style.display=main.dataset.v791FavOldDisplay||"";
+      main.style.gridTemplateColumns=main.dataset.v791FavOldGrid||"";
+      main.style.minHeight=main.dataset.v791FavOldMinHeight||"";
+      delete main.dataset.v791FavSaved;
+    }
+
+    const content=document.querySelector(".content");
+    if(content && content.dataset.v791FavSaved){
+      content.style.padding=content.dataset.v791FavOldPadding||"";
+      content.style.minHeight=content.dataset.v791FavOldMinHeight||"";
+      content.style.width=content.dataset.v791FavOldWidth||"";
+      content.style.maxWidth=content.dataset.v791FavOldMaxWidth||"";
+      delete content.dataset.v791FavSaved;
+    }
+
+    const titles=document.getElementById("titlesView");
+    if(titles && titles.dataset.v791FavSaved){
+      titles.style.border=titles.dataset.v791FavOldBorder||"";
+      titles.style.borderRadius=titles.dataset.v791FavOldRadius||"";
+      titles.style.minHeight=titles.dataset.v791FavOldMinHeight||"";
+      delete titles.dataset.v791FavSaved;
+    }
+
+    const search=document.getElementById("titlesSearch");
+    if(search && favSearchOldDisplay!==null){
+      search.style.display=favSearchOldDisplay||"";
+      favSearchOldDisplay=null;
+    }
+
+    const backBtn=document.querySelector("#titlesView .panel-head button:first-child");
+    if(backBtn && favBackOldOnclick!==null){
+      backBtn.setAttribute("onclick",favBackOldOnclick||"smartBack()");
+      favBackOldOnclick=null;
+    }
+
+    document.body.classList.remove("favorites-fullscreen-v791");
+  }
+
+  window.closeFavoritesFullScreenV791=function(){
+    restoreFavoritesV791();
+    const titles=document.getElementById("titlesView"); if(titles) titles.classList.add("hidden");
+    if(typeof openReader==="function") openReader();
+  };
+
+  const oldOpenFavoritesView=window.openFavoritesView || (typeof openFavoritesView!=="undefined" ? openFavoritesView : null);
+  window.openFavoritesView=function(){
+    if(oldOpenFavoritesView) oldOpenFavoritesView.apply(this,arguments);
+    hideForFavoritesV791();
+    if(typeof setActiveView==="function") setActiveView("favorites");
+    setTimeout(function(){ hideForFavoritesV791(); window.scrollTo({top:0,behavior:"auto"}); },50);
+  };
+  try{openFavoritesView=window.openFavoritesView}catch(e){}
+
+  function wrapRestoreV791(name){
+    const old=window[name] || (typeof globalThis[name]!=="undefined" ? globalThis[name] : null);
+    if(typeof old!=="function") return;
+    window[name]=function(){
+      restoreFavoritesV791();
+      return old.apply(this,arguments);
+    };
+    try{ eval(name+"=window[\""+name+"\"]") }catch(e){}
+  }
+  ["openReader","openVerseCategories","openTitlesView","openDailyVerse","openRandomVerse","openBackup","openTrash","openEditor","openChristianCalendar","clearNavModes"].forEach(wrapRestoreV791);
+})();
+</script>
