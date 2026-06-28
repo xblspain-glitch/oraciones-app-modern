@@ -3161,7 +3161,11 @@ function renderTitles(){
   const box=document.getElementById("titlesList");
   if(!box) return;
   box.innerHTML="";
-  const q=(document.getElementById("search")?.value||"").trim().toLowerCase();
+  const titlesVisible = !document.getElementById("titlesView")?.classList.contains("hidden");
+  const q=(titlesVisible
+    ? (document.getElementById("titlesSearch")?.value || "")
+    : (document.getElementById("search")?.value || "")
+  ).trim().toLowerCase();
   let items=getItems().map((item, idx)=>({...item,__idx:idx,__code:getDisplayCode(idx, section)}));
   if(q){
     items=items.filter(item=>{
@@ -5156,6 +5160,77 @@ setInterval(updateVersePositionCounter, 1000);
   document.addEventListener("input",function(e){
     if(e.target && e.target.id==="titlesSearch"){
       renderTitles();
+    }
+  },true);
+})();
+
+
+/* v72.3 - Buscador de títulos definitivo */
+(function(){
+  if(window.__v723TitlesSearchFinal)return;
+  window.__v723TitlesSearchFinal=true;
+
+  window.renderTitles=function(){
+    const box=document.getElementById("titlesList");
+    if(!box) return;
+    box.innerHTML="";
+
+    const titlesVisible = !document.getElementById("titlesView")?.classList.contains("hidden");
+    const searchValue = titlesVisible
+      ? (document.getElementById("titlesSearch")?.value || "")
+      : (document.getElementById("search")?.value || "");
+
+    const q = searchValue.trim().toLowerCase();
+
+    let items=getItems().map((item, idx)=>({
+      ...item,
+      __idx:idx,
+      __code:getDisplayCode(idx, section)
+    }));
+
+    if(q){
+      items=items.filter(item=>{
+        const hay=[
+          item.__code,
+          item.title,
+          displayItemTitle(item),
+          item.content,
+          item.reference,
+          item.category
+        ].filter(Boolean).join(" ").toLowerCase();
+        return hay.includes(q);
+      });
+    }
+
+    const current=currentItem();
+
+    if(!items.length){
+      box.innerHTML='<div class="empty">No hay resultados.</div>';
+      return;
+    }
+
+    items.forEach(item=>{
+      const div=document.createElement("div");
+      div.className="title-row"+(current&&item.id===current.id?" active":"");
+      div.innerHTML='<div class="title-code">'+escapeHtml(item.__code)+'</div><div class="title-name">'+escapeHtml(displayItemTitle(item))+'</div>';
+      div.onclick=()=>{
+        if(section==="verses"){
+          specialVerseMode=null;
+          verseNavigationMode="titles";
+          currentVerseCategory=null;
+        }
+        setCurrentId(item.id);
+        renderList();
+        renderReader();
+        enterFullscreenReading();
+      };
+      box.appendChild(div);
+    });
+  };
+
+  document.addEventListener("input",function(e){
+    if(e.target && e.target.id==="titlesSearch"){
+      window.renderTitles();
     }
   },true);
 })();
