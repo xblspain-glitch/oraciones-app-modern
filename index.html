@@ -937,8 +937,7 @@ button.btn,
     transform .055s ease-out,
     box-shadow .09s ease-out,
     filter .07s ease-out,
-    background-color .12s ease-out,
-    border-color .12s ease-out!important;
+!important;
   will-change:transform;
 }
 
@@ -951,6 +950,13 @@ button.btn.premium-pressing,
   transform:scale(.965) translateY(2px)!important;
   filter:brightness(1.045);
   box-shadow:0 1px 2px rgba(36,74,122,.12)!important;
+}
+
+
+/* v71.1 - Cambio de tema instantáneo */
+body.theme-switching,
+body.theme-switching *{
+  transition:none!important;
 }
 
 </style>
@@ -4792,7 +4798,7 @@ setInterval(updateVersePositionCounter, 1000);
     clearTimeout(btn.__premiumPressTimer);
     btn.__premiumPressTimer=setTimeout(function(){
       btn.classList.remove("premium-pressing");
-    },58);
+    },65);
   }
 
   document.addEventListener("touchstart",function(e){
@@ -4807,12 +4813,12 @@ setInterval(updateVersePositionCounter, 1000);
 
   document.addEventListener("touchend",function(e){
     const b=e.target.closest&&e.target.closest(".btn");
-    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},58);
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},65);
   },{passive:true,capture:true});
 
   document.addEventListener("mouseup",function(e){
     const b=e.target.closest&&e.target.closest(".btn");
-    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},58);
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},65);
   },true);
 })();
 
@@ -5041,7 +5047,7 @@ setInterval(updateVersePositionCounter, 1000);
     clearTimeout(el.__v71PressTimer);
     el.__v71PressTimer=setTimeout(function(){
       el.classList.remove("premium-pressing");
-    },58);
+    },65);
   }
 
   function target(e){
@@ -5060,12 +5066,12 @@ setInterval(updateVersePositionCounter, 1000);
 
   document.addEventListener("touchend",function(e){
     const b=target(e);
-    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},45);
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},50);
   },{passive:true,capture:true});
 
   document.addEventListener("mouseup",function(e){
     const b=target(e);
-    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},45);
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},50);
   },true);
 })();
 
