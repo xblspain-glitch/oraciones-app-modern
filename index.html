@@ -867,6 +867,17 @@ body.dark .topbar-bottom-row-v66{
   width:100%!important;
 }
 
+
+/* v68 - Misma agrupación de botones de lectura en claro y oscuro */
+#readerView .panel-head .toolbar-break-v68{
+  flex:0 0 100%;
+  width:100%;
+  height:0;
+  padding:0!important;
+  margin:0!important;
+  overflow:hidden;
+}
+
 </style>
 
 <style>
@@ -1504,6 +1515,7 @@ function openRecentEntry(type,idx){
         
         <button data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
         <button data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+        <span class="toolbar-break-v68"></span>
         <span class="font-combo-v27">
           <button class="btn soft font-half-v27" type="button" onclick="changeReaderFont(-2)">A-</button>
           <span class="font-combo-separator-v31" aria-hidden="true"></span>
@@ -1511,12 +1523,14 @@ function openRecentEntry(type,idx){
         </span>
         <button class="btn soft" type="button" onclick="copyCurrentReference()">📋 Ref</button>
         <button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button><button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory()">📂 Mover</button>
+        <span class="toolbar-break-v68"></span>
         <button id="readerMarkBtn" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marcar</button>
         <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
         
         
         
         <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
+        <span class="toolbar-break-v68"></span>
         <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
         <button data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
         
