@@ -3063,7 +3063,11 @@ function moveVerseToCategory(){
 function renderVerseCategories(){
   const box=document.getElementById("verseCategoriesList");if(!box)return;
   box.innerHTML="";
-  const q=(document.getElementById("search")?.value||"").trim().toLowerCase();
+  const titlesVisible = !document.getElementById("titlesView")?.classList.contains("hidden");
+  const q=(titlesVisible
+    ? (document.getElementById("titlesSearch")?.value || "")
+    : (document.getElementById("search")?.value || "")
+  ).trim().toLowerCase();
 
   if(q){
     const cats=(state.verseCategories&&state.verseCategories.length?state.verseCategories:VERSE_CATEGORIES);
@@ -5141,6 +5145,18 @@ setInterval(updateVersePositionCounter, 1000);
   document.addEventListener("mouseup",function(e){
     const b=target(e);
     if(b)setTimeout(function(){b.classList.remove("premium-pressing")},50);
+  },true);
+})();
+
+
+/* v72.2 - Buscador de títulos robusto */
+(function(){
+  if(window.__v722TitlesSearch)return;
+  window.__v722TitlesSearch=true;
+  document.addEventListener("input",function(e){
+    if(e.target && e.target.id==="titlesSearch"){
+      renderTitles();
+    }
   },true);
 })();
 
