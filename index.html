@@ -1665,6 +1665,7 @@ function openRecentEntry(type,idx){
     <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
     <button id="btnMainMark" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
     <button id="btnMainCard" class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
+    <button id="btnMainCopy" class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>
     <button id="btnMainMore" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
     <button id="btnMainFav" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
     <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
@@ -4057,6 +4058,33 @@ body.verse-special-fullscreen-v74 .reader-title{padding:8px 16px 0;font-size:22p
 body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height:calc(100dvh - 170px);font-size:25px;line-height:2.05}
 </style>
 
+
+
+<style id="v85-2-copiar-contador-real-final">
+/* v85.2 - Añadir 📋 Copiar principal y mantener el contador dentro del marco */
+#btnMainCopy{
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:center;
+}
+.topbar-bottom-row-v66{
+  box-sizing:border-box!important;
+  padding-right:6px!important;
+  overflow:hidden!important;
+}
+.counter-v66{
+  flex:1 1 0!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  text-align:right!important;
+  padding-right:2px!important;
+  box-sizing:border-box!important;
+}
+#btnCategories{display:none!important;}
+</style>
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -5965,6 +5993,33 @@ body.dark .topbar-row #tabParables.active-view{
 })();
 </script>
 
+
+
+<style id="v85-2-copiar-contador-real-final">
+/* v85.2 - Añadir 📋 Copiar principal y mantener el contador dentro del marco */
+#btnMainCopy{
+  display:inline-flex!important;
+  align-items:center;
+  justify-content:center;
+}
+.topbar-bottom-row-v66{
+  box-sizing:border-box!important;
+  padding-right:6px!important;
+  overflow:hidden!important;
+}
+.counter-v66{
+  flex:1 1 0!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  text-align:right!important;
+  padding-right:2px!important;
+  box-sizing:border-box!important;
+}
+#btnCategories{display:none!important;}
+</style>
 </body>
 </html>
 <!-- V9.1 pulido: Hoy/Versículo al azar/Generado para hoy -->
