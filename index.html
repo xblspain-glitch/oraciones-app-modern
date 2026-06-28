@@ -5191,12 +5191,7 @@ setInterval(updateVersePositionCounter, 1000);
     if(q){
       items=items.filter(item=>{
         const hay=[
-          item.__code,
-          item.title,
-          displayItemTitle(item),
-          item.content,
-          item.reference,
-          item.category
+          displayItemTitle(item)
         ].filter(Boolean).join(" ").toLowerCase();
         return hay.includes(q);
       });
