@@ -959,6 +959,49 @@ body.theme-switching *{
   transition:none!important;
 }
 
+
+/* v72 - Títulos en pantalla completa */
+body.titles-fullscreen-v72 .topbar,
+body.titles-fullscreen-v72 .sidebar{
+  display:none!important;
+}
+body.titles-fullscreen-v72 .main{
+  display:block!important;
+  min-height:100dvh!important;
+}
+body.titles-fullscreen-v72 .content{
+  padding:0!important;
+  min-height:100dvh!important;
+}
+body.titles-fullscreen-v72 #titlesView{
+  min-height:100dvh!important;
+  border:none!important;
+  border-radius:0!important;
+}
+body.titles-fullscreen-v72 #titlesView .titles-head-v72{
+  position:sticky!important;
+  top:0!important;
+  z-index:20!important;
+  display:flex!important;
+  gap:10px!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  padding:calc(10px + env(safe-area-inset-top)) 16px 12px!important;
+  border-radius:0!important;
+}
+.titles-search-v72{
+  flex:1 1 100%!important;
+  width:100%!important;
+  min-width:0!important;
+}
+body.titles-fullscreen-v72 #titlesList{
+  padding:14px 16px 28px!important;
+}
+body.titles-fullscreen-v72 .title-row{
+  padding:16px 14px!important;
+  border-radius:16px!important;
+}
+
 </style>
 
 <style>
@@ -1702,10 +1745,10 @@ function openRecentEntry(type,idx){
       <div id="verseCategoriesList" class="category-grid"></div>
     </div>
 
-    <div id="titlesView" class="panel hidden">
-      <div class="panel-head">
+    <div id="titlesView" class="panel hidden titles-screen-v72">
+      <div class="panel-head titles-head-v72">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        
+        <input id="titlesSearch" class="search titles-search-v72" placeholder="Buscar..." oninput="renderTitles()">
       </div>
       <div id="titlesList" class="title-list"></div>
     </div>
@@ -2037,7 +2080,11 @@ function displayItemSub(item){
 }
 
 function renderList(){
-  const q=(document.getElementById("search")?.value||"").trim().toLowerCase();
+  const titlesVisible = !document.getElementById("titlesView")?.classList.contains("hidden");
+  const q=(titlesVisible
+    ? (document.getElementById("titlesSearch")?.value || document.getElementById("search")?.value || "")
+    : (document.getElementById("search")?.value || "")
+  ).trim().toLowerCase();
   const list=document.getElementById("list");
   if(!list) return;
   list.innerHTML="";
@@ -2285,13 +2332,13 @@ function smartBack(){
 
 function openReader(){
   document.body.classList.remove("editing-focus");
-  clearNavModes();updateSearchForReaderV26();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
+  clearNavModes();updateSearchForReaderV26();document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");document.body.classList.remove("fullscreen-reading","hide-reading-ui","titles-fullscreen-v72");if(window.innerWidth<=860) document.body.classList.add("reading-mobile");else document.body.classList.remove("reading-mobile")}
 function openList(){
   document.body.classList.remove("editing-focus");
   setActiveView("list");
   clearNavModes();
   renderList();
-document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");document.getElementById("search").focus()}
+document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72");document.getElementById("search").focus()}
 
 function registerCurrentAsReadV47G(){
   try{
@@ -3153,11 +3200,20 @@ function clearNavModes(){
   try{
     if(!document.getElementById("editorView") || document.getElementById("editorView").classList.contains("hidden")) document.body.classList.remove("editing-focus");
     document.body.classList.remove("titles-only");
+    document.body.classList.remove("titles-fullscreen-v72");
     document.body.classList.remove("list-only");
     document.body.classList.remove("backup-only");
     document.body.classList.remove("special-view-only");
     var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
   }catch(e){}
+}
+
+
+function titlesPlaceholderV72(){
+  if(section==="prayers") return "Buscar oración o código (ej. O3)";
+  if(section==="notes") return "Buscar nota o código (ej. N2)";
+  if(section==="guides") return "Buscar guía o código (ej. G1)";
+  return "Buscar versículo, referencia o palabra";
 }
 
 function openTitlesView(){
@@ -3169,15 +3225,27 @@ function openTitlesView(){
   }
   setActiveView("titles");
   clearNavModes();
-  document.body.classList.add("titles-only");
+  document.body.classList.add("titles-only","titles-fullscreen-v72");
   if(!document.getElementById("editorView").classList.contains("hidden")) saveCurrent(false,true);
   document.getElementById("titlesView").classList.remove("hidden");
   document.getElementById("readerView").classList.add("hidden");
   document.getElementById("editorView").classList.add("hidden");
   document.getElementById("backupView").classList.add("hidden");
   document.getElementById("trashView").classList.add("hidden");
+  var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
+  var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");
   document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+  const ts=document.getElementById("titlesSearch");
+  const mainSearch=document.getElementById("search");
+  if(ts){
+    ts.value=(mainSearch&&mainSearch.value)||"";
+    ts.placeholder=(mainSearch&&mainSearch.placeholder)||titlesPlaceholderV72();
+  }
   renderTitles();
+  setTimeout(function(){
+    const active=document.querySelector("#titlesList .title-row.active");
+    if(active) active.scrollIntoView({block:"center"});
+  },40);
 }
 
 function openTrash(){
