@@ -5443,7 +5443,7 @@ setInterval(updateVersePositionCounter, 1000);
     const head=getReaderHeadV75();
     if(!head) return;
     if(specialHeadOriginalV75===null) specialHeadOriginalV75=head.innerHTML;
-    const randomBtn = mode==="random" ? '<button class="btn soft" type="button" onclick="openRandomVerse()">🔄 Otro al azar</button>' : '';
+    const randomBtn = mode==="random" ? '<button class="btn soft" type="button" onclick="openRandomVerse()">🌿 Otro al azar</button>' : '';
     head.innerHTML =
       '<button class="btn soft" type="button" onclick="restoreReaderHeadV75(); openVerseCategories()">← Volver</button>' +
       randomBtn +
@@ -5585,6 +5585,133 @@ setInterval(updateVersePositionCounter, 1000);
   window.openRandomVerse=function(){ window.openVerseSpecial(pickRandomVerse(),"random"); if(typeof setActiveView==="function") setActiveView("random"); };
   try{openRandomVerse=window.openRandomVerse}catch(e){}
 })();
+})();
+
+
+/* v76 - Enviados pantalla completa real desde Categorías */
+(function(){
+  if(window.__v76SentFullScreen) return;
+  window.__v76SentFullScreen=true;
+
+  const sentHiddenNodes=[];
+  let sentHeadOriginal=null;
+
+  function hideForSentV76(){
+    document.body.classList.add("sent-fullscreen-v76","titles-fullscreen-v72");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","categories-fullscreen-v73","verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+
+    [".topbar",".sidebar","#list"].forEach(sel=>{
+      document.querySelectorAll(sel).forEach(el=>{
+        if(!el.dataset.v76SentDisplaySaved){
+          el.dataset.v76SentDisplaySaved="1";
+          el.dataset.v76SentOldDisplay=el.style.display||"";
+          sentHiddenNodes.push(el);
+        }
+        el.style.display="none";
+      });
+    });
+
+    const main=document.querySelector(".main");
+    if(main){
+      if(!main.dataset.v76SentSaved){main.dataset.v76SentSaved="1";main.dataset.v76SentOldDisplay=main.style.display||"";main.dataset.v76SentOldGrid=main.style.gridTemplateColumns||"";main.dataset.v76SentOldMinHeight=main.style.minHeight||"";}
+      main.style.display="block";
+      main.style.gridTemplateColumns="1fr";
+      main.style.minHeight="100dvh";
+    }
+    const content=document.querySelector(".content");
+    if(content){
+      if(!content.dataset.v76SentSaved){content.dataset.v76SentSaved="1";content.dataset.v76SentOldPadding=content.style.padding||"";content.dataset.v76SentOldMinHeight=content.style.minHeight||"";content.dataset.v76SentOldWidth=content.style.width||"";content.dataset.v76SentOldMaxWidth=content.style.maxWidth||"";}
+      content.style.padding="0";
+      content.style.minHeight="100dvh";
+      content.style.width="100%";
+      content.style.maxWidth="none";
+    }
+  }
+
+  function restoreSentV76(){
+    sentHiddenNodes.splice(0).forEach(el=>{ if(el && el.dataset.v76SentDisplaySaved){ el.style.display=el.dataset.v76SentOldDisplay||""; delete el.dataset.v76SentDisplaySaved; delete el.dataset.v76SentOldDisplay; }});
+    const main=document.querySelector(".main");
+    if(main && main.dataset.v76SentSaved){main.style.display=main.dataset.v76SentOldDisplay||"";main.style.gridTemplateColumns=main.dataset.v76SentOldGrid||"";main.style.minHeight=main.dataset.v76SentOldMinHeight||""; delete main.dataset.v76SentSaved;}
+    const content=document.querySelector(".content");
+    if(content && content.dataset.v76SentSaved){content.style.padding=content.dataset.v76SentOldPadding||"";content.style.minHeight=content.dataset.v76SentOldMinHeight||"";content.style.width=content.dataset.v76SentOldWidth||"";content.style.maxWidth=content.dataset.v76SentOldMaxWidth||""; delete content.dataset.v76SentSaved;}
+    document.body.classList.remove("sent-fullscreen-v76","titles-fullscreen-v72");
+    const head=document.querySelector("#titlesView .panel-head");
+    if(head && sentHeadOriginal!==null){ head.innerHTML=sentHeadOriginal; sentHeadOriginal=null; }
+  }
+
+  window.closeSentFullScreenV76=function(){ restoreSentV76(); openVerseCategories(); };
+
+  window.openSentVersesList=function(){
+    try{
+      sentListActive=true;
+      if(!state || !Array.isArray(state.verses)) return;
+      section="verses"; state.section="verses"; specialVerseMode=null;
+      if(typeof syncTabs==="function") syncTabs();
+      if(typeof clearNavModes==="function") clearNavModes();
+
+      const titlesView=document.getElementById("titlesView");
+      const box=document.getElementById("titlesList");
+      const head=document.querySelector("#titlesView .panel-head");
+      if(!titlesView || !box || !head) return;
+      if(sentHeadOriginal===null) sentHeadOriginal=head.innerHTML;
+      head.innerHTML =
+        '<button class="btn soft" type="button" onclick="closeSentFullScreenV76()">← Volver</button>'+
+        '<input id="sentSearchV76" class="search titles-search-v72" placeholder="Buscar enviado" oninput="renderSentFullScreenV76()">';
+
+      document.getElementById("readerView").classList.add("hidden");
+      document.getElementById("editorView").classList.add("hidden");
+      document.getElementById("backupView").classList.add("hidden");
+      document.getElementById("trashView").classList.add("hidden");
+      const vc=document.getElementById("verseCategoriesView"); if(vc) vc.classList.add("hidden");
+      const cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
+      titlesView.classList.remove("hidden");
+      hideForSentV76();
+      window.renderSentFullScreenV76();
+      setTimeout(function(){window.scrollTo({top:0,behavior:"auto"});},30);
+    }catch(e){ console.error("openSentVersesList v76",e); alert("No se pudo abrir la lista de enviados."); }
+  };
+  try{openSentVersesList=window.openSentVersesList}catch(e){}
+
+  window.renderSentFullScreenV76=function(){
+    const box=document.getElementById("titlesList");
+    if(!box) return;
+    const q=((document.getElementById("sentSearchV76")||{}).value||"").toLowerCase().trim();
+    let sent=(state.verses||[]).filter(v=>!!v.lastCardSentAt).sort((a,b)=>(b.lastCardSentAt||0)-(a.lastCardSentAt||0));
+    if(q){
+      sent=sent.filter(v=>String((v.reference||v.title||"")+" "+(v.text||v.content||"")+" "+(typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"")).toLowerCase().includes(q));
+    }
+    box.innerHTML="";
+    if(!sent.length){ box.innerHTML='<div class="empty">Todavía no hay versículos enviados.</div>'; return; }
+    sent.forEach(v=>{
+      const div=document.createElement("div");
+      div.className="title-row";
+      const ref=escapeHtml(v.reference||v.title||"Sin referencia");
+      const cat=typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"";
+      const when=typeof formatSentListDate==="function"?formatSentListDate(v.lastCardSentAt):"";
+      div.innerHTML=
+        '<div class="title-name">📋 '+ref+'</div>'+
+        '<div class="small-note">'+escapeHtml(when+(cat?" · "+cat:""))+'</div>'+
+        '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\''+v.id+'\'); setTimeout(renderSentFullScreenV76,50)">🗑️ Quitar</button>';
+      div.onclick=function(){
+        restoreSentV76();
+        state.currentVerseId=v.id;
+        currentVerseCategory=v.category||currentVerseCategory||"sin_categoria";
+        specialVerseMode=null;
+        sentListActive=false;
+        if(typeof saveState==="function") saveState();
+        if(typeof renderList==="function") renderList();
+        if(typeof renderReader==="function") renderReader();
+        if(typeof openReader==="function") openReader();
+      };
+      box.appendChild(div);
+    });
+  };
+
+  const oldOpenVerseCategoriesV76=window.openVerseCategories;
+  if(typeof oldOpenVerseCategoriesV76==="function"){
+    window.openVerseCategories=function(){ restoreSentV76(); return oldOpenVerseCategoriesV76.apply(this,arguments); };
+    try{openVerseCategories=window.openVerseCategories}catch(e){}
+  }
 })();
 
 </script>
