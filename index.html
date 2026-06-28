@@ -1044,6 +1044,8 @@ body.reading-mobile:not(.fullscreen-reading):not(.verse-special-fullscreen-v74):
   padding-top:18px;
 }
 
+
+.new-blue{background:linear-gradient(135deg,#2f78bf,#4fa3ff)!important;color:#fff!important;border-color:#2f78bf!important;}
 </style>
 
 <style>
@@ -1682,7 +1684,7 @@ function openRecentEntry(type,idx){
     <div id="readerView" class="panel">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
+        <button class="btn primary new-blue" type="button" onclick="newItem()">➕ Nueva</button>
         <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
         <button data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
         
