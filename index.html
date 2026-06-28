@@ -2348,6 +2348,11 @@ function smartBack(){
 
   if(typeof sentListActive !== "undefined" && sentListActive){
     sentListActive=false;
+    if(returnToDaily){
+      returnToDaily=false;
+      try{ openDailyVerse(); }catch(e){}
+      return;
+    }
     try{
       section="verses";
       state.section="verses";
@@ -2933,6 +2938,7 @@ function openMoreMenu(ev){
 }
 
 function openSentVersesList(){
+  if(specialVerseMode==="daily") returnToDaily=true;
   sentListActive=true;
   try{
     if(!state || !Array.isArray(state.verses)) return;
