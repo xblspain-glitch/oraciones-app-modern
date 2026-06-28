@@ -5480,6 +5480,98 @@ setInterval(updateVersePositionCounter, 1000);
 })();
 
 </script>
+
+
+<style>
+/* v74.1 - corrección: Hoy/Azar como ventana única real */
+body.verse-special-fullscreen-v741 .topbar,
+body.verse-special-fullscreen-v741 .sidebar,
+body.verse-special-fullscreen-v741 #list{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important}
+body.verse-special-fullscreen-v741 .main{display:block!important;min-height:100dvh!important;margin:0!important;padding:0!important}
+body.verse-special-fullscreen-v741 .content{display:block!important;width:100%!important;max-width:none!important;padding:0!important;min-height:100dvh!important}
+body.verse-special-fullscreen-v741 #readerView{display:block!important;border:none!important;border-radius:0!important;min-height:100dvh!important;margin:0!important}
+body.verse-special-fullscreen-v741 #readerView.hidden{display:block!important}
+body.verse-special-fullscreen-v741 #readerView .panel-head{position:sticky!important;top:0!important;z-index:50!important;border-radius:0!important;padding:calc(10px + env(safe-area-inset-top)) 10px 10px!important;background:var(--card)!important}
+body.verse-special-fullscreen-v741 .reader-code{padding:16px 16px 0!important;font-size:13px!important}
+body.verse-special-fullscreen-v741 .reader-daily-date{padding:8px 16px 0!important}
+body.verse-special-fullscreen-v741 .reader-title{padding:8px 16px 0!important;font-size:22px!important}
+body.verse-special-fullscreen-v741 .reader-text{padding:16px 16px 70px!important;min-height:calc(100dvh - 180px)!important;font-size:25px!important;line-height:2.05!important}
+</style>
+<script>
+/* v74.1 - Hoy/Azar sin lista superior detrás */
+(function(){
+  if(window.__v741SpecialScreensFix)return;
+  window.__v741SpecialScreensFix=true;
+
+  function hidePanelsExceptReaderV741(){
+    ['editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.classList.add('hidden');
+    });
+    var rv=document.getElementById('readerView'); if(rv) rv.classList.remove('hidden');
+  }
+
+  function enterSpecialV741(mode){
+    document.body.classList.add('verse-special-fullscreen-v74','verse-special-fullscreen-v741');
+    document.body.classList.remove('reading-mobile','fullscreen-reading','hide-reading-ui','titles-fullscreen-v72','categories-fullscreen-v73','list-only','titles-only','backup-only','special-view-only');
+    hidePanelsExceptReaderV741();
+    if(typeof setSearchVisibleV26==='function') setSearchVisibleV26(false);
+    if(typeof setActiveView==='function') setActiveView(mode||'read');
+    setTimeout(function(){window.scrollTo({top:0,behavior:'auto'});},50);
+  }
+
+  window.openVerseSpecial=function(v,mode){
+    if(!v){ alert('Todavía no hay versículos guardados.'); return; }
+    section='verses'; state.section='verses';
+    specialVerseMode=mode;
+    currentVerseCategory=v.category||'sin_categoria';
+    state.currentVerseId=v.id;
+    if(typeof saveState==='function') saveState();
+    if(typeof syncTabs==='function') syncTabs();
+    enterSpecialV741(mode);
+    if(typeof renderReader==='function') renderReader();
+    if(typeof applyReaderFont==='function') applyReaderFont();
+    enterSpecialV741(mode);
+  };
+  try{openVerseSpecial=window.openVerseSpecial;}catch(e){}
+
+  window.openDailyVerse=function(){
+    window.openVerseSpecial(getDailyVerse(),'daily');
+  };
+  try{openDailyVerse=window.openDailyVerse;}catch(e){}
+
+  window.openRandomVerse=function(){
+    window.openVerseSpecial(pickRandomVerse(),'random');
+  };
+  try{openRandomVerse=window.openRandomVerse;}catch(e){}
+
+  var previousOpenReader=window.openReader || (typeof openReader!=='undefined'?openReader:null);
+  if(previousOpenReader && !window.__v741OpenReaderGuard){
+    window.__v741OpenReaderGuard=true;
+    window.openReader=function(){
+      if(specialVerseMode==='daily' || specialVerseMode==='random'){
+        enterSpecialV741(specialVerseMode);
+        return;
+      }
+      document.body.classList.remove('verse-special-fullscreen-v74','verse-special-fullscreen-v741');
+      return previousOpenReader.apply(this,arguments);
+    };
+    try{openReader=window.openReader;}catch(e){}
+  }
+
+  var previousClear=window.clearNavModes || (typeof clearNavModes!=='undefined'?clearNavModes:null);
+  if(previousClear && !window.__v741ClearGuard){
+    window.__v741ClearGuard=true;
+    window.clearNavModes=function(){
+      var keep=(specialVerseMode==='daily' || specialVerseMode==='random');
+      var out=previousClear.apply(this,arguments);
+      if(keep) enterSpecialV741(specialVerseMode);
+      else document.body.classList.remove('verse-special-fullscreen-v74','verse-special-fullscreen-v741');
+      return out;
+    };
+    try{clearNavModes=window.clearNavModes;}catch(e){}
+  }
+})();
+</script>
 </body>
 </html>
 <!-- V9.1 pulido: Hoy/Versículo al azar/Generado para hoy -->
