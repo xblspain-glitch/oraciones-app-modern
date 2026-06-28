@@ -3187,7 +3187,7 @@ function renderVerseCategories(){
       div.className="category-card";
       const preview=String(v.content||"").replace(/\n+/g," ").slice(0,95);
       div.innerHTML='<div><strong>'+escapeHtml(v.reference||v.title||"Sin referencia")+'</strong></div><div class="category-count">'+escapeHtml(catLabel(v.category))+(preview?' · '+escapeHtml(preview):'')+'</div>';
-      div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=v.category||currentVerseCategory||"fe";section="verses";state.section="verses";setCurrentId(v.id);renderList();renderReader();applyReaderFont();openReader();};
+      div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=v.category||currentVerseCategory||"fe";section="verses";state.section="verses";setCurrentId(v.id);renderList();renderReader();applyReaderFont();enterFullscreenReading();};
       box.appendChild(div);
     });
     return;
@@ -3228,7 +3228,7 @@ function renderVerseReferenceList(catId){
     const div=document.createElement("div");
     div.className="title-row"+(state.currentVerseId===v.id?" active":"");
     div.innerHTML='<div class="title-code">V'+(idx+1)+'</div><div class="title-name">'+escapeHtml((v.shared?'✓ ':'')+(v.favorite?'⭐ ':'')+(v.reference||v.title||"Sin referencia"))+'</div>';
-    div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=v.category||currentVerseCategory||"fe";setCurrentId(v.id);renderList();renderReader();applyReaderFont();openReader();};
+    div.onclick=()=>{verseNavigationMode="verse";currentVerseCategory=v.category||currentVerseCategory||"fe";setCurrentId(v.id);renderList();renderReader();applyReaderFont();enterFullscreenReading();};
     box.appendChild(div);
   });
 }
