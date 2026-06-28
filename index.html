@@ -5730,6 +5730,159 @@ setInterval(updateVersePositionCounter, 1000);
 })();
 
 </script>
+
+<style id="v78-calendar-fullscreen-css">
+body.calendar-fullscreen-v78 .topbar,
+body.calendar-fullscreen-v78 .sidebar,
+body.calendar-fullscreen-v78 #list{display:none!important}
+body.calendar-fullscreen-v78 .main{display:block!important;min-height:100dvh!important;grid-template-columns:1fr!important}
+body.calendar-fullscreen-v78 .content{padding:0!important;min-height:100dvh!important;width:100%!important;max-width:none!important}
+body.calendar-fullscreen-v78 #calendarView{border:none!important;border-radius:0!important;min-height:100dvh!important}
+body.calendar-fullscreen-v78 #calendarView .panel-head{position:sticky;top:0;z-index:20;border-radius:0;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:var(--card)}
+body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
+</style>
+
+
+<script>
+/* v78 - Calendario en pantalla completa real; Volver a pantalla principal */
+(function(){
+  if(window.__v78CalendarFullScreen) return;
+  window.__v78CalendarFullScreen=true;
+
+  const calHiddenNodes=[];
+
+  function hideForCalendarV78(){
+    document.body.classList.add("calendar-fullscreen-v78");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","categories-fullscreen-v73","verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-fullscreen-v76","titles-fullscreen-v72");
+
+    [".topbar",".sidebar","#list"].forEach(sel=>{
+      document.querySelectorAll(sel).forEach(el=>{
+        if(!el.dataset.v78CalDisplaySaved){
+          el.dataset.v78CalDisplaySaved="1";
+          el.dataset.v78CalOldDisplay=el.style.display||"";
+          calHiddenNodes.push(el);
+        }
+        el.style.display="none";
+      });
+    });
+
+    const main=document.querySelector(".main");
+    if(main){
+      if(!main.dataset.v78CalSaved){
+        main.dataset.v78CalSaved="1";
+        main.dataset.v78CalOldDisplay=main.style.display||"";
+        main.dataset.v78CalOldGrid=main.style.gridTemplateColumns||"";
+        main.dataset.v78CalOldMinHeight=main.style.minHeight||"";
+      }
+      main.style.display="block";
+      main.style.gridTemplateColumns="1fr";
+      main.style.minHeight="100dvh";
+    }
+
+    const content=document.querySelector(".content");
+    if(content){
+      if(!content.dataset.v78CalSaved){
+        content.dataset.v78CalSaved="1";
+        content.dataset.v78CalOldPadding=content.style.padding||"";
+        content.dataset.v78CalOldMinHeight=content.style.minHeight||"";
+        content.dataset.v78CalOldWidth=content.style.width||"";
+        content.dataset.v78CalOldMaxWidth=content.style.maxWidth||"";
+      }
+      content.style.padding="0";
+      content.style.minHeight="100dvh";
+      content.style.width="100%";
+      content.style.maxWidth="none";
+    }
+
+    const cal=document.getElementById("calendarView");
+    if(cal){
+      cal.classList.remove("hidden");
+      if(!cal.dataset.v78CalSaved){
+        cal.dataset.v78CalSaved="1";
+        cal.dataset.v78CalOldBorder=cal.style.border||"";
+        cal.dataset.v78CalOldRadius=cal.style.borderRadius||"";
+        cal.dataset.v78CalOldMinHeight=cal.style.minHeight||"";
+      }
+      cal.style.border="none";
+      cal.style.borderRadius="0";
+      cal.style.minHeight="100dvh";
+    }
+
+    ["readerView","editorView","backupView","trashView","titlesView","verseCategoriesView"].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.classList.add("hidden");
+    });
+
+    const backBtn=document.querySelector("#calendarView .panel-head button:first-child");
+    if(backBtn){
+      backBtn.setAttribute("onclick","closeCalendarFullScreenV78()");
+    }
+  }
+
+  function restoreCalendarV78(){
+    calHiddenNodes.splice(0).forEach(el=>{
+      if(el && el.dataset.v78CalDisplaySaved){
+        el.style.display=el.dataset.v78CalOldDisplay||"";
+        delete el.dataset.v78CalDisplaySaved;
+        delete el.dataset.v78CalOldDisplay;
+      }
+    });
+
+    const main=document.querySelector(".main");
+    if(main && main.dataset.v78CalSaved){
+      main.style.display=main.dataset.v78CalOldDisplay||"";
+      main.style.gridTemplateColumns=main.dataset.v78CalOldGrid||"";
+      main.style.minHeight=main.dataset.v78CalOldMinHeight||"";
+      delete main.dataset.v78CalSaved;
+    }
+
+    const content=document.querySelector(".content");
+    if(content && content.dataset.v78CalSaved){
+      content.style.padding=content.dataset.v78CalOldPadding||"";
+      content.style.minHeight=content.dataset.v78CalOldMinHeight||"";
+      content.style.width=content.dataset.v78CalOldWidth||"";
+      content.style.maxWidth=content.dataset.v78CalOldMaxWidth||"";
+      delete content.dataset.v78CalSaved;
+    }
+
+    const cal=document.getElementById("calendarView");
+    if(cal && cal.dataset.v78CalSaved){
+      cal.style.border=cal.dataset.v78CalOldBorder||"";
+      cal.style.borderRadius=cal.dataset.v78CalOldRadius||"";
+      cal.style.minHeight=cal.dataset.v78CalOldMinHeight||"";
+      delete cal.dataset.v78CalSaved;
+    }
+
+    document.body.classList.remove("calendar-fullscreen-v78");
+  }
+
+  window.closeCalendarFullScreenV78=function(){
+    restoreCalendarV78();
+    const cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
+    if(typeof openReader==="function") openReader();
+  };
+
+  const oldOpenChristianCalendar=window.openChristianCalendar || (typeof openChristianCalendar!=="undefined" ? openChristianCalendar : null);
+  window.openChristianCalendar=function(){
+    if(oldOpenChristianCalendar) oldOpenChristianCalendar.apply(this,arguments);
+    hideForCalendarV78();
+    if(typeof setActiveView==="function") setActiveView("calendar");
+    setTimeout(function(){ hideForCalendarV78(); window.scrollTo({top:0,behavior:"auto"}); },50);
+  };
+  try{openChristianCalendar=window.openChristianCalendar}catch(e){}
+
+  function wrapRestoreV78(name){
+    const old=window[name] || (typeof globalThis[name]!=="undefined" ? globalThis[name] : null);
+    if(typeof old!=="function") return;
+    window[name]=function(){
+      restoreCalendarV78();
+      return old.apply(this,arguments);
+    };
+    try{ eval(name+"=window[\""+name+"\"]") }catch(e){}
+  }
+  ["openReader","openVerseCategories","openTitlesView","openDailyVerse","openRandomVerse","openBackup","openTrash","openEditor","clearNavModes"].forEach(wrapRestoreV78);
+})();
+</script>
+
 </body>
 </html>
 <!-- V9.1 pulido: Hoy/Versículo al azar/Generado para hoy -->
