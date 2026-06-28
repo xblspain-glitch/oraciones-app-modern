@@ -4052,6 +4052,66 @@ body.verse-special-fullscreen-v74 .reader-title{padding:8px 16px 0;font-size:22p
 body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height:calc(100dvh - 170px);font-size:25px;line-height:2.05}
 </style>
 
+
+
+<script>
+/* v82.1 - Volver de Enviados a Versículo del día sin salto visual */
+(function(){
+  if(window.__v821SentBackDailyNoJump) return;
+  window.__v821SentBackDailyNoJump = true;
+
+  function restoreSentLayoutV821(){
+    try{
+      document.querySelectorAll('[data-v76-sent-display-saved="1"]').forEach(function(el){
+        el.style.display = el.dataset.v76SentOldDisplay || "";
+        delete el.dataset.v76SentDisplaySaved;
+        delete el.dataset.v76SentOldDisplay;
+      });
+      var main=document.querySelector('.main');
+      if(main && main.dataset.v76SentSaved){
+        main.style.display = main.dataset.v76SentOldDisplay || "";
+        main.style.gridTemplateColumns = main.dataset.v76SentOldGrid || "";
+        main.style.minHeight = main.dataset.v76SentOldMinHeight || "";
+        delete main.dataset.v76SentSaved;
+        delete main.dataset.v76SentOldDisplay;
+        delete main.dataset.v76SentOldGrid;
+        delete main.dataset.v76SentOldMinHeight;
+      }
+      var content=document.querySelector('.content');
+      if(content && content.dataset.v76SentSaved){
+        content.style.padding = content.dataset.v76SentOldPadding || "";
+        content.style.minHeight = content.dataset.v76SentOldMinHeight || "";
+        content.style.width = content.dataset.v76SentOldWidth || "";
+        content.style.maxWidth = content.dataset.v76SentOldMaxWidth || "";
+        delete content.dataset.v76SentSaved;
+        delete content.dataset.v76SentOldPadding;
+        delete content.dataset.v76SentOldMinHeight;
+        delete content.dataset.v76SentOldWidth;
+        delete content.dataset.v76SentOldMaxWidth;
+      }
+      document.body.classList.remove('sent-fullscreen-v76','titles-fullscreen-v72');
+      if(typeof sentListActive !== 'undefined') sentListActive = false;
+      window.scrollTo({top:0,behavior:'auto'});
+    }catch(e){ console.error('restoreSentLayoutV821', e); }
+  }
+
+  var oldClose = window.closeSentFullScreenV76 || (typeof closeSentFullScreenV76 !== 'undefined' ? closeSentFullScreenV76 : null);
+  window.closeSentFullScreenV76 = function(){
+    if(window.__sentOpenedFromDailyV813){
+      window.__sentOpenedFromDailyV813 = false;
+      restoreSentLayoutV821();
+      try{
+        if(typeof openDailyVerse === 'function') openDailyVerse();
+      }catch(e){ console.error('openDaily after sent v821', e); }
+      setTimeout(function(){ window.scrollTo({top:0,behavior:'auto'}); }, 0);
+      return;
+    }
+    if(typeof oldClose === 'function') return oldClose.apply(this, arguments);
+  };
+  try{ closeSentFullScreenV76 = window.closeSentFullScreenV76; }catch(e){}
+})();
+</script>
+
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
