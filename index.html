@@ -5423,10 +5423,40 @@ setInterval(updateVersePositionCounter, 1000);
     if(rv) rv.classList.remove("hidden");
   }
 
+  let specialHeadOriginalV75=null;
+
+  function getReaderHeadV75(){
+    return document.querySelector("#readerView .panel-head");
+  }
+
+  function restoreReaderHeadV75(){
+    const head=getReaderHeadV75();
+    if(head && specialHeadOriginalV75!==null){
+      head.innerHTML=specialHeadOriginalV75;
+      specialHeadOriginalV75=null;
+    }
+  }
+
+  window.restoreReaderHeadV75=restoreReaderHeadV75;
+
+  function setSpecialReaderHeadV75(mode){
+    const head=getReaderHeadV75();
+    if(!head) return;
+    if(specialHeadOriginalV75===null) specialHeadOriginalV75=head.innerHTML;
+    const randomBtn = mode==="random" ? '<button class="btn soft" type="button" onclick="openRandomVerse()">🔄 Otro al azar</button>' : '';
+    head.innerHTML =
+      '<button class="btn soft" type="button" onclick="restoreReaderHeadV75(); openVerseCategories()">← Volver</button>' +
+      randomBtn +
+      '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>' +
+      '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>' +
+      '<button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory(); setTimeout(function(){ if(typeof renderReader===\'function\') renderReader(); },80)">📂 Mover</button>';
+  }
+
   function enterSpecialVerseScreen(mode){
     document.body.classList.add("verse-special-fullscreen-v74");
     document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73");
     hideOtherPanelsForSpecial();
+    setSpecialReaderHeadV75(mode);
     if(typeof setActiveView==="function") setActiveView(mode||"read");
     setTimeout(function(){window.scrollTo({top:0,behavior:"auto"});},30);
   }
@@ -5435,6 +5465,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(oldOpenReader && !window.__v74OpenReaderWrapped){
     window.__v74OpenReaderWrapped=true;
     window.openReader=function(){
+      restoreReaderHeadV75();
       document.body.classList.remove("verse-special-fullscreen-v74");
       return oldOpenReader.apply(this,arguments);
     };
@@ -5445,6 +5476,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(oldClearNavModes && !window.__v74ClearNavModesWrapped){
     window.__v74ClearNavModesWrapped=true;
     window.clearNavModes=function(){
+      restoreReaderHeadV75();
       document.body.classList.remove("verse-special-fullscreen-v74");
       return oldClearNavModes.apply(this,arguments);
     };
