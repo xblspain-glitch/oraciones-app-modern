@@ -1737,10 +1737,18 @@ function openRecentEntry(type,idx){
 
 
 
-    <div id="verseCategoriesView" class="panel hidden">
-      <div class="panel-head">
+    <div id="verseCategoriesView" class="panel hidden categories-screen-v73">
+      <div class="panel-head categories-head-v73">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
-        <button class="btn soft" type="button" onclick="openVerseFavorites()">⭐ Favoritos</button><button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Hoy</button><button class="btn soft" type="button" onclick="openRandomVerse()">🌿 Versículo al azar</button><button class="btn soft" type="button" onclick="createVerseCategory()">➕ Categoría</button><button class="btn soft" type="button" onclick="renameVerseCategory()">✏️ Renombrar</button><button class="btn soft" type="button" onclick="deleteVerseCategory()">🗑️ Eliminar</button>
+        <button class="btn soft" type="button" onclick="openVerseFavorites()">⭐ Favoritos</button>
+        <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Hoy</button>
+        <button class="btn soft" type="button" onclick="openRandomVerse()">🌿 Versículo al azar</button>
+        <button class="btn soft" type="button" onclick="openRecentHistory()">🕘 Recientes</button>
+        <button class="btn soft" type="button" onclick="openSentVersesList()">📤 Enviados</button>
+        <button class="btn soft" type="button" onclick="createVerseCategory()">➕ Categoría</button>
+        <button class="btn soft" type="button" onclick="renameVerseCategory()">✏️ Renombrar</button>
+        <button class="btn soft" type="button" onclick="deleteVerseCategory()">🗑️ Eliminar</button>
+        <input id="categorySearchV73" class="search categories-search-v73" placeholder="Buscar categoría" oninput="renderVerseCategories()">
       </div>
       <div id="verseCategoriesList" class="category-grid"></div>
     </div>
@@ -5226,6 +5234,95 @@ setInterval(updateVersePositionCounter, 1000);
   document.addEventListener("input",function(e){
     if(e.target && e.target.id==="titlesSearch"){
       window.renderTitles();
+    }
+  },true);
+})();
+
+
+/* v73 - Categorías en pantalla completa */
+(function(){
+  if(window.__v73CategoriesFull)return;
+  window.__v73CategoriesFull=true;
+
+  const oldClearNavModes = window.clearNavModes || (typeof clearNavModes!=="undefined" ? clearNavModes : null);
+  if(oldClearNavModes){
+    window.clearNavModes=function(){
+      oldClearNavModes.apply(this,arguments);
+      document.body.classList.remove("categories-fullscreen-v73");
+    };
+    try{clearNavModes=window.clearNavModes}catch(e){}
+  }
+
+  window.openVerseCategories=function(){
+    setSearchVisibleV26(true);
+    setActiveView("categories");
+    categoryListActive=true;
+    clearNavModes();
+
+    specialVerseMode=null;
+    verseNavigationMode="categories";
+    section="verses";
+    state.section="verses";
+    currentVerseCategory=currentVerseCategory||"sin_categoria";
+    normalizeVerses();
+    saveState();
+    syncTabs();
+    renderList();
+
+    document.body.classList.add("categories-fullscreen-v73");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
+
+    document.getElementById("verseCategoriesView").classList.remove("hidden");
+    document.getElementById("readerView").classList.add("hidden");
+    document.getElementById("editorView").classList.add("hidden");
+    document.getElementById("backupView").classList.add("hidden");
+    document.getElementById("trashView").classList.add("hidden");
+    document.getElementById("titlesView").classList.add("hidden");
+    var cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
+
+    const cs=document.getElementById("categorySearchV73");
+    if(cs) cs.value="";
+    renderVerseCategories();
+    setTimeout(function(){window.scrollTo({top:0,behavior:"auto"});},40);
+  };
+
+  const oldOpenReader = window.openReader || (typeof openReader!=="undefined" ? openReader : null);
+  if(oldOpenReader && !window.__v73OpenReaderWrapped){
+    window.__v73OpenReaderWrapped=true;
+    window.openReader=function(){
+      document.body.classList.remove("categories-fullscreen-v73");
+      oldOpenReader.apply(this,arguments);
+    };
+    try{openReader=window.openReader}catch(e){}
+  }
+
+  window.renderVerseCategories=function(){
+    const box=document.getElementById("verseCategoriesList");
+    if(!box)return;
+    box.innerHTML="";
+
+    const q=(document.getElementById("categorySearchV73")?.value || "").trim().toLowerCase();
+    const cats=(state.verseCategories&&state.verseCategories.length?state.verseCategories:VERSE_CATEGORIES)
+      .filter(cat=>!q || String(cat.label||"").toLowerCase().includes(q));
+
+    if(!cats.length){
+      box.innerHTML='<div class="empty">No hay categorías.</div>';
+      return;
+    }
+
+    cats.forEach(cat=>{
+      const count=state.verses.filter(v=>v.category===cat.id).length;
+      const div=document.createElement("div");
+      div.className="category-card";
+      div.innerHTML='<div>'+escapeHtml(cat.label)+'</div><div class="category-count">'+count+' versículos</div>';
+      div.onclick=()=>openVerseCategory(cat.id);
+      box.appendChild(div);
+    });
+  };
+
+  document.addEventListener("input",function(e){
+    if(e.target && e.target.id==="categorySearchV73"){
+      window.renderVerseCategories();
     }
   },true);
 })();
