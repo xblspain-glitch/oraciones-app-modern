@@ -1791,7 +1791,7 @@ function openRecentEntry(type,idx){
         <button class="btn soft" type="button" onclick="openRandomVerse()">🌿 Versículo al azar</button>
         <button class="btn soft" type="button" onclick="openRecentHistory()">🕘 Recientes</button>
         <button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>
-        <button class="btn soft" type="button" onclick="window.__sentReturnTargetV811='daily'; openSentVersesList()">📤 Enviados</button>
+        <button class="btn soft" type="button" onclick="openSentVersesList()">📤 Enviados</button>
         <button class="btn soft" type="button" onclick="createVerseCategory()">➕ Categoría</button>
         <button class="btn soft" type="button" onclick="renameVerseCategory()">✏️ Renombrar</button>
         <button class="btn soft" type="button" onclick="deleteVerseCategory()">🗑️ Eliminar</button>
@@ -4052,47 +4052,6 @@ body.verse-special-fullscreen-v74 .reader-title{padding:8px 16px 0;font-size:22p
 body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height:calc(100dvh - 170px);font-size:25px;line-height:2.05}
 </style>
 
-
-
-<script>
-/* v81.1 - Volver de Enviados a Versículo del día cuando se abre desde Hoy */
-(function(){
-  if(window.__v811SentBackToDaily) return;
-  window.__v811SentBackToDaily = true;
-
-  const oldOpenSentV811 = window.openSentVersesList || (typeof openSentVersesList !== "undefined" ? openSentVersesList : null);
-  if(typeof oldOpenSentV811 === "function"){
-    window.openSentVersesList = function(){
-      try{
-        if(typeof specialVerseMode !== "undefined" && specialVerseMode === "daily"){
-          window.__sentReturnTargetV811 = "daily";
-        }
-      }catch(e){}
-      return oldOpenSentV811.apply(this, arguments);
-    };
-    try{ openSentVersesList = window.openSentVersesList; }catch(e){}
-  }
-
-  const oldCloseSentV811 = window.closeSentFullScreenV76 || (typeof closeSentFullScreenV76 !== "undefined" ? closeSentFullScreenV76 : null);
-  if(typeof oldCloseSentV811 === "function"){
-    window.closeSentFullScreenV76 = function(){
-      const target = window.__sentReturnTargetV811;
-      const r = oldCloseSentV811.apply(this, arguments);
-      if(target === "daily"){
-        window.__sentReturnTargetV811 = null;
-        setTimeout(function(){
-          try{
-            if(typeof openDailyVerse === "function") openDailyVerse();
-          }catch(e){ console.error("v81.1 volver enviados a hoy", e); }
-        }, 80);
-      }
-      return r;
-    };
-    try{ closeSentFullScreenV76 = window.closeSentFullScreenV76; }catch(e){}
-  }
-})();
-</script>
-
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -5924,47 +5883,6 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
 })();
 </script>
 
-
-
-<script>
-/* v81.1 - Volver de Enviados a Versículo del día cuando se abre desde Hoy */
-(function(){
-  if(window.__v811SentBackToDaily) return;
-  window.__v811SentBackToDaily = true;
-
-  const oldOpenSentV811 = window.openSentVersesList || (typeof openSentVersesList !== "undefined" ? openSentVersesList : null);
-  if(typeof oldOpenSentV811 === "function"){
-    window.openSentVersesList = function(){
-      try{
-        if(typeof specialVerseMode !== "undefined" && specialVerseMode === "daily"){
-          window.__sentReturnTargetV811 = "daily";
-        }
-      }catch(e){}
-      return oldOpenSentV811.apply(this, arguments);
-    };
-    try{ openSentVersesList = window.openSentVersesList; }catch(e){}
-  }
-
-  const oldCloseSentV811 = window.closeSentFullScreenV76 || (typeof closeSentFullScreenV76 !== "undefined" ? closeSentFullScreenV76 : null);
-  if(typeof oldCloseSentV811 === "function"){
-    window.closeSentFullScreenV76 = function(){
-      const target = window.__sentReturnTargetV811;
-      const r = oldCloseSentV811.apply(this, arguments);
-      if(target === "daily"){
-        window.__sentReturnTargetV811 = null;
-        setTimeout(function(){
-          try{
-            if(typeof openDailyVerse === "function") openDailyVerse();
-          }catch(e){ console.error("v81.1 volver enviados a hoy", e); }
-        }, 80);
-      }
-      return r;
-    };
-    try{ closeSentFullScreenV76 = window.closeSentFullScreenV76; }catch(e){}
-  }
-})();
-</script>
-
 </body>
 </html>
 <!-- V9.1 pulido: Hoy/Versículo al azar/Generado para hoy -->
@@ -6324,7 +6242,7 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
         '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>' +
         '<button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory(); setTimeout(function(){ if(typeof renderReader===\'function\') renderReader(); },80)">📂 Mover</button>' +
         '<button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>' +
-        '<button class="btn soft" type="button" onclick="window.__sentReturnTargetV811='daily'; openSentVersesList()">📤 Enviados</button>';
+        '<button class="btn soft" type="button" onclick="openSentVersesList()">📤 Enviados</button>';
     }catch(e){ console.error("setDailyReaderHeadV81", e); }
   }
 
