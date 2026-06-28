@@ -1653,13 +1653,13 @@ function openRecentEntry(type,idx){
       <button id="tabNotes" type="button" onclick="switchSection('notes')">📝 Notas</button>
       <button id="tabGuides" type="button" onclick="switchSection('guides')">📜 Guía</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
-      <button id="tabParables" type="button" onclick="switchSection('parables')">🌱 Parábolas</button>
     </div>
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
     <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
     <button id="btnRandom" data-view-btn="random" class="btn soft" type="button" onclick="openRandomVerse()">🌿 Versículo al azar</button>
+    <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSection('parables')">🌱 Parábolas</button>
         <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
     <button id="btnEdit" data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
     <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
@@ -4057,25 +4057,6 @@ body.verse-special-fullscreen-v74 .reader-title{padding:8px 16px 0;font-size:22p
 body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height:calc(100dvh - 170px);font-size:25px;line-height:2.05}
 </style>
 
-
-<style id="v85-1-cabecera-parabolas-segunda-fila">
-/* v85.1 - Cabecera preparada para crecer: 4 módulos arriba y Parábolas debajo */
-.topbar-row .segment{
-  display:grid!important;
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  width:100%!important;
-}
-.topbar-row .segment button{
-  width:100%!important;
-  min-width:0!important;
-  white-space:nowrap!important;
-  text-align:center!important;
-}
-@media(max-width:520px){
-  .topbar-row .segment{grid-template-columns:repeat(4,minmax(0,1fr))!important;}
-  .topbar-row .segment button{font-size:13px!important;padding:8px 6px!important;}
-}
-</style>
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -5941,7 +5922,23 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",afterV85);else setTimeout(afterV85,0);
 })();
 </script>
-<style id="v85-parabolas-style">#tabParables{white-space:nowrap;}@media(max-width:520px){.segment{flex-wrap:wrap;justify-content:center}.segment button{font-size:15px;padding:8px 10px}}</style>
+<style id="v85-parabolas-style">
+#tabParables{white-space:nowrap;}
+body:not(.dark) .topbar-row #tabParables.active,
+body:not(.dark) .topbar-row #tabParables.active-view{
+  background:#ffffff !important;
+  border:2px solid #8a5a2b !important;
+  color:#181818 !important;
+  font-weight:800 !important;
+  box-shadow:0 4px 14px rgba(138,90,43,.18) !important;
+}
+body.dark .topbar-row #tabParables.active,
+body.dark .topbar-row #tabParables.active-view{
+  background:#f2eee7!important;
+  color:#111!important;
+  border-color:var(--accent)!important;
+}
+</style>
 
 
 <script id="v85-parabolas-ajustes-extra">
@@ -5968,25 +5965,6 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
 })();
 </script>
 
-
-<style id="v85-1-cabecera-parabolas-segunda-fila">
-/* v85.1 - Cabecera preparada para crecer: 4 módulos arriba y Parábolas debajo */
-.topbar-row .segment{
-  display:grid!important;
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  width:100%!important;
-}
-.topbar-row .segment button{
-  width:100%!important;
-  min-width:0!important;
-  white-space:nowrap!important;
-  text-align:center!important;
-}
-@media(max-width:520px){
-  .topbar-row .segment{grid-template-columns:repeat(4,minmax(0,1fr))!important;}
-  .topbar-row .segment button{font-size:13px!important;padding:8px 6px!important;}
-}
-</style>
 </body>
 </html>
 <!-- V9.1 pulido: Hoy/Versículo al azar/Generado para hoy -->
