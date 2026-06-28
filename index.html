@@ -2094,6 +2094,25 @@ function syncTabs(){
   const verseTab=document.getElementById("tabVerses");if(verseTab)verseTab.classList.toggle("active",section==="verses");
   document.getElementById("search").placeholder=section==="prayers"?"Buscar oración o código (ej. O3)":section==="notes"?"Buscar nota o código (ej. N2)":section==="guides"?"Buscar guía o código (ej. G1)":"Buscar versículo, referencia o palabra";
   document.getElementById("counterInfo").textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | ❤️ ${state.verses?state.verses.length:0}`;
+
+  // v84: Nueva y Papelera siempre visibles y adaptadas a cada sección.
+  // Así Oraciones, Notas, Guía y Versículos tienen sus acciones básicas propias.
+  const btnNew=document.getElementById("btnNew");
+  const btnTrash=document.getElementById("btnTrash");
+  if(btnNew){
+    btnNew.style.display="";
+    btnNew.textContent = section==="prayers" ? "➕ Nueva oración"
+      : section==="notes" ? "➕ Nueva nota"
+      : section==="guides" ? "➕ Nueva guía"
+      : "➕ Nuevo versículo";
+  }
+  if(btnTrash){
+    btnTrash.style.display="";
+    btnTrash.textContent = section==="prayers" ? "🗑️ Papelera oraciones"
+      : section==="notes" ? "🗑️ Papelera notas"
+      : section==="guides" ? "🗑️ Papelera guía"
+      : "🗑️ Papelera versículos";
+  }
 }
 
 function setActiveView(view){
@@ -6339,4 +6358,5 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
 })();
 </script>
 
+<!-- v84_nueva_papelera_por_seccion: botones Nueva/Papelera adaptados por sección. -->
 <!-- v83_sin_boton_categorias: ❤️ Versículos abre directamente Categorías; botón Categorías retirado de la pantalla principal. -->
