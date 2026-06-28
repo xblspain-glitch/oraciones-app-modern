@@ -927,6 +927,32 @@ body.dark .topbar-bottom-row-v66{
   align-items:center!important;
 }
 
+
+/* v71 - Sensación Premium: pulsación uniforme */
+.btn,
+button.btn,
+.reader-next-link,
+.reader-top-link{
+  transition:
+    transform .055s ease-out,
+    box-shadow .09s ease-out,
+    filter .07s ease-out,
+    background-color .12s ease-out,
+    border-color .12s ease-out!important;
+  will-change:transform;
+}
+
+.btn:active,
+button.btn:active,
+.btn.premium-pressing,
+button.btn.premium-pressing,
+.reader-next-link:active,
+.reader-top-link:active{
+  transform:scale(.965) translateY(2px)!important;
+  filter:brightness(1.045);
+  box-shadow:0 1px 2px rgba(36,74,122,.12)!important;
+}
+
 </style>
 
 <style>
@@ -5001,6 +5027,46 @@ setInterval(updateVersePositionCounter, 1000);
     };
     try{toggleTheme=window.toggleTheme}catch(e){}
   }
+})();
+
+
+/* v71 - Refuerzo táctil uniforme */
+(function(){
+  if(window.__v71PremiumTouch)return;
+  window.__v71PremiumTouch=true;
+
+  function press(el){
+    if(!el)return;
+    el.classList.add("premium-pressing");
+    clearTimeout(el.__v71PressTimer);
+    el.__v71PressTimer=setTimeout(function(){
+      el.classList.remove("premium-pressing");
+    },58);
+  }
+
+  function target(e){
+    return e.target && e.target.closest && e.target.closest(".btn,.reader-next-link,.reader-top-link");
+  }
+
+  document.addEventListener("touchstart",function(e){
+    const b=target(e);
+    if(b)press(b);
+  },{passive:true,capture:true});
+
+  document.addEventListener("mousedown",function(e){
+    const b=target(e);
+    if(b)press(b);
+  },true);
+
+  document.addEventListener("touchend",function(e){
+    const b=target(e);
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},45);
+  },{passive:true,capture:true});
+
+  document.addEventListener("mouseup",function(e){
+    const b=target(e);
+    if(b)setTimeout(function(){b.classList.remove("premium-pressing")},45);
+  },true);
 })();
 
 </script>
