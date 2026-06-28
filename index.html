@@ -6268,3 +6268,73 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
   try{ openDailyVerse = window.openDailyVerse; }catch(e){}
 })();
 </script>
+
+<script>
+/* v81.3 - Volver de Enviados a Versículo del día sin tocar Enviados global */
+(function(){
+  if(window.__v813SentBackToDailySafe) return;
+  window.__v813SentBackToDailySafe = true;
+
+  function markDailySentOriginV813(){
+    window.__sentOpenedFromDailyV813 = true;
+  }
+  window.markDailySentOriginV813 = markDailySentOriginV813;
+
+  function patchDailySentButtonV813(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      var buttons = head.querySelectorAll("button");
+      buttons.forEach(function(btn){
+        var txt = (btn.textContent || "").trim();
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
+          btn.setAttribute("onclick", "markDailySentOriginV813(); openSentVersesList()");
+        }
+      });
+    }catch(e){ console.error("patchDailySentButtonV813", e); }
+  }
+
+  var oldOpenDailyV813 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV813 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV813.apply(this, arguments);
+      setTimeout(patchDailySentButtonV813, 30);
+      setTimeout(patchDailySentButtonV813, 120);
+      return r;
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV813 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV813 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV813.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(patchDailySentButtonV813, 30);
+        setTimeout(patchDailySentButtonV813, 120);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  var oldCloseSentV813 = window.closeSentFullScreenV76 || (typeof closeSentFullScreenV76 !== "undefined" ? closeSentFullScreenV76 : null);
+  if(typeof oldCloseSentV813 === "function"){
+    window.closeSentFullScreenV76 = function(){
+      var backToDaily = !!window.__sentOpenedFromDailyV813;
+      window.__sentOpenedFromDailyV813 = false;
+      var r = oldCloseSentV813.apply(this, arguments);
+      if(backToDaily){
+        setTimeout(function(){
+          try{ if(typeof openDailyVerse === "function") openDailyVerse(); }catch(e){ console.error("backToDaily v813", e); }
+        }, 40);
+      }
+      return r;
+    };
+    try{ closeSentFullScreenV76 = window.closeSentFullScreenV76; }catch(e){}
+  }
+
+  setTimeout(patchDailySentButtonV813, 100);
+})();
+</script>
