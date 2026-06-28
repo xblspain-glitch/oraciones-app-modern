@@ -1033,6 +1033,17 @@ body.categories-fullscreen-v73 .content{
   max-width:none!important;
 }
 
+
+/* v77.1 - Botonera limpia: las acciones globales suben arriba.
+   La botonera del lector se oculta solo en lectura normal móvil;
+   el modo Leer en pantalla completa y las pantallas Hoy/Azar conservan sus propios controles. */
+body.reading-mobile:not(.fullscreen-reading):not(.verse-special-fullscreen-v74):not(.verse-special-fullscreen-v751) #readerView .panel-head{
+  display:none!important;
+}
+body.reading-mobile:not(.fullscreen-reading):not(.verse-special-fullscreen-v74):not(.verse-special-fullscreen-v751) #readerView .reader-code{
+  padding-top:18px;
+}
+
 </style>
 
 <style>
@@ -1348,13 +1359,6 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
 }
 </style>
 
-
-<style>
-/* v77 - botones globales arriba y eliminación de la segunda botonera en pantalla principal */
-body:not(.verse-special-fullscreen-v74):not(.verse-special-fullscreen-v751):not(.sent-fullscreen-v76) #readerView > .panel-head{display:none!important}
-body:not(.verse-special-fullscreen-v74):not(.verse-special-fullscreen-v751):not(.sent-fullscreen-v76) #readerView .reader-code{padding-top:16px}
-#btnMainFavV77.favorite-active{font-weight:900}
-</style>
 </head>
 <body>
 
@@ -1656,11 +1660,11 @@ function openRecentEntry(type,idx){
     <button id="btnCategories" data-view-btn="categories" class="btn soft" type="button" onclick="openVerseCategories()">🗂️ Categorías</button>
         <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
     <button id="btnEdit" data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
-    <button id="btnMainMarkV77" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
-    <button id="btnMainCardV77" class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
-    <button id="btnMainFavV77" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-    <button id="btnMainMoreV77" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
     <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
+    <button id="btnMainMark" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
+    <button id="btnMainCard" class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
+    <button id="btnMainMore" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
+    <button id="btnMainFav" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
     <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
     <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
     <div class="topbar-bottom-row-v66">
