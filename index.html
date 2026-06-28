@@ -6099,3 +6099,128 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
   ["openReader","openVerseCategories","openTitlesView","openDailyVerse","openRandomVerse","openBackup","openTrash","openEditor","openChristianCalendar","clearNavModes"].forEach(wrapRestoreV791);
 })();
 </script>
+
+<script>
+/* v80 - Favoritos abre en Leer + favoritos de Versículos/Categorías corregidos */
+(function(){
+  if(window.__v80FavoritesFix) return;
+  window.__v80FavoritesFix = true;
+
+  function openItemFromFavoritesV80(item, targetSection){
+    try{
+      if(!item) return;
+      section = targetSection || section;
+      if(state) state.section = section;
+      if(section === "verses"){
+        state.currentVerseId = item.id;
+        currentVerseCategory = "favoritos";
+        verseNavigationMode = "verse";
+        specialVerseMode = null;
+      }else if(section === "prayers"){
+        state.currentPrayerId = item.id;
+      }else if(section === "notes"){
+        state.currentNoteId = item.id;
+      }else if(section === "guides"){
+        state.currentGuideId = item.id;
+      }
+      if(typeof saveState === "function") saveState();
+      if(typeof syncTabs === "function") syncTabs();
+      if(typeof renderList === "function") renderList();
+      if(typeof renderReader === "function") renderReader();
+      if(typeof closeFavoritesFullScreenV791 === "function"){
+        closeFavoritesFullScreenV791();
+      }else if(typeof openReader === "function"){
+        openReader();
+      }
+      setTimeout(function(){
+        if(typeof renderReader === "function") renderReader();
+        if(typeof applyReaderFont === "function") applyReaderFont();
+        if(typeof enterFullscreenReading === "function") enterFullscreenReading();
+        else if(typeof openReader === "function") openReader();
+      },30);
+    }catch(e){
+      console.error("openItemFromFavoritesV80", e);
+      if(typeof toast === "function") toast("No se pudo abrir el favorito");
+    }
+  }
+
+  function renderFavoritesListV80(items, targetSection, emptyText){
+    const box = document.getElementById("titlesList");
+    if(!box) return;
+    box.innerHTML = "";
+    if(!items || !items.length){
+      box.innerHTML = '<div class="empty">'+(emptyText || 'No hay favoritos.')+'</div>';
+      return;
+    }
+    items.forEach(function(item){
+      const div = document.createElement("div");
+      div.className = "title-row";
+      let label = targetSection === "verses" ? (item.reference || item.title || "Sin referencia") : (item.title || "Sin título");
+      let code = "★";
+      try{
+        const list = targetSection === "verses" ? state.verses : (targetSection === "prayers" ? state.prayers : targetSection === "notes" ? state.notes : state.guides);
+        const idx = (list || []).findIndex(function(x){ return x.id === item.id; });
+        if(typeof getDisplayCode === "function" && idx >= 0){
+          const oldSection = section;
+          section = targetSection;
+          code = getDisplayCode(idx, targetSection) || "★";
+          section = oldSection;
+        }
+      }catch(e){}
+      div.innerHTML = '<div class="title-code">⭐</div><div class="title-name">'+escapeHtml(label)+'</div>' + (code && code !== "★" ? '<div class="small-note">'+escapeHtml(code)+'</div>' : '');
+      div.onclick = function(){ openItemFromFavoritesV80(item, targetSection); };
+      box.appendChild(div);
+    });
+  }
+
+  const previousOpenFavoritesView = window.openFavoritesView || (typeof openFavoritesView !== "undefined" ? openFavoritesView : null);
+  window.openFavoritesView = function(){
+    try{
+      if(previousOpenFavoritesView) previousOpenFavoritesView.apply(this, arguments);
+      const targetSection = section || (state && state.section) || "prayers";
+      const items = (typeof getItems === "function" ? getItems() : []).filter(function(i){ return i && i.favorite; });
+      renderFavoritesListV80(items, targetSection, "No hay favoritos.");
+      if(typeof setActiveView === "function") setActiveView("favorites");
+      setTimeout(function(){
+        try{
+          if(document.body.classList.contains("favorites-fullscreen-v791") === false && previousOpenFavoritesView) previousOpenFavoritesView.apply(null, []);
+          renderFavoritesListV80(items, targetSection, "No hay favoritos.");
+        }catch(e){}
+      },40);
+    }catch(e){
+      console.error("openFavoritesView v80", e);
+      alert("No se pudieron abrir los favoritos.");
+    }
+  };
+  try{ openFavoritesView = window.openFavoritesView; }catch(e){}
+
+  window.openVerseFavorites = function(){
+    try{
+      specialVerseMode = null;
+      section = "verses";
+      if(state) state.section = "verses";
+      currentVerseCategory = "favoritos";
+      verseNavigationMode = "verse";
+      if(typeof saveState === "function") saveState();
+      if(typeof syncTabs === "function") syncTabs();
+      const titles = document.getElementById("titlesView");
+      const cats = document.getElementById("verseCategoriesView");
+      const reader = document.getElementById("readerView");
+      const editor = document.getElementById("editorView");
+      const backup = document.getElementById("backupView");
+      const trash = document.getElementById("trashView");
+      if(titles) titles.classList.remove("hidden");
+      if(cats) cats.classList.add("hidden");
+      if(reader) reader.classList.add("hidden");
+      if(editor) editor.classList.add("hidden");
+      if(backup) backup.classList.add("hidden");
+      if(trash) trash.classList.add("hidden");
+      renderFavoritesListV80((state.verses || []).filter(function(v){ return v && v.favorite; }), "verses", "No hay versículos favoritos.");
+    }catch(e){
+      console.error("openVerseFavorites v80", e);
+      if(typeof toast === "function") toast("No se pudieron abrir los favoritos");
+    }
+  };
+  try{ openVerseFavorites = window.openVerseFavorites; }catch(e){}
+})();
+</script>
