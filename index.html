@@ -6224,3 +6224,47 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
   try{ openVerseFavorites = window.openVerseFavorites; }catch(e){}
 })();
 </script>
+
+<script>
+/* v81 - Botones Enviados y Nunca enviados en Versículo del día */
+(function(){
+  if(window.__v81DailySentButtons) return;
+  window.__v81DailySentButtons = true;
+
+  function setDailyReaderHeadV81(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      const head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      head.innerHTML =
+        '<button class="btn soft" type="button" onclick="restoreReaderHeadV75(); openVerseCategories()">← Volver</button>' +
+        '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>' +
+        '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>' +
+        '<button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory(); setTimeout(function(){ if(typeof renderReader===\'function\') renderReader(); },80)">📂 Mover</button>' +
+        '<button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>' +
+        '<button class="btn soft" type="button" onclick="openSentVersesList()">📤 Enviados</button>';
+    }catch(e){ console.error("setDailyReaderHeadV81", e); }
+  }
+
+  const oldOpenVerseSpecialV81 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV81 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      const r = oldOpenVerseSpecialV81.apply(this, arguments);
+      if(mode === "daily"){
+        setDailyReaderHeadV81();
+        setTimeout(setDailyReaderHeadV81, 80);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  window.openDailyVerse = function(){
+    window.openVerseSpecial(getDailyVerse(), "daily");
+    if(typeof setActiveView === "function") setActiveView("daily");
+    setDailyReaderHeadV81();
+    setTimeout(setDailyReaderHeadV81, 80);
+  };
+  try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+})();
+</script>
