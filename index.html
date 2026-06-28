@@ -1092,6 +1092,15 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   background:var(--soft,#f3eee4);
 }
 </style>
+<style>
+.app-credits-overlay{position:fixed;inset:0;z-index:100001;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:18px;}
+.app-credits-card{width:min(420px,94vw);background:var(--panel,#fff);color:var(--text,#222);border:1px solid rgba(0,0,0,.12);border-radius:22px;box-shadow:0 14px 34px rgba(0,0,0,.25);padding:18px;text-align:center;}
+.app-credits-icon{width:54px;height:54px;border-radius:16px;box-shadow:0 4px 14px rgba(0,0,0,.16);margin-bottom:8px;}
+.app-credits-title{font-size:22px;font-weight:800;margin:4px 0 8px;}
+.app-credits-line{font-size:15px;line-height:1.45;margin:7px 0;word-break:break-word;}
+.app-credits-zip{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;background:rgba(0,0,0,.05);border-radius:10px;padding:8px;margin-top:6px;}
+.app-credits-card .btn{margin-top:12px;width:100%;}
+</style>
 
 
 <style>
@@ -2912,7 +2921,8 @@ function openMoreMenu(ev){
       '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📭 Nunca enviados</button>' +
       '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📤 Enviados</button>' +
       '<button type="button" onclick="closeMoreMenu(); openRecentHistory()">🕘 Recientes</button>' +
-      '<button type="button" onclick="closeMoreMenu(); exportCurrentHTML()">🌐 Exportar lectura</button>';
+      '<button type="button" onclick="closeMoreMenu(); exportCurrentHTML()">🌐 Exportar lectura</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openAppCredits()"><img src="icon-192.png" alt="" style="width:20px;height:20px;border-radius:6px;vertical-align:-4px;margin-right:4px"> App / Versión</button>';
 
     document.body.appendChild(menu);
 
@@ -2934,6 +2944,36 @@ function openMoreMenu(ev){
   }catch(e){
     console.error("openMoreMenu", e);
   }
+}
+
+
+const APP_VERSION_LABEL = "v86.1";
+const APP_VERSION_ZIP = "oraciones_v2_v86_1_info_build.zip";
+const APP_BASE_ZIP = "oraciones_v2_v85_7_parabolas_contador_P_real.zip";
+function closeAppCredits(){
+  const el=document.getElementById("appCreditsOverlay");
+  if(el) el.remove();
+}
+function openAppCredits(){
+  closeAppCredits();
+  const overlay=document.createElement("div");
+  overlay.id="appCreditsOverlay";
+  overlay.className="app-credits-overlay";
+  overlay.onclick=function(e){ if(e.target===overlay) closeAppCredits(); };
+  overlay.innerHTML =
+    '<div class="app-credits-card">' +
+      '<img class="app-credits-icon" src="icon-192.png" alt="Icono de la app">' +
+      '<div class="app-credits-title">Oraciones V2</div>' +
+      '<div class="app-credits-line"><strong>Versión instalada:</strong> '+APP_VERSION_LABEL+'</div>' +
+      '<div class="app-credits-line"><strong>ZIP:</strong></div>' +
+      '<div class="app-credits-zip">'+APP_VERSION_ZIP+'</div>' +
+      '<div class="app-credits-line"><strong>Base:</strong></div>' +
+      '<div class="app-credits-zip">'+APP_BASE_ZIP+'</div>' +
+      '<div class="app-credits-line">App personal de oraciones, notas, guía, versículos y parábolas.</div>' +
+      '<div class="app-credits-line">Desarrollada y pulida versión a versión con amor y fe. 🙏🏾</div>' +
+      '<button class="btn soft" type="button" onclick="closeAppCredits()">Cerrar</button>' +
+    '</div>';
+  document.body.appendChild(overlay);
 }
 
 function openSentVersesList(){
