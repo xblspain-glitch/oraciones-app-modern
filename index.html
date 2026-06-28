@@ -2082,7 +2082,7 @@ function displayItemSub(item){
 function renderList(){
   const titlesVisible = !document.getElementById("titlesView")?.classList.contains("hidden");
   const q=(titlesVisible
-    ? (document.getElementById("titlesSearch")?.value || document.getElementById("search")?.value || "")
+    ? (document.getElementById("titlesSearch")?.value || "")
     : (document.getElementById("search")?.value || "")
   ).trim().toLowerCase();
   const list=document.getElementById("list");
@@ -2361,7 +2361,7 @@ function registerCurrentAsReadV47G(){
   }catch(e){}
 }
 
-function enterFullscreenReading(){registerCurrentAsReadV47G();setActiveView("read");document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
+function enterFullscreenReading(){registerCurrentAsReadV47G();setActiveView("read");document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");document.body.classList.remove("titles-fullscreen-v72");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
 function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
 function openEditor(){
@@ -3190,7 +3190,7 @@ function renderTitles(){
       setCurrentId(item.id);
       renderList();
       renderReader();
-      openReader();
+      enterFullscreenReading();
     };
     box.appendChild(div);
   });
@@ -3238,13 +3238,14 @@ function openTitlesView(){
   const ts=document.getElementById("titlesSearch");
   const mainSearch=document.getElementById("search");
   if(ts){
-    ts.value=(mainSearch&&mainSearch.value)||"";
-    ts.placeholder=(mainSearch&&mainSearch.placeholder)||titlesPlaceholderV72();
+    ts.value="";
+    ts.placeholder=titlesPlaceholderV72();
   }
   renderTitles();
   setTimeout(function(){
-    const active=document.querySelector("#titlesList .title-row.active");
-    if(active) active.scrollIntoView({block:"center"});
+    window.scrollTo({top:0,behavior:"auto"});
+    const list=document.getElementById("titlesList");
+    if(list) list.scrollTop=0;
   },40);
 }
 
