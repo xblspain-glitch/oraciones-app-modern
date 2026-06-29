@@ -1370,6 +1370,24 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
 }
 </style>
 
+
+<style>
+/* v86.4 - Bloques desplegables */
+.reader-collapse-block{margin:12px 0;border:1px solid var(--line);border-radius:14px;background:var(--soft);overflow:hidden}
+.reader-collapse-block summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none}
+.reader-collapse-block summary::-webkit-details-marker{display:none}
+.reader-collapse-block summary::after{content:" ▼";font-weight:400}
+.reader-collapse-block[open] summary::after{content:" ▲"}
+.reader-collapse-content{padding:0 14px 14px 14px;white-space:pre-wrap;line-height:1.55}
+.block-overlay-v864{position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px}
+.block-card-v864{width:min(520px,94vw);max-height:86dvh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 18px 45px rgba(0,0,0,.25)}
+.block-card-v864 h3{margin:0 0 10px 0}
+.block-card-v864 label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
+.block-card-v864 input,.block-card-v864 textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--text);padding:10px;font-size:15px}
+.block-card-v864 textarea{min-height:170px;resize:vertical}
+.block-actions-v864{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:14px}
+</style>
+
 </head>
 <body>
 
@@ -1699,7 +1717,7 @@ function openRecentEntry(type,idx){
         
         <button data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
         <button data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
-        <button id="btnReaderBlock" class="btn soft" type="button" onclick="toast('Próximamente: bloques desplegables')">📑 Bloque</button>
+        <button id="btnReaderBlock" class="btn soft" type="button" onclick="openBlockMenu()">📑 Bloque</button>
         <span class="toolbar-break-v68"></span>
         <span class="font-combo-v27">
           <button class="btn soft font-half-v27" type="button" onclick="changeReaderFont(-2)">A-</button>
@@ -2279,9 +2297,25 @@ function highlightBibleReferencesV49(text){
     return pre+'<span class="bible-ref-highlight">📖 '+cleanRef+'</span>';
   });
 }
+function renderCollapsibleBlocksV864(text){
+  const raw = String(text || "");
+  const re = /\[desplegable\s+titulo="([^"]*)"\]([\s\S]*?)\[\/desplegable\]/g;
+  let out = "";
+  let last = 0;
+  let m;
+  while((m = re.exec(raw))){
+    out += highlightBibleReferencesV49(raw.slice(last, m.index));
+    const title = escapeHtml(m[1] || "Desplegable");
+    const body = highlightBibleReferencesV49(m[2] || "");
+    out += '<details class="reader-collapse-block"><summary>'+title+'</summary><div class="reader-collapse-content">'+body+'</div></details>';
+    last = re.lastIndex;
+  }
+  out += highlightBibleReferencesV49(raw.slice(last));
+  return out;
+}
 function setReaderTextV49(text){
   const el=document.getElementById("readerText");
-  if(el) el.innerHTML=highlightBibleReferencesV49(text||"");
+  if(el) el.innerHTML=renderCollapsibleBlocksV864(text||"");
 }
 
 function renderReader(){try{document.body.dataset.section=section;}catch(e){}applyReaderFont();
@@ -2314,6 +2348,50 @@ function renderReader(){try{document.body.dataset.section=section;}catch(e){}app
   }
   updateFavoriteButtons();
   updateMoveVerseButtonVisibility();
+}
+
+
+function closeBlockOverlayV864(){
+  const el=document.getElementById("blockOverlayV864");
+  if(el) el.remove();
+}
+function openBlockMenu(){
+  closeBlockOverlayV864();
+  const wrap=document.createElement("div");
+  wrap.id="blockOverlayV864";
+  wrap.className="block-overlay-v864";
+  wrap.innerHTML='<div class="block-card-v864"><h3>📑 Bloque</h3><p class="muted">Elige el tipo de bloque que quieres crear.</p><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="openCollapsibleBlockFormV864()">📖 Desplegable</button></div></div>';
+  document.body.appendChild(wrap);
+}
+function openCollapsibleBlockFormV864(){
+  const wrap=document.getElementById("blockOverlayV864") || document.createElement("div");
+  wrap.id="blockOverlayV864";
+  wrap.className="block-overlay-v864";
+  wrap.innerHTML='<div class="block-card-v864"><h3>📖 Crear desplegable</h3><label for="blockTitleV864">Título</label><input id="blockTitleV864" type="text" placeholder="📖 San Mateo 13:31-32"><label for="blockContentV864">Contenido</label><textarea id="blockContentV864" placeholder="Pega aquí el texto bíblico o el contenido del bloque..."></textarea><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="saveCollapsibleBlockV864()">Guardar bloque</button></div></div>';
+  if(!wrap.parentNode) document.body.appendChild(wrap);
+  setTimeout(()=>{try{document.getElementById("blockTitleV864").focus()}catch(e){}},50);
+}
+function saveCollapsibleBlockV864(){
+  const title=(document.getElementById("blockTitleV864")?.value||"").trim();
+  const content=(document.getElementById("blockContentV864")?.value||"").trim();
+  if(!title){alert("Escribe un título para el desplegable.");return;}
+  if(!content){alert("Escribe el contenido del desplegable.");return;}
+  const item=currentItem&&currentItem();
+  if(!item){closeBlockOverlayV864();return;}
+  const safeTitle=title.replace(/"/g,"'");
+  const block='\n\n[desplegable titulo="'+safeTitle+'"]\n'+content+'\n[/desplegable]\n';
+  if(section==="verses"){
+    item.text=(item.text||item.content||"")+block;
+    item.content=item.text;
+  }else{
+    item.content=(item.content||"")+block;
+  }
+  item.updatedAt=Date.now();
+  saveState();
+  renderList();
+  renderReader();
+  closeBlockOverlayV864();
+  toast("Bloque desplegable añadido");
 }
 
 function updateFavoriteButtons(){
@@ -2948,9 +3026,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v86.3";
-const APP_VERSION_ZIP = "oraciones_v2_v86_3_boton_bloque_estable_real.zip";
-const APP_BASE_ZIP = "oraciones_v2_v86_2_info_wrap_real.zip";
+const APP_VERSION_LABEL = "v86.4";
+const APP_VERSION_ZIP = "oraciones_v2_v86_4_bloque_desplegable.zip";
+const APP_BASE_ZIP = "oraciones_v2_v86_3_boton_bloque_estable_real.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
@@ -4079,6 +4157,24 @@ body.dark #calendarBtn.calendar-alert.active-view{
   font-weight:800!important;
 }
 
+</style>
+
+
+<style>
+/* v86.4 - Bloques desplegables */
+.reader-collapse-block{margin:12px 0;border:1px solid var(--line);border-radius:14px;background:var(--soft);overflow:hidden}
+.reader-collapse-block summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none}
+.reader-collapse-block summary::-webkit-details-marker{display:none}
+.reader-collapse-block summary::after{content:" ▼";font-weight:400}
+.reader-collapse-block[open] summary::after{content:" ▲"}
+.reader-collapse-content{padding:0 14px 14px 14px;white-space:pre-wrap;line-height:1.55}
+.block-overlay-v864{position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px}
+.block-card-v864{width:min(520px,94vw);max-height:86dvh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 18px 45px rgba(0,0,0,.25)}
+.block-card-v864 h3{margin:0 0 10px 0}
+.block-card-v864 label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
+.block-card-v864 input,.block-card-v864 textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--text);padding:10px;font-size:15px}
+.block-card-v864 textarea{min-height:170px;resize:vertical}
+.block-actions-v864{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:14px}
 </style>
 
 </head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
