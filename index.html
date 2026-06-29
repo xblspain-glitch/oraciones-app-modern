@@ -1386,6 +1386,10 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
 .block-card-v864 input,.block-card-v864 textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--text);padding:10px;font-size:15px}
 .block-card-v864 textarea{min-height:170px;resize:vertical}
 .block-actions-v864{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:14px}
+.block-controls-v865{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 10px 12px}
+.block-mini-v865{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:7px 10px;font-size:13px;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.block-mini-v865.danger{background:#fff1ef;color:#9c2b22;border-color:#f0c8c3}
+body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:#6a3430}
 </style>
 
 </head>
@@ -2303,12 +2307,20 @@ function renderCollapsibleBlocksV864(text){
   let out = "";
   let last = 0;
   let m;
+  let idx = 0;
   while((m = re.exec(raw))){
     out += highlightBibleReferencesV49(raw.slice(last, m.index));
     const title = escapeHtml(m[1] || "Desplegable");
     const body = highlightBibleReferencesV49(m[2] || "");
-    out += '<details class="reader-collapse-block"><summary>'+title+'</summary><div class="reader-collapse-content">'+body+'</div></details>';
+    out += '<details class="reader-collapse-block" data-block-index="'+idx+'"><summary>'+title+'</summary>' +
+      '<div class="block-controls-v865">' +
+      '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();editCollapsibleBlockV865('+idx+')">✏️ Editar</button>' +
+      '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+idx+',-1)">⬆️ Subir</button>' +
+      '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+idx+',1)">⬇️ Bajar</button>' +
+      '<button class="block-mini-v865 danger" type="button" onclick="event.preventDefault();event.stopPropagation();deleteCollapsibleBlockV865('+idx+')">🗑️ Eliminar</button>' +
+      '</div><div class="reader-collapse-content">'+body+'</div></details>';
     last = re.lastIndex;
+    idx++;
   }
   out += highlightBibleReferencesV49(raw.slice(last));
   return out;
@@ -2392,6 +2404,104 @@ function saveCollapsibleBlockV864(){
   renderReader();
   closeBlockOverlayV864();
   toast("Bloque desplegable añadido");
+}
+
+function getCurrentContentTextV865(){
+  const item=currentItem&&currentItem();
+  if(!item) return "";
+  return section==="verses" ? (item.text || item.content || "") : (item.content || "");
+}
+function setCurrentContentTextV865(value){
+  const item=currentItem&&currentItem();
+  if(!item) return;
+  if(section==="verses"){
+    item.text=value;
+    item.content=value;
+  }else{
+    item.content=value;
+  }
+  item.updatedAt=Date.now();
+  saveState();
+  renderList();
+  renderReader();
+}
+function parseCollapsibleBlocksV865(text){
+  const raw=String(text||"");
+  const re=/\[desplegable\s+titulo="([^"]*)"\]([\s\S]*?)\[\/desplegable\]/g;
+  const blocks=[];
+  let m;
+  while((m=re.exec(raw))){
+    blocks.push({
+      index:blocks.length,
+      start:m.index,
+      end:re.lastIndex,
+      full:raw.slice(m.index,re.lastIndex),
+      title:m[1]||"",
+      body:m[2]||""
+    });
+  }
+  return blocks;
+}
+function buildCollapsibleBlockV865(title, body){
+  const safeTitle=String(title||"Desplegable").trim().replace(/"/g,"'");
+  return '[desplegable titulo="'+safeTitle+'"]\n'+String(body||"").trim()+'\n[/desplegable]';
+}
+function editCollapsibleBlockV865(idx){
+  const text=getCurrentContentTextV865();
+  const blocks=parseCollapsibleBlocksV865(text);
+  const b=blocks[idx];
+  if(!b){alert("No se ha encontrado este bloque.");return;}
+  closeBlockOverlayV864();
+  const wrap=document.createElement("div");
+  wrap.id="blockOverlayV864";
+  wrap.className="block-overlay-v864";
+  wrap.innerHTML='<div class="block-card-v864"><h3>✏️ Editar desplegable</h3><label for="blockTitleV864">Título</label><input id="blockTitleV864" type="text"><label for="blockContentV864">Contenido</label><textarea id="blockContentV864"></textarea><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="saveEditedCollapsibleBlockV865('+idx+')">Guardar cambios</button></div></div>';
+  document.body.appendChild(wrap);
+  const t=document.getElementById("blockTitleV864");
+  const c=document.getElementById("blockContentV864");
+  if(t) t.value=b.title;
+  if(c) c.value=b.body.trim();
+  setTimeout(()=>{try{t&&t.focus()}catch(e){}},50);
+}
+function saveEditedCollapsibleBlockV865(idx){
+  const title=(document.getElementById("blockTitleV864")?.value||"").trim();
+  const content=(document.getElementById("blockContentV864")?.value||"").trim();
+  if(!title){alert("Escribe un título para el desplegable.");return;}
+  if(!content){alert("Escribe el contenido del desplegable.");return;}
+  const text=getCurrentContentTextV865();
+  const blocks=parseCollapsibleBlocksV865(text);
+  const b=blocks[idx];
+  if(!b){alert("No se ha encontrado este bloque.");return;}
+  const replacement=buildCollapsibleBlockV865(title,content);
+  const updated=text.slice(0,b.start)+replacement+text.slice(b.end);
+  setCurrentContentTextV865(updated);
+  closeBlockOverlayV864();
+  toast("Bloque actualizado");
+}
+function deleteCollapsibleBlockV865(idx){
+  const text=getCurrentContentTextV865();
+  const blocks=parseCollapsibleBlocksV865(text);
+  const b=blocks[idx];
+  if(!b){alert("No se ha encontrado este bloque.");return;}
+  if(!confirm("¿Eliminar este bloque desplegable?")) return;
+  const updated=(text.slice(0,b.start)+text.slice(b.end)).replace(/\n{3,}/g,"\n\n");
+  setCurrentContentTextV865(updated);
+  toast("Bloque eliminado");
+}
+function moveCollapsibleBlockV865(idx,dir){
+  const text=getCurrentContentTextV865();
+  const blocks=parseCollapsibleBlocksV865(text);
+  const b=blocks[idx];
+  const target=blocks[idx+dir];
+  if(!b || !target){toast(dir<0?"Ya está arriba":"Ya está abajo");return;}
+  let updated=text;
+  if(dir<0){
+    updated=text.slice(0,target.start)+b.full+text.slice(target.end,b.start)+target.full+text.slice(b.end);
+  }else{
+    updated=text.slice(0,b.start)+target.full+text.slice(b.end,target.start)+b.full+text.slice(target.end);
+  }
+  setCurrentContentTextV865(updated);
+  toast("Bloque movido");
 }
 
 function updateFavoriteButtons(){
@@ -3026,9 +3136,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v86.4";
-const APP_VERSION_ZIP = "oraciones_v2_v86_4_bloque_desplegable.zip";
-const APP_BASE_ZIP = "oraciones_v2_v86_3_boton_bloque_estable_real.zip";
+const APP_VERSION_LABEL = "v86.5";
+const APP_VERSION_ZIP = "oraciones_v2_v86_5_bloques_editables.zip";
+const APP_BASE_ZIP = "oraciones_v2_v86_4_bloque_desplegable.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
@@ -4175,6 +4285,10 @@ body.dark #calendarBtn.calendar-alert.active-view{
 .block-card-v864 input,.block-card-v864 textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--text);padding:10px;font-size:15px}
 .block-card-v864 textarea{min-height:170px;resize:vertical}
 .block-actions-v864{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:14px}
+.block-controls-v865{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 10px 12px}
+.block-mini-v865{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:7px 10px;font-size:13px;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.block-mini-v865.danger{background:#fff1ef;color:#9c2b22;border-color:#f0c8c3}
+body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:#6a3430}
 </style>
 
 </head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
