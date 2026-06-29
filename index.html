@@ -2315,8 +2315,8 @@ function renderCollapsibleBlocksV864(text){
     out += '<details class="reader-collapse-block" data-block-index="'+idx+'"><summary>'+title+'</summary>' +
       '<div class="block-controls-v865">' +
       '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();editCollapsibleBlockV865('+idx+')">✏️ Editar</button>' +
-      '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+idx+',-1)">⬆️ Subir</button>' +
-      '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+idx+',1)">⬇️ Bajar</button>' +
+      '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+idx+',-1)">↑ Subir</button>' +
+      '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+idx+',1)">↓ Bajar</button>' +
       '<button class="block-mini-v865 danger" type="button" onclick="event.preventDefault();event.stopPropagation();deleteCollapsibleBlockV865('+idx+')">🗑️ Eliminar</button>' +
       '</div><div class="reader-collapse-content">'+body+'</div></details>';
     last = re.lastIndex;
@@ -2488,18 +2488,36 @@ function deleteCollapsibleBlockV865(idx){
   setCurrentContentTextV865(updated);
   toast("Bloque eliminado");
 }
+function splitTextUnitsV866(s){
+  const raw=String(s||"");
+  if(!raw.trim()) return [];
+  return raw.split(/\n{2,}/).map(x=>String(x||"").trim()).filter(Boolean).map(x=>({type:"text", text:x}));
+}
+function tokenizeContentBlocksV866(text){
+  const raw=String(text||"");
+  const re=/\[desplegable\s+titulo="([^"]*)"\]([\s\S]*?)\[\/desplegable\]/g;
+  const tokens=[];
+  let last=0, m, blockIndex=0;
+  while((m=re.exec(raw))){
+    tokens.push(...splitTextUnitsV866(raw.slice(last,m.index)));
+    tokens.push({type:"block", blockIndex:blockIndex, text:raw.slice(m.index,re.lastIndex).trim()});
+    last=re.lastIndex;
+    blockIndex++;
+  }
+  tokens.push(...splitTextUnitsV866(raw.slice(last)));
+  return tokens;
+}
 function moveCollapsibleBlockV865(idx,dir){
   const text=getCurrentContentTextV865();
-  const blocks=parseCollapsibleBlocksV865(text);
-  const b=blocks[idx];
-  const target=blocks[idx+dir];
-  if(!b || !target){toast(dir<0?"Ya está arriba":"Ya está abajo");return;}
-  let updated=text;
-  if(dir<0){
-    updated=text.slice(0,target.start)+b.full+text.slice(target.end,b.start)+target.full+text.slice(b.end);
-  }else{
-    updated=text.slice(0,b.start)+target.full+text.slice(b.end,target.start)+b.full+text.slice(target.end);
-  }
+  const tokens=tokenizeContentBlocksV866(text);
+  const pos=tokens.findIndex(t=>t.type==="block" && t.blockIndex===idx);
+  if(pos<0){alert("No se ha encontrado este bloque.");return;}
+  const target=pos+dir;
+  if(target<0 || target>=tokens.length){toast(dir<0?"Ya está arriba":"Ya está abajo");return;}
+  const tmp=tokens[pos];
+  tokens[pos]=tokens[target];
+  tokens[target]=tmp;
+  const updated=tokens.map(t=>String(t.text||"").trim()).filter(Boolean).join("\n\n");
   setCurrentContentTextV865(updated);
   toast("Bloque movido");
 }
@@ -3136,9 +3154,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v86.5";
-const APP_VERSION_ZIP = "oraciones_v2_v86_5_bloques_editables.zip";
-const APP_BASE_ZIP = "oraciones_v2_v86_4_bloque_desplegable.zip";
+const APP_VERSION_LABEL = "v86.6";
+const APP_VERSION_ZIP = "oraciones_v2_v86_6_bloques_mover_texto_flechas.zip";
+const APP_BASE_ZIP = "oraciones_v2_v86_5_bloques_editables.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
