@@ -1372,9 +1372,9 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
 
 
 <style>
-/* v86.11 - Bloques desplegables azul claro compactos */
+/* v86.12 - Bloques desplegables compactos reales */
 .reader-collapse-block{
-  margin:6px 0;
+  margin:2px 0 4px 0;
   border:1px solid #b9dcff;
   border-radius:14px;
   background:linear-gradient(180deg,#f4fbff 0%,#eaf5ff 100%);
@@ -1383,7 +1383,7 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
 }
 .reader-collapse-block summary{
   cursor:pointer;
-  padding:9px 12px;
+  padding:8px 12px;
   font-weight:700;
   list-style:none;
   color:#1f5f9f;
@@ -2340,10 +2340,22 @@ function renderCollapsibleBlocksV864(text){
   let last = 0;
   let m;
   let idx = 0;
+  let lastWasBlock = false;
+  function compactAroundBlocksV8612(seg, afterBlock){
+    let part = String(seg || "");
+    // Si entre dos desplegables solo hay saltos de línea/espacios, no pintamos ese hueco.
+    if(afterBlock && part.trim() === "") return "";
+    // Si después de un desplegable viene texto normal, reducimos los saltos iniciales.
+    if(afterBlock) part = part.replace(/^\s*
+\s*
++/g, "
+");
+    return part;
+  }
   while((m = re.exec(raw))){
-    out += highlightBibleReferencesV49(raw.slice(last, m.index));
+    out += highlightBibleReferencesV49(compactAroundBlocksV8612(raw.slice(last, m.index), lastWasBlock));
     const title = escapeHtml(m[1] || "Desplegable");
-    const body = highlightBibleReferencesV49(m[2] || "");
+    const body = highlightBibleReferencesV49(String(m[2] || "").trim());
     out += '<details class="reader-collapse-block" data-block-index="'+idx+'"><summary>'+title+'</summary>' +
       '<div class="block-controls-v865">' +
       '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();editCollapsibleBlockV865('+idx+')">✏️ Editar</button>' +
@@ -2353,8 +2365,9 @@ function renderCollapsibleBlocksV864(text){
       '</div><div class="reader-collapse-content">'+body+'</div></details>';
     last = re.lastIndex;
     idx++;
+    lastWasBlock = true;
   }
-  out += highlightBibleReferencesV49(raw.slice(last));
+  out += highlightBibleReferencesV49(compactAroundBlocksV8612(raw.slice(last), lastWasBlock));
   return out;
 }
 function setReaderTextV49(text){
@@ -3188,9 +3201,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v86.11";
-const APP_VERSION_ZIP = "oraciones_v2_v86_11_bloques_compactos.zip";
-const APP_BASE_ZIP = "oraciones_v2_v86_9_animacion_flecha.zip";
+const APP_VERSION_LABEL = "v86.12";
+const APP_VERSION_ZIP = "oraciones_v2_v86_12_bloques_menos_espacio.zip";
+const APP_BASE_ZIP = "oraciones_v2_v86_11_bloques_compactos.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
@@ -4323,9 +4336,9 @@ body.dark #calendarBtn.calendar-alert.active-view{
 
 
 <style>
-/* v86.11 - Bloques desplegables azul claro compactos */
+/* v86.12 - Bloques desplegables compactos reales */
 .reader-collapse-block{
-  margin:6px 0;
+  margin:2px 0 4px 0;
   border:1px solid #b9dcff;
   border-radius:14px;
   background:linear-gradient(180deg,#f4fbff 0%,#eaf5ff 100%);
@@ -4334,7 +4347,7 @@ body.dark #calendarBtn.calendar-alert.active-view{
 }
 .reader-collapse-block summary{
   cursor:pointer;
-  padding:9px 12px;
+  padding:8px 12px;
   font-weight:700;
   list-style:none;
   color:#1f5f9f;
