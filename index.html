@@ -2391,12 +2391,14 @@ function saveCollapsibleBlockV864(){
   const item=currentItem&&currentItem();
   if(!item){closeBlockOverlayV864();return;}
   const safeTitle=title.replace(/"/g,"'");
-  const block='\n\n[desplegable titulo="'+safeTitle+'"]\n'+content+'\n[/desplegable]\n';
+  const block='[desplegable titulo="'+safeTitle+'"]\n'+content+'\n[/desplegable]';
   if(section==="verses"){
-    item.text=(item.text||item.content||"")+block;
+    const old=(item.text||item.content||"").trim();
+    item.text=block+(old?'\n\n'+old:'');
     item.content=item.text;
   }else{
-    item.content=(item.content||"")+block;
+    const old=(item.content||"").trim();
+    item.content=block+(old?'\n\n'+old:'');
   }
   item.updatedAt=Date.now();
   saveState();
@@ -3154,8 +3156,8 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v86.6";
-const APP_VERSION_ZIP = "oraciones_v2_v86_6_bloques_mover_texto_flechas.zip";
+const APP_VERSION_LABEL = "v86.7";
+const APP_VERSION_ZIP = "oraciones_v2_v86_7_bloque_al_principio.zip";
 const APP_BASE_ZIP = "oraciones_v2_v86_5_bloques_editables.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
