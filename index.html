@@ -1699,6 +1699,7 @@ function openRecentEntry(type,idx){
         
         <button data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
         <button data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+        <button id="btnReaderBlock" class="btn soft" type="button" onclick="toast('Próximamente: bloques desplegables')">📑 Bloque</button>
         <span class="toolbar-break-v68"></span>
         <span class="font-combo-v27">
           <button class="btn soft font-half-v27" type="button" onclick="changeReaderFont(-2)">A-</button>
@@ -1714,7 +1715,6 @@ function openRecentEntry(type,idx){
         
         
         <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
-        <button class="btn soft" type="button" onclick="toast('Próximamente: Bloques desplegables')">📑 Bloque</button>
         <span class="toolbar-break-v68"></span>
         <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
         <button data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
@@ -2948,9 +2948,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v86.2";
-const APP_VERSION_ZIP = "oraciones_v2_v86_2_info_wrap_real.zip";
-const APP_BASE_ZIP = "oraciones_v2_v86_1_info_build.zip";
+const APP_VERSION_LABEL = "v86.3";
+const APP_VERSION_ZIP = "oraciones_v2_v86_3_boton_bloque_estable_real.zip";
+const APP_BASE_ZIP = "oraciones_v2_v86_2_info_wrap_real.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
