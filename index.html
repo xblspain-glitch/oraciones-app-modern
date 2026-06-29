@@ -1389,7 +1389,6 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
 .block-controls-v865{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 10px 12px}
 .block-mini-v865{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:7px 10px;font-size:13px;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .block-mini-v865.danger{background:#fff1ef;color:#9c2b22;border-color:#f0c8c3}
-.block-mini-v865.drag{font-weight:800;touch-action:none;user-select:none}
 body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:#6a3430}
 </style>
 
@@ -2316,7 +2315,6 @@ function renderCollapsibleBlocksV864(text){
     out += '<details class="reader-collapse-block" data-block-index="'+idx+'"><summary>'+title+'</summary>' +
       '<div class="block-controls-v865">' +
       '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();editCollapsibleBlockV865('+idx+')">✏️ Editar</button>' +
-      '<button class="block-mini-v865 drag" type="button" onpointerdown="startBlockSwipeV868(event,'+idx+')" onclick="event.preventDefault();event.stopPropagation();">↕ Mover</button>' +
       '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+idx+',-1)">↑ Subir</button>' +
       '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+idx+',1)">↓ Bajar</button>' +
       '<button class="block-mini-v865 danger" type="button" onclick="event.preventDefault();event.stopPropagation();deleteCollapsibleBlockV865('+idx+')">🗑️ Eliminar</button>' +
@@ -2524,34 +2522,6 @@ function moveCollapsibleBlockV865(idx,dir){
   const updated=tokens.map(t=>String(t.text||"").trim()).filter(Boolean).join("\n\n");
   setCurrentContentTextV865(updated);
   toast("Bloque movido");
-}
-
-function startBlockSwipeV868(ev,idx){
-  try{ev.preventDefault();ev.stopPropagation();}catch(e){}
-  const startY=(ev && typeof ev.clientY==="number") ? ev.clientY : 0;
-  const startX=(ev && typeof ev.clientX==="number") ? ev.clientX : 0;
-  const pointerId=ev && ev.pointerId;
-  const target=ev && ev.currentTarget;
-  try{target && target.setPointerCapture && target.setPointerCapture(pointerId);}catch(e){}
-  function finish(e){
-    try{e.preventDefault();e.stopPropagation();}catch(err){}
-    cleanup();
-    const endY=(e && typeof e.clientY==="number") ? e.clientY : startY;
-    const endX=(e && typeof e.clientX==="number") ? e.clientX : startX;
-    const dy=endY-startY;
-    const dx=endX-startX;
-    if(Math.abs(dy)<34 || Math.abs(dy)<Math.abs(dx)){
-      toast("Desliza ↑ o ↓ para mover");
-      return;
-    }
-    moveCollapsibleBlockV865(idx, dy<0 ? -1 : 1);
-  }
-  function cleanup(){
-    document.removeEventListener("pointerup",finish,true);
-    document.removeEventListener("pointercancel",cleanup,true);
-  }
-  document.addEventListener("pointerup",finish,true);
-  document.addEventListener("pointercancel",cleanup,true);
 }
 
 function updateFavoriteButtons(){
@@ -3186,9 +3156,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v86.8";
-const APP_VERSION_ZIP = "oraciones_v2_v86_8_bloques_deslizar.zip";
-const APP_BASE_ZIP = "oraciones_v2_v86_7_bloque_al_principio.zip";
+const APP_VERSION_LABEL = "v86.7";
+const APP_VERSION_ZIP = "oraciones_v2_v86_7_bloque_al_principio.zip";
+const APP_BASE_ZIP = "oraciones_v2_v86_5_bloques_editables.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
@@ -4338,7 +4308,6 @@ body.dark #calendarBtn.calendar-alert.active-view{
 .block-controls-v865{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 10px 12px}
 .block-mini-v865{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:7px 10px;font-size:13px;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .block-mini-v865.danger{background:#fff1ef;color:#9c2b22;border-color:#f0c8c3}
-.block-mini-v865.drag{font-weight:800;touch-action:none;user-select:none}
 body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:#6a3430}
 </style>
 
