@@ -1376,8 +1376,8 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
 .reader-collapse-block{margin:12px 0;border:1px solid var(--line);border-radius:14px;background:var(--soft);overflow:hidden}
 .reader-collapse-block summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none}
 .reader-collapse-block summary::-webkit-details-marker{display:none}
-.reader-collapse-block summary::after{content:" ▼";font-weight:400}
-.reader-collapse-block[open] summary::after{content:" ▲"}
+.reader-collapse-block summary::after{content:"▶";display:inline-block;margin-left:6px;transition:transform .22s ease;font-weight:400}
+.reader-collapse-block[open] summary::after{transform:rotate(90deg)}
 .reader-collapse-content{padding:0 14px 14px 14px;white-space:pre-wrap;line-height:1.55}
 .block-overlay-v864{position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px}
 .block-card-v864{width:min(520px,94vw);max-height:86dvh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 18px 45px rgba(0,0,0,.25)}
@@ -4295,8 +4295,8 @@ body.dark #calendarBtn.calendar-alert.active-view{
 .reader-collapse-block{margin:12px 0;border:1px solid var(--line);border-radius:14px;background:var(--soft);overflow:hidden}
 .reader-collapse-block summary{cursor:pointer;padding:12px 14px;font-weight:700;list-style:none}
 .reader-collapse-block summary::-webkit-details-marker{display:none}
-.reader-collapse-block summary::after{content:" ▼";font-weight:400}
-.reader-collapse-block[open] summary::after{content:" ▲"}
+.reader-collapse-block summary::after{content:"▶";display:inline-block;margin-left:6px;transition:transform .22s ease;font-weight:400}
+.reader-collapse-block[open] summary::after{transform:rotate(90deg)}
 .reader-collapse-content{padding:0 14px 14px 14px;white-space:pre-wrap;line-height:1.55}
 .block-overlay-v864{position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px}
 .block-card-v864{width:min(520px,94vw);max-height:86dvh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 18px 45px rgba(0,0,0,.25)}
