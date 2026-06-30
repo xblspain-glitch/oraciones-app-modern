@@ -3195,9 +3195,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v89.4";
-const APP_VERSION_ZIP = "oraciones_v2_v89_4_volver_enviados_limpio.zip";
-const APP_BASE_ZIP = "oraciones_v2_v89_3_tarjeta_icono_categoria_real.zip";
+const APP_VERSION_LABEL = "v89.3";
+const APP_VERSION_ZIP = "oraciones_v2_v89_3_tarjeta_icono_categoria_real.zip";
+const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
@@ -6160,8 +6160,6 @@ setInterval(updateVersePositionCounter, 1000);
         currentVerseCategory=v.category||currentVerseCategory||"sin_categoria";
         specialVerseMode=null;
         sentListActive=false;
-        if(typeof setReturnToSentList==="function") setReturnToSentList();
-        else { try{ sessionStorage.setItem("returnToSentList","1"); }catch(e){} }
         if(typeof saveState==="function") saveState();
         if(typeof renderList==="function") renderList();
         if(typeof renderReader==="function") renderReader();
