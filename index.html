@@ -4475,89 +4475,55 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
 </style>
 
 
-
-<script id="v90-7-sent-reader-fallback-back">
-/* v90.7 - Salvavidas: si un versículo enviado queda en pantalla completa sin cabecera, recuperar ← Volver a Enviados */
+<script id="v90-8-remove-daily-sent-button">
+/* v90.8 - Quitar botón Enviados de Versículo del día */
 (function(){
-  if(window.__v907SentReaderFallbackBack) return;
-  window.__v907SentReaderFallbackBack = true;
+  if(window.__v908RemoveDailySentButton) return;
+  window.__v908RemoveDailySentButton = true;
 
-  function isVisibleV907(el){
-    try{return !!(el && !el.classList.contains('hidden') && el.offsetParent !== null);}catch(e){return false;}
-  }
-  function currentVerseIsSentV907(){
+  function removeDailySentButtonV908(){
     try{
-      var item = (typeof currentItem === 'function') ? currentItem() : null;
-      if(item && item.lastCardSentAt) return true;
-      var code = document.querySelector('#readerView .reader-code');
-      var txt = (code && code.textContent) ? code.textContent : '';
-      return txt.indexOf('📤') !== -1 || txt.indexOf('Hoy') !== -1;
-    }catch(e){return false;}
-  }
-  function looksFullScreenWithoutMainV907(){
-    try{
-      if(document.body.classList.contains('sent-reader-v903')) return true;
-      if(document.body.classList.contains('verse-special-fullscreen-v74')) return true;
-      if(document.body.classList.contains('verse-special-fullscreen-v751')) return true;
-      var top = document.querySelector('.topbar');
-      var list = document.getElementById('list');
-      var topHidden = top && getComputedStyle(top).display === 'none';
-      var listHidden = list && getComputedStyle(list).display === 'none';
-      return topHidden || listHidden;
-    }catch(e){return false;}
-  }
-  function installSentBackHeaderV907(){
-    try{
-      var reader = document.getElementById('readerView');
-      if(!isVisibleV907(reader)) return;
-      if(!currentVerseIsSentV907()) return;
-      if(!looksFullScreenWithoutMainV907()) return;
-
-      var head = document.querySelector('#readerView .panel-head');
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
       if(!head) return;
-      var hasBack = (head.textContent || '').indexOf('Volver') !== -1;
-      var visible = getComputedStyle(head).display !== 'none';
-      if(hasBack && visible) return;
-
-      document.body.classList.add('sent-reader-v903','verse-special-fullscreen-v74','verse-special-fullscreen-v751');
-      head.innerHTML =
-        '<button class="btn soft" type="button" onclick="backToSentListV903()">← Volver</button>'+ 
-        '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>'+ 
-        '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>';
-      head.style.display = 'flex';
-      head.style.position = 'sticky';
-      head.style.top = '0';
-      head.style.zIndex = '30';
-    }catch(e){ console.error('installSentBackHeaderV907', e); }
+      Array.prototype.slice.call(head.querySelectorAll("button")).forEach(function(btn){
+        var txt = (btn.textContent || "").trim();
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
+          btn.remove();
+        }
+      });
+    }catch(e){ console.error("removeDailySentButtonV908", e); }
   }
 
-  var oldOpenReaderV907 = window.openReader || (typeof openReader !== 'undefined' ? openReader : null);
-  if(typeof oldOpenReaderV907 === 'function'){
-    window.openReader = function(){
-      var r = oldOpenReaderV907.apply(this, arguments);
-      setTimeout(installSentBackHeaderV907, 20);
-      setTimeout(installSentBackHeaderV907, 120);
+  var oldOpenDailyV908 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV908 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV908.apply(this, arguments);
+      setTimeout(removeDailySentButtonV908, 20);
+      setTimeout(removeDailySentButtonV908, 120);
+      setTimeout(removeDailySentButtonV908, 300);
       return r;
     };
-    try{ openReader = window.openReader; }catch(e){}
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
   }
 
-  var oldRenderReaderV907 = window.renderReader || (typeof renderReader !== 'undefined' ? renderReader : null);
-  if(typeof oldRenderReaderV907 === 'function'){
-    window.renderReader = function(){
-      var r = oldRenderReaderV907.apply(this, arguments);
-      setTimeout(installSentBackHeaderV907, 20);
-      setTimeout(installSentBackHeaderV907, 120);
+  var oldOpenVerseSpecialV908 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV908 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV908.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(removeDailySentButtonV908, 20);
+        setTimeout(removeDailySentButtonV908, 120);
+        setTimeout(removeDailySentButtonV908, 300);
+      }
       return r;
     };
-    try{ renderReader = window.renderReader; }catch(e){}
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
   }
 
-  setInterval(installSentBackHeaderV907, 700);
-  setTimeout(installSentBackHeaderV907, 200);
+  setTimeout(removeDailySentButtonV908, 300);
 })();
 </script>
-
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6531,89 +6497,55 @@ body.dark .topbar-row #tabParables.active-view{
 </style>
 
 
-
-<script id="v90-7-sent-reader-fallback-back">
-/* v90.7 - Salvavidas: si un versículo enviado queda en pantalla completa sin cabecera, recuperar ← Volver a Enviados */
+<script id="v90-8-remove-daily-sent-button">
+/* v90.8 - Quitar botón Enviados de Versículo del día */
 (function(){
-  if(window.__v907SentReaderFallbackBack) return;
-  window.__v907SentReaderFallbackBack = true;
+  if(window.__v908RemoveDailySentButton) return;
+  window.__v908RemoveDailySentButton = true;
 
-  function isVisibleV907(el){
-    try{return !!(el && !el.classList.contains('hidden') && el.offsetParent !== null);}catch(e){return false;}
-  }
-  function currentVerseIsSentV907(){
+  function removeDailySentButtonV908(){
     try{
-      var item = (typeof currentItem === 'function') ? currentItem() : null;
-      if(item && item.lastCardSentAt) return true;
-      var code = document.querySelector('#readerView .reader-code');
-      var txt = (code && code.textContent) ? code.textContent : '';
-      return txt.indexOf('📤') !== -1 || txt.indexOf('Hoy') !== -1;
-    }catch(e){return false;}
-  }
-  function looksFullScreenWithoutMainV907(){
-    try{
-      if(document.body.classList.contains('sent-reader-v903')) return true;
-      if(document.body.classList.contains('verse-special-fullscreen-v74')) return true;
-      if(document.body.classList.contains('verse-special-fullscreen-v751')) return true;
-      var top = document.querySelector('.topbar');
-      var list = document.getElementById('list');
-      var topHidden = top && getComputedStyle(top).display === 'none';
-      var listHidden = list && getComputedStyle(list).display === 'none';
-      return topHidden || listHidden;
-    }catch(e){return false;}
-  }
-  function installSentBackHeaderV907(){
-    try{
-      var reader = document.getElementById('readerView');
-      if(!isVisibleV907(reader)) return;
-      if(!currentVerseIsSentV907()) return;
-      if(!looksFullScreenWithoutMainV907()) return;
-
-      var head = document.querySelector('#readerView .panel-head');
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
       if(!head) return;
-      var hasBack = (head.textContent || '').indexOf('Volver') !== -1;
-      var visible = getComputedStyle(head).display !== 'none';
-      if(hasBack && visible) return;
-
-      document.body.classList.add('sent-reader-v903','verse-special-fullscreen-v74','verse-special-fullscreen-v751');
-      head.innerHTML =
-        '<button class="btn soft" type="button" onclick="backToSentListV903()">← Volver</button>'+ 
-        '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>'+ 
-        '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>';
-      head.style.display = 'flex';
-      head.style.position = 'sticky';
-      head.style.top = '0';
-      head.style.zIndex = '30';
-    }catch(e){ console.error('installSentBackHeaderV907', e); }
+      Array.prototype.slice.call(head.querySelectorAll("button")).forEach(function(btn){
+        var txt = (btn.textContent || "").trim();
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
+          btn.remove();
+        }
+      });
+    }catch(e){ console.error("removeDailySentButtonV908", e); }
   }
 
-  var oldOpenReaderV907 = window.openReader || (typeof openReader !== 'undefined' ? openReader : null);
-  if(typeof oldOpenReaderV907 === 'function'){
-    window.openReader = function(){
-      var r = oldOpenReaderV907.apply(this, arguments);
-      setTimeout(installSentBackHeaderV907, 20);
-      setTimeout(installSentBackHeaderV907, 120);
+  var oldOpenDailyV908 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV908 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV908.apply(this, arguments);
+      setTimeout(removeDailySentButtonV908, 20);
+      setTimeout(removeDailySentButtonV908, 120);
+      setTimeout(removeDailySentButtonV908, 300);
       return r;
     };
-    try{ openReader = window.openReader; }catch(e){}
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
   }
 
-  var oldRenderReaderV907 = window.renderReader || (typeof renderReader !== 'undefined' ? renderReader : null);
-  if(typeof oldRenderReaderV907 === 'function'){
-    window.renderReader = function(){
-      var r = oldRenderReaderV907.apply(this, arguments);
-      setTimeout(installSentBackHeaderV907, 20);
-      setTimeout(installSentBackHeaderV907, 120);
+  var oldOpenVerseSpecialV908 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV908 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV908.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(removeDailySentButtonV908, 20);
+        setTimeout(removeDailySentButtonV908, 120);
+        setTimeout(removeDailySentButtonV908, 300);
+      }
       return r;
     };
-    try{ renderReader = window.renderReader; }catch(e){}
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
   }
 
-  setInterval(installSentBackHeaderV907, 700);
-  setTimeout(installSentBackHeaderV907, 200);
+  setTimeout(removeDailySentButtonV908, 300);
 })();
 </script>
-
 </body>
 </html>
 
@@ -6972,8 +6904,7 @@ body.dark .topbar-row #tabParables.active-view{
         '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>' +
         '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>' +
         '<button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory(); setTimeout(function(){ if(typeof renderReader===\'function\') renderReader(); },80)">📂 Mover</button>' +
-        '<button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>' +
-        '<button class="btn soft" type="button" onclick="openSentVersesList()">📤 Enviados</button>';
+        '<button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>';
     }catch(e){ console.error("setDailyReaderHeadV81", e); }
   }
 
