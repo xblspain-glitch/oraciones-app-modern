@@ -17,6 +17,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Oraciones V2">
 <link rel="manifest" href="manifest.json">
+<link rel="preload" as="image" href="icon-192.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
@@ -1429,7 +1430,7 @@ body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:
 
 <div id="ov2Welcome" role="dialog" aria-label="Bienvenida Oraciones V2">
   <div class="ov2-card">
-    <img class="ov2-logo" src="icon-512.png" alt="Oraciones V2">
+    <img class="ov2-logo" src="icon-192.png" alt="Oraciones V2" fetchpriority="high" decoding="async">
     <div id="ov2Greeting" class="ov2-kicker">Bienvenido</div>
     <h1 class="ov2-title">Oraciones V2</h1>
     <p id="ov2IntroText" class="ov2-sub">Un lugar sencillo para orar, leer, guardar notas y descansar en la fidelidad de Dios.</p>
@@ -3196,9 +3197,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v86.12";
-const APP_VERSION_ZIP = "oraciones_v2_v86_12_bloques_espacio_seguro.zip";
-const APP_BASE_ZIP = "oraciones_v2_v86_9_animacion_flecha.zip";
+const APP_VERSION_LABEL = "v87";
+const APP_VERSION_ZIP = "oraciones_v2_v87_optimizacion_bienvenida.zip";
+const APP_BASE_ZIP = "oraciones_v2_v86_12_bloques_espacio_seguro.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
