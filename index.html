@@ -1786,7 +1786,6 @@ function openRecentEntry(type,idx){
         <button class="btn primary" type="button" onclick="saveCurrent(false,false)">✅ Guardar y volver</button>
         <button class="btn danger" type="button" onclick="discardEditorChanges()">❌ Descartar</button>
         <button class="btn soft" type="button" onclick="leaveEditor()">← Volver</button>
-        <button id="btnEditorBlock" class="btn soft" type="button" onclick="openBlockMenu()">📑 Bloque</button>
         <div id="saveStatus" class="status">Sin cambios</div>
       </div>
       <input id="editTitle" class="title-input" placeholder="Título">
@@ -4475,80 +4474,6 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
 }
 </style>
 
-
-
-<script id="v90-10-editor-block-button">
-/* v90.10 - Botón Bloque también en modo Editar + inserción en cursor */
-(function(){
-  if(window.__v9010EditorBlockButton) return;
-  window.__v9010EditorBlockButton=true;
-
-  function editorIsOpenV9010(){
-    var ed=document.getElementById("editorView");
-    return !!(ed && !ed.classList.contains("hidden"));
-  }
-  function insertAtEditorCursorV9010(text){
-    var ta=document.getElementById("editText");
-    if(!ta) return false;
-    var value=String(ta.value||"");
-    var start=(typeof ta.selectionStart==="number") ? ta.selectionStart : value.length;
-    var end=(typeof ta.selectionEnd==="number") ? ta.selectionEnd : start;
-    var before=value.slice(0,start);
-    var after=value.slice(end);
-    var block=String(text||"").trim();
-    var prefix=before && !/\n\n$/.test(before) ? (before.endsWith("\n") ? "\n" : "\n\n") : "";
-    var suffix=after && !/^\n\n/.test(after) ? (after.startsWith("\n") ? "\n" : "\n\n") : "";
-    var inserted=prefix+block+suffix;
-    ta.value=before+inserted+after;
-    var pos=(before+inserted).length;
-    try{ta.focus(); ta.setSelectionRange(pos,pos);}catch(e){}
-    try{ if(typeof scheduleAutosave==="function") scheduleAutosave(); else isDirty=true; }catch(e){}
-    try{ setSaveStatus("Cambios sin guardar"); }catch(e){}
-    return true;
-  }
-  window.insertBlockInCurrentPlaceV9010=function(block){
-    if(editorIsOpenV9010()) return insertAtEditorCursorV9010(block);
-    var item=(typeof currentItem==="function") ? currentItem() : null;
-    if(!item) return false;
-    if(section==="verses"){
-      var old=(item.text||item.content||"").trim();
-      item.text=String(block||"").trim()+(old?'\n\n'+old:'');
-      item.content=item.text;
-    }else{
-      var old2=(item.content||"").trim();
-      item.content=String(block||"").trim()+(old2?'\n\n'+old2:'');
-    }
-    item.updatedAt=Date.now();
-    try{saveState(); renderList(); renderReader();}catch(e){}
-    return true;
-  };
-
-  window.saveCollapsibleBlockV864=function(){
-    var title=(document.getElementById("blockTitleV864")?.value||"").trim();
-    var content=(document.getElementById("blockContentV864")?.value||"").trim();
-    if(!title){alert("Escribe un título para el desplegable.");return;}
-    if(!content){alert("Escribe el contenido del desplegable.");return;}
-    var safeTitle=title.replace(/"/g,"'");
-    var block='[desplegable titulo="'+safeTitle+'"]\n'+content+'\n[/desplegable]';
-    if(!window.insertBlockInCurrentPlaceV9010(block)){try{closeBlockOverlayV864();}catch(e){} return;}
-    try{closeBlockOverlayV864(); toast("Bloque desplegable añadido");}catch(e){}
-  };
-  try{ saveCollapsibleBlockV864=window.saveCollapsibleBlockV864; }catch(e){}
-
-  window.savePopupBlockV908=function(){
-    var title=(document.getElementById("popupTitleV908")?.value||"").trim();
-    var content=(document.getElementById("popupContentV908")?.value||"").trim();
-    if(!title){alert("Escribe un título o referencia para el emergente.");return;}
-    if(!content){alert("Escribe el contenido del emergente.");return;}
-    var safeTitle=title.replace(/"/g,"'");
-    var block='[emergente titulo="'+safeTitle+'"]\n'+content+'\n[/emergente]';
-    if(!window.insertBlockInCurrentPlaceV9010(block)){try{closeBlockOverlayV864();}catch(e){} return;}
-    try{closeBlockOverlayV864(); toast("Bloque emergente añadido");}catch(e){}
-  };
-  try{ savePopupBlockV908=window.savePopupBlockV908; }catch(e){}
-})();
-</script>
-
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6520,80 +6445,6 @@ body.dark .topbar-row #tabParables.active-view{
   margin-top:6px!important;
 }
 </style>
-
-
-
-<script id="v90-10-editor-block-button">
-/* v90.10 - Botón Bloque también en modo Editar + inserción en cursor */
-(function(){
-  if(window.__v9010EditorBlockButton) return;
-  window.__v9010EditorBlockButton=true;
-
-  function editorIsOpenV9010(){
-    var ed=document.getElementById("editorView");
-    return !!(ed && !ed.classList.contains("hidden"));
-  }
-  function insertAtEditorCursorV9010(text){
-    var ta=document.getElementById("editText");
-    if(!ta) return false;
-    var value=String(ta.value||"");
-    var start=(typeof ta.selectionStart==="number") ? ta.selectionStart : value.length;
-    var end=(typeof ta.selectionEnd==="number") ? ta.selectionEnd : start;
-    var before=value.slice(0,start);
-    var after=value.slice(end);
-    var block=String(text||"").trim();
-    var prefix=before && !/\n\n$/.test(before) ? (before.endsWith("\n") ? "\n" : "\n\n") : "";
-    var suffix=after && !/^\n\n/.test(after) ? (after.startsWith("\n") ? "\n" : "\n\n") : "";
-    var inserted=prefix+block+suffix;
-    ta.value=before+inserted+after;
-    var pos=(before+inserted).length;
-    try{ta.focus(); ta.setSelectionRange(pos,pos);}catch(e){}
-    try{ if(typeof scheduleAutosave==="function") scheduleAutosave(); else isDirty=true; }catch(e){}
-    try{ setSaveStatus("Cambios sin guardar"); }catch(e){}
-    return true;
-  }
-  window.insertBlockInCurrentPlaceV9010=function(block){
-    if(editorIsOpenV9010()) return insertAtEditorCursorV9010(block);
-    var item=(typeof currentItem==="function") ? currentItem() : null;
-    if(!item) return false;
-    if(section==="verses"){
-      var old=(item.text||item.content||"").trim();
-      item.text=String(block||"").trim()+(old?'\n\n'+old:'');
-      item.content=item.text;
-    }else{
-      var old2=(item.content||"").trim();
-      item.content=String(block||"").trim()+(old2?'\n\n'+old2:'');
-    }
-    item.updatedAt=Date.now();
-    try{saveState(); renderList(); renderReader();}catch(e){}
-    return true;
-  };
-
-  window.saveCollapsibleBlockV864=function(){
-    var title=(document.getElementById("blockTitleV864")?.value||"").trim();
-    var content=(document.getElementById("blockContentV864")?.value||"").trim();
-    if(!title){alert("Escribe un título para el desplegable.");return;}
-    if(!content){alert("Escribe el contenido del desplegable.");return;}
-    var safeTitle=title.replace(/"/g,"'");
-    var block='[desplegable titulo="'+safeTitle+'"]\n'+content+'\n[/desplegable]';
-    if(!window.insertBlockInCurrentPlaceV9010(block)){try{closeBlockOverlayV864();}catch(e){} return;}
-    try{closeBlockOverlayV864(); toast("Bloque desplegable añadido");}catch(e){}
-  };
-  try{ saveCollapsibleBlockV864=window.saveCollapsibleBlockV864; }catch(e){}
-
-  window.savePopupBlockV908=function(){
-    var title=(document.getElementById("popupTitleV908")?.value||"").trim();
-    var content=(document.getElementById("popupContentV908")?.value||"").trim();
-    if(!title){alert("Escribe un título o referencia para el emergente.");return;}
-    if(!content){alert("Escribe el contenido del emergente.");return;}
-    var safeTitle=title.replace(/"/g,"'");
-    var block='[emergente titulo="'+safeTitle+'"]\n'+content+'\n[/emergente]';
-    if(!window.insertBlockInCurrentPlaceV9010(block)){try{closeBlockOverlayV864();}catch(e){} return;}
-    try{closeBlockOverlayV864(); toast("Bloque emergente añadido");}catch(e){}
-  };
-  try{ savePopupBlockV908=window.savePopupBlockV908; }catch(e){}
-})();
-</script>
 
 </body>
 </html>
