@@ -3196,7 +3196,7 @@ function openMoreMenu(ev){
 
 
 const APP_VERSION_LABEL = "v89.4";
-const APP_VERSION_ZIP = "oraciones_v2_v89_4_volver_enviados.zip";
+const APP_VERSION_ZIP = "oraciones_v2_v89_4_volver_enviados_limpio.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_3_tarjeta_icono_categoria_real.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -4473,8 +4473,6 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
   margin-top:6px!important;
 }
 </style>
-
-
 
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
@@ -6163,11 +6161,11 @@ setInterval(updateVersePositionCounter, 1000);
         specialVerseMode=null;
         sentListActive=false;
         if(typeof setReturnToSentList==="function") setReturnToSentList();
+        else { try{ sessionStorage.setItem("returnToSentList","1"); }catch(e){} }
         if(typeof saveState==="function") saveState();
         if(typeof renderList==="function") renderList();
         if(typeof renderReader==="function") renderReader();
         if(typeof openReader==="function") openReader();
-        setTimeout(function(){ if(typeof showSentBackButtonV894==="function") showSentBackButtonV894(); },50);
       };
       box.appendChild(div);
     });
@@ -6449,74 +6447,6 @@ body.dark .topbar-row #tabParables.active-view{
   margin-top:6px!important;
 }
 </style>
-
-
-<style id="v89-4-sent-back-css">
-.sent-back-reader-v894{
-  padding:calc(10px + env(safe-area-inset-top)) 16px 0;
-}
-.sent-back-reader-v894 .btn{
-  background:#eee7dc;
-  border-color:#e2d8ca;
-}
-</style>
-<script id="v89-4-sent-back-js">
-/* v89.4 - Botón volver al abrir versículo desde Enviados */
-(function(){
-  if(window.__v894SentReaderBack) return;
-  window.__v894SentReaderBack = true;
-
-  window.removeSentBackButtonV894 = function(){
-    try{
-      var old = document.getElementById('sentBackReaderV894');
-      if(old) old.remove();
-    }catch(e){}
-  };
-
-  window.showSentBackButtonV894 = function(){
-    try{
-      var reader = document.getElementById('readerView');
-      if(!reader) return;
-      window.removeSentBackButtonV894();
-      var wrap = document.createElement('div');
-      wrap.id = 'sentBackReaderV894';
-      wrap.className = 'sent-back-reader-v894';
-      wrap.innerHTML = '<button class="btn soft" type="button" onclick="backToSentFromReaderV894()">← Volver a enviados</button>';
-      var code = document.getElementById('readerCode');
-      if(code && code.parentNode === reader) reader.insertBefore(wrap, code);
-      else reader.insertBefore(wrap, reader.firstChild);
-    }catch(e){ console.error('showSentBackButtonV894', e); }
-  };
-
-  window.backToSentFromReaderV894 = function(){
-    try{
-      window.removeSentBackButtonV894();
-      try{ sessionStorage.removeItem('returnToSentList'); }catch(e){}
-      if(typeof openSentVersesList === 'function') openSentVersesList();
-    }catch(e){ console.error('backToSentFromReaderV894', e); }
-  };
-
-  window.openSentVerseReaderV894 = function(id, category){
-    try{
-      if(typeof restoreSentV76 === 'function') restoreSentV76();
-    }catch(e){}
-    try{
-      state.currentVerseId = id;
-      currentVerseCategory = category || currentVerseCategory || 'sin_categoria';
-      specialVerseMode = null;
-      sentListActive = false;
-      if(typeof setReturnToSentList === 'function') setReturnToSentList();
-      else { try{ sessionStorage.setItem('returnToSentList','1'); }catch(e){} }
-      if(typeof saveState === 'function') saveState();
-      if(typeof renderList === 'function') renderList();
-      if(typeof renderReader === 'function') renderReader();
-      if(typeof openReader === 'function') openReader();
-      setTimeout(window.showSentBackButtonV894, 40);
-      setTimeout(function(){ window.scrollTo({top:0,behavior:'auto'}); }, 80);
-    }catch(e){ console.error('openSentVerseReaderV894', e); }
-  };
-})();
-</script>
 
 </body>
 </html>
