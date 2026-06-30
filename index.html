@@ -7015,3 +7015,91 @@ body.sent-reader-v903 #readerView .reader-code{padding:16px 16px 0;font-size:13p
 body.sent-reader-v903 #readerView .reader-title{padding:8px 16px 0;font-size:22px}
 body.sent-reader-v903 #readerView .reader-text{padding:16px 16px 48px;min-height:calc(100dvh - 170px);font-size:25px;line-height:2.05}
 </style>
+
+<script id="v90-5-daily-sent-exit-no-loop">
+/* v90.5 - Evitar bucle al volver desde Versículo del día -> Enviados -> Versículo -> Enviados -> Versículo del día -> Categorías */
+(function(){
+  if(window.__v905DailySentExitNoLoop) return;
+  window.__v905DailySentExitNoLoop = true;
+
+  function categoriesVisibleV905(){
+    try{
+      var vc=document.getElementById("verseCategoriesView");
+      return !!(vc && !vc.classList.contains("hidden"));
+    }catch(e){ return false; }
+  }
+
+  function patchDailyBackButtonV905(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head=document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      var buttons=head.querySelectorAll("button");
+      buttons.forEach(function(btn){
+        var txt=(btn.textContent||"").trim();
+        if(txt.indexOf("Volver") !== -1){
+          btn.setAttribute("onclick", "exitDailyToCategoriesV905()");
+        }
+      });
+    }catch(e){ console.error("patchDailyBackButtonV905", e); }
+  }
+
+  window.exitDailyToCategoriesV905=function(){
+    try{
+      window.__sentOpenedFromDailyV813=false;
+      window.__dailySentFlowExitedToCategoriesV905=true;
+      specialVerseMode=null;
+      if(typeof restoreReaderHeadV75 === "function") restoreReaderHeadV75();
+      if(typeof openVerseCategories === "function") openVerseCategories();
+      /* openVerseCategories activa categoryListActive; en este caso no queremos que otro Volver reconstruya el lector diario */
+      try{ categoryListActive=false; }catch(e){}
+      try{ if(typeof setActiveView === "function") setActiveView("categories"); }catch(e){}
+    }catch(e){ console.error("exitDailyToCategoriesV905", e); }
+  };
+
+  var oldOpenDailyV905=window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV905 === "function"){
+    window.openDailyVerse=function(){
+      var r=oldOpenDailyV905.apply(this, arguments);
+      setTimeout(patchDailyBackButtonV905, 40);
+      setTimeout(patchDailyBackButtonV905, 140);
+      return r;
+    };
+    try{ openDailyVerse=window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV905=window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV905 === "function"){
+    window.openVerseSpecial=function(v, mode){
+      var r=oldOpenVerseSpecialV905.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(patchDailyBackButtonV905, 40);
+        setTimeout(patchDailyBackButtonV905, 140);
+      }
+      return r;
+    };
+    try{ openVerseSpecial=window.openVerseSpecial; }catch(e){}
+  }
+
+  var oldSmartBackV905=window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof oldSmartBackV905 === "function"){
+    window.smartBack=function(){
+      try{
+        if(window.__dailySentFlowExitedToCategoriesV905 && categoriesVisibleV905()){
+          window.__dailySentFlowExitedToCategoriesV905=false;
+          window.__sentOpenedFromDailyV813=false;
+          try{ categoryListActive=false; }catch(e){}
+          try{ specialVerseMode=null; }catch(e){}
+          if(typeof restoreReaderHeadV75 === "function") restoreReaderHeadV75();
+          if(typeof openReader === "function") openReader();
+          return;
+        }
+      }catch(e){ console.error("smartBack v90.5 precheck", e); }
+      return oldSmartBackV905.apply(this, arguments);
+    };
+    try{ smartBack=window.smartBack; }catch(e){}
+  }
+
+  setTimeout(patchDailyBackButtonV905, 150);
+})();
+</script>
