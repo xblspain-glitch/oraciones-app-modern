@@ -4475,6 +4475,51 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
 }
 </style>
 
+
+<script>
+/* v90.11 prueba segura: insertar marcador en cursor desde Editar -> Bloque */
+(function(){
+  function editorVisibleV9011(){
+    var ev=document.getElementById('editorView');
+    var tx=document.getElementById('editText');
+    return !!(ev && tx && !ev.classList.contains('hidden'));
+  }
+  function insertMarkerAtCursorV9011(marker){
+    var tx=document.getElementById('editText');
+    if(!tx) return false;
+    try{ tx.focus(); }catch(e){}
+    var start=(typeof tx.selectionStart==='number') ? tx.selectionStart : (tx.value||'').length;
+    var end=(typeof tx.selectionEnd==='number') ? tx.selectionEnd : start;
+    var before=tx.value.slice(0,start);
+    var after=tx.value.slice(end);
+    var ins='\n\n'+marker+'\n\n';
+    tx.value=before+ins+after;
+    var pos=(before+ins).length;
+    try{ tx.setSelectionRange(pos,pos); }catch(e){}
+    try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+    try{ closeBlockOverlayV864(); }catch(e){}
+    try{ toast('Marcador insertado en el cursor'); }catch(e){}
+    return true;
+  }
+  var originalSaveCollapsibleV9011=window.saveCollapsibleBlockV864;
+  window.saveCollapsibleBlockV864=function(){
+    if(editorVisibleV9011()){
+      var title=(document.getElementById('blockTitleV864')?.value||'').trim() || 'Desplegable';
+      return insertMarkerAtCursorV9011('[DESPLEGABLE: '+title+']');
+    }
+    if(typeof originalSaveCollapsibleV9011==='function') return originalSaveCollapsibleV9011.apply(this,arguments);
+  };
+  var originalSavePopupV9011=window.savePopupBlockV908;
+  window.savePopupBlockV908=function(){
+    if(editorVisibleV9011()){
+      var title=(document.getElementById('popupTitleV908')?.value||'').trim() || 'Emergente';
+      return insertMarkerAtCursorV9011('[EMERGENTE: '+title+']');
+    }
+    if(typeof originalSavePopupV9011==='function') return originalSavePopupV9011.apply(this,arguments);
+  };
+})();
+</script>
+
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6446,6 +6491,51 @@ body.dark .topbar-row #tabParables.active-view{
   margin-top:6px!important;
 }
 </style>
+
+
+<script>
+/* v90.11 prueba segura: insertar marcador en cursor desde Editar -> Bloque */
+(function(){
+  function editorVisibleV9011(){
+    var ev=document.getElementById('editorView');
+    var tx=document.getElementById('editText');
+    return !!(ev && tx && !ev.classList.contains('hidden'));
+  }
+  function insertMarkerAtCursorV9011(marker){
+    var tx=document.getElementById('editText');
+    if(!tx) return false;
+    try{ tx.focus(); }catch(e){}
+    var start=(typeof tx.selectionStart==='number') ? tx.selectionStart : (tx.value||'').length;
+    var end=(typeof tx.selectionEnd==='number') ? tx.selectionEnd : start;
+    var before=tx.value.slice(0,start);
+    var after=tx.value.slice(end);
+    var ins='\n\n'+marker+'\n\n';
+    tx.value=before+ins+after;
+    var pos=(before+ins).length;
+    try{ tx.setSelectionRange(pos,pos); }catch(e){}
+    try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+    try{ closeBlockOverlayV864(); }catch(e){}
+    try{ toast('Marcador insertado en el cursor'); }catch(e){}
+    return true;
+  }
+  var originalSaveCollapsibleV9011=window.saveCollapsibleBlockV864;
+  window.saveCollapsibleBlockV864=function(){
+    if(editorVisibleV9011()){
+      var title=(document.getElementById('blockTitleV864')?.value||'').trim() || 'Desplegable';
+      return insertMarkerAtCursorV9011('[DESPLEGABLE: '+title+']');
+    }
+    if(typeof originalSaveCollapsibleV9011==='function') return originalSaveCollapsibleV9011.apply(this,arguments);
+  };
+  var originalSavePopupV9011=window.savePopupBlockV908;
+  window.savePopupBlockV908=function(){
+    if(editorVisibleV9011()){
+      var title=(document.getElementById('popupTitleV908')?.value||'').trim() || 'Emergente';
+      return insertMarkerAtCursorV9011('[EMERGENTE: '+title+']');
+    }
+    if(typeof originalSavePopupV9011==='function') return originalSavePopupV9011.apply(this,arguments);
+  };
+})();
+</script>
 
 </body>
 </html>
