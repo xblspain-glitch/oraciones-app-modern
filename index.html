@@ -7301,3 +7301,103 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   try{ if(typeof renderReader==="function") renderReader(); }catch(e){}
 })();
 </script>
+
+<!-- v90.12: insertar bloques en el cursor del editor sin tocar el guardado -->
+<script id="v90-12-blocks-in-editor-cursor">
+(function(){
+  function editorIsOpenV912(){
+    var editor=document.getElementById('editorView');
+    var text=document.getElementById('editText');
+    return !!(editor && text && !editor.classList.contains('hidden'));
+  }
+  function getEditTextV912(){ return document.getElementById('editText'); }
+  function rememberCursorV912(){
+    try{
+      var t=getEditTextV912();
+      if(t && typeof t.selectionStart==='number') window.__blockCursorV912=t.selectionStart;
+    }catch(e){}
+  }
+  function insertIntoEditorV912(block){
+    var t=getEditTextV912();
+    if(!t) return false;
+    var start=(typeof t.selectionStart==='number') ? t.selectionStart : (window.__blockCursorV912||0);
+    var end=(typeof t.selectionEnd==='number') ? t.selectionEnd : start;
+    var value=String(t.value||'');
+    start=Math.max(0,Math.min(start,value.length));
+    end=Math.max(start,Math.min(end,value.length));
+    var before=value.slice(0,start);
+    var after=value.slice(end);
+    var prefix=(before && !before.endsWith('\n')) ? '\n\n' : '';
+    var suffix=(after && !after.startsWith('\n')) ? '\n\n' : '';
+    var insert=prefix+String(block||'').trim()+suffix;
+    t.value=before+insert+after;
+    var pos=(before+insert).length;
+    try{ t.focus({preventScroll:true}); }catch(e){ try{t.focus();}catch(e2){} }
+    try{ t.setSelectionRange(pos,pos); window.__blockCursorV912=pos; }catch(e){}
+    try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+    try{ t.dispatchEvent(new Event('input',{bubbles:true})); }catch(e){}
+    return true;
+  }
+  try{
+    document.addEventListener('selectionchange',function(){
+      var a=document.activeElement;
+      if(a && a.id==='editText') rememberCursorV912();
+    });
+    document.addEventListener('DOMContentLoaded',function(){
+      var t=getEditTextV912();
+      if(t){ ['keyup','click','input','select','touchend','focus'].forEach(function(ev){ t.addEventListener(ev,rememberCursorV912); }); }
+    });
+  }catch(e){}
+
+  var oldOpenBlockMenuV912=window.openBlockMenu || (typeof openBlockMenu!=='undefined' ? openBlockMenu : null);
+  window.openBlockMenu=function(){ rememberCursorV912(); if(oldOpenBlockMenuV912) return oldOpenBlockMenuV912.apply(this,arguments); };
+  try{ openBlockMenu=window.openBlockMenu; }catch(e){}
+
+  var oldSaveCollapsibleV912=window.saveCollapsibleBlockV864 || (typeof saveCollapsibleBlockV864!=='undefined' ? saveCollapsibleBlockV864 : null);
+  window.saveCollapsibleBlockV864=function(){
+    try{
+      var titleEl=document.getElementById('blockTitleV864');
+      var contentEl=document.getElementById('blockContentV864');
+      var title=(titleEl ? titleEl.value : '').trim();
+      var content=(contentEl ? contentEl.value : '').trim();
+      if(editorIsOpenV912()){
+        if(!title){ alert('Escribe un título para el desplegable.'); return; }
+        if(!content){ alert('Escribe el contenido del desplegable.'); return; }
+        var safeTitle=title.replace(/"/g,"'");
+        var block='[desplegable titulo="'+safeTitle+'"]\n'+content+'\n[/desplegable]';
+        if(insertIntoEditorV912(block)){
+          try{ closeBlockOverlayV864(); }catch(e){}
+          try{ toast('Bloque desplegable insertado'); }catch(e){}
+          return;
+        }
+      }
+    }catch(err){ console.error('v90.12 saveCollapsible editor insert',err); }
+    if(oldSaveCollapsibleV912) return oldSaveCollapsibleV912.apply(this,arguments);
+  };
+  try{ saveCollapsibleBlockV864=window.saveCollapsibleBlockV864; }catch(e){}
+
+  function patchPopupSaverV912(){
+    var oldSavePopupV912=window.savePopupBlockV908;
+    window.savePopupBlockV908=function(){
+      try{
+        var titleEl=document.getElementById('popupTitleV908');
+        var contentEl=document.getElementById('popupContentV908');
+        var title=(titleEl ? titleEl.value : '').trim();
+        var content=(contentEl ? contentEl.value : '').trim();
+        if(editorIsOpenV912()){
+          if(!title){ alert('Escribe un título o referencia para el emergente.'); return; }
+          if(!content){ alert('Escribe el contenido del emergente.'); return; }
+          var block=(typeof buildPopupBlockV908==='function') ? buildPopupBlockV908(title,content) : ('[emergente titulo="'+title.replace(/"/g,"'")+'"]\n'+content+'\n[/emergente]');
+          if(insertIntoEditorV912(block)){
+            try{ closeBlockOverlayV864(); }catch(e){}
+            try{ toast('Bloque emergente insertado'); }catch(e){}
+            return;
+          }
+        }
+      }catch(err){ console.error('v90.12 savePopup editor insert',err); }
+      if(oldSavePopupV912) return oldSavePopupV912.apply(this,arguments);
+    };
+  }
+  patchPopupSaverV912();
+})();
+</script>
