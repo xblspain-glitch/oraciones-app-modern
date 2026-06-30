@@ -3195,8 +3195,8 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v88";
-const APP_VERSION_ZIP = "oraciones_v2_v88_limpieza_codigo.zip";
+const APP_VERSION_LABEL = "v89.2";
+const APP_VERSION_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 const APP_BASE_ZIP = "oraciones_v2_v87_optimizacion_bienvenida.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -4701,17 +4701,17 @@ async function shareVerseCard(){
     ctx.shadowOffsetY=3;
 
     ctx.font="84px Arial";
-    ctx.fillText("🌅",540,220);
+    ctx.fillText("🌅",540,245);
     ctx.font="italic 56px Georgia, serif";
-    ctx.fillText("Versículo del día",540,320);
+    ctx.fillText("Versículo del día",540,345);
     ctx.font="34px Georgia, serif";
     const ds=new Date();
     const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
     const fecha=ds.getDate()+" de "+meses[ds.getMonth()]+" de "+ds.getFullYear();
-    ctx.fillText("📅 "+fecha,540,385);
+    ctx.fillText(fecha,540,410);
 
     ctx.font="54px Georgia, serif";
-    ctx.fillText(category,540,470);
+    ctx.fillText(category,540,495);
     ctx.strokeStyle="rgba(255,255,255,0.35)"; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(180,700); ctx.lineTo(900,700); ctx.stroke();
 
     ctx.font="bold 74px Georgia, serif";
