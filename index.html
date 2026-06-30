@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<!-- V27 A COMBO REAL -->
-<!-- V26 OCULTAR BUSCADOR DIRECTO -->
-<!-- V25 FILTRO MINIMO TITULOS -->
-<!-- V24 BUSCADOR REAL SIMPLE -->
-<!-- V23 FIX REAL OPENVERSECATEGORIES -->
-<!-- V22 SIN LISTA FIX -->
-<!-- V8.0 CATEGORIAS DINAMICAS -->
-<!-- V7.8 BOTON REF EN BARRA -->
+
+
+
+
+
+
+
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Oraciones V2</title>
@@ -101,7 +101,7 @@ body.dark .topbar{background:rgba(17,17,17,.96)}
   .status{width:100%;margin-left:0;padding-top:0}
 }
 
-/* V1.8: resaltado de vista activa */
+
 .btn.active-view{
   background:#fff!important;
   color:#181818!important;
@@ -168,7 +168,7 @@ body.dark .segment button{color:var(--text)}body.dark .segment button.active{col
 .reader-daily-date.hidden{display:none}
 
 
-/* Bienvenida Oraciones V2 - no altera la lógica interna */
+
 #ov2Welcome{
   position:fixed; inset:0; z-index:99999;
   min-height:100dvh; display:flex; align-items:center; justify-content:center;
@@ -211,7 +211,7 @@ body.dark .font-combo-separator-v31{
 }
 
 
-/* v33 - Favorito activo más claro */
+
 button[data-fav-btn].favorite-active{
   border:2px solid rgba(245,190,35,.95)!important;
   background:linear-gradient(180deg,#fff9d9,#ffffff)!important;
@@ -224,7 +224,7 @@ button[data-fav-btn]:not(.favorite-active){
 }
 
 
-/* v37 historial compacto */
+
 .sent-item,.sent-card{
   padding-top:10px!important;
   padding-bottom:10px!important;
@@ -235,7 +235,7 @@ button[data-fav-btn]:not(.favorite-active){
 }
 
 
-/* v40B - Backup ordenado real */
+
 .backup-title-v40{
   width:100%;
   flex-basis:100%;
@@ -250,7 +250,7 @@ button[data-fav-btn]:not(.favorite-active){
 }
 
 
-/* v40C - Backup compacto */
+
 #backupView .btn{
   min-height:40px!important;
   padding:8px 12px!important;
@@ -266,7 +266,7 @@ button[data-fav-btn]:not(.favorite-active){
 }
 
 
-/* v41B - Modo escritura para Nueva y Editar */
+
 body.editing-focus .topbar{
   display:none!important;
 }
@@ -306,7 +306,7 @@ body.editing-focus #editCategory:not(.hidden){
 }
 
 
-/* v44 - Biblioteca de festividades */
+
 .festivity-modal{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:200;display:flex;align-items:stretch;justify-content:center;padding:12px}
 .festivity-sheet{width:min(760px,100%);max-height:calc(100dvh - 24px);overflow:auto;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
 .festivity-head{position:sticky;top:0;z-index:2;display:flex;gap:8px;flex-wrap:wrap;padding:10px;background:var(--card);border-bottom:1px solid var(--line)}
@@ -329,7 +329,7 @@ body.editing-focus #editCategory:not(.hidden){
 @media(max-width:860px){.festivity-modal{padding:0}.festivity-sheet{border-radius:0;max-height:100dvh;min-height:100dvh}}
 
 
-/* v44D - Pasajes editables seguro */
+
 .festivity-passage{
   cursor:pointer!important;
   display:flex!important;
@@ -360,7 +360,7 @@ body.editing-focus #editCategory:not(.hidden){
 }
 
 
-/* v44E - Edición contextual de festividades */
+
 .festivity-actions{
   display:flex;
   gap:8px;
@@ -373,10 +373,10 @@ body.editing-focus #editCategory:not(.hidden){
 }
 
 
-/* v46 Recientes */
+
 .recent-card{border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0;background:var(--bg)}
 
-/* v47B - Pantalla de Recientes */
+
 .recent-modal{
   position:fixed;
   inset:0;
@@ -459,7 +459,7 @@ body.editing-focus #editCategory:not(.hidden){
 }
 
 
-/* v48D - Notas 7/10 */
+
 body[data-section="notes"] #readerText{
   line-height:1.49 !important;
 }
@@ -468,7 +468,7 @@ body[data-section="notes"] #readerText p{
 }
 
 
-/* v49 - Referencias bíblicas resaltadas */
+
 .bible-ref-highlight{
   font-weight:900;
   color:#8a5a2b;
@@ -485,7 +485,7 @@ body.dark .bible-ref-highlight{
 }
 
 
-/* v49C - Guía con el mismo espaciado de lectura que Notas */
+
 body[data-section="guides"] #readerText{
   line-height:1.49 !important;
 }
@@ -494,7 +494,7 @@ body[data-section="guides"] #readerText p{
 }
 
 
-/* v50 - Punto de lectura con botón Marcar */
+
 .reading-mark-dropdown{position:fixed;z-index:250;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 34px rgba(0,0,0,.22);padding:8px;min-width:230px}
 .reading-mark-dropdown button{display:block;width:100%;border:0;background:transparent;color:var(--text);text-align:left;padding:11px 12px;border-radius:12px;font-size:16px;font-weight:750}
 .reading-mark-dropdown button:hover{background:var(--bg)}
@@ -507,13 +507,13 @@ body[data-section="guides"] #readerText p{
 #readerText.marking-mode-v50{cursor:crosshair;outline:2px dashed rgba(216,132,40,.35);outline-offset:6px;border-radius:14px}
 
 
-/* v51 - Fin de la lectura */
+
 .reader-end-card{margin:40px auto 18px;max-width:520px;text-align:center;opacity:.92}
 .reader-end-card .line{height:1px;background:linear-gradient(to right,transparent,rgba(180,180,180,.55),transparent);margin:14px 0}
 .reader-end-card .title{font-weight:800;font-size:1.02em}
 .reader-end-card .msg{margin-top:8px;font-style:italic;opacity:.82}
 
-/* v52 - Transición suave del lector */
+
 #readerView.reader-fade-out{
   opacity:0;
   transition:opacity .12s ease;
@@ -530,7 +530,7 @@ body[data-section="guides"] #readerText p{
 }
 
 
-/* v55 - Fundido suave del cierre de lectura */
+
 .reader-end-card{
   opacity:0;
   animation:readerEndFadeV55 .22s ease forwards;
@@ -545,7 +545,7 @@ body[data-section="guides"] #readerText p{
 }
 
 
-/* v56 - Despedida integrada */
+
 .reader-end-card{
   border:none!important;
   border-radius:0!important;
@@ -565,7 +565,7 @@ body[data-section="guides"] #readerText p{
 }
 
 
-/* v57 ajuste final despedida */
+
 .reader-end-card{
   background:linear-gradient(
     to bottom,
@@ -577,7 +577,7 @@ body[data-section="guides"] #readerText p{
 }
 
 
-/* v58A - Restaurar respuesta táctil premium */
+
 .btn,
 button.btn{
   transition:
@@ -606,13 +606,13 @@ button.btn.premium-pressing{
 }
 
 
-/* v59 - Continuar con otra oración */
+
 .reader-next{margin:8px auto 8px;text-align:center}
 .reader-next-label{color:#4f6f95;font-weight:600;margin-bottom:8px}
 .reader-next-link{color:#2f6fb8;font-weight:700;cursor:pointer;display:inline-block;padding:4px 8px;border-radius:8px;transition:background-color .15s ease}
 .reader-next-link:hover{background:rgba(47,111,184,.08)}
 
-/* v59B - Continuar con otra oración y volver al inicio */
+
 .reader-next{margin:8px auto 8px;text-align:center}
 .reader-next-label{color:#4f6f95;font-weight:650;margin-bottom:8px}
 .reader-next-link,.reader-top-link{color:#2f6fb8;font-weight:800;cursor:pointer;display:inline-block;padding:6px 10px;border-radius:10px;transition:background-color .15s ease,transform .09s ease}
@@ -621,7 +621,7 @@ button.btn.premium-pressing{
 .reader-top-link{margin-top:8px;color:#5f7086;font-weight:750}
 
 
-/* v59D - reparación segura continuar/inicio */
+
 .reader-next{margin:8px auto 8px;text-align:center}
 .reader-next-label{color:#4f6f95;font-weight:650;margin-bottom:8px}
 .reader-next-link,.reader-top-link{color:#2f6fb8;font-weight:800;cursor:pointer;display:inline-block;padding:6px 10px;border-radius:10px;transition:background-color .15s ease,transform .09s ease}
@@ -630,7 +630,7 @@ button.btn.premium-pressing{
 .reader-top-link{margin-top:8px;color:#5f7086;font-weight:750}
 
 
-/* v60 - Paneles Premium */
+
 .card,.panel,.reader-card{
 border-radius:18px!important;
 border:1px solid rgba(70,120,180,.08)!important;
@@ -642,7 +642,7 @@ box-shadow:0 2px 10px rgba(36,74,122,.05)!important;
 }
 
 
-/* v61 - Botones Premium */
+
 .btn,button.btn{
   border-radius:14px!important;
   box-shadow:0 2px 6px rgba(36,74,122,.08)!important;
@@ -666,12 +666,12 @@ box-shadow:0 2px 10px rgba(36,74,122,.05)!important;
 }
 
 
-/* v62 limpio - vistas especiales sin lista heredada */
+
 body.special-view-only .sidebar{display:none!important}
 body.special-view-only .content{width:100%!important;max-width:100%!important}
 
 
-/* v65 - Botones con pulsación un poco más profunda */
+
 .btn:active,
 button.btn:active,
 .btn.premium-pressing,
@@ -686,7 +686,7 @@ button.btn.premium-pressing{
 }
 
 
-/* v65A - Pulsación rápida + corrección modo oscuro */
+
 .btn:active,
 button.btn:active,
 .btn.premium-pressing,
@@ -696,7 +696,7 @@ button.btn.premium-pressing{
   box-shadow:0 1px 2px rgba(36,74,122,.12)!important;
 }
 
-/* Evita que los paneles premium claros se impongan en modo oscuro */
+
 body.dark .panel,
 body.dark .card,
 body.dark .reader-card{
@@ -722,7 +722,7 @@ body.dark .reader-end-card{
 }
 
 
-/* v65.2 dark end card */
+
 body.dark .reader-end-card{
 background:linear-gradient(180deg,#202020 0%,#262626 45%,#1d1d1d 100%)!important;
 border:1px solid rgba(255,255,255,.06)!important;
@@ -735,7 +735,7 @@ color:#f2f2f2!important;
 text-shadow:none!important;
 }
 
-/* v65.9 - Cambio claro/oscuro instantáneo */
+
 body,
 .topbar,
 .panel,
@@ -756,14 +756,14 @@ button,
   transition-property:transform, box-shadow, filter!important;
 }
 
-/* Al cambiar de tema, los colores no hacen fundido */
+
 body.theme-switching,
 body.theme-switching *{
   transition:none!important;
 }
 
 
-/* v66 - Fila final estable: modo oscuro + eliminar + contador */
+
 .topbar-bottom-row-v66{
   display:flex;
   align-items:center;
@@ -791,7 +791,7 @@ body.theme-switching *{
 }
 
 
-/* v67 - Modo oscuro con el mismo layout premium que el claro */
+
 body.dark .topbar{
   background:rgba(17,17,17,.96)!important;
 }
@@ -851,7 +851,7 @@ body.dark .search{
   border:1px solid rgba(255,255,255,.12)!important;
 }
 
-/* Mismo comportamiento visual de selección, sin cambiar tamaño */
+
 body.dark .btn.active-view,
 body.dark .btn.favorite-active{
   background:#f2eee7!important;
@@ -859,7 +859,7 @@ body.dark .btn.favorite-active{
   border-color:var(--accent)!important;
 }
 
-/* La fila final introducida en v66 conserva exactamente la misma estructura */
+
 body.dark .topbar-bottom-row-v66{
   display:flex!important;
   align-items:center!important;
@@ -869,7 +869,7 @@ body.dark .topbar-bottom-row-v66{
 }
 
 
-/* v68 - Misma agrupación de botones de lectura en claro y oscuro */
+
 #readerView .panel-head .toolbar-break-v68{
   flex:0 0 100%;
   width:100%;
@@ -881,7 +881,7 @@ body.dark .topbar-bottom-row-v66{
 
 
 
-/* v70 - Modo oscuro con la misma geometría del panel claro */
+
 body.dark .topbar-row{
   padding:18px!important;
   gap:12px!important;
@@ -929,7 +929,7 @@ body.dark .topbar-bottom-row-v66{
 }
 
 
-/* v71 - Sensación Premium: pulsación uniforme */
+
 .btn,
 button.btn,
 .reader-next-link,
@@ -954,14 +954,14 @@ button.btn.premium-pressing,
 }
 
 
-/* v71.1 - Cambio de tema instantáneo */
+
 body.theme-switching,
 body.theme-switching *{
   transition:none!important;
 }
 
 
-/* v72 - Títulos en pantalla completa */
+
 body.titles-fullscreen-v72 .topbar,
 body.titles-fullscreen-v72 .sidebar{
   display:none!important;
@@ -1004,7 +1004,7 @@ body.titles-fullscreen-v72 .title-row{
 }
 
 
-/* v73.1 - Forzar Categorías como pantalla completa */
+
 body.categories-fullscreen-v73 .topbar{
   display:none!important;
 }
@@ -1021,7 +1021,7 @@ body.categories-fullscreen-v73 #verseCategoriesView{
 }
 
 
-/* v73.2 - Categorías pantalla completa sin lista detrás */
+
 body.categories-fullscreen-v73 .sidebar,
 body.categories-fullscreen-v73 #list{
   display:none!important;
@@ -1035,9 +1035,7 @@ body.categories-fullscreen-v73 .content{
 }
 
 
-/* v77.1 - Botonera limpia: las acciones globales suben arriba.
-   La botonera del lector se oculta solo en lectura normal móvil;
-   el modo Leer en pantalla completa y las pantallas Hoy/Azar conservan sus propios controles. */
+
 body.reading-mobile:not(.fullscreen-reading):not(.verse-special-fullscreen-v74):not(.verse-special-fullscreen-v751) #readerView .panel-head{
   display:none!important;
 }
@@ -1158,7 +1156,7 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
 }
 
 
-/* Calendario Cristiano V2 */
+
 .calendar-wrap{padding:14px;display:flex;flex-direction:column;gap:12px}
 .calendar-hero{background:linear-gradient(135deg,rgba(29,79,134,.18),rgba(197,151,99,.16));border:1px solid var(--line);border-radius:22px;padding:18px}
 .calendar-title{font-size:24px;font-weight:800;margin-bottom:6px}
@@ -1373,7 +1371,7 @@ body:not(.dark) .topbar-row #calendarBtn[data-festive="1"].active-view{
 
 
 <style>
-/* v86.12 - Bloques desplegables azul claro compactos */
+
 .reader-collapse-block{
   margin:6px 0;
   border:1px solid #b9dcff;
@@ -1751,7 +1749,7 @@ function openRecentEntry(type,idx){
         <button class="btn primary new-blue" type="button" onclick="newItem()">➕ Nueva</button>
         <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
         <button data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-        
+
         <button data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
         <button data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
         <button id="btnReaderBlock" class="btn soft" type="button" onclick="openBlockMenu()">📑 Bloque</button>
@@ -1766,14 +1764,14 @@ function openRecentEntry(type,idx){
         <span class="toolbar-break-v68"></span>
         <button id="readerMarkBtn" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
         <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
-        
-        
-        
+
+
+
         <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
         <span class="toolbar-break-v68"></span>
         <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
         <button data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-        
+
       </div>
       <div id="readerCode" class="reader-code"></div>
       <div id="readerDailyDate" class="reader-daily-date hidden"></div>
@@ -1791,7 +1789,7 @@ function openRecentEntry(type,idx){
         <div id="saveStatus" class="status">Sin cambios</div>
       </div>
       <input id="editTitle" class="title-input" placeholder="Título">
-      
+
       <select id="editCategory" class="search hidden" style="width:100%;border-radius:0;border:none;border-bottom:1px solid var(--line);font-size:18px">
         <option value="salvacion">❤️ Salvación</option>
         <option value="fe">🙏🏾 Fe</option>
@@ -1892,7 +1890,7 @@ function openRecentEntry(type,idx){
   <div class="festivity-sheet">
     <div class="festivity-head">
       <button class="btn soft" type="button" onclick="closeFestivityModal()">← Cerrar</button>
-      
+
     </div>
     <div id="festivityListView">
       <div class="festivity-title-main">📚 Festividades cristianas</div>
@@ -3197,9 +3195,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v87";
-const APP_VERSION_ZIP = "oraciones_v2_v87_optimizacion_bienvenida.zip";
-const APP_BASE_ZIP = "oraciones_v2_v86_12_bloques_espacio_seguro.zip";
+const APP_VERSION_LABEL = "v88";
+const APP_VERSION_ZIP = "oraciones_v2_v88_limpieza_codigo.zip";
+const APP_BASE_ZIP = "oraciones_v2_v87_optimizacion_bienvenida.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
@@ -3806,7 +3804,7 @@ function buildChristianCalendarYear(y){
   addEvent(map,addCalendarDays(east,39),"ortodoxa","👑 Ascensión del Señor","Cristo asciende al Padre.");
   addEvent(map,addCalendarDays(east,49),"etiope","🔥 Pentecostés","Venida del Espíritu Santo sobre la Iglesia.");
   addEvent(map,addCalendarDays(east,49),"ortodoxa","🔥 Pentecostés","Venida del Espíritu Santo.");
-  
+
   // v43C - Festividades cristianas universales y bíblicas
   addFixed(map,y,3,25,"catolica","⛪ Anunciación","El anuncio del ángel Gabriel a María sobre el nacimiento de Jesús.");
   addFixed(map,y,3,25,"ortodoxa","⛪ Anunciación","El anuncio del ángel Gabriel a María sobre el nacimiento de Cristo.");
@@ -4332,7 +4330,7 @@ body.dark #calendarBtn.calendar-alert.active-view{
 
 
 <style>
-/* v86.12 - Bloques desplegables azul claro compactos */
+
 .reader-collapse-block{
   margin:6px 0;
   border:1px solid #b9dcff;
@@ -4386,7 +4384,7 @@ body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:
 
 </head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
 <style>
-/* v74 - pantalla propia para Versículo del día y Versículo al azar */
+
 body.verse-special-fullscreen-v74 .topbar,
 body.verse-special-fullscreen-v74 .sidebar,
 body.verse-special-fullscreen-v74 #list{display:none!important}
@@ -4466,7 +4464,7 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
 
 
 <style>
-/* v86.12 - reduce solo el espacio real generado entre desplegables */
+
 .reader-collapse-block{
   margin-top:4px!important;
   margin-bottom:4px!important;
@@ -6413,7 +6411,7 @@ body.dark .topbar-row #tabParables.active-view{
 </style>
 
 <style>
-/* v86.12 - reduce solo el espacio real generado entre desplegables */
+
 .reader-collapse-block{
   margin-top:4px!important;
   margin-bottom:4px!important;
@@ -6425,59 +6423,59 @@ body.dark .topbar-row #tabParables.active-view{
 
 </body>
 </html>
-<!-- V9.1 pulido: Hoy/Versículo al azar/Generado para hoy -->
 
-<!-- V9.2e limpia: fecha visible, sin botones vibracion/instalar -->
 
-<!-- V9.2f: instalador emergente como antes, sin botones fijos -->
 
-<!-- V9.3c tarjetas WhatsApp REAL -->
 
-<!-- V9.3d tarjetas pulidas: sin pie y bloque subido -->
 
-<!-- V9.4 tarjetas texto inteligente -->
 
-<!-- V9.5 autoajuste máximo para aprovechar mejor la altura -->
 
-<!-- V9.6e detector duplicados mejorado ref/texto/paste -->
 
-<!-- V9.7 deslizar versiculos dentro de categoria -->
 
-<!-- V9.8b contador visible antes del titulo -->
 
-<!-- V9.9b ultima tarjeta segura -->
 
-<!-- V9.9c ultima tarjeta marcada al pulsar tarjeta -->
 
-<!-- V9.9d ultima tarjeta marcado directo desde boton -->
 
-<!-- V10.1b Nunca enviados corregido barra lectura -->
 
-<!-- V10.2c categorías directas corregido: solo categorías cambia a Versículos; Títulos queda intacto -->
 
-<!-- V10.4 Títulos y lista separados -->
 
-<!-- V10.4c Backup sin lista lateral -->
 
-<!-- V10.7 Lista de versículos enviados -->
 
-<!-- V10.8 Enviados: día natural + quitar falsos -->
 
-<!-- V10.9 Volver desde enviados a lista de enviados -->
 
-<!-- V10.9b Volver desde enviados usando sessionStorage -->
 
-<!-- V11.0b sin texto suelto + volver enviados/categorias -->
 
-<!-- V11.1 Favoritos restaurados arriba; estrella inferior sigue marcando -->
 
-<!-- V11.2 Menú Más agrupando acciones inferiores de versículos -->
 
-<!-- V11.7 Menú Más desplegable real compacto -->
 
-<!-- V11.9 Resumen de enviados/pendientes por categoría -->
 
-<!-- v74 Nunca enviados en Categorías + Hoy/Azar pantalla propia -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 /* v79.1 - Favoritos pantalla completa segura sobre v78; solo Volver; no rompe Títulos */
