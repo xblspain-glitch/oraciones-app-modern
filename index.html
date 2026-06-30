@@ -3195,8 +3195,8 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v89.4";
-const APP_VERSION_ZIP = "oraciones_v2_v89_4_volver_enviados_contexto_limpio.zip";
+const APP_VERSION_LABEL = "v89.3";
+const APP_VERSION_ZIP = "oraciones_v2_v89_3_tarjeta_icono_categoria_real.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -3269,7 +3269,6 @@ function openSentVersesList(){
         '<div class="small-note">' + escapeHtml(when + (cat ? " · " + cat : "")) + '</div>' +
         '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\'' + v.id + '\')">🗑️ Quitar</button>';
       div.onclick = () => {
-        if(typeof markSentDetailOriginV895 === "function") markSentDetailOriginV895(v.id);
         state.currentVerseId = v.id;
         currentVerseCategory = v.category || currentVerseCategory || "sin_categoria";
         specialVerseMode = null;
@@ -4474,102 +4473,6 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
   margin-top:6px!important;
 }
 </style>
-
-
-
-<style id="v895-sent-detail-back-css">
-.sent-detail-back-v895{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  margin:14px 0 8px 18px;
-  padding:12px 22px;
-  border-radius:18px;
-  border:1px solid rgba(130,100,65,.14);
-  background:#f1eadf;
-  color:#1f1f1f;
-  font:inherit;
-  font-size:18px;
-  box-shadow:0 8px 18px rgba(0,0,0,.08);
-}
-body.dark .sent-detail-back-v895{
-  background:#2b2721;
-  color:#f5f2ec;
-  border-color:rgba(255,255,255,.12);
-}
-</style>
-<script id="v895-sent-detail-back-script">
-(function(){
-  if(window.__v895SentDetailBackClean) return;
-  window.__v895SentDetailBackClean = true;
-  const KEY = "oraciones_sent_detail_verse_v895";
-
-  window.markSentDetailOriginV895 = function(id){
-    try{ sessionStorage.setItem(KEY, String(id||"")); }catch(e){}
-  };
-  window.clearSentDetailOriginV895 = function(){
-    try{ sessionStorage.removeItem(KEY); }catch(e){}
-    const old=document.getElementById("sentDetailBackV895");
-    if(old) old.remove();
-  };
-  function getSentDetailIdV895(){
-    try{ return sessionStorage.getItem(KEY)||""; }catch(e){ return ""; }
-  }
-  function isSentDetailActiveV895(){
-    try{
-      return section === "verses" && state && state.currentVerseId && getSentDetailIdV895() === String(state.currentVerseId);
-    }catch(e){ return false; }
-  }
-  window.renderSentDetailBackV895 = function(){
-    const reader=document.getElementById("readerView");
-    const old=document.getElementById("sentDetailBackV895");
-    if(old) old.remove();
-    if(!reader || reader.classList.contains("hidden") || !isSentDetailActiveV895()) return;
-    const btn=document.createElement("button");
-    btn.id="sentDetailBackV895";
-    btn.className="sent-detail-back-v895";
-    btn.type="button";
-    btn.textContent="← Volver";
-    btn.onclick=function(){
-      window.clearSentDetailOriginV895();
-      if(typeof openSentVersesList === "function") openSentVersesList();
-    };
-    const code=document.getElementById("readerCode");
-    if(code && code.parentNode===reader) reader.insertBefore(btn, code);
-    else reader.insertBefore(btn, reader.firstChild);
-  };
-
-  const oldRenderReader = window.renderReader || (typeof renderReader!=="undefined" ? renderReader : null);
-  if(typeof oldRenderReader === "function"){
-    window.renderReader = function(){
-      const r = oldRenderReader.apply(this, arguments);
-      setTimeout(window.renderSentDetailBackV895, 0);
-      return r;
-    };
-    try{ renderReader = window.renderReader; }catch(e){}
-  }
-  const oldOpenReader = window.openReader || (typeof openReader!=="undefined" ? openReader : null);
-  if(typeof oldOpenReader === "function"){
-    window.openReader = function(){
-      const r = oldOpenReader.apply(this, arguments);
-      setTimeout(window.renderSentDetailBackV895, 0);
-      return r;
-    };
-    try{ openReader = window.openReader; }catch(e){}
-  }
-
-  // Al entrar a otras secciones, no mostramos el botón aunque el origen siga guardado.
-  const oldSyncTabs = window.syncTabs || (typeof syncTabs!=="undefined" ? syncTabs : null);
-  if(typeof oldSyncTabs === "function"){
-    window.syncTabs = function(){
-      const r = oldSyncTabs.apply(this, arguments);
-      setTimeout(window.renderSentDetailBackV895, 0);
-      return r;
-    };
-    try{ syncTabs = window.syncTabs; }catch(e){}
-  }
-})();
-</script>
 
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
@@ -6252,7 +6155,6 @@ setInterval(updateVersePositionCounter, 1000);
         '<div class="small-note">'+escapeHtml(when+(cat?" · "+cat:""))+'</div>'+
         '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\''+v.id+'\'); setTimeout(renderSentFullScreenV76,50)">🗑️ Quitar</button>';
       div.onclick=function(){
-        if(typeof markSentDetailOriginV895 === "function") markSentDetailOriginV895(v.id);
         restoreSentV76();
         state.currentVerseId=v.id;
         currentVerseCategory=v.category||currentVerseCategory||"sin_categoria";
@@ -6543,102 +6445,6 @@ body.dark .topbar-row #tabParables.active-view{
   margin-top:6px!important;
 }
 </style>
-
-
-
-<style id="v895-sent-detail-back-css">
-.sent-detail-back-v895{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  margin:14px 0 8px 18px;
-  padding:12px 22px;
-  border-radius:18px;
-  border:1px solid rgba(130,100,65,.14);
-  background:#f1eadf;
-  color:#1f1f1f;
-  font:inherit;
-  font-size:18px;
-  box-shadow:0 8px 18px rgba(0,0,0,.08);
-}
-body.dark .sent-detail-back-v895{
-  background:#2b2721;
-  color:#f5f2ec;
-  border-color:rgba(255,255,255,.12);
-}
-</style>
-<script id="v895-sent-detail-back-script">
-(function(){
-  if(window.__v895SentDetailBackClean) return;
-  window.__v895SentDetailBackClean = true;
-  const KEY = "oraciones_sent_detail_verse_v895";
-
-  window.markSentDetailOriginV895 = function(id){
-    try{ sessionStorage.setItem(KEY, String(id||"")); }catch(e){}
-  };
-  window.clearSentDetailOriginV895 = function(){
-    try{ sessionStorage.removeItem(KEY); }catch(e){}
-    const old=document.getElementById("sentDetailBackV895");
-    if(old) old.remove();
-  };
-  function getSentDetailIdV895(){
-    try{ return sessionStorage.getItem(KEY)||""; }catch(e){ return ""; }
-  }
-  function isSentDetailActiveV895(){
-    try{
-      return section === "verses" && state && state.currentVerseId && getSentDetailIdV895() === String(state.currentVerseId);
-    }catch(e){ return false; }
-  }
-  window.renderSentDetailBackV895 = function(){
-    const reader=document.getElementById("readerView");
-    const old=document.getElementById("sentDetailBackV895");
-    if(old) old.remove();
-    if(!reader || reader.classList.contains("hidden") || !isSentDetailActiveV895()) return;
-    const btn=document.createElement("button");
-    btn.id="sentDetailBackV895";
-    btn.className="sent-detail-back-v895";
-    btn.type="button";
-    btn.textContent="← Volver";
-    btn.onclick=function(){
-      window.clearSentDetailOriginV895();
-      if(typeof openSentVersesList === "function") openSentVersesList();
-    };
-    const code=document.getElementById("readerCode");
-    if(code && code.parentNode===reader) reader.insertBefore(btn, code);
-    else reader.insertBefore(btn, reader.firstChild);
-  };
-
-  const oldRenderReader = window.renderReader || (typeof renderReader!=="undefined" ? renderReader : null);
-  if(typeof oldRenderReader === "function"){
-    window.renderReader = function(){
-      const r = oldRenderReader.apply(this, arguments);
-      setTimeout(window.renderSentDetailBackV895, 0);
-      return r;
-    };
-    try{ renderReader = window.renderReader; }catch(e){}
-  }
-  const oldOpenReader = window.openReader || (typeof openReader!=="undefined" ? openReader : null);
-  if(typeof oldOpenReader === "function"){
-    window.openReader = function(){
-      const r = oldOpenReader.apply(this, arguments);
-      setTimeout(window.renderSentDetailBackV895, 0);
-      return r;
-    };
-    try{ openReader = window.openReader; }catch(e){}
-  }
-
-  // Al entrar a otras secciones, no mostramos el botón aunque el origen siga guardado.
-  const oldSyncTabs = window.syncTabs || (typeof syncTabs!=="undefined" ? syncTabs : null);
-  if(typeof oldSyncTabs === "function"){
-    window.syncTabs = function(){
-      const r = oldSyncTabs.apply(this, arguments);
-      setTimeout(window.renderSentDetailBackV895, 0);
-      return r;
-    };
-    try{ syncTabs = window.syncTabs; }catch(e){}
-  }
-})();
-</script>
 
 </body>
 </html>
