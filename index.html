@@ -7401,3 +7401,72 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   patchPopupSaverV912();
 })();
 </script>
+
+<!-- v90.13: diseño compacto de bloque emergente y acciones dentro de ventana -->
+<style id="v90-13-popup-compact-style">
+  .reader-popup-block{
+    display:inline-block !important;
+    width:auto !important;
+    max-width:100% !important;
+    margin:4px 0 !important;
+    padding:0 !important;
+    border:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    overflow:visible !important;
+    vertical-align:baseline !important;
+  }
+  .reader-popup-block > .block-controls-v865{
+    display:none !important;
+  }
+  .reader-popup-title{
+    display:inline-block !important;
+    width:auto !important;
+    max-width:100% !important;
+    padding:0 !important;
+    border:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    color:#2f6f9f !important;
+    text-align:left !important;
+    font-size:1em !important;
+    font-weight:800 !important;
+    line-height:inherit !important;
+  }
+  .reader-popup-title:after{
+    content:"  ▶";
+    font-weight:800;
+  }
+  body.dark .reader-popup-title{color:#9dccff !important;}
+  .reader-popup-actions-v913{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:16px;
+  }
+</style>
+<script id="v90-13-popup-actions-inside">
+(function(){
+  if(window.__v913PopupCompact) return;
+  window.__v913PopupCompact=true;
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var text="";
+      try{ text=getCurrentContentTextV865(); }catch(e){ text=""; }
+      var blocks=(typeof parsePopupBlocksV908==='function') ? parsePopupBlocksV908(text) : [];
+      var b=blocks[idx];
+      if(!b){ alert("No se ha encontrado este bloque emergente."); return; }
+      try{ closeReaderPopupBlockV908(); }catch(e){}
+      var wrap=document.createElement("div");
+      wrap.id="readerPopupOverlayV908";
+      wrap.className="reader-popup-overlay-v908";
+      wrap.onclick=function(ev){ if(ev.target===wrap) closeReaderPopupBlockV908(); };
+      var title=(typeof escapeHtml==='function') ? escapeHtml(b.title||"Emergente") : String(b.title||"Emergente");
+      var body=(typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(b.body||"") : ((typeof escapeHtml==='function') ? escapeHtml(b.body||"") : String(b.body||""));
+      wrap.innerHTML='<div class="reader-popup-card-v908"><h3>'+title+'</h3><div class="reader-popup-content-v908">'+body+'</div><div class="reader-popup-actions-v913"><button class="btn soft" type="button" onclick="closeReaderPopupBlockV908(); editPopupBlockV908('+idx+')">✏️ Editar</button><button class="btn soft danger" type="button" onclick="closeReaderPopupBlockV908(); deletePopupBlockV908('+idx+')">🗑️ Eliminar</button><button class="btn primary" type="button" onclick="closeReaderPopupBlockV908()">Cerrar</button></div></div>';
+      document.body.appendChild(wrap);
+    }catch(e){ console.error("openReaderPopupBlockV913",e); }
+  };
+  try{ openReaderPopupBlockV908=window.openReaderPopupBlockV908; }catch(e){}
+})();
+</script>
