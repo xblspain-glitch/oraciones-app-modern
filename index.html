@@ -6915,3 +6915,103 @@ body:not(.dark) .topbar-row #btnNew.btn.primary.active-view{
 }
 #btnCategories{display:none!important;}
 </style>
+
+<script id="v90-3-sent-reader-back-only">
+/* v90.3 - Enviados: al abrir un versículo desde Enviados, mostrar botón ← Volver a Enviados */
+(function(){
+  if(window.__v903SentReaderBackOnly) return;
+  window.__v903SentReaderBackOnly = true;
+
+  function escV903(s){
+    try{ return (typeof escapeHtml === "function") ? escapeHtml(s) : String(s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
+    catch(e){ return String(s||""); }
+  }
+
+  function showSentReaderV903(v){
+    try{
+      section="verses"; state.section="verses";
+      state.currentVerseId=v.id;
+      currentVerseCategory=v.category||currentVerseCategory||"sin_categoria";
+      specialVerseMode=null;
+      sentListActive=false;
+      window.__sentReaderBackV903 = true;
+      if(typeof saveState==="function") saveState();
+      if(typeof renderList==="function") renderList();
+      if(typeof renderReader==="function") renderReader();
+      if(typeof openReader==="function") openReader();
+
+      /* Pantalla completa tipo Versículo del día, para que la cabecera no quede oculta en móvil */
+      document.body.classList.add("verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-reader-v903");
+      document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73","sent-fullscreen-v76");
+
+      [".topbar",".sidebar","#list"].forEach(function(sel){
+        document.querySelectorAll(sel).forEach(function(el){ el.style.display="none"; });
+      });
+      var main=document.querySelector(".main");
+      if(main){ main.style.display="block"; main.style.gridTemplateColumns="1fr"; main.style.minHeight="100dvh"; }
+      var content=document.querySelector(".content");
+      if(content){ content.style.padding="0"; content.style.minHeight="100dvh"; }
+      ["editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(function(id){
+        var el=document.getElementById(id); if(el) el.classList.add("hidden");
+      });
+      var reader=document.getElementById("readerView");
+      if(reader){ reader.classList.remove("hidden"); reader.style.border="none"; reader.style.borderRadius="0"; reader.style.minHeight="100dvh"; }
+      var head=document.querySelector("#readerView .panel-head");
+      if(head){
+        head.innerHTML =
+          '<button class="btn soft" type="button" onclick="backToSentListV903()">← Volver</button>'+
+          '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>'+
+          '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>';
+        head.style.display="flex";
+      }
+      setTimeout(function(){ try{ window.scrollTo({top:0,behavior:"auto"}); }catch(e){} },30);
+    }catch(e){ console.error("showSentReaderV903", e); }
+  }
+  window.showSentReaderV903 = showSentReaderV903;
+
+  window.backToSentListV903=function(){
+    try{
+      window.__sentReaderBackV903=false;
+      document.body.classList.remove("sent-reader-v903","verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+      if(typeof restoreReaderHeadV75 === "function") restoreReaderHeadV75();
+      if(typeof openSentVersesList === "function") openSentVersesList();
+    }catch(e){ console.error("backToSentListV903", e); }
+  };
+
+  window.renderSentFullScreenV76=function(){
+    try{
+      var box=document.getElementById("titlesList");
+      if(!box) return;
+      var q=((document.getElementById("sentSearchV76")||{}).value||"").toLowerCase().trim();
+      var sent=(state.verses||[]).filter(function(v){return !!v.lastCardSentAt;}).sort(function(a,b){return (b.lastCardSentAt||0)-(a.lastCardSentAt||0);});
+      if(q){
+        sent=sent.filter(function(v){
+          return String((v.reference||v.title||"")+" "+(v.text||v.content||"")+" "+(typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"")).toLowerCase().includes(q);
+        });
+      }
+      box.innerHTML="";
+      if(!sent.length){ box.innerHTML='<div class="empty">Todavía no hay versículos enviados.</div>'; return; }
+      sent.forEach(function(v){
+        var div=document.createElement("div");
+        div.className="title-row";
+        var ref=escV903(v.reference||v.title||"Sin referencia");
+        var cat=typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"";
+        var when=typeof formatSentListDate==="function"?formatSentListDate(v.lastCardSentAt):"";
+        div.innerHTML=
+          '<div class="title-name">📋 '+ref+'</div>'+ 
+          '<div class="small-note">'+escV903(when+(cat?" · "+cat:""))+'</div>'+ 
+          '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\''+v.id+'\'); setTimeout(renderSentFullScreenV76,50)">🗑️ Quitar</button>';
+        div.onclick=function(){ showSentReaderV903(v); };
+        box.appendChild(div);
+      });
+    }catch(e){ console.error("renderSentFullScreenV76 v90.3", e); }
+  };
+})();
+</script>
+
+<style id="v90-3-sent-reader-css">
+body.sent-reader-v903 #readerView .panel-head{display:flex!important;position:sticky;top:0;z-index:30;border-radius:0;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:var(--card)}
+body.sent-reader-v903 #readerView .reader-code{padding:16px 16px 0;font-size:13px}
+body.sent-reader-v903 #readerView .reader-title{padding:8px 16px 0;font-size:22px}
+body.sent-reader-v903 #readerView .reader-text{padding:16px 16px 48px;min-height:calc(100dvh - 170px);font-size:25px;line-height:2.05}
+</style>
