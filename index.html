@@ -3195,9 +3195,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v89.2";
-const APP_VERSION_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
-const APP_BASE_ZIP = "oraciones_v2_v87_optimizacion_bienvenida.zip";
+const APP_VERSION_LABEL = "v89.3";
+const APP_VERSION_ZIP = "oraciones_v2_v89_3_tarjeta_icono_categoria_real.zip";
+const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
@@ -4638,15 +4638,32 @@ async function shareVerseCard(){
     }
 
     function iconFromCategory(c){
-      c=String(c||"");
-      if(c.includes("❤️")) return "❤️";
-      if(c.includes("🌿")) return "🌿";
-      if(c.includes("✨")) return "✨";
-      if(c.includes("🕊")) return "🕊️";
-      if(c.includes("👑")) return "👑";
-      if(c.includes("🛡")) return "🛡️";
-      if(c.includes("🙏") || c.includes("Fe")) return "✝️";
-      if(c.includes("Salvación")) return "❤️";
+      const s=String(c||"").trim();
+
+      // La tarjeta reutiliza el mismo icono que ya tiene la categoría.
+      // Ej.: "❤️ Salvación" -> "❤️", "🙏🏾 Fe" -> "🙏🏾".
+      const first=s.split(/\s+/)[0] || "";
+      if(first && /[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9]/.test(first)){
+        return first;
+      }
+
+      // Fallback por si alguna categoría antigua quedó guardada sin emoji.
+      if(s.includes("Salvación")) return "❤️";
+      if(s.includes("Fe")) return "🙏🏾";
+      if(s.includes("Esperanza")) return "🕊️";
+      if(s.includes("Fortaleza")) return "💪";
+      if(s.includes("Amor")) return "❤️";
+      if(s.includes("Descanso")) return "🌿";
+      if(s.includes("Sabiduría")) return "📚";
+      if(s.includes("Alabanza")) return "🙌🏾";
+      if(s.includes("Santidad")) return "⚖️";
+      if(s.includes("Reino")) return "👑";
+      if(s.includes("Espíritu")) return "🔥";
+      if(s.includes("Segunda")) return "⏳";
+      if(s.includes("Juicio")) return "⚖️";
+      if(s.includes("Matrimonio")) return "🤝";
+      if(s.includes("Misericordia")) return "🤲🏾";
+      if(s.includes("Vida Eterna")) return "✨";
       return "📖";
     }
 
