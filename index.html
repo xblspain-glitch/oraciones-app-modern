@@ -4474,6 +4474,78 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
 }
 </style>
 
+
+<style id="v90-10-block-insert-editor-style">
+.block-insert-text-v9010{min-height:220px;font-family:inherit;line-height:1.45}
+.block-insert-help-v9010{font-size:13px;color:var(--muted);margin:8px 0 0}
+</style>
+<script id="v90-10-block-insert-editor">
+/* v90.10 - Insertar bloques desde el menú Bloque sin tocar el editor principal */
+(function(){
+  if(window.__v9010BlockInsertEditor) return;
+  window.__v9010BlockInsertEditor = true;
+
+  function getTextV9010(){ try{return getCurrentContentTextV865();}catch(e){return "";} }
+  function setTextV9010(v){ try{setCurrentContentTextV865(v);}catch(e){} }
+  function makeBlockV9010(type,title,body){
+    var t=String(title||"").trim().replace(/"/g,"'");
+    var b=String(body||"").trim();
+    if(type==="desplegable") return '[desplegable titulo="'+(t||'Desplegable')+'"]\n'+b+'\n[/desplegable]';
+    return '[emergente titulo="'+(t||'Emergente')+'"]\n'+b+'\n[/emergente]';
+  }
+
+  window.openBlockMenu=function(){
+    try{ closeBlockOverlayV864(); }catch(e){}
+    var wrap=document.createElement("div");
+    wrap.id="blockOverlayV864";
+    wrap.className="block-overlay-v864";
+    wrap.innerHTML='<div class="block-card-v864"><h3>📑 Bloque</h3><p class="muted">Elige el tipo de bloque que quieres crear.</p><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="openCollapsibleBlockFormV864()">📖 Desplegable</button><button class="btn primary" type="button" onclick="openPopupBlockFormV908()">🪟 Emergente</button><button class="btn primary" type="button" onclick="openBlockInsertEditorV9010()">✍️ Insertar</button></div></div>';
+    document.body.appendChild(wrap);
+  };
+  try{ openBlockMenu=window.openBlockMenu; }catch(e){}
+
+  window.openBlockInsertEditorV9010=function(){
+    var wrap=document.getElementById("blockOverlayV864") || document.createElement("div");
+    wrap.id="blockOverlayV864";
+    wrap.className="block-overlay-v864";
+    wrap.innerHTML='<div class="block-card-v864"><h3>✍️ Insertar bloque</h3><p class="block-insert-help-v9010">Coloca el cursor en el texto, escribe el título y el contenido, y elige el tipo de bloque.</p><label for="blockInsertTextV9010">Texto</label><textarea id="blockInsertTextV9010" class="block-insert-text-v9010"></textarea><label for="blockInsertTitleV9010">Título o referencia</label><input id="blockInsertTitleV9010" type="text" placeholder="📖 San Lucas 16:19-31"><label for="blockInsertContentV9010">Contenido del bloque</label><textarea id="blockInsertContentV9010" placeholder="Pega aquí el texto bíblico o contenido..."></textarea><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn soft" type="button" onclick="insertBlockIntoEditorV9010(\'desplegable\')">📖 Insertar desplegable</button><button class="btn soft" type="button" onclick="insertBlockIntoEditorV9010(\'emergente\')">🪟 Insertar emergente</button><button class="btn primary" type="button" onclick="saveBlockInsertEditorV9010()">Guardar</button></div></div>';
+    if(!wrap.parentNode) document.body.appendChild(wrap);
+    var ta=document.getElementById("blockInsertTextV9010");
+    if(ta){ ta.value=getTextV9010(); setTimeout(function(){try{ta.focus(); ta.selectionStart=ta.selectionEnd=ta.value.length;}catch(e){}},60); }
+  };
+
+  window.insertBlockIntoEditorV9010=function(type){
+    var ta=document.getElementById("blockInsertTextV9010");
+    var titleEl=document.getElementById("blockInsertTitleV9010");
+    var contentEl=document.getElementById("blockInsertContentV9010");
+    if(!ta) return;
+    var title=(titleEl?titleEl.value:"").trim();
+    var content=(contentEl?contentEl.value:"").trim();
+    if(!title){alert("Escribe un título o referencia.");return;}
+    if(!content){alert("Escribe el contenido del bloque.");return;}
+    var block=makeBlockV9010(type,title,content);
+    var start=0,end=0;
+    try{ start=ta.selectionStart; end=ta.selectionEnd; }catch(e){ start=end=ta.value.length; }
+    var before=ta.value.slice(0,start).replace(/\s+$/,"");
+    var after=ta.value.slice(end).replace(/^\s+/,"");
+    var middle=(before?"\n\n":"")+block+(after?"\n\n":"");
+    ta.value=before+middle+after;
+    var pos=(before+middle).length;
+    try{ ta.focus(); ta.selectionStart=ta.selectionEnd=pos; }catch(e){}
+    if(titleEl) titleEl.value="";
+    if(contentEl) contentEl.value="";
+    try{toast(type==="desplegable"?"Desplegable insertado":"Emergente insertado");}catch(e){}
+  };
+
+  window.saveBlockInsertEditorV9010=function(){
+    var ta=document.getElementById("blockInsertTextV9010");
+    if(!ta) return;
+    setTextV9010(ta.value);
+    try{closeBlockOverlayV864(); toast("Texto actualizado");}catch(e){}
+  };
+})();
+</script>
+
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6445,6 +6517,78 @@ body.dark .topbar-row #tabParables.active-view{
   margin-top:6px!important;
 }
 </style>
+
+
+<style id="v90-10-block-insert-editor-style">
+.block-insert-text-v9010{min-height:220px;font-family:inherit;line-height:1.45}
+.block-insert-help-v9010{font-size:13px;color:var(--muted);margin:8px 0 0}
+</style>
+<script id="v90-10-block-insert-editor">
+/* v90.10 - Insertar bloques desde el menú Bloque sin tocar el editor principal */
+(function(){
+  if(window.__v9010BlockInsertEditor) return;
+  window.__v9010BlockInsertEditor = true;
+
+  function getTextV9010(){ try{return getCurrentContentTextV865();}catch(e){return "";} }
+  function setTextV9010(v){ try{setCurrentContentTextV865(v);}catch(e){} }
+  function makeBlockV9010(type,title,body){
+    var t=String(title||"").trim().replace(/"/g,"'");
+    var b=String(body||"").trim();
+    if(type==="desplegable") return '[desplegable titulo="'+(t||'Desplegable')+'"]\n'+b+'\n[/desplegable]';
+    return '[emergente titulo="'+(t||'Emergente')+'"]\n'+b+'\n[/emergente]';
+  }
+
+  window.openBlockMenu=function(){
+    try{ closeBlockOverlayV864(); }catch(e){}
+    var wrap=document.createElement("div");
+    wrap.id="blockOverlayV864";
+    wrap.className="block-overlay-v864";
+    wrap.innerHTML='<div class="block-card-v864"><h3>📑 Bloque</h3><p class="muted">Elige el tipo de bloque que quieres crear.</p><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="openCollapsibleBlockFormV864()">📖 Desplegable</button><button class="btn primary" type="button" onclick="openPopupBlockFormV908()">🪟 Emergente</button><button class="btn primary" type="button" onclick="openBlockInsertEditorV9010()">✍️ Insertar</button></div></div>';
+    document.body.appendChild(wrap);
+  };
+  try{ openBlockMenu=window.openBlockMenu; }catch(e){}
+
+  window.openBlockInsertEditorV9010=function(){
+    var wrap=document.getElementById("blockOverlayV864") || document.createElement("div");
+    wrap.id="blockOverlayV864";
+    wrap.className="block-overlay-v864";
+    wrap.innerHTML='<div class="block-card-v864"><h3>✍️ Insertar bloque</h3><p class="block-insert-help-v9010">Coloca el cursor en el texto, escribe el título y el contenido, y elige el tipo de bloque.</p><label for="blockInsertTextV9010">Texto</label><textarea id="blockInsertTextV9010" class="block-insert-text-v9010"></textarea><label for="blockInsertTitleV9010">Título o referencia</label><input id="blockInsertTitleV9010" type="text" placeholder="📖 San Lucas 16:19-31"><label for="blockInsertContentV9010">Contenido del bloque</label><textarea id="blockInsertContentV9010" placeholder="Pega aquí el texto bíblico o contenido..."></textarea><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn soft" type="button" onclick="insertBlockIntoEditorV9010(\'desplegable\')">📖 Insertar desplegable</button><button class="btn soft" type="button" onclick="insertBlockIntoEditorV9010(\'emergente\')">🪟 Insertar emergente</button><button class="btn primary" type="button" onclick="saveBlockInsertEditorV9010()">Guardar</button></div></div>';
+    if(!wrap.parentNode) document.body.appendChild(wrap);
+    var ta=document.getElementById("blockInsertTextV9010");
+    if(ta){ ta.value=getTextV9010(); setTimeout(function(){try{ta.focus(); ta.selectionStart=ta.selectionEnd=ta.value.length;}catch(e){}},60); }
+  };
+
+  window.insertBlockIntoEditorV9010=function(type){
+    var ta=document.getElementById("blockInsertTextV9010");
+    var titleEl=document.getElementById("blockInsertTitleV9010");
+    var contentEl=document.getElementById("blockInsertContentV9010");
+    if(!ta) return;
+    var title=(titleEl?titleEl.value:"").trim();
+    var content=(contentEl?contentEl.value:"").trim();
+    if(!title){alert("Escribe un título o referencia.");return;}
+    if(!content){alert("Escribe el contenido del bloque.");return;}
+    var block=makeBlockV9010(type,title,content);
+    var start=0,end=0;
+    try{ start=ta.selectionStart; end=ta.selectionEnd; }catch(e){ start=end=ta.value.length; }
+    var before=ta.value.slice(0,start).replace(/\s+$/,"");
+    var after=ta.value.slice(end).replace(/^\s+/,"");
+    var middle=(before?"\n\n":"")+block+(after?"\n\n":"");
+    ta.value=before+middle+after;
+    var pos=(before+middle).length;
+    try{ ta.focus(); ta.selectionStart=ta.selectionEnd=pos; }catch(e){}
+    if(titleEl) titleEl.value="";
+    if(contentEl) contentEl.value="";
+    try{toast(type==="desplegable"?"Desplegable insertado":"Emergente insertado");}catch(e){}
+  };
+
+  window.saveBlockInsertEditorV9010=function(){
+    var ta=document.getElementById("blockInsertTextV9010");
+    if(!ta) return;
+    setTextV9010(ta.value);
+    try{closeBlockOverlayV864(); toast("Texto actualizado");}catch(e){}
+  };
+})();
+</script>
 
 </body>
 </html>
