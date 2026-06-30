@@ -7076,3 +7076,55 @@ body.sent-reader-v903 #readerView .reader-text{padding:16px 16px 48px;min-height
   setTimeout(patchDailySentButtonV906, 200);
 })();
 </script>
+
+<script id="v90-7-remove-sent-button-daily-only">
+/* v90.7 - Eliminar solo el botón Enviados de Versículo del día */
+(function(){
+  if(window.__v907RemoveSentButtonDailyOnly) return;
+  window.__v907RemoveSentButtonDailyOnly = true;
+
+  function removeDailySentButtonV907(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      var buttons = head.querySelectorAll("button");
+      buttons.forEach(function(btn){
+        var txt = (btn.textContent || "").trim();
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
+          btn.remove();
+        }
+      });
+    }catch(e){ console.error("removeDailySentButtonV907", e); }
+  }
+  window.removeDailySentButtonV907 = removeDailySentButtonV907;
+
+  var oldOpenDailyV907 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV907 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV907.apply(this, arguments);
+      setTimeout(removeDailySentButtonV907, 20);
+      setTimeout(removeDailySentButtonV907, 120);
+      setTimeout(removeDailySentButtonV907, 300);
+      return r;
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV907 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV907 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV907.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(removeDailySentButtonV907, 20);
+        setTimeout(removeDailySentButtonV907, 120);
+        setTimeout(removeDailySentButtonV907, 300);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  setTimeout(removeDailySentButtonV907, 300);
+})();
+</script>
