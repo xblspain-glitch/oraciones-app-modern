@@ -3195,8 +3195,8 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v90.6";
-const APP_VERSION_ZIP = "oraciones_v2_v90_6_enviados_hoy_flujo_mas.zip";
+const APP_VERSION_LABEL = "v89.3";
+const APP_VERSION_ZIP = "oraciones_v2_v89_3_tarjeta_icono_categoria_real.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -4474,56 +4474,6 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
 }
 </style>
 
-
-<script id="v90-8-remove-daily-sent-button">
-/* v90.8 - Quitar botón Enviados de Versículo del día */
-(function(){
-  if(window.__v908RemoveDailySentButton) return;
-  window.__v908RemoveDailySentButton = true;
-
-  function removeDailySentButtonV908(){
-    try{
-      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
-      var head = document.querySelector("#readerView .panel-head");
-      if(!head) return;
-      Array.prototype.slice.call(head.querySelectorAll("button")).forEach(function(btn){
-        var txt = (btn.textContent || "").trim();
-        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
-          btn.remove();
-        }
-      });
-    }catch(e){ console.error("removeDailySentButtonV908", e); }
-  }
-
-  var oldOpenDailyV908 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
-  if(typeof oldOpenDailyV908 === "function"){
-    window.openDailyVerse = function(){
-      var r = oldOpenDailyV908.apply(this, arguments);
-      setTimeout(removeDailySentButtonV908, 20);
-      setTimeout(removeDailySentButtonV908, 120);
-      setTimeout(removeDailySentButtonV908, 300);
-      return r;
-    };
-    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
-  }
-
-  var oldOpenVerseSpecialV908 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
-  if(typeof oldOpenVerseSpecialV908 === "function"){
-    window.openVerseSpecial = function(v, mode){
-      var r = oldOpenVerseSpecialV908.apply(this, arguments);
-      if(mode === "daily"){
-        setTimeout(removeDailySentButtonV908, 20);
-        setTimeout(removeDailySentButtonV908, 120);
-        setTimeout(removeDailySentButtonV908, 300);
-      }
-      return r;
-    };
-    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
-  }
-
-  setTimeout(removeDailySentButtonV908, 300);
-})();
-</script>
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6496,56 +6446,6 @@ body.dark .topbar-row #tabParables.active-view{
 }
 </style>
 
-
-<script id="v90-8-remove-daily-sent-button">
-/* v90.8 - Quitar botón Enviados de Versículo del día */
-(function(){
-  if(window.__v908RemoveDailySentButton) return;
-  window.__v908RemoveDailySentButton = true;
-
-  function removeDailySentButtonV908(){
-    try{
-      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
-      var head = document.querySelector("#readerView .panel-head");
-      if(!head) return;
-      Array.prototype.slice.call(head.querySelectorAll("button")).forEach(function(btn){
-        var txt = (btn.textContent || "").trim();
-        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
-          btn.remove();
-        }
-      });
-    }catch(e){ console.error("removeDailySentButtonV908", e); }
-  }
-
-  var oldOpenDailyV908 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
-  if(typeof oldOpenDailyV908 === "function"){
-    window.openDailyVerse = function(){
-      var r = oldOpenDailyV908.apply(this, arguments);
-      setTimeout(removeDailySentButtonV908, 20);
-      setTimeout(removeDailySentButtonV908, 120);
-      setTimeout(removeDailySentButtonV908, 300);
-      return r;
-    };
-    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
-  }
-
-  var oldOpenVerseSpecialV908 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
-  if(typeof oldOpenVerseSpecialV908 === "function"){
-    window.openVerseSpecial = function(v, mode){
-      var r = oldOpenVerseSpecialV908.apply(this, arguments);
-      if(mode === "daily"){
-        setTimeout(removeDailySentButtonV908, 20);
-        setTimeout(removeDailySentButtonV908, 120);
-        setTimeout(removeDailySentButtonV908, 300);
-      }
-      return r;
-    };
-    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
-  }
-
-  setTimeout(removeDailySentButtonV908, 300);
-})();
-</script>
 </body>
 </html>
 
@@ -6904,7 +6804,8 @@ body.dark .topbar-row #tabParables.active-view{
         '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>' +
         '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>' +
         '<button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory(); setTimeout(function(){ if(typeof renderReader===\'function\') renderReader(); },80)">📂 Mover</button>' +
-        '<button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>';
+        '<button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>' +
+        '<button class="btn soft" type="button" onclick="openSentVersesList()">📤 Enviados</button>';
     }catch(e){ console.error("setDailyReaderHeadV81", e); }
   }
 
@@ -7115,63 +7016,90 @@ body.sent-reader-v903 #readerView .reader-title{padding:8px 16px 0;font-size:22p
 body.sent-reader-v903 #readerView .reader-text{padding:16px 16px 48px;min-height:calc(100dvh - 170px);font-size:25px;line-height:2.05}
 </style>
 
-
-
-
-<script id="v90-6-daily-uses-more-sent-flow">
-/* v90.6 - Versículo del día usa el mismo flujo de Enviados que Más, sin retorno especial ni bucle */
+<script id="v90-5-daily-sent-exit-no-loop">
+/* v90.5 - Evitar bucle al volver desde Versículo del día -> Enviados -> Versículo -> Enviados -> Versículo del día -> Categorías */
 (function(){
-  if(window.__v906DailyUsesMoreSentFlow) return;
-  window.__v906DailyUsesMoreSentFlow = true;
+  if(window.__v905DailySentExitNoLoop) return;
+  window.__v905DailySentExitNoLoop = true;
 
-  function patchDailySentButtonV906(){
+  function categoriesVisibleV905(){
+    try{
+      var vc=document.getElementById("verseCategoriesView");
+      return !!(vc && !vc.classList.contains("hidden"));
+    }catch(e){ return false; }
+  }
+
+  function patchDailyBackButtonV905(){
     try{
       if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
-      var head = document.querySelector("#readerView .panel-head");
+      var head=document.querySelector("#readerView .panel-head");
       if(!head) return;
-      var buttons = head.querySelectorAll("button");
+      var buttons=head.querySelectorAll("button");
       buttons.forEach(function(btn){
-        var txt = (btn.textContent || "").trim();
-        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
-          btn.setAttribute("onclick", "window.__sentOpenedFromDailyV813=false; openSentVersesList()");
+        var txt=(btn.textContent||"").trim();
+        if(txt.indexOf("Volver") !== -1){
+          btn.setAttribute("onclick", "exitDailyToCategoriesV905()");
         }
       });
-    }catch(e){ console.error("patchDailySentButtonV906", e); }
+    }catch(e){ console.error("patchDailyBackButtonV905", e); }
   }
 
-  /* Anula el marcador antiguo: desde Hoy ya no se usa un retorno especial, se usa el flujo normal de Más */
-  window.markDailySentOriginV813 = function(){
-    window.__sentOpenedFromDailyV813 = false;
+  window.exitDailyToCategoriesV905=function(){
+    try{
+      window.__sentOpenedFromDailyV813=false;
+      window.__dailySentFlowExitedToCategoriesV905=true;
+      specialVerseMode=null;
+      if(typeof restoreReaderHeadV75 === "function") restoreReaderHeadV75();
+      if(typeof openVerseCategories === "function") openVerseCategories();
+      /* openVerseCategories activa categoryListActive; en este caso no queremos que otro Volver reconstruya el lector diario */
+      try{ categoryListActive=false; }catch(e){}
+      try{ if(typeof setActiveView === "function") setActiveView("categories"); }catch(e){}
+    }catch(e){ console.error("exitDailyToCategoriesV905", e); }
   };
 
-  var oldOpenDailyV906 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
-  if(typeof oldOpenDailyV906 === "function"){
-    window.openDailyVerse = function(){
-      var r = oldOpenDailyV906.apply(this, arguments);
-      window.__sentOpenedFromDailyV813 = false;
-      setTimeout(patchDailySentButtonV906, 30);
-      setTimeout(patchDailySentButtonV906, 140);
-      setTimeout(patchDailySentButtonV906, 300);
+  var oldOpenDailyV905=window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV905 === "function"){
+    window.openDailyVerse=function(){
+      var r=oldOpenDailyV905.apply(this, arguments);
+      setTimeout(patchDailyBackButtonV905, 40);
+      setTimeout(patchDailyBackButtonV905, 140);
       return r;
     };
-    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+    try{ openDailyVerse=window.openDailyVerse; }catch(e){}
   }
 
-  var oldOpenVerseSpecialV906 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
-  if(typeof oldOpenVerseSpecialV906 === "function"){
-    window.openVerseSpecial = function(v, mode){
-      var r = oldOpenVerseSpecialV906.apply(this, arguments);
+  var oldOpenVerseSpecialV905=window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV905 === "function"){
+    window.openVerseSpecial=function(v, mode){
+      var r=oldOpenVerseSpecialV905.apply(this, arguments);
       if(mode === "daily"){
-        window.__sentOpenedFromDailyV813 = false;
-        setTimeout(patchDailySentButtonV906, 30);
-        setTimeout(patchDailySentButtonV906, 140);
-        setTimeout(patchDailySentButtonV906, 300);
+        setTimeout(patchDailyBackButtonV905, 40);
+        setTimeout(patchDailyBackButtonV905, 140);
       }
       return r;
     };
-    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+    try{ openVerseSpecial=window.openVerseSpecial; }catch(e){}
   }
 
-  setTimeout(patchDailySentButtonV906, 200);
+  var oldSmartBackV905=window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof oldSmartBackV905 === "function"){
+    window.smartBack=function(){
+      try{
+        if(window.__dailySentFlowExitedToCategoriesV905 && categoriesVisibleV905()){
+          window.__dailySentFlowExitedToCategoriesV905=false;
+          window.__sentOpenedFromDailyV813=false;
+          try{ categoryListActive=false; }catch(e){}
+          try{ specialVerseMode=null; }catch(e){}
+          if(typeof restoreReaderHeadV75 === "function") restoreReaderHeadV75();
+          if(typeof openReader === "function") openReader();
+          return;
+        }
+      }catch(e){ console.error("smartBack v90.5 precheck", e); }
+      return oldSmartBackV905.apply(this, arguments);
+    };
+    try{ smartBack=window.smartBack; }catch(e){}
+  }
+
+  setTimeout(patchDailyBackButtonV905, 150);
 })();
 </script>
