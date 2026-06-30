@@ -7470,3 +7470,63 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   try{ openReaderPopupBlockV908=window.openReaderPopupBlockV908; }catch(e){}
 })();
 </script>
+
+<!-- v90.14: etiqueta azul compacta para emergente y ventana azul clara -->
+<style id="v90-14-popup-blue-label-style">
+  .reader-popup-block{
+    display:inline !important;
+    width:auto !important;
+    max-width:none !important;
+    margin:0 2px !important;
+    padding:0 !important;
+    border:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    overflow:visible !important;
+    vertical-align:baseline !important;
+  }
+  .reader-popup-title{
+    display:inline !important;
+    width:auto !important;
+    max-width:none !important;
+    padding:4px 10px !important;
+    border:1px solid rgba(54, 141, 218, .42) !important;
+    border-radius:12px !important;
+    background:linear-gradient(180deg, rgba(77,163,255,.16), rgba(77,163,255,.07)) !important;
+    box-shadow:none !important;
+    color:#226fa8 !important;
+    text-align:left !important;
+    font-size:1em !important;
+    font-weight:800 !important;
+    line-height:1.25 !important;
+    vertical-align:baseline !important;
+  }
+  .reader-popup-title:after{ content:"" !important; }
+  .reader-popup-title:hover,
+  .reader-popup-title:focus{
+    background:linear-gradient(180deg, rgba(77,163,255,.22), rgba(77,163,255,.10)) !important;
+    outline:none !important;
+  }
+  .reader-popup-card-v908{
+    background:linear-gradient(180deg, #eef8ff 0%, #f7fbff 100%) !important;
+    border:1px solid rgba(54, 141, 218, .35) !important;
+    box-shadow:0 20px 55px rgba(30, 91, 150, .24) !important;
+  }
+  .reader-popup-content-v908{
+    background:rgba(255,255,255,.42) !important;
+    border-radius:16px !important;
+    padding:10px 12px !important;
+  }
+  body.dark .reader-popup-title{
+    color:#d7ecff !important;
+    border-color:rgba(157,204,255,.46) !important;
+    background:linear-gradient(180deg, rgba(77,163,255,.24), rgba(77,163,255,.10)) !important;
+  }
+  body.dark .reader-popup-card-v908{
+    background:linear-gradient(180deg, #102338 0%, #0c1b2c 100%) !important;
+    border-color:rgba(157,204,255,.35) !important;
+  }
+  body.dark .reader-popup-content-v908{
+    background:rgba(255,255,255,.06) !important;
+  }
+</style>
