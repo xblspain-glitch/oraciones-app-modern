@@ -7128,3 +7128,175 @@ body.sent-reader-v903 #readerView .reader-text{padding:16px 16px 48px;min-height
   setTimeout(removeDailySentButtonV907, 300);
 })();
 </script>
+
+
+<style id="v90-8-popup-block-style">
+.reader-popup-block{border:1px solid var(--line);background:linear-gradient(180deg,rgba(77,163,255,.10),rgba(77,163,255,.03));border-radius:18px;margin:14px 0;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.reader-popup-title{width:100%;border:0;background:transparent;color:#2f6f9f;text-align:left;padding:18px 20px;font-size:22px;font-weight:800;line-height:1.25}
+body.dark .reader-popup-title{color:#9dccff}
+.reader-popup-overlay-v908{position:fixed;inset:0;z-index:100003;background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;padding:16px}
+.reader-popup-card-v908{width:min(560px,94vw);max-height:86dvh;overflow:auto;background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 20px 55px rgba(0,0,0,.32)}
+.reader-popup-card-v908 h3{margin:0 0 14px 0;font-size:22px;color:#2f6f9f}
+body.dark .reader-popup-card-v908 h3{color:#9dccff}
+.reader-popup-content-v908{font-size:20px;line-height:1.75;white-space:normal}
+</style>
+<script id="v90-8-popup-blocks">
+/* v90.8 - Bloques emergentes para versículos y lecturas */
+(function(){
+  if(window.__v908PopupBlocks) return;
+  window.__v908PopupBlocks = true;
+
+  function escapeAttrV908(s){ return String(s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function getTextV908(){ try{return getCurrentContentTextV865();}catch(e){return "";} }
+  function setTextV908(v){ try{setCurrentContentTextV865(v);}catch(e){} }
+  function buildPopupBlockV908(title, body){
+    var safeTitle=String(title||"Emergente").trim().replace(/"/g,"'");
+    return '[emergente titulo="'+safeTitle+'"]\n'+String(body||"").trim()+'\n[/emergente]';
+  }
+  function parsePopupBlocksV908(text){
+    var raw=String(text||"");
+    var re=/\[emergente\s+titulo="([^"]*)"\]([\s\S]*?)\[\/emergente\]/g;
+    var blocks=[],m;
+    while((m=re.exec(raw))){
+      blocks.push({index:blocks.length,start:m.index,end:re.lastIndex,full:raw.slice(m.index,re.lastIndex),title:m[1]||"",body:m[2]||""});
+    }
+    return blocks;
+  }
+  window.parsePopupBlocksV908=parsePopupBlocksV908;
+
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var blocks=parsePopupBlocksV908(getTextV908());
+      var b=blocks[idx];
+      if(!b){alert("No se ha encontrado este bloque emergente.");return;}
+      closeReaderPopupBlockV908();
+      var wrap=document.createElement("div");
+      wrap.id="readerPopupOverlayV908";
+      wrap.className="reader-popup-overlay-v908";
+      wrap.onclick=function(ev){ if(ev.target===wrap) closeReaderPopupBlockV908(); };
+      var body=(typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(b.body||"") : escapeHtml(b.body||"");
+      wrap.innerHTML='<div class="reader-popup-card-v908"><h3>'+escapeHtml(b.title||"Emergente")+'</h3><div class="reader-popup-content-v908">'+body+'</div><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeReaderPopupBlockV908()">Cerrar</button></div></div>';
+      document.body.appendChild(wrap);
+    }catch(e){ console.error("openReaderPopupBlockV908",e); }
+  };
+  window.closeReaderPopupBlockV908=function(){
+    var el=document.getElementById("readerPopupOverlayV908");
+    if(el) el.remove();
+  };
+
+  var oldOpenBlockMenuV908=window.openBlockMenu || (typeof openBlockMenu!=="undefined" ? openBlockMenu : null);
+  window.openBlockMenu=function(){
+    try{ closeBlockOverlayV864(); }catch(e){}
+    var wrap=document.createElement("div");
+    wrap.id="blockOverlayV864";
+    wrap.className="block-overlay-v864";
+    wrap.innerHTML='<div class="block-card-v864"><h3>📑 Bloque</h3><p class="muted">Elige el tipo de bloque que quieres crear.</p><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="openCollapsibleBlockFormV864()">📖 Desplegable</button><button class="btn primary" type="button" onclick="openPopupBlockFormV908()">🪟 Emergente</button></div></div>';
+    document.body.appendChild(wrap);
+  };
+  try{ openBlockMenu=window.openBlockMenu; }catch(e){}
+
+  window.openPopupBlockFormV908=function(){
+    var wrap=document.getElementById("blockOverlayV864") || document.createElement("div");
+    wrap.id="blockOverlayV864";
+    wrap.className="block-overlay-v864";
+    wrap.innerHTML='<div class="block-card-v864"><h3>🪟 Crear emergente</h3><label for="popupTitleV908">Título o referencia</label><input id="popupTitleV908" type="text" placeholder="📖 San Lucas 16:19-31"><label for="popupContentV908">Contenido</label><textarea id="popupContentV908" placeholder="Pega aquí el texto bíblico o el contenido de la ventana emergente..."></textarea><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="savePopupBlockV908()">Guardar emergente</button></div></div>';
+    if(!wrap.parentNode) document.body.appendChild(wrap);
+    setTimeout(function(){try{document.getElementById("popupTitleV908").focus()}catch(e){}},50);
+  };
+  window.savePopupBlockV908=function(){
+    var title=(document.getElementById("popupTitleV908")?.value||"").trim();
+    var content=(document.getElementById("popupContentV908")?.value||"").trim();
+    if(!title){alert("Escribe un título o referencia para el emergente.");return;}
+    if(!content){alert("Escribe el contenido del emergente.");return;}
+    var item=(typeof currentItem==="function") ? currentItem() : null;
+    if(!item){try{closeBlockOverlayV864();}catch(e){} return;}
+    var block=buildPopupBlockV908(title,content);
+    if(section==="verses"){
+      var old=(item.text||item.content||"").trim();
+      item.text=block+(old?'\n\n'+old:'');
+      item.content=item.text;
+    }else{
+      var old2=(item.content||"").trim();
+      item.content=block+(old2?'\n\n'+old2:'');
+    }
+    item.updatedAt=Date.now();
+    try{saveState(); renderList(); renderReader(); closeBlockOverlayV864(); toast("Bloque emergente añadido");}catch(e){console.error(e);}
+  };
+
+  window.editPopupBlockV908=function(idx){
+    var blocks=parsePopupBlocksV908(getTextV908());
+    var b=blocks[idx];
+    if(!b){alert("No se ha encontrado este bloque emergente.");return;}
+    try{closeBlockOverlayV864();}catch(e){}
+    var wrap=document.createElement("div");
+    wrap.id="blockOverlayV864";
+    wrap.className="block-overlay-v864";
+    wrap.innerHTML='<div class="block-card-v864"><h3>✏️ Editar emergente</h3><label for="popupTitleV908">Título o referencia</label><input id="popupTitleV908" type="text"><label for="popupContentV908">Contenido</label><textarea id="popupContentV908"></textarea><div class="block-actions-v864"><button class="btn soft" type="button" onclick="closeBlockOverlayV864()">Cancelar</button><button class="btn primary" type="button" onclick="saveEditedPopupBlockV908('+idx+')">Guardar cambios</button></div></div>';
+    document.body.appendChild(wrap);
+    var t=document.getElementById("popupTitleV908"), c=document.getElementById("popupContentV908");
+    if(t) t.value=b.title;
+    if(c) c.value=String(b.body||"").trim();
+  };
+  window.saveEditedPopupBlockV908=function(idx){
+    var title=(document.getElementById("popupTitleV908")?.value||"").trim();
+    var content=(document.getElementById("popupContentV908")?.value||"").trim();
+    if(!title){alert("Escribe un título o referencia para el emergente.");return;}
+    if(!content){alert("Escribe el contenido del emergente.");return;}
+    var text=getTextV908();
+    var blocks=parsePopupBlocksV908(text);
+    var b=blocks[idx];
+    if(!b){alert("No se ha encontrado este bloque emergente.");return;}
+    setTextV908(text.slice(0,b.start)+buildPopupBlockV908(title,content)+text.slice(b.end));
+    try{closeBlockOverlayV864(); toast("Bloque emergente actualizado");}catch(e){}
+  };
+  window.deletePopupBlockV908=function(idx){
+    var text=getTextV908();
+    var blocks=parsePopupBlocksV908(text);
+    var b=blocks[idx];
+    if(!b){alert("No se ha encontrado este bloque emergente.");return;}
+    if(!confirm("¿Eliminar este bloque emergente?")) return;
+    setTextV908((text.slice(0,b.start)+text.slice(b.end)).replace(/\n{3,}/g,"\n\n"));
+    try{toast("Bloque emergente eliminado");}catch(e){}
+  };
+
+  window.renderCollapsibleBlocksV864=function(text){
+    var raw=String(text||"");
+    var re=/\[(desplegable|emergente)\s+titulo="([^"]*)"\]([\s\S]*?)\[\/\1\]/g;
+    var out="", last=0, m, dIdx=0, pIdx=0;
+    function between(seg){
+      var txt=String(seg||"");
+      if(!txt.trim()) return "";
+      return (typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(txt.replace(/^\s*\n+/,"")) : escapeHtml(txt);
+    }
+    while((m=re.exec(raw))){
+      out += between(raw.slice(last,m.index));
+      var type=m[1], title=escapeHtml(m[2]|| (type==="emergente"?"Emergente":"Desplegable"));
+      var body=(typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(m[3]||"") : escapeHtml(m[3]||"");
+      if(type==="desplegable"){
+        out += '<details class="reader-collapse-block" data-block-index="'+dIdx+'"><summary>'+title+'</summary>' +
+          '<div class="block-controls-v865">' +
+          '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();editCollapsibleBlockV865('+dIdx+')">✏️ Editar</button>' +
+          '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+dIdx+',-1)">↑ Subir</button>' +
+          '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();moveCollapsibleBlockV865('+dIdx+',1)">↓ Bajar</button>' +
+          '<button class="block-mini-v865 danger" type="button" onclick="event.preventDefault();event.stopPropagation();deleteCollapsibleBlockV865('+dIdx+')">🗑️ Eliminar</button>' +
+          '</div><div class="reader-collapse-content">'+body+'</div></details>';
+        dIdx++;
+      }else{
+        out += '<div class="reader-popup-block" data-popup-index="'+pIdx+'">' +
+          '<button class="reader-popup-title" type="button" onclick="openReaderPopupBlockV908('+pIdx+')">'+title+' 🪟</button>' +
+          '<div class="block-controls-v865">' +
+          '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();editPopupBlockV908('+pIdx+')">✏️ Editar</button>' +
+          '<button class="block-mini-v865 danger" type="button" onclick="event.preventDefault();event.stopPropagation();deletePopupBlockV908('+pIdx+')">🗑️ Eliminar</button>' +
+          '</div></div>';
+        pIdx++;
+      }
+      last=re.lastIndex;
+    }
+    out += between(raw.slice(last));
+    return out;
+  };
+  try{ renderCollapsibleBlocksV864=window.renderCollapsibleBlocksV864; }catch(e){}
+
+  try{ if(typeof renderReader==="function") renderReader(); }catch(e){}
+})();
+</script>
