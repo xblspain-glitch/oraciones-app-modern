@@ -6446,6 +6446,140 @@ body.dark .topbar-row #tabParables.active-view{
 }
 </style>
 
+
+
+<script>
+/* v90 - Flujo único para Enviados: mismo origen desde Más y desde Versículo del día */
+(function(){
+  if(window.__v90UnifiedSentNavigation) return;
+  window.__v90UnifiedSentNavigation = true;
+
+  var oldOpenSent = window.openSentVersesList || (typeof openSentVersesList !== "undefined" ? openSentVersesList : null);
+  var oldCloseSent = window.closeSentFullScreenV76 || (typeof closeSentFullScreenV76 !== "undefined" ? closeSentFullScreenV76 : null);
+  var oldSmartBack = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+
+  window.__sentNavV90 = window.__sentNavV90 || {
+    origin: "normal",
+    snapshot: null,
+    inDetail: false,
+    reopening: false
+  };
+
+  function visible(id){
+    var el=document.getElementById(id);
+    return !!(el && !el.classList.contains("hidden"));
+  }
+
+  function snapshotCurrentViewV90(){
+    var currentId = null;
+    try{ currentId = state && state.currentVerseId ? state.currentVerseId : null; }catch(e){}
+    return {
+      section: (typeof section !== "undefined" ? section : "verses"),
+      verseId: currentId,
+      verseCategory: (typeof currentVerseCategory !== "undefined" ? currentVerseCategory : null),
+      verseMode: (typeof verseNavigationMode !== "undefined" ? verseNavigationMode : null),
+      specialMode: (typeof specialVerseMode !== "undefined" ? specialVerseMode : null),
+      reader: visible("readerView"),
+      titles: visible("titlesView"),
+      cats: visible("verseCategoriesView")
+    };
+  }
+
+  function restoreSnapshotV90(snapshot){
+    if(!snapshot) return;
+    try{
+      section = snapshot.section || "verses";
+      if(state) state.section = section;
+      if(snapshot.verseId && state) state.currentVerseId = snapshot.verseId;
+      if(snapshot.verseCategory && typeof currentVerseCategory !== "undefined") currentVerseCategory = snapshot.verseCategory;
+      if(snapshot.verseMode && typeof verseNavigationMode !== "undefined") verseNavigationMode = snapshot.verseMode;
+      if(typeof syncTabs === "function") syncTabs();
+      if(typeof renderList === "function") renderList();
+      if(typeof renderReader === "function") renderReader();
+
+      if(snapshot.specialMode === "daily" && typeof openDailyVerse === "function"){
+        openDailyVerse();
+        return;
+      }
+      if(snapshot.cats && typeof openVerseCategories === "function"){
+        openVerseCategories();
+        return;
+      }
+      if(snapshot.titles && typeof openTitlesView === "function"){
+        openTitlesView();
+        return;
+      }
+      if(typeof openReader === "function") openReader();
+    }catch(e){
+      console.error("restoreSnapshotV90", e);
+      try{ if(typeof openVerseCategories === "function") openVerseCategories(); }catch(_e){}
+    }
+  }
+
+  window.openSentVersesList = function(origin){
+    try{
+      var nav = window.__sentNavV90;
+      if(!nav.reopening){
+        nav.snapshot = snapshotCurrentViewV90();
+        nav.origin = origin || (nav.snapshot && nav.snapshot.specialMode === "daily" ? "daily" : "normal");
+      }
+      nav.inDetail = false;
+      nav.reopening = false;
+      window.__sentOpenedFromDailyV813 = false;
+      try{ sessionStorage.removeItem("returnToSentList"); }catch(e){}
+      try{ if(typeof returnToSentList !== "undefined") returnToSentList = false; }catch(e){}
+      if(typeof oldOpenSent === "function") return oldOpenSent.apply(this, arguments);
+    }catch(e){
+      console.error("openSentVersesList v90", e);
+      if(typeof oldOpenSent === "function") return oldOpenSent.apply(this, arguments);
+    }
+  };
+  try{ openSentVersesList = window.openSentVersesList; }catch(e){}
+
+  window.closeSentFullScreenV76 = function(){
+    var nav = window.__sentNavV90 || {};
+    var snapshot = nav.snapshot;
+    nav.inDetail = false;
+    nav.reopening = false;
+    try{ if(typeof sentListActive !== "undefined") sentListActive = false; }catch(e){}
+    window.__sentOpenedFromDailyV813 = false;
+
+    if(typeof oldCloseSent === "function"){
+      try{ oldCloseSent.apply(this, arguments); }catch(e){ console.error("oldCloseSent v90", e); }
+    }
+    setTimeout(function(){ restoreSnapshotV90(snapshot); }, 40);
+  };
+  try{ closeSentFullScreenV76 = window.closeSentFullScreenV76; }catch(e){}
+
+  if(typeof oldSmartBack === "function"){
+    window.smartBack = function(){
+      try{
+        var nav = window.__sentNavV90 || {};
+        if(nav.inDetail && visible("readerView")){
+          nav.inDetail = false;
+          nav.reopening = true;
+          window.openSentVersesList(nav.origin);
+          return;
+        }
+      }catch(e){ console.error("smartBack sent v90", e); }
+      return oldSmartBack.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+
+  document.addEventListener("click", function(ev){
+    try{
+      if(typeof sentListActive === "undefined" || !sentListActive) return;
+      var row = ev.target && ev.target.closest ? ev.target.closest("#titlesList .title-row") : null;
+      if(!row) return;
+      if(ev.target && ev.target.closest && ev.target.closest("button")) return;
+      window.__sentNavV90.inDetail = true;
+    }catch(e){}
+  }, true);
+
+})();
+</script>
+
 </body>
 </html>
 
