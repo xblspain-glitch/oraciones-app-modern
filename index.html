@@ -3195,9 +3195,9 @@ function openMoreMenu(ev){
 }
 
 
-const APP_VERSION_LABEL = "v89.4";
-const APP_VERSION_ZIP = "oraciones_v2_v89_4_enviados_unificado.zip";
-const APP_BASE_ZIP = "oraciones_v2_v89_3_tarjeta_icono_categoria_real.zip";
+const APP_VERSION_LABEL = "v89.3";
+const APP_VERSION_ZIP = "oraciones_v2_v89_3_tarjeta_icono_categoria_real.zip";
+const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
   if(el) el.remove();
@@ -4473,44 +4473,6 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
   margin-top:6px!important;
 }
 </style>
-
-
-<style id="v89-4-sent-detail-back-css">
-body.sent-detail-v894 #readerView .panel-head{display:flex!important;}
-</style>
-<script id="v89-4-sent-detail-back-js">
-(function(){
-  if(window.__v894SentDetailBackClean) return;
-  window.__v894SentDetailBackClean = true;
-  const oldOpenReader = window.openReader || (typeof openReader !== "undefined" ? openReader : null);
-  if(typeof oldOpenReader === "function"){
-    window.openReader = function(){
-      const isSentDetail = !!window.__openingSentDetailV894;
-      if(!isSentDetail){
-        try{ document.body.classList.remove("sent-detail-v894"); }catch(e){}
-      }
-      const r = oldOpenReader.apply(this, arguments);
-      if(isSentDetail){
-        try{
-          document.body.classList.add("sent-detail-v894");
-          if(typeof setReturnToSentList === "function") setReturnToSentList();
-        }catch(e){}
-        window.__openingSentDetailV894 = false;
-      }
-      return r;
-    };
-    try{ openReader = window.openReader; }catch(e){}
-  }
-  const oldOpenSent = window.openSentVersesList || (typeof openSentVersesList !== "undefined" ? openSentVersesList : null);
-  if(typeof oldOpenSent === "function"){
-    window.openSentVersesList = function(){
-      try{ document.body.classList.remove("sent-detail-v894"); window.__openingSentDetailV894 = false; }catch(e){}
-      return oldOpenSent.apply(this, arguments);
-    };
-    try{ openSentVersesList = window.openSentVersesList; }catch(e){}
-  }
-})();
-</script>
 
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
@@ -6201,7 +6163,6 @@ setInterval(updateVersePositionCounter, 1000);
         if(typeof saveState==="function") saveState();
         if(typeof renderList==="function") renderList();
         if(typeof renderReader==="function") renderReader();
-        try{ window.__openingSentDetailV894 = true; if(typeof setReturnToSentList === "function") setReturnToSentList(); }catch(e){}
         if(typeof openReader==="function") openReader();
       };
       box.appendChild(div);
@@ -6484,44 +6445,6 @@ body.dark .topbar-row #tabParables.active-view{
   margin-top:6px!important;
 }
 </style>
-
-
-<style id="v89-4-sent-detail-back-css">
-body.sent-detail-v894 #readerView .panel-head{display:flex!important;}
-</style>
-<script id="v89-4-sent-detail-back-js">
-(function(){
-  if(window.__v894SentDetailBackClean) return;
-  window.__v894SentDetailBackClean = true;
-  const oldOpenReader = window.openReader || (typeof openReader !== "undefined" ? openReader : null);
-  if(typeof oldOpenReader === "function"){
-    window.openReader = function(){
-      const isSentDetail = !!window.__openingSentDetailV894;
-      if(!isSentDetail){
-        try{ document.body.classList.remove("sent-detail-v894"); }catch(e){}
-      }
-      const r = oldOpenReader.apply(this, arguments);
-      if(isSentDetail){
-        try{
-          document.body.classList.add("sent-detail-v894");
-          if(typeof setReturnToSentList === "function") setReturnToSentList();
-        }catch(e){}
-        window.__openingSentDetailV894 = false;
-      }
-      return r;
-    };
-    try{ openReader = window.openReader; }catch(e){}
-  }
-  const oldOpenSent = window.openSentVersesList || (typeof openSentVersesList !== "undefined" ? openSentVersesList : null);
-  if(typeof oldOpenSent === "function"){
-    window.openSentVersesList = function(){
-      try{ document.body.classList.remove("sent-detail-v894"); window.__openingSentDetailV894 = false; }catch(e){}
-      return oldOpenSent.apply(this, arguments);
-    };
-    try{ openSentVersesList = window.openSentVersesList; }catch(e){}
-  }
-})();
-</script>
 
 </body>
 </html>
