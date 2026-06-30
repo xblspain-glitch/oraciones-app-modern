@@ -2580,10 +2580,7 @@ function updateMoveVerseButtonVisibility(){
 }
 
 function setReturnToSentList(){
-  try{
-    sessionStorage.setItem("returnToSentList","1");
-    if(window.__sentNavOrigin){ sessionStorage.setItem("sentNavOrigin", window.__sentNavOrigin); }
-  }catch(e){}
+  try{ sessionStorage.setItem("returnToSentList","1"); }catch(e){}
 }
 function consumeReturnToSentList(){
   try{
@@ -2624,9 +2621,7 @@ function smartBack(){
   }
 
   if(consumeReturnToSentList()){
-    var sentOriginBack=null;
-    try{ sentOriginBack=sessionStorage.getItem("sentNavOrigin"); }catch(e){}
-    openSentVersesList(sentOriginBack || window.__sentNavOrigin || null);
+    openSentVersesList();
     return;
   }
 
@@ -6055,67 +6050,6 @@ setInterval(updateVersePositionCounter, 1000);
 })();
 
 
-
-/* v90 - Flujo unificado para Enviados: un solo origen y una sola vuelta */
-(function(){
-  if(window.__v90SentNavHelpers) return;
-  window.__v90SentNavHelpers=true;
-
-  window.__sentNavOrigin = null;
-
-  window.detectSentNavOriginV90 = function(){
-    try{
-      if(typeof specialVerseMode !== "undefined" && specialVerseMode === "daily") return "daily";
-      if(document.body && (document.body.classList.contains("verse-special-fullscreen-v74") || document.body.classList.contains("verse-special-fullscreen-v751"))){
-        if(typeof specialVerseMode !== "undefined" && specialVerseMode === "daily") return "daily";
-      }
-      var cats=document.getElementById("verseCategoriesView");
-      var titles=document.getElementById("titlesView");
-      var reader=document.getElementById("readerView");
-      if(cats && !cats.classList.contains("hidden")) return "categories";
-      if(titles && !titles.classList.contains("hidden")) return "titles";
-      if(reader && !reader.classList.contains("hidden")) return "reader";
-    }catch(e){}
-    return "categories";
-  };
-
-  window.setSentNavOriginV90 = function(origin){
-    try{
-      window.__sentNavOrigin = origin || window.__sentNavOrigin || window.detectSentNavOriginV90();
-      sessionStorage.setItem("sentNavOrigin", window.__sentNavOrigin);
-    }catch(e){}
-    return window.__sentNavOrigin || "categories";
-  };
-
-  window.consumeSentNavOriginV90 = function(){
-    var origin = window.__sentNavOrigin;
-    try{ origin = origin || sessionStorage.getItem("sentNavOrigin"); }catch(e){}
-    return origin || "categories";
-  };
-
-  window.clearSentNavOriginV90 = function(){
-    window.__sentNavOrigin = null;
-    try{ sessionStorage.removeItem("sentNavOrigin"); }catch(e){}
-  };
-
-  window.returnToSentOriginV90 = function(){
-    var origin = window.consumeSentNavOriginV90();
-    window.clearSentNavOriginV90();
-    try{ sentListActive=false; }catch(e){}
-    if(origin === "daily"){
-      try{ if(typeof openDailyVerse === "function") { openDailyVerse(); return; } }catch(e){}
-    }
-    if(origin === "reader"){
-      try{ if(typeof renderReader === "function") renderReader(); if(typeof openReader === "function") { openReader(); return; } }catch(e){}
-    }
-    if(origin === "titles"){
-      try{ if(typeof openTitlesView === "function") { openTitlesView(); return; } }catch(e){}
-    }
-    try{ if(typeof openVerseCategories === "function") { openVerseCategories(); return; } }catch(e){}
-    try{ if(typeof openReader === "function") openReader(); }catch(e){}
-  };
-})();
-
 /* v76 - Enviados pantalla completa real desde Categorías */
 (function(){
   if(window.__v76SentFullScreen) return;
@@ -6167,12 +6101,11 @@ setInterval(updateVersePositionCounter, 1000);
     if(head && sentHeadOriginal!==null){ head.innerHTML=sentHeadOriginal; sentHeadOriginal=null; }
   }
 
-  window.closeSentFullScreenV76=function(){ restoreSentV76(); if(typeof returnToSentOriginV90==="function"){ returnToSentOriginV90(); } else { openVerseCategories(); } };
+  window.closeSentFullScreenV76=function(){ restoreSentV76(); openVerseCategories(); };
 
-  window.openSentVersesList=function(originV90){
+  window.openSentVersesList=function(){
     try{
       sentListActive=true;
-      if(typeof setSentNavOriginV90==="function") setSentNavOriginV90(originV90 || window.__sentNavOrigin || null);
       if(!state || !Array.isArray(state.verses)) return;
       section="verses"; state.section="verses"; specialVerseMode=null;
       if(typeof syncTabs==="function") syncTabs();
@@ -6223,7 +6156,6 @@ setInterval(updateVersePositionCounter, 1000);
         '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\''+v.id+'\'); setTimeout(renderSentFullScreenV76,50)">🗑️ Quitar</button>';
       div.onclick=function(){
         restoreSentV76();
-        if(typeof setReturnToSentList==="function") setReturnToSentList();
         state.currentVerseId=v.id;
         currentVerseCategory=v.category||currentVerseCategory||"sin_categoria";
         specialVerseMode=null;
@@ -6908,7 +6840,6 @@ body.dark .topbar-row #tabParables.active-view{
 
   function markDailySentOriginV813(){
     window.__sentOpenedFromDailyV813 = true;
-    try{ if(typeof setSentNavOriginV90==="function") setSentNavOriginV90("daily"); else window.__sentNavOrigin="daily"; }catch(e){}
   }
   window.markDailySentOriginV813 = markDailySentOriginV813;
 
@@ -6957,7 +6888,11 @@ body.dark .topbar-row #tabParables.active-view{
       var backToDaily = !!window.__sentOpenedFromDailyV813;
       window.__sentOpenedFromDailyV813 = false;
       var r = oldCloseSentV813.apply(this, arguments);
-      /* v90 handles return-to-daily centrally; no second navigation here. */
+      if(backToDaily){
+        setTimeout(function(){
+          try{ if(typeof openDailyVerse === "function") openDailyVerse(); }catch(e){ console.error("backToDaily v813", e); }
+        }, 40);
+      }
       return r;
     };
     try{ closeSentFullScreenV76 = window.closeSentFullScreenV76; }catch(e){}
@@ -6980,3 +6915,202 @@ body:not(.dark) .topbar-row #btnNew.btn.primary.active-view{
 }
 #btnCategories{display:none!important;}
 </style>
+<script id="v90-2-enviados-flujo-real">
+/* v90.2 - Flujo real de Enviados:
+   - Enviados abierto desde Versículo del día recuerda su origen.
+   - Al tocar un enviado se abre el lector con botón Volver visible.
+   - Volver desde ese lector regresa a Enviados.
+   - Volver desde Enviados regresa al origen: Versículo del día o pantalla principal. */
+(function(){
+  if(window.__v902SentFlowReal) return;
+  window.__v902SentFlowReal = true;
+
+  var sentOriginV902 = "main";
+  var sentDetailActiveV902 = false;
+
+  function isDailyScreenV902(){
+    try{
+      return (typeof specialVerseMode !== "undefined" && specialVerseMode === "daily") ||
+             document.body.classList.contains("verse-special-fullscreen-v74") ||
+             document.body.classList.contains("verse-special-fullscreen-v751");
+    }catch(e){ return false; }
+  }
+
+  function markSentOriginV902(origin){
+    sentOriginV902 = origin || "main";
+    try{ sessionStorage.setItem("sentOriginV902", sentOriginV902); }catch(e){}
+  }
+  window.markSentOriginV902 = markSentOriginV902;
+
+  function getSentOriginV902(){
+    try{ return sessionStorage.getItem("sentOriginV902") || sentOriginV902 || "main"; }
+    catch(e){ return sentOriginV902 || "main"; }
+  }
+
+  function restoreNormalReaderHeadV902(){
+    try{ if(typeof restoreReaderHeadV75 === "function") restoreReaderHeadV75(); }catch(e){}
+    try{ if(typeof restoreReaderHeadV751 === "function") restoreReaderHeadV751(); }catch(e){}
+  }
+
+  function setSentDetailHeadV902(){
+    var head = document.querySelector("#readerView .panel-head");
+    if(!head) return;
+    restoreNormalReaderHeadV902();
+    head = document.querySelector("#readerView .panel-head");
+    if(!head) return;
+    head.innerHTML =
+      '<button class="btn soft" type="button" onclick="openSentVersesListFromDetailV902()">← Volver</button>' +
+      '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>' +
+      '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>' +
+      '<button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory()">📂 Mover</button>';
+  }
+
+  window.openSentVersesListFromDetailV902 = function(){
+    sentDetailActiveV902 = false;
+    try{ sessionStorage.setItem("returnToSentList", "0"); }catch(e){}
+    restoreNormalReaderHeadV902();
+    document.body.classList.remove("verse-special-fullscreen-v74","verse-special-fullscreen-v751","reading-mobile","fullscreen-reading","hide-reading-ui");
+    if(typeof openSentVersesList === "function") openSentVersesList();
+  };
+
+  window.openVerseFromSentV902 = function(id){
+    try{
+      var v = (state.verses || []).find(function(x){ return x.id === id; });
+      if(!v) return;
+      sentDetailActiveV902 = true;
+      section = "verses";
+      state.section = "verses";
+      state.currentVerseId = v.id;
+      currentVerseCategory = v.category || currentVerseCategory || "sin_categoria";
+      specialVerseMode = null;
+      if(typeof saveState === "function") saveState();
+      if(typeof renderList === "function") renderList();
+      if(typeof renderReader === "function") renderReader();
+      if(typeof applyReaderFont === "function") applyReaderFont();
+
+      var rv = document.getElementById("readerView");
+      ["titlesView","editorView","backupView","trashView","verseCategoriesView","calendarView"].forEach(function(pid){
+        var el = document.getElementById(pid); if(el) el.classList.add("hidden");
+      });
+      if(rv) rv.classList.remove("hidden");
+
+      document.body.classList.add("verse-special-fullscreen-v74");
+      document.body.classList.remove("sent-fullscreen-v76","titles-fullscreen-v72","reading-mobile","fullscreen-reading","hide-reading-ui","categories-fullscreen-v73");
+      setSentDetailHeadV902();
+      setTimeout(function(){ try{ window.scrollTo({top:0, behavior:"auto"}); }catch(e){} }, 30);
+    }catch(e){ console.error("openVerseFromSentV902", e); }
+  };
+
+  var oldOpenSentV902 = window.openSentVersesList || (typeof openSentVersesList !== "undefined" ? openSentVersesList : null);
+  if(typeof oldOpenSentV902 === "function"){
+    window.openSentVersesList = function(){
+      if(!sentDetailActiveV902){
+        markSentOriginV902(isDailyScreenV902() ? "daily" : "main");
+      }
+      sentDetailActiveV902 = false;
+      return oldOpenSentV902.apply(this, arguments);
+    };
+    try{ openSentVersesList = window.openSentVersesList; }catch(e){}
+  }
+
+  var oldCloseSentV902 = window.closeSentFullScreenV76 || (typeof closeSentFullScreenV76 !== "undefined" ? closeSentFullScreenV76 : null);
+  window.closeSentFullScreenV76 = function(){
+    var origin = getSentOriginV902();
+    sentDetailActiveV902 = false;
+    try{ if(typeof restoreSentV76 === "function") restoreSentV76(); }catch(e){}
+    try{ document.body.classList.remove("sent-fullscreen-v76","titles-fullscreen-v72"); }catch(e){}
+    if(origin === "daily"){
+      markSentOriginV902("main");
+      setTimeout(function(){ try{ if(typeof openDailyVerse === "function") openDailyVerse(); }catch(e){ console.error("closeSent daily v902", e); } }, 40);
+      return;
+    }
+    markSentOriginV902("main");
+    if(typeof oldCloseSentV902 === "function") return oldCloseSentV902.apply(this, arguments);
+    try{ if(typeof openVerseCategories === "function") openVerseCategories(); }catch(e){}
+  };
+  try{ closeSentFullScreenV76 = window.closeSentFullScreenV76; }catch(e){}
+
+  window.renderSentFullScreenV76 = function(){
+    var box = document.getElementById("titlesList");
+    if(!box) return;
+    var q = ((document.getElementById("sentSearchV76") || {}).value || "").toLowerCase().trim();
+    var sent = (state.verses || []).filter(function(v){ return !!v.lastCardSentAt; })
+      .sort(function(a,b){ return (b.lastCardSentAt || 0) - (a.lastCardSentAt || 0); });
+    if(q){
+      sent = sent.filter(function(v){
+        return String((v.reference || v.title || "") + " " + (v.text || v.content || "") + " " + (typeof verseCategoryLabel === "function" ? verseCategoryLabel(v.category) : "")).toLowerCase().includes(q);
+      });
+    }
+    box.innerHTML = "";
+    if(!sent.length){ box.innerHTML = '<div class="empty">Todavía no hay versículos enviados.</div>'; return; }
+    sent.forEach(function(v){
+      var div = document.createElement("div");
+      div.className = "title-row sent-card";
+      var ref = typeof escapeHtml === "function" ? escapeHtml(v.reference || v.title || "Sin referencia") : (v.reference || v.title || "Sin referencia");
+      var cat = typeof verseCategoryLabel === "function" ? verseCategoryLabel(v.category) : "";
+      var when = typeof formatSentListDate === "function" ? formatSentListDate(v.lastCardSentAt) : "";
+      var safeMeta = typeof escapeHtml === "function" ? escapeHtml(when + (cat ? " · " + cat : "")) : (when + (cat ? " · " + cat : ""));
+      div.innerHTML =
+        '<div class="title-name">📋 ' + ref + '</div>' +
+        '<div class="small-note">' + safeMeta + '</div>' +
+        '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\'' + v.id + '\'); setTimeout(renderSentFullScreenV76,50)">🗑️ Quitar</button>';
+      div.onclick = function(){
+        try{ if(typeof restoreSentV76 === "function") restoreSentV76(); }catch(e){}
+        window.openVerseFromSentV902(v.id);
+      };
+      box.appendChild(div);
+    });
+  };
+
+  var oldSmartBackV902 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof oldSmartBackV902 === "function"){
+    window.smartBack = function(){
+      if(sentDetailActiveV902){
+        return window.openSentVersesListFromDetailV902();
+      }
+      return oldSmartBackV902.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+
+  function patchDailySentButtonV902(){
+    try{
+      if(!isDailyScreenV902()) return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      head.querySelectorAll("button").forEach(function(btn){
+        var txt = (btn.textContent || "").trim();
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
+          btn.setAttribute("onclick", "markSentOriginV902('daily'); openSentVersesList()");
+        }
+      });
+    }catch(e){ console.error("patchDailySentButtonV902", e); }
+  }
+
+  var oldOpenDailyV902 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV902 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV902.apply(this, arguments);
+      setTimeout(patchDailySentButtonV902, 30);
+      setTimeout(patchDailySentButtonV902, 150);
+      return r;
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV902 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV902 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV902.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(patchDailySentButtonV902, 30);
+        setTimeout(patchDailySentButtonV902, 150);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  setTimeout(patchDailySentButtonV902, 200);
+})();
+</script>
