@@ -4474,6 +4474,190 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
 }
 </style>
 
+
+
+<script id="v90-8-daily-sent-copy-more-flow">
+/* v90.8 - Añadir Enviados en Versículo del día como copia independiente del flujo bueno de Más */
+(function(){
+  if(window.__v908DailySentCopyMoreFlow) return;
+  window.__v908DailySentCopyMoreFlow = true;
+
+  function escV908(s){
+    try{ return (typeof escapeHtml === "function") ? escapeHtml(s) : String(s||"").replace(/[&<>\"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
+    catch(e){ return String(s||""); }
+  }
+
+  function ensureDailySentButtonV908(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      /* primero quitamos cualquier Enviados antiguo, pero no el nuevo */
+      head.querySelectorAll("button").forEach(function(btn){
+        var txt=(btn.textContent||"").trim();
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1 && btn.id !== "dailySentV908"){ btn.remove(); }
+      });
+      if(document.getElementById("dailySentV908")) return;
+      var btn=document.createElement("button");
+      btn.id="dailySentV908";
+      btn.className="btn soft";
+      btn.type="button";
+      btn.textContent="📤 Enviados";
+      btn.onclick=function(){ openDailySentVersesListV908(); };
+      var neverBtn=null;
+      head.querySelectorAll("button").forEach(function(b){ if((b.textContent||"").indexOf("Nunca enviados")!==-1) neverBtn=b; });
+      if(neverBtn && neverBtn.parentNode){
+        neverBtn.parentNode.insertBefore(btn, neverBtn.nextSibling);
+      }else{
+        head.appendChild(btn);
+      }
+    }catch(e){ console.error("ensureDailySentButtonV908", e); }
+  }
+  window.ensureDailySentButtonV908=ensureDailySentButtonV908;
+
+  function setDailySentListBackV908(){
+    try{
+      var head=document.querySelector("#titlesView .panel-head") || document.querySelector(".panel-head");
+      var buttons=document.querySelectorAll("button");
+      buttons.forEach(function(btn){
+        var txt=(btn.textContent||"").trim();
+        if(txt.indexOf("← Volver")!==-1 && window.__dailySentModeV908){
+          var parent=btn.closest("#titlesView, .panel-head");
+          if(parent || btn.parentElement){ btn.setAttribute("onclick","closeDailySentListV908()"); }
+        }
+      });
+    }catch(e){ console.error("setDailySentListBackV908", e); }
+  }
+
+  window.openDailySentVersesListV908=function(){
+    try{
+      window.__dailySentModeV908=true;
+      window.__sentOpenedFromDailyV813=false;
+      if(typeof openSentVersesList === "function") openSentVersesList();
+      setTimeout(setDailySentListBackV908,20);
+      setTimeout(setDailySentListBackV908,120);
+    }catch(e){ console.error("openDailySentVersesListV908", e); }
+  };
+
+  window.closeDailySentListV908=function(){
+    try{
+      window.__dailySentModeV908=false;
+      if(typeof closeSentFullScreenV76 === "function") closeSentFullScreenV76();
+      setTimeout(function(){ try{ if(typeof openDailyVerse === "function") openDailyVerse(); }catch(e){} },50);
+    }catch(e){ console.error("closeDailySentListV908", e); }
+  };
+
+  function showDailySentReaderV908(v){
+    try{
+      window.__dailySentModeV908=true;
+      section="verses"; state.section="verses";
+      state.currentVerseId=v.id;
+      currentVerseCategory=v.category||currentVerseCategory||"sin_categoria";
+      specialVerseMode=null;
+      sentListActive=false;
+      if(typeof saveState==="function") saveState();
+      if(typeof renderList==="function") renderList();
+      if(typeof renderReader==="function") renderReader();
+      if(typeof openReader==="function") openReader();
+      document.body.classList.add("verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-reader-v903");
+      document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73","sent-fullscreen-v76");
+      [".topbar",".sidebar","#list"].forEach(function(sel){
+        document.querySelectorAll(sel).forEach(function(el){ el.style.display="none"; });
+      });
+      var main=document.querySelector(".main");
+      if(main){ main.style.display="block"; main.style.gridTemplateColumns="1fr"; main.style.minHeight="100dvh"; }
+      var content=document.querySelector(".content");
+      if(content){ content.style.padding="0"; content.style.minHeight="100dvh"; }
+      ["editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(function(id){
+        var el=document.getElementById(id); if(el) el.classList.add("hidden");
+      });
+      var reader=document.getElementById("readerView");
+      if(reader){ reader.classList.remove("hidden"); reader.style.border="none"; reader.style.borderRadius="0"; reader.style.minHeight="100dvh"; }
+      var head=document.querySelector("#readerView .panel-head");
+      if(head){
+        head.innerHTML =
+          '<button class="btn soft" type="button" onclick="backToDailySentListV908()">← Volver</button>'+
+          '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>'+
+          '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>';
+        head.style.display="flex";
+      }
+      setTimeout(function(){ try{ window.scrollTo({top:0,behavior:"auto"}); }catch(e){} },30);
+    }catch(e){ console.error("showDailySentReaderV908", e); }
+  }
+  window.showDailySentReaderV908=showDailySentReaderV908;
+
+  window.backToDailySentListV908=function(){
+    try{
+      document.body.classList.remove("sent-reader-v903","verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+      if(typeof restoreReaderHeadV75 === "function") restoreReaderHeadV75();
+      window.openDailySentVersesListV908();
+    }catch(e){ console.error("backToDailySentListV908", e); }
+  };
+
+  var oldRenderSentV908 = window.renderSentFullScreenV76 || null;
+  if(typeof oldRenderSentV908 === "function"){
+    window.renderSentFullScreenV76=function(){
+      if(!window.__dailySentModeV908){ return oldRenderSentV908.apply(this, arguments); }
+      try{
+        var box=document.getElementById("titlesList");
+        if(!box) return oldRenderSentV908.apply(this, arguments);
+        var q=((document.getElementById("sentSearchV76")||{}).value||"").toLowerCase().trim();
+        var sent=(state.verses||[]).filter(function(v){return !!v.lastCardSentAt;}).sort(function(a,b){return (b.lastCardSentAt||0)-(a.lastCardSentAt||0);});
+        if(q){
+          sent=sent.filter(function(v){
+            return String((v.reference||v.title||"")+" "+(v.text||v.content||"")+" "+(typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"")).toLowerCase().includes(q);
+          });
+        }
+        box.innerHTML="";
+        if(!sent.length){ box.innerHTML='<div class="empty">Todavía no hay versículos enviados.</div>'; return; }
+        sent.forEach(function(v){
+          var div=document.createElement("div");
+          div.className="title-row";
+          var ref=escV908(v.reference||v.title||"Sin referencia");
+          var cat=typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"";
+          var when=typeof formatSentListDate==="function"?formatSentListDate(v.lastCardSentAt):"";
+          div.innerHTML=
+            '<div class="title-name">📋 '+ref+'</div>'+
+            '<div class="small-note">'+escV908(when+(cat?" · "+cat:""))+'</div>'+
+            '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\''+v.id+'\'); setTimeout(renderSentFullScreenV76,50)">🗑️ Quitar</button>';
+          div.onclick=function(){ showDailySentReaderV908(v); };
+          box.appendChild(div);
+        });
+      }catch(e){ console.error("renderSentFullScreenV76 v90.8 daily", e); return oldRenderSentV908.apply(this, arguments); }
+    };
+    try{ renderSentFullScreenV76=window.renderSentFullScreenV76; }catch(e){}
+  }
+
+  var oldOpenDailyV908 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV908 === "function"){
+    window.openDailyVerse=function(){
+      var r=oldOpenDailyV908.apply(this, arguments);
+      setTimeout(ensureDailySentButtonV908,40);
+      setTimeout(ensureDailySentButtonV908,160);
+      setTimeout(ensureDailySentButtonV908,360);
+      return r;
+    };
+    try{ openDailyVerse=window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV908 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV908 === "function"){
+    window.openVerseSpecial=function(v, mode){
+      var r=oldOpenVerseSpecialV908.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(ensureDailySentButtonV908,40);
+        setTimeout(ensureDailySentButtonV908,160);
+        setTimeout(ensureDailySentButtonV908,360);
+      }
+      return r;
+    };
+    try{ openVerseSpecial=window.openVerseSpecial; }catch(e){}
+  }
+
+  setTimeout(ensureDailySentButtonV908,400);
+})();
+</script>
+
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6446,6 +6630,190 @@ body.dark .topbar-row #tabParables.active-view{
 }
 </style>
 
+
+
+<script id="v90-8-daily-sent-copy-more-flow">
+/* v90.8 - Añadir Enviados en Versículo del día como copia independiente del flujo bueno de Más */
+(function(){
+  if(window.__v908DailySentCopyMoreFlow) return;
+  window.__v908DailySentCopyMoreFlow = true;
+
+  function escV908(s){
+    try{ return (typeof escapeHtml === "function") ? escapeHtml(s) : String(s||"").replace(/[&<>\"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];}); }
+    catch(e){ return String(s||""); }
+  }
+
+  function ensureDailySentButtonV908(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      /* primero quitamos cualquier Enviados antiguo, pero no el nuevo */
+      head.querySelectorAll("button").forEach(function(btn){
+        var txt=(btn.textContent||"").trim();
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1 && btn.id !== "dailySentV908"){ btn.remove(); }
+      });
+      if(document.getElementById("dailySentV908")) return;
+      var btn=document.createElement("button");
+      btn.id="dailySentV908";
+      btn.className="btn soft";
+      btn.type="button";
+      btn.textContent="📤 Enviados";
+      btn.onclick=function(){ openDailySentVersesListV908(); };
+      var neverBtn=null;
+      head.querySelectorAll("button").forEach(function(b){ if((b.textContent||"").indexOf("Nunca enviados")!==-1) neverBtn=b; });
+      if(neverBtn && neverBtn.parentNode){
+        neverBtn.parentNode.insertBefore(btn, neverBtn.nextSibling);
+      }else{
+        head.appendChild(btn);
+      }
+    }catch(e){ console.error("ensureDailySentButtonV908", e); }
+  }
+  window.ensureDailySentButtonV908=ensureDailySentButtonV908;
+
+  function setDailySentListBackV908(){
+    try{
+      var head=document.querySelector("#titlesView .panel-head") || document.querySelector(".panel-head");
+      var buttons=document.querySelectorAll("button");
+      buttons.forEach(function(btn){
+        var txt=(btn.textContent||"").trim();
+        if(txt.indexOf("← Volver")!==-1 && window.__dailySentModeV908){
+          var parent=btn.closest("#titlesView, .panel-head");
+          if(parent || btn.parentElement){ btn.setAttribute("onclick","closeDailySentListV908()"); }
+        }
+      });
+    }catch(e){ console.error("setDailySentListBackV908", e); }
+  }
+
+  window.openDailySentVersesListV908=function(){
+    try{
+      window.__dailySentModeV908=true;
+      window.__sentOpenedFromDailyV813=false;
+      if(typeof openSentVersesList === "function") openSentVersesList();
+      setTimeout(setDailySentListBackV908,20);
+      setTimeout(setDailySentListBackV908,120);
+    }catch(e){ console.error("openDailySentVersesListV908", e); }
+  };
+
+  window.closeDailySentListV908=function(){
+    try{
+      window.__dailySentModeV908=false;
+      if(typeof closeSentFullScreenV76 === "function") closeSentFullScreenV76();
+      setTimeout(function(){ try{ if(typeof openDailyVerse === "function") openDailyVerse(); }catch(e){} },50);
+    }catch(e){ console.error("closeDailySentListV908", e); }
+  };
+
+  function showDailySentReaderV908(v){
+    try{
+      window.__dailySentModeV908=true;
+      section="verses"; state.section="verses";
+      state.currentVerseId=v.id;
+      currentVerseCategory=v.category||currentVerseCategory||"sin_categoria";
+      specialVerseMode=null;
+      sentListActive=false;
+      if(typeof saveState==="function") saveState();
+      if(typeof renderList==="function") renderList();
+      if(typeof renderReader==="function") renderReader();
+      if(typeof openReader==="function") openReader();
+      document.body.classList.add("verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-reader-v903");
+      document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73","sent-fullscreen-v76");
+      [".topbar",".sidebar","#list"].forEach(function(sel){
+        document.querySelectorAll(sel).forEach(function(el){ el.style.display="none"; });
+      });
+      var main=document.querySelector(".main");
+      if(main){ main.style.display="block"; main.style.gridTemplateColumns="1fr"; main.style.minHeight="100dvh"; }
+      var content=document.querySelector(".content");
+      if(content){ content.style.padding="0"; content.style.minHeight="100dvh"; }
+      ["editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(function(id){
+        var el=document.getElementById(id); if(el) el.classList.add("hidden");
+      });
+      var reader=document.getElementById("readerView");
+      if(reader){ reader.classList.remove("hidden"); reader.style.border="none"; reader.style.borderRadius="0"; reader.style.minHeight="100dvh"; }
+      var head=document.querySelector("#readerView .panel-head");
+      if(head){
+        head.innerHTML =
+          '<button class="btn soft" type="button" onclick="backToDailySentListV908()">← Volver</button>'+
+          '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>'+
+          '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>';
+        head.style.display="flex";
+      }
+      setTimeout(function(){ try{ window.scrollTo({top:0,behavior:"auto"}); }catch(e){} },30);
+    }catch(e){ console.error("showDailySentReaderV908", e); }
+  }
+  window.showDailySentReaderV908=showDailySentReaderV908;
+
+  window.backToDailySentListV908=function(){
+    try{
+      document.body.classList.remove("sent-reader-v903","verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+      if(typeof restoreReaderHeadV75 === "function") restoreReaderHeadV75();
+      window.openDailySentVersesListV908();
+    }catch(e){ console.error("backToDailySentListV908", e); }
+  };
+
+  var oldRenderSentV908 = window.renderSentFullScreenV76 || null;
+  if(typeof oldRenderSentV908 === "function"){
+    window.renderSentFullScreenV76=function(){
+      if(!window.__dailySentModeV908){ return oldRenderSentV908.apply(this, arguments); }
+      try{
+        var box=document.getElementById("titlesList");
+        if(!box) return oldRenderSentV908.apply(this, arguments);
+        var q=((document.getElementById("sentSearchV76")||{}).value||"").toLowerCase().trim();
+        var sent=(state.verses||[]).filter(function(v){return !!v.lastCardSentAt;}).sort(function(a,b){return (b.lastCardSentAt||0)-(a.lastCardSentAt||0);});
+        if(q){
+          sent=sent.filter(function(v){
+            return String((v.reference||v.title||"")+" "+(v.text||v.content||"")+" "+(typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"")).toLowerCase().includes(q);
+          });
+        }
+        box.innerHTML="";
+        if(!sent.length){ box.innerHTML='<div class="empty">Todavía no hay versículos enviados.</div>'; return; }
+        sent.forEach(function(v){
+          var div=document.createElement("div");
+          div.className="title-row";
+          var ref=escV908(v.reference||v.title||"Sin referencia");
+          var cat=typeof verseCategoryLabel==="function"?verseCategoryLabel(v.category):"";
+          var when=typeof formatSentListDate==="function"?formatSentListDate(v.lastCardSentAt):"";
+          div.innerHTML=
+            '<div class="title-name">📋 '+ref+'</div>'+
+            '<div class="small-note">'+escV908(when+(cat?" · "+cat:""))+'</div>'+
+            '<button class="btn soft" type="button" onclick="event.stopPropagation(); clearSentMark(\''+v.id+'\'); setTimeout(renderSentFullScreenV76,50)">🗑️ Quitar</button>';
+          div.onclick=function(){ showDailySentReaderV908(v); };
+          box.appendChild(div);
+        });
+      }catch(e){ console.error("renderSentFullScreenV76 v90.8 daily", e); return oldRenderSentV908.apply(this, arguments); }
+    };
+    try{ renderSentFullScreenV76=window.renderSentFullScreenV76; }catch(e){}
+  }
+
+  var oldOpenDailyV908 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV908 === "function"){
+    window.openDailyVerse=function(){
+      var r=oldOpenDailyV908.apply(this, arguments);
+      setTimeout(ensureDailySentButtonV908,40);
+      setTimeout(ensureDailySentButtonV908,160);
+      setTimeout(ensureDailySentButtonV908,360);
+      return r;
+    };
+    try{ openDailyVerse=window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV908 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV908 === "function"){
+    window.openVerseSpecial=function(v, mode){
+      var r=oldOpenVerseSpecialV908.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(ensureDailySentButtonV908,40);
+        setTimeout(ensureDailySentButtonV908,160);
+        setTimeout(ensureDailySentButtonV908,360);
+      }
+      return r;
+    };
+    try{ openVerseSpecial=window.openVerseSpecial; }catch(e){}
+  }
+
+  setTimeout(ensureDailySentButtonV908,400);
+})();
+</script>
+
 </body>
 </html>
 
@@ -7091,7 +7459,7 @@ body.sent-reader-v903 #readerView .reader-text{padding:16px 16px 48px;min-height
       var buttons = head.querySelectorAll("button");
       buttons.forEach(function(btn){
         var txt = (btn.textContent || "").trim();
-        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1){
+        if(txt.indexOf("Enviados") !== -1 && txt.indexOf("Nunca") === -1 && btn.id !== "dailySentV908"){
           btn.remove();
         }
       });
