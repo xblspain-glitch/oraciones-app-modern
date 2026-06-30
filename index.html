@@ -1786,7 +1786,6 @@ function openRecentEntry(type,idx){
         <button class="btn primary" type="button" onclick="saveCurrent(false,false)">✅ Guardar y volver</button>
         <button class="btn danger" type="button" onclick="discardEditorChanges()">❌ Descartar</button>
         <button class="btn soft" type="button" onclick="leaveEditor()">← Volver</button>
-        <button id="btnEditorBlockV9010" class="btn soft" type="button" onclick="openBlockMenuFromEditorV9010()">📑 Bloque</button>
         <div id="saveStatus" class="status">Sin cambios</div>
       </div>
       <input id="editTitle" class="title-input" placeholder="Título">
@@ -4475,91 +4474,6 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
 }
 </style>
 
-
-
-<script id="v90-10-editor-block-button-minimal">
-/* v90.10 - Botón Bloque dentro de Editar, con inserción segura en el textarea */
-(function(){
-  if(window.__v9010EditorBlockButton) return;
-  window.__v9010EditorBlockButton = true;
-
-  function editorVisibleV9010(){
-    var ed=document.getElementById("editorView");
-    return !!(ed && !ed.classList.contains("hidden"));
-  }
-  function editTextV9010(){ return document.getElementById("editText"); }
-  function rememberCursorV9010(){
-    var ta=editTextV9010();
-    if(!ta) return;
-    try{ window.__blockInsertCursorV9010={start:ta.selectionStart||0,end:ta.selectionEnd||ta.selectionStart||0}; }catch(e){}
-  }
-  function insertAtCursorV9010(block){
-    var ta=editTextV9010();
-    if(!ta) return false;
-    var pos=window.__blockInsertCursorV9010 || {};
-    var start=(typeof pos.start==="number")?pos.start:(ta.selectionStart||0);
-    var end=(typeof pos.end==="number")?pos.end:(ta.selectionEnd||start);
-    var before=ta.value.slice(0,start);
-    var after=ta.value.slice(end);
-    var prefix=(before && !/\n\n$/.test(before)) ? "\n\n" : "";
-    var suffix=(after && !/^\n\n/.test(after)) ? "\n\n" : "";
-    ta.value=before+prefix+block+suffix+after;
-    try{
-      var newPos=(before+prefix+block).length;
-      ta.focus();
-      ta.setSelectionRange(newPos,newPos);
-      window.__blockInsertCursorV9010={start:newPos,end:newPos};
-    }catch(e){}
-    try{ scheduleAutosave(); }catch(e){}
-    try{ setSaveStatus("Cambios sin guardar"); }catch(e){}
-    return true;
-  }
-
-  window.openBlockMenuFromEditorV9010=function(){
-    rememberCursorV9010();
-    if(typeof openBlockMenu==="function") openBlockMenu();
-  };
-
-  var oldSaveCollapsible=window.saveCollapsibleBlockV864 || (typeof saveCollapsibleBlockV864!=="undefined" ? saveCollapsibleBlockV864 : null);
-  window.saveCollapsibleBlockV864=function(){
-    if(editorVisibleV9010()){
-      var titleEl=document.getElementById("blockTitleV864");
-      var contentEl=document.getElementById("blockContentV864");
-      var title=(titleEl && titleEl.value ? titleEl.value : "").trim();
-      var content=(contentEl && contentEl.value ? contentEl.value : "").trim();
-      if(!title){alert("Escribe un título para el desplegable.");return;}
-      if(!content){alert("Escribe el contenido del desplegable.");return;}
-      var safeTitle=title.replace(/"/g,"'");
-      var block='[desplegable titulo="'+safeTitle+'"]\n'+content+'\n[/desplegable]';
-      insertAtCursorV9010(block);
-      try{ closeBlockOverlayV864(); toast("Bloque desplegable insertado"); }catch(e){}
-      return;
-    }
-    if(oldSaveCollapsible) return oldSaveCollapsible.apply(this,arguments);
-  };
-  try{ saveCollapsibleBlockV864=window.saveCollapsibleBlockV864; }catch(e){}
-
-  var oldSavePopup=window.savePopupBlockV908 || null;
-  window.savePopupBlockV908=function(){
-    if(editorVisibleV9010()){
-      var titleEl=document.getElementById("popupTitleV908");
-      var contentEl=document.getElementById("popupContentV908");
-      var title=(titleEl && titleEl.value ? titleEl.value : "").trim();
-      var content=(contentEl && contentEl.value ? contentEl.value : "").trim();
-      if(!title){alert("Escribe un título o referencia para el emergente.");return;}
-      if(!content){alert("Escribe el contenido del emergente.");return;}
-      var safeTitle=title.replace(/"/g,"'");
-      var block='[emergente titulo="'+safeTitle+'"]\n'+content+'\n[/emergente]';
-      insertAtCursorV9010(block);
-      try{ closeBlockOverlayV864(); toast("Bloque emergente insertado"); }catch(e){}
-      return;
-    }
-    if(oldSavePopup) return oldSavePopup.apply(this,arguments);
-  };
-  try{ savePopupBlockV908=window.savePopupBlockV908; }catch(e){}
-})();
-</script>
-
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6531,91 +6445,6 @@ body.dark .topbar-row #tabParables.active-view{
   margin-top:6px!important;
 }
 </style>
-
-
-
-<script id="v90-10-editor-block-button-minimal">
-/* v90.10 - Botón Bloque dentro de Editar, con inserción segura en el textarea */
-(function(){
-  if(window.__v9010EditorBlockButton) return;
-  window.__v9010EditorBlockButton = true;
-
-  function editorVisibleV9010(){
-    var ed=document.getElementById("editorView");
-    return !!(ed && !ed.classList.contains("hidden"));
-  }
-  function editTextV9010(){ return document.getElementById("editText"); }
-  function rememberCursorV9010(){
-    var ta=editTextV9010();
-    if(!ta) return;
-    try{ window.__blockInsertCursorV9010={start:ta.selectionStart||0,end:ta.selectionEnd||ta.selectionStart||0}; }catch(e){}
-  }
-  function insertAtCursorV9010(block){
-    var ta=editTextV9010();
-    if(!ta) return false;
-    var pos=window.__blockInsertCursorV9010 || {};
-    var start=(typeof pos.start==="number")?pos.start:(ta.selectionStart||0);
-    var end=(typeof pos.end==="number")?pos.end:(ta.selectionEnd||start);
-    var before=ta.value.slice(0,start);
-    var after=ta.value.slice(end);
-    var prefix=(before && !/\n\n$/.test(before)) ? "\n\n" : "";
-    var suffix=(after && !/^\n\n/.test(after)) ? "\n\n" : "";
-    ta.value=before+prefix+block+suffix+after;
-    try{
-      var newPos=(before+prefix+block).length;
-      ta.focus();
-      ta.setSelectionRange(newPos,newPos);
-      window.__blockInsertCursorV9010={start:newPos,end:newPos};
-    }catch(e){}
-    try{ scheduleAutosave(); }catch(e){}
-    try{ setSaveStatus("Cambios sin guardar"); }catch(e){}
-    return true;
-  }
-
-  window.openBlockMenuFromEditorV9010=function(){
-    rememberCursorV9010();
-    if(typeof openBlockMenu==="function") openBlockMenu();
-  };
-
-  var oldSaveCollapsible=window.saveCollapsibleBlockV864 || (typeof saveCollapsibleBlockV864!=="undefined" ? saveCollapsibleBlockV864 : null);
-  window.saveCollapsibleBlockV864=function(){
-    if(editorVisibleV9010()){
-      var titleEl=document.getElementById("blockTitleV864");
-      var contentEl=document.getElementById("blockContentV864");
-      var title=(titleEl && titleEl.value ? titleEl.value : "").trim();
-      var content=(contentEl && contentEl.value ? contentEl.value : "").trim();
-      if(!title){alert("Escribe un título para el desplegable.");return;}
-      if(!content){alert("Escribe el contenido del desplegable.");return;}
-      var safeTitle=title.replace(/"/g,"'");
-      var block='[desplegable titulo="'+safeTitle+'"]\n'+content+'\n[/desplegable]';
-      insertAtCursorV9010(block);
-      try{ closeBlockOverlayV864(); toast("Bloque desplegable insertado"); }catch(e){}
-      return;
-    }
-    if(oldSaveCollapsible) return oldSaveCollapsible.apply(this,arguments);
-  };
-  try{ saveCollapsibleBlockV864=window.saveCollapsibleBlockV864; }catch(e){}
-
-  var oldSavePopup=window.savePopupBlockV908 || null;
-  window.savePopupBlockV908=function(){
-    if(editorVisibleV9010()){
-      var titleEl=document.getElementById("popupTitleV908");
-      var contentEl=document.getElementById("popupContentV908");
-      var title=(titleEl && titleEl.value ? titleEl.value : "").trim();
-      var content=(contentEl && contentEl.value ? contentEl.value : "").trim();
-      if(!title){alert("Escribe un título o referencia para el emergente.");return;}
-      if(!content){alert("Escribe el contenido del emergente.");return;}
-      var safeTitle=title.replace(/"/g,"'");
-      var block='[emergente titulo="'+safeTitle+'"]\n'+content+'\n[/emergente]';
-      insertAtCursorV9010(block);
-      try{ closeBlockOverlayV864(); toast("Bloque emergente insertado"); }catch(e){}
-      return;
-    }
-    if(oldSavePopup) return oldSavePopup.apply(this,arguments);
-  };
-  try{ savePopupBlockV908=window.savePopupBlockV908; }catch(e){}
-})();
-</script>
 
 </body>
 </html>
