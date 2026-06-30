@@ -4700,14 +4700,22 @@ async function shareVerseCard(){
     ctx.shadowBlur=10;
     ctx.shadowOffsetY=3;
 
+    ctx.font="84px Arial";
+    ctx.fillText("🌅",540,220);
     ctx.font="italic 56px Georgia, serif";
-    ctx.fillText("🌅 Versículo del día",540,355);
+    ctx.fillText("Versículo del día",540,320);
+    ctx.font="34px Georgia, serif";
+    const ds=new Date();
+    const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+    const fecha=ds.getDate()+" de "+meses[ds.getMonth()]+" de "+ds.getFullYear();
+    ctx.fillText("📅 "+fecha,540,385);
 
     ctx.font="54px Georgia, serif";
-    ctx.fillText(category,540,480);
+    ctx.fillText(category,540,470);
+    ctx.strokeStyle="rgba(255,255,255,0.35)"; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(180,700); ctx.lineTo(900,700); ctx.stroke();
 
     ctx.font="bold 74px Georgia, serif";
-    ctx.fillText(ref,540,645);
+    ctx.fillText(ref,540,640);
 
     const textLayout=getCardTextLayout(body);
     ctx.font="italic "+textLayout.font+"px Georgia, serif";
