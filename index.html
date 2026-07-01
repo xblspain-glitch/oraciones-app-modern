@@ -8112,3 +8112,72 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
 }
 
 </style>
+
+<script id="v90-18-12-reset-sent-toolbar">
+/* v90.18.12 - Restaurar botonera normal al salir de un detalle abierto desde Enviados */
+(function(){
+  if(window.__v901812ResetSentToolbar) return;
+  window.__v901812ResetSentToolbar = true;
+
+  var normalReaderHeadV901812 = "";
+  try{
+    var head0 = document.querySelector("#readerView .panel-head");
+    if(head0) normalReaderHeadV901812 = head0.innerHTML;
+  }catch(e){}
+
+  function restoreNormalReaderToolbarV901812(){
+    try{
+      var wasSentReader = document.body.classList.contains("sent-reader-v903");
+      document.body.classList.remove("sent-reader-v903");
+      if(wasSentReader){
+        document.body.classList.remove("verse-special-fullscreen-v74","verse-special-fullscreen-v751");
+        [".topbar", ".sidebar", "#list"].forEach(function(sel){
+          document.querySelectorAll(sel).forEach(function(el){ el.style.display = ""; });
+        });
+        var main = document.querySelector(".main");
+        if(main){ main.style.display=""; main.style.gridTemplateColumns=""; main.style.minHeight=""; }
+        var content = document.querySelector(".content");
+        if(content){ content.style.padding=""; content.style.minHeight=""; }
+      }
+      var head = document.querySelector("#readerView .panel-head");
+      if(head && normalReaderHeadV901812){
+        var txt = (head.textContent || "").replace(/\s+/g," ").trim();
+        var looksLikeSentToolbar = txt.indexOf("Tarjeta") !== -1 && txt.indexOf("Copiar") !== -1 && txt.indexOf("Nueva") === -1 && txt.indexOf("Títulos") === -1;
+        if(wasSentReader || looksLikeSentToolbar){
+          head.innerHTML = normalReaderHeadV901812;
+          head.style.display = "";
+        }
+      }
+      window.__sentReaderBackV903 = false;
+    }catch(e){ console.error("restoreNormalReaderToolbarV901812", e); }
+  }
+  window.restoreNormalReaderToolbarV901812 = restoreNormalReaderToolbarV901812;
+
+  var oldSwitchSectionV901812 = window.switchSection || (typeof switchSection !== "undefined" ? switchSection : null);
+  if(typeof oldSwitchSectionV901812 === "function"){
+    window.switchSection = function(){
+      restoreNormalReaderToolbarV901812();
+      return oldSwitchSectionV901812.apply(this, arguments);
+    };
+    try{ switchSection = window.switchSection; }catch(e){}
+  }
+
+  var oldSwitchSectionAndReadV901812 = window.switchSectionAndReadV90187 || (typeof switchSectionAndReadV90187 !== "undefined" ? switchSectionAndReadV90187 : null);
+  if(typeof oldSwitchSectionAndReadV901812 === "function"){
+    window.switchSectionAndReadV90187 = function(){
+      restoreNormalReaderToolbarV901812();
+      return oldSwitchSectionAndReadV901812.apply(this, arguments);
+    };
+    try{ switchSectionAndReadV90187 = window.switchSectionAndReadV90187; }catch(e){}
+  }
+
+  var oldEnterFullscreenReadingV901812 = window.enterFullscreenReading || (typeof enterFullscreenReading !== "undefined" ? enterFullscreenReading : null);
+  if(typeof oldEnterFullscreenReadingV901812 === "function"){
+    window.enterFullscreenReading = function(){
+      restoreNormalReaderToolbarV901812();
+      return oldEnterFullscreenReadingV901812.apply(this, arguments);
+    };
+    try{ enterFullscreenReading = window.enterFullscreenReading; }catch(e){}
+  }
+})();
+</script>
