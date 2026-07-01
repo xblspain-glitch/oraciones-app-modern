@@ -8181,3 +8181,68 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   }
 })();
 </script>
+
+<script id="v90-18-13-favorites-back-origin">
+/* v90.18.13 - Volver desde listado de Favoritos regresa a la sección de origen */
+(function(){
+  if(window.__v901813FavoritesBackOrigin) return;
+  window.__v901813FavoritesBackOrigin = true;
+
+  function rememberFavoritesOriginV901813(){
+    try{
+      window.__favoritesOriginSectionV901813 = section || (state && state.section) || "prayers";
+    }catch(e){
+      window.__favoritesOriginSectionV901813 = "prayers";
+    }
+  }
+
+  function setFavoritesBackButtonV901813(){
+    try{
+      var backBtn = document.querySelector("#titlesView .panel-head button:first-child");
+      if(backBtn){
+        backBtn.setAttribute("onclick", "closeFavoritesBackToOriginV901813()");
+      }
+    }catch(e){}
+  }
+
+  window.closeFavoritesBackToOriginV901813 = function(){
+    var target = window.__favoritesOriginSectionV901813 || (state && state.section) || section || "prayers";
+    try{
+      if(typeof closeFavoritesFullScreenV791 === "function"){
+        closeFavoritesFullScreenV791();
+      }else{
+        var titles = document.getElementById("titlesView");
+        if(titles) titles.classList.add("hidden");
+      }
+    }catch(e){}
+
+    setTimeout(function(){
+      try{
+        section = target;
+        if(state) state.section = target;
+        if(typeof saveState === "function") saveState();
+        if(typeof syncTabs === "function") syncTabs();
+        if(typeof renderList === "function") renderList();
+        if(typeof renderReader === "function") renderReader();
+        if(typeof enterFullscreenReading === "function") enterFullscreenReading();
+        else if(typeof openReader === "function") openReader();
+      }catch(e){
+        console.error("closeFavoritesBackToOriginV901813", e);
+        try{ if(typeof openReader === "function") openReader(); }catch(_){}
+      }
+    }, 20);
+  };
+
+  var oldOpenFavoritesV901813 = window.openFavoritesView || (typeof openFavoritesView !== "undefined" ? openFavoritesView : null);
+  if(typeof oldOpenFavoritesV901813 === "function"){
+    window.openFavoritesView = function(){
+      rememberFavoritesOriginV901813();
+      var r = oldOpenFavoritesV901813.apply(this, arguments);
+      setTimeout(setFavoritesBackButtonV901813, 60);
+      setTimeout(setFavoritesBackButtonV901813, 160);
+      return r;
+    };
+    try{ openFavoritesView = window.openFavoritesView; }catch(e){}
+  }
+})();
+</script>
