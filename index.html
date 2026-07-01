@@ -6578,60 +6578,6 @@ body.dark .topbar-row #tabParables.active-view{
 })();
 </script>
 
-<!-- v90.18.10 - Ajuste específico Parábolas directo a Leer -->
-<script id="v901810-parables-direct-read-fix">
-(function(){
-  if(window.__v901810ParablesDirectReadFix) return;
-  window.__v901810ParablesDirectReadFix = true;
-
-  window.ov2DirectParablesReadV901810 = function(){
-    try{
-      if(typeof ensureParablesState === "function") ensureParablesState();
-      section = "parables";
-      if(window.state){
-        state.section = "parables";
-        if(Array.isArray(state.parables) && state.parables.length && !state.currentParableId){
-          state.currentParableId = state.parables[0].id;
-        }
-      }
-      try{ document.body.dataset.section = "parables"; }catch(_){ }
-      if(typeof saveState === "function") saveState();
-      if(typeof syncTabs === "function") syncTabs();
-      if(typeof renderList === "function") renderList();
-      if(typeof renderReader === "function") renderReader();
-      if(typeof applyReaderFont === "function") applyReaderFont();
-
-      setTimeout(function(){
-        try{
-          if(typeof renderReader === "function") renderReader();
-          if(typeof enterFullscreenReading === "function") enterFullscreenReading();
-          else if(typeof openReader === "function") openReader();
-        }catch(e){
-          console.error("v90.18.10 parábolas directo", e);
-        }
-      }, 80);
-    }catch(e){
-      console.error("v90.18.10 parábolas directo", e);
-      try{ if(typeof switchSection === "function") switchSection("parables"); }catch(_){ }
-    }
-  };
-
-  function bind(){
-    var btn = document.getElementById("tabParables");
-    if(btn){
-      btn.onclick = function(ev){
-        if(ev && ev.preventDefault) ev.preventDefault();
-        window.ov2DirectParablesReadV901810();
-        return false;
-      };
-    }
-  }
-  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
-  else bind();
-  setTimeout(bind, 300);
-})();
-</script>
-
 </body>
 </html>
 
@@ -8222,4 +8168,3 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
     display:none !important;
   }
 </style>
-
