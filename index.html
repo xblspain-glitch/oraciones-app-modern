@@ -4475,23 +4475,6 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
 }
 </style>
 
-
-<!-- v90.18: ajuste pequeño y seguro - etiqueta emergente más discreta -->
-<style id="v90-18-popup-label-smaller">
-  .reader-popup-block{
-    margin:0 2px !important;
-    vertical-align:baseline !important;
-  }
-  .reader-popup-title{
-    font-size:.88em !important;
-    font-weight:700 !important;
-    line-height:1.15 !important;
-    padding:2px 7px !important;
-    border-radius:9px !important;
-    vertical-align:baseline !important;
-  }
-</style>
-
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6464,23 +6447,6 @@ body.dark .topbar-row #tabParables.active-view{
 }
 </style>
 
-
-<!-- v90.18: ajuste pequeño y seguro - etiqueta emergente más discreta -->
-<style id="v90-18-popup-label-smaller">
-  .reader-popup-block{
-    margin:0 2px !important;
-    vertical-align:baseline !important;
-  }
-  .reader-popup-title{
-    font-size:.88em !important;
-    font-weight:700 !important;
-    line-height:1.15 !important;
-    padding:2px 7px !important;
-    border-radius:9px !important;
-    vertical-align:baseline !important;
-  }
-</style>
-
 </body>
 </html>
 
@@ -7562,6 +7528,51 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   }
   body.dark .reader-popup-content-v908{
     background:rgba(255,255,255,.06) !important;
+  }
+</style>
+
+
+<!-- v90.18 real: etiqueta emergente más pequeña y discreta -->
+<style id="v90-18-popup-label-small-real">
+  .reader .reader-popup-block,
+  .reader-popup-block{
+    display:inline !important;
+    width:auto !important;
+    max-width:none !important;
+    margin:0 2px !important;
+    padding:0 !important;
+    border:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    overflow:visible !important;
+    vertical-align:baseline !important;
+  }
+  .reader .reader-popup-title,
+  .reader-popup-title,
+  button.reader-popup-title{
+    display:inline !important;
+    width:auto !important;
+    max-width:none !important;
+    min-height:0 !important;
+    height:auto !important;
+    padding:2px 7px !important;
+    border:1px solid rgba(54,141,218,.38) !important;
+    border-radius:9px !important;
+    background:linear-gradient(180deg, rgba(77,163,255,.14), rgba(77,163,255,.06)) !important;
+    box-shadow:none !important;
+    color:#226fa8 !important;
+    text-align:left !important;
+    font-size:0.82em !important;
+    font-weight:700 !important;
+    line-height:1.15 !important;
+    vertical-align:baseline !important;
+    font-family:inherit !important;
+  }
+  .reader-popup-title:after{content:"" !important;}
+  body.dark .reader-popup-title{
+    color:#d7ecff !important;
+    border-color:rgba(157,204,255,.42) !important;
+    background:linear-gradient(180deg, rgba(77,163,255,.22), rgba(77,163,255,.09)) !important;
   }
 </style>
 
