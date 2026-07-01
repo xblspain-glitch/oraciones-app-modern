@@ -8208,29 +8208,29 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   window.closeFavoritesBackToOriginV901813 = function(){
     var target = window.__favoritesOriginSectionV901813 || (state && state.section) || section || "prayers";
     try{
+      /* v90.18.15: restaurar la sección ANTES de cerrar Favoritos.
+         Así closeFavoritesFullScreenV791/openReader ya dibuja la sección correcta
+         y evitamos el salto visual Inicio -> sección. */
+      section = target;
+      if(state) state.section = target;
+      if(typeof saveState === "function") saveState();
+      if(typeof syncTabs === "function") syncTabs();
+
       if(typeof closeFavoritesFullScreenV791 === "function"){
         closeFavoritesFullScreenV791();
       }else{
         var titles = document.getElementById("titlesView");
         if(titles) titles.classList.add("hidden");
+        if(typeof openReader === "function") openReader();
       }
-    }catch(e){}
 
-    setTimeout(function(){
-      try{
-        section = target;
-        if(state) state.section = target;
-        if(typeof saveState === "function") saveState();
-        if(typeof syncTabs === "function") syncTabs();
-        if(typeof renderList === "function") renderList();
-        if(typeof renderReader === "function") renderReader();
-        if(typeof enterFullscreenReading === "function") enterFullscreenReading();
-        else if(typeof openReader === "function") openReader();
-      }catch(e){
-        console.error("closeFavoritesBackToOriginV901813", e);
-        try{ if(typeof openReader === "function") openReader(); }catch(_){}
-      }
-    }, 20);
+      if(typeof renderList === "function") renderList();
+      if(typeof renderReader === "function") renderReader();
+      if(typeof enterFullscreenReading === "function") enterFullscreenReading();
+    }catch(e){
+      console.error("closeFavoritesBackToOriginV901813", e);
+      try{ if(typeof openReader === "function") openReader(); }catch(_){}
+    }
   };
 
   var oldOpenFavoritesV901813 = window.openFavoritesView || (typeof openFavoritesView !== "undefined" ? openFavoritesView : null);
