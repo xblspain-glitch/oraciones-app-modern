@@ -7613,3 +7613,150 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   setTimeout(patchDailyOtherButtonV9015, 300);
 })();
 </script>
+
+<script id="v90-16-buscar-versiculo-daily">
+/* v90.16 - Versículo del día: buscar referencia y fijarla como versículo del día */
+(function(){
+  if(window.__v9016BuscarVersiculoDaily) return;
+  window.__v9016BuscarVersiculoDaily = true;
+
+  function normV9016(s){
+    try{
+      return String(s || "")
+        .toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }catch(e){ return String(s || "").toLowerCase().trim(); }
+  }
+
+  function verseRefTextV9016(v){
+    return (v && (v.reference || v.title || "")) || "";
+  }
+
+  function verseBodyTextV9016(v){
+    return (v && (v.text || v.content || "")) || "";
+  }
+
+  function findVerseByQueryV9016(query){
+    var q = normV9016(query);
+    if(!q) return null;
+    var pool = (typeof allVersesForDay === "function") ? allVersesForDay() : ((state && state.verses) || []);
+    pool = (pool || []).filter(function(v){ return v && (v.reference || v.title || v.text || v.content); });
+    if(!pool.length) return null;
+
+    var exact = pool.find(function(v){ return normV9016(verseRefTextV9016(v)) === q; });
+    if(exact) return exact;
+
+    var starts = pool.find(function(v){ return normV9016(verseRefTextV9016(v)).indexOf(q) === 0; });
+    if(starts) return starts;
+
+    var includes = pool.find(function(v){ return normV9016(verseRefTextV9016(v)).indexOf(q) !== -1; });
+    if(includes) return includes;
+
+    var body = pool.find(function(v){ return normV9016(verseBodyTextV9016(v)).indexOf(q) !== -1; });
+    return body || null;
+  }
+
+  window.setDailyVerseFromSearchV9016 = function(v){
+    if(!v) return;
+    try{
+      state.dailyVerse = { date: todayKey(), id: v.id, manual: true, searched: true, changedAt: Date.now() };
+      state.currentVerseId = v.id;
+      if(typeof saveState === "function") saveState();
+      if(typeof openVerseSpecial === "function") openVerseSpecial(v, "daily");
+      if(typeof setActiveView === "function") setActiveView("daily");
+      setTimeout(patchDailySearchButtonV9016, 30);
+      setTimeout(patchDailySearchButtonV9016, 180);
+    }catch(e){ console.error("setDailyVerseFromSearchV9016", e); }
+  };
+
+  window.openDailySearchV9016 = function(){
+    try{
+      var old = document.getElementById("dailySearchOverlayV9016");
+      if(old) old.remove();
+      var overlay = document.createElement("div");
+      overlay.id = "dailySearchOverlayV9016";
+      overlay.style.cssText = "position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;";
+      overlay.innerHTML = ''+
+        '<div style="background:#fff;border-radius:22px;max-width:560px;width:100%;box-shadow:0 12px 40px rgba(0,0,0,.25);padding:22px;box-sizing:border-box;">'+
+          '<h2 style="margin:0 0 12px;font-size:24px;">🔍 Buscar versículo</h2>'+
+          '<p style="margin:0 0 14px;color:#666;font-size:16px;">Escribe una referencia, por ejemplo: Juan 3:16, Romanos 8:28 o Salmo 23.</p>'+
+          '<input id="dailySearchInputV9016" type="text" inputmode="text" autocomplete="off" placeholder="Referencia" style="width:100%;font-size:20px;padding:14px 16px;border:1px solid #d8d0c0;border-radius:14px;box-sizing:border-box;margin-bottom:16px;">'+
+          '<div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">'+
+            '<button id="dailySearchCancelV9016" class="btn soft" type="button">Cancelar</button>'+
+            '<button id="dailySearchOkV9016" class="btn primary" type="button">🔍 Buscar</button>'+
+          '</div>'+
+        '</div>';
+      document.body.appendChild(overlay);
+      var input = document.getElementById("dailySearchInputV9016");
+      var close = function(){ try{ overlay.remove(); }catch(e){} };
+      var run = function(){
+        var q = input ? input.value : "";
+        var found = findVerseByQueryV9016(q);
+        if(!found){ alert("No encontré esa referencia."); if(input) input.focus(); return; }
+        close();
+        window.setDailyVerseFromSearchV9016(found);
+      };
+      document.getElementById("dailySearchCancelV9016").onclick = close;
+      document.getElementById("dailySearchOkV9016").onclick = run;
+      overlay.addEventListener("click", function(ev){ if(ev.target === overlay) close(); });
+      if(input){
+        input.focus();
+        input.addEventListener("keydown", function(ev){ if(ev.key === "Enter") run(); if(ev.key === "Escape") close(); });
+      }
+    }catch(e){ console.error("openDailySearchV9016", e); }
+  };
+
+  function patchDailySearchButtonV9016(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      if(head.querySelector('[data-v9016-search-daily="1"]')) return;
+      var btn = document.createElement("button");
+      btn.className = "btn soft";
+      btn.type = "button";
+      btn.setAttribute("data-v9016-search-daily", "1");
+      btn.textContent = "🔍 Buscar";
+      btn.onclick = function(){ window.openDailySearchV9016(); };
+      var other = head.querySelector('[data-v9015-other-daily="1"]');
+      if(other && other.parentNode === head){
+        other.insertAdjacentElement("afterend", btn);
+      }else{
+        head.appendChild(btn);
+      }
+    }catch(e){ console.error("patchDailySearchButtonV9016", e); }
+  }
+  window.patchDailySearchButtonV9016 = patchDailySearchButtonV9016;
+
+  var oldOpenDailyV9016 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV9016 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV9016.apply(this, arguments);
+      setTimeout(patchDailySearchButtonV9016, 30);
+      setTimeout(patchDailySearchButtonV9016, 180);
+      setTimeout(patchDailySearchButtonV9016, 360);
+      return r;
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV9016 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV9016 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV9016.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(patchDailySearchButtonV9016, 30);
+        setTimeout(patchDailySearchButtonV9016, 180);
+        setTimeout(patchDailySearchButtonV9016, 360);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  setTimeout(patchDailySearchButtonV9016, 500);
+})();
+</script>
