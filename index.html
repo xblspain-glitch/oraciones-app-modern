@@ -1045,6 +1045,86 @@ body.reading-mobile:not(.fullscreen-reading):not(.verse-special-fullscreen-v74):
 
 
 .new-blue{background:linear-gradient(135deg,#2f78bf,#4fa3ff)!important;color:#fff!important;border-color:#2f78bf!important;}
+
+
+/* v90.19 - Inicio bonito visual (solo CSS, sin tocar lógica ni navegación) */
+#ov2Welcome{
+  align-items:flex-start;
+  padding:calc(26px + env(safe-area-inset-top)) 18px 24px;
+  background:
+    radial-gradient(circle at 50% -12%, rgba(255,255,255,.24) 0%, rgba(255,255,255,.08) 28%, transparent 58%),
+    linear-gradient(180deg,#173f6b 0%,#0d2847 46%,#071423 100%);
+}
+#ov2Welcome .ov2-card{
+  margin-top:10px;
+  width:min(430px,100%);
+  border-radius:34px;
+  padding:26px 20px 22px;
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 26px 70px rgba(0,0,0,.34);
+}
+#ov2Welcome .ov2-logo{
+  width:96px;
+  height:96px;
+  border-radius:28px;
+  margin-bottom:18px;
+}
+#ov2Welcome .ov2-kicker{
+  display:inline-block;
+  padding:7px 13px;
+  border-radius:999px;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.16);
+  letter-spacing:.08em;
+  font-size:12px;
+  margin-bottom:12px;
+}
+#ov2Welcome .ov2-title{
+  font-size:33px;
+  margin-bottom:8px;
+}
+#ov2Welcome .ov2-sub{
+  font-size:15.5px;
+  line-height:1.5;
+  margin-bottom:18px;
+  opacity:.9;
+}
+#ov2Welcome .ov2-verse{
+  margin:16px auto 20px;
+  padding:20px 17px 18px;
+  max-width:360px;
+  border-radius:26px;
+  background:rgba(255,255,255,.96);
+  color:#183456;
+  box-shadow:0 16px 36px rgba(0,0,0,.22);
+  font-size:18px;
+  line-height:1.72;
+  opacity:1;
+}
+#ov2Welcome .ov2-verse strong{
+  display:block;
+  margin-top:12px;
+  font-size:20px;
+  color:#0d2847;
+}
+#ov2Welcome .ov2-enter{
+  border-radius:20px;
+  padding:16px 18px;
+}
+#ov2Welcome .ov2-small{
+  margin-top:15px;
+  font-size:13px;
+  opacity:.78;
+}
+@media (max-width:480px){
+  #ov2Welcome{padding-top:calc(20px + env(safe-area-inset-top));}
+  #ov2Welcome .ov2-card{border-radius:30px;padding:23px 17px 20px;}
+  #ov2Welcome .ov2-title{font-size:30px;}
+  #ov2Welcome .ov2-verse{font-size:17px;padding:18px 15px;}
+  #ov2Welcome .ov2-verse strong{font-size:19px;}
+}
+
 </style>
 
 <style>
