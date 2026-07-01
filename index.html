@@ -8246,3 +8246,56 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   }
 })();
 </script>
+
+
+<script id="v90-18-14-verse-favorites-back">
+/* v90.18.14 - Volver desde Favoritos de Versículos regresa a Versículos */
+(function(){
+  if(window.__v901814VerseFavoritesBack) return;
+  window.__v901814VerseFavoritesBack = true;
+
+  function setVerseFavoritesBackButtonV901814(){
+    try{
+      var backBtn = document.querySelector("#titlesView .panel-head button:first-child");
+      if(backBtn){
+        backBtn.setAttribute("onclick", "closeVerseFavoritesBackV901814()");
+      }
+    }catch(e){}
+  }
+
+  window.closeVerseFavoritesBackV901814 = function(){
+    try{
+      section = "verses";
+      if(state) state.section = "verses";
+      specialVerseMode = null;
+      currentVerseCategory = null;
+      verseNavigationMode = "categories";
+      if(typeof saveState === "function") saveState();
+      if(typeof syncTabs === "function") syncTabs();
+      if(typeof renderList === "function") renderList();
+      if(typeof renderReader === "function") renderReader();
+      if(typeof openVerseCategories === "function"){
+        openVerseCategories();
+      }else if(typeof openReader === "function"){
+        openReader();
+      }
+    }catch(e){
+      console.error("closeVerseFavoritesBackV901814", e);
+      try{ if(typeof openReader === "function") openReader(); }catch(_){}
+    }
+  };
+
+  var oldOpenVerseFavoritesV901814 = window.openVerseFavorites || (typeof openVerseFavorites !== "undefined" ? openVerseFavorites : null);
+  if(typeof oldOpenVerseFavoritesV901814 === "function"){
+    window.openVerseFavorites = function(){
+      section = "verses";
+      if(state) state.section = "verses";
+      var r = oldOpenVerseFavoritesV901814.apply(this, arguments);
+      setTimeout(setVerseFavoritesBackButtonV901814, 30);
+      setTimeout(setVerseFavoritesBackButtonV901814, 120);
+      return r;
+    };
+    try{ openVerseFavorites = window.openVerseFavorites; }catch(e){}
+  }
+})();
+</script>
