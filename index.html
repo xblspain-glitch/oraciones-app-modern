@@ -2177,7 +2177,10 @@ function setActiveView(view){
 function switchSection(s){
   section=s;state.section=s;try{document.body.dataset.section=s;}catch(e){};saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
-  renderReader();openReader();
+  renderReader();
+  // v90.18.7: Oraciones, Notas y Guía entran directamente en la vista Leer.
+  if(s==="prayers" || s==="notes" || s==="guides"){enterFullscreenReading();return}
+  openReader();
 }
 function getItems(){
   return section==="prayers"?state.prayers:section==="notes"?state.notes:section==="guides"?state.guides:state.verses
