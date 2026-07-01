@@ -6447,6 +6447,131 @@ body.dark .topbar-row #tabParables.active-view{
 }
 </style>
 
+
+
+<!-- v90.18: pulido visual de emergentes (etiqueta pequeña + ventana elegante) -->
+<style id="v90-18-popup-polish-style">
+  .reader-popup-title{
+    padding:2px 7px !important;
+    border-radius:9px !important;
+    font-size:.86em !important;
+    line-height:1.12 !important;
+    font-weight:750 !important;
+    border:1px solid rgba(54,141,218,.36) !important;
+    background:linear-gradient(180deg, rgba(77,163,255,.13), rgba(77,163,255,.055)) !important;
+    box-shadow:0 1px 3px rgba(54,141,218,.10) !important;
+  }
+  .reader-popup-title:hover,
+  .reader-popup-title:focus{
+    background:linear-gradient(180deg, rgba(77,163,255,.18), rgba(77,163,255,.08)) !important;
+  }
+  .reader-popup-overlay-v908{
+    background:rgba(0,0,0,.44) !important;
+    backdrop-filter:blur(1px);
+    animation:popupFadeInV918 .16s ease-out both;
+  }
+  .reader-popup-overlay-v908.closing-v918{
+    animation:popupFadeOutV918 .14s ease-in both;
+  }
+  .reader-popup-card-v908{
+    position:relative;
+    border-radius:24px !important;
+    padding:20px 20px 18px !important;
+    background:linear-gradient(180deg,#edf8ff 0%,#f7fbff 100%) !important;
+    border:1px solid rgba(54,141,218,.34) !important;
+    box-shadow:0 24px 70px rgba(25,74,125,.30) !important;
+    transform-origin:center;
+    animation:popupZoomInV918 .18s ease-out both;
+  }
+  .closing-v918 .reader-popup-card-v908{
+    animation:popupZoomOutV918 .14s ease-in both;
+  }
+  .reader-popup-card-v908 h3{
+    margin:0 42px 14px 0 !important;
+    color:#2a719f !important;
+    font-size:22px !important;
+    line-height:1.2 !important;
+    font-weight:850 !important;
+  }
+  .reader-popup-close-x-v918{
+    position:absolute;
+    top:12px;
+    right:12px;
+    width:38px;
+    height:38px;
+    border:1px solid rgba(54,141,218,.25);
+    border-radius:999px;
+    background:rgba(255,255,255,.70);
+    color:#2a719f;
+    font-size:23px;
+    font-weight:800;
+    line-height:1;
+    box-shadow:0 2px 8px rgba(30,91,150,.10);
+  }
+  .reader-popup-content-v908{
+    background:rgba(255,255,255,.58) !important;
+    border-radius:18px !important;
+    padding:14px 16px !important;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.55) !important;
+  }
+  .reader-popup-actions-v913{
+    justify-content:flex-end !important;
+    align-items:center !important;
+    gap:10px !important;
+    margin-top:16px !important;
+  }
+  .reader-popup-actions-v913 .btn{
+    padding:10px 16px !important;
+    border-radius:14px !important;
+  }
+  @keyframes popupFadeInV918{from{opacity:0}to{opacity:1}}
+  @keyframes popupFadeOutV918{from{opacity:1}to{opacity:0}}
+  @keyframes popupZoomInV918{from{opacity:.6;transform:scale(.955)}to{opacity:1;transform:scale(1)}}
+  @keyframes popupZoomOutV918{from{opacity:1;transform:scale(1)}to{opacity:.3;transform:scale(.965)}}
+  body.dark .reader-popup-card-v908{
+    background:linear-gradient(180deg,#102338 0%,#0c1b2c 100%) !important;
+    border-color:rgba(157,204,255,.35) !important;
+  }
+  body.dark .reader-popup-card-v908 h3{color:#d7ecff !important;}
+  body.dark .reader-popup-close-x-v918{
+    background:rgba(255,255,255,.08);
+    color:#d7ecff;
+    border-color:rgba(157,204,255,.24);
+  }
+  body.dark .reader-popup-content-v908{background:rgba(255,255,255,.06) !important;}
+</style>
+<script id="v90-18-popup-polish-script">
+(function(){
+  if(window.__v918PopupPolish) return;
+  window.__v918PopupPolish=true;
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var text="";
+      try{ text=getCurrentContentTextV865(); }catch(e){ text=""; }
+      var blocks=(typeof parsePopupBlocksV908==='function') ? parsePopupBlocksV908(text) : [];
+      var b=blocks[idx];
+      if(!b){ alert("No se ha encontrado este bloque emergente."); return; }
+      try{ closeReaderPopupBlockV908(true); }catch(e){}
+      var wrap=document.createElement("div");
+      wrap.id="readerPopupOverlayV908";
+      wrap.className="reader-popup-overlay-v908";
+      wrap.onclick=function(ev){ if(ev.target===wrap) closeReaderPopupBlockV908(); };
+      var title=(typeof escapeHtml==='function') ? escapeHtml(b.title||"Emergente") : String(b.title||"Emergente");
+      var body=(typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(b.body||"") : ((typeof escapeHtml==='function') ? escapeHtml(b.body||"") : String(b.body||""));
+      wrap.innerHTML='<div class="reader-popup-card-v908"><button class="reader-popup-close-x-v918" type="button" aria-label="Cerrar" onclick="closeReaderPopupBlockV908()">×</button><h3>'+title+'</h3><div class="reader-popup-content-v908">'+body+'</div><div class="reader-popup-actions-v913"><button class="btn soft" type="button" onclick="closeReaderPopupBlockV908(true); editPopupBlockV908('+idx+')">✏️ Editar</button><button class="btn soft danger" type="button" onclick="closeReaderPopupBlockV908(true); deletePopupBlockV908('+idx+')">🗑️ Eliminar</button></div></div>';
+      document.body.appendChild(wrap);
+    }catch(e){ console.error("openReaderPopupBlockV918",e); }
+  };
+  window.closeReaderPopupBlockV908=function(immediate){
+    var el=document.getElementById("readerPopupOverlayV908");
+    if(!el) return;
+    if(immediate){ el.remove(); return; }
+    el.classList.add("closing-v918");
+    setTimeout(function(){ try{ el.remove(); }catch(e){} },150);
+  };
+  try{ openReaderPopupBlockV908=window.openReaderPopupBlockV908; closeReaderPopupBlockV908=window.closeReaderPopupBlockV908; }catch(e){}
+})();
+</script>
 </body>
 </html>
 
