@@ -1423,6 +1423,147 @@ body.dark .reader-collapse-content{
 body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:#6a3430}
 </style>
 
+
+<style id="v9019-inicio-debajo-botonera">
+/* v90.19 - Inicio visual debajo de la botonera.
+   No toca bienvenida, navegación, datos ni funciones. */
+.inicio-home-v9019{
+  margin:12px 10px 0;
+  padding:18px 16px 16px;
+  border:1px solid rgba(213,231,248,.95);
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255,244,214,.85), transparent 34%),
+    linear-gradient(135deg, rgba(234,244,255,.98), rgba(255,255,255,.96));
+  box-shadow:0 8px 22px rgba(31,95,155,.08);
+  color:var(--text);
+}
+.inicio-home-head-v9019{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+.inicio-home-kicker-v9019{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 11px;
+  border-radius:999px;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(255,255,255,.92);
+  color:#1f5f9b;
+  font-size:13px;
+  font-weight:800;
+}
+.inicio-home-date-v9019{
+  color:#5d6f82;
+  font-size:13px;
+  font-weight:800;
+  padding-top:7px;
+  white-space:nowrap;
+}
+.inicio-home-title-v9019{
+  margin:0;
+  font-size:25px;
+  line-height:1.15;
+  letter-spacing:-.02em;
+  color:#16395f;
+}
+.inicio-home-sub-v9019{
+  margin:8px 0 0;
+  color:#5d6f82;
+  font-size:15px;
+  line-height:1.45;
+}
+.inicio-home-card-v9019{
+  margin-top:15px;
+  padding:18px 16px;
+  border-radius:24px;
+  background:rgba(255,255,255,.9);
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:0 8px 18px rgba(31,95,155,.07);
+  text-align:center;
+}
+.inicio-home-ref-v9019{
+  color:#1f5f9b;
+  font-size:24px;
+  line-height:1.15;
+  font-weight:900;
+  margin:5px 0 12px;
+}
+.inicio-home-line-v9019{
+  width:82px;
+  height:1px;
+  margin:0 auto 13px;
+  background:linear-gradient(90deg, transparent, rgba(31,95,155,.42), transparent);
+}
+.inicio-home-verse-v9019{
+  margin:0;
+  font-size:21px;
+  line-height:1.65;
+  color:#172b45;
+}
+.inicio-home-foot-v9019{
+  margin-top:13px;
+  padding:12px 14px;
+  border-radius:18px;
+  background:rgba(234,244,255,.82);
+  color:#334960;
+  font-size:14px;
+  line-height:1.45;
+}
+body.dark .inicio-home-v9019{
+  border-color:rgba(255,255,255,.10);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(80,111,150,.35), transparent 35%),
+    linear-gradient(135deg, rgba(26,34,45,.98), rgba(20,23,28,.96));
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+}
+body.dark .inicio-home-kicker-v9019,
+body.dark .inicio-home-card-v9019{
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.10);
+}
+body.dark .inicio-home-title-v9019,
+body.dark .inicio-home-ref-v9019,
+body.dark .inicio-home-verse-v9019{color:var(--text)}
+body.dark .inicio-home-sub-v9019,
+body.dark .inicio-home-date-v9019,
+body.dark .inicio-home-foot-v9019{color:var(--muted)}
+body.dark .inicio-home-foot-v9019{background:rgba(255,255,255,.06)}
+body.fullscreen-reading .inicio-home-v9019,
+body.editing-focus .inicio-home-v9019,
+body.titles-only .inicio-home-v9019,
+body.backup-only .inicio-home-v9019,
+body.categories-fullscreen-v73 .inicio-home-v9019{
+  display:none!important;
+}
+@media(max-width:860px){
+  .inicio-home-v9019{
+    margin:10px 10px 0;
+    padding:16px 14px 14px;
+    border-radius:24px;
+  }
+  .inicio-home-head-v9019{
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:12px;
+  }
+  .inicio-home-date-v9019{
+    padding-top:0;
+  }
+  .inicio-home-title-v9019{
+    font-size:23px;
+  }
+  .inicio-home-verse-v9019{
+    font-size:20px;
+    line-height:1.6;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -1737,6 +1878,25 @@ function openRecentEntry(type,idx){
       <div id="counterInfo" class="counter counter-v66"></div>
     </div>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList();renderTitles();renderVerseCategories()">
+  </div>
+</div>
+
+
+<div class="inicio-home-v9019" aria-label="Inicio visual">
+  <div class="inicio-home-head-v9019">
+    <div>
+      <div class="inicio-home-kicker-v9019">🌅 Palabra para hoy</div>
+      <h1 class="inicio-home-title-v9019">Un momento para volver a Dios</h1>
+      <p class="inicio-home-sub-v9019">Abre el corazón, respira y deja que la Palabra te acompañe hoy.</p>
+    </div>
+    <div class="inicio-home-date-v9019">📅 Hoy</div>
+  </div>
+  <div class="inicio-home-card-v9019">
+    <div style="font-size:28px;line-height:1">📖</div>
+    <div class="inicio-home-ref-v9019">Versículo del día</div>
+    <div class="inicio-home-line-v9019"></div>
+    <p class="inicio-home-verse-v9019">La Palabra de Dios es lámpara a mis pies y lumbrera a mi camino.</p>
+    <div class="inicio-home-foot-v9019">🙏🏾 Que esta palabra te dé paz, fortaleza y esperanza.</div>
   </div>
 </div>
 
