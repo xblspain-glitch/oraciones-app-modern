@@ -1045,86 +1045,6 @@ body.reading-mobile:not(.fullscreen-reading):not(.verse-special-fullscreen-v74):
 
 
 .new-blue{background:linear-gradient(135deg,#2f78bf,#4fa3ff)!important;color:#fff!important;border-color:#2f78bf!important;}
-
-
-/* v90.19 - Inicio bonito visual (solo CSS, sin tocar lógica ni navegación) */
-#ov2Welcome{
-  align-items:flex-start;
-  padding:calc(26px + env(safe-area-inset-top)) 18px 24px;
-  background:
-    radial-gradient(circle at 50% -12%, rgba(255,255,255,.24) 0%, rgba(255,255,255,.08) 28%, transparent 58%),
-    linear-gradient(180deg,#173f6b 0%,#0d2847 46%,#071423 100%);
-}
-#ov2Welcome .ov2-card{
-  margin-top:10px;
-  width:min(430px,100%);
-  border-radius:34px;
-  padding:26px 20px 22px;
-  background:rgba(255,255,255,.13);
-  border:1px solid rgba(255,255,255,.22);
-  box-shadow:0 26px 70px rgba(0,0,0,.34);
-}
-#ov2Welcome .ov2-logo{
-  width:96px;
-  height:96px;
-  border-radius:28px;
-  margin-bottom:18px;
-}
-#ov2Welcome .ov2-kicker{
-  display:inline-block;
-  padding:7px 13px;
-  border-radius:999px;
-  background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.16);
-  letter-spacing:.08em;
-  font-size:12px;
-  margin-bottom:12px;
-}
-#ov2Welcome .ov2-title{
-  font-size:33px;
-  margin-bottom:8px;
-}
-#ov2Welcome .ov2-sub{
-  font-size:15.5px;
-  line-height:1.5;
-  margin-bottom:18px;
-  opacity:.9;
-}
-#ov2Welcome .ov2-verse{
-  margin:16px auto 20px;
-  padding:20px 17px 18px;
-  max-width:360px;
-  border-radius:26px;
-  background:rgba(255,255,255,.96);
-  color:#183456;
-  box-shadow:0 16px 36px rgba(0,0,0,.22);
-  font-size:18px;
-  line-height:1.72;
-  opacity:1;
-}
-#ov2Welcome .ov2-verse strong{
-  display:block;
-  margin-top:12px;
-  font-size:20px;
-  color:#0d2847;
-}
-#ov2Welcome .ov2-enter{
-  border-radius:20px;
-  padding:16px 18px;
-}
-#ov2Welcome .ov2-small{
-  margin-top:15px;
-  font-size:13px;
-  opacity:.78;
-}
-@media (max-width:480px){
-  #ov2Welcome{padding-top:calc(20px + env(safe-area-inset-top));}
-  #ov2Welcome .ov2-card{border-radius:30px;padding:23px 17px 20px;}
-  #ov2Welcome .ov2-title{font-size:30px;}
-  #ov2Welcome .ov2-verse{font-size:17px;padding:18px 15px;}
-  #ov2Welcome .ov2-verse strong{font-size:19px;}
-}
-
 </style>
 
 <style>
@@ -1819,6 +1739,21 @@ function openRecentEntry(type,idx){
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList();renderTitles();renderVerseCategories()">
   </div>
 </div>
+
+<!-- v90.19 - Inicio visual bajo la botonera (sin tocar bienvenida ni navegación) -->
+<section id="inicioVisualV9019" class="inicio-visual-v9019" aria-label="Inicio visual">
+  <div class="inicio-card-v9019">
+    <div class="inicio-top-v9019">
+      <div class="inicio-label-v9019">✨ Palabra para hoy</div>
+      <div id="inicioFechaV9019" class="inicio-date-v9019">Hoy</div>
+    </div>
+    <div class="inicio-icon-v9019">✝️</div>
+    <div id="inicioRefV9019" class="inicio-ref-v9019">Versículo del día</div>
+    <div class="inicio-sep-v9019"><span></span><b>♥</b><span></span></div>
+    <div id="inicioTextV9019" class="inicio-text-v9019">Abre el versículo del día para meditar en la Palabra de Dios.</div>
+    <div class="inicio-note-v9019">Que esta palabra te dé paz, fortaleza y esperanza hoy. 🙏🏾</div>
+  </div>
+</section>
 
 <div class="main">
   <aside class="sidebar"><div id="list" class="list"></div></aside>
@@ -4591,6 +4526,178 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
     margin-top:14px !important;
   }
 </style>
+
+
+
+<!-- v90.19 - CSS seguro: solo pantalla de Inicio bajo botonera -->
+<style id="v9019-inicio-visual-bajo-botonera">
+  .inicio-visual-v9019{
+    padding:0 10px 12px;
+    background:var(--bg);
+  }
+  .inicio-card-v9019{
+    position:relative;
+    overflow:hidden;
+    border-radius:26px;
+    border:1px solid rgba(138,90,43,.18);
+    background:
+      radial-gradient(circle at 18% 18%, rgba(255,238,199,.9), transparent 36%),
+      radial-gradient(circle at 84% 8%, rgba(211,222,255,.88), transparent 42%),
+      linear-gradient(135deg, rgba(255,255,255,.98), rgba(248,246,241,.96));
+    box-shadow:0 14px 35px rgba(55,42,28,.10);
+    padding:22px 18px 20px;
+    text-align:center;
+  }
+  .inicio-card-v9019::after{
+    content:"";
+    position:absolute;
+    inset:auto -18px -34px -18px;
+    height:92px;
+    background:linear-gradient(135deg, rgba(138,90,43,.10), rgba(47,120,191,.12));
+    filter:blur(2px);
+    pointer-events:none;
+  }
+  .inicio-top-v9019{
+    position:relative;
+    z-index:1;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:12px;
+    color:#5f3bb3;
+    font-weight:800;
+  }
+  .inicio-label-v9019,.inicio-date-v9019{
+    background:rgba(255,255,255,.64);
+    border:1px solid rgba(138,90,43,.12);
+    border-radius:999px;
+    padding:7px 10px;
+    font-size:13px;
+    line-height:1.1;
+  }
+  .inicio-icon-v9019{
+    position:relative;
+    z-index:1;
+    font-size:34px;
+    line-height:1;
+    margin:2px 0 8px;
+  }
+  .inicio-ref-v9019{
+    position:relative;
+    z-index:1;
+    font-size:30px;
+    line-height:1.12;
+    font-weight:900;
+    color:#5525b8;
+    letter-spacing:-.02em;
+    margin:0 0 8px;
+  }
+  .inicio-sep-v9019{
+    position:relative;
+    z-index:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    color:#8a5a2b;
+    margin:4px auto 14px;
+    max-width:220px;
+  }
+  .inicio-sep-v9019 span{height:1px;flex:1;background:rgba(138,90,43,.26)}
+  .inicio-sep-v9019 b{font-size:16px;line-height:1}
+  .inicio-text-v9019{
+    position:relative;
+    z-index:1;
+    max-width:680px;
+    margin:0 auto;
+    color:#12223a;
+    font-size:23px;
+    line-height:1.55;
+    font-weight:700;
+  }
+  .inicio-note-v9019{
+    position:relative;
+    z-index:1;
+    margin:18px auto 0;
+    max-width:720px;
+    border:1px solid rgba(255,255,255,.75);
+    border-radius:18px;
+    background:rgba(255,255,255,.72);
+    color:#24324c;
+    padding:12px 14px;
+    font-size:15px;
+    line-height:1.35;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.75);
+  }
+  body.dark .inicio-visual-v9019{background:var(--bg)}
+  body.dark .inicio-card-v9019{
+    border-color:rgba(255,210,125,.18);
+    background:
+      radial-gradient(circle at 16% 12%, rgba(112,78,39,.38), transparent 38%),
+      radial-gradient(circle at 86% 8%, rgba(47,120,191,.25), transparent 40%),
+      linear-gradient(135deg, rgba(31,31,31,.98), rgba(19,19,19,.96));
+    box-shadow:0 14px 36px rgba(0,0,0,.28);
+  }
+  body.dark .inicio-label-v9019,body.dark .inicio-date-v9019{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.08);color:#ffd27d}
+  body.dark .inicio-ref-v9019{color:#ffd27d}
+  body.dark .inicio-text-v9019{color:#f2eee7}
+  body.dark .inicio-note-v9019{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.10);color:#ddd2c4}
+  .fullscreen-reading .inicio-visual-v9019,
+  .verse-special-fullscreen-v74 .inicio-visual-v9019,
+  .titles-fullscreen-v72 .inicio-visual-v9019,
+  .categories-fullscreen-v73 .inicio-visual-v9019{display:none!important}
+  @media(max-width:860px){
+    .inicio-visual-v9019{padding:0 0 10px}
+    .inicio-card-v9019{border-radius:0;padding:20px 16px 18px;border-left:none;border-right:none}
+    .inicio-top-v9019{align-items:stretch}
+    .inicio-label-v9019,.inicio-date-v9019{font-size:12px;padding:7px 9px}
+    .inicio-ref-v9019{font-size:28px}
+    .inicio-text-v9019{font-size:21px;line-height:1.55}
+    .inicio-note-v9019{font-size:14px}
+  }
+</style>
+<script id="v9019-inicio-visual-bajo-botonera-js">
+(function(){
+  function pad(n){return String(n).padStart(2,'0')}
+  function dateKey(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+  function niceDate(){
+    try{return new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).replace(/^./,function(c){return c.toUpperCase()})}
+    catch(e){return 'Hoy'}
+  }
+  function clean(t){return String(t||'').replace(/\n/g,' ').replace(/\s+/g,' ').trim()}
+  function safe(t){return String(t||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function normalized(v){
+    if(!v)return null;
+    var txt=clean(v.text||v.content||v.body||v.txt||'');
+    if(!txt)return null;
+    return {id:v.id||v.reference||v.title||v.ref||txt.slice(0,24), ref:v.reference||v.title||v.ref||'Versículo', txt:txt};
+  }
+  function pickVerse(){
+    var fallback={ref:'Salmos 119:105',txt:'Lámpara es a mis pies tu palabra, y lumbrera a mi camino.'};
+    try{
+      var raw=localStorage.getItem('oraciones_full_numeracion_v1');
+      if(!raw)return fallback;
+      var data=JSON.parse(raw);
+      var verses=(Array.isArray(data.verses)?data.verses:[]).map(normalized).filter(Boolean);
+      if(!verses.length)return fallback;
+      var key=dateKey(), daily=data.dailyVerse, chosen=null;
+      if(daily && daily.date===key && daily.id){chosen=verses.find(function(v){return v.id===daily.id})}
+      return chosen || verses[0] || fallback;
+    }catch(e){return fallback}
+  }
+  function paint(){
+    var date=document.getElementById('inicioFechaV9019');
+    var ref=document.getElementById('inicioRefV9019');
+    var text=document.getElementById('inicioTextV9019');
+    if(date)date.textContent='📅 '+niceDate();
+    var v=pickVerse();
+    if(ref)ref.textContent=v.ref;
+    if(text)text.innerHTML='“'+safe(v.txt)+'”';
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',paint);else paint();
+})();
+</script>
 
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
