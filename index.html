@@ -7760,3 +7760,149 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   setTimeout(patchDailySearchButtonV9016, 500);
 })();
 </script>
+
+<script id="v90-17-buscar-versiculo-daily-live">
+/* v90.17 - Resultados en vivo en el buscador del Versículo del día */
+(function(){
+  if(window.__v9017BuscarVersiculoDailyLive) return;
+  window.__v9017BuscarVersiculoDailyLive = true;
+
+  function normV9017(s){
+    try{
+      return String(s || "")
+        .toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }catch(e){ return String(s || "").toLowerCase().trim(); }
+  }
+
+  function refV9017(v){ return (v && (v.reference || v.title || "")) || ""; }
+  function textV9017(v){ return (v && (v.text || v.content || "")) || ""; }
+
+  function poolV9017(){
+    var pool = (typeof allVersesForDay === "function") ? allVersesForDay() : ((window.state && state.verses) || []);
+    return (pool || []).filter(function(v){ return v && (refV9017(v) || textV9017(v)); });
+  }
+
+  function searchLiveV9017(query){
+    var q = normV9017(query);
+    if(!q) return [];
+    var terms = q.split(" ").filter(Boolean);
+    var scored = poolV9017().map(function(v){
+      var r = normV9017(refV9017(v));
+      var t = normV9017(textV9017(v));
+      var full = (r + " " + t).trim();
+      var score = 0;
+      if(r === q) score += 1000;
+      if(r.indexOf(q) === 0) score += 700;
+      if(r.indexOf(q) !== -1) score += 400;
+      if(t.indexOf(q) !== -1) score += 140;
+      var all = terms.every(function(term){ return full.indexOf(term) !== -1; });
+      if(all) score += 220;
+      terms.forEach(function(term){
+        if(r.indexOf(term) !== -1) score += 60;
+        if(t.indexOf(term) !== -1) score += 20;
+      });
+      return {v:v, score:score};
+    }).filter(function(x){ return x.score > 0; });
+    scored.sort(function(a,b){ return b.score - a.score; });
+    return scored.slice(0, 15).map(function(x){ return x.v; });
+  }
+
+  function escapeV9017(s){
+    return String(s || "").replace(/[&<>'"]/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c];
+    });
+  }
+
+  function snippetV9017(s){
+    s = String(s || "").replace(/\s+/g, " ").trim();
+    if(s.length > 120) s = s.slice(0, 120).trim() + "…";
+    return s;
+  }
+
+  function chooseV9017(v, overlay){
+    try{
+      if(overlay) overlay.remove();
+      if(typeof window.setDailyVerseFromSearchV9016 === "function"){
+        window.setDailyVerseFromSearchV9016(v);
+      }else{
+        state.dailyVerse = { date: todayKey(), id: v.id, manual: true, searched: true, changedAt: Date.now() };
+        if(typeof saveState === "function") saveState();
+        if(typeof openVerseSpecial === "function") openVerseSpecial(v, "daily");
+        if(typeof setActiveView === "function") setActiveView("daily");
+      }
+    }catch(e){ console.error("chooseV9017", e); }
+  }
+
+  window.openDailySearchV9016 = function(){
+    try{
+      var old = document.getElementById("dailySearchOverlayV9016");
+      if(old) old.remove();
+      var overlay = document.createElement("div");
+      overlay.id = "dailySearchOverlayV9016";
+      overlay.style.cssText = "position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;";
+      overlay.innerHTML = ''+
+        '<div style="background:#fff;border-radius:22px;max-width:620px;width:100%;max-height:88vh;overflow:auto;box-shadow:0 12px 40px rgba(0,0,0,.25);padding:22px;box-sizing:border-box;">'+
+          '<h2 style="margin:0 0 12px;font-size:24px;">🔍 Buscar versículo</h2>'+ 
+          '<p style="margin:0 0 14px;color:#666;font-size:16px;">Escribe una referencia, un libro o una palabra. Toca un resultado para elegirlo.</p>'+ 
+          '<input id="dailySearchInputV9016" type="text" inputmode="text" autocomplete="off" placeholder="Ej. San Juan, Juan 3:16, amor…" style="width:100%;font-size:20px;padding:14px 16px;border:1px solid #d8d0c0;border-radius:14px;box-sizing:border-box;margin-bottom:12px;">'+
+          '<div id="dailySearchResultsV9017" style="display:flex;flex-direction:column;gap:8px;margin:4px 0 16px;"></div>'+ 
+          '<div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">'+
+            '<button id="dailySearchCancelV9016" class="btn soft" type="button">Cancelar</button>'+ 
+            '<button id="dailySearchOkV9016" class="btn primary" type="button">🔍 Buscar</button>'+ 
+          '</div>'+ 
+        '</div>';
+      document.body.appendChild(overlay);
+      var input = document.getElementById("dailySearchInputV9016");
+      var results = document.getElementById("dailySearchResultsV9017");
+      var currentResults = [];
+      var close = function(){ try{ overlay.remove(); }catch(e){} };
+      var renderResults = function(){
+        var q = input ? input.value : "";
+        currentResults = searchLiveV9017(q);
+        if(!results) return;
+        if(!normV9017(q)){
+          results.innerHTML = '<div style="color:#8a7d6a;font-size:15px;padding:8px 2px;">Empieza a escribir para ver resultados.</div>';
+          return;
+        }
+        if(!currentResults.length){
+          results.innerHTML = '<div style="color:#8a7d6a;font-size:15px;padding:8px 2px;">No hay resultados.</div>';
+          return;
+        }
+        results.innerHTML = currentResults.map(function(v, i){
+          return '<button type="button" data-idx="'+i+'" style="text-align:left;width:100%;border:1px solid #d9cfbd;background:#fffaf2;border-radius:14px;padding:10px 12px;box-sizing:border-box;cursor:pointer;">'+
+            '<div style="font-weight:700;color:#3b2b19;margin-bottom:4px;">📖 '+escapeV9017(refV9017(v))+'</div>'+ 
+            '<div style="font-size:14px;color:#665b4d;line-height:1.35;">'+escapeV9017(snippetV9017(textV9017(v)))+'</div>'+ 
+          '</button>';
+        }).join('');
+      };
+      var run = function(){
+        var q = input ? input.value : "";
+        var list = currentResults && currentResults.length ? currentResults : searchLiveV9017(q);
+        if(!list.length){ alert("No encontré esa referencia."); if(input) input.focus(); return; }
+        chooseV9017(list[0], overlay);
+      };
+      document.getElementById("dailySearchCancelV9016").onclick = close;
+      document.getElementById("dailySearchOkV9016").onclick = run;
+      if(results){
+        results.addEventListener("click", function(ev){
+          var btn = ev.target.closest ? ev.target.closest("button[data-idx]") : null;
+          if(!btn) return;
+          var idx = parseInt(btn.getAttribute("data-idx"), 10);
+          if(currentResults[idx]) chooseV9017(currentResults[idx], overlay);
+        });
+      }
+      overlay.addEventListener("click", function(ev){ if(ev.target === overlay) close(); });
+      if(input){
+        input.focus();
+        input.addEventListener("input", renderResults);
+        input.addEventListener("keydown", function(ev){ if(ev.key === "Enter") run(); if(ev.key === "Escape") close(); });
+        renderResults();
+      }
+    }catch(e){ console.error("openDailySearchV9017", e); }
+  };
+})();
+</script>
