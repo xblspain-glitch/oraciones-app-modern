@@ -8004,3 +8004,29 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
     border-color:rgba(157,204,255,.12) !important;
   }
 </style>
+
+<!-- v90.18.3: animación suave de apertura para emergentes -->
+<style id="v90-18-3-popup-animation">
+  @keyframes popupOverlayFadeV90183{
+    from{ opacity:0; }
+    to{ opacity:1; }
+  }
+  @keyframes popupCardZoomV90183{
+    from{ opacity:0; transform:scale(.96) translateY(6px); }
+    to{ opacity:1; transform:scale(1) translateY(0); }
+  }
+  .reader-popup-overlay-v908{
+    animation:popupOverlayFadeV90183 170ms ease-out both !important;
+  }
+  .reader-popup-overlay-v908 .reader-popup-card-v908{
+    transform-origin:center center !important;
+    animation:popupCardZoomV90183 170ms ease-out both !important;
+    will-change:transform, opacity;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reader-popup-overlay-v908,
+    .reader-popup-overlay-v908 .reader-popup-card-v908{
+      animation:none !important;
+    }
+  }
+</style>
