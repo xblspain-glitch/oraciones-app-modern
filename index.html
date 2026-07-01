@@ -1743,6 +1743,20 @@ function openRecentEntry(type,idx){
 <div class="main">
   <aside class="sidebar"><div id="list" class="list"></div></aside>
   <section class="content">
+
+    <div id="homeWelcomeV90195" class="home-welcome-v90195 panel">
+      <div class="home-chip-v90195">🌅 Palabra para hoy</div>
+      <div class="home-title-v90195">Un momento para volver a Dios</div>
+      <div class="home-sub-v90195">Abre el corazón, respira y deja que la Palabra te acompañe hoy.</div>
+      <div id="homeDateV90195" class="home-date-v90195">📅 Hoy</div>
+      <div class="home-card-v90195">
+        <div class="home-book-v90195">📖</div>
+        <div id="homeRefV90195" class="home-ref-v90195">Versículo</div>
+        <div class="home-line-v90195"></div>
+        <div id="homeTextV90195" class="home-text-v90195">La Palabra de Dios es lámpara a mis pies y lumbrera a mi camino.</div>
+        <div class="home-note-v90195">🙏🏾 Que esta palabra te dé paz, fortaleza y esperanza.</div>
+      </div>
+    </div>
     <div id="readerView" class="panel">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
@@ -6507,6 +6521,97 @@ body.dark .topbar-row #tabParables.active-view{
     margin-top:14px !important;
   }
 </style>
+
+
+
+<!-- v90.19.5 - Inicio independiente estable debajo de la botonera -->
+<style id="v90195-home-stable-css">
+  body.home-mode-v90195 .main{display:block!important;padding:0 18px 18px!important;}
+  body.home-mode-v90195 .sidebar{display:none!important;}
+  body.home-mode-v90195 .content{display:block!important;width:100%!important;max-width:none!important;}
+  body.home-mode-v90195 #readerView,
+  body.home-mode-v90195 #editorView,
+  body.home-mode-v90195 #backupView,
+  body.home-mode-v90195 #trashView,
+  body.home-mode-v90195 #titlesView,
+  body.home-mode-v90195 #verseCategoriesView,
+  body.home-mode-v90195 #calendarView{display:none!important;}
+  #homeWelcomeV90195{display:none;box-sizing:border-box;margin:14px auto 0!important;max-width:740px!important;padding:18px 18px 20px!important;border-radius:26px!important;border:1px solid rgba(117,178,220,.35)!important;background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(233,246,255,.92))!important;box-shadow:0 12px 34px rgba(30,91,135,.13)!important;color:#173b5a!important;}
+  body.home-mode-v90195 #homeWelcomeV90195{display:block!important;}
+  .home-chip-v90195{display:inline-flex!important;align-items:center!important;gap:6px!important;padding:7px 12px!important;border-radius:999px!important;background:rgba(255,255,255,.88)!important;box-shadow:0 6px 18px rgba(40,95,140,.10)!important;font-weight:800!important;font-size:16px!important;color:#286a9c!important;}
+  .home-title-v90195{margin-top:14px!important;font-size:28px!important;line-height:1.12!important;font-weight:900!important;color:#123d62!important;letter-spacing:-.4px!important;}
+  .home-sub-v90195{margin-top:8px!important;font-size:18px!important;line-height:1.42!important;color:#65798a!important;font-weight:500!important;}
+  .home-date-v90195{margin-top:12px!important;font-size:17px!important;font-weight:800!important;color:#607585!important;}
+  .home-card-v90195{margin-top:16px!important;padding:22px 18px!important;border-radius:24px!important;background:rgba(255,255,255,.97)!important;box-shadow:0 10px 28px rgba(18,61,98,.10)!important;text-align:center!important;}
+  .home-book-v90195{font-size:28px!important;margin-bottom:4px!important;}
+  .home-ref-v90195{font-size:25px!important;font-weight:900!important;line-height:1.18!important;color:#246da2!important;}
+  .home-line-v90195{width:72px!important;height:1px!important;margin:12px auto 16px!important;background:linear-gradient(90deg,transparent,rgba(36,109,162,.35),transparent)!important;}
+  .home-text-v90195{font-size:23px!important;line-height:1.45!important;color:#1b2d3f!important;font-weight:500!important;}
+  .home-note-v90195{margin-top:18px!important;padding:12px 14px!important;border-radius:18px!important;background:#eaf5ff!important;color:#41596b!important;font-size:17px!important;line-height:1.35!important;font-weight:600!important;}
+  body.dark #homeWelcomeV90195{background:linear-gradient(135deg,rgba(18,37,58,.96),rgba(8,25,40,.96))!important;border-color:rgba(151,203,255,.24)!important;color:#eaf6ff!important;}
+  body.dark .home-card-v90195,.body.dark .home-chip-v90195{background:rgba(255,255,255,.08)!important;}
+  body.dark .home-title-v90195,body.dark .home-ref-v90195{color:#d7ecff!important;}
+  body.dark .home-sub-v90195,body.dark .home-date-v90195,body.dark .home-text-v90195{color:#d8e5ef!important;}
+  body.dark .home-note-v90195{background:rgba(146,199,255,.12)!important;color:#d8e5ef!important;}
+</style>
+<script id="v90195-home-stable-js">
+(function(){
+  function byId(id){return document.getElementById(id)}
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function items(){try{return (window.state && Array.isArray(state.verses)) ? state.verses : []}catch(e){return []}}
+  function cleanText(v){
+    var t=(v && (v.text||v.content||v.txt)) || '';
+    return String(t).replace(/\s+/g,' ').trim();
+  }
+  function refText(v){return (v && (v.reference||v.ref||v.title)) || 'Versículo'}
+  function pickVerse(){
+    var arr=items().filter(function(v){return cleanText(v) && refText(v)});
+    if(!arr.length) return null;
+    var key='homeVerseSeedV90195';
+    var today=new Date();
+    var stamp=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var stored='';
+    try{stored=localStorage.getItem(key)||''}catch(e){}
+    var idx;
+    if(stored.indexOf(stamp+':')===0){idx=parseInt(stored.split(':')[1],10)}
+    if(!(idx>=0 && idx<arr.length)){
+      idx=Math.floor(Math.random()*arr.length);
+      try{localStorage.setItem(key,stamp+':'+idx)}catch(e){}
+    }
+    return arr[idx];
+  }
+  function renderHome(){
+    var d=byId('homeDateV90195');
+    if(d){try{d.textContent='📅 '+new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}catch(e){d.textContent='📅 Hoy'}}
+    var v=pickVerse();
+    var r=byId('homeRefV90195'), t=byId('homeTextV90195');
+    if(v){ if(r)r.textContent=refText(v); if(t)t.textContent=cleanText(v); }
+  }
+  window.showHomeV90195=function(){
+    try{renderHome()}catch(e){console.error(e)}
+    try{document.body.classList.add('home-mode-v90195')}catch(e){}
+    ['readerView','editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){var el=byId(id); if(el)el.classList.add('hidden')});
+    try{document.body.classList.remove('fullscreen-reading','reading-mobile','hide-reading-ui','titles-fullscreen-v72','categories-fullscreen-v73','editing-focus')}catch(e){}
+    try{if(typeof setActiveView==='function')setActiveView(null)}catch(e){}
+    try{window.scrollTo({top:0,behavior:'smooth'})}catch(e){}
+  };
+  window.hideHomeV90195=function(){try{document.body.classList.remove('home-mode-v90195')}catch(e){}};
+  function wrap(name){
+    var old=window[name] || (typeof window[name] !== 'undefined' ? window[name] : null);
+    if(typeof old!=='function')return;
+    window[name]=function(){window.hideHomeV90195();return old.apply(this,arguments)};
+    try{eval(name+'=window[name]')}catch(e){}
+  }
+  ['openReader','enterFullscreenReading','openEditor','openBackup','openTrash','openTitlesView','openDailyVerse','openChristianCalendar','openVerseCategories','openRandomVerse'].forEach(wrap);
+  var oldBack=window.smartBack || (typeof smartBack!=='undefined'?smartBack:null);
+  if(typeof oldBack==='function'){
+    window.smartBack=function(){ window.showHomeV90195(); };
+    try{smartBack=window.smartBack}catch(e){}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(window.showHomeV90195,80)});
+  else setTimeout(window.showHomeV90195,80);
+})();
+</script>
 
 </body>
 </html>
