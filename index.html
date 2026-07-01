@@ -1740,30 +1740,12 @@ function openRecentEntry(type,idx){
   </div>
 </div>
 
-<!-- v90.19.1 Inicio independiente debajo de la botonera -->
-<div id="homeV90191" class="home-v90191" aria-label="Inicio Oraciones V2">
-  <div class="home-shell-v90191">
-    <div class="home-chip-v90191">🌅 Palabra para hoy</div>
-    <h2 class="home-title-v90191">Un momento para volver a Dios</h2>
-    <p class="home-sub-v90191">Abre el corazón y deja que la Palabra te acompañe hoy.</p>
-    <div id="homeDateV90191" class="home-date-v90191">📅 Hoy</div>
-    <div class="home-card-v90191">
-      <div class="home-icon-v90191">📖</div>
-      <div id="homeRefV90191" class="home-ref-v90191">Versículo</div>
-      <div class="home-line-v90191"></div>
-      <div id="homeTextV90191" class="home-text-v90191">La Palabra de Dios es lámpara a mis pies y lumbrera a mi camino.</div>
-      <div class="home-note-v90191">🙏🏾 Que esta palabra te dé paz, fortaleza y esperanza.</div>
-    </div>
-    <button class="home-enter-v90191" type="button" onclick="enterHomeV90191()">Entrar</button>
-  </div>
-</div>
-
 <div class="main">
   <aside class="sidebar"><div id="list" class="list"></div></aside>
   <section class="content">
     <div id="readerView" class="panel">
       <div class="panel-head">
-        <button class="btn soft" type="button" onclick="showHomeV90191()">← Volver</button>
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
         <button class="btn primary new-blue" type="button" onclick="newItem()">➕ Nueva</button>
         <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
         <button data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
@@ -1804,7 +1786,7 @@ function openRecentEntry(type,idx){
         <button class="btn primary" type="button" onclick="saveCurrent(false,false)">✅ Guardar y volver</button>
         <button class="btn danger" type="button" onclick="discardEditorChanges()">❌ Descartar</button>
         <button class="btn soft" type="button" onclick="openBlockMenu()">📑 Bloque</button>
-        <button class="btn soft" type="button" onclick="showHomeV90191()">← Volver</button>
+        <button class="btn soft" type="button" onclick="leaveEditor()">← Volver</button>
         <div id="saveStatus" class="status">Sin cambios</div>
       </div>
       <input id="editTitle" class="title-input" placeholder="Título">
@@ -1831,7 +1813,7 @@ function openRecentEntry(type,idx){
 
     <div id="backupView" class="panel hidden">
       <div class="panel-head backup-head-v40">
-        <button class="btn soft" type="button" onclick="showHomeV90191()">← Volver</button>
+        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
 
         <div class="backup-title-v40">📤 EXPORTAR</div>
         <button class="btn primary" type="button" onclick="downloadBackupJson()">⬇ Descargar JSON</button>
@@ -1860,7 +1842,7 @@ function openRecentEntry(type,idx){
 
     <div id="calendarView" class="panel hidden">
       <div class="panel-head">
-        <button class="btn soft" type="button" onclick="showHomeV90191()">← Volver</button>
+        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
         <button class="btn soft" type="button" onclick="renderChristianCalendar(new Date())">📅 Hoy</button>
         <button class="btn soft" type="button" onclick="renderChristianCalendar(addCalendarDays(new Date(),1))">Mañana</button>
         <button class="btn soft" type="button" onclick="openFestivityLibrary()">📚 Festividades</button>
@@ -1872,7 +1854,7 @@ function openRecentEntry(type,idx){
 
     <div id="verseCategoriesView" class="panel hidden categories-screen-v73">
       <div class="panel-head categories-head-v73">
-        <button class="btn soft" type="button" onclick="showHomeV90191()">← Volver</button>
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
         <button class="btn soft" type="button" onclick="openVerseFavorites()">⭐ Favoritos</button>
         <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Hoy</button>
         <button class="btn soft" type="button" onclick="openRandomVerse()">🌿 Versículo al azar</button>
@@ -1888,7 +1870,7 @@ function openRecentEntry(type,idx){
 
     <div id="titlesView" class="panel hidden titles-screen-v72">
       <div class="panel-head titles-head-v72">
-        <button class="btn soft" type="button" onclick="showHomeV90191()">← Volver</button>
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
         <input id="titlesSearch" class="search titles-search-v72" placeholder="Buscar..." oninput="renderTitles()">
       </div>
       <div id="titlesList" class="title-list"></div>
@@ -1896,7 +1878,7 @@ function openRecentEntry(type,idx){
 
     <div id="trashView" class="panel hidden">
       <div class="panel-head">
-        <button class="btn soft" type="button" onclick="showHomeV90191()">← Volver</button>
+        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
         <button class="btn danger" type="button" onclick="emptyTrash()">Vaciar papelera</button>
       </div>
       <div id="trashList" class="trash-list"></div>
@@ -4530,87 +4512,6 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
   }
 </style>
 
-
-
-<style id="v90191-home-independent-small">
-  body.home-active-v90191 .main{display:none!important;}
-  body.home-active-v90191 #search{display:none!important;}
-  .home-v90191{display:none;padding:12px 18px 18px;background:var(--bg);}
-  body.home-active-v90191 .home-v90191{display:block;}
-  .home-shell-v90191{max-width:760px;margin:0 auto;border:1px solid rgba(54,141,218,.22);border-radius:24px;padding:20px 22px 22px;background:linear-gradient(135deg,rgba(255,251,235,.82),rgba(235,247,255,.94) 55%,rgba(255,255,255,.95));box-shadow:0 10px 28px rgba(31,94,150,.10);color:#173b5d;overflow:hidden;}
-  .home-chip-v90191{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.86);border-radius:999px;padding:7px 12px;font-weight:800;font-size:15px;color:#246da4;box-shadow:0 4px 14px rgba(31,94,150,.07);}
-  .home-title-v90191{margin:12px 0 6px;font-size:28px;line-height:1.08;color:#133f65;font-weight:900;letter-spacing:-.03em;}
-  .home-sub-v90191{margin:0 0 12px;font-size:18px;line-height:1.35;color:#687a8d;}
-  .home-date-v90191{font-size:16px;font-weight:800;color:#66798c;margin:2px 0 14px;}
-  .home-card-v90191{background:rgba(255,255,255,.92);border-radius:24px;padding:20px 18px 18px;text-align:center;box-shadow:0 10px 24px rgba(31,94,150,.10);border:1px solid rgba(255,255,255,.8);}
-  .home-icon-v90191{font-size:25px;margin-bottom:4px;}
-  .home-ref-v90191{font-size:24px;line-height:1.15;font-weight:900;color:#226fa8;margin:2px 0 8px;}
-  .home-line-v90191{width:92px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,111,168,.35),transparent);margin:0 auto 12px;}
-  .home-text-v90191{font-size:22px;line-height:1.42;color:#1c334b;margin:0 auto;max-width:620px;}
-  .home-note-v90191{margin:16px auto 0;background:#edf7ff;border-radius:18px;padding:11px 13px;font-size:16px;line-height:1.35;color:#456276;max-width:560px;}
-  .home-enter-v90191{width:100%;margin-top:16px;border:0;border-radius:18px;padding:14px 16px;background:#fff;color:#173b5d;font-size:20px;font-weight:900;box-shadow:0 8px 22px rgba(31,94,150,.10);}
-  body.dark .home-v90191{background:var(--bg);}
-  body.dark .home-shell-v90191{background:linear-gradient(135deg,#10263a,#0d1d2d);border-color:rgba(157,204,255,.20);color:#d8ecff;}
-  body.dark .home-card-v90191{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.10);}
-  body.dark .home-title-v90191,body.dark .home-ref-v90191{color:#d8ecff;}
-  body.dark .home-text-v90191{color:#f2f8ff;}
-  body.dark .home-sub-v90191,body.dark .home-date-v90191{color:#a8bdd1;}
-  body.dark .home-note-v90191{background:rgba(157,204,255,.10);color:#d2e8ff;}
-  @media(max-width:520px){.home-v90191{padding:10px 18px 16px}.home-shell-v90191{padding:18px 18px 20px;border-radius:22px}.home-title-v90191{font-size:24px}.home-sub-v90191{font-size:16px}.home-card-v90191{padding:18px 14px}.home-ref-v90191{font-size:22px}.home-text-v90191{font-size:20px}.home-note-v90191{font-size:15px}.home-enter-v90191{font-size:18px;padding:13px}}
-</style>
-<script id="v90191-home-independent-js">
-(function(){
-  var STORAGE_KEY='oraciones_full_numeracion_v1';
-  var pickedId=null;
-  function clean(t){return String(t||'').replace(/\\n/g,' ').replace(/\s+/g,' ').trim();}
-  function esc(t){return String(t||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]||c;});}
-  function cap(t,n){t=clean(t); if(t.length<=n)return t; var c=t.slice(0,n).replace(/\s+\S*$/,'').trim(); return (c||t.slice(0,n).trim())+'...';}
-  function dateLabel(){try{return new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}catch(e){return 'Hoy';}}
-  function getVerses(){
-    try{
-      var data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
-      var arr=Array.isArray(data.verses)?data.verses:[];
-      return arr.map(function(v){return {id:v.id||v.title,ref:v.title||v.reference||v.ref||'Versículo',txt:clean(v.text||v.content||v.body||v.txt||'')};}).filter(function(v){return v.txt;});
-    }catch(e){return [];}
-  }
-  function pickVerse(){
-    var verses=getVerses();
-    if(!verses.length)return {ref:'Salmos 119:105',txt:'La Palabra de Dios es lámpara a mis pies y lumbrera a mi camino.'};
-    return verses[Math.floor(Math.random()*verses.length)];
-  }
-  function fillHome(){
-    var v=pickVerse(); pickedId=v.id||null;
-    var d=document.getElementById('homeDateV90191'), r=document.getElementById('homeRefV90191'), t=document.getElementById('homeTextV90191');
-    if(d)d.textContent='📅 '+dateLabel();
-    if(r)r.innerHTML=esc(v.ref);
-    if(t)t.innerHTML=esc(cap(v.txt,210));
-  }
-  window.showHomeV90191=function(){
-    document.body.classList.add('home-active-v90191');
-    try{setSearchVisibleV26 && setSearchVisibleV26(false);}catch(e){}
-    window.scrollTo({top:0,behavior:'smooth'});
-  };
-  window.hideHomeV90191=function(){document.body.classList.remove('home-active-v90191');};
-  window.enterHomeV90191=function(){
-    hideHomeV90191();
-    try{ if(typeof openReader==='function') openReader(); }catch(e){}
-    try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){}
-  };
-  function wrap(name){
-    var fn=window[name];
-    if(typeof fn==='function' && !fn.__homeWrappedV90191){
-      window[name]=function(){hideHomeV90191(); return fn.apply(this,arguments);};
-      window[name].__homeWrappedV90191=true;
-    }
-  }
-  function init(){
-    fillHome();
-    document.body.classList.add('home-active-v90191');
-    ['switchSection','switchSectionAndReadV90187','openDailyVerse','openRandomVerse','openChristianCalendar','openBackup','openTrash','openTitlesView','openVerseCategories','newItem','openEditor','openFavorites','openMoreMenu'].forEach(wrap);
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-})();
-</script>
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
