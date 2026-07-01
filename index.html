@@ -7951,3 +7951,56 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   };
 })();
 </script>
+
+<!-- v90.18.2: pulido visual suave de ventana emergente -->
+<style id="v90-18-2-popup-window-soft-polish">
+  .reader-popup-overlay-v908{
+    background:rgba(12, 33, 56, .34) !important;
+    backdrop-filter:blur(2px) !important;
+    -webkit-backdrop-filter:blur(2px) !important;
+  }
+  .reader-popup-card-v908{
+    background:linear-gradient(180deg, #eef8ff 0%, #f8fcff 100%) !important;
+    color:var(--text) !important;
+    border:1px solid rgba(54,141,218,.32) !important;
+    border-radius:24px !important;
+    padding:20px !important;
+    box-shadow:0 18px 48px rgba(29, 83, 137, .22) !important;
+  }
+  .reader-popup-card-v908 h3{
+    margin:0 0 12px 0 !important;
+    padding:0 4px 10px 4px !important;
+    border-bottom:1px solid rgba(54,141,218,.18) !important;
+    color:#226fa8 !important;
+    font-size:20px !important;
+    line-height:1.25 !important;
+  }
+  .reader-popup-content-v908{
+    background:rgba(255,255,255,.62) !important;
+    border:1px solid rgba(54,141,218,.12) !important;
+    border-radius:18px !important;
+    padding:14px 16px !important;
+    font-size:19px !important;
+    line-height:1.72 !important;
+  }
+  .reader-popup-actions-v913{
+    margin-top:16px !important;
+    justify-content:flex-end !important;
+  }
+  body.dark .reader-popup-overlay-v908{
+    background:rgba(0,0,0,.55) !important;
+  }
+  body.dark .reader-popup-card-v908{
+    background:linear-gradient(180deg, #102338 0%, #0b1928 100%) !important;
+    border-color:rgba(157,204,255,.30) !important;
+    box-shadow:0 18px 48px rgba(0,0,0,.45) !important;
+  }
+  body.dark .reader-popup-card-v908 h3{
+    color:#d7ecff !important;
+    border-bottom-color:rgba(157,204,255,.18) !important;
+  }
+  body.dark .reader-popup-content-v908{
+    background:rgba(255,255,255,.06) !important;
+    border-color:rgba(157,204,255,.12) !important;
+  }
+</style>
