@@ -1740,6 +1740,112 @@ function openRecentEntry(type,idx){
   </div>
 </div>
 
+
+<!-- v90.19.2 - Inicio independiente debajo de la botonera (seguro) -->
+<style id="v90-19-2-home-independent-style">
+  body.home-v90192 #appHomeV90192{display:block;}
+  body.home-v90192 .main{display:none !important;}
+  #appHomeV90192{display:none;padding:12px 16px 18px;box-sizing:border-box;}
+  .home-card-v90192{max-width:760px;margin:0 auto;background:linear-gradient(135deg,#f8fcff 0%,#eef7ff 100%);border:1px solid rgba(50,125,190,.18);border-radius:24px;padding:18px 18px 20px;box-shadow:0 10px 28px rgba(31,91,145,.10);color:#17324c;overflow:hidden;}
+  .home-pill-v90192{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.86);border-radius:999px;padding:8px 13px;font-weight:800;color:#236b9f;font-size:15px;box-shadow:0 4px 14px rgba(31,91,145,.07);}
+  .home-title-v90192{margin:14px 0 8px;font-size:27px;line-height:1.08;font-weight:900;color:#153b61;letter-spacing:-.03em;}
+  .home-sub-v90192{margin:0;color:#687785;font-size:18px;line-height:1.45;}
+  .home-date-v90192{margin:12px 0 14px;color:#607282;font-size:16px;font-weight:800;}
+  .home-verse-v90192{background:rgba(255,255,255,.94);border-radius:22px;padding:20px 18px;text-align:center;box-shadow:0 10px 25px rgba(31,91,145,.09);border:1px solid rgba(255,255,255,.72);}
+  .home-book-v90192{font-size:27px;line-height:1;margin-bottom:8px;}
+  .home-ref-v90192{font-size:26px;line-height:1.15;font-weight:900;color:#226fa8;margin:0 0 12px;}
+  .home-line-v90192{width:84px;height:1px;background:linear-gradient(to right,transparent,rgba(34,111,168,.32),transparent);margin:0 auto 14px;}
+  .home-text-v90192{font-size:21px;line-height:1.55;color:#172b40;margin:0;}
+  .home-footer-v90192{margin-top:14px;background:#edf7ff;border-radius:18px;padding:12px 14px;font-size:16px;line-height:1.4;color:#40566a;}
+  .home-actions-v90192{margin-top:14px;display:flex;gap:10px;justify-content:center;}
+  .home-enter-v90192{border:0;border-radius:18px;background:white;color:#17324c;font-weight:900;font-size:18px;padding:13px 26px;box-shadow:0 8px 20px rgba(31,91,145,.10);}
+  body.dark .home-card-v90192{background:linear-gradient(135deg,#132a40 0%,#0d1d2e 100%);border-color:rgba(157,204,255,.18);color:#eaf6ff;}
+  body.dark .home-pill-v90192,body.dark .home-verse-v90192,body.dark .home-enter-v90192{background:rgba(255,255,255,.08);color:#eaf6ff;border-color:rgba(255,255,255,.10);}
+  body.dark .home-title-v90192,body.dark .home-ref-v90192{color:#d7ecff;}
+  body.dark .home-sub-v90192,body.dark .home-date-v90192,body.dark .home-footer-v90192{color:#c5d5e3;}
+  body.dark .home-footer-v90192{background:rgba(255,255,255,.06);}
+  @media(max-width:560px){#appHomeV90192{padding:10px 18px 16px}.home-card-v90192{padding:16px 16px 18px;border-radius:22px}.home-title-v90192{font-size:25px}.home-sub-v90192{font-size:17px}.home-ref-v90192{font-size:24px}.home-text-v90192{font-size:20px}}
+</style>
+
+<div id="appHomeV90192" aria-label="Inicio">
+  <div class="home-card-v90192">
+    <div class="home-pill-v90192">🌅 Palabra para hoy</div>
+    <h1 class="home-title-v90192">Un momento para volver a Dios</h1>
+    <p class="home-sub-v90192">Abre el corazón, respira y deja que la Palabra te acompañe hoy.</p>
+    <div id="homeDateV90192" class="home-date-v90192">📅 Hoy</div>
+    <div class="home-verse-v90192">
+      <div class="home-book-v90192">📖</div>
+      <div id="homeRefV90192" class="home-ref-v90192">Versículo</div>
+      <div class="home-line-v90192"></div>
+      <p id="homeTextV90192" class="home-text-v90192">Cargando...</p>
+      <div class="home-footer-v90192">🙏🏾 Que esta palabra te dé paz, fortaleza y esperanza.</div>
+    </div>
+    <div class="home-actions-v90192"><button class="home-enter-v90192" type="button" onclick="hideHomeV90192()">Entrar</button></div>
+  </div>
+</div>
+
+<script id="v90-19-2-home-independent-script">
+(function(){
+  if(window.__homeV90192) return; window.__homeV90192=true;
+  function byId(id){return document.getElementById(id);}
+  function txt(v){return (v && (v.text || v.txt || v.content || '')) || '';}
+  function ref(v){return (v && (v.reference || v.ref || v.title || '')) || '';}
+  function clean(s){return String(s||'').replace(/\s+/g,' ').trim();}
+  function getPool(){
+    var pool=[];
+    try{ if(typeof allVersesForDay==='function') pool=allVersesForDay()||[]; }catch(e){}
+    try{ if((!pool||!pool.length) && window.state && state.verses) pool=state.verses||[]; }catch(e){}
+    return (pool||[]).filter(function(v){return clean(ref(v)) || clean(txt(v));});
+  }
+  function choose(){
+    var pool=getPool();
+    if(!pool.length) return null;
+    var key='homeVerseV90192_'+(new Date()).toDateString();
+    var saved=null;
+    try{saved=localStorage.getItem(key);}catch(e){}
+    var found=saved ? pool.find(function(v){return String(v.id||'')===saved;}) : null;
+    if(found) return found;
+    var v=pool[Math.floor(Math.random()*pool.length)];
+    try{ if(v && v.id) localStorage.setItem(key,String(v.id)); }catch(e){}
+    return v;
+  }
+  function render(){
+    var d=byId('homeDateV90192'), r=byId('homeRefV90192'), t=byId('homeTextV90192');
+    if(d){ try{ d.textContent='📅 '+new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'}); }catch(e){ d.textContent='📅 Hoy'; } }
+    var v=choose();
+    if(!v){ if(r)r.textContent='Versículo'; if(t)t.textContent='Todavía no hay versículos guardados.'; return; }
+    if(r) r.textContent=clean(ref(v)) || 'Versículo';
+    var body=clean(txt(v));
+    if(body.length>230) body=body.slice(0,230).trim()+'…';
+    if(t) t.textContent=body;
+  }
+  window.showHomeV90192=function(){ try{render();document.body.classList.add('home-v90192');}catch(e){console.error('showHomeV90192',e);} };
+  window.hideHomeV90192=function(){ try{document.body.classList.remove('home-v90192');}catch(e){} };
+  function wrap(name){
+    var old=window[name];
+    if(typeof old!=='function') return;
+    window[name]=function(){ hideHomeV90192(); return old.apply(this,arguments); };
+  }
+  function install(){
+    try{
+      wrap('switchSection');
+      wrap('switchSectionAndReadV90187');
+      wrap('openDailyVerse');
+      wrap('openChristianCalendar');
+      wrap('openBackup');
+      wrap('openTrash');
+      wrap('openReader');
+      var oldBack=window.smartBack;
+      if(typeof oldBack==='function'){
+        window.smartBack=function(){ showHomeV90192(); return; };
+      }
+      showHomeV90192();
+    }catch(e){console.error('home install v90192',e);}
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',install); else install();
+})();
+</script>
+
 <div class="main">
   <aside class="sidebar"><div id="list" class="list"></div></aside>
   <section class="content">
