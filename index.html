@@ -4475,6 +4475,160 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
 }
 </style>
 
+
+
+<!-- v90.18 REAL: emergente pulido al final para que no lo pisen estilos anteriores -->
+<style id="v90-18-real-popup-polish-style">
+  /* Etiqueta cerrada: más pequeña, inline y acorde al texto */
+  .reader-popup-block{
+    display:inline !important;
+    width:auto !important;
+    max-width:none !important;
+    margin:0 2px !important;
+    padding:0 !important;
+    border:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    vertical-align:baseline !important;
+  }
+  .reader-popup-title{
+    display:inline-flex !important;
+    align-items:center !important;
+    width:auto !important;
+    max-width:none !important;
+    padding:2px 7px !important;
+    border:1px solid rgba(54,141,218,.38) !important;
+    border-radius:10px !important;
+    background:linear-gradient(180deg, rgba(77,163,255,.14), rgba(77,163,255,.055)) !important;
+    color:#226fa8 !important;
+    box-shadow:0 1px 3px rgba(54,141,218,.10) !important;
+    text-align:left !important;
+    font-size:.84em !important;
+    font-weight:760 !important;
+    line-height:1.12 !important;
+    vertical-align:baseline !important;
+  }
+  .reader-popup-title:after{content:"" !important; display:none !important;}
+  .reader-popup-title:hover,
+  .reader-popup-title:focus{
+    background:linear-gradient(180deg, rgba(77,163,255,.20), rgba(77,163,255,.08)) !important;
+    outline:none !important;
+  }
+
+  /* Overlay y animación */
+  .reader-popup-overlay-v908{
+    background:rgba(0,0,0,.44) !important;
+    backdrop-filter:blur(1px);
+    animation:popupFadeInV918 .16s ease-out both;
+  }
+  .reader-popup-overlay-v908.closing-v918{animation:popupFadeOutV918 .14s ease-in both;}
+
+  /* Ventana emergente */
+  .reader-popup-card-v908{
+    position:relative !important;
+    border-radius:24px !important;
+    padding:20px 20px 18px !important;
+    background:linear-gradient(180deg,#edf8ff 0%,#f8fcff 100%) !important;
+    border:1px solid rgba(54,141,218,.36) !important;
+    box-shadow:0 24px 70px rgba(25,74,125,.30) !important;
+    transform-origin:center !important;
+    animation:popupZoomInV918 .18s ease-out both;
+  }
+  .closing-v918 .reader-popup-card-v908{animation:popupZoomOutV918 .14s ease-in both;}
+  .reader-popup-card-v908 h3{
+    margin:0 44px 14px 0 !important;
+    color:#2a719f !important;
+    font-size:21px !important;
+    line-height:1.22 !important;
+    font-weight:850 !important;
+  }
+  .reader-popup-content-v908{
+    background:rgba(255,255,255,.62) !important;
+    border-radius:18px !important;
+    padding:14px 16px !important;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.62) !important;
+  }
+  .reader-popup-actions-v913{
+    display:flex !important;
+    flex-wrap:wrap !important;
+    justify-content:flex-end !important;
+    align-items:center !important;
+    gap:10px !important;
+    margin-top:16px !important;
+  }
+  .reader-popup-actions-v913 .btn{
+    padding:10px 16px !important;
+    border-radius:14px !important;
+  }
+  .reader-popup-close-x-v918{
+    position:absolute !important;
+    top:12px !important;
+    right:12px !important;
+    width:38px !important;
+    height:38px !important;
+    border:1px solid rgba(54,141,218,.25) !important;
+    border-radius:999px !important;
+    background:rgba(255,255,255,.72) !important;
+    color:#2a719f !important;
+    font-size:24px !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+    box-shadow:0 2px 8px rgba(30,91,150,.10) !important;
+  }
+  @keyframes popupFadeInV918{from{opacity:0}to{opacity:1}}
+  @keyframes popupFadeOutV918{from{opacity:1}to{opacity:0}}
+  @keyframes popupZoomInV918{from{opacity:.6;transform:scale(.955)}to{opacity:1;transform:scale(1)}}
+  @keyframes popupZoomOutV918{from{opacity:1;transform:scale(1)}to{opacity:.3;transform:scale(.965)}}
+
+  body.dark .reader-popup-title{
+    color:#d7ecff !important;
+    border-color:rgba(157,204,255,.45) !important;
+    background:linear-gradient(180deg, rgba(77,163,255,.22), rgba(77,163,255,.09)) !important;
+  }
+  body.dark .reader-popup-card-v908{
+    background:linear-gradient(180deg,#102338 0%,#0c1b2c 100%) !important;
+    border-color:rgba(157,204,255,.35) !important;
+  }
+  body.dark .reader-popup-card-v908 h3{color:#d7ecff !important;}
+  body.dark .reader-popup-content-v908{background:rgba(255,255,255,.06) !important;}
+  body.dark .reader-popup-close-x-v918{
+    background:rgba(255,255,255,.08) !important;
+    color:#d7ecff !important;
+    border-color:rgba(157,204,255,.24) !important;
+  }
+</style>
+<script id="v90-18-real-popup-polish-script">
+(function(){
+  window.__v918PopupPolishReal=true;
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var text="";
+      try{ text=getCurrentContentTextV865(); }catch(e){ text=""; }
+      var blocks=(typeof parsePopupBlocksV908==='function') ? parsePopupBlocksV908(text) : [];
+      var b=blocks[idx];
+      if(!b){ alert("No se ha encontrado este bloque emergente."); return; }
+      try{ closeReaderPopupBlockV908(true); }catch(e){}
+      var wrap=document.createElement("div");
+      wrap.id="readerPopupOverlayV908";
+      wrap.className="reader-popup-overlay-v908";
+      wrap.onclick=function(ev){ if(ev.target===wrap) closeReaderPopupBlockV908(); };
+      var title=(typeof escapeHtml==='function') ? escapeHtml(b.title||"Emergente") : String(b.title||"Emergente");
+      var body=(typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(b.body||"") : ((typeof escapeHtml==='function') ? escapeHtml(b.body||"") : String(b.body||""));
+      wrap.innerHTML='<div class="reader-popup-card-v908"><button class="reader-popup-close-x-v918" type="button" aria-label="Cerrar" onclick="closeReaderPopupBlockV908()">×</button><h3>'+title+'</h3><div class="reader-popup-content-v908">'+body+'</div><div class="reader-popup-actions-v913"><button class="btn soft" type="button" onclick="closeReaderPopupBlockV908(true); editPopupBlockV908('+idx+')">✏️ Editar</button><button class="btn soft danger" type="button" onclick="closeReaderPopupBlockV908(true); deletePopupBlockV908('+idx+')">🗑️ Eliminar</button></div></div>';
+      document.body.appendChild(wrap);
+    }catch(e){ console.error("openReaderPopupBlockV918Real",e); }
+  };
+  window.closeReaderPopupBlockV908=function(immediate){
+    var el=document.getElementById("readerPopupOverlayV908");
+    if(!el) return;
+    if(immediate){ el.remove(); return; }
+    el.classList.add("closing-v918");
+    setTimeout(function(){ try{ el.remove(); }catch(e){} },150);
+  };
+  try{ openReaderPopupBlockV908=window.openReaderPopupBlockV908; closeReaderPopupBlockV908=window.closeReaderPopupBlockV908; }catch(e){}
+})();
+</script>
+
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6449,72 +6603,80 @@ body.dark .topbar-row #tabParables.active-view{
 
 
 
-<!-- v90.18: pulido visual de emergentes (etiqueta pequeña + ventana elegante) -->
-<style id="v90-18-popup-polish-style">
-  .reader-popup-title{
-    padding:2px 7px !important;
-    border-radius:9px !important;
-    font-size:.86em !important;
-    line-height:1.12 !important;
-    font-weight:750 !important;
-    border:1px solid rgba(54,141,218,.36) !important;
-    background:linear-gradient(180deg, rgba(77,163,255,.13), rgba(77,163,255,.055)) !important;
-    box-shadow:0 1px 3px rgba(54,141,218,.10) !important;
+<!-- v90.18 REAL: emergente pulido al final para que no lo pisen estilos anteriores -->
+<style id="v90-18-real-popup-polish-style">
+  /* Etiqueta cerrada: más pequeña, inline y acorde al texto */
+  .reader-popup-block{
+    display:inline !important;
+    width:auto !important;
+    max-width:none !important;
+    margin:0 2px !important;
+    padding:0 !important;
+    border:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+    vertical-align:baseline !important;
   }
+  .reader-popup-title{
+    display:inline-flex !important;
+    align-items:center !important;
+    width:auto !important;
+    max-width:none !important;
+    padding:2px 7px !important;
+    border:1px solid rgba(54,141,218,.38) !important;
+    border-radius:10px !important;
+    background:linear-gradient(180deg, rgba(77,163,255,.14), rgba(77,163,255,.055)) !important;
+    color:#226fa8 !important;
+    box-shadow:0 1px 3px rgba(54,141,218,.10) !important;
+    text-align:left !important;
+    font-size:.84em !important;
+    font-weight:760 !important;
+    line-height:1.12 !important;
+    vertical-align:baseline !important;
+  }
+  .reader-popup-title:after{content:"" !important; display:none !important;}
   .reader-popup-title:hover,
   .reader-popup-title:focus{
-    background:linear-gradient(180deg, rgba(77,163,255,.18), rgba(77,163,255,.08)) !important;
+    background:linear-gradient(180deg, rgba(77,163,255,.20), rgba(77,163,255,.08)) !important;
+    outline:none !important;
   }
+
+  /* Overlay y animación */
   .reader-popup-overlay-v908{
     background:rgba(0,0,0,.44) !important;
     backdrop-filter:blur(1px);
     animation:popupFadeInV918 .16s ease-out both;
   }
-  .reader-popup-overlay-v908.closing-v918{
-    animation:popupFadeOutV918 .14s ease-in both;
-  }
+  .reader-popup-overlay-v908.closing-v918{animation:popupFadeOutV918 .14s ease-in both;}
+
+  /* Ventana emergente */
   .reader-popup-card-v908{
-    position:relative;
+    position:relative !important;
     border-radius:24px !important;
     padding:20px 20px 18px !important;
-    background:linear-gradient(180deg,#edf8ff 0%,#f7fbff 100%) !important;
-    border:1px solid rgba(54,141,218,.34) !important;
+    background:linear-gradient(180deg,#edf8ff 0%,#f8fcff 100%) !important;
+    border:1px solid rgba(54,141,218,.36) !important;
     box-shadow:0 24px 70px rgba(25,74,125,.30) !important;
-    transform-origin:center;
+    transform-origin:center !important;
     animation:popupZoomInV918 .18s ease-out both;
   }
-  .closing-v918 .reader-popup-card-v908{
-    animation:popupZoomOutV918 .14s ease-in both;
-  }
+  .closing-v918 .reader-popup-card-v908{animation:popupZoomOutV918 .14s ease-in both;}
   .reader-popup-card-v908 h3{
-    margin:0 42px 14px 0 !important;
+    margin:0 44px 14px 0 !important;
     color:#2a719f !important;
-    font-size:22px !important;
-    line-height:1.2 !important;
+    font-size:21px !important;
+    line-height:1.22 !important;
     font-weight:850 !important;
   }
-  .reader-popup-close-x-v918{
-    position:absolute;
-    top:12px;
-    right:12px;
-    width:38px;
-    height:38px;
-    border:1px solid rgba(54,141,218,.25);
-    border-radius:999px;
-    background:rgba(255,255,255,.70);
-    color:#2a719f;
-    font-size:23px;
-    font-weight:800;
-    line-height:1;
-    box-shadow:0 2px 8px rgba(30,91,150,.10);
-  }
   .reader-popup-content-v908{
-    background:rgba(255,255,255,.58) !important;
+    background:rgba(255,255,255,.62) !important;
     border-radius:18px !important;
     padding:14px 16px !important;
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,.55) !important;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.62) !important;
   }
   .reader-popup-actions-v913{
+    display:flex !important;
+    flex-wrap:wrap !important;
     justify-content:flex-end !important;
     align-items:center !important;
     gap:10px !important;
@@ -6524,26 +6686,46 @@ body.dark .topbar-row #tabParables.active-view{
     padding:10px 16px !important;
     border-radius:14px !important;
   }
+  .reader-popup-close-x-v918{
+    position:absolute !important;
+    top:12px !important;
+    right:12px !important;
+    width:38px !important;
+    height:38px !important;
+    border:1px solid rgba(54,141,218,.25) !important;
+    border-radius:999px !important;
+    background:rgba(255,255,255,.72) !important;
+    color:#2a719f !important;
+    font-size:24px !important;
+    font-weight:800 !important;
+    line-height:1 !important;
+    box-shadow:0 2px 8px rgba(30,91,150,.10) !important;
+  }
   @keyframes popupFadeInV918{from{opacity:0}to{opacity:1}}
   @keyframes popupFadeOutV918{from{opacity:1}to{opacity:0}}
   @keyframes popupZoomInV918{from{opacity:.6;transform:scale(.955)}to{opacity:1;transform:scale(1)}}
   @keyframes popupZoomOutV918{from{opacity:1;transform:scale(1)}to{opacity:.3;transform:scale(.965)}}
+
+  body.dark .reader-popup-title{
+    color:#d7ecff !important;
+    border-color:rgba(157,204,255,.45) !important;
+    background:linear-gradient(180deg, rgba(77,163,255,.22), rgba(77,163,255,.09)) !important;
+  }
   body.dark .reader-popup-card-v908{
     background:linear-gradient(180deg,#102338 0%,#0c1b2c 100%) !important;
     border-color:rgba(157,204,255,.35) !important;
   }
   body.dark .reader-popup-card-v908 h3{color:#d7ecff !important;}
-  body.dark .reader-popup-close-x-v918{
-    background:rgba(255,255,255,.08);
-    color:#d7ecff;
-    border-color:rgba(157,204,255,.24);
-  }
   body.dark .reader-popup-content-v908{background:rgba(255,255,255,.06) !important;}
+  body.dark .reader-popup-close-x-v918{
+    background:rgba(255,255,255,.08) !important;
+    color:#d7ecff !important;
+    border-color:rgba(157,204,255,.24) !important;
+  }
 </style>
-<script id="v90-18-popup-polish-script">
+<script id="v90-18-real-popup-polish-script">
 (function(){
-  if(window.__v918PopupPolish) return;
-  window.__v918PopupPolish=true;
+  window.__v918PopupPolishReal=true;
   window.openReaderPopupBlockV908=function(idx){
     try{
       var text="";
@@ -6560,7 +6742,7 @@ body.dark .topbar-row #tabParables.active-view{
       var body=(typeof highlightBibleReferencesV49==="function") ? highlightBibleReferencesV49(b.body||"") : ((typeof escapeHtml==='function') ? escapeHtml(b.body||"") : String(b.body||""));
       wrap.innerHTML='<div class="reader-popup-card-v908"><button class="reader-popup-close-x-v918" type="button" aria-label="Cerrar" onclick="closeReaderPopupBlockV908()">×</button><h3>'+title+'</h3><div class="reader-popup-content-v908">'+body+'</div><div class="reader-popup-actions-v913"><button class="btn soft" type="button" onclick="closeReaderPopupBlockV908(true); editPopupBlockV908('+idx+')">✏️ Editar</button><button class="btn soft danger" type="button" onclick="closeReaderPopupBlockV908(true); deletePopupBlockV908('+idx+')">🗑️ Eliminar</button></div></div>';
       document.body.appendChild(wrap);
-    }catch(e){ console.error("openReaderPopupBlockV918",e); }
+    }catch(e){ console.error("openReaderPopupBlockV918Real",e); }
   };
   window.closeReaderPopupBlockV908=function(immediate){
     var el=document.getElementById("readerPopupOverlayV908");
@@ -6572,6 +6754,7 @@ body.dark .topbar-row #tabParables.active-view{
   try{ openReaderPopupBlockV908=window.openReaderPopupBlockV908; closeReaderPopupBlockV908=window.closeReaderPopupBlockV908; }catch(e){}
 })();
 </script>
+
 </body>
 </html>
 
