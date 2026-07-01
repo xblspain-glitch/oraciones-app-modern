@@ -1711,9 +1711,9 @@ function openRecentEntry(type,idx){
 <div class="topbar">
   <div class="topbar-row">
     <div class="segment">
-      <button id="tabPrayers" class="active" type="button" onclick="switchSection('prayers')">✝️ Oraciones</button>
-      <button id="tabNotes" type="button" onclick="switchSection('notes')">📝 Notas</button>
-      <button id="tabGuides" type="button" onclick="switchSection('guides')">📜 Guía</button>
+      <button id="tabPrayers" class="active" type="button" onclick="switchSectionAndReadV90188('prayers')">✝️ Oraciones</button>
+      <button id="tabNotes" type="button" onclick="switchSectionAndReadV90188('notes')">📝 Notas</button>
+      <button id="tabGuides" type="button" onclick="switchSectionAndReadV90188('guides')">📜 Guía</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
     </div>
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
@@ -2177,10 +2177,31 @@ function setActiveView(view){
 function switchSection(s){
   section=s;state.section=s;try{document.body.dataset.section=s;}catch(e){};saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();
   if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}
-  renderReader();
-  // v90.18.7: Oraciones, Notas y Guía entran directamente en la vista Leer.
-  if(s==="prayers" || s==="notes" || s==="guides"){enterFullscreenReading();return}
-  openReader();
+  renderReader();openReader();
+}
+
+/* v90.18.8 - Acceso directo: Oraciones, Notas y Guía entran como si pulsaras Leer */
+function switchSectionAndReadV90188(s){
+  try{
+    section=s;
+    state.section=s;
+    try{document.body.dataset.section=s;}catch(e){}
+    saveState();
+    syncTabs();
+    setSearchVisibleV26(true);
+    setActiveView(null);
+    renderList();
+    renderReader();
+    openReader();
+    setTimeout(function(){
+      try{
+        if(typeof enterFullscreenReading==="function") enterFullscreenReading();
+      }catch(e){console.error("switchSectionAndReadV90188 enter",e)}
+    },0);
+  }catch(e){
+    console.error("switchSectionAndReadV90188",e);
+    try{switchSection(s)}catch(_e){}
+  }
 }
 function getItems(){
   return section==="prayers"?state.prayers:section==="notes"?state.notes:section==="guides"?state.guides:state.verses
