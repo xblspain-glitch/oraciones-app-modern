@@ -4513,6 +4513,288 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
   }
 </style>
 
+
+<!-- v90.19.0 - Inicio real visual bajo botonera, sin tocar datos -->
+<style id="v90-19-0-home-css">
+  body.ov2-home-mode .sidebar{
+    display:none !important;
+  }
+  body.ov2-home-mode .content{
+    width:100% !important;
+    max-width:940px !important;
+    margin:0 auto !important;
+  }
+  #ov2HomeViewV90190{
+    padding:14px 10px 28px;
+  }
+  .ov2-home-card-v90190{
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(80,120,170,.18);
+    border-radius:26px;
+    padding:22px 20px;
+    background:linear-gradient(135deg,#eef7ff 0%,#f6fbff 46%,#eefdf5 100%);
+    box-shadow:0 14px 34px rgba(34,76,126,.10);
+    color:var(--text);
+  }
+  body.dark .ov2-home-card-v90190{
+    background:linear-gradient(135deg,#0e2237 0%,#10293d 48%,#0d2f26 100%);
+    border-color:rgba(180,215,255,.15);
+    box-shadow:0 16px 38px rgba(0,0,0,.28);
+  }
+  .ov2-home-card-v90190:before{
+    content:"";
+    position:absolute;
+    inset:-80px -90px auto auto;
+    width:210px;
+    height:210px;
+    border-radius:999px;
+    background:rgba(120,180,230,.16);
+    pointer-events:none;
+  }
+  .ov2-home-kicker-v90190{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:center;
+    margin-bottom:18px;
+    position:relative;
+    z-index:1;
+  }
+  .ov2-home-title-v90190{
+    font-weight:800;
+    letter-spacing:.2px;
+    font-size:17px;
+  }
+  .ov2-home-date-v90190{
+    font-size:13px;
+    color:var(--muted);
+    background:rgba(255,255,255,.55);
+    border:1px solid rgba(80,120,170,.14);
+    border-radius:999px;
+    padding:6px 10px;
+    white-space:nowrap;
+  }
+  body.dark .ov2-home-date-v90190{
+    background:rgba(255,255,255,.07);
+    border-color:rgba(255,255,255,.10);
+  }
+  .ov2-home-ref-v90190{
+    display:inline-block;
+    font-weight:900;
+    font-size:18px;
+    color:#1c5f99;
+    background:rgba(255,255,255,.62);
+    border:1px solid rgba(58,128,184,.18);
+    border-radius:999px;
+    padding:7px 12px;
+    margin-bottom:14px;
+    position:relative;
+    z-index:1;
+  }
+  body.dark .ov2-home-ref-v90190{
+    color:#a8d7ff;
+    background:rgba(255,255,255,.07);
+    border-color:rgba(168,215,255,.16);
+  }
+  .ov2-home-verse-v90190{
+    font-size:20px;
+    line-height:1.62;
+    font-weight:650;
+    margin:0 0 18px;
+    position:relative;
+    z-index:1;
+  }
+  .ov2-home-phrase-v90190{
+    margin-top:16px;
+    padding:12px 14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.58);
+    border:1px solid rgba(80,120,170,.12);
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.45;
+    position:relative;
+    z-index:1;
+  }
+  body.dark .ov2-home-phrase-v90190{
+    background:rgba(255,255,255,.06);
+    border-color:rgba(255,255,255,.09);
+  }
+  .ov2-home-actions-v90190{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:18px;
+    position:relative;
+    z-index:1;
+  }
+  .ov2-home-actions-v90190 .btn{
+    border-radius:999px;
+  }
+  @media (max-width:520px){
+    .ov2-home-card-v90190{padding:20px 16px;border-radius:24px}
+    .ov2-home-kicker-v90190{align-items:flex-start;flex-direction:column;margin-bottom:16px}
+    .ov2-home-verse-v90190{font-size:18px;line-height:1.58}
+  }
+</style>
+
+<script id="v90-19-0-home-js">
+/* v90.19.0 - Inicio real: al entrar y al volver muestra siempre la misma pantalla de bienvenida bajo la botonera */
+(function(){
+  if(window.__v90190Home) return;
+  window.__v90190Home = true;
+
+  var phrasesV90190 = [
+    "🙏🏾 Que esta palabra fortalezca hoy tu corazón.",
+    "🌿 Dios siempre habla en el momento oportuno.",
+    "❤️ Permanece en Cristo y camina con esperanza.",
+    "✨ Una sola palabra puede iluminar todo el día.",
+    "📖 Vuelve a la Palabra con calma y fe.",
+    "🕊️ Que la paz de Dios guarde tu mente y tu corazón."
+  ];
+  var fallbackV90190 = [
+    {reference:"Salmo 34:18", text:"Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu."},
+    {reference:"Juan 3:16", text:"Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna."},
+    {reference:"Romanos 8:28", text:"Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien."},
+    {reference:"Salmos 23:1", text:"Jehová es mi pastor; nada me faltará."}
+  ];
+
+  function escapeV90190(s){
+    return String(s||"").replace(/[&<>"']/g,function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]||c;
+    });
+  }
+  function cleanV90190(s){
+    return String(s||"").replace(/\n+/g," ").replace(/\s+/g," ").trim();
+  }
+  function pickV90190(arr){
+    return arr[Math.floor(Math.random()*arr.length)];
+  }
+  function getHomeVerseV90190(){
+    try{
+      var list = (state && Array.isArray(state.verses) && state.verses.length) ? state.verses : fallbackV90190;
+      var usable = list.filter(function(v){ return cleanV90190(v.text || v.content || v.body || v.txt); });
+      if(!usable.length) usable = fallbackV90190;
+      var v = pickV90190(usable);
+      return {
+        reference: v.reference || v.title || v.ref || "Versículo",
+        text: cleanV90190(v.text || v.content || v.body || v.txt || "")
+      };
+    }catch(e){
+      return pickV90190(fallbackV90190);
+    }
+  }
+  function dateLabelV90190(){
+    try{
+      return new Date().toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+    }catch(e){
+      return new Date().toLocaleDateString();
+    }
+  }
+  function ensureHomeViewV90190(){
+    var home = document.getElementById("ov2HomeViewV90190");
+    if(home) return home;
+    var content = document.querySelector(".content") || document.querySelector(".main") || document.body;
+    home = document.createElement("section");
+    home.id = "ov2HomeViewV90190";
+    home.className = "panel hidden";
+    content.insertBefore(home, content.firstChild);
+    return home;
+  }
+  function hideAllViewsV90190(){
+    ["readerView","editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el) el.classList.add("hidden");
+    });
+    document.body.classList.remove("fullscreen-reading","hide-reading-ui","reading-mobile","titles-fullscreen-v72","categories-fullscreen-v73","editing-focus");
+  }
+  window.showOv2HomeV90190 = function(){
+    try{
+      var home = ensureHomeViewV90190();
+      var verse = getHomeVerseV90190();
+      home.innerHTML =
+        '<div class="ov2-home-card-v90190">' +
+          '<div class="ov2-home-kicker-v90190">' +
+            '<div class="ov2-home-title-v90190">✨ Palabra para este momento</div>' +
+            '<div class="ov2-home-date-v90190">📅 '+escapeV90190(dateLabelV90190())+'</div>' +
+          '</div>' +
+          '<div class="ov2-home-ref-v90190">'+escapeV90190(verse.reference)+'</div>' +
+          '<p class="ov2-home-verse-v90190">“'+escapeV90190(verse.text)+'”</p>' +
+          '<div class="ov2-home-phrase-v90190">'+escapeV90190(pickV90190(phrasesV90190))+'</div>' +
+          '<div class="ov2-home-actions-v90190">' +
+            '<button class="btn soft" type="button" onclick="showOv2HomeV90190()">🌿 Otra palabra</button>' +
+            '<button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>' +
+          '</div>' +
+        '</div>';
+      hideAllViewsV90190();
+      home.classList.remove("hidden");
+      document.body.classList.add("ov2-home-mode");
+      try{
+        document.querySelectorAll(".segment button").forEach(function(b){ b.classList.remove("active"); });
+        if(typeof setActiveView==="function") setActiveView(null);
+      }catch(e){}
+      window.scrollTo({top:0,behavior:"smooth"});
+    }catch(e){
+      console.error("showOv2HomeV90190", e);
+      try{ if(typeof openReader==="function") openReader(); }catch(_){}
+    }
+  };
+
+  function leaveHomeV90190(){
+    try{
+      var home=document.getElementById("ov2HomeViewV90190");
+      if(home) home.classList.add("hidden");
+      document.body.classList.remove("ov2-home-mode");
+    }catch(e){}
+  }
+
+  ["switchSection","enterFullscreenReading","openDailyVerse","openChristianCalendar","openBackup","openTrash","openVerseCategories","openTitlesView","openFavoritesView","openSentVersesList"].forEach(function(name){
+    var old = window[name] || (typeof globalThis !== "undefined" ? globalThis[name] : null);
+    if(typeof old === "function"){
+      window[name] = function(){
+        leaveHomeV90190();
+        return old.apply(this, arguments);
+      };
+      try{ eval(name + " = window[name];"); }catch(e){}
+    }
+  });
+
+  var oldSmartBackV90190 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof oldSmartBackV90190 === "function"){
+    window.smartBack = function(){
+      try{
+        var isHome = document.body.classList.contains("ov2-home-mode");
+        if(isHome) return;
+        var s = (typeof section !== "undefined" ? section : (state && state.section)) || "";
+        if(s !== "verses"){
+          showOv2HomeV90190();
+          return;
+        }
+      }catch(e){}
+      return oldSmartBackV90190.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+
+  var oldEnterWelcomeV90190 = window.enterOv2Welcome;
+  window.enterOv2Welcome = function(){
+    try{
+      if(typeof oldEnterWelcomeV90190 === "function") oldEnterWelcomeV90190.apply(this, arguments);
+      setTimeout(function(){ showOv2HomeV90190(); }, 60);
+    }catch(e){
+      var w=document.getElementById("ov2Welcome");
+      if(w) w.classList.add("ov2-hidden");
+      showOv2HomeV90190();
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", function(){
+    ensureHomeViewV90190();
+  });
+})();
+</script>
+
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6508,6 +6790,288 @@ body.dark .topbar-row #tabParables.active-view{
     margin-top:14px !important;
   }
 </style>
+
+
+<!-- v90.19.0 - Inicio real visual bajo botonera, sin tocar datos -->
+<style id="v90-19-0-home-css">
+  body.ov2-home-mode .sidebar{
+    display:none !important;
+  }
+  body.ov2-home-mode .content{
+    width:100% !important;
+    max-width:940px !important;
+    margin:0 auto !important;
+  }
+  #ov2HomeViewV90190{
+    padding:14px 10px 28px;
+  }
+  .ov2-home-card-v90190{
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(80,120,170,.18);
+    border-radius:26px;
+    padding:22px 20px;
+    background:linear-gradient(135deg,#eef7ff 0%,#f6fbff 46%,#eefdf5 100%);
+    box-shadow:0 14px 34px rgba(34,76,126,.10);
+    color:var(--text);
+  }
+  body.dark .ov2-home-card-v90190{
+    background:linear-gradient(135deg,#0e2237 0%,#10293d 48%,#0d2f26 100%);
+    border-color:rgba(180,215,255,.15);
+    box-shadow:0 16px 38px rgba(0,0,0,.28);
+  }
+  .ov2-home-card-v90190:before{
+    content:"";
+    position:absolute;
+    inset:-80px -90px auto auto;
+    width:210px;
+    height:210px;
+    border-radius:999px;
+    background:rgba(120,180,230,.16);
+    pointer-events:none;
+  }
+  .ov2-home-kicker-v90190{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:center;
+    margin-bottom:18px;
+    position:relative;
+    z-index:1;
+  }
+  .ov2-home-title-v90190{
+    font-weight:800;
+    letter-spacing:.2px;
+    font-size:17px;
+  }
+  .ov2-home-date-v90190{
+    font-size:13px;
+    color:var(--muted);
+    background:rgba(255,255,255,.55);
+    border:1px solid rgba(80,120,170,.14);
+    border-radius:999px;
+    padding:6px 10px;
+    white-space:nowrap;
+  }
+  body.dark .ov2-home-date-v90190{
+    background:rgba(255,255,255,.07);
+    border-color:rgba(255,255,255,.10);
+  }
+  .ov2-home-ref-v90190{
+    display:inline-block;
+    font-weight:900;
+    font-size:18px;
+    color:#1c5f99;
+    background:rgba(255,255,255,.62);
+    border:1px solid rgba(58,128,184,.18);
+    border-radius:999px;
+    padding:7px 12px;
+    margin-bottom:14px;
+    position:relative;
+    z-index:1;
+  }
+  body.dark .ov2-home-ref-v90190{
+    color:#a8d7ff;
+    background:rgba(255,255,255,.07);
+    border-color:rgba(168,215,255,.16);
+  }
+  .ov2-home-verse-v90190{
+    font-size:20px;
+    line-height:1.62;
+    font-weight:650;
+    margin:0 0 18px;
+    position:relative;
+    z-index:1;
+  }
+  .ov2-home-phrase-v90190{
+    margin-top:16px;
+    padding:12px 14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.58);
+    border:1px solid rgba(80,120,170,.12);
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.45;
+    position:relative;
+    z-index:1;
+  }
+  body.dark .ov2-home-phrase-v90190{
+    background:rgba(255,255,255,.06);
+    border-color:rgba(255,255,255,.09);
+  }
+  .ov2-home-actions-v90190{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:18px;
+    position:relative;
+    z-index:1;
+  }
+  .ov2-home-actions-v90190 .btn{
+    border-radius:999px;
+  }
+  @media (max-width:520px){
+    .ov2-home-card-v90190{padding:20px 16px;border-radius:24px}
+    .ov2-home-kicker-v90190{align-items:flex-start;flex-direction:column;margin-bottom:16px}
+    .ov2-home-verse-v90190{font-size:18px;line-height:1.58}
+  }
+</style>
+
+<script id="v90-19-0-home-js">
+/* v90.19.0 - Inicio real: al entrar y al volver muestra siempre la misma pantalla de bienvenida bajo la botonera */
+(function(){
+  if(window.__v90190Home) return;
+  window.__v90190Home = true;
+
+  var phrasesV90190 = [
+    "🙏🏾 Que esta palabra fortalezca hoy tu corazón.",
+    "🌿 Dios siempre habla en el momento oportuno.",
+    "❤️ Permanece en Cristo y camina con esperanza.",
+    "✨ Una sola palabra puede iluminar todo el día.",
+    "📖 Vuelve a la Palabra con calma y fe.",
+    "🕊️ Que la paz de Dios guarde tu mente y tu corazón."
+  ];
+  var fallbackV90190 = [
+    {reference:"Salmo 34:18", text:"Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu."},
+    {reference:"Juan 3:16", text:"Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna."},
+    {reference:"Romanos 8:28", text:"Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien."},
+    {reference:"Salmos 23:1", text:"Jehová es mi pastor; nada me faltará."}
+  ];
+
+  function escapeV90190(s){
+    return String(s||"").replace(/[&<>"']/g,function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]||c;
+    });
+  }
+  function cleanV90190(s){
+    return String(s||"").replace(/\n+/g," ").replace(/\s+/g," ").trim();
+  }
+  function pickV90190(arr){
+    return arr[Math.floor(Math.random()*arr.length)];
+  }
+  function getHomeVerseV90190(){
+    try{
+      var list = (state && Array.isArray(state.verses) && state.verses.length) ? state.verses : fallbackV90190;
+      var usable = list.filter(function(v){ return cleanV90190(v.text || v.content || v.body || v.txt); });
+      if(!usable.length) usable = fallbackV90190;
+      var v = pickV90190(usable);
+      return {
+        reference: v.reference || v.title || v.ref || "Versículo",
+        text: cleanV90190(v.text || v.content || v.body || v.txt || "")
+      };
+    }catch(e){
+      return pickV90190(fallbackV90190);
+    }
+  }
+  function dateLabelV90190(){
+    try{
+      return new Date().toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+    }catch(e){
+      return new Date().toLocaleDateString();
+    }
+  }
+  function ensureHomeViewV90190(){
+    var home = document.getElementById("ov2HomeViewV90190");
+    if(home) return home;
+    var content = document.querySelector(".content") || document.querySelector(".main") || document.body;
+    home = document.createElement("section");
+    home.id = "ov2HomeViewV90190";
+    home.className = "panel hidden";
+    content.insertBefore(home, content.firstChild);
+    return home;
+  }
+  function hideAllViewsV90190(){
+    ["readerView","editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el) el.classList.add("hidden");
+    });
+    document.body.classList.remove("fullscreen-reading","hide-reading-ui","reading-mobile","titles-fullscreen-v72","categories-fullscreen-v73","editing-focus");
+  }
+  window.showOv2HomeV90190 = function(){
+    try{
+      var home = ensureHomeViewV90190();
+      var verse = getHomeVerseV90190();
+      home.innerHTML =
+        '<div class="ov2-home-card-v90190">' +
+          '<div class="ov2-home-kicker-v90190">' +
+            '<div class="ov2-home-title-v90190">✨ Palabra para este momento</div>' +
+            '<div class="ov2-home-date-v90190">📅 '+escapeV90190(dateLabelV90190())+'</div>' +
+          '</div>' +
+          '<div class="ov2-home-ref-v90190">'+escapeV90190(verse.reference)+'</div>' +
+          '<p class="ov2-home-verse-v90190">“'+escapeV90190(verse.text)+'”</p>' +
+          '<div class="ov2-home-phrase-v90190">'+escapeV90190(pickV90190(phrasesV90190))+'</div>' +
+          '<div class="ov2-home-actions-v90190">' +
+            '<button class="btn soft" type="button" onclick="showOv2HomeV90190()">🌿 Otra palabra</button>' +
+            '<button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>' +
+          '</div>' +
+        '</div>';
+      hideAllViewsV90190();
+      home.classList.remove("hidden");
+      document.body.classList.add("ov2-home-mode");
+      try{
+        document.querySelectorAll(".segment button").forEach(function(b){ b.classList.remove("active"); });
+        if(typeof setActiveView==="function") setActiveView(null);
+      }catch(e){}
+      window.scrollTo({top:0,behavior:"smooth"});
+    }catch(e){
+      console.error("showOv2HomeV90190", e);
+      try{ if(typeof openReader==="function") openReader(); }catch(_){}
+    }
+  };
+
+  function leaveHomeV90190(){
+    try{
+      var home=document.getElementById("ov2HomeViewV90190");
+      if(home) home.classList.add("hidden");
+      document.body.classList.remove("ov2-home-mode");
+    }catch(e){}
+  }
+
+  ["switchSection","enterFullscreenReading","openDailyVerse","openChristianCalendar","openBackup","openTrash","openVerseCategories","openTitlesView","openFavoritesView","openSentVersesList"].forEach(function(name){
+    var old = window[name] || (typeof globalThis !== "undefined" ? globalThis[name] : null);
+    if(typeof old === "function"){
+      window[name] = function(){
+        leaveHomeV90190();
+        return old.apply(this, arguments);
+      };
+      try{ eval(name + " = window[name];"); }catch(e){}
+    }
+  });
+
+  var oldSmartBackV90190 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof oldSmartBackV90190 === "function"){
+    window.smartBack = function(){
+      try{
+        var isHome = document.body.classList.contains("ov2-home-mode");
+        if(isHome) return;
+        var s = (typeof section !== "undefined" ? section : (state && state.section)) || "";
+        if(s !== "verses"){
+          showOv2HomeV90190();
+          return;
+        }
+      }catch(e){}
+      return oldSmartBackV90190.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+
+  var oldEnterWelcomeV90190 = window.enterOv2Welcome;
+  window.enterOv2Welcome = function(){
+    try{
+      if(typeof oldEnterWelcomeV90190 === "function") oldEnterWelcomeV90190.apply(this, arguments);
+      setTimeout(function(){ showOv2HomeV90190(); }, 60);
+    }catch(e){
+      var w=document.getElementById("ov2Welcome");
+      if(w) w.classList.add("ov2-hidden");
+      showOv2HomeV90190();
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", function(){
+    ensureHomeViewV90190();
+  });
+})();
+</script>
 
 </body>
 </html>
