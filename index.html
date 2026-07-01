@@ -1425,115 +1425,54 @@ body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:
 
 
 
-/* v90.19 - Inicio bajo botonera independiente (solo página de inicio, no Versículo del día) */
-.home-card-v9019{
-  margin:14px 12px 18px;
-  padding:24px 20px 22px;
-  border-radius:28px;
-  border:1px solid rgba(74,136,190,.22);
-  background:
-    radial-gradient(circle at 12% 8%, rgba(255,236,169,.38), transparent 34%),
-    radial-gradient(circle at 88% 0%, rgba(190,222,255,.38), transparent 42%),
-    linear-gradient(160deg, rgba(255,255,255,.96), rgba(232,244,255,.92));
-  box-shadow:0 18px 44px rgba(34,70,110,.12);
-  color:#173653;
-  overflow:hidden;
-}
-.home-pill-v9019{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:8px 14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.82);
-  font-size:15px;
-  font-weight:900;
-  color:#2a6594;
-  box-shadow:0 8px 22px rgba(38,80,120,.08);
-}
-.home-title-v9019{
-  margin:13px 0 7px;
-  font-size:30px;
-  line-height:1.12;
-  font-weight:950;
-  letter-spacing:-.02em;
-}
-.home-sub-v9019{
-  margin:0 0 15px;
-  font-size:19px;
-  line-height:1.45;
-  color:#5d7183;
-}
-.home-date-v9019{
-  margin:8px 0 18px;
-  font-size:17px;
-  font-weight:800;
-  color:#63788a;
-}
-.home-verse-card-v9019{
-  margin-top:12px;
-  padding:28px 22px 24px;
-  border-radius:24px;
-  background:rgba(255,255,255,.95);
-  box-shadow:0 18px 42px rgba(39,83,125,.11);
-  text-align:center;
-}
-.home-icon-v9019{font-size:34px;margin-bottom:8px}
-.home-ref-v9019{
-  font-size:27px;
-  line-height:1.18;
-  font-weight:950;
-  color:#1e6698;
-  margin-bottom:14px;
-}
-.home-line-v9019{
-  width:86px;height:1px;margin:0 auto 20px;
-  background:linear-gradient(90deg, transparent, rgba(49,104,150,.34), transparent);
-}
-.home-text-v9019{
-  font-size:26px;
-  line-height:1.48;
-  color:#1b2f44;
-  margin:0;
-}
-.home-note-v9019{
-  margin-top:22px;
-  padding:14px 16px;
-  border-radius:20px;
-  background:rgba(222,239,253,.82);
-  color:#314b62;
-  font-size:18px;
-  line-height:1.38;
-}
-.home-actions-v9019{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.home-enter-v9019{
-  border:0;
-  border-radius:18px;
-  padding:14px 24px;
-  background:#fff;
-  color:#173653;
-  font-size:18px;
-  font-weight:900;
-  box-shadow:0 12px 28px rgba(34,70,110,.12);
-}
-body.home-start-v9019 .main{display:none!important}
-body.home-start-v9019 #homeStartV9019{display:block!important}
-#homeStartV9019{display:none}
-body.dark .home-card-v9019{
-  background:linear-gradient(160deg, rgba(31,45,61,.96), rgba(15,31,48,.96));
-  color:#f4f7fb;border-color:rgba(255,255,255,.16)
-}
-body.dark .home-verse-card-v9019{background:rgba(255,255,255,.08)}
-body.dark .home-sub-v9019, body.dark .home-date-v9019{color:#c3cfda}
-body.dark .home-text-v9019{color:#f4f7fb}
-body.dark .home-note-v9019{background:rgba(255,255,255,.09);color:#e7eef6}
-@media(max-width:700px){
-  .home-card-v9019{margin:12px 10px 16px;padding:22px 18px 20px;border-radius:26px}
-  .home-title-v9019{font-size:28px}
-  .home-sub-v9019{font-size:18px}
-  .home-ref-v9019{font-size:25px}
-  .home-text-v9019{font-size:25px;line-height:1.52}
-}
+<!-- v90.19 - Inicio visual independiente debajo de la botonera -->
+<style id="v9019-home-start-css">
+  body.ov2-home-start .main{display:none !important;}
+  body.ov2-home-start #ov2HomeStart{display:block !important;}
+  #ov2HomeStart{display:none;padding:14px 12px 28px;}
+  .ov2-home-wrap-v9019{
+    width:min(920px,100%);
+    margin:0 auto;
+    border:1px solid rgba(120,180,225,.38);
+    border-radius:28px;
+    padding:22px 18px;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(255,234,180,.38), transparent 32%),
+      linear-gradient(135deg,#f7fbff 0%,#edf7ff 48%,#fdfefe 100%);
+    box-shadow:0 8px 26px rgba(34,92,142,.10);
+    color:#173653;
+  }
+  .ov2-home-pill-v9019{
+    display:inline-flex;align-items:center;gap:7px;
+    background:rgba(255,255,255,.82);
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:999px;
+    padding:7px 12px;
+    font-weight:800;
+    color:#24669d;
+    box-shadow:0 6px 18px rgba(38,102,157,.08);
+  }
+  .ov2-home-title-v9019{margin:12px 0 8px;font-size:clamp(31px,6vw,46px);line-height:1.08;font-weight:900;letter-spacing:-.8px;color:#173f64;}
+  .ov2-home-sub-v9019{margin:0 0 14px;font-size:clamp(19px,4vw,25px);line-height:1.42;color:#647587;}
+  .ov2-home-date-v9019{font-size:18px;font-weight:800;color:#667785;margin:4px 0 20px;}
+  .ov2-home-card-v9019{
+    background:rgba(255,255,255,.94);
+    border:1px solid rgba(255,255,255,.95);
+    border-radius:26px;
+    padding:24px 18px 20px;
+    text-align:center;
+    box-shadow:0 12px 30px rgba(39,93,142,.12);
+  }
+  .ov2-home-book-v9019{font-size:34px;margin-bottom:4px;}
+  .ov2-home-ref-v9019{font-size:clamp(28px,6vw,42px);font-weight:900;color:#1f669d;margin:0 0 12px;line-height:1.14;}
+  .ov2-home-line-v9019{width:120px;height:1px;background:linear-gradient(90deg,transparent,#c9d8e5,transparent);margin:0 auto 20px;}
+  .ov2-home-text-v9019{font-size:clamp(25px,5.4vw,36px);line-height:1.52;color:#1d2f45;margin:0 auto 20px;max-width:820px;}
+  .ov2-home-note-v9019{display:inline-block;background:#edf7ff;border-radius:20px;padding:13px 16px;font-size:clamp(17px,4vw,22px);line-height:1.35;color:#36576d;}
+  .ov2-home-enter-v9019{margin-top:18px;width:100%;border:0;border-radius:22px;background:#fff;color:#173653;font-weight:900;font-size:22px;padding:16px 18px;box-shadow:0 8px 22px rgba(28,83,130,.10);}
+  body.dark .ov2-home-wrap-v9019{background:linear-gradient(135deg,#13283d,#0f2234);border-color:#29465d;color:#eaf5ff;box-shadow:0 12px 34px rgba(0,0,0,.26)}
+  body.dark .ov2-home-title-v9019{color:#f4fbff} body.dark .ov2-home-sub-v9019, body.dark .ov2-home-date-v9019{color:#b9c9d6}
+  body.dark .ov2-home-card-v9019{background:#f8fbff;color:#16304a} body.dark .ov2-home-enter-v9019{background:#f8fbff;color:#173653}
+</style>
 
 </head>
 <body>
@@ -1854,22 +1793,68 @@ function openRecentEntry(type,idx){
 
 
 
-<div id="homeStartV9019" class="home-card-v9019" aria-label="Inicio Oraciones V2">
-  <div class="home-pill-v9019">🌅 Palabra para hoy</div>
-  <h2 class="home-title-v9019">Un momento para volver a Dios</h2>
-  <p class="home-sub-v9019">Abre el corazón, respira y deja que la Palabra te acompañe hoy.</p>
-  <div id="homeDateV9019" class="home-date-v9019">📅 Hoy</div>
-  <div class="home-verse-card-v9019">
-    <div class="home-icon-v9019">📖</div>
-    <div id="homeRefV9019" class="home-ref-v9019">Versículo</div>
-    <div class="home-line-v9019"></div>
-    <p id="homeTextV9019" class="home-text-v9019">La Palabra de Dios es lámpara a mis pies y lumbrera a mi camino.</p>
-    <div class="home-note-v9019">🙏🏾 Que esta palabra te dé paz, fortaleza y esperanza.</div>
+<!-- v90.19 - Inicio visual independiente debajo de la botonera -->
+<section id="ov2HomeStart" aria-label="Inicio Oraciones V2">
+  <div class="ov2-home-wrap-v9019">
+    <div class="ov2-home-pill-v9019">🌅 Palabra para hoy</div>
+    <h2 class="ov2-home-title-v9019">Un momento para volver a Dios</h2>
+    <p class="ov2-home-sub-v9019">Abre el corazón, respira y deja que la Palabra te acompañe hoy.</p>
+    <div id="ov2HomeDateV9019" class="ov2-home-date-v9019">📅 Hoy</div>
+    <div class="ov2-home-card-v9019">
+      <div class="ov2-home-book-v9019">📖</div>
+      <div id="ov2HomeRefV9019" class="ov2-home-ref-v9019">Versículo</div>
+      <div class="ov2-home-line-v9019"></div>
+      <p id="ov2HomeTextV9019" class="ov2-home-text-v9019">La Palabra de Dios es lámpara a mis pies y lumbrera a mi camino.</p>
+      <div class="ov2-home-note-v9019">🙏🏾 Que esta palabra te dé paz, fortaleza y esperanza.</div>
+    </div>
+    <button class="ov2-home-enter-v9019" type="button" onclick="enterHomeStartV9019()">Entrar</button>
   </div>
-  <div class="home-actions-v9019">
-    <button class="home-enter-v9019" type="button" onclick="enterHomeV9019()">Entrar</button>
-  </div>
-</div>
+</section>
+<script id="v9019-home-start-js">
+(function(){
+  var STORAGE_KEY='oraciones_full_numeracion_v1';
+  function clean(t){return String(t||'').replace(/\n/g,' ').replace(/\s+/g,' ').trim();}
+  function normalize(v){
+    if(!v)return null;
+    var txt=clean(v.text||v.content||v.body||v.txt||'');
+    if(!txt)return null;
+    return {ref:v.reference||v.title||v.ref||'Versículo', txt:txt};
+  }
+  function allVerses(){
+    try{
+      var data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
+      return (Array.isArray(data.verses)?data.verses:[]).map(normalize).filter(Boolean);
+    }catch(e){return []}
+  }
+  function fallback(){return {ref:'Salmos 119:105',txt:'Lámpara es a mis pies tu palabra, Y lumbrera a mi camino.'};}
+  function pickVerse(){
+    var arr=allVerses();
+    if(!arr.length)return fallback();
+    return arr[Math.floor(Math.random()*arr.length)] || fallback();
+  }
+  function formatDate(){
+    try{return new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}catch(e){return 'Hoy'}
+  }
+  function render(){
+    var d=document.getElementById('ov2HomeDateV9019');
+    var r=document.getElementById('ov2HomeRefV9019');
+    var t=document.getElementById('ov2HomeTextV9019');
+    var v=pickVerse();
+    if(d)d.textContent='📅 '+formatDate();
+    if(r)r.textContent=v.ref;
+    if(t)t.textContent=v.txt;
+    document.body.classList.add('ov2-home-start');
+  }
+  window.enterHomeStartV9019=function(){document.body.classList.remove('ov2-home-start');};
+  document.addEventListener('click',function(e){
+    var b=e.target && e.target.closest && e.target.closest('.topbar button');
+    if(!b)return;
+    if(b.id==='btnTheme')return;
+    document.body.classList.remove('ov2-home-start');
+  },true);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render); else render();
+})();
+</script>
 
 <div class="main">
   <aside class="sidebar"><div id="list" class="list"></div></aside>
@@ -2050,52 +2035,6 @@ function openRecentEntry(type,idx){
 </div>
 
 <div id="toast" class="toast">Guardado</div>
-
-<script>
-/* v90.19 - Inicio independiente bajo botonera: usa un versículo del listado, sin tocar Versículo del día */
-(function(){
-  function escV9019(t){return String(t||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]||c;});}
-  function cleanV9019(t){return String(t||'').replace(/\n/g,' ').replace(/\s+/g,' ').trim();}
-  function dateV9019(){
-    try{return new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
-    catch(e){return 'Hoy';}
-  }
-  function pickHomeVerseV9019(){
-    try{
-      var list=(window.state && Array.isArray(window.state.verses)) ? window.state.verses : (typeof state!=='undefined' && Array.isArray(state.verses) ? state.verses : []);
-      list=list.filter(function(v){return v && cleanV9019(v.text||v.content||'');});
-      if(list.length){
-        var v=list[Math.floor(Math.random()*list.length)];
-        return {ref:v.reference||v.title||'Versículo', text:cleanV9019(v.text||v.content||'')};
-      }
-    }catch(e){}
-    return {ref:'Salmos 119:105', text:'La Palabra de Dios es lámpara a mis pies y lumbrera a mi camino.'};
-  }
-  window.renderHomeV9019=function(){
-    var d=document.getElementById('homeDateV9019'), r=document.getElementById('homeRefV9019'), t=document.getElementById('homeTextV9019');
-    var v=pickHomeVerseV9019();
-    if(d)d.textContent='📅 '+dateV9019();
-    if(r)r.innerHTML=escV9019(v.ref);
-    if(t)t.innerHTML=escV9019(v.text);
-  };
-  window.enterHomeV9019=function(){
-    document.body.classList.remove('home-start-v9019');
-    try{openReader();}catch(e){}
-  };
-  function hideHomeFromTopbar(e){
-    if(e && e.target && e.target.closest && e.target.closest('button')) document.body.classList.remove('home-start-v9019');
-  }
-  function initHomeV9019(){
-    renderHomeV9019();
-    document.body.classList.add('home-start-v9019');
-    var tb=document.querySelector('.topbar');
-    if(tb)tb.addEventListener('click',hideHomeFromTopbar,true);
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initHomeV9019);
-  else initHomeV9019();
-})();
-</script>
-
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js">
 function decorateDailyVerseNote(){
   try{
