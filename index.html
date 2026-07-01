@@ -7530,3 +7530,86 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
     background:rgba(255,255,255,.06) !important;
   }
 </style>
+
+<script id="v90-15-otro-versiculo-daily">
+/* v90.15 - Versículo del día: botón 🌿 Otro versículo, conserva elección del día */
+(function(){
+  if(window.__v9015OtroVersiculoDaily) return;
+  window.__v9015OtroVersiculoDaily = true;
+
+  function getCurrentDailyIdV9015(){
+    try{
+      if(state && state.dailyVerse && state.dailyVerse.date === todayKey()) return state.dailyVerse.id;
+      return state && state.currentVerseId;
+    }catch(e){ return null; }
+  }
+
+  window.pickOtherDailyVerseV9015 = function(){
+    try{
+      var pool = (typeof allVersesForDay === "function") ? allVersesForDay() : ((state && state.verses) || []);
+      pool = (pool || []).filter(function(v){ return v && (v.reference || v.title || v.text || v.content); });
+      if(!pool.length) return alert("Todavía no hay versículos guardados.");
+      var currentId = getCurrentDailyIdV9015();
+      var candidates = pool.length > 1 ? pool.filter(function(v){ return v.id !== currentId; }) : pool;
+      var chosen = candidates[Math.floor(Math.random() * candidates.length)];
+      state.dailyVerse = { date: todayKey(), id: chosen.id, manual: true, changedAt: Date.now() };
+      if(typeof saveState === "function") saveState();
+      if(typeof openVerseSpecial === "function") openVerseSpecial(chosen, "daily");
+      if(typeof setActiveView === "function") setActiveView("daily");
+      setTimeout(patchDailyOtherButtonV9015, 20);
+      setTimeout(patchDailyOtherButtonV9015, 140);
+      setTimeout(patchDailyOtherButtonV9015, 300);
+    }catch(e){ console.error("pickOtherDailyVerseV9015", e); }
+  };
+
+  function patchDailyOtherButtonV9015(){
+    try{
+      if(typeof specialVerseMode !== "undefined" && specialVerseMode !== "daily") return;
+      var head = document.querySelector("#readerView .panel-head");
+      if(!head) return;
+      if(head.querySelector('[data-v9015-other-daily="1"]')) return;
+      var btn = document.createElement("button");
+      btn.className = "btn soft";
+      btn.type = "button";
+      btn.setAttribute("data-v9015-other-daily", "1");
+      btn.textContent = "🌿 Otro versículo";
+      btn.onclick = function(){ window.pickOtherDailyVerseV9015(); };
+      var move = document.getElementById("moveVerseBtn");
+      if(move && move.parentNode === head){
+        move.insertAdjacentElement("afterend", btn);
+      }else{
+        head.appendChild(btn);
+      }
+    }catch(e){ console.error("patchDailyOtherButtonV9015", e); }
+  }
+  window.patchDailyOtherButtonV9015 = patchDailyOtherButtonV9015;
+
+  var oldOpenDailyV9015 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
+  if(typeof oldOpenDailyV9015 === "function"){
+    window.openDailyVerse = function(){
+      var r = oldOpenDailyV9015.apply(this, arguments);
+      setTimeout(patchDailyOtherButtonV9015, 20);
+      setTimeout(patchDailyOtherButtonV9015, 140);
+      setTimeout(patchDailyOtherButtonV9015, 300);
+      return r;
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldOpenVerseSpecialV9015 = window.openVerseSpecial || (typeof openVerseSpecial !== "undefined" ? openVerseSpecial : null);
+  if(typeof oldOpenVerseSpecialV9015 === "function"){
+    window.openVerseSpecial = function(v, mode){
+      var r = oldOpenVerseSpecialV9015.apply(this, arguments);
+      if(mode === "daily"){
+        setTimeout(patchDailyOtherButtonV9015, 20);
+        setTimeout(patchDailyOtherButtonV9015, 140);
+        setTimeout(patchDailyOtherButtonV9015, 300);
+      }
+      return r;
+    };
+    try{ openVerseSpecial = window.openVerseSpecial; }catch(e){}
+  }
+
+  setTimeout(patchDailyOtherButtonV9015, 300);
+})();
+</script>
