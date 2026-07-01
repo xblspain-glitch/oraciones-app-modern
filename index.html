@@ -1424,145 +1424,116 @@ body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:
 </style>
 
 
-<style id="v9019-inicio-debajo-botonera">
-/* v90.19 - Inicio visual debajo de la botonera.
-   No toca bienvenida, navegación, datos ni funciones. */
-.inicio-home-v9019{
-  margin:12px 10px 0;
-  padding:18px 16px 16px;
-  border:1px solid rgba(213,231,248,.95);
-  border-radius:26px;
+
+/* v90.19 - Inicio bajo botonera independiente (solo página de inicio, no Versículo del día) */
+.home-card-v9019{
+  margin:14px 12px 18px;
+  padding:24px 20px 22px;
+  border-radius:28px;
+  border:1px solid rgba(74,136,190,.22);
   background:
-    radial-gradient(circle at 18% 0%, rgba(255,244,214,.85), transparent 34%),
-    linear-gradient(135deg, rgba(234,244,255,.98), rgba(255,255,255,.96));
-  box-shadow:0 8px 22px rgba(31,95,155,.08);
-  color:var(--text);
+    radial-gradient(circle at 12% 8%, rgba(255,236,169,.38), transparent 34%),
+    radial-gradient(circle at 88% 0%, rgba(190,222,255,.38), transparent 42%),
+    linear-gradient(160deg, rgba(255,255,255,.96), rgba(232,244,255,.92));
+  box-shadow:0 18px 44px rgba(34,70,110,.12);
+  color:#173653;
+  overflow:hidden;
 }
-.inicio-home-head-v9019{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:14px;
-}
-.inicio-home-kicker-v9019{
+.home-pill-v9019{
   display:inline-flex;
   align-items:center;
   gap:7px;
-  padding:7px 11px;
+  padding:8px 14px;
   border-radius:999px;
-  background:rgba(255,255,255,.78);
-  border:1px solid rgba(255,255,255,.92);
-  color:#1f5f9b;
-  font-size:13px;
-  font-weight:800;
-}
-.inicio-home-date-v9019{
-  color:#5d6f82;
-  font-size:13px;
-  font-weight:800;
-  padding-top:7px;
-  white-space:nowrap;
-}
-.inicio-home-title-v9019{
-  margin:0;
-  font-size:25px;
-  line-height:1.15;
-  letter-spacing:-.02em;
-  color:#16395f;
-}
-.inicio-home-sub-v9019{
-  margin:8px 0 0;
-  color:#5d6f82;
+  background:rgba(255,255,255,.82);
   font-size:15px;
-  line-height:1.45;
+  font-weight:900;
+  color:#2a6594;
+  box-shadow:0 8px 22px rgba(38,80,120,.08);
 }
-.inicio-home-card-v9019{
-  margin-top:15px;
-  padding:18px 16px;
+.home-title-v9019{
+  margin:13px 0 7px;
+  font-size:30px;
+  line-height:1.12;
+  font-weight:950;
+  letter-spacing:-.02em;
+}
+.home-sub-v9019{
+  margin:0 0 15px;
+  font-size:19px;
+  line-height:1.45;
+  color:#5d7183;
+}
+.home-date-v9019{
+  margin:8px 0 18px;
+  font-size:17px;
+  font-weight:800;
+  color:#63788a;
+}
+.home-verse-card-v9019{
+  margin-top:12px;
+  padding:28px 22px 24px;
   border-radius:24px;
-  background:rgba(255,255,255,.9);
-  border:1px solid rgba(255,255,255,.95);
-  box-shadow:0 8px 18px rgba(31,95,155,.07);
+  background:rgba(255,255,255,.95);
+  box-shadow:0 18px 42px rgba(39,83,125,.11);
   text-align:center;
 }
-.inicio-home-ref-v9019{
-  color:#1f5f9b;
-  font-size:24px;
-  line-height:1.15;
-  font-weight:900;
-  margin:5px 0 12px;
+.home-icon-v9019{font-size:34px;margin-bottom:8px}
+.home-ref-v9019{
+  font-size:27px;
+  line-height:1.18;
+  font-weight:950;
+  color:#1e6698;
+  margin-bottom:14px;
 }
-.inicio-home-line-v9019{
-  width:82px;
-  height:1px;
-  margin:0 auto 13px;
-  background:linear-gradient(90deg, transparent, rgba(31,95,155,.42), transparent);
+.home-line-v9019{
+  width:86px;height:1px;margin:0 auto 20px;
+  background:linear-gradient(90deg, transparent, rgba(49,104,150,.34), transparent);
 }
-.inicio-home-verse-v9019{
+.home-text-v9019{
+  font-size:26px;
+  line-height:1.48;
+  color:#1b2f44;
   margin:0;
-  font-size:21px;
-  line-height:1.65;
-  color:#172b45;
 }
-.inicio-home-foot-v9019{
-  margin-top:13px;
-  padding:12px 14px;
+.home-note-v9019{
+  margin-top:22px;
+  padding:14px 16px;
+  border-radius:20px;
+  background:rgba(222,239,253,.82);
+  color:#314b62;
+  font-size:18px;
+  line-height:1.38;
+}
+.home-actions-v9019{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.home-enter-v9019{
+  border:0;
   border-radius:18px;
-  background:rgba(234,244,255,.82);
-  color:#334960;
-  font-size:14px;
-  line-height:1.45;
+  padding:14px 24px;
+  background:#fff;
+  color:#173653;
+  font-size:18px;
+  font-weight:900;
+  box-shadow:0 12px 28px rgba(34,70,110,.12);
 }
-body.dark .inicio-home-v9019{
-  border-color:rgba(255,255,255,.10);
-  background:
-    radial-gradient(circle at 18% 0%, rgba(80,111,150,.35), transparent 35%),
-    linear-gradient(135deg, rgba(26,34,45,.98), rgba(20,23,28,.96));
-  box-shadow:0 8px 22px rgba(0,0,0,.18);
+body.home-start-v9019 .main{display:none!important}
+body.home-start-v9019 #homeStartV9019{display:block!important}
+#homeStartV9019{display:none}
+body.dark .home-card-v9019{
+  background:linear-gradient(160deg, rgba(31,45,61,.96), rgba(15,31,48,.96));
+  color:#f4f7fb;border-color:rgba(255,255,255,.16)
 }
-body.dark .inicio-home-kicker-v9019,
-body.dark .inicio-home-card-v9019{
-  background:rgba(255,255,255,.08);
-  border-color:rgba(255,255,255,.10);
+body.dark .home-verse-card-v9019{background:rgba(255,255,255,.08)}
+body.dark .home-sub-v9019, body.dark .home-date-v9019{color:#c3cfda}
+body.dark .home-text-v9019{color:#f4f7fb}
+body.dark .home-note-v9019{background:rgba(255,255,255,.09);color:#e7eef6}
+@media(max-width:700px){
+  .home-card-v9019{margin:12px 10px 16px;padding:22px 18px 20px;border-radius:26px}
+  .home-title-v9019{font-size:28px}
+  .home-sub-v9019{font-size:18px}
+  .home-ref-v9019{font-size:25px}
+  .home-text-v9019{font-size:25px;line-height:1.52}
 }
-body.dark .inicio-home-title-v9019,
-body.dark .inicio-home-ref-v9019,
-body.dark .inicio-home-verse-v9019{color:var(--text)}
-body.dark .inicio-home-sub-v9019,
-body.dark .inicio-home-date-v9019,
-body.dark .inicio-home-foot-v9019{color:var(--muted)}
-body.dark .inicio-home-foot-v9019{background:rgba(255,255,255,.06)}
-body.fullscreen-reading .inicio-home-v9019,
-body.editing-focus .inicio-home-v9019,
-body.titles-only .inicio-home-v9019,
-body.backup-only .inicio-home-v9019,
-body.categories-fullscreen-v73 .inicio-home-v9019{
-  display:none!important;
-}
-@media(max-width:860px){
-  .inicio-home-v9019{
-    margin:10px 10px 0;
-    padding:16px 14px 14px;
-    border-radius:24px;
-  }
-  .inicio-home-head-v9019{
-    flex-direction:column;
-    gap:8px;
-    margin-bottom:12px;
-  }
-  .inicio-home-date-v9019{
-    padding-top:0;
-  }
-  .inicio-home-title-v9019{
-    font-size:23px;
-  }
-  .inicio-home-verse-v9019{
-    font-size:20px;
-    line-height:1.6;
-  }
-}
-</style>
 
 </head>
 <body>
@@ -1882,21 +1853,21 @@ function openRecentEntry(type,idx){
 </div>
 
 
-<div class="inicio-home-v9019" aria-label="Inicio visual">
-  <div class="inicio-home-head-v9019">
-    <div>
-      <div class="inicio-home-kicker-v9019">🌅 Palabra para hoy</div>
-      <h1 class="inicio-home-title-v9019">Un momento para volver a Dios</h1>
-      <p class="inicio-home-sub-v9019">Abre el corazón, respira y deja que la Palabra te acompañe hoy.</p>
-    </div>
-    <div class="inicio-home-date-v9019">📅 Hoy</div>
+
+<div id="homeStartV9019" class="home-card-v9019" aria-label="Inicio Oraciones V2">
+  <div class="home-pill-v9019">🌅 Palabra para hoy</div>
+  <h2 class="home-title-v9019">Un momento para volver a Dios</h2>
+  <p class="home-sub-v9019">Abre el corazón, respira y deja que la Palabra te acompañe hoy.</p>
+  <div id="homeDateV9019" class="home-date-v9019">📅 Hoy</div>
+  <div class="home-verse-card-v9019">
+    <div class="home-icon-v9019">📖</div>
+    <div id="homeRefV9019" class="home-ref-v9019">Versículo</div>
+    <div class="home-line-v9019"></div>
+    <p id="homeTextV9019" class="home-text-v9019">La Palabra de Dios es lámpara a mis pies y lumbrera a mi camino.</p>
+    <div class="home-note-v9019">🙏🏾 Que esta palabra te dé paz, fortaleza y esperanza.</div>
   </div>
-  <div class="inicio-home-card-v9019">
-    <div style="font-size:28px;line-height:1">📖</div>
-    <div class="inicio-home-ref-v9019">Versículo del día</div>
-    <div class="inicio-home-line-v9019"></div>
-    <p class="inicio-home-verse-v9019">La Palabra de Dios es lámpara a mis pies y lumbrera a mi camino.</p>
-    <div class="inicio-home-foot-v9019">🙏🏾 Que esta palabra te dé paz, fortaleza y esperanza.</div>
+  <div class="home-actions-v9019">
+    <button class="home-enter-v9019" type="button" onclick="enterHomeV9019()">Entrar</button>
   </div>
 </div>
 
@@ -2079,6 +2050,52 @@ function openRecentEntry(type,idx){
 </div>
 
 <div id="toast" class="toast">Guardado</div>
+
+<script>
+/* v90.19 - Inicio independiente bajo botonera: usa un versículo del listado, sin tocar Versículo del día */
+(function(){
+  function escV9019(t){return String(t||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]||c;});}
+  function cleanV9019(t){return String(t||'').replace(/\n/g,' ').replace(/\s+/g,' ').trim();}
+  function dateV9019(){
+    try{return new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
+    catch(e){return 'Hoy';}
+  }
+  function pickHomeVerseV9019(){
+    try{
+      var list=(window.state && Array.isArray(window.state.verses)) ? window.state.verses : (typeof state!=='undefined' && Array.isArray(state.verses) ? state.verses : []);
+      list=list.filter(function(v){return v && cleanV9019(v.text||v.content||'');});
+      if(list.length){
+        var v=list[Math.floor(Math.random()*list.length)];
+        return {ref:v.reference||v.title||'Versículo', text:cleanV9019(v.text||v.content||'')};
+      }
+    }catch(e){}
+    return {ref:'Salmos 119:105', text:'La Palabra de Dios es lámpara a mis pies y lumbrera a mi camino.'};
+  }
+  window.renderHomeV9019=function(){
+    var d=document.getElementById('homeDateV9019'), r=document.getElementById('homeRefV9019'), t=document.getElementById('homeTextV9019');
+    var v=pickHomeVerseV9019();
+    if(d)d.textContent='📅 '+dateV9019();
+    if(r)r.innerHTML=escV9019(v.ref);
+    if(t)t.innerHTML=escV9019(v.text);
+  };
+  window.enterHomeV9019=function(){
+    document.body.classList.remove('home-start-v9019');
+    try{openReader();}catch(e){}
+  };
+  function hideHomeFromTopbar(e){
+    if(e && e.target && e.target.closest && e.target.closest('button')) document.body.classList.remove('home-start-v9019');
+  }
+  function initHomeV9019(){
+    renderHomeV9019();
+    document.body.classList.add('home-start-v9019');
+    var tb=document.querySelector('.topbar');
+    if(tb)tb.addEventListener('click',hideHomeFromTopbar,true);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initHomeV9019);
+  else initHomeV9019();
+})();
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js">
 function decorateDailyVerseNote(){
   try{
