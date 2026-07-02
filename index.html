@@ -4613,66 +4613,6 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
   }
 </style>
 
-
-<script>
-/* v90.19.2 - Volver de Versículo del día directo a Inicio */
-(function(){
-  if(window.__v90192DailyBackHome) return;
-  window.__v90192DailyBackHome = true;
-
-  function goHomeFromDailyV90192(){
-    try{ window.__dailyOpenedFromHomeV90191 = false; }catch(e){}
-    try{ if(typeof restoreReaderHeadV75 === "function") restoreReaderHeadV75(); }catch(e){}
-    try{ if(typeof specialVerseMode !== "undefined") specialVerseMode = null; }catch(e){}
-    try{
-      if(typeof showHomeV9019 === "function"){
-        showHomeV9019();
-        return;
-      }
-    }catch(e){}
-    try{ if(typeof openReader === "function") openReader(); }catch(e){}
-  }
-  window.goHomeFromDailyV90192 = goHomeFromDailyV90192;
-
-  function patchDailyBackButtonV90192(){
-    try{
-      var head = document.querySelector("#readerView .panel-head");
-      if(!head) return;
-      var btn = head.querySelector("button");
-      if(!btn) return;
-      var isDaily = false;
-      try{
-        isDaily = (typeof specialVerseMode !== "undefined" && specialVerseMode === "daily");
-      }catch(e){}
-      if(!isDaily && document.body.classList.contains("verse-special-fullscreen-v74")){
-        var active = document.querySelector('[data-view-btn="daily"].active, #btnDaily.active');
-        isDaily = !!active;
-      }
-      if(!isDaily) return;
-      btn.setAttribute("onclick","goHomeFromDailyV90192()");
-    }catch(e){
-      console.error("patchDailyBackButtonV90192", e);
-    }
-  }
-  window.patchDailyBackButtonV90192 = patchDailyBackButtonV90192;
-
-  var oldOpenDailyV90192 = window.openDailyVerse || (typeof openDailyVerse !== "undefined" ? openDailyVerse : null);
-  if(typeof oldOpenDailyV90192 === "function"){
-    window.openDailyVerse = function(){
-      try{ window.__dailyOpenedFromHomeV90191 = true; }catch(e){}
-      var r = oldOpenDailyV90192.apply(this, arguments);
-      patchDailyBackButtonV90192();
-      setTimeout(patchDailyBackButtonV90192, 30);
-      setTimeout(patchDailyBackButtonV90192, 120);
-      return r;
-    };
-    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
-  }
-
-  setTimeout(patchDailyBackButtonV90192, 200);
-})();
-</script>
-
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
