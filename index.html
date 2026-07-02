@@ -2137,7 +2137,7 @@ function openRecentEntry(type,idx){
 
     <div id="verseCategoriesView" class="panel hidden categories-screen-v73">
       <div class="panel-head categories-head-v73">
-        <button class="btn soft" type="button" onclick="leaveVerseCategoriesToHomeV90207()">← Volver</button>
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
         <button class="btn soft" type="button" onclick="openVerseFavorites()">⭐ Favoritos</button>
         <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Hoy</button>
         <button class="btn soft" type="button" onclick="openRandomVerse()">🌿 Versículo al azar</button>
@@ -4943,44 +4943,6 @@ body.sent-reader-v903 #homeView{
   display:none!important;
 }
 </style>
-
-
-
-<script id="v90-20-7-verse-categories-real-back-home">
-/* v90.20.7 - Versículos/Categorías: Volver directo al Inicio sin pasar por smartBack */
-(function(){
-  if(window.__v90207VerseCategoriesRealBackHome) return;
-  window.__v90207VerseCategoriesRealBackHome = true;
-
-  window.leaveVerseCategoriesToHomeV90207 = function(){
-    try{ if(typeof categoryListActive !== "undefined") categoryListActive = false; }catch(e){}
-    try{ if(typeof sentListActive !== "undefined") sentListActive = false; }catch(e){}
-    try{ if(typeof specialVerseMode !== "undefined") specialVerseMode = null; }catch(e){}
-    try{ if(typeof verseNavigationMode !== "undefined") verseNavigationMode = null; }catch(e){}
-
-    try{
-      var cats = document.getElementById("verseCategoriesView");
-      if(cats) cats.classList.add("hidden");
-      document.body.classList.remove("categories-fullscreen-v73","reading-mobile","fullscreen-reading","hide-reading-ui");
-    }catch(e){}
-
-    if(typeof showHomeV9019 === "function"){
-      showHomeV9019();
-    }
-
-    /* Defensa mínima: el Inicio no debe mostrar ninguna pestaña activa aunque Versículos conserve section internamente. */
-    setTimeout(function(){
-      try{
-        ["tabPrayers","tabNotes","tabGuides","tabVerses","tabParables"].forEach(function(id){
-          var btn = document.getElementById(id);
-          if(btn){ btn.classList.remove("active"); btn.classList.remove("active-view"); }
-        });
-        if(typeof setActiveView === "function") setActiveView(null);
-      }catch(e){}
-    }, 0);
-  };
-})();
-</script>
 
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
