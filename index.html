@@ -1436,7 +1436,7 @@ body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:
   border:1px solid rgba(80,140,200,.24);
   border-radius:26px;
   padding:22px 20px;
-  background:linear-gradient(135deg,#eaf5ff 0%,#f7fbff 48%,#eef8f1 100%);
+  background:radial-gradient(circle at 50% 35%,#ffffff 0%,#eef8ff 38%,#d8efff 72%,#c4e6ff 100%);
   box-shadow:0 12px 30px rgba(38,95,150,.12);
   color:var(--text);
   max-width:760px;
@@ -1536,7 +1536,7 @@ body.home-active-v9019 .content{width:100%!important;max-width:100%!important}
   border-color:rgba(255,255,255,.72)!important;
 }
 .home-card-v9019::after{
-  content:"☁️"!important;
+  content:"🌿"!important;
   right:22px!important;
   top:18px!important;
   font-size:31px!important;
@@ -1816,8 +1816,8 @@ function clearRecentHistory(){
 }
 function recentKindLabel(item){
   if(!item)return "";
-  if(item.kind==="festivityPassage")return "📅 Festividad · 📖 Pasaje";
-  if(item.kind==="festivity")return "📅 Festividad";
+  if(item.kind==="festivityPassage")return "Festividad · 📖 Pasaje";
+  if(item.kind==="festivity")return "Festividad";
   if(item.section==="verses")return "❤️ Versículo";
   if(item.section==="prayers")return "✝️ Oración";
   if(item.section==="notes")return "📝 Nota";
@@ -1918,7 +1918,7 @@ function openRecentEntry(type,idx){
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
     <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
-    <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
+    <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">Calendario</button>
     <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
         <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
     <button id="btnEdit" data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
@@ -1928,7 +1928,7 @@ function openRecentEntry(type,idx){
     <button id="btnMainCopy" class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>
     <button id="btnMainMore" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
     <button id="btnMainFav" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-    <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
+    <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">🌿 Backup</button>
     <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
     <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()">🌙</button>
     <button class="btn danger delete-btn-v66" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
@@ -1945,7 +1945,7 @@ function openRecentEntry(type,idx){
 
     <div id="homeView" class="panel home-panel-v9019 hidden">
       <div class="home-card-v9019" id="homeCardV9019">
-        <div class="home-kicker-v9019">✨ Palabra para este momento</div>
+        <div class="home-kicker-v9019">🌿 Palabra para este momento</div>
         <div class="home-date-v9019" id="homeDateV9019"></div>
         <div class="home-ref-v9019" id="homeRefV9019">Romanos 8:28</div>
         <div class="home-text-v9019" id="homeTextV9019"></div>
@@ -2054,7 +2054,7 @@ function openRecentEntry(type,idx){
     <div id="calendarView" class="panel hidden">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
-        <button class="btn soft" type="button" onclick="renderChristianCalendar(new Date())">📅 Hoy</button>
+        <button class="btn soft" type="button" onclick="renderChristianCalendar(new Date())">Hoy</button>
         <button class="btn soft" type="button" onclick="renderChristianCalendar(addCalendarDays(new Date(),1))">Mañana</button>
         <button class="btn soft" type="button" onclick="openFestivityLibrary()">📚 Festividades</button>
       </div>
@@ -2142,7 +2142,7 @@ function decorateDailyVerseNote(){
       if(h){
         const note = document.createElement("div");
         note.className = "vdaily-note";
-        note.textContent = "📅 Generado para hoy";
+        note.textContent = "Generado para hoy";
         h.insertAdjacentElement("afterend", note);
       }
     }
@@ -2613,7 +2613,7 @@ function renderReader(){try{document.body.dataset.section=section;}catch(e){}app
     }
     document.getElementById("readerCode").textContent=(item.shared?"✓ Compartido · ":"")+(specialVerseMode==="daily"?"🌅 Versículo del día · ":specialVerseMode==="random"?"🌿 Versículo aleatorio · ":"")+formatLastCardSentAt(item.lastCardSentAt)+" · "+verseCategoryLabel(item.category);
     if(specialVerseMode==="daily" && dailyDateEl){
-      dailyDateEl.textContent="📅 "+formatDailyDateEs();
+      dailyDateEl.textContent=""+formatDailyDateEs();
       dailyDateEl.classList.remove("hidden");
     }
     document.getElementById("readerTitle").textContent=(item.favorite?"⭐ ":"")+(item.reference||item.title||"Sin referencia");
@@ -4086,7 +4086,7 @@ function renderChristianCalendar(date){
   const box=document.getElementById("calendarContent"); if(!box)return;
   const events=getChristianEventsFor(date);
   const whenLabel=sameCalendarDay(date,new Date())?'Hoy':'Fecha';
-  box.innerHTML='<div class="calendar-hero"><div class="calendar-title">📅 Calendario Cristiano</div><div class="calendar-date">'+whenLabel+' · '+escapeHtml(formatCalendarDate(date))+'</div></div><div class="calendar-grid">'
+  box.innerHTML='<div class="calendar-hero"><div class="calendar-title">Calendario Cristiano</div><div class="calendar-date">'+whenLabel+' · '+escapeHtml(formatCalendarDate(date))+'</div></div><div class="calendar-grid">'
     +renderCalendarTradition(events,"etiope","🇪🇹 Ortodoxo etíope")
     +renderCalendarTradition(events,"ortodoxa","☦️ Ortodoxo")
     +renderCalendarTradition(events,"protestante","✝️ Protestante")
@@ -4212,7 +4212,7 @@ function openFestivityDetail(id,forceEditNotes){
 
   box.innerHTML=
     '<div class="festivity-detail-title">'+escapeHtml(f.title)+'</div>'+
-    '<div class="festivity-detail-date">📅 '+escapeHtml(f.date)+'</div>'+
+    '<div class="festivity-detail-date">'+escapeHtml(f.date)+'</div>'+
     '<div class="festivity-section"><h3>📖 Sentido</h3><p>'+escapeHtml(f.summary)+'</p></div>'+
     '<div class="festivity-section"><h3>✝️ Significado cristiano</h3><p>'+escapeHtml(f.meaning)+'</p></div>'+
     '<div class="festivity-section"><h3>📖 Pasajes bíblicos</h3><div id="festivityPassageButtons" class="festivity-passages"></div><div class="festivity-hint">Toca un pasaje para abrirlo, pegar el texto RVR1960 y guardarlo por separado.</div></div>'+
@@ -4732,6 +4732,30 @@ body.sent-reader-v903 #homeView{
 }
 </style>
 
+
+<script>
+(function(){
+ const h=new Date().getHours();
+ const c=document.documentElement;
+ if(h>=6&&h<12)c.classList.add('sky-morning');
+ else if(h>=12&&h<19)c.classList.add('sky-day');
+ else c.classList.add('sky-night');
+})();
+</script>
+<style>
+.sky-morning .home-card-v9019{background:
+radial-gradient(circle at 50% 30%,rgba(255,244,210,.28),transparent 34%),
+radial-gradient(circle at 15% 10%,rgba(255,255,255,.96),transparent 30%),
+linear-gradient(145deg,#f7fcff,#e8f5ff,#eefcff)!important}
+.sky-day .home-card-v9019{background:
+radial-gradient(circle at 50% 28%,rgba(210,236,255,.30),transparent 35%),
+linear-gradient(145deg,#f8fdff,#e8f6ff,#dff2ff)!important}
+.sky-night .home-card-v9019{background:
+radial-gradient(circle at 82% 18%,rgba(255,255,255,.10),transparent 18%),
+linear-gradient(145deg,#0f2340,#163657,#1f4c73)!important}
+.sky-night .home-kicker-v9019,.sky-night .home-ref-v9019,.sky-night .home-text-v9019,.sky-night .home-phrase-v9019{color:#eef7ff!important}
+.sky-night .home-date-v9019{background:rgba(255,255,255,.08)!important;color:#dcecff!important}
+</style>
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6609,7 +6633,7 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
   window.setTrash=function(items){ensureParablesState();if(section==="prayers")state.trashPrayers=items;else if(section==="notes")state.trashNotes=items;else if(section==="guides")state.trashGuides=items;else if(section==="parables")state.trashParables=items;else state.trashVerses=items;};try{setTrash=window.setTrash;}catch(e){}
   window.currentItem=function(){ensureParablesState();var items=getItems();var id=section==="prayers"?state.currentPrayerId:section==="notes"?state.currentNoteId:section==="guides"?state.currentGuideId:section==="parables"?state.currentParableId:state.currentVerseId;var found=(items||[]).find(function(x){return x.id===id});if(found)return found;var first=(items||[])[0]||null;if(first){if(section==="prayers")state.currentPrayerId=first.id;else if(section==="notes")state.currentNoteId=first.id;else if(section==="guides")state.currentGuideId=first.id;else if(section==="parables")state.currentParableId=first.id;else state.currentVerseId=first.id;}return first;};try{currentItem=window.currentItem;}catch(e){}
   window.setCurrentId=function(id){ensureParablesState();if(section==="prayers")state.currentPrayerId=id;else if(section==="notes")state.currentNoteId=id;else if(section==="guides")state.currentGuideId=id;else if(section==="parables")state.currentParableId=id;else state.currentVerseId=id;saveState();};try{setCurrentId=window.setCurrentId;}catch(e){}
-  window.recentKindLabel=function(item){if(!item)return"";if(item.kind==="festivityPassage")return"📅 Festividad · 📖 Pasaje";if(item.kind==="festivity")return"📅 Festividad";if(item.section==="verses")return"❤️ Versículo";if(item.section==="prayers")return"✝️ Oración";if(item.section==="notes")return"📝 Nota";if(item.section==="guides")return"📜 Guía";if(item.section==="parables")return"🌱 Parábola";return"Elemento";};try{recentKindLabel=window.recentKindLabel;}catch(e){}
+  window.recentKindLabel=function(item){if(!item)return"";if(item.kind==="festivityPassage")return"Festividad · 📖 Pasaje";if(item.kind==="festivity")return"Festividad";if(item.section==="verses")return"❤️ Versículo";if(item.section==="prayers")return"✝️ Oración";if(item.section==="notes")return"📝 Nota";if(item.section==="guides")return"📜 Guía";if(item.section==="parables")return"🌱 Parábola";return"Elemento";};try{recentKindLabel=window.recentKindLabel;}catch(e){}
   window.syncTabs=function(){ensureParablesState();setSearchVisibleV26(!(section==="prayers"||section==="notes"||section==="guides"||section==="parables"));var p=document.getElementById("tabPrayers");if(p)p.classList.toggle("active",section==="prayers");var n=document.getElementById("tabNotes");if(n)n.classList.toggle("active",section==="notes");var g=document.getElementById("tabGuides");if(g)g.classList.toggle("active",section==="guides");var pa=document.getElementById("tabParables");if(pa)pa.classList.toggle("active",section==="parables");var v=document.getElementById("tabVerses");if(v)v.classList.toggle("active",section==="verses");var search=document.getElementById("search");if(search)search.placeholder=sectionLabelV85(section).search;var c=document.getElementById("counterInfo");if(c)c.textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | 🌱 ${state.parables?state.parables.length:0} | ❤️ ${state.verses?state.verses.length:0}`;};try{syncTabs=window.syncTabs;}catch(e){}
   window.switchSection=function(s){ensureParablesState();section=s;state.section=s;try{document.body.dataset.section=s;}catch(e){};saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}renderReader();openReader();};try{switchSection=window.switchSection;}catch(e){}
   window.titlesPlaceholderV72=function(){return sectionLabelV85(section).search;};try{titlesPlaceholderV72=window.titlesPlaceholderV72;}catch(e){}
@@ -6738,6 +6762,30 @@ body.sent-reader-v903 #homeView{
 }
 </style>
 
+
+<script>
+(function(){
+ const h=new Date().getHours();
+ const c=document.documentElement;
+ if(h>=6&&h<12)c.classList.add('sky-morning');
+ else if(h>=12&&h<19)c.classList.add('sky-day');
+ else c.classList.add('sky-night');
+})();
+</script>
+<style>
+.sky-morning .home-card-v9019{background:
+radial-gradient(circle at 50% 30%,rgba(255,244,210,.28),transparent 34%),
+radial-gradient(circle at 15% 10%,rgba(255,255,255,.96),transparent 30%),
+linear-gradient(145deg,#f7fcff,#e8f5ff,#eefcff)!important}
+.sky-day .home-card-v9019{background:
+radial-gradient(circle at 50% 28%,rgba(210,236,255,.30),transparent 35%),
+linear-gradient(145deg,#f8fdff,#e8f6ff,#dff2ff)!important}
+.sky-night .home-card-v9019{background:
+radial-gradient(circle at 82% 18%,rgba(255,255,255,.10),transparent 18%),
+linear-gradient(145deg,#0f2340,#163657,#1f4c73)!important}
+.sky-night .home-kicker-v9019,.sky-night .home-ref-v9019,.sky-night .home-text-v9019,.sky-night .home-phrase-v9019{color:#eef7ff!important}
+.sky-night .home-date-v9019{background:rgba(255,255,255,.08)!important;color:#dcecff!important}
+</style>
 </body>
 </html>
 
@@ -8591,7 +8639,7 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
       var ref = document.getElementById("homeRefV9019");
       var text = document.getElementById("homeTextV9019");
       var phrase = document.getElementById("homePhraseV9019");
-      if(date) date.textContent = "📅 " + formatHomeDateV9019();
+      if(date) date.textContent = formatHomeDateV9019();
       if(ref) ref.textContent = verse.ref;
       var verseTextV9019 = verse.text || "";
       if(text){
