@@ -1914,7 +1914,7 @@ function openRecentEntry(type,idx){
 
     <div id="backupView" class="panel hidden">
       <div class="panel-head backup-head-v40">
-        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
+        <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
 
         <div class="backup-title-v40">📤 EXPORTAR</div>
         <button class="btn primary" type="button" onclick="downloadBackupJson()">⬇ Descargar JSON</button>
@@ -1943,7 +1943,7 @@ function openRecentEntry(type,idx){
 
     <div id="calendarView" class="panel hidden">
       <div class="panel-head">
-        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
+        <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
         <button class="btn soft" type="button" onclick="renderChristianCalendar(new Date())">📅 Hoy</button>
         <button class="btn soft" type="button" onclick="renderChristianCalendar(addCalendarDays(new Date(),1))">Mañana</button>
         <button class="btn soft" type="button" onclick="openFestivityLibrary()">📚 Festividades</button>
@@ -1979,7 +1979,7 @@ function openRecentEntry(type,idx){
 
     <div id="trashView" class="panel hidden">
       <div class="panel-head">
-        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
+        <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
         <button class="btn danger" type="button" onclick="emptyTrash()">Vaciar papelera</button>
       </div>
       <div id="trashList" class="trash-list"></div>
@@ -8473,7 +8473,7 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
 
   window.showHomeV9019 = function(){
     try{
-      document.body.classList.remove("editing-focus","reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73");
+      document.body.classList.remove("editing-focus","reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73","backup-only","special-view-only");
       document.body.classList.add("home-active-v9019");
       if(typeof setActiveView === "function") setActiveView(null);
 
