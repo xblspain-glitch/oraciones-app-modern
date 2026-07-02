@@ -2753,16 +2753,6 @@ function smartBack(){
     const catsVisible=!document.getElementById("verseCategoriesView").classList.contains("hidden");
 
     if(readerVisible){
-      try{
-        if(typeof specialVerseMode !== "undefined" && specialVerseMode === "daily" && typeof showHomeV9019 === "function"){
-          try{ specialVerseMode = null; }catch(_e){}
-          try{ categoryListActive = false; }catch(_e){}
-          try{ sentListActive = false; }catch(_e){}
-          try{ returnToSentList = false; }catch(_e){}
-          showHomeV9019();
-          return;
-        }
-      }catch(_e){}
       document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
       if(verseNavigationMode==="titles"){
         openTitlesView();
@@ -8595,5 +8585,37 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
     };
     try{ smartBack = window.smartBack; }catch(e){}
   }
+})();
+</script>
+
+<script id="v90-19-2-versiculos-volver-inicio">
+/* v90.19.2 - Ajuste seguro: desde la portada normal de Versículos, Volver regresa al Inicio.
+   No toca el detalle de versículos ni Versículo del día; solo actúa cuando la vista visible
+   es el reader normal de Versículos (sin fullscreen). */
+(function(){
+  if(window.__v90192VersiculosVolverInicio) return;
+  window.__v90192VersiculosVolverInicio = true;
+
+  var oldSmartBackV90192 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof oldSmartBackV90192 !== "function") return;
+
+  window.smartBack = function(){
+    try{
+      var reader = document.getElementById("readerView");
+      var readerVisible = reader && !reader.classList.contains("hidden");
+      var isVerses = (typeof section !== "undefined" && section === "verses");
+      var isNormalReader = readerVisible && !document.body.classList.contains("fullscreen-reading");
+
+      if(isVerses && isNormalReader){
+        if(typeof showHomeV9019 === "function"){
+          try{ if(typeof setActiveView === "function") setActiveView(null); }catch(_e){}
+          showHomeV9019();
+          return;
+        }
+      }
+    }catch(e){}
+    return oldSmartBackV90192.apply(this, arguments);
+  };
+  try{ smartBack = window.smartBack; }catch(e){}
 })();
 </script>
