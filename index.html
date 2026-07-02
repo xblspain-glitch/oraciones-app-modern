@@ -4679,6 +4679,146 @@ body.dark .reader-collapse-content{
 body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:#6a3430}
 </style>
 
+
+
+<style id="v90-20-2-retoques-finales-reales-css">
+/* v90.20.2 - Retoques finales reales de portada: solo CSS, sin tocar lógica */
+.home-panel-v9019{
+  padding:22px 12px 28px!important;
+}
+
+.home-card-v9019{
+  border-width:1px!important;
+  border-color:rgba(155,213,248,.36)!important;
+  box-shadow:
+    0 22px 48px rgba(36,105,160,.105),
+    0 8px 18px rgba(80,150,210,.055),
+    inset 0 1px 0 rgba(255,255,255,.76)!important;
+}
+
+/* Marco interior más suave y premium */
+.home-card-v9019::before{
+  border-color:rgba(255,255,255,.58)!important;
+  opacity:.92!important;
+}
+
+/* Decoración superior derecha más discreta */
+.home-card-v9019::after{
+  font-size:28px!important;
+  opacity:.115!important;
+  right:24px!important;
+  top:22px!important;
+  filter:saturate(.72) brightness(1.05)!important;
+}
+
+/* Más serenidad en el encabezado */
+.home-kicker-v9019{
+  color:#166f9f!important;
+  font-weight:800!important;
+  letter-spacing:.05px!important;
+  margin-bottom:16px!important;
+}
+
+/* Cápsula de fecha más limpia */
+.home-date-v9019{
+  padding:6px 16px!important;
+  margin-bottom:28px!important;
+  color:#466f89!important;
+  background:rgba(255,255,255,.74)!important;
+  border-color:rgba(135,195,235,.24)!important;
+  box-shadow:
+    0 5px 14px rgba(51,118,170,.075),
+    inset 0 1px 0 rgba(255,255,255,.78)!important;
+}
+
+/* Referencia con más foco, sin aumentar demasiado */
+.home-ref-v9019{
+  color:#0e6599!important;
+  margin-top:4px!important;
+  margin-bottom:20px!important;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.72),
+    0 10px 28px rgba(86,170,225,.18)!important;
+}
+
+/* Aire y lectura */
+.home-text-v9019{
+  color:#203748!important;
+  max-width:625px!important;
+}
+.home-text-short-v9019{line-height:1.78!important}
+.home-text-medium-v9019{line-height:1.68!important}
+.home-text-long-v9019{line-height:1.56!important}
+.home-text-xl-v9019{line-height:1.43!important}
+
+/* Separador más sutil */
+.home-line-v9019{
+  width:116px!important;
+  height:1px!important;
+  background:linear-gradient(90deg, transparent, rgba(52,142,205,.25), transparent)!important;
+  margin:26px auto 18px!important;
+  position:relative!important;
+}
+.home-line-v9019::after{
+  content:"✣";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-51%);
+  font-size:12px;
+  line-height:1;
+  color:rgba(52,142,205,.48);
+  background:rgba(246,252,255,.78);
+  padding:0 6px;
+}
+
+/* Frase inferior acompañando, sin competir */
+.home-phrase-v9019{
+  color:#4f7288!important;
+  font-weight:650!important;
+  opacity:.92!important;
+}
+
+/* Cielos un poco más refinados */
+.home-card-v9019.home-sky-morning{
+  border-color:rgba(168,218,248,.34)!important;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.62) 30%, rgba(255,255,255,0) 59%),
+    radial-gradient(circle at 13% 12%, rgba(255,248,221,.20) 0%, rgba(255,248,221,0) 34%),
+    radial-gradient(circle at 87% 12%, rgba(200,232,255,.32) 0%, rgba(200,232,255,0) 35%),
+    linear-gradient(145deg,#e6f6ff 0%,#f8fdff 48%,#eef9ff 100%)!important;
+}
+.home-card-v9019.home-sky-day{
+  border-color:rgba(145,210,248,.34)!important;
+  background:
+    radial-gradient(circle at 50% 31%, rgba(255,255,255,1) 0%, rgba(255,255,255,.58) 31%, rgba(255,255,255,0) 60%),
+    radial-gradient(circle at 15% 13%, rgba(211,240,255,.48) 0%, rgba(211,240,255,0) 35%),
+    radial-gradient(circle at 90% 15%, rgba(176,222,250,.28) 0%, rgba(176,222,250,0) 36%),
+    linear-gradient(145deg,#d8f2ff 0%,#f7fcff 50%,#eaf8ff 100%)!important;
+}
+.home-card-v9019.home-sky-night{
+  border-color:rgba(175,218,250,.22)!important;
+  background:
+    radial-gradient(circle at 50% 33%, rgba(236,248,255,.30) 0%, rgba(236,248,255,.13) 30%, rgba(236,248,255,0) 61%),
+    radial-gradient(circle at 82% 13%, rgba(196,222,255,.22) 0%, rgba(196,222,255,0) 31%),
+    radial-gradient(circle at 15% 88%, rgba(117,142,210,.15) 0%, rgba(117,142,210,0) 38%),
+    linear-gradient(145deg,#183961 0%,#245b88 52%,#142d49 100%)!important;
+  box-shadow:0 24px 58px rgba(8,35,68,.26), inset 0 1px 0 rgba(255,255,255,.13)!important;
+}
+.home-card-v9019.home-sky-night .home-line-v9019::after{
+  background:rgba(29,66,100,.78);
+  color:rgba(220,242,255,.62);
+}
+
+@media (max-width:420px){
+  .home-panel-v9019{padding:22px 9px 28px!important}
+  .home-card-v9019{padding-top:33px!important;padding-bottom:28px!important}
+  .home-kicker-v9019{margin-bottom:15px!important}
+  .home-date-v9019{margin-bottom:26px!important}
+  .home-line-v9019{margin-top:25px!important;margin-bottom:17px!important}
+}
+</style>
+
 </head><body><div class="wrap"><div class="card"><div class="badge">${escapeHtml(folderLabel)} ${escapeHtml(code||"")}</div><h1>${escapeHtml(title)}</h1><div class="content">${escapeHtml(item.content)}</div></div></div>
 <style>
 
