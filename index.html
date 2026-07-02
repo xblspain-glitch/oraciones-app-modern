@@ -2753,6 +2753,16 @@ function smartBack(){
     const catsVisible=!document.getElementById("verseCategoriesView").classList.contains("hidden");
 
     if(readerVisible){
+      try{
+        if(typeof specialVerseMode !== "undefined" && specialVerseMode === "daily" && typeof showHomeV9019 === "function"){
+          try{ specialVerseMode = null; }catch(_e){}
+          try{ categoryListActive = false; }catch(_e){}
+          try{ sentListActive = false; }catch(_e){}
+          try{ returnToSentList = false; }catch(_e){}
+          showHomeV9019();
+          return;
+        }
+      }catch(_e){}
       document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui");
       if(verseNavigationMode==="titles"){
         openTitlesView();
