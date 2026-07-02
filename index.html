@@ -4613,6 +4613,15 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
   }
 </style>
 
+
+<style id="v90-19-4-sent-home-hide">
+/* v90.19.4 - Evita que la portada de Inicio aparezca dentro de Más > Enviados */
+body.sent-fullscreen-v76 #homeView,
+body.sent-reader-v903 #homeView{
+  display:none!important;
+}
+</style>
+
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6608,6 +6617,15 @@ body.dark .topbar-row #tabParables.active-view{
   .reader-popup-actions-v913{
     margin-top:14px !important;
   }
+</style>
+
+
+<style id="v90-19-4-sent-home-hide">
+/* v90.19.4 - Evita que la portada de Inicio aparezca dentro de Más > Enviados */
+body.sent-fullscreen-v76 #homeView,
+body.sent-reader-v903 #homeView{
+  display:none!important;
+}
 </style>
 
 </body>
