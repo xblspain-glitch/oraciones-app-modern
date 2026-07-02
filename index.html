@@ -1423,6 +1423,95 @@ body.dark .reader-collapse-content{
 body.dark .block-mini-v865.danger{background:#3a1f1d;color:#ffb7ad;border-color:#6a3430}
 </style>
 
+
+<style id="v90-19-0-home-css">
+/* v90.19.0 - Inicio visual real, debajo de la botonera */
+.home-panel-v9019{
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  padding:16px!important;
+}
+.home-card-v9019{
+  border:1px solid rgba(80,140,200,.24);
+  border-radius:26px;
+  padding:22px 20px;
+  background:linear-gradient(135deg,#eaf5ff 0%,#f7fbff 48%,#eef8f1 100%);
+  box-shadow:0 12px 30px rgba(38,95,150,.12);
+  color:var(--text);
+  max-width:760px;
+  margin:0 auto;
+  text-align:center;
+}
+.home-kicker-v9019{
+  font-size:15px;
+  font-weight:800;
+  color:#2d6ea8;
+  letter-spacing:.2px;
+  margin-bottom:8px;
+}
+.home-date-v9019{
+  display:inline-block;
+  font-size:13px;
+  color:#5f7890;
+  background:rgba(255,255,255,.62);
+  border:1px solid rgba(85,140,190,.18);
+  border-radius:999px;
+  padding:6px 12px;
+  margin-bottom:16px;
+}
+.home-ref-v9019{
+  font-size:23px;
+  line-height:1.25;
+  font-weight:900;
+  color:#174f83;
+  margin:5px 0 12px 0;
+  text-transform:uppercase;
+}
+.home-text-v9019{
+  font-size:19px;
+  line-height:1.58;
+  color:#1f2c38;
+  white-space:pre-wrap;
+  margin:0 auto;
+  max-width:650px;
+}
+.home-line-v9019{
+  width:80px;
+  height:1px;
+  background:rgba(46,111,168,.25);
+  margin:18px auto 14px auto;
+}
+.home-phrase-v9019{
+  font-size:15px;
+  color:#48677f;
+  line-height:1.45;
+}
+body.dark .home-card-v9019{
+  background:linear-gradient(135deg,#102234 0%,#132a3f 52%,#142e25 100%);
+  border-color:rgba(140,190,235,.20);
+  box-shadow:0 14px 34px rgba(0,0,0,.28);
+}
+body.dark .home-kicker-v9019{color:#9fd0ff}
+body.dark .home-date-v9019{
+  color:#c5d6e5;
+  background:rgba(255,255,255,.07);
+  border-color:rgba(255,255,255,.12);
+}
+body.dark .home-ref-v9019{color:#cde9ff}
+body.dark .home-text-v9019{color:#eef7ff}
+body.dark .home-line-v9019{background:rgba(180,220,255,.20)}
+body.dark .home-phrase-v9019{color:#c3d8e8}
+body.home-active-v9019 .sidebar{display:none!important}
+body.home-active-v9019 .content{width:100%!important;max-width:100%!important}
+@media (max-width:860px){
+  .home-panel-v9019{padding:12px!important}
+  .home-card-v9019{padding:20px 16px;border-radius:24px}
+  .home-ref-v9019{font-size:21px}
+  .home-text-v9019{font-size:18px;line-height:1.55}
+}
+</style>
+
 </head>
 <body>
 
@@ -1743,6 +1832,17 @@ function openRecentEntry(type,idx){
 <div class="main">
   <aside class="sidebar"><div id="list" class="list"></div></aside>
   <section class="content">
+
+    <div id="homeView" class="panel home-panel-v9019 hidden">
+      <div class="home-card-v9019" id="homeCardV9019">
+        <div class="home-kicker-v9019">✨ Palabra para este momento</div>
+        <div class="home-date-v9019" id="homeDateV9019"></div>
+        <div class="home-ref-v9019" id="homeRefV9019">Romanos 8:28</div>
+        <div class="home-text-v9019" id="homeTextV9019"></div>
+        <div class="home-line-v9019"></div>
+        <div class="home-phrase-v9019" id="homePhraseV9019">🙏🏾 Que esta palabra fortalezca hoy tu corazón.</div>
+      </div>
+    </div>
     <div id="readerView" class="panel">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
@@ -8299,3 +8399,145 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   }
 })();
 </script>
+
+
+<script id="v90-19-0-home-visual">
+/* v90.19.0 - Inicio real bajo la botonera, sin tocar la bienvenida */
+(function(){
+  if(window.__v90190HomeVisual) return;
+  window.__v90190HomeVisual = true;
+
+  var phrasesV9019 = [
+    "🙏🏾 Que esta palabra fortalezca hoy tu corazón.",
+    "🌿 Dios siempre habla en el momento oportuno.",
+    "❤️ Que el amor de Cristo guíe tus decisiones.",
+    "✨ Una sola palabra puede iluminar todo un día.",
+    "📖 La Palabra de Dios siempre tiene algo nuevo que mostrar."
+  ];
+
+  function escV9019(t){
+    return String(t||"").replace(/[&<>"']/g,function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]||c;
+    });
+  }
+
+  function cleanV9019(t){
+    return String(t||"").replace(/\\n/g,"\n").trim();
+  }
+
+  function formatHomeDateV9019(){
+    try{
+      return new Date().toLocaleDateString("es-ES", {
+        weekday:"long", day:"numeric", month:"long", year:"numeric"
+      });
+    }catch(e){
+      return new Date().toLocaleDateString();
+    }
+  }
+
+  function pickHomeVerseV9019(){
+    try{
+      var verses = (state && Array.isArray(state.verses)) ? state.verses : [];
+      var usable = verses.filter(function(v){
+        return v && (v.reference || v.title) && (v.text || v.content);
+      });
+      if(usable.length){
+        var v = usable[Math.floor(Math.random()*usable.length)];
+        return {
+          ref: v.reference || v.title || "Versículo",
+          text: cleanV9019(v.text || v.content || "")
+        };
+      }
+    }catch(e){}
+    return {
+      ref:"Romanos 8:28",
+      text:"Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien."
+    };
+  }
+
+  window.renderHomeV9019 = function(){
+    try{
+      var verse = pickHomeVerseV9019();
+      var date = document.getElementById("homeDateV9019");
+      var ref = document.getElementById("homeRefV9019");
+      var text = document.getElementById("homeTextV9019");
+      var phrase = document.getElementById("homePhraseV9019");
+      if(date) date.textContent = "📅 " + formatHomeDateV9019();
+      if(ref) ref.textContent = verse.ref;
+      if(text) text.textContent = "“" + verse.text + "”";
+      if(phrase) phrase.textContent = phrasesV9019[Math.floor(Math.random()*phrasesV9019.length)];
+    }catch(e){
+      console.error("renderHomeV9019", e);
+    }
+  };
+
+  window.showHomeV9019 = function(){
+    try{
+      document.body.classList.remove("editing-focus","reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73");
+      document.body.classList.add("home-active-v9019");
+      if(typeof setActiveView === "function") setActiveView(null);
+
+      ["readerView","editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(function(id){
+        var el=document.getElementById(id);
+        if(el) el.classList.add("hidden");
+      });
+      var home=document.getElementById("homeView");
+      if(home) home.classList.remove("hidden");
+      if(typeof renderHomeV9019 === "function") renderHomeV9019();
+      try{ window.scrollTo({top:0,behavior:"smooth"}); }catch(e){ window.scrollTo(0,0); }
+    }catch(e){
+      console.error("showHomeV9019", e);
+    }
+  };
+
+  function leaveHomeV9019(){
+    try{
+      document.body.classList.remove("home-active-v9019");
+      var home=document.getElementById("homeView");
+      if(home) home.classList.add("hidden");
+    }catch(e){}
+  }
+
+  ["openReader","enterFullscreenReading","openEditor","openBackup","openTrash","openTitlesView","openVerseCategories","openChristianCalendar"].forEach(function(fnName){
+    var old = window[fnName] || (typeof window[fnName] !== "undefined" ? window[fnName] : null);
+    if(typeof old === "function"){
+      window[fnName] = function(){
+        leaveHomeV9019();
+        return old.apply(this, arguments);
+      };
+      try{ eval(fnName + " = window['" + fnName + "'];"); }catch(e){}
+    }
+  });
+
+  var oldSmartBackV9019 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof oldSmartBackV9019 === "function"){
+    window.smartBack = function(){
+      try{
+        if(document.body.classList.contains("fullscreen-reading") && section !== "verses"){
+          showHomeV9019();
+          return;
+        }
+      }catch(e){}
+      return oldSmartBackV9019.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+
+  var oldEnterWelcomeV9019 = window.enterOv2Welcome;
+  window.enterOv2Welcome = function(){
+    try{
+      if(typeof oldEnterWelcomeV9019 === "function") oldEnterWelcomeV9019.apply(this, arguments);
+      setTimeout(function(){ if(typeof showHomeV9019 === "function") showHomeV9019(); }, 0);
+    }catch(e){
+      try{ if(typeof showHomeV9019 === "function") showHomeV9019(); }catch(_){}
+    }
+  };
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", function(){ setTimeout(showHomeV9019, 80); });
+  }else{
+    setTimeout(showHomeV9019, 80);
+  }
+})();
+</script>
+
