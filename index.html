@@ -1512,6 +1512,116 @@ body.home-active-v9019 .content{width:100%!important;max-width:100%!important}
 }
 </style>
 
+
+
+<!-- v90.19.8 - Portada Cielo v3: azul cielo suave, fecha compacta y mejor respiración -->
+<style id="v90-19-8-portada-cielo-css">
+/* Portada Cielo v3: solo diseño visual del Inicio, sin tocar lógica */
+.home-panel-v9019{
+  padding:20px 14px 22px!important;
+}
+.home-card-v9019{
+  border:1px solid rgba(96,155,210,.22)!important;
+  border-radius:34px!important;
+  padding:30px 22px 28px!important;
+  min-height:clamp(440px, 51vh, 635px)!important;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(205,232,255,.36) 0%, rgba(205,232,255,0) 34%),
+    radial-gradient(circle at 18% 10%, rgba(255,255,255,.96) 0%, rgba(255,255,255,0) 30%),
+    radial-gradient(circle at 88% 16%, rgba(182,220,250,.42) 0%, rgba(182,220,250,0) 34%),
+    linear-gradient(145deg,#f7fcff 0%,#edf8ff 47%,#f7fbf4 100%)!important;
+  box-shadow:0 18px 44px rgba(41,98,150,.14), 0 5px 14px rgba(65,130,190,.07)!important;
+}
+.home-card-v9019::before{
+  border-color:rgba(255,255,255,.72)!important;
+}
+.home-card-v9019::after{
+  content:"☁️"!important;
+  right:22px!important;
+  top:18px!important;
+  font-size:31px!important;
+  opacity:.22!important;
+  filter:saturate(.75);
+}
+.home-kicker-v9019{
+  color:#246a9d!important;
+  margin-bottom:14px!important;
+}
+.home-date-v9019{
+  display:inline-flex!important;
+  width:auto!important;
+  max-width:max-content!important;
+  align-self:center!important;
+  justify-content:center!important;
+  font-size:13px!important;
+  padding:7px 15px!important;
+  margin:0 auto 24px!important;
+  color:#65758a!important;
+  background:rgba(255,255,255,.76)!important;
+  border-color:rgba(100,155,205,.20)!important;
+  box-shadow:0 4px 12px rgba(62,120,175,.08)!important;
+}
+.home-ref-v9019{
+  font-size:27px!important;
+  color:#125487!important;
+  margin:2px 0 18px!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.65);
+}
+.home-text-v9019{
+  color:#20384b!important;
+}
+.home-text-short-v9019{
+  line-height:1.76!important;
+}
+.home-text-medium-v9019{
+  line-height:1.70!important;
+}
+.home-text-long-v9019{
+  line-height:1.60!important;
+}
+.home-text-xl-v9019{
+  line-height:1.45!important;
+}
+.home-line-v9019{
+  width:108px!important;
+  background:linear-gradient(90deg, transparent, rgba(43,111,168,.34), transparent)!important;
+  margin:24px auto 17px!important;
+}
+.home-phrase-v9019{
+  color:#547389!important;
+  line-height:1.56!important;
+}
+body.dark .home-card-v9019{
+  background:
+    radial-gradient(circle at 50% 30%, rgba(72,126,180,.22) 0%, rgba(72,126,180,0) 35%),
+    radial-gradient(circle at 18% 10%, rgba(125,180,235,.14) 0%, rgba(125,180,235,0) 31%),
+    radial-gradient(circle at 88% 16%, rgba(105,165,215,.13) 0%, rgba(105,165,215,0) 34%),
+    linear-gradient(145deg,#0f2336 0%,#132d42 52%,#112b34 100%)!important;
+  border-color:rgba(135,190,235,.22)!important;
+}
+body.dark .home-card-v9019::after{opacity:.18!important;filter:saturate(.65)}
+body.dark .home-date-v9019{
+  background:rgba(255,255,255,.08)!important;
+  border-color:rgba(170,215,250,.15)!important;
+  color:#d6e3ef!important;
+}
+body.dark .home-ref-v9019{color:#d7edff!important}
+body.dark .home-phrase-v9019{color:#c9deec!important}
+@media (max-width:860px){
+  .home-panel-v9019{padding:18px 10px 20px!important}
+  .home-card-v9019{padding:28px 18px 26px!important;min-height:clamp(400px, 50vh, 600px)!important}
+  .home-date-v9019{padding:6px 14px!important;margin-bottom:22px!important}
+  .home-ref-v9019{font-size:24px!important;margin-bottom:16px!important}
+  .home-line-v9019{margin:22px auto 16px!important}
+}
+@media (max-width:420px){
+  .home-card-v9019{padding:26px 15px 24px!important;min-height:clamp(390px, 51vh, 590px)!important}
+  .home-kicker-v9019{margin-bottom:13px!important}
+  .home-date-v9019{font-size:12.5px!important;padding:6px 13px!important;margin-bottom:21px!important}
+  .home-ref-v9019{font-size:23px!important}
+}
+</style>
+
 </head>
 <body>
 
