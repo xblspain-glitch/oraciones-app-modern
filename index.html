@@ -1914,7 +1914,7 @@ function openRecentEntry(type,idx){
 
     <div id="backupView" class="panel hidden">
       <div class="panel-head backup-head-v40">
-        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
+        <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
 
         <div class="backup-title-v40">📤 EXPORTAR</div>
         <button class="btn primary" type="button" onclick="downloadBackupJson()">⬇ Descargar JSON</button>
@@ -1943,7 +1943,7 @@ function openRecentEntry(type,idx){
 
     <div id="calendarView" class="panel hidden">
       <div class="panel-head">
-        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
+        <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
         <button class="btn soft" type="button" onclick="renderChristianCalendar(new Date())">📅 Hoy</button>
         <button class="btn soft" type="button" onclick="renderChristianCalendar(addCalendarDays(new Date(),1))">Mañana</button>
         <button class="btn soft" type="button" onclick="openFestivityLibrary()">📚 Festividades</button>
@@ -1979,7 +1979,7 @@ function openRecentEntry(type,idx){
 
     <div id="trashView" class="panel hidden">
       <div class="panel-head">
-        <button class="btn soft" type="button" onclick="openReader()">← Volver</button>
+        <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
         <button class="btn danger" type="button" onclick="emptyTrash()">Vaciar papelera</button>
       </div>
       <div id="trashList" class="trash-list"></div>
@@ -4613,6 +4613,102 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
   }
 </style>
 
+
+
+<script id="v90-19-1-home-return-fix">
+/* v90.19.1 - Volver unificado al Inicio desde Versículos, Versículo del día, Calendario, Backup y Papelera */
+(function(){
+  if(window.__v90191HomeReturnFix) return;
+  window.__v90191HomeReturnFix = true;
+
+  function isVisibleV90191(id){
+    var el=document.getElementById(id);
+    return !!(el && !el.classList.contains('hidden'));
+  }
+
+  function leaveHomeV90191(){
+    try{
+      document.body.classList.remove('home-active-v9019');
+      var home=document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+    }catch(e){}
+  }
+
+  function goHomeV90191(){
+    if(typeof window.showHomeV9019 === 'function'){
+      window.showHomeV9019();
+    }else if(typeof showHomeV9019 === 'function'){
+      showHomeV9019();
+    }
+  }
+  window.goHomeV90191 = goHomeV90191;
+
+  // Al abrir estas vistas, el Inicio debe ocultarse.
+  ['openDailyVerse','openRandomVerse','openVerseCategories','openBackup','openTrash','openChristianCalendar'].forEach(function(fnName){
+    var old = window[fnName] || (typeof window[fnName] !== 'undefined' ? window[fnName] : null);
+    if(typeof old === 'function' && !old.__v90191Wrapped){
+      var wrapped = function(){
+        leaveHomeV90191();
+        return old.apply(this, arguments);
+      };
+      wrapped.__v90191Wrapped = true;
+      window[fnName]=wrapped;
+      try{ eval(fnName + " = window['" + fnName + "'];"); }catch(e){}
+    }
+  });
+
+  // Versículos es una sección principal: si se abre desde Inicio, ocultar la portada.
+  var oldSwitchV90191 = window.switchSection || (typeof switchSection !== 'undefined' ? switchSection : null);
+  if(typeof oldSwitchV90191 === 'function' && !oldSwitchV90191.__v90191Wrapped){
+    var sw = function(s){
+      if(s === 'verses') leaveHomeV90191();
+      return oldSwitchV90191.apply(this, arguments);
+    };
+    sw.__v90191Wrapped = true;
+    window.switchSection = sw;
+    try{ switchSection = window.switchSection; }catch(e){}
+  }
+
+  // Volver desde las vistas principales debe ir al Inicio real.
+  var oldSmartV90191 = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
+  if(typeof oldSmartV90191 === 'function' && !oldSmartV90191.__v90191Wrapped){
+    var sb = function(){
+      try{
+        if(isVisibleV90191('verseCategoriesView') || isVisibleV90191('backupView') || isVisibleV90191('trashView') || isVisibleV90191('calendarView')){
+          goHomeV90191();
+          return;
+        }
+        if(isVisibleV90191('readerView') && section === 'verses' && (typeof specialVerseMode !== 'undefined') && specialVerseMode){
+          specialVerseMode = null;
+          goHomeV90191();
+          return;
+        }
+      }catch(e){}
+      return oldSmartV90191.apply(this, arguments);
+    };
+    sb.__v90191Wrapped = true;
+    window.smartBack = sb;
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+
+  // Los botones Volver de Backup/Calendario/Papelera usan openReader en el HTML original: se redirigen al Inicio.
+  function patchBackButtonsV90191(){
+    try{
+      ['backupView','calendarView','trashView'].forEach(function(id){
+        var root=document.getElementById(id);
+        if(!root) return;
+        var btn=root.querySelector('.panel-head button.btn.soft');
+        if(btn && (btn.textContent||'').indexOf('Volver')>=0){
+          btn.onclick=function(){ goHomeV90191(); };
+        }
+      });
+    }catch(e){}
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', patchBackButtonsV90191);
+  else patchBackButtonsV90191();
+})();
+</script>
+
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6608,6 +6704,102 @@ body.dark .topbar-row #tabParables.active-view{
     margin-top:14px !important;
   }
 </style>
+
+
+
+<script id="v90-19-1-home-return-fix">
+/* v90.19.1 - Volver unificado al Inicio desde Versículos, Versículo del día, Calendario, Backup y Papelera */
+(function(){
+  if(window.__v90191HomeReturnFix) return;
+  window.__v90191HomeReturnFix = true;
+
+  function isVisibleV90191(id){
+    var el=document.getElementById(id);
+    return !!(el && !el.classList.contains('hidden'));
+  }
+
+  function leaveHomeV90191(){
+    try{
+      document.body.classList.remove('home-active-v9019');
+      var home=document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+    }catch(e){}
+  }
+
+  function goHomeV90191(){
+    if(typeof window.showHomeV9019 === 'function'){
+      window.showHomeV9019();
+    }else if(typeof showHomeV9019 === 'function'){
+      showHomeV9019();
+    }
+  }
+  window.goHomeV90191 = goHomeV90191;
+
+  // Al abrir estas vistas, el Inicio debe ocultarse.
+  ['openDailyVerse','openRandomVerse','openVerseCategories','openBackup','openTrash','openChristianCalendar'].forEach(function(fnName){
+    var old = window[fnName] || (typeof window[fnName] !== 'undefined' ? window[fnName] : null);
+    if(typeof old === 'function' && !old.__v90191Wrapped){
+      var wrapped = function(){
+        leaveHomeV90191();
+        return old.apply(this, arguments);
+      };
+      wrapped.__v90191Wrapped = true;
+      window[fnName]=wrapped;
+      try{ eval(fnName + " = window['" + fnName + "'];"); }catch(e){}
+    }
+  });
+
+  // Versículos es una sección principal: si se abre desde Inicio, ocultar la portada.
+  var oldSwitchV90191 = window.switchSection || (typeof switchSection !== 'undefined' ? switchSection : null);
+  if(typeof oldSwitchV90191 === 'function' && !oldSwitchV90191.__v90191Wrapped){
+    var sw = function(s){
+      if(s === 'verses') leaveHomeV90191();
+      return oldSwitchV90191.apply(this, arguments);
+    };
+    sw.__v90191Wrapped = true;
+    window.switchSection = sw;
+    try{ switchSection = window.switchSection; }catch(e){}
+  }
+
+  // Volver desde las vistas principales debe ir al Inicio real.
+  var oldSmartV90191 = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
+  if(typeof oldSmartV90191 === 'function' && !oldSmartV90191.__v90191Wrapped){
+    var sb = function(){
+      try{
+        if(isVisibleV90191('verseCategoriesView') || isVisibleV90191('backupView') || isVisibleV90191('trashView') || isVisibleV90191('calendarView')){
+          goHomeV90191();
+          return;
+        }
+        if(isVisibleV90191('readerView') && section === 'verses' && (typeof specialVerseMode !== 'undefined') && specialVerseMode){
+          specialVerseMode = null;
+          goHomeV90191();
+          return;
+        }
+      }catch(e){}
+      return oldSmartV90191.apply(this, arguments);
+    };
+    sb.__v90191Wrapped = true;
+    window.smartBack = sb;
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+
+  // Los botones Volver de Backup/Calendario/Papelera usan openReader en el HTML original: se redirigen al Inicio.
+  function patchBackButtonsV90191(){
+    try{
+      ['backupView','calendarView','trashView'].forEach(function(id){
+        var root=document.getElementById(id);
+        if(!root) return;
+        var btn=root.querySelector('.panel-head button.btn.soft');
+        if(btn && (btn.textContent||'').indexOf('Volver')>=0){
+          btn.onclick=function(){ goHomeV90191(); };
+        }
+      });
+    }catch(e){}
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', patchBackButtonsV90191);
+  else patchBackButtonsV90191();
+})();
+</script>
 
 </body>
 </html>
