@@ -6444,7 +6444,8 @@ body.calendar-fullscreen-v78 #calendarContent{padding:14px 14px 28px}
   window.closeCalendarFullScreenV78=function(){
     restoreCalendarV78();
     const cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
-    if(typeof openReader==="function") openReader();
+    if(typeof showHomeV9019==="function") showHomeV9019();
+    else if(typeof openReader==="function") openReader();
   };
 
   const oldOpenChristianCalendar=window.openChristianCalendar || (typeof openChristianCalendar!=="undefined" ? openChristianCalendar : null);
