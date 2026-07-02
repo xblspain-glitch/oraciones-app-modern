@@ -8495,6 +8495,15 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
       document.body.classList.remove("editing-focus","reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72","categories-fullscreen-v73","backup-only","special-view-only");
       document.body.classList.add("home-active-v9019");
       if(typeof setActiveView === "function") setActiveView(null);
+      try{
+        ["tabPrayers","tabNotes","tabGuides","tabVerses","tabParables"].forEach(function(id){
+          var btn=document.getElementById(id);
+          if(btn){
+            btn.classList.remove("active");
+            btn.classList.remove("active-view");
+          }
+        });
+      }catch(_e){}
 
       ["readerView","editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(function(id){
         var el=document.getElementById(id);
