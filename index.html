@@ -9411,3 +9411,50 @@ body.dark .home-phrase-v9019{color:#c8e2f5!important}
   .home-line-v9019{margin:23px auto 18px!important}
 }
 </style>
+
+<script id="v90-20-5-verses-back-home-clean">
+/* v90.20.5 - Limpieza segura: intercepta SOLO Volver desde Categorías de Versículos hacia Inicio */
+(function(){
+  if(window.__v90205VersesBackHomeClean) return;
+  window.__v90205VersesBackHomeClean = true;
+
+  var previousSmartBackV90205 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+
+  function isVerseCategoriesVisibleV90205(){
+    try{
+      var cats = document.getElementById("verseCategoriesView");
+      return !!(cats && !cats.classList.contains("hidden"));
+    }catch(e){ return false; }
+  }
+
+  window.smartBack = function(){
+    try{
+      var inVerseCategories = (typeof section !== "undefined" && section === "verses") &&
+        ((typeof categoryListActive !== "undefined" && categoryListActive) ||
+         (typeof verseNavigationMode !== "undefined" && verseNavigationMode === "categories") ||
+         isVerseCategoriesVisibleV90205());
+
+      if(inVerseCategories && typeof showHomeV9019 === "function"){
+        try{ if(typeof categoryListActive !== "undefined") categoryListActive = false; }catch(_e1){}
+        try{ if(typeof sentListActive !== "undefined") sentListActive = false; }catch(_e2){}
+        try{ if(typeof specialVerseMode !== "undefined") specialVerseMode = null; }catch(_e3){}
+        try{ if(typeof verseNavigationMode !== "undefined") verseNavigationMode = null; }catch(_e4){}
+        try{
+          var cats = document.getElementById("verseCategoriesView");
+          if(cats) cats.classList.add("hidden");
+        }catch(_e5){}
+        showHomeV9019();
+        return;
+      }
+    }catch(e){
+      console.warn("v90.20.5 verses back home skipped", e);
+    }
+
+    if(typeof previousSmartBackV90205 === "function"){
+      return previousSmartBackV90205.apply(this, arguments);
+    }
+  };
+
+  try{ smartBack = window.smartBack; }catch(e){}
+})();
+</script>
