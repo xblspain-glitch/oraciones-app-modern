@@ -2137,7 +2137,7 @@ function openRecentEntry(type,idx){
 
     <div id="verseCategoriesView" class="panel hidden categories-screen-v73">
       <div class="panel-head categories-head-v73">
-        <button class="btn soft" type="button" onclick="leaveVerseCategoriesToHomeV90207()">← Volver</button>
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
         <button class="btn soft" type="button" onclick="openVerseFavorites()">⭐ Favoritos</button>
         <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Hoy</button>
         <button class="btn soft" type="button" onclick="openRandomVerse()">🌿 Versículo al azar</button>
@@ -4945,40 +4945,28 @@ body.sent-reader-v903 #homeView{
 </style>
 
 
-
-<script id="v90-20-7-verse-categories-real-back-home">
-/* v90.20.7 - Versículos/Categorías: Volver directo al Inicio sin pasar por smartBack */
+<script id="v90-20-6-navigation-clean-single-smartback">
+/* v90.20.6 - Limpieza profunda: una sola capa final para smartBack.
+   Mantiene el comportamiento estable de secciones -> Inicio y evita parches acumulados. */
 (function(){
-  if(window.__v90207VerseCategoriesRealBackHome) return;
-  window.__v90207VerseCategoriesRealBackHome = true;
+  if(window.__v90206SingleSmartBack) return;
+  window.__v90206SingleSmartBack = true;
 
-  window.leaveVerseCategoriesToHomeV90207 = function(){
-    try{ if(typeof categoryListActive !== "undefined") categoryListActive = false; }catch(e){}
-    try{ if(typeof sentListActive !== "undefined") sentListActive = false; }catch(e){}
-    try{ if(typeof specialVerseMode !== "undefined") specialVerseMode = null; }catch(e){}
-    try{ if(typeof verseNavigationMode !== "undefined") verseNavigationMode = null; }catch(e){}
+  var baseSmartBackV90206 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof baseSmartBackV90206 !== "function") return;
 
+  window.smartBack = function(){
     try{
-      var cats = document.getElementById("verseCategoriesView");
-      if(cats) cats.classList.add("hidden");
-      document.body.classList.remove("categories-fullscreen-v73","reading-mobile","fullscreen-reading","hide-reading-ui");
+      var body = document.body;
+      var isFullReading = body && body.classList && body.classList.contains("fullscreen-reading");
+      if(isFullReading && typeof section !== "undefined" && section !== "verses" && typeof showHomeV9019 === "function"){
+        showHomeV9019();
+        return;
+      }
     }catch(e){}
-
-    if(typeof showHomeV9019 === "function"){
-      showHomeV9019();
-    }
-
-    /* Defensa mínima: el Inicio no debe mostrar ninguna pestaña activa aunque Versículos conserve section internamente. */
-    setTimeout(function(){
-      try{
-        ["tabPrayers","tabNotes","tabGuides","tabVerses","tabParables"].forEach(function(id){
-          var btn = document.getElementById(id);
-          if(btn){ btn.classList.remove("active"); btn.classList.remove("active-view"); }
-        });
-        if(typeof setActiveView === "function") setActiveView(null);
-      }catch(e){}
-    }, 0);
+    return baseSmartBackV90206.apply(this, arguments);
   };
+  try{ smartBack = window.smartBack; }catch(e){}
 })();
 </script>
 
@@ -6988,6 +6976,32 @@ body.sent-reader-v903 #homeView{
 }
 </style>
 
+
+<script id="v90-20-6-navigation-clean-single-smartback">
+/* v90.20.6 - Limpieza profunda: una sola capa final para smartBack.
+   Mantiene el comportamiento estable de secciones -> Inicio y evita parches acumulados. */
+(function(){
+  if(window.__v90206SingleSmartBack) return;
+  window.__v90206SingleSmartBack = true;
+
+  var baseSmartBackV90206 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof baseSmartBackV90206 !== "function") return;
+
+  window.smartBack = function(){
+    try{
+      var body = document.body;
+      var isFullReading = body && body.classList && body.classList.contains("fullscreen-reading");
+      if(isFullReading && typeof section !== "undefined" && section !== "verses" && typeof showHomeV9019 === "function"){
+        showHomeV9019();
+        return;
+      }
+    }catch(e){}
+    return baseSmartBackV90206.apply(this, arguments);
+  };
+  try{ smartBack = window.smartBack; }catch(e){}
+})();
+</script>
+
 </body>
 </html>
 
@@ -8913,20 +8927,7 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
       try{ eval(fnName + " = window['" + fnName + "'];"); }catch(e){}
     }
   });
-
-  var oldSmartBackV9019 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
-  if(typeof oldSmartBackV9019 === "function"){
-    window.smartBack = function(){
-      try{
-        if(document.body.classList.contains("fullscreen-reading") && section !== "verses"){
-          showHomeV9019();
-          return;
-        }
-      }catch(e){}
-      return oldSmartBackV9019.apply(this, arguments);
-    };
-    try{ smartBack = window.smartBack; }catch(e){}
-  }
+}
 
   var oldEnterWelcomeV9019 = window.enterOv2Welcome;
   window.enterOv2Welcome = function(){
@@ -8970,26 +8971,7 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
     };
     try{ openDailyVerse = window.openDailyVerse; }catch(e){}
   }
-
-  var oldSmartBack = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
-  if(typeof oldSmartBack === 'function'){
-    window.smartBack = function(){
-      try{
-        var reader = document.getElementById('readerView');
-        var inReader = reader && !reader.classList.contains('hidden');
-        if(window.__dailyOpenedFromHomeV90191 && inReader && typeof specialVerseMode !== 'undefined' && specialVerseMode === 'daily'){
-          window.__dailyOpenedFromHomeV90191 = false;
-          try{ specialVerseMode = null; }catch(_e){}
-          if(typeof showHomeV9019 === 'function'){
-            showHomeV9019();
-            return;
-          }
-        }
-      }catch(e){}
-      return oldSmartBack.apply(this, arguments);
-    };
-    try{ smartBack = window.smartBack; }catch(e){}
-  }
+}
 })();
 </script>
 
@@ -9450,49 +9432,3 @@ body.dark .home-phrase-v9019{color:#c8e2f5!important}
 }
 </style>
 
-<script id="v90-20-5-verses-back-home-clean">
-/* v90.20.5 - Limpieza segura: intercepta SOLO Volver desde Categorías de Versículos hacia Inicio */
-(function(){
-  if(window.__v90205VersesBackHomeClean) return;
-  window.__v90205VersesBackHomeClean = true;
-
-  var previousSmartBackV90205 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
-
-  function isVerseCategoriesVisibleV90205(){
-    try{
-      var cats = document.getElementById("verseCategoriesView");
-      return !!(cats && !cats.classList.contains("hidden"));
-    }catch(e){ return false; }
-  }
-
-  window.smartBack = function(){
-    try{
-      var inVerseCategories = (typeof section !== "undefined" && section === "verses") &&
-        ((typeof categoryListActive !== "undefined" && categoryListActive) ||
-         (typeof verseNavigationMode !== "undefined" && verseNavigationMode === "categories") ||
-         isVerseCategoriesVisibleV90205());
-
-      if(inVerseCategories && typeof showHomeV9019 === "function"){
-        try{ if(typeof categoryListActive !== "undefined") categoryListActive = false; }catch(_e1){}
-        try{ if(typeof sentListActive !== "undefined") sentListActive = false; }catch(_e2){}
-        try{ if(typeof specialVerseMode !== "undefined") specialVerseMode = null; }catch(_e3){}
-        try{ if(typeof verseNavigationMode !== "undefined") verseNavigationMode = null; }catch(_e4){}
-        try{
-          var cats = document.getElementById("verseCategoriesView");
-          if(cats) cats.classList.add("hidden");
-        }catch(_e5){}
-        showHomeV9019();
-        return;
-      }
-    }catch(e){
-      console.warn("v90.20.5 verses back home skipped", e);
-    }
-
-    if(typeof previousSmartBackV90205 === "function"){
-      return previousSmartBackV90205.apply(this, arguments);
-    }
-  };
-
-  try{ smartBack = window.smartBack; }catch(e){}
-})();
-</script>
