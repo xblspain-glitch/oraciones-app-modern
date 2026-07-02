@@ -8541,3 +8541,49 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
 })();
 </script>
 
+
+<script>
+/* v90.19.1 - Ajuste mínimo: Versículo del día no arrastra la tarjeta de Inicio */
+(function(){
+  if(window.__v90191DailyHomeFix) return;
+  window.__v90191DailyHomeFix = true;
+
+  function hideHomeV90191(){
+    try{
+      document.body.classList.remove('home-active-v9019');
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+    }catch(e){}
+  }
+
+  var oldOpenDaily = window.openDailyVerse || (typeof openDailyVerse !== 'undefined' ? openDailyVerse : null);
+  if(typeof oldOpenDaily === 'function'){
+    window.openDailyVerse = function(){
+      window.__dailyOpenedFromHomeV90191 = true;
+      hideHomeV90191();
+      return oldOpenDaily.apply(this, arguments);
+    };
+    try{ openDailyVerse = window.openDailyVerse; }catch(e){}
+  }
+
+  var oldSmartBack = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
+  if(typeof oldSmartBack === 'function'){
+    window.smartBack = function(){
+      try{
+        var reader = document.getElementById('readerView');
+        var inReader = reader && !reader.classList.contains('hidden');
+        if(window.__dailyOpenedFromHomeV90191 && inReader && typeof specialVerseMode !== 'undefined' && specialVerseMode === 'daily'){
+          window.__dailyOpenedFromHomeV90191 = false;
+          try{ specialVerseMode = null; }catch(_e){}
+          if(typeof showHomeV9019 === 'function'){
+            showHomeV9019();
+            return;
+          }
+        }
+      }catch(e){}
+      return oldSmartBack.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
+})();
+</script>
