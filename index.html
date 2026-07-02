@@ -1800,7 +1800,7 @@ function openRecentEntry(type,idx){
 <div class="topbar">
   <div class="topbar-row">
     <div class="segment">
-      <button id="tabPrayers" type="button" onclick="switchSectionAndReadV90187('prayers')">✝️ Oraciones</button>
+      <button id="tabPrayers" class="active" type="button" onclick="switchSectionAndReadV90187('prayers')">✝️ Oraciones</button>
       <button id="tabNotes" type="button" onclick="switchSectionAndReadV90187('notes')">📝 Notas</button>
       <button id="tabGuides" type="button" onclick="switchSectionAndReadV90187('guides')">📜 Guía</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
@@ -4613,54 +4613,6 @@ body.verse-special-fullscreen-v74 .reader-text{padding:16px 16px 48px;min-height
   }
 </style>
 
-
-
-<script>
-/* v90.19.2 - Inicio como estado visual propio: ninguna pestaña marcada en Inicio */
-(function(){
-  if(window.__v90192HomeNoActiveTab) return;
-  window.__v90192HomeNoActiveTab = true;
-
-  function clearHomeTabActiveV90192(){
-    try{
-      if(!document.body.classList.contains('home-active-v9019')) return;
-      ['tabPrayers','tabNotes','tabGuides','tabVerses'].forEach(function(id){
-        var el=document.getElementById(id);
-        if(el) el.classList.remove('active');
-      });
-    }catch(e){}
-  }
-
-  var oldShowHome = window.showHomeV9019 || (typeof showHomeV9019 !== 'undefined' ? showHomeV9019 : null);
-  if(typeof oldShowHome === 'function'){
-    window.showHomeV9019 = function(){
-      var r = oldShowHome.apply(this, arguments);
-      clearHomeTabActiveV90192();
-      setTimeout(clearHomeTabActiveV90192, 0);
-      setTimeout(clearHomeTabActiveV90192, 80);
-      return r;
-    };
-    try{ showHomeV9019 = window.showHomeV9019; }catch(e){}
-  }
-
-  var oldSyncTabs = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
-  if(typeof oldSyncTabs === 'function'){
-    window.syncTabs = function(){
-      var r = oldSyncTabs.apply(this, arguments);
-      clearHomeTabActiveV90192();
-      return r;
-    };
-    try{ syncTabs = window.syncTabs; }catch(e){}
-  }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(clearHomeTabActiveV90192, 120); });
-  }else{
-    setTimeout(clearHomeTabActiveV90192, 120);
-  }
-})();
-</script>
-
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6656,54 +6608,6 @@ body.dark .topbar-row #tabParables.active-view{
     margin-top:14px !important;
   }
 </style>
-
-
-
-<script>
-/* v90.19.2 - Inicio como estado visual propio: ninguna pestaña marcada en Inicio */
-(function(){
-  if(window.__v90192HomeNoActiveTab) return;
-  window.__v90192HomeNoActiveTab = true;
-
-  function clearHomeTabActiveV90192(){
-    try{
-      if(!document.body.classList.contains('home-active-v9019')) return;
-      ['tabPrayers','tabNotes','tabGuides','tabVerses'].forEach(function(id){
-        var el=document.getElementById(id);
-        if(el) el.classList.remove('active');
-      });
-    }catch(e){}
-  }
-
-  var oldShowHome = window.showHomeV9019 || (typeof showHomeV9019 !== 'undefined' ? showHomeV9019 : null);
-  if(typeof oldShowHome === 'function'){
-    window.showHomeV9019 = function(){
-      var r = oldShowHome.apply(this, arguments);
-      clearHomeTabActiveV90192();
-      setTimeout(clearHomeTabActiveV90192, 0);
-      setTimeout(clearHomeTabActiveV90192, 80);
-      return r;
-    };
-    try{ showHomeV9019 = window.showHomeV9019; }catch(e){}
-  }
-
-  var oldSyncTabs = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
-  if(typeof oldSyncTabs === 'function'){
-    window.syncTabs = function(){
-      var r = oldSyncTabs.apply(this, arguments);
-      clearHomeTabActiveV90192();
-      return r;
-    };
-    try{ syncTabs = window.syncTabs; }catch(e){}
-  }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(clearHomeTabActiveV90192, 120); });
-  }else{
-    setTimeout(clearHomeTabActiveV90192, 120);
-  }
-})();
-</script>
 
 </body>
 </html>
