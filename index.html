@@ -1622,6 +1622,78 @@ body.dark .home-phrase-v9019{color:#c9deec!important}
 }
 </style>
 
+
+<style id="v90-20-1-cielos-suaves-css">
+/* v90.20.1 - Portada cielo suave: mañana / día / noche sin tocar navegación */
+.home-kicker-v9019{
+  color:#0d6597!important;
+}
+.home-date-v9019{
+  width:auto!important;
+  max-width:max-content!important;
+  padding:6px 14px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  color:#52758f!important;
+  background:rgba(255,255,255,.70)!important;
+  border-color:rgba(130,190,230,.30)!important;
+}
+.home-card-v9019{
+  border-color:rgba(170,220,250,.58)!important;
+  transition:background .45s ease, border-color .45s ease, box-shadow .45s ease!important;
+}
+.home-card-v9019::after{
+  content:"🌿"!important;
+  color:rgba(63,140,190,.20)!important;
+  filter:none!important;
+}
+.home-card-v9019.home-sky-morning{
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255,255,255,.96) 0%, rgba(255,255,255,.54) 28%, rgba(255,255,255,0) 58%),
+    radial-gradient(circle at 16% 10%, rgba(255,244,202,.30) 0%, rgba(255,244,202,0) 33%),
+    linear-gradient(145deg,#d9f2ff 0%,#f7fcff 48%,#eef9ff 100%)!important;
+}
+.home-card-v9019.home-sky-day{
+  background:
+    radial-gradient(circle at 50% 31%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.52) 29%, rgba(255,255,255,0) 58%),
+    radial-gradient(circle at 14% 12%, rgba(187,229,255,.42) 0%, rgba(187,229,255,0) 34%),
+    linear-gradient(145deg,#cfeeff 0%,#f4fbff 50%,#eaf7ff 100%)!important;
+}
+.home-card-v9019.home-sky-night{
+  background:
+    radial-gradient(circle at 50% 33%, rgba(230,246,255,.28) 0%, rgba(230,246,255,.12) 28%, rgba(230,246,255,0) 60%),
+    radial-gradient(circle at 80% 12%, rgba(186,214,255,.20) 0%, rgba(186,214,255,0) 30%),
+    linear-gradient(145deg,#193d68 0%,#245b8d 52%,#163250 100%)!important;
+  border-color:rgba(165,210,245,.26)!important;
+  box-shadow:0 26px 60px rgba(12,43,76,.28), inset 0 1px 0 rgba(255,255,255,.14)!important;
+}
+.home-card-v9019.home-sky-night .home-kicker-v9019,
+.home-card-v9019.home-sky-night .home-ref-v9019{
+  color:#e8f7ff!important;
+  text-shadow:0 2px 16px rgba(0,0,0,.22)!important;
+}
+.home-card-v9019.home-sky-night .home-text-v9019{
+  color:#f4fbff!important;
+  text-shadow:0 1px 14px rgba(0,0,0,.18)!important;
+}
+.home-card-v9019.home-sky-night .home-date-v9019{
+  color:#d9efff!important;
+  background:rgba(255,255,255,.10)!important;
+  border-color:rgba(200,232,255,.22)!important;
+}
+.home-card-v9019.home-sky-night .home-line-v9019{
+  background:linear-gradient(90deg, transparent, rgba(220,242,255,.36), transparent)!important;
+}
+.home-card-v9019.home-sky-night .home-phrase-v9019{
+  color:#d7ecfa!important;
+}
+@media (max-width:420px){
+  .home-date-v9019{
+    padding:6px 12px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -1945,7 +2017,7 @@ function openRecentEntry(type,idx){
 
     <div id="homeView" class="panel home-panel-v9019 hidden">
       <div class="home-card-v9019" id="homeCardV9019">
-        <div class="home-kicker-v9019">✨ Palabra para este momento</div>
+        <div class="home-kicker-v9019">🌿 Palabra para este momento</div>
         <div class="home-date-v9019" id="homeDateV9019"></div>
         <div class="home-ref-v9019" id="homeRefV9019">Romanos 8:28</div>
         <div class="home-text-v9019" id="homeTextV9019"></div>
@@ -8591,7 +8663,15 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
       var ref = document.getElementById("homeRefV9019");
       var text = document.getElementById("homeTextV9019");
       var phrase = document.getElementById("homePhraseV9019");
-      if(date) date.textContent = "📅 " + formatHomeDateV9019();
+      if(date) date.textContent = formatHomeDateV9019();
+      try{
+        var cardV9019=document.getElementById("homeCardV9019");
+        if(cardV9019){
+          var hV9019=(new Date()).getHours();
+          cardV9019.classList.remove("home-sky-morning","home-sky-day","home-sky-night");
+          cardV9019.classList.add((hV9019>=6 && hV9019<12) ? "home-sky-morning" : ((hV9019>=12 && hV9019<19) ? "home-sky-day" : "home-sky-night"));
+        }
+      }catch(_skyErrV9019){}
       if(ref) ref.textContent = verse.ref;
       var verseTextV9019 = verse.text || "";
       if(text){
