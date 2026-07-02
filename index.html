@@ -8483,7 +8483,16 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
       var phrase = document.getElementById("homePhraseV9019");
       if(date) date.textContent = "📅 " + formatHomeDateV9019();
       if(ref) ref.textContent = verse.ref;
-      if(text) text.textContent = "“" + verse.text + "”";
+      var verseTextV9019 = verse.text || "";
+      if(text){
+        text.textContent = "“" + verseTextV9019 + "”";
+        text.classList.remove("home-text-short-v9019","home-text-medium-v9019","home-text-long-v9019","home-text-xl-v9019");
+        var lenV9019 = verseTextV9019.length;
+        if(lenV9019 > 520) text.classList.add("home-text-xl-v9019");
+        else if(lenV9019 > 340) text.classList.add("home-text-long-v9019");
+        else if(lenV9019 > 210) text.classList.add("home-text-medium-v9019");
+        else text.classList.add("home-text-short-v9019");
+      }
       if(phrase) phrase.textContent = phrasesV9019[Math.floor(Math.random()*phrasesV9019.length)];
     }catch(e){
       console.error("renderHomeV9019", e);
@@ -8752,5 +8761,54 @@ body.dark .home-phrase-v9019{color:#c8ddeb!important}
   .home-text-v9019{font-size:18.5px!important;line-height:1.62!important}
   .home-line-v9019{margin:20px auto 14px!important}
   .home-phrase-v9019{font-size:15px!important}
+}
+
+/* v90.19.7 - Ajuste adaptable para versículos largos en Inicio */
+.home-card-v9019{
+  min-height:clamp(430px, 50vh, 620px)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+}
+.home-text-v9019{
+  overflow-wrap:anywhere!important;
+}
+.home-text-short-v9019{
+  font-size:20.5px!important;
+  line-height:1.72!important;
+}
+.home-text-medium-v9019{
+  font-size:19px!important;
+  line-height:1.66!important;
+}
+.home-text-long-v9019{
+  font-size:17.6px!important;
+  line-height:1.56!important;
+  max-width:650px!important;
+}
+.home-text-xl-v9019{
+  font-size:16.2px!important;
+  line-height:1.48!important;
+  max-width:665px!important;
+}
+.home-text-long-v9019 + .home-line-v9019,
+.home-text-xl-v9019 + .home-line-v9019{
+  margin-top:18px!important;
+  margin-bottom:13px!important;
+}
+@media (max-width:860px){
+  .home-card-v9019{min-height:clamp(385px, 48vh, 590px)!important}
+  .home-text-short-v9019{font-size:19.5px!important;line-height:1.68!important}
+  .home-text-medium-v9019{font-size:18px!important;line-height:1.60!important}
+  .home-text-long-v9019{font-size:16.8px!important;line-height:1.50!important}
+  .home-text-xl-v9019{font-size:15.4px!important;line-height:1.42!important}
+}
+@media (max-width:420px){
+  .home-card-v9019{padding:24px 15px 22px!important;min-height:clamp(370px, 50vh, 580px)!important}
+  .home-ref-v9019{font-size:22px!important}
+  .home-text-short-v9019{font-size:19px!important}
+  .home-text-medium-v9019{font-size:17.3px!important}
+  .home-text-long-v9019{font-size:15.9px!important}
+  .home-text-xl-v9019{font-size:14.6px!important;line-height:1.38!important}
 }
 </style>
