@@ -4944,53 +4944,6 @@ body.sent-reader-v903 #homeView{
 }
 </style>
 
-
-<script>
-/* v90.20.4 - Versículos/Categorías: Volver directo al Inicio (parche localizado y seguro) */
-(function(){
-  if(window.__v90204VersesCategoriesBackHome) return;
-  window.__v90204VersesCategoriesBackHome = true;
-
-  function isVerseCategoriesVisibleV90204(){
-    try{
-      var vc = document.getElementById("verseCategoriesView");
-      return !!(vc && !vc.classList.contains("hidden"));
-    }catch(e){ return false; }
-  }
-
-  function goHomeFromVerseCategoriesV90204(){
-    try{
-      if(typeof categoryListActive !== "undefined") categoryListActive = false;
-      if(typeof sentListActive !== "undefined") sentListActive = false;
-      try{ specialVerseMode = null; }catch(e){}
-      try{ verseNavigationMode = "home"; }catch(e){}
-      try{ document.body.classList.remove("categories-fullscreen-v73","reading-mobile","fullscreen-reading","hide-reading-ui","titles-fullscreen-v72"); }catch(e){}
-      if(typeof setActiveView === "function") setActiveView(null);
-      if(typeof showHomeV9019 === "function"){
-        showHomeV9019();
-        return true;
-      }
-    }catch(e){
-      console.error("goHomeFromVerseCategoriesV90204", e);
-    }
-    return false;
-  }
-
-  var previousSmartBackV90204 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
-  if(typeof previousSmartBackV90204 === "function"){
-    window.smartBack = function(){
-      try{
-        if(isVerseCategoriesVisibleV90204()){
-          if(goHomeFromVerseCategoriesV90204()) return;
-        }
-      }catch(e){}
-      return previousSmartBackV90204.apply(this, arguments);
-    };
-    try{ smartBack = window.smartBack; }catch(e){}
-  }
-})();
-</script>
-
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
