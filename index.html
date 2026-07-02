@@ -8616,59 +8616,90 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
 })();
 </script>
 
-<script>
-/* v90.19.8 - Inicio mantiene pestañas superiores limpias tras volver desde Versículos
-   Cambio localizado: no toca navegación; solo limpia el resaltado si la portada Inicio está visible. */
+<style id="v90-19-9-home-no-active-css">
+/* v90.19.9 - En Inicio, ninguna pestaña debe verse activa, aunque el estado interno siga en Versículos */
+body.home-active-v9019 .segment button.active,
+body.home-active-v9019 .segment button.active-view,
+body:has(#homeView:not(.hidden)) .segment button.active,
+body:has(#homeView:not(.hidden)) .segment button.active-view{
+  background:transparent!important;
+  font-weight:400!important;
+  border:0!important;
+  box-shadow:none!important;
+  outline:none!important;
+}
+body.dark.home-active-v9019 .segment button.active,
+body.dark.home-active-v9019 .segment button.active-view,
+body.dark:has(#homeView:not(.hidden)) .segment button.active,
+body.dark:has(#homeView:not(.hidden)) .segment button.active-view{
+  background:transparent!important;
+  color:var(--text)!important;
+}
+</style>
+<script id="v90-19-9-home-clear-active-final">
+/* v90.19.9 - Limpieza final visual de pestañas cuando Inicio está realmente visible */
 (function(){
-  if(window.__v90198HomeTabsClean) return;
-  window.__v90198HomeTabsClean = true;
+  if(window.__v90199HomeClearActiveFinal) return;
+  window.__v90199HomeClearActiveFinal = true;
 
-  function homeVisibleV90198(){
+  function isHomeVisibleV90199(){
     try{
       var home = document.getElementById('homeView');
-      return !!(home && !home.classList.contains('hidden'));
+      if(!home || home.classList.contains('hidden')) return false;
+      var cs = window.getComputedStyle ? getComputedStyle(home) : null;
+      if(cs && (cs.display === 'none' || cs.visibility === 'hidden')) return false;
+      return true;
     }catch(e){ return false; }
   }
 
-  function clearTopTabsIfHomeV90198(){
+  function clearHomeTabsV90199(){
     try{
-      if(!homeVisibleV90198()) return;
+      if(!isHomeVisibleV90199()) return;
       ['tabPrayers','tabNotes','tabGuides','tabVerses','tabParables'].forEach(function(id){
         var el = document.getElementById(id);
         if(el){
           el.classList.remove('active');
           el.classList.remove('active-view');
+          el.removeAttribute('aria-current');
+          el.removeAttribute('aria-selected');
         }
       });
     }catch(e){}
   }
 
-  var oldSyncTabsV90198 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
-  if(typeof oldSyncTabsV90198 === 'function'){
-    window.syncTabs = function(){
-      var r = oldSyncTabsV90198.apply(this, arguments);
-      clearTopTabsIfHomeV90198();
-      return r;
-    };
-    try{ syncTabs = window.syncTabs; }catch(e){}
-  }
-
-  var oldShowHomeV90198 = window.showHomeV9019 || (typeof showHomeV9019 !== 'undefined' ? showHomeV9019 : null);
-  if(typeof oldShowHomeV90198 === 'function'){
+  var oldShowHome = window.showHomeV9019;
+  if(typeof oldShowHome === 'function'){
     window.showHomeV9019 = function(){
-      var r = oldShowHomeV90198.apply(this, arguments);
-      clearTopTabsIfHomeV90198();
-      setTimeout(clearTopTabsIfHomeV90198, 0);
-      setTimeout(clearTopTabsIfHomeV90198, 60);
+      var r = oldShowHome.apply(this, arguments);
+      clearHomeTabsV90199();
+      setTimeout(clearHomeTabsV90199, 30);
+      setTimeout(clearHomeTabsV90199, 120);
       return r;
     };
     try{ showHomeV9019 = window.showHomeV9019; }catch(e){}
   }
 
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', function(){ setTimeout(clearTopTabsIfHomeV90198, 120); });
-  }else{
-    setTimeout(clearTopTabsIfHomeV90198, 120);
+  var oldSyncTabs = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof oldSyncTabs === 'function'){
+    window.syncTabs = function(){
+      var r = oldSyncTabs.apply(this, arguments);
+      clearHomeTabsV90199();
+      setTimeout(clearHomeTabsV90199, 0);
+      return r;
+    };
+    try{ syncTabs = window.syncTabs; }catch(e){}
   }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    clearHomeTabsV90199();
+    setTimeout(clearHomeTabsV90199, 200);
+    try{
+      var home = document.getElementById('homeView');
+      var tabs = document.querySelector('.segment');
+      var obs = new MutationObserver(function(){ clearHomeTabsV90199(); });
+      if(home) obs.observe(home, {attributes:true, attributeFilter:['class','style']});
+      if(tabs) obs.observe(tabs, {subtree:true, attributes:true, attributeFilter:['class']});
+    }catch(e){}
+  });
 })();
 </script>
