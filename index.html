@@ -8615,3 +8615,60 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
   }
 })();
 </script>
+
+<script>
+/* v90.19.8 - Inicio mantiene pestañas superiores limpias tras volver desde Versículos
+   Cambio localizado: no toca navegación; solo limpia el resaltado si la portada Inicio está visible. */
+(function(){
+  if(window.__v90198HomeTabsClean) return;
+  window.__v90198HomeTabsClean = true;
+
+  function homeVisibleV90198(){
+    try{
+      var home = document.getElementById('homeView');
+      return !!(home && !home.classList.contains('hidden'));
+    }catch(e){ return false; }
+  }
+
+  function clearTopTabsIfHomeV90198(){
+    try{
+      if(!homeVisibleV90198()) return;
+      ['tabPrayers','tabNotes','tabGuides','tabVerses','tabParables'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el){
+          el.classList.remove('active');
+          el.classList.remove('active-view');
+        }
+      });
+    }catch(e){}
+  }
+
+  var oldSyncTabsV90198 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof oldSyncTabsV90198 === 'function'){
+    window.syncTabs = function(){
+      var r = oldSyncTabsV90198.apply(this, arguments);
+      clearTopTabsIfHomeV90198();
+      return r;
+    };
+    try{ syncTabs = window.syncTabs; }catch(e){}
+  }
+
+  var oldShowHomeV90198 = window.showHomeV9019 || (typeof showHomeV9019 !== 'undefined' ? showHomeV9019 : null);
+  if(typeof oldShowHomeV90198 === 'function'){
+    window.showHomeV9019 = function(){
+      var r = oldShowHomeV90198.apply(this, arguments);
+      clearTopTabsIfHomeV90198();
+      setTimeout(clearTopTabsIfHomeV90198, 0);
+      setTimeout(clearTopTabsIfHomeV90198, 60);
+      return r;
+    };
+    try{ showHomeV9019 = window.showHomeV9019; }catch(e){}
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(clearTopTabsIfHomeV90198, 120); });
+  }else{
+    setTimeout(clearTopTabsIfHomeV90198, 120);
+  }
+})();
+</script>
