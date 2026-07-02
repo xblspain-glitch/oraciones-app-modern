@@ -4944,32 +4944,6 @@ body.sent-reader-v903 #homeView{
 }
 </style>
 
-
-<script id="v90-20-6-navigation-clean-single-smartback">
-/* v90.20.6 - Limpieza profunda: una sola capa final para smartBack.
-   Mantiene el comportamiento estable de secciones -> Inicio y evita parches acumulados. */
-(function(){
-  if(window.__v90206SingleSmartBack) return;
-  window.__v90206SingleSmartBack = true;
-
-  var baseSmartBackV90206 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
-  if(typeof baseSmartBackV90206 !== "function") return;
-
-  window.smartBack = function(){
-    try{
-      var body = document.body;
-      var isFullReading = body && body.classList && body.classList.contains("fullscreen-reading");
-      if(isFullReading && typeof section !== "undefined" && section !== "verses" && typeof showHomeV9019 === "function"){
-        showHomeV9019();
-        return;
-      }
-    }catch(e){}
-    return baseSmartBackV90206.apply(this, arguments);
-  };
-  try{ smartBack = window.smartBack; }catch(e){}
-})();
-</script>
-
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -6976,32 +6950,6 @@ body.sent-reader-v903 #homeView{
 }
 </style>
 
-
-<script id="v90-20-6-navigation-clean-single-smartback">
-/* v90.20.6 - Limpieza profunda: una sola capa final para smartBack.
-   Mantiene el comportamiento estable de secciones -> Inicio y evita parches acumulados. */
-(function(){
-  if(window.__v90206SingleSmartBack) return;
-  window.__v90206SingleSmartBack = true;
-
-  var baseSmartBackV90206 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
-  if(typeof baseSmartBackV90206 !== "function") return;
-
-  window.smartBack = function(){
-    try{
-      var body = document.body;
-      var isFullReading = body && body.classList && body.classList.contains("fullscreen-reading");
-      if(isFullReading && typeof section !== "undefined" && section !== "verses" && typeof showHomeV9019 === "function"){
-        showHomeV9019();
-        return;
-      }
-    }catch(e){}
-    return baseSmartBackV90206.apply(this, arguments);
-  };
-  try{ smartBack = window.smartBack; }catch(e){}
-})();
-</script>
-
 </body>
 </html>
 
@@ -8927,7 +8875,20 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
       try{ eval(fnName + " = window['" + fnName + "'];"); }catch(e){}
     }
   });
-}
+
+  var oldSmartBackV9019 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+  if(typeof oldSmartBackV9019 === "function"){
+    window.smartBack = function(){
+      try{
+        if(document.body.classList.contains("fullscreen-reading") && section !== "verses"){
+          showHomeV9019();
+          return;
+        }
+      }catch(e){}
+      return oldSmartBackV9019.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
 
   var oldEnterWelcomeV9019 = window.enterOv2Welcome;
   window.enterOv2Welcome = function(){
@@ -8971,7 +8932,26 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
     };
     try{ openDailyVerse = window.openDailyVerse; }catch(e){}
   }
-}
+
+  var oldSmartBack = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
+  if(typeof oldSmartBack === 'function'){
+    window.smartBack = function(){
+      try{
+        var reader = document.getElementById('readerView');
+        var inReader = reader && !reader.classList.contains('hidden');
+        if(window.__dailyOpenedFromHomeV90191 && inReader && typeof specialVerseMode !== 'undefined' && specialVerseMode === 'daily'){
+          window.__dailyOpenedFromHomeV90191 = false;
+          try{ specialVerseMode = null; }catch(_e){}
+          if(typeof showHomeV9019 === 'function'){
+            showHomeV9019();
+            return;
+          }
+        }
+      }catch(e){}
+      return oldSmartBack.apply(this, arguments);
+    };
+    try{ smartBack = window.smartBack; }catch(e){}
+  }
 })();
 </script>
 
@@ -9432,3 +9412,49 @@ body.dark .home-phrase-v9019{color:#c8e2f5!important}
 }
 </style>
 
+<script id="v90-20-5-verses-back-home-clean">
+/* v90.20.5 - Limpieza segura: intercepta SOLO Volver desde Categorías de Versículos hacia Inicio */
+(function(){
+  if(window.__v90205VersesBackHomeClean) return;
+  window.__v90205VersesBackHomeClean = true;
+
+  var previousSmartBackV90205 = window.smartBack || (typeof smartBack !== "undefined" ? smartBack : null);
+
+  function isVerseCategoriesVisibleV90205(){
+    try{
+      var cats = document.getElementById("verseCategoriesView");
+      return !!(cats && !cats.classList.contains("hidden"));
+    }catch(e){ return false; }
+  }
+
+  window.smartBack = function(){
+    try{
+      var inVerseCategories = (typeof section !== "undefined" && section === "verses") &&
+        ((typeof categoryListActive !== "undefined" && categoryListActive) ||
+         (typeof verseNavigationMode !== "undefined" && verseNavigationMode === "categories") ||
+         isVerseCategoriesVisibleV90205());
+
+      if(inVerseCategories && typeof showHomeV9019 === "function"){
+        try{ if(typeof categoryListActive !== "undefined") categoryListActive = false; }catch(_e1){}
+        try{ if(typeof sentListActive !== "undefined") sentListActive = false; }catch(_e2){}
+        try{ if(typeof specialVerseMode !== "undefined") specialVerseMode = null; }catch(_e3){}
+        try{ if(typeof verseNavigationMode !== "undefined") verseNavigationMode = null; }catch(_e4){}
+        try{
+          var cats = document.getElementById("verseCategoriesView");
+          if(cats) cats.classList.add("hidden");
+        }catch(_e5){}
+        showHomeV9019();
+        return;
+      }
+    }catch(e){
+      console.warn("v90.20.5 verses back home skipped", e);
+    }
+
+    if(typeof previousSmartBackV90205 === "function"){
+      return previousSmartBackV90205.apply(this, arguments);
+    }
+  };
+
+  try{ smartBack = window.smartBack; }catch(e){}
+})();
+</script>
