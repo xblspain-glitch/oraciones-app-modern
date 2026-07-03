@@ -5231,73 +5231,61 @@ async function shareVerseCard(){
     }
     ctx.restore();
 
-    // Marca de agua común de Oraciones V2: cruz del logo + Biblia abierta
-    // Sustituye el icono grande de categoría, que queda representado arriba.
-    function drawLogoWatermark(ctx, cx, cy, scale){
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.scale(scale, scale);
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.strokeStyle = "rgba(255,255,255,0.115)";
-      ctx.fillStyle = "rgba(255,255,255,0.075)";
-      ctx.lineWidth = 16;
-
-      // Halo circular de la cruz etíope
-      ctx.beginPath();
-      ctx.arc(0,-120,118,0,Math.PI*2);
-      ctx.stroke();
-
-      // Cruz central
-      ctx.fillRect(-26,-330,52,370);
-      ctx.fillRect(-170,-185,340,52);
-
-      // Remates ornamentales simplificados de la cruz
-      function diamond(x,y,s){
-        ctx.beginPath();
-        ctx.moveTo(x,y-s); ctx.lineTo(x+s,y); ctx.lineTo(x,y+s); ctx.lineTo(x-s,y);
-        ctx.closePath(); ctx.fill(); ctx.stroke();
-      }
-      diamond(0,-360,46);
-      diamond(-205,-158,46);
-      diamond(205,-158,46);
-      diamond(0,72,42);
-
-      // Pequeños calados sugeridos en los remates
-      ctx.save();
-      ctx.strokeStyle = "rgba(255,255,255,0.075)";
-      ctx.lineWidth = 8;
-      [[0,-360],[-205,-158],[205,-158],[0,72]].forEach(([x,y])=>{
-        ctx.beginPath(); ctx.moveTo(x-28,y); ctx.lineTo(x+28,y); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(x,y-28); ctx.lineTo(x,y+28); ctx.stroke();
+    // Marca de agua real de Oraciones V2.
+    // Usa el icono original de la app como máscara: conserva la cruz etíope y el libro,
+    // pero elimina el fondo azul para que quede integrado en la tarjeta.
+    async function loadCardLogoImage(src){
+      return await new Promise((resolve,reject)=>{
+        const img=new Image();
+        img.onload=()=>resolve(img);
+        img.onerror=reject;
+        img.src=src;
       });
-      ctx.restore();
-
-      // Biblia abierta del logo
-      ctx.strokeStyle = "rgba(255,255,255,0.105)";
-      ctx.fillStyle = "rgba(255,255,255,0.06)";
-      ctx.lineWidth = 14;
-      ctx.beginPath();
-      ctx.moveTo(0,220);
-      ctx.bezierCurveTo(-70,155,-205,142,-350,205);
-      ctx.bezierCurveTo(-215,190,-82,192,0,252);
-      ctx.closePath();
-      ctx.fill(); ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(0,220);
-      ctx.bezierCurveTo(70,155,205,142,350,205);
-      ctx.bezierCurveTo(215,190,82,192,0,252);
-      ctx.closePath();
-      ctx.fill(); ctx.stroke();
-      // líneas de páginas
-      ctx.lineWidth = 7;
-      for(let i=0;i<3;i++){
-        ctx.beginPath(); ctx.moveTo(-30,230+i*23); ctx.bezierCurveTo(-115,195+i*18,-220,192+i*16,-330,225+i*18); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(30,230+i*23); ctx.bezierCurveTo(115,195+i*18,220,192+i*16,330,225+i*18); ctx.stroke();
-      }
-      ctx.restore();
     }
-    drawLogoWatermark(ctx,540,1190,1.05);
+
+    async function drawExactLogoWatermark(ctx, cx, cy, size){
+      try{
+        const img = await loadCardLogoImage("icon-512.png");
+        const w = 512, h = 512;
+        const off = document.createElement("canvas");
+        off.width = w;
+        off.height = h;
+        const octx = off.getContext("2d");
+        octx.drawImage(img,0,0,w,h);
+        const data = octx.getImageData(0,0,w,h);
+        const px = data.data;
+
+        // Máscara basada en los blancos del logo. El fondo azul queda descartado.
+        for(let i=0;i<px.length;i+=4){
+          const r=px[i], g=px[i+1], b=px[i+2], a=px[i+3];
+          const light = Math.min(r,g,b);
+          const whiteness = Math.max(0, Math.min(1, (light-132)/95));
+          const blueBgPenalty = (b > r+28 && b > g+8) ? 0.42 : 1;
+          const mask = Math.pow(whiteness * blueBgPenalty, 1.18);
+          px[i]=255;
+          px[i+1]=255;
+          px[i+2]=255;
+          px[i+3]=Math.round(a * mask * 0.16);
+        }
+        octx.putImageData(data,0,0);
+
+        ctx.save();
+        ctx.globalCompositeOperation="source-over";
+        ctx.filter="blur(0.35px)";
+        ctx.drawImage(off, cx-size/2, cy-size/2, size, size);
+        ctx.restore();
+      }catch(e){
+        // Fallback mínimo si el icono no cargara por caché/navegador.
+        ctx.save();
+        ctx.globalAlpha=0.055;
+        ctx.fillStyle="#ffffff";
+        ctx.font="360px Georgia, serif";
+        ctx.textAlign="center";
+        ctx.fillText("✝",cx,cy+120);
+        ctx.restore();
+      }
+    }
+    await drawExactLogoWatermark(ctx,540,1195,650);
 
     ctx.textAlign="center";
     ctx.fillStyle="#ffffff";
