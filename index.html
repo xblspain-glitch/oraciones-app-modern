@@ -1694,6 +1694,24 @@ body.dark .home-phrase-v9019{color:#c9deec!important}
 }
 </style>
 
+
+
+<!-- v90.20.42: aparición suave portada Inicio -->
+<style>
+@keyframes homeIntroV9042{
+  0%{opacity:0; transform:translateY(10px) scale(.992); filter:saturate(.96) brightness(.98);}
+  65%{opacity:1;}
+  100%{opacity:1; transform:translateY(0) scale(1); filter:none;}
+}
+.home-card-v9019.home-intro-v9042{
+  animation:homeIntroV9042 1.85s cubic-bezier(.18,.72,.18,1) both;
+  will-change:opacity, transform, filter;
+}
+@media (prefers-reduced-motion: reduce){
+  .home-card-v9019.home-intro-v9042{animation:none!important;}
+}
+</style>
+
 </head>
 <body>
 
@@ -9496,6 +9514,15 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
       var home=document.getElementById("homeView");
       if(home) home.classList.remove("hidden");
       if(typeof renderHomeV9019 === "function") renderHomeV9019();
+      try{
+        var cardIntroV9042 = document.getElementById("homeCardV9019");
+        if(cardIntroV9042 && !window.__homeIntroPlayedV9042){
+          window.__homeIntroPlayedV9042 = true;
+          cardIntroV9042.classList.remove("home-intro-v9042");
+          void cardIntroV9042.offsetWidth;
+          cardIntroV9042.classList.add("home-intro-v9042");
+        }
+      }catch(_homeIntroErrV9042){}
       try{ window.scrollTo({top:0,behavior:"smooth"}); }catch(e){ window.scrollTo(0,0); }
     }catch(e){
       console.error("showHomeV9019", e);
