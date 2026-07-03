@@ -5285,7 +5285,7 @@ async function shareVerseCard(){
         ctx.restore();
       }
     }
-    await drawExactLogoWatermark(ctx,540,1170,780);
+    await drawExactLogoWatermark(ctx,540,1168,780);
 
     ctx.textAlign="center";
     ctx.fillStyle="#ffffff";
@@ -5349,7 +5349,7 @@ async function shareVerseCard(){
     ctx.font="34px Georgia, serif";
     ctx.fillText("✝",540,1776);
     ctx.font="26px Georgia, serif";
-    ctx.fillText("‹  ❧  ›",540,1736);
+    ctx.fillText("✧",540,1736);
     ctx.restore();
 
     const blob = await new Promise(resolve=>canvas.toBlob(resolve,"image/png",0.95));
