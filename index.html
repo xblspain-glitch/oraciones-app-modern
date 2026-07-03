@@ -5265,7 +5265,7 @@ async function shareVerseCard(){
           px[i]=255;
           px[i+1]=255;
           px[i+2]=255;
-          px[i+3]=Math.round(a * mask * 0.13);
+          px[i+3]=Math.round(a * mask * 0.12);
         }
         octx.putImageData(data,0,0);
 
@@ -5277,7 +5277,7 @@ async function shareVerseCard(){
       }catch(e){
         // Fallback mínimo si el icono no cargara por caché/navegador.
         ctx.save();
-        ctx.globalAlpha=0.055;
+        ctx.globalAlpha=0.050;
         ctx.fillStyle="#ffffff";
         ctx.font="360px Georgia, serif";
         ctx.textAlign="center";
