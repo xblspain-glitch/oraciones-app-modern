@@ -5060,62 +5060,6 @@ body.sent-reader-v903 #homeView{
 }
 </style>
 
-
-
-<style id="v90-20-34-atardecer-real-css">
-/* v90.20.34 - ATARDECER REAL: tema independiente 17:00-19:59.
-   No modifica mañana, tarde ni noche. */
-.home-card-v9019.home-sky-sunset{
-  border-color:rgba(178,196,235,.56)!important;
-  background:
-    radial-gradient(circle at 9% 14%, rgba(255,255,246,.88) 0%, rgba(255,246,220,.56) 8%, rgba(255,188,112,.32) 24%, rgba(255,154,92,.18) 41%, rgba(255,154,92,0) 64%),
-    radial-gradient(ellipse at 16% 28%, rgba(255,187,108,.38) 0%, rgba(255,199,132,.20) 28%, rgba(255,199,132,0) 62%),
-    radial-gradient(ellipse at 74% 18%, rgba(255,255,255,.30) 0%, rgba(255,255,255,.12) 22%, rgba(255,255,255,0) 52%),
-    radial-gradient(ellipse at 86% 78%, rgba(179,213,255,.26) 0%, rgba(179,213,255,.10) 30%, rgba(179,213,255,0) 66%),
-    linear-gradient(135deg,#ffe0b6 0%,#f5d7bb 26%,#d8efff 58%,#eaf6ff 100%)!important;
-  box-shadow:
-    0 24px 58px rgba(82,126,194,.18),
-    0 10px 26px rgba(236,139,75,.12),
-    inset 0 1px 0 rgba(255,255,255,.94)!important;
-}
-.home-card-v9019.home-sky-sunset::before{
-  border-color:rgba(255,255,255,.80)!important;
-  background:
-    radial-gradient(ellipse at 20% 20%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 17%, rgba(255,255,255,0) 42%),
-    radial-gradient(ellipse at 68% 24%, rgba(255,255,255,.24) 0%, rgba(255,255,255,.10) 18%, rgba(255,255,255,0) 44%),
-    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 68%)!important;
-  box-shadow:inset 0 0 42px rgba(255,255,255,.36),0 0 0 1px rgba(164,219,249,.08)!important;
-}
-.home-card-v9019.home-sky-sunset::after{
-  content:"☀️"!important;
-  left:6px!important;
-  right:auto!important;
-  top:22px!important;
-  font-size:38px!important;
-  opacity:.42!important;
-  color:rgba(236,140,64,.48)!important;
-  filter:saturate(1.04) brightness(1.18) blur(.04px)!important;
-  text-shadow:
-    0 0 18px rgba(255,252,232,.70),
-    0 0 34px rgba(255,195,112,.62),
-    0 0 64px rgba(235,125,78,.35),
-    0 0 92px rgba(255,207,150,.18)!important;
-}
-.home-card-v9019.home-sky-sunset .home-date-v9019{
-  background:rgba(255,255,255,.84)!important;
-  border-color:rgba(213,159,112,.22)!important;
-  box-shadow:0 7px 18px rgba(140,105,80,.08), inset 0 1px 0 rgba(255,255,255,.94)!important;
-}
-.home-card-v9019.home-sky-sunset .home-line-v9019{
-  background:linear-gradient(90deg,transparent,rgba(198,139,94,.24),rgba(106,176,225,.42),rgba(198,139,94,.24),transparent)!important;
-}
-.home-card-v9019.home-sky-sunset .home-line-v9019::after{
-  color:rgba(91,146,197,.42)!important;
-  background:rgba(255,252,246,.56)!important;
-  text-shadow:0 1px 10px rgba(194,134,82,.12)!important;
-}
-</style>
-
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -9188,8 +9132,8 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
         var cardV9019=document.getElementById("homeCardV9019");
         if(cardV9019){
           var hV9019=(new Date()).getHours();
-          cardV9019.classList.remove("home-sky-morning","home-sky-day","home-sky-sunset","home-sky-night");
-          cardV9019.classList.add((hV9019>=6 && hV9019<12) ? "home-sky-morning" : ((hV9019>=12 && hV9019<17) ? "home-sky-day" : ((hV9019>=17 && hV9019<20) ? "home-sky-sunset" : "home-sky-night")));
+          cardV9019.classList.remove("home-sky-morning","home-sky-day","home-sky-night");
+          cardV9019.classList.add((hV9019>=6 && hV9019<12) ? "home-sky-morning" : ((hV9019>=12 && hV9019<19) ? "home-sky-day" : "home-sky-night"));
         }
       }catch(_skyErrV9019){}
       if(ref) ref.textContent = verse.ref;
@@ -10521,3 +10465,108 @@ body.dark .reader-end-card::before{
   text-shadow:0 1px 10px rgba(95,166,218,.12)!important;
 }
 </style>
+
+
+<style id="v90-20-35-atardecer-final-css">
+/* v90.20.35 - ATARDECER real e independiente (17:00-19:59).
+   No modifica mañana, tarde ni noche: solo actúa cuando existe home-sky-sunset. */
+.home-card-v9019.home-sky-sunset{
+  border-color:rgba(246,184,126,.42)!important;
+  background:
+    radial-gradient(circle at 10% 16%, rgba(255,255,255,.82) 0%, rgba(255,255,255,.48) 7%, rgba(255,219,149,.34) 18%, rgba(255,173,103,.22) 33%, rgba(255,173,103,0) 56%),
+    radial-gradient(ellipse at 0% 28%, rgba(255,183,96,.50) 0%, rgba(255,205,137,.28) 28%, rgba(255,205,137,0) 62%),
+    radial-gradient(ellipse at 44% 20%, rgba(255,247,220,.42) 0%, rgba(255,247,220,.16) 24%, rgba(255,247,220,0) 52%),
+    radial-gradient(ellipse at 86% 22%, rgba(202,232,255,.34) 0%, rgba(202,232,255,.13) 24%, rgba(202,232,255,0) 52%),
+    linear-gradient(130deg,#ffe5b8 0%,#fff1d5 27%,#e4f6ff 58%,#dff4ff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.15),
+    0 10px 26px rgba(232,151,86,.10),
+    inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+.home-card-v9019.home-sky-sunset::before{
+  border-color:rgba(255,255,255,.82)!important;
+  background:
+    radial-gradient(ellipse at 16% 18%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 19%, rgba(255,255,255,0) 43%),
+    radial-gradient(ellipse at 42% 18%, rgba(255,239,210,.32) 0%, rgba(255,239,210,.12) 22%, rgba(255,239,210,0) 46%),
+    radial-gradient(ellipse at 80% 28%, rgba(255,255,255,.26) 0%, rgba(255,255,255,.10) 20%, rgba(255,255,255,0) 45%),
+    linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,0) 68%)!important;
+  box-shadow:
+    inset 0 0 44px rgba(255,255,255,.40),
+    0 0 0 1px rgba(246,184,126,.10)!important;
+}
+.home-card-v9019.home-sky-sunset::after{
+  content:"☀️"!important;
+  left:9px!important;
+  right:auto!important;
+  top:30px!important;
+  font-size:39px!important;
+  opacity:.43!important;
+  color:rgba(238,141,58,.42)!important;
+  filter:saturate(.95) brightness(1.12) blur(.05px)!important;
+  text-shadow:
+    0 0 22px rgba(255,196,118,.54),
+    0 0 52px rgba(236,132,58,.24)!important;
+}
+.home-card-v9019.home-sky-sunset .home-kicker-v9019,
+.home-card-v9019.home-sky-sunset .home-ref-v9019{
+  color:#0b6fa4!important;
+  text-shadow:0 2px 16px rgba(255,255,255,.45)!important;
+}
+.home-card-v9019.home-sky-sunset .home-date-v9019{
+  background:rgba(255,255,255,.86)!important;
+  border-color:rgba(232,164,93,.23)!important;
+  box-shadow:0 7px 18px rgba(226,151,76,.07), inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+.home-card-v9019.home-sky-sunset .home-line-v9019{
+  background:linear-gradient(90deg, transparent, rgba(232,151,76,.24), rgba(52,142,205,.18), transparent)!important;
+}
+.home-card-v9019.home-sky-sunset .home-line-v9019::after{
+  color:rgba(232,151,76,.48)!important;
+  background:rgba(255,249,236,.72)!important;
+}
+.home-card-v9019.home-sky-sunset .home-phrase-v9019{
+  color:#5e7890!important;
+}
+</style>
+
+
+<script id="v90-20-35-atardecer-final-js">
+/* v90.20.35 - fuerza el ciclo horario real: mañana/tarde/atardecer/noche. */
+(function(){
+  if(window.__v902035SunsetCycle) return;
+  window.__v902035SunsetCycle=true;
+
+  function skyClassForHourV902035(h){
+    if(h>=6 && h<12) return "home-sky-morning";
+    if(h>=12 && h<17) return "home-sky-day";
+    if(h>=17 && h<20) return "home-sky-sunset";
+    return "home-sky-night";
+  }
+
+  function applyHomeSkyV902035(){
+    try{
+      var card=document.getElementById("homeCardV9019");
+      if(!card) return;
+      var cls=skyClassForHourV902035((new Date()).getHours());
+      card.classList.remove("home-sky-morning","home-sky-day","home-sky-sunset","home-sky-night");
+      card.classList.add(cls);
+    }catch(e){}
+  }
+
+  var oldRender=window.renderHomeV9019;
+  if(typeof oldRender === "function" && !oldRender.__v902035Wrapped){
+    var wrapped=function(){
+      var result=oldRender.apply(this, arguments);
+      applyHomeSkyV902035();
+      setTimeout(applyHomeSkyV902035, 0);
+      return result;
+    };
+    wrapped.__v902035Wrapped=true;
+    window.renderHomeV9019=wrapped;
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", applyHomeSkyV902035);
+  else applyHomeSkyV902035();
+  setTimeout(applyHomeSkyV902035, 120);
+})();
+</script>
