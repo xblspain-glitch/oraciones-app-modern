@@ -10306,3 +10306,22 @@ body.dark .reader-end-card::before{
   box-shadow:0 7px 18px rgba(74,151,214,.08), inset 0 1px 0 rgba(255,255,255,.95)!important;
 }
 </style>
+
+<style id="v90-20-28-sol-glow-integrado-css">
+/* v90.20.28 - SOLO mañana: reforzar el brillo pegado al sol, sin mover composición */
+.home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  left:10px!important;
+  right:auto!important;
+  top:30px!important;
+  font-size:38px!important;
+  opacity:.36!important;
+  color:rgba(247,184,61,.38)!important;
+  filter:saturate(.98) brightness(1.24) blur(.06px)!important;
+  text-shadow:
+    0 0 18px rgba(255,255,238,.72),
+    0 0 34px rgba(255,225,132,.62),
+    0 0 62px rgba(255,205,72,.34),
+    0 0 92px rgba(255,229,150,.18)!important;
+}
+</style>
