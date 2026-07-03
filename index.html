@@ -2016,7 +2016,6 @@ function openRecentEntry(type,idx){
   <section class="content">
 
     <div id="homeView" class="panel home-panel-v9019 hidden">
-      <div class="home-greeting-v9043" id="homeGreetingV9043" aria-live="polite"></div>
       <div class="home-card-v9019" id="homeCardV9019">
         <div class="home-kicker-v9019">🌿 Palabra para este momento</div>
         <div class="home-date-v9019" id="homeDateV9019"></div>
@@ -5253,89 +5252,6 @@ body.dark .home-card-v9019.home-sky-sunset .home-line-v9019{
   background:linear-gradient(90deg, transparent, rgba(232,151,76,.24), rgba(52,142,205,.18), transparent)!important;
 }
 </style>
-
-
-
-<style id="v90-20-43-saludo-horario-home-css">
-/* v90.20.43 - Saludo horario discreto sobre la portada de Inicio */
-.home-greeting-v9043{
-  width:min(680px,100%);
-  margin:0 auto 12px!important;
-  text-align:center;
-  font-size:14px;
-  line-height:1.45;
-  font-weight:750;
-  letter-spacing:.01em;
-  color:#47748d;
-  opacity:.92;
-  text-shadow:0 1px 0 rgba(255,255,255,.62);
-  padding:0 12px;
-  box-sizing:border-box;
-}
-.home-greeting-v9043:empty{display:none!important;}
-body.dark .home-greeting-v9043{
-  color:#b8d9ed;
-  opacity:.92;
-  text-shadow:0 1px 10px rgba(0,0,0,.22);
-}
-@media (max-width:420px){
-  .home-greeting-v9043{
-    font-size:13.5px;
-    margin-bottom:10px!important;
-    padding:0 10px;
-  }
-}
-</style>
-
-<script id="v90-20-43-saludo-horario-home-js">
-/* v90.20.43 - Actualiza el saludo de Inicio según la franja horaria. */
-(function(){
-  if(window.__v902043HomeGreeting) return;
-  window.__v902043HomeGreeting=true;
-
-  function greetingForHourV902043(h){
-    if(h>=6 && h<12) return '🌅 Buenos días. Que el Señor ilumine este nuevo día.';
-    if(h>=12 && h<17) return '☀️ Buenas tardes. Que la paz de Cristo te acompañe.';
-    if(h>=17 && h<20) return '🌇 Feliz atardecer. Descansa un momento en Su Palabra.';
-    return '🌙 Buenas noches. Que el Señor vele tu descanso.';
-  }
-
-  function updateHomeGreetingV902043(){
-    try{
-      var el=document.getElementById('homeGreetingV9043');
-      if(!el) return;
-      el.textContent=greetingForHourV902043((new Date()).getHours());
-    }catch(e){}
-  }
-
-  var oldRender=window.renderHomeV9019;
-  if(typeof oldRender==='function' && !oldRender.__v902043GreetingWrapped){
-    var wrapped=function(){
-      var result=oldRender.apply(this, arguments);
-      updateHomeGreetingV902043();
-      return result;
-    };
-    wrapped.__v902043GreetingWrapped=true;
-    window.renderHomeV9019=wrapped;
-  }
-
-  var oldShow=window.showHomeV9019;
-  if(typeof oldShow==='function' && !oldShow.__v902043GreetingWrapped){
-    var showWrapped=function(){
-      var result=oldShow.apply(this, arguments);
-      updateHomeGreetingV902043();
-      return result;
-    };
-    showWrapped.__v902043GreetingWrapped=true;
-    window.showHomeV9019=showWrapped;
-    try{ showHomeV9019=window.showHomeV9019; }catch(e){}
-  }
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', updateHomeGreetingV902043);
-  else updateHomeGreetingV902043();
-  setTimeout(updateHomeGreetingV902043,120);
-})();
-</script>
 
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
