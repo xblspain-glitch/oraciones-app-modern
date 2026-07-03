@@ -5231,14 +5231,73 @@ async function shareVerseCard(){
     }
     ctx.restore();
 
-    ctx.save();
-    ctx.globalAlpha=0.055;
-    ctx.font="620px Arial, sans-serif";
-    ctx.textAlign="center";
-    ctx.textBaseline="middle";
-    ctx.fillStyle="#ffffff";
-    ctx.fillText(iconFromCategory(category),540,940);
-    ctx.restore();
+    // Marca de agua común de Oraciones V2: cruz del logo + Biblia abierta
+    // Sustituye el icono grande de categoría, que queda representado arriba.
+    function drawLogoWatermark(ctx, cx, cy, scale){
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(scale, scale);
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = "rgba(255,255,255,0.115)";
+      ctx.fillStyle = "rgba(255,255,255,0.075)";
+      ctx.lineWidth = 16;
+
+      // Halo circular de la cruz etíope
+      ctx.beginPath();
+      ctx.arc(0,-120,118,0,Math.PI*2);
+      ctx.stroke();
+
+      // Cruz central
+      ctx.fillRect(-26,-330,52,370);
+      ctx.fillRect(-170,-185,340,52);
+
+      // Remates ornamentales simplificados de la cruz
+      function diamond(x,y,s){
+        ctx.beginPath();
+        ctx.moveTo(x,y-s); ctx.lineTo(x+s,y); ctx.lineTo(x,y+s); ctx.lineTo(x-s,y);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+      }
+      diamond(0,-360,46);
+      diamond(-205,-158,46);
+      diamond(205,-158,46);
+      diamond(0,72,42);
+
+      // Pequeños calados sugeridos en los remates
+      ctx.save();
+      ctx.strokeStyle = "rgba(255,255,255,0.075)";
+      ctx.lineWidth = 8;
+      [[0,-360],[-205,-158],[205,-158],[0,72]].forEach(([x,y])=>{
+        ctx.beginPath(); ctx.moveTo(x-28,y); ctx.lineTo(x+28,y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(x,y-28); ctx.lineTo(x,y+28); ctx.stroke();
+      });
+      ctx.restore();
+
+      // Biblia abierta del logo
+      ctx.strokeStyle = "rgba(255,255,255,0.105)";
+      ctx.fillStyle = "rgba(255,255,255,0.06)";
+      ctx.lineWidth = 14;
+      ctx.beginPath();
+      ctx.moveTo(0,220);
+      ctx.bezierCurveTo(-70,155,-205,142,-350,205);
+      ctx.bezierCurveTo(-215,190,-82,192,0,252);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0,220);
+      ctx.bezierCurveTo(70,155,205,142,350,205);
+      ctx.bezierCurveTo(215,190,82,192,0,252);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      // líneas de páginas
+      ctx.lineWidth = 7;
+      for(let i=0;i<3;i++){
+        ctx.beginPath(); ctx.moveTo(-30,230+i*23); ctx.bezierCurveTo(-115,195+i*18,-220,192+i*16,-330,225+i*18); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(30,230+i*23); ctx.bezierCurveTo(115,195+i*18,220,192+i*16,330,225+i*18); ctx.stroke();
+      }
+      ctx.restore();
+    }
+    drawLogoWatermark(ctx,540,1190,1.05);
 
     ctx.textAlign="center";
     ctx.fillStyle="#ffffff";
@@ -5289,10 +5348,21 @@ async function shareVerseCard(){
     ctx.font="italic "+textLayout.font+"px Georgia, serif";
     wrapText(ctx,body,540,textLayout.y,930,textLayout.line,textLayout.max);
 
+    // Remate inferior muy discreto, en línea con la cruz central
+    ctx.save();
+    ctx.shadowColor="rgba(0,0,0,0)";
+    ctx.shadowBlur=0;
+    ctx.shadowOffsetY=0;
+    ctx.strokeStyle="rgba(220,250,255,0.55)";
+    ctx.fillStyle="rgba(235,253,255,0.75)";
+    ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(150,1764); ctx.lineTo(455,1764); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(625,1764); ctx.lineTo(930,1764); ctx.stroke();
     ctx.font="34px Georgia, serif";
-    ctx.globalAlpha=0.88;
-    // pie eliminado
-    ctx.globalAlpha=1;
+    ctx.fillText("✝",540,1776);
+    ctx.font="26px Georgia, serif";
+    ctx.fillText("‹  ❧  ›",540,1736);
+    ctx.restore();
 
     const blob = await new Promise(resolve=>canvas.toBlob(resolve,"image/png",0.95));
     if(!blob){
