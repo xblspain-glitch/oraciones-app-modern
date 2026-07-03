@@ -9506,3 +9506,304 @@ body.dark .home-phrase-v9019{color:#c8e2f5!important}
   color:#dceffa!important;
 }
 </style>
+
+<style id="v90-20-7-fin-lectura-redisenyo-css">
+/* v90.20.7 - Rediseño visual de tarjeta fin de lectura (sin tocar navegación) */
+.reader-end-card{
+  position:relative!important;
+  overflow:hidden!important;
+  max-width:560px!important;
+  margin:44px auto 18px!important;
+  padding:58px 24px 28px!important;
+  text-align:center!important;
+  border:1px solid rgba(114,164,225,.26)!important;
+  border-radius:28px!important;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(145,117,255,.14), transparent 28%),
+    radial-gradient(circle at 88% 84%, rgba(92,155,232,.14), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(247,251,255,.98) 58%, rgba(235,244,255,.96))!important;
+  box-shadow:
+    0 18px 42px rgba(55,103,160,.13),
+    inset 0 1px 0 rgba(255,255,255,.92)!important;
+  color:#16243b!important;
+}
+.reader-end-card::before{
+  content:"✝️";
+  position:absolute;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:54px;
+  height:54px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:19px;
+  font-size:28px;
+  background:linear-gradient(145deg, rgba(156,75,222,.96), rgba(91,121,220,.92));
+  box-shadow:0 10px 24px rgba(94,85,210,.22);
+}
+.reader-end-card::after{
+  content:"🌿";
+  position:absolute;
+  right:22px;
+  bottom:18px;
+  font-size:58px;
+  opacity:.075;
+  transform:rotate(-14deg);
+  pointer-events:none;
+}
+.reader-end-card .line{
+  width:76%!important;
+  height:1px!important;
+  margin:16px auto!important;
+  opacity:.95!important;
+  background:linear-gradient(90deg, transparent, rgba(96,143,205,.24), rgba(142,117,220,.18), rgba(96,143,205,.24), transparent)!important;
+}
+.reader-end-card .title{
+  margin-top:18px!important;
+  font-size:1.22em!important;
+  line-height:1.24!important;
+  font-weight:850!important;
+  letter-spacing:.01em!important;
+  color:#152842!important;
+}
+.reader-end-card .msg{
+  max-width:420px!important;
+  margin:12px auto 0!important;
+  font-size:1.02em!important;
+  line-height:1.58!important;
+  font-style:italic!important;
+  color:#4e3f91!important;
+  opacity:.92!important;
+}
+.reader-next{
+  max-width:560px!important;
+  margin:22px auto 20px!important;
+  text-align:center!important;
+}
+.reader-next-label{
+  margin:0 0 14px!important;
+  color:#4f7199!important;
+  font-weight:850!important;
+  font-size:1.02em!important;
+}
+.reader-next-link,
+.reader-top-link{
+  box-sizing:border-box!important;
+  width:min(100%,520px)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  margin:10px auto!important;
+  padding:16px 18px!important;
+  border-radius:18px!important;
+  text-align:left!important;
+  background:rgba(255,255,255,.76)!important;
+  border:1px solid rgba(56,126,213,.28)!important;
+  color:#246db7!important;
+  font-weight:900!important;
+  line-height:1.3!important;
+  box-shadow:0 8px 22px rgba(48,103,169,.08)!important;
+}
+.reader-next-link::after,
+.reader-top-link::after{
+  content:"›";
+  flex:0 0 auto;
+  font-size:32px;
+  line-height:1;
+  color:#2f7ccb;
+  opacity:.9;
+}
+.reader-top-link{
+  color:#5d7592!important;
+  border-color:rgba(91,130,176,.20)!important;
+  background:rgba(248,252,255,.78)!important;
+}
+.reader-top-link::before{
+  content:"🏠";
+  margin-right:2px;
+  font-size:24px;
+}
+.reader-next-link:active,
+.reader-top-link:active{
+  transform:scale(.985) translateY(1px)!important;
+}
+body.dark .reader-end-card{
+  background:
+    radial-gradient(circle at 18% 12%, rgba(145,117,255,.18), transparent 28%),
+    radial-gradient(circle at 88% 84%, rgba(92,155,232,.14), transparent 32%),
+    linear-gradient(180deg, rgba(36,38,48,.98), rgba(25,29,41,.98) 62%, rgba(18,22,34,.98))!important;
+  border-color:rgba(190,214,255,.16)!important;
+  color:#f4f7ff!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
+body.dark .reader-end-card .title{color:#f4f7ff!important}
+body.dark .reader-end-card .msg{color:#d6d5ff!important}
+body.dark .reader-next-label{color:#b9cdec!important}
+body.dark .reader-next-link,
+body.dark .reader-top-link{
+  background:rgba(255,255,255,.055)!important;
+  border-color:rgba(190,214,255,.16)!important;
+  color:#d9ebff!important;
+  box-shadow:0 8px 22px rgba(0,0,0,.22)!important;
+}
+@media(max-width:420px){
+  .reader-end-card{padding:56px 18px 26px!important;border-radius:24px!important}
+  .reader-end-card .title{font-size:1.14em!important}
+  .reader-next-link,.reader-top-link{padding:15px 16px!important;border-radius:17px!important}
+}
+</style>
+
+<script id="v90-20-7-fin-lectura-redisenyo-js">
+/* v90.20.7 - Pulido del texto de fin de lectura, sin tocar navegación */
+(function(){
+  if(window.__v90207EndCardPolish)return;
+  window.__v90207EndCardPolish=true;
+  function polishEndCard(){
+    try{
+      var end=document.querySelector('.reader-end-card');
+      if(!end)return;
+      end.setAttribute('aria-label','Fin de la lectura');
+      var title=end.querySelector('.title');
+      if(title && !title.dataset.v90207){
+        title.dataset.v90207='1';
+        title.textContent='Fin de la lectura';
+      }
+      var msg=end.querySelector('.msg');
+      if(msg && !msg.dataset.v90207){
+        msg.dataset.v90207='1';
+        msg.textContent='Que la paz de Cristo permanezca en su corazón.';
+      }
+    }catch(e){}
+  }
+  var old=window.renderReader||(typeof renderReader!=='undefined'?renderReader:null);
+  if(old&&!window.__v90207EndCardRenderWrapped){
+    window.__v90207EndCardRenderWrapped=true;
+    window.renderReader=function(){
+      old.apply(this,arguments);
+      setTimeout(polishEndCard,420);
+    };
+    try{renderReader=window.renderReader}catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(polishEndCard,900)});
+})();
+</script>
+
+<style id="v90-20-8-fin-lectura-integrada-css">
+/* v90.20.8 - Fin de lectura más integrado: botones centrados, sin flechas ni casa */
+.reader-end-card{
+  background:
+    radial-gradient(circle at 50% 4%, rgba(144,108,230,.10), transparent 30%),
+    radial-gradient(circle at 86% 78%, rgba(120,175,230,.10), transparent 34%),
+    linear-gradient(180deg, rgba(255,255,255,.88), rgba(248,252,255,.78) 56%, rgba(236,246,255,.70))!important;
+  box-shadow:
+    0 16px 40px rgba(72,118,170,.10),
+    inset 0 1px 0 rgba(255,255,255,.74)!important;
+  backdrop-filter: blur(8px)!important;
+  -webkit-backdrop-filter: blur(8px)!important;
+}
+.reader-end-card .line{
+  position:relative!important;
+  width:82%!important;
+  margin:18px auto!important;
+  background:linear-gradient(90deg, transparent, rgba(87,135,205,.28) 38%, transparent 38%, transparent 62%, rgba(87,135,205,.28) 62%, transparent)!important;
+}
+.reader-end-card .line::after{
+  content:"✝";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  color:rgba(76,122,196,.58);
+  font-size:16px;
+  line-height:1;
+  text-shadow:0 2px 10px rgba(76,122,196,.16);
+}
+.reader-next,
+.reader-next-label{
+  text-align:center!important;
+}
+.reader-next-link,
+.reader-top-link{
+  justify-content:center!important;
+  text-align:center!important;
+  gap:8px!important;
+  background:rgba(255,255,255,.60)!important;
+  border-color:rgba(91,139,196,.18)!important;
+  box-shadow:0 10px 28px rgba(75,124,180,.065)!important;
+}
+.reader-next-link::after,
+.reader-top-link::after,
+.reader-top-link::before{
+  content:none!important;
+  display:none!important;
+}
+.reader-top-link{
+  color:#607994!important;
+}
+body.dark .reader-end-card{
+  background:
+    radial-gradient(circle at 50% 4%, rgba(144,108,230,.14), transparent 30%),
+    radial-gradient(circle at 86% 78%, rgba(120,175,230,.10), transparent 34%),
+    linear-gradient(180deg, rgba(34,38,52,.82), rgba(24,30,43,.78) 62%, rgba(18,23,35,.74))!important;
+}
+body.dark .reader-next-link,
+body.dark .reader-top-link{
+  background:rgba(255,255,255,.045)!important;
+  border-color:rgba(190,214,255,.12)!important;
+}
+</style>
+
+<script id="v90-20-8-fin-lectura-integrada-js">
+/* v90.20.8 - Limpia flechas internas del enlace Volver, sin cambiar navegación */
+(function(){
+  if(window.__v90208EndLinksPolish)return;
+  window.__v90208EndLinksPolish=true;
+  function polishEndLinks(){
+    try{
+      document.querySelectorAll('.reader-top-link').forEach(function(el){
+        el.textContent=(el.textContent||'').replace(/^[\s↑⬆️🏠]+/u,'').trim()||'Volver al inicio';
+      });
+    }catch(e){}
+  }
+  var old=window.renderReader||(typeof renderReader!=='undefined'?renderReader:null);
+  if(old&&!window.__v90208EndLinksRenderWrapped){
+    window.__v90208EndLinksRenderWrapped=true;
+    window.renderReader=function(){
+      old.apply(this,arguments);
+      setTimeout(polishEndLinks,450);
+    };
+    try{renderReader=window.renderReader}catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(polishEndLinks,900)});
+  document.addEventListener('click',function(){setTimeout(polishEndLinks,120)},true);
+})();
+</script>
+
+<style id="v90-20-10-fin-lectura-refinado-final-css">
+/* v90.20.10 - Refinado real sobre la última versión: línea superior limpia y cruz principal más difuminada */
+.reader-end-card .line:first-of-type::after{
+  content:none!important;
+  display:none!important;
+}
+.reader-end-card::before{
+  background:
+    radial-gradient(circle at 50% 50%, rgba(170,89,226,.86), rgba(111,126,222,.58) 62%, rgba(111,126,222,.18) 100%)!important;
+  box-shadow:
+    0 12px 34px rgba(139,105,225,.20),
+    0 0 28px rgba(156,112,230,.16),
+    inset 0 1px 0 rgba(255,255,255,.30)!important;
+  backdrop-filter: blur(2px)!important;
+  -webkit-backdrop-filter: blur(2px)!important;
+}
+body.dark .reader-end-card::before{
+  background:
+    radial-gradient(circle at 50% 50%, rgba(170,89,226,.78), rgba(111,126,222,.50) 62%, rgba(111,126,222,.16) 100%)!important;
+  box-shadow:
+    0 12px 34px rgba(95,78,180,.24),
+    0 0 28px rgba(156,112,230,.12),
+    inset 0 1px 0 rgba(255,255,255,.18)!important;
+}
+</style>
