@@ -5198,18 +5198,46 @@ async function shareVerseCard(){
     const ctx=canvas.getContext("2d");
 
     const grad=ctx.createLinearGradient(0,0,0,1920);
-    grad.addColorStop(0,"#28c3d4");
-    grad.addColorStop(1,"#20b3c4");
+    grad.addColorStop(0,"#2ec9d8");
+    grad.addColorStop(0.52,"#25bdce");
+    grad.addColorStop(1,"#1fb1c1");
     ctx.fillStyle=grad;
     ctx.fillRect(0,0,1080,1920);
 
+    // Profundidad muy suave sobre el azul principal
+    const glowTop=ctx.createRadialGradient(540,300,40,540,300,620);
+    glowTop.addColorStop(0,"rgba(255,255,255,0.22)");
+    glowTop.addColorStop(0.42,"rgba(255,255,255,0.08)");
+    glowTop.addColorStop(1,"rgba(255,255,255,0)");
+    ctx.fillStyle=glowTop;
+    ctx.fillRect(0,0,1080,1920);
+
+    const glowBottom=ctx.createRadialGradient(540,1160,80,540,1160,720);
+    glowBottom.addColorStop(0,"rgba(255,255,255,0.10)");
+    glowBottom.addColorStop(1,"rgba(255,255,255,0)");
+    ctx.fillStyle=glowBottom;
+    ctx.fillRect(0,0,1080,1920);
+
+    // Borde interior sutil para dar aspecto de tarjeta cuidada
     ctx.save();
-    ctx.globalAlpha=0.08;
-    ctx.font="520px Arial, sans-serif";
+    ctx.strokeStyle="rgba(255,255,255,0.34)";
+    ctx.lineWidth=3;
+    if(ctx.roundRect){
+      ctx.beginPath();
+      ctx.roundRect(54,54,972,1812,34);
+      ctx.stroke();
+    }else{
+      ctx.strokeRect(54,54,972,1812);
+    }
+    ctx.restore();
+
+    ctx.save();
+    ctx.globalAlpha=0.055;
+    ctx.font="620px Arial, sans-serif";
     ctx.textAlign="center";
     ctx.textBaseline="middle";
     ctx.fillStyle="#ffffff";
-    ctx.fillText(iconFromCategory(category),540,920);
+    ctx.fillText(iconFromCategory(category),540,940);
     ctx.restore();
 
     ctx.textAlign="center";
@@ -5217,6 +5245,15 @@ async function shareVerseCard(){
     ctx.shadowColor="rgba(0,0,0,0.25)";
     ctx.shadowBlur=10;
     ctx.shadowOffsetY=3;
+
+    // Halo tenue detrás del icono superior
+    ctx.save();
+    const iconHalo=ctx.createRadialGradient(540,245,10,540,245,130);
+    iconHalo.addColorStop(0,"rgba(255,255,255,0.38)");
+    iconHalo.addColorStop(1,"rgba(255,255,255,0)");
+    ctx.fillStyle=iconHalo;
+    ctx.fillRect(390,95,300,300);
+    ctx.restore();
 
     ctx.font="84px Arial";
     ctx.fillText("🌅",540,245);
@@ -5230,10 +5267,23 @@ async function shareVerseCard(){
 
     ctx.font="54px Georgia, serif";
     ctx.fillText(category,540,495);
-    ctx.strokeStyle="rgba(255,255,255,0.35)"; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(180,700); ctx.lineTo(900,700); ctx.stroke();
 
     ctx.font="bold 74px Georgia, serif";
     ctx.fillText(ref,540,640);
+
+    // Línea decorativa azul tenue con cruz central
+    ctx.save();
+    ctx.shadowColor="rgba(0,0,0,0)";
+    ctx.shadowBlur=0;
+    ctx.shadowOffsetY=0;
+    ctx.strokeStyle="rgba(190,238,248,0.58)";
+    ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(180,700); ctx.lineTo(500,700); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(580,700); ctx.lineTo(900,700); ctx.stroke();
+    ctx.fillStyle="rgba(214,249,255,0.78)";
+    ctx.font="34px Georgia, serif";
+    ctx.fillText("✝",540,712);
+    ctx.restore();
 
     const textLayout=getCardTextLayout(body);
     ctx.font="italic "+textLayout.font+"px Georgia, serif";
