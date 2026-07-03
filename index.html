@@ -5060,6 +5060,67 @@ body.sent-reader-v903 #homeView{
 }
 </style>
 
+
+
+<style id="v90-20-34-atardecer-horario-css">
+/* v90.20.34 - NUEVO ATARDECER 17:00-19:59.
+   Separado de mañana/tarde/noche para evitar conflictos visuales. */
+.home-card-v9019.home-sky-sunset{
+  border-color:rgba(240,181,144,.46)!important;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255,255,244,.78) 0%, rgba(255,223,151,.46) 10%, rgba(255,178,102,.26) 26%, rgba(255,178,102,0) 56%),
+    radial-gradient(ellipse at 18% 12%, rgba(255,212,124,.36) 0%, rgba(255,190,118,.18) 34%, rgba(255,190,118,0) 68%),
+    radial-gradient(ellipse at 76% 18%, rgba(255,211,204,.26) 0%, rgba(255,220,218,.10) 28%, rgba(255,220,218,0) 58%),
+    radial-gradient(ellipse at 52% 70%, rgba(212,241,255,.34) 0%, rgba(212,241,255,.12) 34%, rgba(212,241,255,0) 68%),
+    linear-gradient(135deg,#fff1c9 0%,#ffe5c8 24%,#f2f8ef 48%,#d9f4ff 78%,#edfaff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(197,136,70,.12),
+    0 10px 26px rgba(83,155,213,.12),
+    inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+.home-card-v9019.home-sky-sunset::before{
+  border-color:rgba(255,255,255,.82)!important;
+  background:
+    radial-gradient(ellipse at 22% 23%, rgba(255,248,228,.42) 0%, rgba(255,232,193,.15) 22%, rgba(255,232,193,0) 48%),
+    radial-gradient(ellipse at 74% 26%, rgba(255,255,255,.24) 0%, rgba(255,255,255,.10) 20%, rgba(255,255,255,0) 46%),
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0) 66%)!important;
+  box-shadow:inset 0 0 44px rgba(255,255,255,.36),0 0 0 1px rgba(255,211,168,.10)!important;
+}
+.home-card-v9019.home-sky-sunset::after{
+  content:"🌇"!important;
+  left:9px!important;
+  right:auto!important;
+  top:14px!important;
+  font-size:39px!important;
+  opacity:.42!important;
+  filter:saturate(1.05) brightness(1.15) blur(.03px)!important;
+  text-shadow:
+    0 0 20px rgba(255,245,216,.70),
+    0 0 38px rgba(255,198,112,.46),
+    0 0 72px rgba(255,150,84,.22)!important;
+}
+.home-card-v9019.home-sky-sunset .home-kicker-v9019,
+.home-card-v9019.home-sky-sunset .home-ref-v9019{
+  color:#126da5!important;
+}
+.home-card-v9019.home-sky-sunset .home-date-v9019{
+  background:rgba(255,255,255,.87)!important;
+  border-color:rgba(231,181,126,.22)!important;
+  box-shadow:0 7px 18px rgba(180,119,63,.08), inset 0 1px 0 rgba(255,255,255,.96)!important;
+}
+.home-card-v9019.home-sky-sunset .home-line-v9019{
+  background:linear-gradient(90deg,transparent,rgba(218,157,92,.18),rgba(105,184,226,.42),rgba(218,157,92,.18),transparent)!important;
+}
+.home-card-v9019.home-sky-sunset .home-line-v9019::after{
+  color:rgba(82,157,211,.42)!important;
+  background:rgba(255,252,244,.56)!important;
+  text-shadow:0 1px 10px rgba(220,151,76,.10)!important;
+}
+.home-card-v9019.home-sky-sunset .home-phrase-v9019{
+  color:#4e7894!important;
+}
+</style>
+
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -9132,8 +9193,8 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
         var cardV9019=document.getElementById("homeCardV9019");
         if(cardV9019){
           var hV9019=(new Date()).getHours();
-          cardV9019.classList.remove("home-sky-morning","home-sky-day","home-sky-night");
-          cardV9019.classList.add((hV9019>=6 && hV9019<12) ? "home-sky-morning" : ((hV9019>=12 && hV9019<19) ? "home-sky-day" : "home-sky-night"));
+          cardV9019.classList.remove("home-sky-morning","home-sky-day","home-sky-sunset","home-sky-night");
+          cardV9019.classList.add((hV9019>=6 && hV9019<12) ? "home-sky-morning" : ((hV9019>=12 && hV9019<17) ? "home-sky-day" : ((hV9019>=17 && hV9019<20) ? "home-sky-sunset" : "home-sky-night")));
         }
       }catch(_skyErrV9019){}
       if(ref) ref.textContent = verse.ref;
