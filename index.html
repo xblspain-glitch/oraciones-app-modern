@@ -5060,6 +5060,71 @@ body.sent-reader-v903 #homeView{
 }
 </style>
 
+
+
+<style id="v90-20-37-atardecer-visible-real-css">
+/* v90.20.37 - ATARDECER visible real.
+   Este bloque va al final para ganar prioridad y SOLO afecta a 17:00-19:59. */
+.home-card-v9019.home-sky-sunset{
+  border-color:rgba(238,151,92,.62)!important;
+  background:
+    radial-gradient(circle at 4% 13%, rgba(255,255,255,.94) 0%, rgba(255,236,196,.74) 7%, rgba(255,197,126,.58) 18%, rgba(239,127,78,.34) 33%, rgba(239,127,78,0) 60%),
+    radial-gradient(ellipse at 0% 55%, rgba(255,157,101,.54) 0%, rgba(255,205,156,.28) 36%, rgba(255,205,156,0) 72%),
+    radial-gradient(ellipse at 42% 28%, rgba(255,226,190,.42) 0%, rgba(255,226,190,.15) 30%, rgba(255,226,190,0) 64%),
+    radial-gradient(ellipse at 100% 38%, rgba(177,222,255,.56) 0%, rgba(177,222,255,.28) 36%, rgba(177,222,255,0) 73%),
+    radial-gradient(ellipse at 88% 100%, rgba(158,213,250,.46) 0%, rgba(158,213,250,.20) 35%, rgba(158,213,250,0) 75%),
+    linear-gradient(135deg,#ffd9a8 0%,#ffe9c9 23%,#eef9ff 58%,#d9f1ff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.15),
+    0 12px 30px rgba(226,124,76,.17),
+    inset 0 1px 0 rgba(255,255,255,.96)!important;
+}
+.home-card-v9019.home-sky-sunset::before{
+  border-color:rgba(255,255,255,.84)!important;
+  background:
+    radial-gradient(ellipse at 10% 20%, rgba(255,255,255,.52) 0%, rgba(255,255,255,.20) 20%, rgba(255,255,255,0) 45%),
+    radial-gradient(ellipse at 35% 28%, rgba(255,203,168,.32) 0%, rgba(255,203,168,.13) 28%, rgba(255,203,168,0) 58%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 72%)!important;
+  box-shadow:
+    inset 0 0 44px rgba(255,255,255,.43),
+    0 0 0 1px rgba(238,151,92,.13)!important;
+}
+.home-card-v9019.home-sky-sunset::after{
+  content:"☀️"!important;
+  left:10px!important;
+  right:auto!important;
+  top:35px!important;
+  font-size:41px!important;
+  opacity:.56!important;
+  color:rgba(224,113,56,.58)!important;
+  filter:saturate(1.12) brightness(1.08) blur(.05px)!important;
+  text-shadow:
+    0 0 18px rgba(255,246,205,.78),
+    0 0 44px rgba(255,174,91,.48),
+    0 0 82px rgba(224,103,55,.22)!important;
+}
+.home-card-v9019.home-sky-sunset .home-kicker-v9019,
+.home-card-v9019.home-sky-sunset .home-ref-v9019{
+  color:#0b6fa4!important;
+  text-shadow:0 2px 16px rgba(255,255,255,.58)!important;
+}
+.home-card-v9019.home-sky-sunset .home-date-v9019{
+  background:rgba(255,255,255,.90)!important;
+  border-color:rgba(226,135,75,.28)!important;
+  box-shadow:0 7px 18px rgba(226,151,76,.09), inset 0 1px 0 rgba(255,255,255,.97)!important;
+}
+.home-card-v9019.home-sky-sunset .home-line-v9019{
+  background:linear-gradient(90deg, transparent, rgba(226,126,76,.34), rgba(70,159,213,.18), transparent)!important;
+}
+.home-card-v9019.home-sky-sunset .home-line-v9019::after{
+  color:rgba(216,114,66,.62)!important;
+  background:rgba(255,246,235,.78)!important;
+}
+.home-card-v9019.home-sky-sunset .home-phrase-v9019{
+  color:#5e7890!important;
+}
+</style>
+
 </body></html>`}
 async function exportCurrentHTML(){setActiveView("export");const item=currentItem();if(!item) return;const label=section==="prayers"?"Oración":"Nota";const html=buildReadingHTML(item,label,getCurrentCode());const filename=slugify(item.title)+".html";downloadBlob(filename, new Blob([html],{type:"text/html;charset=utf-8"}));if(navigator.share){try{const file=new File([html], filename, {type:"text/html"});await navigator.share({title:item.title, files:[file]})}catch(e){}}toast("Lectura exportada")}
 async function exportAllZip(){if(typeof JSZip==="undefined"){alert("No se pudo cargar el exportador ZIP.");return}const zip=new JSZip();const payload={"exportedAt":new Date().toISOString(),...state};zip.file("backup.json", JSON.stringify(payload,null,2));const folders=[["oraciones", state.prayers, "Oración","O"],["notas", state.notes, "Nota","N"],["papelera/oraciones", state.trashPrayers, "Oración eliminada","O"],["papelera/notas", state.trashNotes, "Nota eliminada","N"]];folders.forEach(([folder, items, label, prefix])=>{items.forEach((item, idx)=>{const code=prefix+(idx+1);const name=(code+"-"+slugify(item.title))+".html";zip.folder(folder).file(name, buildReadingHTML(item,label,code))})});const blob=await zip.generateAsync({type:"blob"});downloadBlob("exportacion_oraciones_notas.zip", blob);toast("ZIP exportado")}
@@ -9132,8 +9197,8 @@ body.dark .reader-popup-card-v908 h3{color:#9dccff}
         var cardV9019=document.getElementById("homeCardV9019");
         if(cardV9019){
           var hV9019=(new Date()).getHours();
-          cardV9019.classList.remove("home-sky-morning","home-sky-day","home-sky-night");
-          cardV9019.classList.add((hV9019>=6 && hV9019<12) ? "home-sky-morning" : ((hV9019>=12 && hV9019<19) ? "home-sky-day" : "home-sky-night"));
+          cardV9019.classList.remove("home-sky-morning","home-sky-day","home-sky-sunset","home-sky-night");
+          cardV9019.classList.add((hV9019>=6 && hV9019<12) ? "home-sky-morning" : ((hV9019>=12 && hV9019<17) ? "home-sky-day" : ((hV9019>=17 && hV9019<20) ? "home-sky-sunset" : "home-sky-night")));
         }
       }catch(_skyErrV9019){}
       if(ref) ref.textContent = verse.ref;
