@@ -9807,3 +9807,111 @@ body.dark .reader-end-card::before{
     inset 0 1px 0 rgba(255,255,255,.18)!important;
 }
 </style>
+
+<style id="v90-20-11-fin-lectura-ajuste-real-css">
+/* v90.20.11 - Ajuste definitivo: quitar cruz superior y suavizar halo morado */
+.reader-end-card .line:first-child::after,
+.reader-end-card .line:first-of-type::after,
+.reader-end-card .line:nth-of-type(1)::after,
+.reader-end-card .line.reader-line-top-v902011::after{
+  content:""!important;
+  display:none!important;
+  opacity:0!important;
+  visibility:hidden!important;
+}
+.reader-end-card .line:first-child,
+.reader-end-card .line:first-of-type,
+.reader-end-card .line:nth-of-type(1),
+.reader-end-card .line.reader-line-top-v902011{
+  background:linear-gradient(90deg, transparent, rgba(87,135,205,.24) 18%, rgba(87,135,205,.24) 44%, transparent 44%, transparent 56%, rgba(87,135,205,.24) 56%, rgba(87,135,205,.24) 82%, transparent)!important;
+}
+.reader-end-card::before{
+  top:20px!important;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(161,92,226,.48) 0%, rgba(116,134,225,.30) 48%, rgba(116,134,225,.08) 78%, transparent 100%)!important;
+  box-shadow:
+    0 10px 30px rgba(123,103,214,.12),
+    0 0 34px rgba(151,112,225,.10),
+    inset 0 1px 0 rgba(255,255,255,.22)!important;
+  filter:saturate(.88)!important;
+}
+body.dark .reader-end-card::before{
+  background:
+    radial-gradient(circle at 50% 50%, rgba(161,92,226,.38) 0%, rgba(116,134,225,.24) 48%, rgba(116,134,225,.07) 78%, transparent 100%)!important;
+  box-shadow:
+    0 10px 30px rgba(78,68,160,.18),
+    0 0 34px rgba(151,112,225,.08),
+    inset 0 1px 0 rgba(255,255,255,.14)!important;
+}
+</style>
+
+<script id="v90-20-11-fin-lectura-ajuste-real-js">
+/* v90.20.11 - Marca la primera línea para asegurar que no muestre cruz */
+(function(){
+  if(window.__v902011EndCardLineFix)return;
+  window.__v902011EndCardLineFix=true;
+  function fixEndCardLine(){
+    try{
+      var end=document.querySelector('.reader-end-card');
+      if(!end)return;
+      var lines=end.querySelectorAll('.line');
+      if(lines&&lines[0]) lines[0].classList.add('reader-line-top-v902011');
+    }catch(e){}
+  }
+  var old=window.renderReader||(typeof renderReader!=='undefined'?renderReader:null);
+  if(old&&!window.__v902011EndCardRenderWrapped){
+    window.__v902011EndCardRenderWrapped=true;
+    window.renderReader=function(){
+      old.apply(this,arguments);
+      setTimeout(fixEndCardLine,460);
+    };
+    try{renderReader=window.renderReader}catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(fixEndCardLine,900)});
+  document.addEventListener('click',function(){setTimeout(fixEndCardLine,140)},true);
+})();
+</script>
+
+
+<style id="v90-20-12-portada-manana-amanecer-css">
+/* v90.20.12 - Refinado visual SOLO para la portada de mañana; noche intacta */
+.home-card-v9019.home-sky-morning{
+  border-color:rgba(166,221,248,.50)!important;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255,255,255,1) 0%, rgba(255,255,255,.82) 24%, rgba(255,255,255,.34) 44%, rgba(255,255,255,0) 62%),
+    radial-gradient(ellipse at 18% 10%, rgba(255,239,185,.42) 0%, rgba(255,239,185,.18) 22%, rgba(255,239,185,0) 48%),
+    radial-gradient(ellipse at 84% 13%, rgba(255,250,225,.28) 0%, rgba(255,250,225,.10) 27%, rgba(255,250,225,0) 52%),
+    radial-gradient(ellipse at 12% 88%, rgba(197,235,255,.26) 0%, rgba(197,235,255,0) 40%),
+    linear-gradient(180deg,#ecfaff 0%,#fbfeff 46%,#eaf8ff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(75,154,212,.18),
+    0 6px 18px rgba(246,197,102,.055),
+    inset 0 1px 0 rgba(255,255,255,.92)!important;
+}
+.home-card-v9019.home-sky-morning::before{
+  border-color:rgba(255,255,255,.88)!important;
+  box-shadow:
+    inset 0 0 42px rgba(255,255,255,.58),
+    0 0 0 1px rgba(170,219,248,.09)!important;
+}
+.home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  opacity:.25!important;
+  color:rgba(249,188,74,.30)!important;
+  filter:saturate(.92) brightness(1.18) blur(.15px)!important;
+  text-shadow:0 0 24px rgba(255,205,92,.32)!important;
+}
+.home-card-v9019.home-sky-morning .home-date-v9019{
+  background:rgba(255,255,255,.86)!important;
+  border-color:rgba(138,198,235,.24)!important;
+  box-shadow:0 7px 18px rgba(75,151,214,.09), inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+.home-card-v9019.home-sky-morning .home-line-v9019{
+  background:linear-gradient(90deg,transparent,rgba(74,158,218,.28),rgba(132,199,238,.58),rgba(74,158,218,.28),transparent)!important;
+}
+.home-card-v9019.home-sky-morning .home-line-v9019::after{
+  color:rgba(73,154,215,.44)!important;
+  background:rgba(250,254,255,.56)!important;
+  text-shadow:0 1px 10px rgba(95,166,218,.12)!important;
+}
+</style>
