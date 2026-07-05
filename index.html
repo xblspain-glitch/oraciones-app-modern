@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Oraciones V3</title>
+<meta name="theme-color" content="#111111">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Oraciones V3">
+<link rel="manifest" href="manifest.json">
+<link rel="preload" as="image" href="icon-192.png">
+<link rel="preload" as="image" href="bg-morning.webp">
+<link rel="preload" as="image" href="bg-day.webp">
+<link rel="preload" as="image" href="bg-sunset.webp">
+<link rel="preload" as="image" href="bg-night.webp">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<link rel="stylesheet" href="styles.css?v=v3-1-44-top-frame-real">
+<link rel="stylesheet" href="themes.css?v=v3-1-44-top-frame-real">
+</head>
+<body>
+
+<div id="ov2Welcome" role="dialog" aria-label="Bienvenida Oraciones V3">
+  <div class="ov2-card">
+    <img class="ov2-logo" src="icon-192.png" alt="Oraciones V3" fetchpriority="high" decoding="async">
+    <div id="ov2Greeting" class="ov2-kicker">Bienvenido</div>
+    <h1 class="ov2-title">Oraciones V3</h1>
+    <p id="ov2IntroText" class="ov2-sub">Un lugar sencillo para orar, leer, guardar notas y descansar en la fidelidad de Dios.</p>
+    <p id="ov2Verse" class="ov2-verse">“Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.”<br><strong>Salmo 34:18</strong></p>
+    <button class="ov2-enter" type="button" onclick="enterOv2Welcome()">Entrar</button>
+    <div id="ov2Phrase" class="ov2-small">📖 Diseñada para la oración diaria</div>
+  </div>
+</div>
+<div id="installBanner" class="install-banner hidden">
+  <div class="install-title">Instalar app</div>
+  <div id="installHelp" class="install-sub">Puedes instalarla para abrirla como app real desde tu móvil.</div>
+  <div class="row">
+    <button class="btn primary" id="installBtn" type="button">Instalar</button>
+    <button class="btn soft" type="button" onclick="dismissInstall()">Ahora no</button>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="topbar-row">
+    <div class="segment">
+      <button id="tabPrayers" class="active" type="button" onclick="switchSectionAndReadV90187('prayers')">✝️ Oraciones</button>
+      <button id="tabNotes" type="button" onclick="switchSectionAndReadV90187('notes')">📝 Notas</button>
+      <button id="tabGuides" type="button" onclick="switchSectionAndReadV90187('guides')">📜 Guía</button>
+      <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
+    </div>
+    <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
+    <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
+    <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
+    <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
+    <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
+        <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
+    <button id="btnEdit" data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+    <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
+    <button id="btnMainMark" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
+    <button id="btnMainCard" class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
+    <button id="btnMainCopy" class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>
+    <button id="btnMainMore" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
+    <button id="btnMainFav" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
+    <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
+    <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
+    <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()">🌙</button>
+    <button class="btn danger delete-btn-v66" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
+    <div class="topbar-bottom-row-v66 counter-row-v853">
+      <div id="counterInfo" class="counter counter-v66"></div>
+    </div>
+    <input id="search" class="search" placeholder="Buscar..." oninput="renderList();renderTitles();renderVerseCategories()">
+  </div>
+</div>
+
+<div class="main">
+  <aside class="sidebar"><div id="list" class="list"></div></aside>
+  <section class="content">
+
+    <div id="homeView" class="panel home-panel-v9019 hidden">
+      <div class="home-card-v9019" id="homeCardV9019">
+        <div class="home-kicker-v9019">🌿 Palabra para este momento</div>
+        <div class="home-date-v9019" id="homeDateV9019"></div>
+        <div class="home-ref-v9019" id="homeRefV9019">Romanos 8:28</div>
+        <div class="home-text-v9019" id="homeTextV9019"></div>
+        <div class="home-line-v9019"></div>
+        <div class="home-phrase-v9019" id="homePhraseV9019">🙏🏾 Que esta palabra fortalezca hoy tu corazón.</div>
+      </div>
+    </div>
+    <div id="readerView" class="panel">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
+        <button class="btn primary new-blue" type="button" onclick="newItem()">➕ Nueva</button>
+        <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
+        <button data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
+
+        <button data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
+        <button data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
+        <button data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
+        <button id="btnReaderBlock" class="btn soft" type="button" onclick="openBlockMenu()">📑 Bloque</button>
+        <span class="toolbar-break-v68"></span>
+        <span class="font-combo-v27">
+          <button class="btn soft font-half-v27" type="button" onclick="changeReaderFont(-2)">A-</button>
+          <span class="font-combo-separator-v31" aria-hidden="true"></span>
+          <button class="btn soft font-half-v27" type="button" onclick="changeReaderFont(2)">A+</button>
+        </span>
+        <button class="btn soft" type="button" onclick="copyCurrentReference()">📋 Ref</button>
+        <button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button><button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory()">📂 Mover</button>
+        <span class="toolbar-break-v68"></span>
+        <button id="readerMarkBtn" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
+        <button class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
+
+        <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
+        <span class="toolbar-break-v68"></span>
+        <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
+        <button data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
+
+      </div>
+      <div id="readerCode" class="reader-code"></div>
+      <div id="readerDailyDate" class="reader-daily-date hidden"></div>
+      <div id="readerCategory" class="reader-daily-date hidden" style="display:none!important"></div>
+      <div id="readerTitle" class="reader-title"></div>
+      <div id="readerText" class="reader-text" onclick="toggleReadingUI()"></div>
+    </div>
+
+    <div id="editorView" class="panel hidden">
+      <div class="panel-head">
+        <button class="btn primary" type="button" onclick="saveCurrent(true,false)">💾 Guardar</button>
+        <button class="btn primary" type="button" onclick="saveCurrent(false,false)">✅ Guardar y volver</button>
+        <button class="btn danger" type="button" onclick="discardEditorChanges()">❌ Descartar</button>
+        <button class="btn soft" type="button" onclick="openBlockMenu()">📑 Bloque</button>
+        <button class="btn soft" type="button" onclick="leaveEditor()">← Volver</button>
+        <div id="saveStatus" class="status">Sin cambios</div>
+      </div>
+      <input id="editTitle" class="title-input" placeholder="Título">
+
+      <select id="editCategory" class="search hidden" style="width:100%;border-radius:0;border:none;border-bottom:1px solid var(--line);font-size:18px">
+        <option value="salvacion">❤️ Salvación</option>
+        <option value="fe">🙏🏾 Fe</option>
+        <option value="esperanza">🕊️ Esperanza</option>
+        <option value="fortaleza">💪🏾 Fortaleza</option>
+        <option value="amor">❤️ Amor</option>
+        <option value="descanso">🌿 Descanso</option>
+        <option value="sabiduria">📚 Sabiduría</option>
+        <option value="alabanza">🙌🏾 Alabanza</option>
+        <option value="santidad">⚖️ Santidad</option>
+        <option value="reino">👑 Reino de Dios</option>
+        <option value="espiritu">🔥 Espíritu Santo</option>
+        <option value="segunda_venida">⏳ Segunda Venida</option>
+        <option value="juicio">⚖️ Juicio</option>
+        <option value="matrimonio">🤝 Matrimonio</option>
+      </select>
+
+      <textarea id="editText" class="text-input" placeholder="Escribe aquí..."></textarea>
+    </div>
+
+    <div id="backupView" class="panel hidden">
+      <div class="panel-head backup-head-v40">
+        <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
+
+        <div class="backup-title-v40">📤 EXPORTAR</div>
+        <button class="btn primary" type="button" onclick="downloadBackupJson()">⬇ Descargar JSON</button>
+        <button class="btn soft" type="button" onclick="shareBackupJson()">📤 Compartir JSON</button>
+        <button class="btn soft" type="button" onclick="copyBackupJson()">📋 Copiar JSON</button>
+        <button class="btn soft" type="button" onclick="exportVersesOnly()">📤 Exportar versículos</button>
+        <button class="btn soft" type="button" onclick="exportAllZip()">📦 Exportar todo ZIP</button>
+
+        <div class="backup-title-v40">📥 IMPORTAR</div>
+        <button class="btn soft" type="button" onclick="importBackupFromText()">⬆ Importar texto</button>
+        <button class="btn soft" type="button" onclick="importVersesOnly()">📥 Importar versículos</button>
+        <button class="btn soft" type="button" onclick="openBackupFilePicker()">📥 Importar backup JSON</button>
+        <button class="btn soft" type="button" onclick="openVersesFilePicker()">❤️ Importar archivo de versículos</button>
+
+        <div class="backup-title-v40">♻️ RECUPERACIÓN</div>
+        <button class="btn soft" type="button" onclick="restoreAutoBackup()">♻️ Recuperar automático</button>
+      </div>
+      <div class="file-row">
+        <input id="jsonFileInput" class="file-input" type="file" accept=".json,application/json">
+        <input id="versesFileInput" class="file-input" type="file" accept=".json,application/json">
+        <div id="fileNameInfo" class="small-note" style="padding:10px 0 0 0;">También puedes pegar el JSON abajo e importar desde texto.</div>
+      </div>
+      <textarea id="backupText" class="backup-text" placeholder="Aquí aparecerá tu copia de seguridad. También puedes pegar aquí una copia para importar."></textarea>
+      <div class="small-note">El backup incluye oraciones, notas, las dos papeleras y además se guarda una copia automática local en cada cambio.</div>
+    </div>
+
+    <div id="calendarView" class="panel hidden">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
+        <button class="btn soft" type="button" onclick="renderChristianCalendar(new Date())">📅 Hoy</button>
+        <button class="btn soft" type="button" onclick="renderChristianCalendar(addCalendarDays(new Date(),1))">Mañana</button>
+        <button class="btn soft" type="button" onclick="openFestivityLibrary()">📚 Festividades</button>
+      </div>
+      <div id="calendarContent" class="calendar-wrap"></div>
+    </div>
+
+    <div id="verseCategoriesView" class="panel hidden categories-screen-v73">
+      <div class="panel-head categories-head-v73">
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
+        <button class="btn soft" type="button" onclick="openVerseFavorites()">⭐ Favoritos</button>
+        <button class="btn soft" type="button" onclick="openDailyVerse()">🌅 Hoy</button>
+        <button class="btn soft" type="button" onclick="openRandomVerse()">🌿 Versículo al azar</button>
+        <button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>
+        <button class="btn soft" type="button" onclick="openSentVersesList()">📤 Enviados</button>
+        <button class="btn soft" type="button" onclick="createVerseCategory()">➕ Categoría</button>
+        <button class="btn soft" type="button" onclick="renameVerseCategory()">✏️ Renombrar</button>
+        <button class="btn soft" type="button" onclick="deleteVerseCategory()">🗑️ Eliminar</button>
+        <input id="categorySearchV73" class="search categories-search-v73" placeholder="Buscar categoría" oninput="renderVerseCategories()">
+      </div>
+      <div id="verseCategoriesList" class="category-grid"></div>
+    </div>
+
+    <div id="titlesView" class="panel hidden titles-screen-v72">
+      <div class="panel-head titles-head-v72">
+        <button class="btn soft" type="button" onclick="smartBack()">← Volver</button>
+        <input id="titlesSearch" class="search titles-search-v72" placeholder="Buscar..." oninput="renderTitles()">
+      </div>
+      <div id="titlesList" class="title-list"></div>
+    </div>
+
+    <div id="trashView" class="panel hidden">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
+        <button class="btn danger" type="button" onclick="emptyTrash()">Vaciar papelera</button>
+      </div>
+      <div id="trashList" class="trash-list"></div>
+    </div>
+  </section>
+</div>
+
+<div id="festivityModal" class="festivity-modal hidden">
+  <div class="festivity-sheet">
+    <div class="festivity-head">
+      <button class="btn soft" type="button" onclick="closeFestivityModal()">← Cerrar</button>
+
+    </div>
+    <div id="festivityListView">
+      <div class="festivity-title-main">📚 Festividades cristianas</div>
+      <div class="festivity-sub">Selecciona una festividad para ver su explicación y completar sus pasajes bíblicos.</div>
+      <div id="festivityLibraryList" class="festivity-list"></div>
+    </div>
+    <div id="festivityDetailView" class="hidden">
+      <button class="btn soft festivity-back" type="button" onclick="backToFestivityList()">← Festividades</button>
+      <div id="festivityDetailContent"></div>
+    </div>
+  </div>
+</div>
+
+<div id="recentModal" class="recent-modal hidden">
+  <div class="recent-sheet">
+    <div class="recent-head">
+      <button class="btn soft" type="button" onclick="closeRecentHistory()">← Cerrar</button>
+      <button class="btn danger" type="button" onclick="clearRecentHistory()">🗑️ Limpiar</button>
+    </div>
+    <div class="recent-main-title">🕘 Recientes</div>
+    <div class="recent-sub">Últimos leídos, añadidos y editados.</div>
+    <div id="recentContent" class="recent-content"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast">Guardado</div>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+<script src="welcome.js?v=v3-step24"></script>
+<script src="config.js?v=v3-step24"></script>
+<script src="utils.js?v=v3-step24"></script>
+<script src="recent.js?v=v3-step24"></script>
+<script src="versiculos.js?v=v3-step24"></script>
+<script src="theme-mode.js?v=v3-step24"></script>
+<script src="app.js?v=v3-1-44-top-frame-real"></script>
+<script src="patches.js?v=v3-1-44-top-frame-real"></script>
+</body>
+</html>
+

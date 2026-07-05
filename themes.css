@@ -1,0 +1,661 @@
+/* ============================================================
+   ORACIONES V3 LAB - THEMES.CSS
+   Paso 11: auditoría técnica sin cambios funcionales.
+   Contiene solo los temas visuales del Inicio:
+   mañana, tarde, atardecer y noche.
+   ============================================================ */
+
+.home-card-v9019.home-sky-morning{
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255,255,255,.96) 0%, rgba(255,255,255,.54) 28%, rgba(255,255,255,0) 58%),
+    radial-gradient(circle at 16% 10%, rgba(255,244,202,.30) 0%, rgba(255,244,202,0) 33%),
+    linear-gradient(145deg,#d9f2ff 0%,#f7fcff 48%,#eef9ff 100%)!important;
+}
+
+.home-card-v9019.home-sky-day{
+  background:
+    radial-gradient(circle at 50% 31%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.52) 29%, rgba(255,255,255,0) 58%),
+    radial-gradient(circle at 14% 12%, rgba(187,229,255,.42) 0%, rgba(187,229,255,0) 34%),
+    linear-gradient(145deg,#cfeeff 0%,#f4fbff 50%,#eaf7ff 100%)!important;
+}
+
+.home-card-v9019.home-sky-night{
+  background:
+    radial-gradient(circle at 50% 33%, rgba(230,246,255,.28) 0%, rgba(230,246,255,.12) 28%, rgba(230,246,255,0) 60%),
+    radial-gradient(circle at 80% 12%, rgba(186,214,255,.20) 0%, rgba(186,214,255,0) 30%),
+    linear-gradient(145deg,#193d68 0%,#245b8d 52%,#163250 100%)!important;
+  border-color:rgba(165,210,245,.26)!important;
+  box-shadow:0 26px 60px rgba(12,43,76,.28), inset 0 1px 0 rgba(255,255,255,.14)!important;
+}
+
+.home-card-v9019.home-sky-night .home-kicker-v9019,
+.home-card-v9019.home-sky-night .home-ref-v9019{
+  color:#e8f7ff!important;
+  text-shadow:0 2px 16px rgba(0,0,0,.22)!important;
+}
+
+.home-card-v9019.home-sky-night .home-text-v9019{
+  color:#f4fbff!important;
+  text-shadow:0 1px 14px rgba(0,0,0,.18)!important;
+}
+
+.home-card-v9019.home-sky-night .home-date-v9019{
+  color:#d9efff!important;
+  background:rgba(255,255,255,.10)!important;
+  border-color:rgba(200,232,255,.22)!important;
+}
+
+.home-card-v9019.home-sky-night .home-line-v9019{
+  background:linear-gradient(90deg, transparent, rgba(220,242,255,.36), transparent)!important;
+}
+
+.home-card-v9019.home-sky-night .home-phrase-v9019{
+  color:#d7ecfa!important;
+}
+
+.home-card-v9019.home-sky-morning{
+  background:
+    radial-gradient(circle at 7% 14%, rgba(255,255,255,.88) 0%, rgba(255,255,255,.60) 4%, rgba(255,246,204,.34) 12%, rgba(255,229,132,.21) 23%, rgba(255,229,132,0) 42%),
+    radial-gradient(ellipse at 0% 10%, rgba(255,219,108,.46) 0%, rgba(255,232,153,.25) 25%, rgba(255,232,153,0) 52%),
+    radial-gradient(ellipse at 24% 10%, rgba(255,255,255,.48) 0%, rgba(255,255,255,.18) 21%, rgba(255,255,255,0) 47%),
+    radial-gradient(ellipse at 78% 24%, rgba(255,255,255,.34) 0%, rgba(255,255,255,.13) 22%, rgba(255,255,255,0) 48%),
+    linear-gradient(128deg,#fff0bd 0%,#f8f6df 22%,#d9f2ff 54%,#eafbff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.18),
+    0 9px 24px rgba(247,197,86,.08),
+    inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+
+.home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  left:17px!important;
+  right:auto!important;
+  top:36px!important;
+  font-size:39px!important;
+  opacity:.37!important;
+  color:rgba(247,184,61,.38)!important;
+  filter:saturate(.93) brightness(1.18) blur(.08px)!important;
+  text-shadow:
+    0 0 20px rgba(255,226,139,.52),
+    0 0 42px rgba(255,204,70,.20)!important;
+}
+
+.home-card-v9019.home-sky-morning{
+  background:
+    radial-gradient(circle at 7% 13%, rgba(255,255,255,.86) 0%, rgba(255,255,255,.58) 5%, rgba(255,246,198,.38) 14%, rgba(255,232,138,.23) 27%, rgba(255,232,138,0) 49%),
+    radial-gradient(ellipse at 0% 12%, rgba(255,218,104,.50) 0%, rgba(255,231,151,.28) 27%, rgba(255,231,151,0) 58%),
+    radial-gradient(ellipse at 35% 16%, rgba(255,255,255,.48) 0%, rgba(255,255,255,.19) 21%, rgba(255,255,255,0) 49%),
+    radial-gradient(ellipse at 78% 25%, rgba(255,255,255,.38) 0%, rgba(255,255,255,.15) 22%, rgba(255,255,255,0) 48%),
+    linear-gradient(125deg,#fff1bf 0%,#f7f6df 25%,#d7f2ff 55%,#eafbff 100%)!important;
+}
+
+.home-card-v9019.home-sky-morning::before{
+  background:
+    radial-gradient(ellipse at 9% 13%, rgba(255,255,255,.46) 0%, rgba(255,255,255,.18) 18%, rgba(255,255,255,0) 41%),
+    radial-gradient(ellipse at 28% 18%, rgba(255,255,255,.34) 0%, rgba(255,255,255,.13) 17%, rgba(255,255,255,0) 39%),
+    radial-gradient(ellipse at 70% 22%, rgba(255,255,255,.32) 0%, rgba(255,255,255,.12) 18%, rgba(255,255,255,0) 42%),
+    radial-gradient(ellipse at 88% 48%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.09) 18%, rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 66%)!important;
+}
+
+.home-card-v9019.home-sky-morning::after{
+  left:6px!important;
+  top:18px!important;
+  opacity:.36!important;
+  text-shadow:
+    0 0 26px rgba(255,228,142,.66),
+    0 0 58px rgba(255,205,72,.30)!important;
+}
+
+.home-card-v9019.home-sky-morning{
+  background:
+    radial-gradient(circle at 3% 4%, rgba(255,255,255,.92) 0%, rgba(255,255,255,.64) 5%, rgba(255,247,198,.44) 15%, rgba(255,231,132,.27) 30%, rgba(255,231,132,0) 54%),
+    radial-gradient(ellipse at -6% 4%, rgba(255,219,96,.58) 0%, rgba(255,232,145,.33) 30%, rgba(255,232,145,0) 63%),
+    radial-gradient(ellipse at 24% 12%, rgba(255,255,255,.44) 0%, rgba(255,255,255,.17) 21%, rgba(255,255,255,0) 48%),
+    radial-gradient(ellipse at 78% 25%, rgba(255,255,255,.38) 0%, rgba(255,255,255,.15) 22%, rgba(255,255,255,0) 48%),
+    linear-gradient(125deg,#fff0ba 0%,#f8f5dc 23%,#d7f2ff 55%,#eafbff 100%)!important;
+}
+
+.home-card-v9019.home-sky-morning::before{
+  background:
+    radial-gradient(ellipse at 4% 7%, rgba(255,255,255,.52) 0%, rgba(255,255,255,.20) 18%, rgba(255,255,255,0) 42%),
+    radial-gradient(ellipse at 22% 15%, rgba(255,255,255,.34) 0%, rgba(255,255,255,.13) 17%, rgba(255,255,255,0) 39%),
+    radial-gradient(ellipse at 70% 22%, rgba(255,255,255,.32) 0%, rgba(255,255,255,.12) 18%, rgba(255,255,255,0) 42%),
+    radial-gradient(ellipse at 88% 48%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.09) 18%, rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 66%)!important;
+}
+
+.home-card-v9019.home-sky-morning::after{
+  left:4px!important;
+  top:14px!important;
+  opacity:.39!important;
+  text-shadow:
+    0 0 32px rgba(255,229,139,.76),
+    0 0 72px rgba(255,202,64,.40)!important;
+}
+
+.home-card-v9019.home-sky-day::after{
+  opacity:.44!important;
+  filter:saturate(1.02) brightness(1.26) blur(.04px)!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning,
+body.dark .home-card-v9019.home-sky-day,
+body.dark .home-card-v9019.home-sky-sunset{
+  color:#173448!important;
+  filter:none!important;
+  mix-blend-mode:normal!important;
+  opacity:1!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning{
+  border-color:rgba(142,207,246,.58)!important;
+  background:
+    radial-gradient(circle at 7% 7%, rgba(255,255,255,.78) 0%, rgba(255,255,255,.48) 4%, rgba(255,245,197,.30) 13%, rgba(255,232,142,.18) 24%, rgba(255,232,142,0) 44%),
+    radial-gradient(ellipse at 5% 24%, rgba(255,218,108,.42) 0%, rgba(255,231,151,.23) 25%, rgba(255,231,151,0) 54%),
+    radial-gradient(ellipse at 38% 16%, rgba(255,255,255,.50) 0%, rgba(255,255,255,.20) 21%, rgba(255,255,255,0) 49%),
+    radial-gradient(ellipse at 78% 25%, rgba(255,255,255,.38) 0%, rgba(255,255,255,.15) 22%, rgba(255,255,255,0) 48%),
+    linear-gradient(125deg,#fff1bf 0%,#f7f6df 25%,#d7f2ff 55%,#eafbff 100%)!important;
+  box-shadow:0 24px 58px rgba(72,153,214,.18),0 9px 24px rgba(247,197,86,.09),inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning::before{
+  border-color:rgba(255,255,255,.80)!important;
+  background:
+    radial-gradient(ellipse at 28% 18%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 16%, rgba(255,255,255,0) 38%),
+    radial-gradient(ellipse at 70% 22%, rgba(255,255,255,.32) 0%, rgba(255,255,255,.12) 18%, rgba(255,255,255,0) 42%),
+    radial-gradient(ellipse at 88% 48%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.09) 18%, rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 66%)!important;
+  box-shadow:inset 0 0 42px rgba(255,255,255,.40),0 0 0 1px rgba(164,219,249,.08)!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  left:8px!important; right:auto!important; top:10px!important;
+  font-size:38px!important; opacity:.48!important;
+  color:rgba(247,184,61,.46)!important;
+  filter:saturate(1.02) brightness(1.28) blur(.04px)!important;
+  text-shadow:0 0 18px rgba(255,255,238,.78),0 0 34px rgba(255,225,132,.68),0 0 62px rgba(255,205,72,.38),0 0 92px rgba(255,229,150,.20)!important;
+}
+
+body.dark .home-card-v9019.home-sky-day{
+  border-color:rgba(126,198,239,.54)!important;
+  background:
+    radial-gradient(circle at 10% 9%, rgba(255,255,250,.92) 0%, rgba(255,255,245,.58) 7%, rgba(255,238,162,.35) 19%, rgba(255,222,104,.18) 34%, rgba(255,222,104,0) 58%),
+    radial-gradient(ellipse at 15% 18%, rgba(255,226,122,.38) 0%, rgba(255,234,158,.21) 30%, rgba(255,234,158,0) 62%),
+    radial-gradient(ellipse at 60% 18%, rgba(255,255,255,.44) 0%, rgba(255,255,255,.18) 22%, rgba(255,255,255,0) 52%),
+    radial-gradient(ellipse at 86% 38%, rgba(255,255,255,.30) 0%, rgba(255,255,255,.12) 22%, rgba(255,255,255,0) 50%),
+    linear-gradient(130deg,#fff1bc 0%,#f8f6dd 28%,#d6f2ff 58%,#edfaff 100%)!important;
+  box-shadow:0 24px 58px rgba(72,153,214,.17),0 10px 24px rgba(247,197,86,.10),inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+
+body.dark .home-card-v9019.home-sky-day::before{
+  border-color:rgba(255,255,255,.80)!important;
+  background:radial-gradient(ellipse at 22% 18%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 16%, rgba(255,255,255,0) 40%),radial-gradient(ellipse at 68% 24%, rgba(255,255,255,.30) 0%, rgba(255,255,255,.12) 18%, rgba(255,255,255,0) 44%),linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,0) 66%)!important;
+  box-shadow:inset 0 0 42px rgba(255,255,255,.38),0 0 0 1px rgba(164,219,249,.08)!important;
+}
+
+body.dark .home-card-v9019.home-sky-day::after{
+  content:"☀️"!important;
+  left:8px!important; right:auto!important; top:10px!important;
+  font-size:39px!important; opacity:.48!important;
+  color:rgba(247,184,61,.46)!important;
+  filter:saturate(1.02) brightness(1.28) blur(.04px)!important;
+  text-shadow:0 0 18px rgba(255,255,238,.78),0 0 34px rgba(255,225,132,.68),0 0 62px rgba(255,205,72,.38),0 0 92px rgba(255,229,150,.20)!important;
+}
+
+body.dark .home-card-v9019.home-sky-sunset{
+  border-color:rgba(246,184,126,.42)!important;
+  background:
+    radial-gradient(circle at 10% 16%, rgba(255,255,255,.82) 0%, rgba(255,255,255,.48) 7%, rgba(255,219,149,.34) 18%, rgba(255,173,103,.22) 33%, rgba(255,173,103,0) 56%),
+    radial-gradient(ellipse at 0% 28%, rgba(255,183,96,.50) 0%, rgba(255,205,137,.28) 28%, rgba(255,205,137,0) 62%),
+    radial-gradient(ellipse at 44% 20%, rgba(255,247,220,.42) 0%, rgba(255,247,220,.16) 24%, rgba(255,247,220,0) 52%),
+    radial-gradient(ellipse at 86% 22%, rgba(202,232,255,.34) 0%, rgba(202,232,255,.13) 24%, rgba(202,232,255,0) 52%),
+    linear-gradient(130deg,#ffe5b8 0%,#fff1d5 27%,#e4f6ff 58%,#dff4ff 100%)!important;
+  box-shadow:0 24px 58px rgba(72,153,214,.15),0 10px 26px rgba(232,151,86,.10),inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+
+body.dark .home-card-v9019.home-sky-sunset::before{
+  border-color:rgba(255,255,255,.82)!important;
+  background:radial-gradient(ellipse at 16% 18%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 19%, rgba(255,255,255,0) 43%),radial-gradient(ellipse at 42% 18%, rgba(255,239,210,.32) 0%, rgba(255,239,210,.12) 22%, rgba(255,239,210,0) 46%),radial-gradient(ellipse at 80% 28%, rgba(255,255,255,.26) 0%, rgba(255,255,255,.10) 20%, rgba(255,255,255,0) 45%),linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,0) 68%)!important;
+  box-shadow:inset 0 0 44px rgba(255,255,255,.40),0 0 0 1px rgba(246,184,126,.10)!important;
+}
+
+body.dark .home-card-v9019.home-sky-sunset::after{
+  content:"☀️"!important;
+  left:-6px!important; right:auto!important; top:18px!important;
+  font-size:34px!important; opacity:.38!important;
+  color:rgba(238,141,58,.38)!important;
+  filter:saturate(.92) brightness(1.10) blur(.08px)!important;
+  text-shadow:0 0 18px rgba(255,196,118,.42),0 0 44px rgba(236,132,58,.18)!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning .home-kicker-v9019,
+body.dark .home-card-v9019.home-sky-morning .home-ref-v9019,
+body.dark .home-card-v9019.home-sky-day .home-kicker-v9019,
+body.dark .home-card-v9019.home-sky-day .home-ref-v9019,
+body.dark .home-card-v9019.home-sky-sunset .home-kicker-v9019,
+body.dark .home-card-v9019.home-sky-sunset .home-ref-v9019{
+  color:#0b6fa4!important;
+  text-shadow:0 2px 16px rgba(255,255,255,.45)!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning .home-text-v9019,
+body.dark .home-card-v9019.home-sky-day .home-text-v9019,
+body.dark .home-card-v9019.home-sky-sunset .home-text-v9019{
+  color:#18364b!important;
+  text-shadow:none!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning .home-date-v9019,
+body.dark .home-card-v9019.home-sky-day .home-date-v9019,
+body.dark .home-card-v9019.home-sky-sunset .home-date-v9019{
+  color:#385c76!important;
+  background:rgba(255,255,255,.86)!important;
+  border-color:rgba(126,194,235,.24)!important;
+  box-shadow:0 7px 18px rgba(74,151,214,.08), inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning .home-phrase-v9019,
+body.dark .home-card-v9019.home-sky-day .home-phrase-v9019,
+body.dark .home-card-v9019.home-sky-sunset .home-phrase-v9019{
+  color:#4f7890!important;
+  text-shadow:none!important;
+}
+
+body.dark .home-card-v9019.home-sky-morning .home-line-v9019,
+body.dark .home-card-v9019.home-sky-day .home-line-v9019{
+  background:linear-gradient(90deg,transparent,rgba(73,156,218,.24),rgba(132,202,239,.52),rgba(73,156,218,.24),transparent)!important;
+}
+
+body.dark .home-card-v9019.home-sky-sunset .home-line-v9019{
+  background:linear-gradient(90deg, transparent, rgba(232,151,76,.24), rgba(52,142,205,.18), transparent)!important;
+}
+
+.home-card-v9019.home-sky-night{
+  border-color:rgba(188,225,255,.24)!important;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255,255,255,.52) 0 1px, transparent 2px),
+    radial-gradient(circle at 72% 22%, rgba(255,255,255,.42) 0 1px, transparent 2px),
+    radial-gradient(circle at 86% 36%, rgba(255,255,255,.34) 0 1px, transparent 2px),
+    radial-gradient(circle at 50% 35%, rgba(220,239,255,.26) 0%, rgba(220,239,255,.12) 31%, rgba(220,239,255,0) 62%),
+    radial-gradient(circle at 78% 14%, rgba(210,226,255,.16) 0%, rgba(210,226,255,0) 30%),
+    linear-gradient(145deg,#102947 0%,#1f4d78 48%,#0d2038 100%)!important;
+  box-shadow:
+    0 24px 56px rgba(5,24,46,.30),
+    inset 0 1px 0 rgba(255,255,255,.10)!important;
+}
+
+.home-card-v9019.home-sky-night::before{
+  border-color:rgba(220,242,255,.46)!important;
+  box-shadow:inset 0 0 34px rgba(190,222,255,.18)!important;
+}
+
+.home-card-v9019.home-sky-night::after{
+  content:"🌙"!important;
+  color:rgba(222,239,255,.52)!important;
+  opacity:.42!important;
+  filter:saturate(.55) brightness(1.08)!important;
+  font-size:32px!important;
+}
+
+.home-card-v9019.home-sky-night .home-kicker-v9019,
+.home-card-v9019.home-sky-night .home-ref-v9019{
+  color:#edf8ff!important;
+  text-shadow:0 2px 14px rgba(0,0,0,.24)!important;
+}
+
+.home-card-v9019.home-sky-night .home-text-v9019{
+  color:#f6fbff!important;
+  text-shadow:0 1px 12px rgba(0,0,0,.20)!important;
+}
+
+.home-card-v9019.home-sky-night .home-date-v9019{
+  color:#dcefff!important;
+  background:rgba(255,255,255,.085)!important;
+  border-color:rgba(210,236,255,.20)!important;
+}
+
+.home-card-v9019.home-sky-night .home-line-v9019{
+  background:linear-gradient(90deg, transparent, rgba(220,242,255,.30), transparent)!important;
+}
+
+.home-card-v9019.home-sky-night .home-phrase-v9019{
+  color:#dceffa!important;
+}
+
+.home-card-v9019.home-sky-morning{
+  border-color:rgba(166,221,248,.50)!important;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255,255,255,1) 0%, rgba(255,255,255,.82) 24%, rgba(255,255,255,.34) 44%, rgba(255,255,255,0) 62%),
+    radial-gradient(ellipse at 18% 10%, rgba(255,239,185,.42) 0%, rgba(255,239,185,.18) 22%, rgba(255,239,185,0) 48%),
+    radial-gradient(ellipse at 84% 13%, rgba(255,250,225,.28) 0%, rgba(255,250,225,.10) 27%, rgba(255,250,225,0) 52%),
+    radial-gradient(ellipse at 12% 88%, rgba(197,235,255,.26) 0%, rgba(197,235,255,0) 40%),
+    linear-gradient(180deg,#ecfaff 0%,#fbfeff 46%,#eaf8ff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(75,154,212,.18),
+    0 6px 18px rgba(246,197,102,.055),
+    inset 0 1px 0 rgba(255,255,255,.92)!important;
+}
+
+.home-card-v9019.home-sky-morning::before{
+  border-color:rgba(255,255,255,.88)!important;
+  box-shadow:
+    inset 0 0 42px rgba(255,255,255,.58),
+    0 0 0 1px rgba(170,219,248,.09)!important;
+}
+
+.home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  opacity:.25!important;
+  color:rgba(249,188,74,.30)!important;
+  filter:saturate(.92) brightness(1.18) blur(.15px)!important;
+  text-shadow:0 0 24px rgba(255,205,92,.32)!important;
+}
+
+.home-card-v9019.home-sky-morning .home-date-v9019{
+  background:rgba(255,255,255,.86)!important;
+  border-color:rgba(138,198,235,.24)!important;
+  box-shadow:0 7px 18px rgba(75,151,214,.09), inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+
+.home-card-v9019.home-sky-morning .home-line-v9019{
+  background:linear-gradient(90deg,transparent,rgba(74,158,218,.28),rgba(132,199,238,.58),rgba(74,158,218,.28),transparent)!important;
+}
+
+.home-card-v9019.home-sky-morning .home-line-v9019::after{
+  color:rgba(73,154,215,.44)!important;
+  background:rgba(250,254,255,.56)!important;
+  text-shadow:0 1px 10px rgba(95,166,218,.12)!important;
+}
+
+.home-card-v9019.home-sky-morning{
+  border-color:rgba(148,211,246,.46)!important;
+  background:
+    radial-gradient(ellipse at 18% 11%, rgba(255,232,158,.54) 0%, rgba(255,232,158,.24) 18%, rgba(255,232,158,0) 43%),
+    radial-gradient(ellipse at 27% 18%, rgba(255,255,255,.72) 0%, rgba(255,255,255,.34) 18%, rgba(255,255,255,0) 42%),
+    radial-gradient(ellipse at 74% 24%, rgba(255,255,255,.56) 0%, rgba(255,255,255,.23) 22%, rgba(255,255,255,0) 48%),
+    radial-gradient(ellipse at 50% 57%, rgba(255,255,255,.48) 0%, rgba(255,255,255,.18) 26%, rgba(255,255,255,0) 55%),
+    radial-gradient(ellipse at 88% 8%, rgba(191,230,255,.40) 0%, rgba(191,230,255,.12) 34%, rgba(191,230,255,0) 64%),
+    linear-gradient(180deg,#dff5ff 0%,#eefbff 38%,#ffffff 70%,#e9f8ff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.16),
+    0 8px 22px rgba(246,195,96,.06),
+    inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+
+.home-card-v9019.home-sky-morning::before{
+  border-color:rgba(255,255,255,.82)!important;
+  background:
+    radial-gradient(ellipse at 30% 21%, rgba(255,255,255,.44) 0%, rgba(255,255,255,.18) 16%, rgba(255,255,255,0) 34%),
+    radial-gradient(ellipse at 68% 28%, rgba(255,255,255,.32) 0%, rgba(255,255,255,.12) 18%, rgba(255,255,255,0) 38%),
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0) 62%)!important;
+  box-shadow:
+    inset 0 0 44px rgba(255,255,255,.44),
+    0 0 0 1px rgba(164,219,249,.08)!important;
+}
+
+.home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  opacity:.21!important;
+  color:rgba(247,183,65,.26)!important;
+  filter:saturate(.86) brightness(1.20) blur(.25px)!important;
+  text-shadow:0 0 30px rgba(255,214,111,.42)!important;
+}
+
+.home-card-v9019.home-sky-morning .home-date-v9019{
+  background:rgba(255,255,255,.82)!important;
+  border-color:rgba(126,194,235,.22)!important;
+  box-shadow:0 7px 18px rgba(74,151,214,.075), inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+
+.home-card-v9019.home-sky-morning .home-line-v9019{
+  background:linear-gradient(90deg,transparent,rgba(73,156,218,.22),rgba(132,202,239,.48),rgba(73,156,218,.22),transparent)!important;
+}
+
+.home-card-v9019.home-sky-morning .home-line-v9019::after{
+  color:rgba(73,154,215,.38)!important;
+  background:rgba(250,254,255,.50)!important;
+  text-shadow:0 1px 10px rgba(95,166,218,.10)!important;
+}
+
+.home-card-v9019.home-sky-morning{
+  border-color:rgba(139,207,246,.50)!important;
+  background:
+    radial-gradient(ellipse at 9% 18%, rgba(255,221,126,.32) 0%, rgba(255,230,154,.15) 20%, rgba(255,230,154,0) 45%),
+    radial-gradient(ellipse at 16% 34%, rgba(255,255,255,.44) 0%, rgba(255,255,255,.17) 22%, rgba(255,255,255,0) 50%),
+    radial-gradient(ellipse at 56% 18%, rgba(255,255,255,.34) 0%, rgba(255,255,255,.13) 20%, rgba(255,255,255,0) 44%),
+    radial-gradient(ellipse at 82% 35%, rgba(255,255,255,.30) 0%, rgba(255,255,255,.11) 20%, rgba(255,255,255,0) 43%),
+    linear-gradient(180deg,#cfefff 0%,#dff6ff 34%,#f4fcff 67%,#edf9ff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.17),
+    0 8px 22px rgba(246,195,96,.04),
+    inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+
+.home-card-v9019.home-sky-morning::before{
+  border-color:rgba(255,255,255,.78)!important;
+  background:
+    radial-gradient(ellipse at 22% 22%, rgba(255,255,255,.50) 0%, rgba(255,255,255,.20) 15%, rgba(255,255,255,0) 36%),
+    radial-gradient(ellipse at 47% 14%, rgba(255,255,255,.33) 0%, rgba(255,255,255,.13) 17%, rgba(255,255,255,0) 40%),
+    radial-gradient(ellipse at 76% 27%, rgba(255,255,255,.30) 0%, rgba(255,255,255,.11) 18%, rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,0) 64%)!important;
+  box-shadow:
+    inset 0 0 40px rgba(255,255,255,.38),
+    0 0 0 1px rgba(164,219,249,.08)!important;
+}
+
+.home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  opacity:.16!important;
+  color:rgba(245,181,59,.20)!important;
+  filter:saturate(.82) brightness(1.22) blur(.38px)!important;
+  text-shadow:0 0 34px rgba(255,218,126,.38)!important;
+}
+
+.home-card-v9019.home-sky-morning .home-date-v9019{
+  background:rgba(255,255,255,.84)!important;
+  border-color:rgba(126,194,235,.24)!important;
+}
+
+.home-card-v9019.home-sky-morning{
+  border-color:rgba(142,207,246,.58)!important;
+  background:
+    radial-gradient(circle at 7% 7%, rgba(255,255,255,.78) 0%, rgba(255,255,255,.48) 4%, rgba(255,245,197,.30) 13%, rgba(255,232,142,.18) 24%, rgba(255,232,142,0) 44%),
+    radial-gradient(ellipse at 5% 24%, rgba(255,218,108,.42) 0%, rgba(255,231,151,.23) 25%, rgba(255,231,151,0) 54%),
+    radial-gradient(ellipse at 38% 16%, rgba(255,255,255,.50) 0%, rgba(255,255,255,.20) 21%, rgba(255,255,255,0) 49%),
+    radial-gradient(ellipse at 78% 25%, rgba(255,255,255,.38) 0%, rgba(255,255,255,.15) 22%, rgba(255,255,255,0) 48%),
+    linear-gradient(125deg,#fff1bf 0%,#f7f6df 25%,#d7f2ff 55%,#eafbff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.18),
+    0 9px 24px rgba(247,197,86,.09),
+    inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+
+.home-card-v9019.home-sky-morning::before{
+  border-color:rgba(255,255,255,.80)!important;
+  background:
+    radial-gradient(ellipse at 28% 18%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 16%, rgba(255,255,255,0) 38%),
+    radial-gradient(ellipse at 70% 22%, rgba(255,255,255,.32) 0%, rgba(255,255,255,.12) 18%, rgba(255,255,255,0) 42%),
+    radial-gradient(ellipse at 88% 48%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.09) 18%, rgba(255,255,255,0) 42%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,0) 66%)!important;
+  box-shadow:
+    inset 0 0 42px rgba(255,255,255,.40),
+    0 0 0 1px rgba(164,219,249,.08)!important;
+}
+
+.home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  left:8px!important;
+  right:auto!important;
+  top:10px!important;
+  font-size:38px!important;
+  opacity:.34!important;
+  color:rgba(247,184,61,.36)!important;
+  filter:saturate(.92) brightness(1.18) blur(.08px)!important;
+  text-shadow:
+    0 0 22px rgba(255,224,132,.55),
+    0 0 48px rgba(255,205,72,.22)!important;
+}
+
+.home-card-v9019.home-sky-morning .home-date-v9019{
+  background:rgba(255,255,255,.86)!important;
+  border-color:rgba(126,194,235,.24)!important;
+  box-shadow:0 7px 18px rgba(74,151,214,.08), inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+
+.home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  left:8px!important;
+  right:auto!important;
+  top:10px!important;
+  font-size:38px!important;
+  opacity:.36!important;
+  color:rgba(247,184,61,.38)!important;
+  filter:saturate(.98) brightness(1.24) blur(.06px)!important;
+  text-shadow:
+    0 0 18px rgba(255,255,238,.72),
+    0 0 34px rgba(255,225,132,.62),
+    0 0 62px rgba(255,205,72,.34),
+    0 0 92px rgba(255,229,150,.18)!important;
+}
+
+.home-card-v9019.home-sky-morning::after{
+  content:"☀️"!important;
+  left:8px!important;
+  right:auto!important;
+  top:10px!important;
+  font-size:38px!important;
+  opacity:.48!important;
+  color:rgba(247,184,61,.46)!important;
+  filter:saturate(1.02) brightness(1.28) blur(.04px)!important;
+  text-shadow:
+    0 0 18px rgba(255,255,238,.78),
+    0 0 34px rgba(255,225,132,.68),
+    0 0 62px rgba(255,205,72,.38),
+    0 0 92px rgba(255,229,150,.20)!important;
+}
+
+.home-card-v9019.home-sky-day{
+  border-color:rgba(126,198,239,.54)!important;
+  background:
+    radial-gradient(circle at 10% 9%, rgba(255,255,250,.92) 0%, rgba(255,255,245,.58) 7%, rgba(255,238,162,.35) 19%, rgba(255,222,104,.18) 34%, rgba(255,222,104,0) 58%),
+    radial-gradient(ellipse at 15% 18%, rgba(255,226,122,.38) 0%, rgba(255,234,158,.21) 30%, rgba(255,234,158,0) 62%),
+    radial-gradient(ellipse at 60% 18%, rgba(255,255,255,.44) 0%, rgba(255,255,255,.18) 22%, rgba(255,255,255,0) 52%),
+    radial-gradient(ellipse at 86% 38%, rgba(255,255,255,.30) 0%, rgba(255,255,255,.12) 22%, rgba(255,255,255,0) 50%),
+    linear-gradient(130deg,#fff1bc 0%,#f8f6dd 28%,#d6f2ff 58%,#edfaff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.17),
+    0 10px 24px rgba(247,197,86,.10),
+    inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+
+.home-card-v9019.home-sky-day::before{
+  border-color:rgba(255,255,255,.80)!important;
+  background:
+    radial-gradient(ellipse at 22% 18%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 16%, rgba(255,255,255,0) 40%),
+    radial-gradient(ellipse at 68% 24%, rgba(255,255,255,.30) 0%, rgba(255,255,255,.12) 18%, rgba(255,255,255,0) 44%),
+    linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,0) 66%)!important;
+  box-shadow:inset 0 0 42px rgba(255,255,255,.38),0 0 0 1px rgba(164,219,249,.08)!important;
+}
+
+.home-card-v9019.home-sky-day::after{
+  content:"☀️"!important;
+  left:8px!important;
+  right:auto!important;
+  top:10px!important;
+  font-size:39px!important;
+  opacity:.48!important;
+  color:rgba(247,184,61,.46)!important;
+  filter:saturate(1.02) brightness(1.28) blur(.04px)!important;
+  text-shadow:
+    0 0 18px rgba(255,255,238,.78),
+    0 0 34px rgba(255,225,132,.68),
+    0 0 62px rgba(255,205,72,.38),
+    0 0 92px rgba(255,229,150,.20)!important;
+}
+
+.home-card-v9019.home-sky-day .home-date-v9019{
+  background:rgba(255,255,255,.86)!important;
+  border-color:rgba(126,194,235,.24)!important;
+  box-shadow:0 7px 18px rgba(74,151,214,.08), inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+
+.home-card-v9019.home-sky-day .home-line-v9019{
+  background:linear-gradient(90deg,transparent,rgba(73,156,218,.24),rgba(132,202,239,.52),rgba(73,156,218,.24),transparent)!important;
+}
+
+.home-card-v9019.home-sky-day .home-line-v9019::after{
+  color:rgba(73,154,215,.42)!important;
+  background:rgba(250,254,255,.56)!important;
+  text-shadow:0 1px 10px rgba(95,166,218,.12)!important;
+}
+
+.home-card-v9019.home-sky-sunset{
+  border-color:rgba(246,184,126,.42)!important;
+  background:
+    radial-gradient(circle at 10% 16%, rgba(255,255,255,.82) 0%, rgba(255,255,255,.48) 7%, rgba(255,219,149,.34) 18%, rgba(255,173,103,.22) 33%, rgba(255,173,103,0) 56%),
+    radial-gradient(ellipse at 0% 28%, rgba(255,183,96,.50) 0%, rgba(255,205,137,.28) 28%, rgba(255,205,137,0) 62%),
+    radial-gradient(ellipse at 44% 20%, rgba(255,247,220,.42) 0%, rgba(255,247,220,.16) 24%, rgba(255,247,220,0) 52%),
+    radial-gradient(ellipse at 86% 22%, rgba(202,232,255,.34) 0%, rgba(202,232,255,.13) 24%, rgba(202,232,255,0) 52%),
+    linear-gradient(130deg,#ffe5b8 0%,#fff1d5 27%,#e4f6ff 58%,#dff4ff 100%)!important;
+  box-shadow:
+    0 24px 58px rgba(72,153,214,.15),
+    0 10px 26px rgba(232,151,86,.10),
+    inset 0 1px 0 rgba(255,255,255,.94)!important;
+}
+
+.home-card-v9019.home-sky-sunset::before{
+  border-color:rgba(255,255,255,.82)!important;
+  background:
+    radial-gradient(ellipse at 16% 18%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.16) 19%, rgba(255,255,255,0) 43%),
+    radial-gradient(ellipse at 42% 18%, rgba(255,239,210,.32) 0%, rgba(255,239,210,.12) 22%, rgba(255,239,210,0) 46%),
+    radial-gradient(ellipse at 80% 28%, rgba(255,255,255,.26) 0%, rgba(255,255,255,.10) 20%, rgba(255,255,255,0) 45%),
+    linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,0) 68%)!important;
+  box-shadow:
+    inset 0 0 44px rgba(255,255,255,.40),
+    0 0 0 1px rgba(246,184,126,.10)!important;
+}
+
+.home-card-v9019.home-sky-sunset::after{
+  content:"☀️"!important;
+  left:9px!important;
+  right:auto!important;
+  top:30px!important;
+  font-size:39px!important;
+  opacity:.43!important;
+  color:rgba(238,141,58,.42)!important;
+  filter:saturate(.95) brightness(1.12) blur(.05px)!important;
+  text-shadow:
+    0 0 22px rgba(255,196,118,.54),
+    0 0 52px rgba(236,132,58,.24)!important;
+}
+
+.home-card-v9019.home-sky-sunset .home-kicker-v9019,
+.home-card-v9019.home-sky-sunset .home-ref-v9019{
+  color:#0b6fa4!important;
+  text-shadow:0 2px 16px rgba(255,255,255,.45)!important;
+}
+
+.home-card-v9019.home-sky-sunset .home-date-v9019{
+  background:rgba(255,255,255,.86)!important;
+  border-color:rgba(232,164,93,.23)!important;
+  box-shadow:0 7px 18px rgba(226,151,76,.07), inset 0 1px 0 rgba(255,255,255,.95)!important;
+}
+
+.home-card-v9019.home-sky-sunset .home-line-v9019{
+  background:linear-gradient(90deg, transparent, rgba(232,151,76,.24), rgba(52,142,205,.18), transparent)!important;
+}
+
+.home-card-v9019.home-sky-sunset .home-line-v9019::after{
+  color:rgba(232,151,76,.48)!important;
+  background:rgba(255,249,236,.72)!important;
+}
+
+.home-card-v9019.home-sky-sunset .home-phrase-v9019{
+  color:#5e7890!important;
+}
+
+/* V3.1.15: limpieza del arco iris.
+   Se retiraron de themes.css todas las pruebas antiguas del arco.
+   El único arco activo se inyecta desde patches.js con id v3-1-15-rainbow-clean-single-css. */
