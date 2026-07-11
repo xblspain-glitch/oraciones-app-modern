@@ -1419,8 +1419,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v90.18.5";
-const APP_VERSION_ZIP = "oraciones_v2_v90_18_5_about_actualizado.zip";
+const APP_VERSION_LABEL = "v3.1.61";
+const APP_VERSION_ZIP = "oraciones_v3_1_61_papelera_en_versiculos.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -1435,7 +1435,7 @@ function openAppCredits(){
   overlay.innerHTML =
     '<div class="app-credits-card">' +
       '<img class="app-credits-icon" src="icon-192.png" alt="Icono de la app">' +
-      '<div class="app-credits-title">Oraciones V2</div>' +
+      '<div class="app-credits-title">Oraciones V3</div>' +
       '<div class="app-credits-line"><strong>Versión instalada:</strong> '+APP_VERSION_LABEL+'</div>' +
       '<div class="app-credits-line"><strong>ZIP:</strong></div>' +
       '<div class="app-credits-zip">'+APP_VERSION_ZIP+'</div>' +
@@ -2611,6 +2611,7 @@ document.addEventListener("click",function(ev){
 function openBackup(){
   setActiveView("backup");
   clearNavModes();
+  try{ renderBackupStatusV3149(); }catch(e){}
 
   document.body.classList.add("backup-only", "special-view-only");
   document.body.classList.remove("reading-mobile", "fullscreen-reading", "hide-reading-ui");
@@ -3482,6 +3483,122 @@ async function exportAllZip(){
   downloadBlob("exportacion_oraciones_notas.zip", blob);
   toast("ZIP exportado");
 }
+
+/* ===== v3.1.52 - Estado de copia de seguridad pulido ===== */
+const BACKUP_EXPORT_STATUS_KEY_V3149 = "oraciones_v3_last_backup_export_status";
+
+function backupCountsV3149(){
+  const count = function(arr){ return Array.isArray(arr) ? arr.length : 0; };
+  return {
+    prayers: count(state && state.prayers),
+    notes: count(state && state.notes),
+    guides: count(state && state.guides),
+    verses: count(state && state.verses),
+    parables: count(state && state.parables)
+  };
+}
+
+function backupTotalV3149(c){
+  c = c || backupCountsV3149();
+  return (c.prayers||0) + (c.notes||0) + (c.guides||0) + (c.verses||0) + (c.parables||0);
+}
+
+function formatBackupDateV3149(iso){
+  if(!iso) return "Sin exportaciones registradas";
+  try{
+    const d = new Date(iso);
+    let value = d.toLocaleString("es-ES", {
+      weekday:"long",
+      day:"2-digit",
+      month:"long",
+      year:"numeric",
+      hour:"2-digit",
+      minute:"2-digit"
+    });
+    return value.charAt(0).toUpperCase() + value.slice(1);
+  }catch(e){
+    return iso;
+  }
+}
+
+function backupAgeTextV3149(iso){
+  if(!iso) return {tone:"warn", text:"Todavía no hay una copia registrada."};
+  const ms = Math.max(0, Date.now() - new Date(iso).getTime());
+  const minutes = Math.floor(ms / 60000);
+  const hours = Math.floor(ms / 3600000);
+  const days = Math.floor(ms / 86400000);
+  if(minutes < 1) return {tone:"ok", text:"Hace unos segundos"};
+  if(minutes < 60) return {tone:"ok", text: minutes === 1 ? "Hace 1 minuto" : "Hace " + minutes + " minutos"};
+  if(hours < 24) return {tone:"ok", text: hours === 1 ? "Hace 1 hora" : "Hace " + hours + " horas"};
+  if(days === 1) return {tone:"ok", text:"Ayer"};
+  if(days <= 14) return {tone:"ok", text:"Hace " + days + " días"};
+  if(days <= 45) return {tone:"mid", text:"Hace " + days + " días"};
+  return {tone:"bad", text:"Hace " + days + " días"};
+}
+
+function backupStatusLabelV3150(age){
+  if(!age || age.tone === "warn") return "Estado: ⚪ Sin copia registrada";
+  if(age.tone === "ok") return "Estado: ✅ Copia reciente";
+  if(age.tone === "mid") return "Estado: 🟡 Conviene hacer una copia";
+  return "Estado: 🔴 Copia antigua";
+}
+
+function backupAdviceV3149(age){
+  if(!age || age.tone === "warn") return "Cuando descargues o compartas un JSON, guardaré aquí la fecha de la última copia. Se recomienda guardar el archivo también en Google Drive.";
+  if(age.tone === "ok") return "Tu copia de seguridad está reciente. Se recomienda guardar también una copia en Google Drive.";
+  if(age.tone === "mid") return "Hace un tiempo que no exportas. Sería buena idea guardar un JSON nuevo y conservarlo en Google Drive.";
+  return "Conviene hacer una copia nueva antes de seguir añadiendo contenido y guardarla también en Google Drive.";
+}
+
+function readBackupStatusV3149(){
+  try{
+    return JSON.parse(localStorage.getItem(BACKUP_EXPORT_STATUS_KEY_V3149) || "null");
+  }catch(e){
+    return null;
+  }
+}
+
+function saveBackupStatusV3149(method, filename){
+  const counts = backupCountsV3149();
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    method: method || "JSON",
+    filename: filename || "",
+    counts: counts,
+    total: backupTotalV3149(counts)
+  };
+  localStorage.setItem(BACKUP_EXPORT_STATUS_KEY_V3149, JSON.stringify(payload));
+  renderBackupStatusV3149();
+}
+
+function renderBackupStatusV3149(){
+  const box = document.getElementById("backupStatusV3149");
+  if(!box) return;
+  const data = readBackupStatusV3149();
+  const age = backupAgeTextV3149(data && data.exportedAt);
+  const counts = (data && data.counts) || backupCountsV3149();
+  const total = (data && typeof data.total === "number") ? data.total : backupTotalV3149(counts);
+  const file = data && data.filename ? data.filename : "Aún no hay archivo registrado";
+  box.innerHTML =
+    '<div class="backup-status-card-v3149 backup-status-'+age.tone+'-v3149">' +
+      '<div class="backup-status-title-v3149">💾 Estado de la copia de seguridad</div>' +
+      '<div class="backup-status-state-v3150">' + backupStatusLabelV3150(age) + '</div>' +
+      '<div class="backup-status-row-v3149"><strong>Última exportación:</strong><br>' + formatBackupDateV3149(data && data.exportedAt) + '</div>' +
+      '<div class="backup-status-row-v3149"><strong>Antigüedad:</strong> ' + age.text + '</div>' +
+      '<div class="backup-status-row-v3149"><strong>Método:</strong> ' + ((data && data.method) ? data.method : "Aún no registrado") + '</div>' +
+      '<div class="backup-status-row-v3149"><strong>Archivo:</strong><br><span class="backup-status-file-v3149">' + file + '</span></div>' +
+      '<div class="backup-status-grid-v3149">' +
+        '<span>🙏🏾 Oraciones: <strong>' + (counts.prayers||0) + '</strong></span>' +
+        '<span>📖 Versículos: <strong>' + (counts.verses||0) + '</strong></span>' +
+        '<span>📚 Parábolas: <strong>' + (counts.parables||0) + '</strong></span>' +
+        '<span>📝 Notas: <strong>' + (counts.notes||0) + '</strong></span>' +
+        '<span>🧭 Guía: <strong>' + (counts.guides||0) + '</strong></span>' +
+        '<span>📦 Total: <strong>' + total + '</strong></span>' +
+      '</div>' +
+      '<div class="backup-status-advice-v3149">' + backupAdviceV3149(age) + '</div>' +
+    '</div>';
+}
+
 function buildBackupText(){
   const payload = {
     "exportedAt": new Date().toISOString(),
@@ -3506,16 +3623,19 @@ function backupFilename(){
 }
 function downloadBackupJson(){
   const text = buildBackupText();
+  const filename = backupFilename();
   downloadBlob(
-    backupFilename(),
+    filename,
     new Blob([text], {type: "application/json;charset=utf-8"})
   );
+  saveBackupStatusV3149("Descarga JSON", filename);
   toast("JSON descargado");
 }
 async function copyBackupJson(){
   const text=buildBackupText();
   try{
     await navigator.clipboard.writeText(cleanTextBreaks(text));
+    saveBackupStatusV3149("Copia JSON", "JSON copiado al portapapeles");
     toast("JSON copiado");
   }catch(e){
     alert("No se pudo copiar automáticamente. El JSON queda visible para copiarlo manualmente.");
@@ -3528,18 +3648,22 @@ async function shareBackupJson(){
   try{
     if(navigator.canShare && navigator.canShare({files:[file]})){
       await navigator.share({title:"Backup Oraciones y Notas", text:"Backup de Oraciones y Notas", files:[file]});
+      saveBackupStatusV3149("Compartir JSON", filename);
       toast("Compartido");
       return;
     }
     if(navigator.share){
       await navigator.share({title:"Backup Oraciones y Notas", text:text});
+      saveBackupStatusV3149("Compartir JSON como texto", filename);
       toast("Compartido como texto");
       return;
     }
     downloadBlob(filename, new Blob([text],{type:"application/json;charset=utf-8"}));
+    saveBackupStatusV3149("Descarga JSON", filename);
     alert("Tu navegador no permite compartir desde aquí. Se ha descargado el JSON.");
   }catch(e){
     downloadBlob(filename, new Blob([text],{type:"application/json;charset=utf-8"}));
+    saveBackupStatusV3149("Descarga JSON", filename);
     toast("Compartir cancelado o no disponible");
   }
 }
@@ -6613,7 +6737,7 @@ setInterval(updateVersePositionCounter, 1000);
             '<div style="font-weight:700;color:#3b2b19;margin-bottom:4px;">📖 '+escapeV9017(refV9017(v))+'</div>'+
             '<div style="font-size:14px;color:#665b4d;line-height:1.35;">'+escapeV9017(snippetV9017(textV9017(v)))+'</div>'+
           '</button>';
-        }).join('');
+        }).join('\n');
       };
       var run = function(){
         var q = input ? input.value : "";
@@ -7820,3 +7944,529 @@ setInterval(updateVersePositionCounter, 1000);
     try{ showHomeV9019 = window.showHomeV9019; }catch(e){}
   }
 })();
+
+
+/* v3.1.53 - Botón Nueva en pantalla principal de Versículos */
+(function(){
+  if(window.__v3153NewVerseFromCategories) return;
+  window.__v3153NewVerseFromCategories = true;
+
+  function chooseVerseCategoryForNewV3154(){
+    try{
+      if(typeof ensureVerseCategories === 'function') ensureVerseCategories();
+      var cats = (state && state.verseCategories && state.verseCategories.length)
+        ? state.verseCategories
+        : (typeof VERSE_CATEGORIES !== 'undefined' ? VERSE_CATEGORIES : []);
+      if(!cats || !cats.length) return null;
+      var msg = 'Elige la categoría para el nuevo versículo:\n\n' + cats.map(function(c, i){
+        return (i + 1) + '. ' + (c.label || c.id || 'Sin categoría');
+      }).join('\n');
+      var currentIndex = 1;
+      try{
+        var active = cats.findIndex(function(c){ return c.id === currentVerseCategory; });
+        if(active >= 0) currentIndex = active + 1;
+      }catch(e){}
+      var answer = prompt(msg, '');
+      if(answer === null) return null;
+      var n = parseInt(String(answer).trim(), 10);
+      if(!n || n < 1 || n > cats.length){
+        alert('Categoría no válida. No se ha creado el versículo.');
+        return null;
+      }
+      return cats[n - 1];
+    }catch(e){
+      console.error('chooseVerseCategoryForNewV3154', e);
+      return null;
+    }
+  }
+
+  function newVerseFromCategoriesV3154(){
+    try{
+      if(typeof section !== 'undefined') section = 'verses';
+      var cat = chooseVerseCategoryForNewV3154();
+      if(!cat) return;
+      if(typeof setActiveView === 'function') setActiveView('new');
+      var id = (typeof uid === 'function') ? uid() : String(Date.now());
+      var title = 'Nueva referencia';
+      var item = {
+        id: id,
+        reference: title,
+        title: title,
+        category: cat.id || 'sin_categoria',
+        content: '',
+        text: '',
+        updatedAt: Date.now(),
+        favorite: false,
+        shared: false,
+        isNewVerse: true,
+        isNewItem: true
+      };
+      currentVerseCategory = item.category;
+      var items = (typeof getItems === 'function') ? getItems() : (state.verses || []);
+      items.unshift(item);
+      if(typeof setItems === 'function') setItems(items); else state.verses = items;
+      if(typeof setCurrentId === 'function') setCurrentId(id); else state.currentVerseId = id;
+      if(typeof saveState === 'function') saveState();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+      if(typeof openEditor === 'function') openEditor();
+    }catch(e){
+      console.error('Nueva desde pantalla principal de Versículos', e);
+      alert('No se pudo crear el versículo.');
+    }
+  }
+
+  function ensureNewVerseButtonInCategoriesV3153(){
+    try{
+      var head = document.querySelector('#verseCategoriesView .categories-head-v73') || document.querySelector('#verseCategoriesView .panel-head');
+      if(!head) return;
+      if(document.getElementById('btnVerseCatsNewV3153')) return;
+
+      var btn = document.createElement('button');
+      btn.id = 'btnVerseCatsNewV3153';
+      btn.className = 'btn primary';
+      btn.type = 'button';
+      btn.textContent = '➕ Nueva';
+      btn.onclick = newVerseFromCategoriesV3154;
+
+      var volver = Array.prototype.slice.call(head.querySelectorAll('button')).find(function(b){
+        return (b.textContent || '').indexOf('Volver') !== -1;
+      });
+      if(volver && volver.nextSibling) head.insertBefore(btn, volver.nextSibling);
+      else if(volver) head.appendChild(btn);
+      else head.insertBefore(btn, head.firstChild || null);
+    }catch(e){ console.error('ensureNewVerseButtonInCategoriesV3153', e); }
+  }
+
+  function afterV3153(){
+    ensureNewVerseButtonInCategoriesV3153();
+  }
+
+  var oldOpenVerseCategoriesV3153 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
+  if(typeof oldOpenVerseCategoriesV3153 === 'function' && !oldOpenVerseCategoriesV3153.__v3153Wrapped){
+    var wrappedOpenVerseCategoriesV3153 = function(){
+      var r = oldOpenVerseCategoriesV3153.apply(this, arguments);
+      setTimeout(afterV3153, 20);
+      setTimeout(afterV3153, 150);
+      return r;
+    };
+    wrappedOpenVerseCategoriesV3153.__v3153Wrapped = true;
+    window.openVerseCategories = wrappedOpenVerseCategoriesV3153;
+    try{ openVerseCategories = window.openVerseCategories; }catch(e){}
+  }
+
+  var oldSyncTabsV3153 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof oldSyncTabsV3153 === 'function' && !oldSyncTabsV3153.__v3153Wrapped){
+    var wrappedSyncTabsV3153 = function(){
+      var r = oldSyncTabsV3153.apply(this, arguments);
+      setTimeout(afterV3153, 20);
+      return r;
+    };
+    wrappedSyncTabsV3153.__v3153Wrapped = true;
+    window.syncTabs = wrappedSyncTabsV3153;
+    try{ syncTabs = window.syncTabs; }catch(e){}
+  }
+
+  document.addEventListener('DOMContentLoaded', afterV3153);
+  setTimeout(afterV3153, 100);
+  setTimeout(afterV3153, 600);
+})();
+
+/* v3.1.56 - Selector propio de categoría para Nueva en pantalla principal de Versículos */
+(function(){
+  if(window.__v3156NewVerseCategoryModal) return;
+  window.__v3156NewVerseCategoryModal = true;
+
+  function catsV3156(){
+    try{ if(typeof ensureVerseCategories === 'function') ensureVerseCategories(); }catch(e){}
+
+    var out = [];
+    var seen = {};
+    function addCat(c){
+      if(!c) return;
+      var id = c.id || c.category || '';
+      if(!id) return;
+      if(seen[id]) return;
+      seen[id] = true;
+      out.push({ id:id, label:(c.label || (typeof verseCategoryLabel === 'function' ? verseCategoryLabel(id) : id) || id) });
+    }
+
+    if(typeof state !== 'undefined' && state && Array.isArray(state.verseCategories)){
+      state.verseCategories.forEach(addCat);
+    }
+    if(typeof VERSE_CATEGORIES !== 'undefined' && Array.isArray(VERSE_CATEGORIES)){
+      VERSE_CATEGORIES.forEach(addCat);
+    }
+
+    try{
+      var allVerses = [];
+      if(typeof state !== 'undefined' && state && Array.isArray(state.verses)) allVerses = allVerses.concat(state.verses);
+      if(typeof state !== 'undefined' && state && Array.isArray(state.trashVerses)) allVerses = allVerses.concat(state.trashVerses);
+      allVerses.forEach(function(v){
+        if(v && v.category) addCat({id:v.category, label:(typeof verseCategoryLabel === 'function' ? verseCategoryLabel(v.category) : v.category)});
+      });
+    }catch(e){}
+
+    return out;
+  }
+
+  function createVerseInCategoryV3156(cat){
+    try{
+      if(!cat) return;
+      if(typeof section !== 'undefined') section = 'verses';
+      if(typeof setActiveView === 'function') setActiveView('new');
+      var id = (typeof uid === 'function') ? uid() : String(Date.now());
+      var title = 'Nueva referencia';
+      var item = {
+        id: id,
+        reference: title,
+        title: title,
+        category: cat.id || 'sin_categoria',
+        content: '',
+        text: '',
+        updatedAt: Date.now(),
+        favorite: false,
+        shared: false,
+        isNewVerse: true,
+        isNewItem: true
+      };
+      currentVerseCategory = item.category;
+      var items = (typeof getItems === 'function') ? getItems() : (state.verses || []);
+      items.unshift(item);
+      if(typeof setItems === 'function') setItems(items); else state.verses = items;
+      if(typeof setCurrentId === 'function') setCurrentId(id); else state.currentVerseId = id;
+      if(typeof saveState === 'function') saveState();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+      if(typeof openEditor === 'function') openEditor();
+    }catch(e){
+      console.error('createVerseInCategoryV3156', e);
+      alert('No se pudo crear el versículo.');
+    }
+  }
+
+  function closeModalV3156(){
+    var old = document.getElementById('verseCategoryModalV3156');
+    if(old) old.remove();
+  }
+
+  function showCategoryModalV3156(){
+    try{
+      closeModalV3156();
+      var cats = catsV3156();
+      if(!cats || !cats.length){ alert('No hay categorías disponibles.'); return; }
+
+      var overlay = document.createElement('div');
+      overlay.id = 'verseCategoryModalV3156';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;padding:18px;box-sizing:border-box;';
+
+      var card = document.createElement('div');
+      card.style.cssText = 'width:min(92vw,560px);max-height:88vh;overflow:hidden;background:#fff;border-radius:26px;padding:22px;box-shadow:0 18px 40px rgba(0,0,0,.28);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#1d2733;display:flex;flex-direction:column;';
+
+      var title = document.createElement('div');
+      title.textContent = 'Elige categoría';
+      title.style.cssText = 'font-size:24px;font-weight:800;margin-bottom:8px;';
+      card.appendChild(title);
+
+      var sub = document.createElement('div');
+      sub.textContent = 'Selecciona dónde guardar el nuevo versículo (' + cats.length + ' categorías).';
+      sub.style.cssText = 'font-size:16px;color:#67717d;margin-bottom:18px;line-height:1.35;';
+      card.appendChild(sub);
+
+      var list = document.createElement('div');
+      list.style.cssText = 'display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:58vh;padding-right:4px;-webkit-overflow-scrolling:touch;';
+      cats.forEach(function(cat){
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = cat.label || cat.id || 'Sin categoría';
+        btn.style.cssText = 'width:100%;text-align:left;border:1px solid #e2d8c8;background:#faf8f2;border-radius:18px;padding:14px 16px;font-size:18px;font-weight:700;color:#1d2733;box-shadow:0 3px 10px rgba(0,0,0,.04);';
+        btn.onclick = function(){ closeModalV3156(); createVerseInCategoryV3156(cat); };
+        list.appendChild(btn);
+      });
+      card.appendChild(list);
+
+      if(cats.length > 8){
+        var hint = document.createElement('div');
+        hint.textContent = 'Desliza para ver todas las categorías.';
+        hint.style.cssText = 'font-size:13px;color:#7b6f60;margin-top:10px;text-align:center;';
+        card.appendChild(hint);
+      }
+
+      var footer = document.createElement('div');
+      footer.style.cssText = 'display:flex;justify-content:flex-end;margin-top:18px;';
+      var cancel = document.createElement('button');
+      cancel.type = 'button';
+      cancel.textContent = 'Cancelar';
+      cancel.style.cssText = 'border:0;background:#eee7dc;border-radius:16px;padding:12px 18px;font-size:17px;font-weight:700;color:#2b2b2b;';
+      cancel.onclick = closeModalV3156;
+      footer.appendChild(cancel);
+      card.appendChild(footer);
+
+      overlay.appendChild(card);
+      overlay.addEventListener('click', function(ev){ if(ev.target === overlay) closeModalV3156(); });
+      document.body.appendChild(overlay);
+    }catch(e){
+      console.error('showCategoryModalV3156', e);
+      alert('No se pudo abrir el selector de categorías.');
+    }
+  }
+
+  function bindNewButtonV3156(){
+    try{
+      var btn = document.getElementById('btnVerseCatsNewV3153');
+      if(btn){
+        btn.onclick = showCategoryModalV3156;
+        btn.dataset.v3156Bound = '1';
+      }
+    }catch(e){}
+  }
+
+  var oldOpenVerseCategoriesV3156 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
+  if(typeof oldOpenVerseCategoriesV3156 === 'function' && !oldOpenVerseCategoriesV3156.__v3156Wrapped){
+    var wrappedOpenVerseCategoriesV3156 = function(){
+      var r = oldOpenVerseCategoriesV3156.apply(this, arguments);
+      setTimeout(bindNewButtonV3156, 30);
+      setTimeout(bindNewButtonV3156, 180);
+      return r;
+    };
+    wrappedOpenVerseCategoriesV3156.__v3156Wrapped = true;
+    window.openVerseCategories = wrappedOpenVerseCategoriesV3156;
+    try{ openVerseCategories = window.openVerseCategories; }catch(e){}
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(bindNewButtonV3156, 200); });
+  setTimeout(bindNewButtonV3156, 300);
+  setTimeout(bindNewButtonV3156, 900);
+})();
+
+/* v3.1.59 - Eliminar vuelve a la botonera del lector de la sección */
+(function(){
+  if(window.__v3159DeleteBackToReaderToolbar) return;
+  window.__v3159DeleteBackToReaderToolbar = true;
+
+  function backToReaderToolbarV3159(){
+    try{
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+
+      ['editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) el.classList.add('hidden');
+      });
+
+      document.body.classList.remove(
+        'home-active-v9019',
+        'titles-only',
+        'titles-fullscreen-v72',
+        'categories-fullscreen-v73',
+        'list-only',
+        'backup-only',
+        'special-view-only',
+        'editing-focus',
+        'hide-reading-ui'
+      );
+
+      if(typeof syncTabs === 'function') syncTabs();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+
+      if(typeof enterFullscreenReading === 'function') enterFullscreenReading();
+      else if(typeof openReader === 'function') openReader();
+
+      setTimeout(function(){
+        try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
+      }, 30);
+    }catch(e){
+      console.error('backToReaderToolbarV3159', e);
+      try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
+    }
+  }
+
+  window.moveToTrash = function(){
+    var item = (typeof currentItem === 'function') ? currentItem() : null;
+    if(!item) return;
+
+    var items = (typeof getItems === 'function') ? getItems() : [];
+    if(items.length === 1) return alert('Debe quedar al menos un elemento.');
+
+    var typeName = 'elemento';
+    try{
+      typeName = (typeof sectionLabelV85 === 'function') ? sectionLabelV85(section).sing :
+        (section === 'prayers' ? 'oración' : section === 'notes' ? 'nota' : section === 'guides' ? 'guía' : section === 'parables' ? 'parábola' : 'versículo');
+    }catch(_t){}
+
+    if(!confirm('¿Mover a papelera esta ' + typeName + '?\n"' + (item.title || item.reference || 'Sin título') + '"')) return;
+
+    var trash = (typeof getTrash === 'function') ? getTrash() : [];
+    trash.unshift(Object.assign({}, item, {deletedAt: Date.now()}));
+    if(typeof setTrash === 'function') setTrash(trash);
+
+    var filtered = items.filter(function(x){ return x.id !== item.id; });
+    if(typeof setItems === 'function') setItems(filtered);
+
+    if(filtered[0]){
+      try{
+        if(section === 'prayers') state.currentPrayerId = filtered[0].id;
+        else if(section === 'notes') state.currentNoteId = filtered[0].id;
+        else if(section === 'guides') state.currentGuideId = filtered[0].id;
+        else if(section === 'parables') state.currentParableId = filtered[0].id;
+        else state.currentVerseId = filtered[0].id;
+      }catch(_s){}
+    }
+
+    if(typeof saveState === 'function') saveState();
+    if(typeof syncTabs === 'function') syncTabs();
+    if(typeof renderList === 'function') renderList();
+    if(typeof renderReader === 'function') renderReader();
+    if(typeof applyReaderFont === 'function') applyReaderFont();
+    backToReaderToolbarV3159();
+    if(typeof toast === 'function') toast('Movido a papelera');
+  };
+
+  try{ moveToTrash = window.moveToTrash; }catch(e){}
+})();
+
+/* v3.1.60 - Eliminar versículos vuelve a la pantalla limpia de Versículos */
+(function(){
+  if(window.__v3160DeleteVerseBackClean) return;
+  window.__v3160DeleteVerseBackClean = true;
+
+  function openCleanVerseCategoriesV3160(){
+    try{
+      section = 'verses';
+      if(state) state.section = 'verses';
+      if(typeof specialVerseMode !== 'undefined') specialVerseMode = null;
+      if(typeof verseNavigationMode !== 'undefined') verseNavigationMode = 'categories';
+
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+
+      ['readerView','editorView','backupView','trashView','titlesView','calendarView'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) el.classList.add('hidden');
+      });
+
+      document.body.classList.remove(
+        'home-active-v9019',
+        'titles-only',
+        'titles-fullscreen-v72',
+        'categories-fullscreen-v73',
+        'list-only',
+        'backup-only',
+        'special-view-only',
+        'editing-focus',
+        'fullscreen-reading',
+        'reading-mobile',
+        'hide-reading-ui'
+      );
+
+      if(typeof syncTabs === 'function') syncTabs();
+      if(typeof renderList === 'function') renderList();
+
+      if(typeof openVerseCategories === 'function'){
+        openVerseCategories();
+      }else{
+        var vc = document.getElementById('verseCategoriesView');
+        if(vc) vc.classList.remove('hidden');
+      }
+
+      setTimeout(function(){
+        try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
+      }, 30);
+    }catch(e){
+      console.error('openCleanVerseCategoriesV3160', e);
+      try{ if(typeof openVerseCategories === 'function') openVerseCategories(); }catch(_e){}
+    }
+  }
+
+  function backToReaderToolbarV3160(){
+    try{
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+
+      ['editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) el.classList.add('hidden');
+      });
+
+      document.body.classList.remove(
+        'home-active-v9019',
+        'titles-only',
+        'titles-fullscreen-v72',
+        'categories-fullscreen-v73',
+        'list-only',
+        'backup-only',
+        'special-view-only',
+        'editing-focus',
+        'hide-reading-ui'
+      );
+
+      if(typeof syncTabs === 'function') syncTabs();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+
+      if(typeof enterFullscreenReading === 'function') enterFullscreenReading();
+      else if(typeof openReader === 'function') openReader();
+
+      setTimeout(function(){
+        try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
+      }, 30);
+    }catch(e){
+      console.error('backToReaderToolbarV3160', e);
+      try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
+    }
+  }
+
+  window.moveToTrash = function(){
+    var item = (typeof currentItem === 'function') ? currentItem() : null;
+    if(!item) return;
+
+    var currentSection = section;
+    var items = (typeof getItems === 'function') ? getItems() : [];
+    if(items.length === 1) return alert('Debe quedar al menos un elemento.');
+
+    var typeName = 'elemento';
+    try{
+      typeName = (typeof sectionLabelV85 === 'function') ? sectionLabelV85(currentSection).sing :
+        (currentSection === 'prayers' ? 'oración' : currentSection === 'notes' ? 'nota' : currentSection === 'guides' ? 'guía' : currentSection === 'parables' ? 'parábola' : 'versículo');
+    }catch(_t){}
+
+    if(!confirm('¿Mover a papelera esta ' + typeName + '?\n"' + (item.title || item.reference || 'Sin título') + '"')) return;
+
+    var trash = (typeof getTrash === 'function') ? getTrash() : [];
+    trash.unshift(Object.assign({}, item, {deletedAt: Date.now()}));
+    if(typeof setTrash === 'function') setTrash(trash);
+
+    var filtered = items.filter(function(x){ return x.id !== item.id; });
+    if(typeof setItems === 'function') setItems(filtered);
+
+    if(filtered[0]){
+      try{
+        if(currentSection === 'prayers') state.currentPrayerId = filtered[0].id;
+        else if(currentSection === 'notes') state.currentNoteId = filtered[0].id;
+        else if(currentSection === 'guides') state.currentGuideId = filtered[0].id;
+        else if(currentSection === 'parables') state.currentParableId = filtered[0].id;
+        else state.currentVerseId = filtered[0].id;
+      }catch(_s){}
+    }
+
+    if(typeof saveState === 'function') saveState();
+    if(typeof syncTabs === 'function') syncTabs();
+
+    if(currentSection === 'verses'){
+      openCleanVerseCategoriesV3160();
+    }else{
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+      if(typeof applyReaderFont === 'function') applyReaderFont();
+      backToReaderToolbarV3160();
+    }
+
+    if(typeof toast === 'function') toast('Movido a papelera');
+  };
+
+  try{ moveToTrash = window.moveToTrash; }catch(e){}
+})();
+
+
+/* v3.1.61 - Acceso directo a Papelera en pantalla principal de Versículos */

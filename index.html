@@ -18,8 +18,8 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v3-1-44-top-frame-real">
-<link rel="stylesheet" href="themes.css?v=v3-1-44-top-frame-real">
+<link rel="stylesheet" href="styles.css?v=v3-1-61-trash-in-verse-categories">
+<link rel="stylesheet" href="themes.css?v=v3-1-61-trash-in-verse-categories">
 </head>
 <body>
 
@@ -176,6 +176,7 @@
         <div class="backup-title-v40">♻️ RECUPERACIÓN</div>
         <button class="btn soft" type="button" onclick="restoreAutoBackup()">♻️ Recuperar automático</button>
       </div>
+      <div id="backupStatusV3149" class="backup-status-wrap-v3149"></div>
       <div class="file-row">
         <input id="jsonFileInput" class="file-input" type="file" accept=".json,application/json">
         <input id="versesFileInput" class="file-input" type="file" accept=".json,application/json">
@@ -206,6 +207,7 @@
         <button class="btn soft" type="button" onclick="createVerseCategory()">➕ Categoría</button>
         <button class="btn soft" type="button" onclick="renameVerseCategory()">✏️ Renombrar</button>
         <button class="btn soft" type="button" onclick="deleteVerseCategory()">🗑️ Eliminar</button>
+        <button class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
         <input id="categorySearchV73" class="search categories-search-v73" placeholder="Buscar categoría" oninput="renderVerseCategories()">
       </div>
       <div id="verseCategoriesList" class="category-grid"></div>
@@ -262,14 +264,15 @@
 <div id="toast" class="toast">Guardado</div>
 
 
-<script src="welcome.js?v=v3-step24"></script>
-<script src="config.js?v=v3-step24"></script>
-<script src="utils.js?v=v3-step24"></script>
-<script src="recent.js?v=v3-step24"></script>
-<script src="versiculos.js?v=v3-step24"></script>
-<script src="theme-mode.js?v=v3-step24"></script>
-<script src="app.js?v=v3-1-44-top-frame-real"></script>
-<script src="patches.js?v=v3-1-44-top-frame-real"></script>
+<script src="welcome.js?v=v3-1-54-new-verse-category-choice"></script>
+<script src="config.js?v=v3-1-54-new-verse-category-choice"></script>
+<script src="utils.js?v=v3-1-54-new-verse-category-choice"></script>
+<script src="recent.js?v=v3-1-54-new-verse-category-choice"></script>
+<script src="versiculos.js?v=v3-1-54-new-verse-category-choice"></script>
+<script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
+<script src="jszip.min.js?v=v3-1-61-trash-in-verse-categories"></script>
+<script src="app.js?v=v3-1-61-trash-in-verse-categories"></script>
+<script src="patches.js?v=v3-1-61-trash-in-verse-categories"></script>
 </body>
 </html>
 

@@ -2582,3 +2582,72 @@ body.dark #readerView.reader-sent-bg-v3134{
     top:16px!important;
   }
 }
+
+
+/* v3.1.49 - Estado de copia de seguridad */
+.backup-status-wrap-v3149{
+  margin:12px 0 14px 0;
+}
+.backup-status-card-v3149{
+  border:1px solid rgba(59,130,246,.28);
+  background:rgba(239,246,255,.88);
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 8px 22px rgba(15,23,42,.08);
+  color:#123;
+}
+.backup-status-title-v3149{
+  font-weight:800;
+  font-size:16px;
+  margin-bottom:8px;
+}
+.backup-status-state-v3150{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-weight:800;
+  font-size:13px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.68);
+  margin:0 0 8px 0;
+}
+.backup-status-row-v3149{
+  font-size:13px;
+  line-height:1.35;
+  margin:6px 0;
+}
+.backup-status-file-v3149{
+  word-break:break-word;
+  font-size:12px;
+}
+.backup-status-grid-v3149{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px 10px;
+  margin:10px 0;
+  font-size:13px;
+}
+.backup-status-advice-v3149{
+  margin-top:8px;
+  padding:9px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.62);
+  font-size:13px;
+  line-height:1.35;
+}
+.backup-status-ok-v3149{border-color:rgba(34,197,94,.34);background:rgba(240,253,244,.9);}
+.backup-status-mid-v3149{border-color:rgba(245,158,11,.36);background:rgba(255,251,235,.92);}
+.backup-status-bad-v3149{border-color:rgba(239,68,68,.30);background:rgba(254,242,242,.92);}
+.backup-status-warn-v3149{border-color:rgba(99,102,241,.25);background:rgba(245,243,255,.92);}
+body.dark .backup-status-card-v3149{
+  background:rgba(30,41,59,.92);
+  color:#f8fafc;
+  border-color:rgba(148,163,184,.28);
+}
+body.dark .backup-status-advice-v3149{
+  background:rgba(15,23,42,.45);
+}
+body.dark .backup-status-state-v3150{
+  background:rgba(15,23,42,.45);
+}
