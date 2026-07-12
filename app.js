@@ -1423,8 +1423,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v3.1.63";
-const APP_VERSION_ZIP = "oraciones_v3_1_63_historial_compartidos_persistente.zip";
+const APP_VERSION_LABEL = "v3.1.64";
+const APP_VERSION_ZIP = "oraciones_v3_1_64_marca_agua_blanca.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -3943,13 +3943,13 @@ async function shareVerseCard(){
           px[i]=255;
           px[i+1]=255;
           px[i+2]=255;
-          px[i+3]=Math.round(a * mask * 0.12);
+          px[i+3]=Math.round(a * mask * 0.18);
         }
         octx.putImageData(data,0,0);
 
         ctx.save();
         ctx.globalCompositeOperation="source-over";
-        ctx.filter="blur(0.35px)";
+        ctx.filter="blur(0.20px)";
         ctx.drawImage(off, cx-size/2, cy-size/2, size, size);
         ctx.restore();
       }catch(e){
