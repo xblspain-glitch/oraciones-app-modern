@@ -1213,7 +1213,11 @@ async function shareCurrent(){
     }else{
       await navigator.clipboard.writeText(cleanTextBreaks(text));
     }
-    if(section==="verses"){item.shared=true;saveState();renderList();renderReader();}
+    if(section==="verses"){
+      item.shared=true;
+      if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
+      saveState();renderList();renderReader();
+    }
     toast(navigator.share?"Compartido":"Copiado");
   }catch(e){}
 }
@@ -1419,8 +1423,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v3.1.61";
-const APP_VERSION_ZIP = "oraciones_v3_1_61_papelera_en_versiculos.zip";
+const APP_VERSION_LABEL = "v3.1.62";
+const APP_VERSION_ZIP = "oraciones_v3_1_62_historial_compartidos.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -2097,7 +2101,11 @@ function copyCurrent(){
   const item=currentItem();if(!item)return;
   const text=section==="verses"?buildVerseShareText(item):(item.content||"");
   navigator.clipboard.writeText(cleanTextBreaks(text)).then(()=>{
-    if(section==="verses"){item.shared=true;saveState();renderList();renderReader();}
+    if(section==="verses"){
+      item.shared=true;
+      if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
+      saveState();renderList();renderReader();
+    }
     toast("Copiado")
   })
 }
@@ -4039,6 +4047,7 @@ async function shareVerseCard(){
       if(item){
         item.shared=true;
         item.lastCardSentAt=Date.now();
+        if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
         saveState();
         renderReader();
       }
@@ -4055,6 +4064,7 @@ async function shareVerseCard(){
       if(item){
         item.shared=true;
         item.lastCardSentAt=Date.now();
+        if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
         saveState();
         renderReader();
       }
@@ -8470,3 +8480,100 @@ setInterval(updateVersePositionCounter, 1000);
 
 
 /* v3.1.61 - Acceso directo a Papelera en pantalla principal de Versículos */
+
+
+/* v3.1.62 - Contador independiente de compartidos y últimas 3 fechas */
+(function(){
+  if(window.__v3162VerseShareStats) return;
+  window.__v3162VerseShareStats = true;
+
+  function currentVerseV3162(){
+    try{
+      if(typeof section !== "undefined" && section !== "verses") return null;
+      if(typeof currentItem === "function"){
+        var item = currentItem();
+        if(item) return item;
+      }
+      var id = window.state && state.currentVerseId;
+      if(!id || !state || !Array.isArray(state.verses)) return null;
+      return state.verses.find(function(v){ return v && v.id === id; }) || null;
+    }catch(e){ return null; }
+  }
+
+  function normalizedStatsV3162(v){
+    var raw = v && v.shareStatsV3162;
+    var count = raw && Number.isFinite(Number(raw.count)) ? Math.max(0, Number(raw.count)) : 0;
+    var dates = raw && Array.isArray(raw.lastDates) ? raw.lastDates.map(Number).filter(function(x){ return Number.isFinite(x) && x > 0; }).slice(0,3) : [];
+    return {count:count, lastDates:dates};
+  }
+
+  window.recordVerseShareV3162 = function(v){
+    try{
+      if(!v) return;
+      var stats = normalizedStatsV3162(v);
+      var now = Date.now();
+      v.shareStatsV3162 = {
+        count: stats.count + 1,
+        lastDates: [now].concat(stats.lastDates).slice(0,3)
+      };
+      if(typeof saveState === "function") saveState();
+      setTimeout(window.renderVerseShareStatsV3162, 0);
+    }catch(e){ console.error("recordVerseShareV3162", e); }
+  };
+
+  function formatShareDateV3162(ts){
+    try{
+      return new Intl.DateTimeFormat("es-ES", {
+        day:"2-digit", month:"2-digit", year:"numeric",
+        hour:"2-digit", minute:"2-digit"
+      }).format(new Date(ts));
+    }catch(e){
+      var d=new Date(ts);
+      return d.toLocaleString("es-ES");
+    }
+  }
+
+  window.renderVerseShareStatsV3162 = function(){
+    try{
+      var reader = document.getElementById("readerView");
+      if(!reader) return;
+      var old = document.getElementById("verseShareStatsV3162");
+      var v = currentVerseV3162();
+      var stats = normalizedStatsV3162(v);
+      if(!v || stats.count < 1){
+        if(old && old.parentNode) old.parentNode.removeChild(old);
+        return;
+      }
+      var box = old || document.createElement("div");
+      box.id = "verseShareStatsV3162";
+      box.className = "verse-share-stats-v3162";
+      var times = stats.count === 1 ? "1 vez" : stats.count + " veces";
+      var html = '<div class="verse-share-count-v3162">📤 Compartido <strong>' + times + '</strong></div>';
+      if(stats.lastDates.length){
+        html += '<div class="verse-share-last-title-v3162">Últimos envíos</div>';
+        html += '<div class="verse-share-dates-v3162">' + stats.lastDates.map(function(ts){
+          return '<span>🗓️ ' + formatShareDateV3162(ts) + '</span>';
+        }).join('') + '</div>';
+      }
+      box.innerHTML = html;
+      if(!old){
+        var anchor = document.getElementById("readerCategory") || document.getElementById("readerCode");
+        if(anchor && anchor.parentNode) anchor.parentNode.insertBefore(box, anchor.nextSibling);
+      }
+    }catch(e){ console.error("renderVerseShareStatsV3162", e); }
+  };
+
+  try{
+    var originalRenderReaderV3162 = renderReader;
+    window.renderReader = function(){
+      var result = originalRenderReaderV3162.apply(this, arguments);
+      setTimeout(window.renderVerseShareStatsV3162, 0);
+      return result;
+    };
+    try{ renderReader = window.renderReader; }catch(e){}
+  }catch(e){}
+
+  document.addEventListener("DOMContentLoaded", function(){
+    setTimeout(window.renderVerseShareStatsV3162, 120);
+  });
+})();
