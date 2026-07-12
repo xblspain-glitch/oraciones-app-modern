@@ -1424,7 +1424,7 @@ function openMoreMenu(ev){
 }
 
 const APP_VERSION_LABEL = "v3.1.63";
-const APP_VERSION_ZIP = "oraciones_v3_1_63_historial_compartidos_persistente.zip";
+const APP_VERSION_ZIP = "oraciones_v3_1_64_historial_compartidos_persistencia_corregida.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
