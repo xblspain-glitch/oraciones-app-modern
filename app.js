@@ -1352,7 +1352,8 @@ function openNeverSentStatsMenu(){
 
     let html =
       '<div class="send-stats-head"><span>📤 Resumen de envíos</span><button class="send-stats-close" type="button" onclick="closeSendStatsPanel()">×</button></div>' +
-      '<div class="send-stats-summary">📥 Pendientes: ' + pendingTotal + ' · 📋 Enviados: ' + sentTotal + ' · 📚 Total: ' + total + '</div>';
+      '<div class="send-stats-summary">📥 Pendientes: ' + pendingTotal + ' · 📋 Enviados: ' + sentTotal + ' · 📚 Total: ' + total + '</div>' +
+      '<div class="send-stats-list">';
 
     cats.forEach(cat => {
       const verses = state.verses.filter(v => (v.category || "sin_categoria") === cat.id);
@@ -1368,6 +1369,7 @@ function openNeverSentStatsMenu(){
         '</div>';
     });
 
+    html += '</div>';
     panel.innerHTML = html;
     document.body.appendChild(panel);
   }catch(e){

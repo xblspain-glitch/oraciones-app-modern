@@ -1000,6 +1000,10 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   border-radius:18px;
   box-shadow:0 10px 28px rgba(0,0,0,.20);
   padding:12px;
+  max-height:calc(100dvh - 116px);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
 }
 .send-stats-head{
   display:flex;
@@ -1021,6 +1025,12 @@ body.backup-only .content{width:100%!important;max-width:100%!important;}
   opacity:.75;
   font-size:14px;
   margin:0 0 8px 0;
+}
+.send-stats-list{
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
 }
 .send-stats-row{
   display:flex;
