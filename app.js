@@ -1423,8 +1423,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v3.1.65";
-const APP_VERSION_ZIP = "oraciones_v3_1_65_marca_agua_blanca_real.zip";
+const APP_VERSION_LABEL = "v3.1.66";
+const APP_VERSION_ZIP = "oraciones_v3_1_66_marca_agua_estado_limpio.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -3943,12 +3943,20 @@ async function shareVerseCard(){
           px[i]=255;
           px[i+1]=255;
           px[i+2]=255;
-          px[i+3]=Math.round(a * mask * 0.20);
+          px[i+3]=Math.round(a * mask * 0.12);
         }
         octx.putImageData(data,0,0);
 
+        // Restablece de forma explícita todo el estado del lienzo antes de
+        // dibujar la marca de agua. Así no hereda sombras, opacidad ni filtros
+        // de ningún dibujo anterior y conserva siempre el blanco original.
         ctx.save();
+        ctx.globalAlpha=1;
         ctx.globalCompositeOperation="source-over";
+        ctx.shadowColor="rgba(0,0,0,0)";
+        ctx.shadowBlur=0;
+        ctx.shadowOffsetX=0;
+        ctx.shadowOffsetY=0;
         ctx.filter="none";
         ctx.drawImage(off, cx-size/2, cy-size/2, size, size);
         ctx.restore();
