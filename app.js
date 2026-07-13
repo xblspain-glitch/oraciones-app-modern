@@ -8579,3 +8579,128 @@ setInterval(updateVersePositionCounter, 1000);
     setTimeout(window.renderVerseShareStatsV3162, 120);
   });
 })();
+
+
+/* ===== v3.1.66 - Compartir bonito como HTML (oraciones, notas, guías y parábolas) ===== */
+(function(){
+  if(window.__shareBeautifulV3166Installed) return;
+  window.__shareBeautifulV3166Installed = true;
+
+  function escV3166(value){
+    return String(value == null ? "" : value)
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+  }
+
+  function fileNameV3166(title){
+    var base = String(title || "lectura")
+      .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+      .replace(/[^a-zA-Z0-9\s_-]/g,"")
+      .trim().replace(/\s+/g,"_").replace(/_+/g,"_")
+      .slice(0,80);
+    return (base || "lectura") + ".html";
+  }
+
+  function sectionMetaV3166(){
+    if(section === "prayers") return {label:"Oración", icon:"🙏", accent:"#8a6a3f"};
+    if(section === "notes") return {label:"Nota", icon:"📝", accent:"#55735d"};
+    if(section === "guides") return {label:"Guía", icon:"📜", accent:"#596f8f"};
+    if(section === "parables") return {label:"Parábola", icon:"🌱", accent:"#66805a"};
+    return null;
+  }
+
+  function inlineFormatV3166(text){
+    var safe=escV3166(text);
+    safe=safe.replace(/\*\*([^*\n]+)\*\*/g,"<strong>$1</strong>");
+    return safe;
+  }
+
+  function textToHtmlV3166(text){
+    var normalized=String(text||"").replace(/\r\n?/g,"\n").trim();
+    if(!normalized) return '<p class="empty">Sin contenido.</p>';
+    var chunks=normalized.split(/\n{2,}/);
+    return chunks.map(function(chunk){
+      var line=chunk.trim();
+      if(!line) return "";
+      var lines=line.split("\n");
+      if(lines.length===1 && /^#{1,3}\s+/.test(line)){
+        return '<h2>'+inlineFormatV3166(line.replace(/^#{1,3}\s+/,""))+'</h2>';
+      }
+      if(lines.length===1 && /^(📖|🙏|📝|🌿|✝️|🌱|💡|📜|❤️|🕊️|🌍|⭐|👉)\s*/.test(line) && line.length<120){
+        return '<h2>'+inlineFormatV3166(line)+'</h2>';
+      }
+      if(lines.every(function(x){return /^\s*[-•]\s+/.test(x)})){
+        return '<ul>'+lines.map(function(x){return '<li>'+inlineFormatV3166(x.replace(/^\s*[-•]\s+/,""))+'</li>';}).join("")+'</ul>';
+      }
+      return '<p>'+lines.map(inlineFormatV3166).join('<br>')+'</p>';
+    }).join("\n");
+  }
+
+  function contentToHtmlV3166(content){
+    var raw=String(content||"").replace(/\r\n?/g,"\n");
+    var re=/\[(desplegable|emergente)\s+titulo="([^"]*)"\]([\s\S]*?)\[\/\1\]/gi;
+    var out="", last=0, match;
+    while((match=re.exec(raw))){
+      var before=raw.slice(last,match.index).trim();
+      if(before) out += '<div class="prose">'+textToHtmlV3166(before)+'</div>';
+      var title=match[2]||"Apartado";
+      var body=match[3]||"";
+      out += '<section class="content-section"><div class="section-title">'+escV3166(title)+'</div><div class="section-body prose">'+textToHtmlV3166(body)+'</div></section>';
+      last=re.lastIndex;
+    }
+    var after=raw.slice(last).trim();
+    if(after) out += '<div class="prose">'+textToHtmlV3166(after)+'</div>';
+    return out || '<p class="empty">Sin contenido.</p>';
+  }
+
+  function buildBeautifulHtmlV3166(item, meta){
+    var title=escV3166(item.title||"Sin título");
+    var content=contentToHtmlV3166(item.content||item.text||"");
+    var date=new Intl.DateTimeFormat("es-ES",{day:"numeric",month:"long",year:"numeric"}).format(new Date());
+    return '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light"><title>'+title+'</title><style>'+
+      ':root{--accent:'+meta.accent+';--ink:#29302c;--muted:#6f7871;--paper:#fffefb;--wash:#f4f1e9;--line:#ded8ca}*{box-sizing:border-box}html{background:var(--wash)}body{margin:0;color:var(--ink);background:radial-gradient(circle at 10% 0,#fff 0,transparent 34%),linear-gradient(180deg,#f7f4ed,#ece8de);font-family:Georgia,"Times New Roman",serif;-webkit-font-smoothing:antialiased}.page{max-width:780px;margin:0 auto;padding:28px 16px 42px}.sheet{overflow:hidden;background:var(--paper);border:1px solid rgba(120,110,90,.18);border-radius:24px;box-shadow:0 18px 55px rgba(63,55,40,.13)}.hero{padding:38px 30px 30px;text-align:center;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(245,241,231,.96));border-bottom:1px solid var(--line)}.icon{font-size:34px;line-height:1;margin-bottom:13px}.kind{font:700 12px/1.2 Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}.hero h1{font-size:clamp(27px,6vw,42px);line-height:1.16;margin:0;overflow-wrap:anywhere}.ornament{width:86px;height:2px;margin:22px auto 0;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.62}.content{padding:30px clamp(22px,6vw,52px) 42px}.prose{font-size:clamp(18px,4.4vw,21px);line-height:1.78}.prose p{margin:0 0 1.22em}.prose h2{font-size:1.08em;line-height:1.4;color:var(--accent);margin:1.7em 0 .7em}.prose ul{padding-left:1.25em;margin:0 0 1.3em}.prose li{margin:.42em 0}.content-section{margin:28px 0;border:1px solid var(--line);border-radius:18px;background:#fcfaf5;overflow:hidden;box-shadow:0 7px 22px rgba(73,63,44,.055)}.section-title{padding:15px 18px;font:700 17px/1.35 Arial,sans-serif;color:var(--accent);background:linear-gradient(90deg,rgba(255,255,255,.92),rgba(245,241,231,.88));border-bottom:1px solid var(--line)}.section-body{padding:20px 20px 5px}.empty{color:var(--muted);font-style:italic}.footer{text-align:center;padding:19px 24px 22px;border-top:1px solid var(--line);font:13px/1.5 Arial,sans-serif;color:var(--muted);background:#faf8f2}.footer strong{color:var(--accent)}@media(max-width:480px){.page{padding:0}.sheet{border:0;border-radius:0;min-height:100vh}.hero{padding:32px 21px 25px}.content{padding:25px 20px 34px}.content-section{margin:23px 0}.section-body{padding:18px 17px 3px}}@media print{html,body{background:#fff}.page{padding:0;max-width:none}.sheet{border:0;box-shadow:none}.footer{break-inside:avoid}.content-section{break-inside:avoid}}'+
+      '</style></head><body><main class="page"><article class="sheet"><header class="hero"><div class="icon">'+meta.icon+'</div><div class="kind">'+escV3166(meta.label)+'</div><h1>'+title+'</h1><div class="ornament"></div></header><div class="content">'+content+'</div><footer class="footer">Compartido con cariño · <strong>Oraciones</strong><br>'+escV3166(date)+'</footer></article></main></body></html>';
+  }
+
+  window.shareBeautifulHTMLV3166=async function(){
+    var meta=sectionMetaV3166();
+    if(!meta){
+      if(typeof toast==="function") toast("Disponible en oraciones, notas, guías y parábolas");
+      return;
+    }
+    var item=typeof currentItem==="function"?currentItem():null;
+    if(!item) return;
+    var html=buildBeautifulHtmlV3166(item,meta);
+    var filename=fileNameV3166(item.title);
+    var file=new File([html],filename,{type:"text/html;charset=utf-8"});
+    try{
+      if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
+        await navigator.share({title:item.title||meta.label,text:"He preparado esta "+meta.label.toLowerCase()+" para que puedas leerla cómodamente.",files:[file]});
+        if(typeof toast==="function") toast("Documento compartido");
+        return;
+      }
+      if(typeof downloadBlob==="function"){
+        downloadBlob(filename,new Blob([html],{type:"text/html;charset=utf-8"}));
+        if(typeof toast==="function") toast("HTML descargado para compartir");
+      }
+    }catch(err){
+      if(err && err.name==="AbortError") return;
+      try{
+        if(typeof downloadBlob==="function") downloadBlob(filename,new Blob([html],{type:"text/html;charset=utf-8"}));
+        if(typeof toast==="function") toast("No se pudo compartir; se ha descargado el HTML");
+      }catch(e){}
+    }
+  };
+
+  function syncButtonV3166(){
+    var b=document.getElementById("shareBeautifulBtnV3166");
+    if(!b) return;
+    b.style.display=(section==="prayers"||section==="notes"||section==="guides"||section==="parables")?"":"none";
+  }
+  var oldSyncTabsV3166=window.syncTabs||(typeof syncTabs!=="undefined"?syncTabs:null);
+  if(typeof oldSyncTabsV3166==="function"){
+    window.syncTabs=function(){var r=oldSyncTabsV3166.apply(this,arguments);syncButtonV3166();return r;};
+    try{syncTabs=window.syncTabs;}catch(e){}
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",syncButtonV3166); else setTimeout(syncButtonV3166,0);
+})();
