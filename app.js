@@ -8672,7 +8672,7 @@ setInterval(updateVersePositionCounter, 1000);
     if(!item) return;
     var html=buildBeautifulHtmlV3166(item,meta);
     var filename=fileNameV3166(item.title);
-    var file=new File([html],filename,{type:"text/html;charset=utf-8"});
+    var file=new File([html],filename,{type:"text/html"});
     try{
       if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
         await navigator.share({title:item.title||meta.label,text:"He preparado esta "+meta.label.toLowerCase()+" para que puedas leerla cómodamente.",files:[file]});
