@@ -8705,7 +8705,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",syncButtonV3166); else setTimeout(syncButtonV3166,0);
 })();
 
-/* v3.1.68 - Organización manual de títulos con flechas simples */
+/* v3.1.69 - Organización manual: mantener visible el título movido */
 (function(){
   if(window.__v3168TitleOrganizer) return;
   window.__v3168TitleOrganizer = true;
@@ -8761,6 +8761,14 @@ setInterval(updateVersePositionCounter, 1000);
 
   function moveTitleV3168(id, direction){
     if(!supportsTitleOrderV3168()) return;
+
+    // Guardamos la posición visual exacta de la tarjeta antes de volver a pintar
+    // la lista. Así el elemento que se está moviendo permanece bajo la mirada
+    // y la pantalla no regresa al principio.
+    var selector = '#titlesList .title-row[data-title-id="'+String(id).replace(/"/g,'\\"')+'"]';
+    var previousRow = document.querySelector(selector);
+    var previousTop = previousRow ? previousRow.getBoundingClientRect().top : null;
+
     var items = (typeof getItems === 'function' ? getItems() : []).slice();
     var index = items.findIndex(function(item){ return item && item.id === id; });
     var nextIndex = index + direction;
@@ -8776,10 +8784,18 @@ setInterval(updateVersePositionCounter, 1000);
     if(typeof window.renderTitles === 'function') window.renderTitles();
     if(typeof toast === 'function') toast('Orden actualizado');
 
-    setTimeout(function(){
-      var row = document.querySelector('#titlesList .title-row[data-title-id="'+String(id).replace(/"/g,'\\"')+'"]');
-      if(row && row.scrollIntoView) row.scrollIntoView({block:'nearest', behavior:'smooth'});
-    }, 20);
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        var row = document.querySelector(selector);
+        if(!row) return;
+        if(previousTop !== null){
+          var currentTop = row.getBoundingClientRect().top;
+          window.scrollBy(0, currentTop - previousTop);
+        }else if(row.scrollIntoView){
+          row.scrollIntoView({block:'nearest'});
+        }
+      });
+    });
   }
 
   var previousRenderTitlesV3168 = window.renderTitles || (typeof renderTitles !== 'undefined' ? renderTitles : null);
