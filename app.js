@@ -8705,7 +8705,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",syncButtonV3166); else setTimeout(syncButtonV3166,0);
 })();
 
-/* v3.1.69 - Organización manual: mantener visible el título movido */
+/* v3.1.70 - Organización manual: mantener visible el título movido */
 (function(){
   if(window.__v3168TitleOrganizer) return;
   window.__v3168TitleOrganizer = true;
@@ -8777,25 +8777,38 @@ setInterval(updateVersePositionCounter, 1000);
     var temp = items[index];
     items[index] = items[nextIndex];
     items[nextIndex] = temp;
+    // Guardamos también el desplazamiento real antes de repintar. En esta
+    // pantalla el scroll pertenece al documento; renderList/renderReader
+    // lo devolvían al inicio, aunque después intentáramos seguir la tarjeta.
+    var scrollRoot = document.scrollingElement || document.documentElement;
+    var previousScrollTop = scrollRoot ? scrollRoot.scrollTop : (window.pageYOffset || 0);
+
     if(typeof setItems === 'function') setItems(items);
     if(typeof saveState === 'function') saveState();
-    if(typeof renderList === 'function') renderList();
-    if(typeof renderReader === 'function') renderReader();
+
+    // Solo hay que repintar la lista de títulos. La lista lateral y el lector
+    // se actualizarán normalmente al abrir un elemento; repintarlos aquí era
+    // la causa de que la vista saltara al principio.
     if(typeof window.renderTitles === 'function') window.renderTitles();
-    if(typeof toast === 'function') toast('Orden actualizado');
+
+    if(scrollRoot) scrollRoot.scrollTop = previousScrollTop;
+    else window.scrollTo(0, previousScrollTop);
 
     requestAnimationFrame(function(){
-      requestAnimationFrame(function(){
-        var row = document.querySelector(selector);
-        if(!row) return;
-        if(previousTop !== null){
-          var currentTop = row.getBoundingClientRect().top;
-          window.scrollBy(0, currentTop - previousTop);
-        }else if(row.scrollIntoView){
-          row.scrollIntoView({block:'nearest'});
+      var row = document.querySelector(selector);
+      if(!row) return;
+      if(previousTop !== null){
+        var currentTop = row.getBoundingClientRect().top;
+        var correction = currentTop - previousTop;
+        if(Math.abs(correction) > 1){
+          if(scrollRoot) scrollRoot.scrollTop += correction;
+          else window.scrollBy(0, correction);
         }
-      });
+      }else if(row.scrollIntoView){
+        row.scrollIntoView({block:'nearest'});
+      }
     });
+    if(typeof toast === 'function') toast('Orden actualizado');
   }
 
   var previousRenderTitlesV3168 = window.renderTitles || (typeof renderTitles !== 'undefined' ? renderTitles : null);
