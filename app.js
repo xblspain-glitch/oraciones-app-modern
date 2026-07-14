@@ -9058,7 +9058,14 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     filtered.forEach(function(entry){
       if(entry.type==='separator'){
         var sepRow=document.createElement('div'); sepRow.className='title-separator-v3171'; sepRow.setAttribute('data-layout-token',entry.token);
-        var label=document.createElement('div'); label.className='title-separator-label-v3171'; label.textContent=entry.value.title;
+        var label=document.createElement('div'); label.className='title-separator-label-v3171';
+        var sepTitle=String(entry.value.title||'');
+        var emojiMatch=sepTitle.match(/^(\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*)\s*/u);
+        if(emojiMatch){
+          var emoji=document.createElement('span'); emoji.className='title-separator-emoji-v3172'; emoji.textContent=emojiMatch[1];
+          var text=document.createElement('span'); text.textContent=sepTitle.slice(emojiMatch[0].length);
+          label.appendChild(emoji); label.appendChild(document.createTextNode(' ')); label.appendChild(text);
+        }else label.textContent=sepTitle;
         sepRow.appendChild(label);
         var actions=document.createElement('div'); actions.className='title-separator-actions-v3171';
         if(organizerActiveV3171){
