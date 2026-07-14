@@ -2800,3 +2800,12 @@ body.dark .separator-mini-action-v3171{color:#c2c9c0}
   .title-separator-v3171{margin-left:12px;margin-right:12px;padding-left:7px;padding-right:4px}
   .title-separator-label-v3171{font-size:14px}
 }
+
+
+/* v3.1.73 - Contador automático en separadores */
+.title-separator-count-v3173{
+  font-weight:700;
+  letter-spacing:0;
+  white-space:nowrap;
+  opacity:.78;
+}
