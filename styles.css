@@ -2702,3 +2702,52 @@ body.dark .verse-share-last-title-v3162,
 body.dark .verse-share-dates-v3162{
   color:#e5dafa;
 }
+
+/* v3.1.68 - Organización manual de títulos */
+.organize-titles-btn-v3168{
+  min-width:88px;
+}
+.organize-titles-btn-v3168.active-organize-v3168{
+  font-weight:700;
+}
+.title-row-organize-v3168{
+  cursor:default!important;
+  display:grid!important;
+  grid-template-columns:auto minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:12px!important;
+}
+.title-order-controls-v3168{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  flex:0 0 auto;
+}
+.title-order-arrow-v3168{
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  background:transparent;
+  color:inherit;
+  min-width:34px;
+  min-height:38px;
+  padding:2px 6px;
+  border-radius:10px;
+  font:700 25px/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  cursor:pointer;
+  opacity:.82;
+  touch-action:manipulation;
+}
+.title-order-arrow-v3168:active:not(:disabled){
+  transform:scale(.91);
+  background:rgba(100,110,120,.10);
+}
+.title-order-arrow-v3168:disabled{
+  opacity:.20;
+  cursor:default;
+}
+@media(max-width:480px){
+  .title-row-organize-v3168{gap:8px!important}
+  .title-order-controls-v3168{gap:0}
+  .title-order-arrow-v3168{min-width:31px;padding:2px 4px;font-size:23px}
+}
