@@ -4135,12 +4135,12 @@ async function shareVerseCard(){
     ctx.strokeStyle="rgba(220,250,255,0.55)";
     ctx.fillStyle="rgba(235,253,255,0.75)";
     ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(150,1698); ctx.lineTo(455,1698); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(625,1698); ctx.lineTo(930,1698); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(150,1688); ctx.lineTo(455,1688); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(625,1688); ctx.lineTo(930,1688); ctx.stroke();
     ctx.font="34px Georgia, serif";
-    ctx.fillText("✧",498,1710);
-    ctx.fillText("✝",540,1710);
-    ctx.fillText("✧",582,1710);
+    ctx.fillText("✧",498,1700);
+    ctx.fillText("✝",540,1700);
+    ctx.fillText("✧",582,1700);
     ctx.restore();
 
     // Frase final discreta, centrada y limitada a dos líneas para no competir con el versículo.
@@ -4151,7 +4151,7 @@ async function shareVerseCard(){
     ctx.shadowOffsetY=2;
     ctx.font="italic 34px Georgia, serif";
     ctx.textAlign="center";
-    wrapText(ctx,dailyBlessing,540,1760,840,44,2);
+    wrapText(ctx,dailyBlessing,540,1752,840,44,2);
     ctx.restore();
 
     const blob = await new Promise(resolve=>canvas.toBlob(resolve,"image/png",0.95));
