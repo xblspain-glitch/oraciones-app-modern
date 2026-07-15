@@ -4020,7 +4020,7 @@ async function shareVerseCard(){
 
     // Bendición del día: una frase estable durante toda la fecha local.
     // No altera el versículo ni el flujo de compartir; solo se dibuja en el pie de la tarjeta.
-    const dailyBlessingsV3174=[
+    const dailyBlessingsV3175=[
       "Que el amor de Cristo te acompañe hoy.",
       "Que Dios ilumine tu camino y fortalezca tu corazón.",
       "Que la paz del Señor permanezca contigo durante este día.",
@@ -4030,12 +4030,102 @@ async function shareVerseCard(){
       "Que Dios bendiga tu hogar y a quienes amas.",
       "Que el Espíritu Santo guíe tus pensamientos y decisiones.",
       "Que hoy encuentres descanso y confianza en la presencia de Dios.",
-      "Que la esperanza en Cristo renueve tus fuerzas en este nuevo día."
+      "Que la esperanza en Cristo renueve tus fuerzas en este nuevo día.",
+      "Que el Señor llene tu corazón de serenidad y confianza.",
+      "Que Cristo sea tu refugio y tu fortaleza durante este día.",
+      "Que Dios dirija tus pasos por caminos de paz y de bien.",
+      "Que la luz de Cristo brille hoy en tu vida.",
+      "Que el Señor te conceda sabiduría en cada decisión.",
+      "Que la misericordia de Dios te abrace y te sostenga.",
+      "Que hoy camines bajo la bendición y el cuidado del Señor.",
+      "Que la presencia de Dios llene de paz tu hogar.",
+      "Que Cristo renueve tu ánimo y afirme tu esperanza.",
+      "Que el Señor guarde tu corazón y proteja tu camino.",
+      "Que la Palabra de Dios te dé consuelo y fortaleza.",
+      "Que la gracia del Señor te acompañe en cada momento.",
+      "Que Dios te conceda un corazón agradecido y lleno de paz.",
+      "Que Cristo ilumine tus pensamientos y guíe tus palabras.",
+      "Que hoy encuentres alegría en las bendiciones de Dios.",
+      "Que el Señor fortalezca tu fe ante cada dificultad.",
+      "Que el amor de Dios transforme todo cuanto hagas hoy.",
+      "Que Cristo te conceda paciencia, humildad y sabiduría.",
+      "Que la paz de Dios gobierne hoy tu mente y tu corazón.",
+      "Que el Señor te recuerde que nunca caminas a solas.",
+      "Que la esperanza del Evangelio ilumine tu jornada.",
+      "Que Dios bendiga tus pensamientos, palabras y acciones.",
+      "Que Cristo te sostenga cuando te sientas débil.",
+      "Que hoy puedas reconocer la bondad de Dios a tu alrededor.",
+      "Que el Espíritu Santo te conceda discernimiento y paz.",
+      "Que el Señor renueve tus fuerzas y afirme tus pasos.",
+      "Que la fidelidad de Dios sea hoy tu seguridad.",
+      "Que Cristo llene tu día de propósito y esperanza.",
+      "Que Dios te enseñe a descansar plenamente en sus promesas.",
+      "Que la paz de Cristo te acompañe en todo lugar.",
+      "Que el Señor bendiga el trabajo de tus manos.",
+      "Que hoy tu corazón permanezca firme en el amor de Dios.",
+      "Que Cristo te dé valor para hacer el bien.",
+      "Que la luz del Señor disipe toda preocupación.",
+      "Que Dios te conceda fortaleza para superar cada prueba.",
+      "Que la Palabra de Cristo habite abundantemente en ti.",
+      "Que hoy vivas bajo la gracia, la paz y el amor de Dios.",
+      "Que el Señor te guíe con ternura y sabiduría.",
+      "Que Cristo sea la alegría y la esperanza de tu corazón.",
+      "Que Dios proteja a tu familia y mantenga vuestro hogar en paz.",
+      "Que la presencia del Señor haga ligero tu camino.",
+      "Que hoy encuentres fuerzas nuevas al confiar en Dios.",
+      "Que Cristo te conceda un espíritu sereno y agradecido.",
+      "Que la bondad del Señor te acompañe durante toda la jornada.",
+      "Que Dios te ayude a sembrar paz allí donde estés.",
+      "Que el amor de Cristo inspire cada una de tus acciones.",
+      "Que el Señor te conceda claridad, paciencia y confianza.",
+      "Que hoy la Palabra de Dios alimente tu alma.",
+      "Que Cristo te cubra con su paz y te guarde de todo mal.",
+      "Que Dios te fortalezca para caminar conforme a su voluntad.",
+      "Que el Espíritu Santo renueve hoy tu interior.",
+      "Que el Señor bendiga cada encuentro y cada conversación.",
+      "Que Cristo te recuerde cuánto te ama Dios.",
+      "Que hoy puedas descansar en la fidelidad del Señor.",
+      "Que Dios ponga en tu corazón palabras de vida y de esperanza.",
+      "Que la gracia de Cristo te ayude a afrontar este día con fe.",
+      "Que el Señor te conceda paz en lo que no puedes controlar.",
+      "Que hoy tu vida refleje el amor y la bondad de Dios.",
+      "Que Cristo guíe tus pasos y sostenga tus decisiones.",
+      "Que Dios haga florecer la esperanza en tu corazón.",
+      "Que la paz del Señor sea más grande que tus preocupaciones.",
+      "Que hoy encuentres refugio bajo el cuidado de Dios.",
+      "Que Cristo fortalezca tus manos para servir con amor.",
+      "Que el Señor te conceda alegría en las cosas sencillas.",
+      "Que Dios ilumine tu mente y serene tu corazón.",
+      "Que la misericordia de Cristo te acompañe durante este día.",
+      "Que hoy puedas confiar en que Dios obra para tu bien.",
+      "Que el Señor te dé fuerzas para perseverar con esperanza.",
+      "Que Cristo haga de tu corazón un lugar de paz.",
+      "Que Dios bendiga tus proyectos y dirija tus caminos.",
+      "Que la Palabra del Señor sea lámpara para tus pasos.",
+      "Que hoy el amor de Cristo renueve tu manera de mirar.",
+      "Que Dios te conceda la calma de quien confía en sus manos.",
+      "Que el Señor proteja tu salida y tu entrada.",
+      "Que Cristo te ayude a vivir este día con gratitud.",
+      "Que hoy puedas llevar consuelo y esperanza a los demás.",
+      "Que la presencia de Dios te dé seguridad y descanso.",
+      "Que el Señor te sostenga con su mano y te conduzca en paz.",
+      "Que Cristo fortalezca tu corazón y avive tu fe.",
+      "Que Dios te conceda sabiduría para hablar y humildad para escuchar.",
+      "Que hoy la gracia del Señor sea suficiente para ti.",
+      "Que la paz de Cristo permanezca en tu hogar y en tu corazón.",
+      "Que Dios te recuerde hoy que sus promesas son fieles.",
+      "Que el Señor llene tu camino de luz, esperanza y amor.",
+      "Que Cristo te dé un corazón dispuesto a perdonar y servir.",
+      "Que hoy encuentres en Dios la fuerza que necesitas.",
+      "Que el Espíritu Santo te guíe por el camino de la verdad.",
+      "Que el Señor bendiga este nuevo día y todo cuanto vivas en él.",
+      "Que Cristo permanezca a tu lado y te conceda su paz.",
+      "Que Dios ilumine tu día y haga firme tu esperanza."
     ];
     const blessingDateKey=ds.getFullYear()+"-"+(ds.getMonth()+1)+"-"+ds.getDate();
     let blessingHash=0;
     for(let i=0;i<blessingDateKey.length;i++) blessingHash=((blessingHash*31)+blessingDateKey.charCodeAt(i))>>>0;
-    const dailyBlessing=dailyBlessingsV3174[blessingHash % dailyBlessingsV3174.length];
+    const dailyBlessing=dailyBlessingsV3175[blessingHash % dailyBlessingsV3175.length];
 
     // Remate inferior, elevado ligeramente para dejar una zona limpia a la bendición.
     ctx.save();
@@ -4059,9 +4149,9 @@ async function shareVerseCard(){
     ctx.shadowColor="rgba(0,0,0,0.18)";
     ctx.shadowBlur=5;
     ctx.shadowOffsetY=2;
-    ctx.font="italic 30px Georgia, serif";
+    ctx.font="italic 34px Georgia, serif";
     ctx.textAlign="center";
-    wrapText(ctx,dailyBlessing,540,1780,820,40,2);
+    wrapText(ctx,dailyBlessing,540,1760,840,44,2);
     ctx.restore();
 
     const blob = await new Promise(resolve=>canvas.toBlob(resolve,"image/png",0.95));
