@@ -4018,7 +4018,26 @@ async function shareVerseCard(){
     ctx.font="italic "+textLayout.font+"px Georgia, serif";
     wrapText(ctx,body,540,textLayout.y,930,textLayout.line,textLayout.max);
 
-    // Remate inferior muy discreto, en línea con la cruz central
+    // Bendición del día: una frase estable durante toda la fecha local.
+    // No altera el versículo ni el flujo de compartir; solo se dibuja en el pie de la tarjeta.
+    const dailyBlessingsV3174=[
+      "Que el amor de Cristo te acompañe hoy.",
+      "Que Dios ilumine tu camino y fortalezca tu corazón.",
+      "Que la paz del Señor permanezca contigo durante este día.",
+      "Que estas palabras fortalezcan tu fe y llenen tu corazón de esperanza.",
+      "Que la Palabra de Dios sea luz en cada paso que des hoy.",
+      "Que la gracia de Cristo te sostenga en todo momento.",
+      "Que Dios bendiga tu hogar y a quienes amas.",
+      "Que el Espíritu Santo guíe tus pensamientos y decisiones.",
+      "Que hoy encuentres descanso y confianza en la presencia de Dios.",
+      "Que la esperanza en Cristo renueve tus fuerzas en este nuevo día."
+    ];
+    const blessingDateKey=ds.getFullYear()+"-"+(ds.getMonth()+1)+"-"+ds.getDate();
+    let blessingHash=0;
+    for(let i=0;i<blessingDateKey.length;i++) blessingHash=((blessingHash*31)+blessingDateKey.charCodeAt(i))>>>0;
+    const dailyBlessing=dailyBlessingsV3174[blessingHash % dailyBlessingsV3174.length];
+
+    // Remate inferior, elevado ligeramente para dejar una zona limpia a la bendición.
     ctx.save();
     ctx.shadowColor="rgba(0,0,0,0)";
     ctx.shadowBlur=0;
@@ -4026,12 +4045,23 @@ async function shareVerseCard(){
     ctx.strokeStyle="rgba(220,250,255,0.55)";
     ctx.fillStyle="rgba(235,253,255,0.75)";
     ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(150,1764); ctx.lineTo(455,1764); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(625,1764); ctx.lineTo(930,1764); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(150,1698); ctx.lineTo(455,1698); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(625,1698); ctx.lineTo(930,1698); ctx.stroke();
     ctx.font="34px Georgia, serif";
-    ctx.fillText("✧",498,1776);
-    ctx.fillText("✝",540,1776);
-    ctx.fillText("✧",582,1776);
+    ctx.fillText("✧",498,1710);
+    ctx.fillText("✝",540,1710);
+    ctx.fillText("✧",582,1710);
+    ctx.restore();
+
+    // Frase final discreta, centrada y limitada a dos líneas para no competir con el versículo.
+    ctx.save();
+    ctx.fillStyle="rgba(245,254,255,0.92)";
+    ctx.shadowColor="rgba(0,0,0,0.18)";
+    ctx.shadowBlur=5;
+    ctx.shadowOffsetY=2;
+    ctx.font="italic 30px Georgia, serif";
+    ctx.textAlign="center";
+    wrapText(ctx,dailyBlessing,540,1780,820,40,2);
     ctx.restore();
 
     const blob = await new Promise(resolve=>canvas.toBlob(resolve,"image/png",0.95));
