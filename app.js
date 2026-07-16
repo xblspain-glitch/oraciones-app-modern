@@ -9224,7 +9224,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       var item=entry.value; var row=document.createElement('div'); row.className='title-row'+(current&&current.id===item.id?' active':'')+(organizerActiveV3171?' title-row-organize-v3168':''); row.setAttribute('data-layout-token',entry.token);
       var code=document.createElement('div');code.className='title-code';code.textContent=itemCodeV3171(item,seq);
       var name=document.createElement('div');name.className='title-name';
-      if(section==='psalms' && item.category && typeof window.psalmCategoryMetaV3177==='function'){
+      if((section==='psalms' || section==='prayers') && item.category && typeof window.psalmCategoryMetaV3177==='function'){
         var catMetaV3177=window.psalmCategoryMetaV3177(item.category);
         if(catMetaV3177 && catMetaV3177.icon){
           var catIconV3177=document.createElement('span');
@@ -9787,4 +9787,124 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3177);
   else setTimeout(initV3177,0);
+})();
+
+
+/* ===== v3.1.78 - Categorías opcionales para Oraciones ===== */
+(function(){
+  if(window.__v3178PrayerCategoriesInstalled) return;
+  window.__v3178PrayerCategoriesInstalled=true;
+
+  function categoriesV3178(){
+    return Array.isArray(window.PSALM_CATEGORIES_V3177) ? window.PSALM_CATEGORIES_V3177 : [
+      {id:'',icon:'',label:'Sin categoría'}
+    ];
+  }
+
+  function ensurePrayerCategoryFieldV3178(){
+    try{
+      if(!state || !Array.isArray(state.prayers)) return;
+      state.prayers.forEach(function(item){
+        if(item && typeof item.category!=='string') item.category='';
+      });
+    }catch(e){ console.error('ensurePrayerCategoryFieldV3178',e); }
+  }
+
+  function buildPrayerCategoryEditorV3178(){
+    var existing=document.getElementById('editPrayerCategoryWrapV3178');
+    if(existing) return existing;
+    var title=document.getElementById('editTitle');
+    if(!title || !title.parentNode) return null;
+    var wrap=document.createElement('div');
+    wrap.id='editPrayerCategoryWrapV3178';
+    wrap.className='psalm-category-editor-v3177 hidden';
+    var label=document.createElement('label');
+    label.setAttribute('for','editPrayerCategoryV3178');
+    label.textContent='Categoría de la oración';
+    var select=document.createElement('select');
+    select.id='editPrayerCategoryV3178';
+    select.className='search psalm-category-select-v3177';
+    categoriesV3178().forEach(function(cat){
+      var opt=document.createElement('option');
+      opt.value=cat.id;
+      opt.textContent=cat.id ? (cat.icon+' '+cat.label) : '— Sin categoría —';
+      select.appendChild(opt);
+    });
+    select.addEventListener('change',function(){
+      try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+    });
+    wrap.appendChild(label);
+    wrap.appendChild(select);
+    var psalmWrap=document.getElementById('editPsalmCategoryWrapV3177');
+    if(psalmWrap && psalmWrap.parentNode===title.parentNode){
+      psalmWrap.parentNode.insertBefore(wrap,psalmWrap.nextSibling);
+    }else{
+      title.parentNode.insertBefore(wrap,title.nextSibling);
+    }
+    return wrap;
+  }
+
+  var oldOpenEditorV3178=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  window.openEditor=function(){
+    ensurePrayerCategoryFieldV3178();
+    var result=typeof oldOpenEditorV3178==='function'?oldOpenEditorV3178.apply(this,arguments):undefined;
+    var wrap=buildPrayerCategoryEditorV3178();
+    if(wrap){
+      var isPrayer=(typeof section!=='undefined' && section==='prayers');
+      wrap.classList.toggle('hidden',!isPrayer);
+      if(isPrayer){
+        var item=typeof currentItem==='function'?currentItem():null;
+        var select=document.getElementById('editPrayerCategoryV3178');
+        if(select) select.value=(item&&item.category)||'';
+      }
+    }
+    return result;
+  };
+  try{openEditor=window.openEditor;}catch(e){}
+
+  var oldSaveCurrentOriginalV3178=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
+  window.saveCurrentOriginal=function(stay,silent){
+    if(typeof section!=='undefined' && section==='prayers'){
+      try{
+        var item=typeof currentItem==='function'?currentItem():null;
+        var select=document.getElementById('editPrayerCategoryV3178');
+        if(item) item.category=select ? (select.value||'') : (item.category||'');
+      }catch(e){ console.error('save prayer category',e); }
+    }
+    return typeof oldSaveCurrentOriginalV3178==='function'?oldSaveCurrentOriginalV3178.apply(this,arguments):undefined;
+  };
+  try{saveCurrentOriginal=window.saveCurrentOriginal;}catch(e){}
+
+  var oldNewItemV3178=window.newItem || (typeof newItem!=='undefined'?newItem:null);
+  window.newItem=function(){
+    var wasPrayer=(typeof section!=='undefined' && section==='prayers');
+    var result=typeof oldNewItemV3178==='function'?oldNewItemV3178.apply(this,arguments):undefined;
+    if(wasPrayer){
+      try{
+        var item=typeof currentItem==='function'?currentItem():null;
+        if(item && typeof item.category!=='string') item.category='';
+        if(typeof saveState==='function') saveState();
+        var wrap=buildPrayerCategoryEditorV3178();
+        if(wrap) wrap.classList.remove('hidden');
+        var select=document.getElementById('editPrayerCategoryV3178');
+        if(select) select.value=(item&&item.category)||'';
+      }catch(e){ console.error('new prayer category',e); }
+    }
+    return result;
+  };
+  try{newItem=window.newItem;}catch(e){}
+
+  var oldRenderTitlesV3178=window.renderTitles || (typeof renderTitles!=='undefined'?renderTitles:null);
+  window.renderTitles=function(){
+    ensurePrayerCategoryFieldV3178();
+    return typeof oldRenderTitlesV3178==='function'?oldRenderTitlesV3178.apply(this,arguments):undefined;
+  };
+  try{renderTitles=window.renderTitles;}catch(e){}
+
+  function initV3178(){
+    ensurePrayerCategoryFieldV3178();
+    buildPrayerCategoryEditorV3178();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3178);
+  else setTimeout(initV3178,0);
 })();
