@@ -9224,15 +9224,31 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       var item=entry.value; var row=document.createElement('div'); row.className='title-row'+(current&&current.id===item.id?' active':'')+(organizerActiveV3171?' title-row-organize-v3168':''); row.setAttribute('data-layout-token',entry.token);
       var code=document.createElement('div');code.className='title-code';code.textContent=itemCodeV3171(item,seq);
       var name=document.createElement('div');name.className='title-name';
-      if((section==='psalms' || section==='prayers') && item.category && typeof window.psalmCategoryMetaV3177==='function'){
+      if(section==='psalms' && item.category && typeof window.psalmCategoryMetaV3177==='function'){
         var catMetaV3177=window.psalmCategoryMetaV3177(item.category);
-        if(catMetaV3177 && catMetaV3177.icon){
-          var catIconV3177=document.createElement('span');
-          catIconV3177.className='psalm-category-icon-v3177';
-          catIconV3177.textContent=catMetaV3177.icon;
-          catIconV3177.title=catMetaV3177.label||'';
-          name.appendChild(catIconV3177);
-          name.appendChild(document.createTextNode(' '));
+        if(catMetaV3177 && (catMetaV3177.icon || catMetaV3177.label)){
+          var catPrefixV3181=document.createElement('span');
+          catPrefixV3181.className='psalm-category-prefix-v3181';
+
+          if(catMetaV3177.icon){
+            var catIconV3177=document.createElement('span');
+            catIconV3177.className='psalm-category-icon-v3177';
+            catIconV3177.textContent=catMetaV3177.icon;
+            catPrefixV3181.appendChild(catIconV3177);
+          }
+
+          if(catMetaV3177.label){
+            var catLabelV3181=document.createElement('span');
+            catLabelV3181.className='psalm-category-label-v3181';
+            catLabelV3181.textContent=catMetaV3177.label;
+            catPrefixV3181.appendChild(catLabelV3181);
+          }
+
+          var catSeparatorV3181=document.createElement('span');
+          catSeparatorV3181.className='psalm-category-separator-v3181';
+          catSeparatorV3181.textContent=' · ';
+          catPrefixV3181.appendChild(catSeparatorV3181);
+          name.appendChild(catPrefixV3181);
         }
       }
       name.appendChild(document.createTextNode(titleV3171(item)));
@@ -10140,3 +10156,20 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3180);
   else setTimeout(initV3180,0);
 })();
+
+/* ===== v3.1.81 - Nombre de categoría visible en títulos de Salmos ===== */
+(function(){
+  if(window.__v3181PsalmCategoryTitlesInstalled) return;
+  window.__v3181PsalmCategoryTitlesInstalled=true;
+
+  /* Reutilizable por la futura tarjeta de Salmo recomendado. */
+  window.formatPsalmRecommendationTitleV3181=function(item){
+    var title=(item && (item.title||item.reference)) || 'Salmo';
+    if(!item || !item.category || typeof window.psalmCategoryMetaV3177!=='function') return title;
+    var meta=window.psalmCategoryMetaV3177(item.category);
+    if(!meta) return title;
+    var prefix=[meta.icon||'',meta.label||''].filter(Boolean).join(' ');
+    return prefix ? (prefix+' · '+title) : title;
+  };
+})();
+

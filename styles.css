@@ -2904,3 +2904,20 @@ body.dark-mode .psalm-category-editor-v3177 label{color:#b9d2ad}
 .prayer-category-option-v3180 input{width:18px;height:18px;flex:0 0 auto;accent-color:currentColor}
 .prayer-category-option-v3180 span{line-height:1.2}
 @media(max-width:620px){.prayer-categories-grid-v3180{grid-template-columns:1fr}.prayer-categories-editor-v3180{padding:12px}.prayer-category-option-v3180{min-height:44px}}
+
+
+/* ===== v3.1.81 - Categoría completa en títulos de Salmos ===== */
+.psalm-category-prefix-v3181{
+  display:inline;
+  font-weight:650;
+}
+.psalm-category-label-v3181{
+  margin-left:.18em;
+}
+.psalm-category-separator-v3181{
+  opacity:.58;
+  font-weight:500;
+}
+@media (max-width:420px){
+  .psalm-category-prefix-v3181{font-size:.94em}
+}
