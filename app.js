@@ -9445,3 +9445,128 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initPsalmsV3176); else setTimeout(initPsalmsV3176,0);
 })();
+
+/* ===== v3.1.76.1 - Ajustes finales de Salmos y cuadrícula fija del inicio ===== */
+(function(){
+  if(window.__v31761PsalmsFinalFixes) return;
+  window.__v31761PsalmsFinalFixes = true;
+
+  function backToPsalmsToolbarV31761(){
+    try{
+      section = 'psalms';
+      if(state) state.section = 'psalms';
+      try{ document.body.dataset.section = 'psalms'; }catch(_e){}
+
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+      ['editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) el.classList.add('hidden');
+      });
+
+      document.body.classList.remove(
+        'home-active-v9019','titles-only','titles-fullscreen-v72','categories-fullscreen-v73',
+        'list-only','backup-only','special-view-only','editing-focus','hide-reading-ui'
+      );
+
+      if(typeof saveState === 'function') saveState();
+      if(typeof syncTabs === 'function') syncTabs();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+      if(typeof applyReaderFont === 'function') applyReaderFont();
+      if(typeof enterFullscreenReading === 'function') enterFullscreenReading();
+      else if(typeof openReader === 'function') openReader();
+    }catch(err){
+      console.error('backToPsalmsToolbarV31761', err);
+      try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
+    }
+  }
+  window.backToPsalmsToolbarV31761 = backToPsalmsToolbarV31761;
+
+  var previousSyncTabsV31761 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  window.syncTabs = function(){
+    var result = typeof previousSyncTabsV31761 === 'function'
+      ? previousSyncTabsV31761.apply(this, arguments)
+      : undefined;
+    try{
+      var btnNew = document.getElementById('btnNew');
+      if(btnNew && typeof section !== 'undefined' && section === 'psalms'){
+        btnNew.textContent = '➕ Nuevo salmo';
+        btnNew.setAttribute('aria-label','Nuevo salmo');
+      }
+    }catch(e){}
+    return result;
+  };
+  try{ syncTabs = window.syncTabs; }catch(e){}
+
+  var previousLeaveEditorV31761 = window.leaveEditor || (typeof leaveEditor !== 'undefined' ? leaveEditor : null);
+  window.leaveEditor = function(){
+    if(typeof section !== 'undefined' && section === 'psalms'){
+      try{
+        if(typeof isDirty !== 'undefined' && isDirty){
+          if(typeof saveCurrent === 'function') return saveCurrent(false, true);
+        }
+      }catch(e){}
+      backToPsalmsToolbarV31761();
+      return;
+    }
+    return typeof previousLeaveEditorV31761 === 'function'
+      ? previousLeaveEditorV31761.apply(this, arguments)
+      : undefined;
+  };
+  try{ leaveEditor = window.leaveEditor; }catch(e){}
+
+  var previousDiscardV31761 = window.discardEditorChanges || (typeof discardEditorChanges !== 'undefined' ? discardEditorChanges : null);
+  window.discardEditorChanges = function(){
+    if(typeof section === 'undefined' || section !== 'psalms'){
+      return typeof previousDiscardV31761 === 'function'
+        ? previousDiscardV31761.apply(this, arguments)
+        : undefined;
+    }
+
+    if(!confirm('¿Descartar cambios?')) return;
+    try{ if(typeof autosaveTimer !== 'undefined' && autosaveTimer) clearTimeout(autosaveTimer); }catch(_e){}
+
+    try{
+      var item = typeof currentItem === 'function' ? currentItem() : null;
+      if(!item){
+        isDirty = false;
+        backToPsalmsToolbarV31761();
+        if(typeof toast === 'function') toast('Cambios descartados');
+        return;
+      }
+
+      var isNew = !!(item.isNewItem || item.title === 'Nuevo salmo');
+      if(isNew){
+        var items = typeof getItems === 'function' ? getItems() : [];
+        var filtered = (items || []).filter(function(x){ return x.id !== item.id; });
+        if(typeof setItems === 'function') setItems(filtered);
+        if(state) state.currentPsalmId = filtered[0] ? filtered[0].id : null;
+        if(typeof saveState === 'function') saveState();
+        if(typeof renderList === 'function') renderList();
+        if(typeof renderReader === 'function') renderReader();
+      }else{
+        if(typeof renderReader === 'function') renderReader();
+      }
+
+      isDirty = false;
+      backToPsalmsToolbarV31761();
+      if(typeof toast === 'function') toast(isNew ? 'Descartado' : 'Cambios descartados');
+    }catch(err){
+      console.error('discard psalms v3.1.76.1', err);
+      try{ isDirty = false; }catch(_e){}
+      backToPsalmsToolbarV31761();
+      if(typeof toast === 'function') toast('Cambios descartados');
+    }
+  };
+  try{ discardEditorChanges = window.discardEditorChanges; }catch(e){}
+
+  function refreshPsalmsUiV31761(){
+    try{ if(typeof syncTabs === 'function') syncTabs(); }catch(e){}
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', refreshPsalmsUiV31761);
+  }else{
+    setTimeout(refreshPsalmsUiV31761, 0);
+  }
+})();
