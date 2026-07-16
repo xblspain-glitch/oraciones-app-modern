@@ -2814,42 +2814,13 @@ body.dark .separator-mini-action-v3171{color:#c2c9c0}
 .psalms-note-v3176{color:#66805a;font-weight:900;font-size:1.18em;line-height:1}
 body.dark .psalms-note-v3176{color:#a8c792}
 
-/* ===== v3.1.76.1 - Cuadrícula fija del panel principal ===== */
-body.home-active-v9019 .topbar-row{
-  display:grid !important;
-  grid-template-columns:repeat(12,minmax(0,1fr));
-  gap:10px !important;
-  align-items:stretch;
-}
-body.home-active-v9019 .topbar-row > .segment{grid-column:1 / -1;width:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));}
-body.home-active-v9019 .topbar-row > .segment button{width:100%;min-width:0;}
-body.home-active-v9019 #btnDaily{grid-column:1 / span 5;}
-body.home-active-v9019 #calendarBtn{grid-column:6 / span 4;}
-body.home-active-v9019 #tabParables{grid-column:1 / span 4;}
-body.home-active-v9019 #tabPsalms{grid-column:5 / span 4;}
-body.home-active-v9019 #btnMainMark{grid-column:9 / span 4;}
-body.home-active-v9019 #btnMainMore{grid-column:1 / span 3;}
-body.home-active-v9019 #btnBackup{grid-column:4 / span 3;}
-body.home-active-v9019 #btnTrash{grid-column:7 / span 3;}
-body.home-active-v9019 #btnTheme{grid-column:10 / span 3;}
-body.home-active-v9019 .delete-btn-v66{grid-column:1 / span 4;}
-body.home-active-v9019 .topbar-bottom-row-v66{grid-column:1 / -1;}
-body.home-active-v9019 .topbar-row > .search{grid-column:1 / -1;}
-body.home-active-v9019 #btnDaily,
-body.home-active-v9019 #calendarBtn,
-body.home-active-v9019 #tabParables,
-body.home-active-v9019 #tabPsalms,
-body.home-active-v9019 #btnMainMark,
-body.home-active-v9019 #btnMainMore,
-body.home-active-v9019 #btnBackup,
-body.home-active-v9019 #btnTrash,
-body.home-active-v9019 #btnTheme,
-body.home-active-v9019 .delete-btn-v66{
+/* ===== v3.1.76.2 - Filas fijas conservando tamaños originales ===== */
+.home-row-break-v31762{display:none}
+body.home-active-v9019 .home-row-break-v31762{
+  display:block;
+  flex:0 0 100%;
   width:100%;
-  min-width:0;
-  justify-content:center;
-}
-@media (max-width:430px){
-  body.home-active-v9019 .topbar-row{gap:8px !important;}
-  body.home-active-v9019 .topbar-row > button.btn{padding-left:10px;padding-right:10px;}
+  height:0;
+  padding:0;
+  margin:0;
 }

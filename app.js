@@ -834,7 +834,8 @@ function registerCurrentAsReadV47G(){
       title==="Nueva referencia" ||
       title==="Nueva oración" ||
       title==="Nueva nota" ||
-      title==="Nueva guía";
+      title==="Nueva guía" ||
+      title==="Nuevo salmo";
     if(isDraft)return;
     try{
       item.isNewVerse=false;
@@ -1154,7 +1155,7 @@ function leaveEditor(){
 function newItem(){
   setActiveView("new");
   const id=uid();
-  const title=section==="prayers"?"Nueva oración":section==="notes"?"Nueva nota":section==="guides"?"Nueva guía":"Nueva referencia";
+  const title=section==="prayers"?"Nueva oración":section==="notes"?"Nueva nota":section==="guides"?"Nueva guía":section==="parables"?"Nueva parábola":section==="psalms"?"Nuevo salmo":"Nueva referencia";
   const item=section==="verses"
     ? {id,reference:title,title,category:(currentVerseCategory||"fe"),content:"",text:"",updatedAt:Date.now(),favorite:false,shared:false,isNewVerse:true,isNewItem:true}
     : {id,title,content:"",updatedAt:Date.now(),favorite:false,isNewItem:true};
