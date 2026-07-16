@@ -3505,14 +3505,13 @@ function backupCountsV3149(){
     notes: count(state && state.notes),
     guides: count(state && state.guides),
     verses: count(state && state.verses),
-    parables: count(state && state.parables),
-    psalms: count(state && state.psalms)
+    parables: count(state && state.parables)
   };
 }
 
 function backupTotalV3149(c){
   c = c || backupCountsV3149();
-  return (c.prayers||0) + (c.notes||0) + (c.guides||0) + (c.verses||0) + (c.parables||0) + (c.psalms||0);
+  return (c.prayers||0) + (c.notes||0) + (c.guides||0) + (c.verses||0) + (c.parables||0);
 }
 
 function formatBackupDateV3149(iso){
@@ -3603,7 +3602,6 @@ function renderBackupStatusV3149(){
         '<span>🙏🏾 Oraciones: <strong>' + (counts.prayers||0) + '</strong></span>' +
         '<span>📖 Versículos: <strong>' + (counts.verses||0) + '</strong></span>' +
         '<span>📚 Parábolas: <strong>' + (counts.parables||0) + '</strong></span>' +
-        '<span>🎼 Salmos: <strong>' + (counts.psalms||0) + '</strong></span>' +
         '<span>📝 Notas: <strong>' + (counts.notes||0) + '</strong></span>' +
         '<span>🧭 Guía: <strong>' + (counts.guides||0) + '</strong></span>' +
         '<span>📦 Total: <strong>' + total + '</strong></span>' +
@@ -5606,7 +5604,7 @@ setInterval(updateVersePositionCounter, 1000);
   window.currentItem=function(){ensureParablesState();var items=getItems();var id=section==="prayers"?state.currentPrayerId:section==="notes"?state.currentNoteId:section==="guides"?state.currentGuideId:section==="parables"?state.currentParableId:state.currentVerseId;var found=(items||[]).find(function(x){return x.id===id});if(found)return found;var first=(items||[])[0]||null;if(first){if(section==="prayers")state.currentPrayerId=first.id;else if(section==="notes")state.currentNoteId=first.id;else if(section==="guides")state.currentGuideId=first.id;else if(section==="parables")state.currentParableId=first.id;else state.currentVerseId=first.id;}return first;};try{currentItem=window.currentItem;}catch(e){}
   window.setCurrentId=function(id){ensureParablesState();if(section==="prayers")state.currentPrayerId=id;else if(section==="notes")state.currentNoteId=id;else if(section==="guides")state.currentGuideId=id;else if(section==="parables")state.currentParableId=id;else state.currentVerseId=id;saveState();};try{setCurrentId=window.setCurrentId;}catch(e){}
   window.recentKindLabel=function(item){if(!item)return"";if(item.kind==="festivityPassage")return"📅 Festividad · 📖 Pasaje";if(item.kind==="festivity")return"📅 Festividad";if(item.section==="verses")return"❤️ Versículo";if(item.section==="prayers")return"✝️ Oración";if(item.section==="notes")return"📝 Nota";if(item.section==="guides")return"📜 Guía";if(item.section==="parables")return"🌱 Parábola";return"Elemento";};try{recentKindLabel=window.recentKindLabel;}catch(e){}
-  window.syncTabs=function(){ensureParablesState();setSearchVisibleV26(!(section==="prayers"||section==="notes"||section==="guides"||section==="parables"||section==="psalms"));var p=document.getElementById("tabPrayers");if(p)p.classList.toggle("active",section==="prayers");var n=document.getElementById("tabNotes");if(n)n.classList.toggle("active",section==="notes");var g=document.getElementById("tabGuides");if(g)g.classList.toggle("active",section==="guides");var pa=document.getElementById("tabParables");if(pa)pa.classList.toggle("active",section==="parables");var v=document.getElementById("tabVerses");if(v)v.classList.toggle("active",section==="verses");var search=document.getElementById("search");if(search)search.placeholder=sectionLabelV85(section).search;var c=document.getElementById("counterInfo");if(c)c.textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | 🌱 ${state.parables?state.parables.length:0} | ❤️ ${state.verses?state.verses.length:0}`;};try{syncTabs=window.syncTabs;}catch(e){}
+  window.syncTabs=function(){ensureParablesState();setSearchVisibleV26(!(section==="prayers"||section==="notes"||section==="guides"||section==="parables"));var p=document.getElementById("tabPrayers");if(p)p.classList.toggle("active",section==="prayers");var n=document.getElementById("tabNotes");if(n)n.classList.toggle("active",section==="notes");var g=document.getElementById("tabGuides");if(g)g.classList.toggle("active",section==="guides");var pa=document.getElementById("tabParables");if(pa)pa.classList.toggle("active",section==="parables");var v=document.getElementById("tabVerses");if(v)v.classList.toggle("active",section==="verses");var search=document.getElementById("search");if(search)search.placeholder=sectionLabelV85(section).search;var c=document.getElementById("counterInfo");if(c)c.textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | 🌱 ${state.parables?state.parables.length:0} | ❤️ ${state.verses?state.verses.length:0}`;};try{syncTabs=window.syncTabs;}catch(e){}
   window.switchSection=function(s){ensureParablesState();section=s;state.section=s;try{document.body.dataset.section=s;}catch(e){};saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}renderReader();openReader();};try{switchSection=window.switchSection;}catch(e){}
   window.titlesPlaceholderV72=function(){return sectionLabelV85(section).search;};try{titlesPlaceholderV72=window.titlesPlaceholderV72;}catch(e){}
   var oldRenderReaderV85=window.renderReader||(typeof renderReader!=="undefined"?renderReader:null);window.renderReader=function(){ensureParablesState();if(typeof oldRenderReaderV85==="function")oldRenderReaderV85.apply(this,arguments);try{if(section==="parables"&&!currentItem()){document.getElementById("readerCode").textContent="";document.getElementById("readerTitle").textContent="🌱 Parábolas del Señor";document.getElementById("readerText").textContent="Pulsa ➕ Nueva para guardar una parábola del Señor.";}updateMoveVerseButtonVisibility();}catch(e){}};try{renderReader=window.renderReader;}catch(e){}
@@ -7390,7 +7388,7 @@ setInterval(updateVersePositionCounter, 1000);
 
   function isNormalSectionV312(){
     try{
-      return ['prayers','notes','guides','parables'].indexOf(section) !== -1;
+      return ['prayers','notes','guides','parables','psalms'].indexOf(section) !== -1;
     }catch(e){ return false; }
   }
 
@@ -8428,7 +8426,7 @@ setInterval(updateVersePositionCounter, 1000);
     var typeName = 'elemento';
     try{
       typeName = (typeof sectionLabelV85 === 'function') ? sectionLabelV85(section).sing :
-        (section === 'prayers' ? 'oración' : section === 'notes' ? 'nota' : section === 'guides' ? 'guía' : section === 'parables' ? 'parábola' : 'versículo');
+        (section === 'prayers' ? 'oración' : section === 'notes' ? 'nota' : section === 'guides' ? 'guía' : section === 'parables' ? 'parábola' : section === 'psalms' ? 'salmo' : 'versículo');
     }catch(_t){}
 
     if(!confirm('¿Mover a papelera esta ' + typeName + '?\n"' + (item.title || item.reference || 'Sin título') + '"')) return;
@@ -8564,7 +8562,7 @@ setInterval(updateVersePositionCounter, 1000);
     var typeName = 'elemento';
     try{
       typeName = (typeof sectionLabelV85 === 'function') ? sectionLabelV85(currentSection).sing :
-        (currentSection === 'prayers' ? 'oración' : currentSection === 'notes' ? 'nota' : currentSection === 'guides' ? 'guía' : currentSection === 'parables' ? 'parábola' : 'versículo');
+        (currentSection === 'prayers' ? 'oración' : currentSection === 'notes' ? 'nota' : currentSection === 'guides' ? 'guía' : currentSection === 'parables' ? 'parábola' : currentSection === 'psalms' ? 'salmo' : 'versículo');
     }catch(_t){}
 
     if(!confirm('¿Mover a papelera esta ' + typeName + '?\n"' + (item.title || item.reference || 'Sin título') + '"')) return;
@@ -8730,7 +8728,7 @@ setInterval(updateVersePositionCounter, 1000);
     if(section === "notes") return {label:"Nota", icon:"📝", accent:"#55735d"};
     if(section === "guides") return {label:"Guía", icon:"📜", accent:"#596f8f"};
     if(section === "parables") return {label:"Parábola", icon:"🌱", accent:"#66805a"};
-    if(section === "psalms") return {label:"Salmo", icon:"🎼", accent:"#6f8b52"};
+    if(section === "psalms") return {label:"Salmo", icon:"♫", accent:"#66805a"};
     return null;
   }
 
@@ -8838,7 +8836,7 @@ setInterval(updateVersePositionCounter, 1000);
   var organizeModeV3168 = false;
 
   function supportsTitleOrderV3168(){
-    try{ return ['prayers','notes','guides','parables'].indexOf(section) !== -1; }
+    try{ return ['prayers','notes','guides','parables','psalms'].indexOf(section) !== -1; }
     catch(e){ return false; }
   }
 
@@ -9090,7 +9088,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     for(var i=0;i<seq.length;i++){
       if(seq[i].type==='item') n++;
       if(seq[i].type==='item' && seq[i].value.id===item.id){
-        var p=section==='prayers'?'O':section==='notes'?'N':section==='guides'?'G':section==='parables'?'P':'S';
+        var p=section==='prayers'?'O':section==='notes'?'N':section==='guides'?'G':'P';
         return p+n;
       }
     }
@@ -9242,126 +9240,177 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   else setTimeout(function(){ensureStoreV3171();ensureButtonsV3171();},0);
 })();
 
-
-/* ===== v3.1.76 - Sección Salmos ===== */
+/* ===== v3.1.76 — sección Salmos sobre base estable v3.1.75.1 ===== */
 (function(){
-  if(window.__psalmsSectionV3176) return;
-  window.__psalmsSectionV3176=true;
+  if(window.__psalmsV3176Installed) return;
+  window.__psalmsV3176Installed=true;
 
   function ensurePsalmsV3176(){
-    if(!state) return;
-    if(!Array.isArray(state.psalms)) state.psalms=[];
-    if(!Array.isArray(state.trashPsalms)) state.trashPsalms=[];
-    if(!('currentPsalmId' in state)) state.currentPsalmId=null;
-    if(!state.currentPsalmId && state.psalms.length) state.currentPsalmId=state.psalms[0].id;
-    if(state.titleSeparatorsV3171 && typeof state.titleSeparatorsV3171==='object' && !state.titleSeparatorsV3171.psalms){
-      state.titleSeparatorsV3171.psalms={separators:[],layout:[]};
-    }
+    try{
+      if(!state) return;
+      if(!Array.isArray(state.psalms)) state.psalms=[];
+      if(!Array.isArray(state.trashPsalms)) state.trashPsalms=[];
+      if(!('currentPsalmId' in state)) state.currentPsalmId=null;
+      if(!state.currentPsalmId && state.psalms.length) state.currentPsalmId=state.psalms[0].id;
+    }catch(e){ console.error('ensurePsalmsV3176',e); }
   }
   window.ensurePsalmsV3176=ensurePsalmsV3176;
 
-  var oldBuild=window.buildInitialState||(typeof buildInitialState!=='undefined'?buildInitialState:null);
+  var prevNormalize=window.normalizeGuides || (typeof normalizeGuides!=='undefined'?normalizeGuides:null);
+  window.normalizeGuides=function(){
+    if(typeof prevNormalize==='function') prevNormalize.apply(this,arguments);
+    ensurePsalmsV3176();
+  };
+  try{normalizeGuides=window.normalizeGuides;}catch(e){}
+
+  var prevBuild=window.buildInitialState || (typeof buildInitialState!=='undefined'?buildInitialState:null);
   window.buildInitialState=function(){
-    var st=typeof oldBuild==='function'?oldBuild.apply(this,arguments):{section:'prayers',prayers:[],notes:[],guides:[],verses:[]};
+    var st=typeof prevBuild==='function'?prevBuild.apply(this,arguments):{};
     if(!Array.isArray(st.psalms)) st.psalms=[];
     if(!Array.isArray(st.trashPsalms)) st.trashPsalms=[];
     if(!('currentPsalmId' in st)) st.currentPsalmId=null;
     return st;
-  }; try{buildInitialState=window.buildInitialState}catch(e){}
+  };
+  try{buildInitialState=window.buildInitialState;}catch(e){}
 
-  var oldGetItems=window.getItems||(typeof getItems!=='undefined'?getItems:null);
-  window.getItems=function(){ensurePsalmsV3176(); if(section==='psalms') return state.psalms; return oldGetItems.apply(this,arguments)}; try{getItems=window.getItems}catch(e){}
-  var oldSetItems=window.setItems||(typeof setItems!=='undefined'?setItems:null);
-  window.setItems=function(items){ensurePsalmsV3176(); if(section==='psalms'){state.psalms=items;return} return oldSetItems.apply(this,arguments)}; try{setItems=window.setItems}catch(e){}
-  var oldGetTrash=window.getTrash||(typeof getTrash!=='undefined'?getTrash:null);
-  window.getTrash=function(){ensurePsalmsV3176(); if(section==='psalms') return state.trashPsalms; return oldGetTrash.apply(this,arguments)}; try{getTrash=window.getTrash}catch(e){}
-  var oldSetTrash=window.setTrash||(typeof setTrash!=='undefined'?setTrash:null);
-  window.setTrash=function(items){ensurePsalmsV3176(); if(section==='psalms'){state.trashPsalms=items;return} return oldSetTrash.apply(this,arguments)}; try{setTrash=window.setTrash}catch(e){}
+  var prevLabel=window.sectionLabelV85;
+  window.sectionLabelV85=function(s){
+    if(s==='psalms') return {sing:'salmo',empty:'Nuevo salmo',code:'S',search:'Buscar salmo o código (ej. S23)'};
+    return typeof prevLabel==='function'?prevLabel(s):{sing:'elemento',empty:'Nuevo elemento',code:'E',search:'Buscar'};
+  };
+  try{sectionLabelV85=window.sectionLabelV85;}catch(e){}
 
-  var oldCurrent=window.currentItem||(typeof currentItem!=='undefined'?currentItem:null);
+  var prevGetItems=window.getItems || getItems;
+  window.getItems=function(){ ensurePsalmsV3176(); return section==='psalms'?state.psalms:prevGetItems.apply(this,arguments); };
+  try{getItems=window.getItems;}catch(e){}
+  var prevSetItems=window.setItems || setItems;
+  window.setItems=function(items){ ensurePsalmsV3176(); if(section==='psalms') state.psalms=items; else return prevSetItems.apply(this,arguments); };
+  try{setItems=window.setItems;}catch(e){}
+  var prevGetTrash=window.getTrash || getTrash;
+  window.getTrash=function(){ ensurePsalmsV3176(); return section==='psalms'?state.trashPsalms:prevGetTrash.apply(this,arguments); };
+  try{getTrash=window.getTrash;}catch(e){}
+  var prevSetTrash=window.setTrash || setTrash;
+  window.setTrash=function(items){ ensurePsalmsV3176(); if(section==='psalms') state.trashPsalms=items; else return prevSetTrash.apply(this,arguments); };
+  try{setTrash=window.setTrash;}catch(e){}
+
+  var prevCurrent=window.currentItem || currentItem;
   window.currentItem=function(){
     ensurePsalmsV3176();
-    if(section!=='psalms') return oldCurrent.apply(this,arguments);
-    var found=state.psalms.find(function(x){return x.id===state.currentPsalmId});
+    if(section!=='psalms') return prevCurrent.apply(this,arguments);
+    var found=state.psalms.find(function(x){return x.id===state.currentPsalmId;});
     if(found) return found;
-    var first=state.psalms[0]||null; if(first) state.currentPsalmId=first.id; return first;
-  }; try{currentItem=window.currentItem}catch(e){}
-  var oldSetCurrent=window.setCurrentId||(typeof setCurrentId!=='undefined'?setCurrentId:null);
-  window.setCurrentId=function(id){ensurePsalmsV3176(); if(section==='psalms'){state.currentPsalmId=id;saveState();return} return oldSetCurrent.apply(this,arguments)}; try{setCurrentId=window.setCurrentId}catch(e){}
+    var first=state.psalms[0]||null;
+    if(first) state.currentPsalmId=first.id;
+    return first;
+  };
+  try{currentItem=window.currentItem;}catch(e){}
+  var prevSetCurrent=window.setCurrentId || setCurrentId;
+  window.setCurrentId=function(id){
+    ensurePsalmsV3176();
+    if(section==='psalms'){ state.currentPsalmId=id; saveState(); return; }
+    return prevSetCurrent.apply(this,arguments);
+  };
+  try{setCurrentId=window.setCurrentId;}catch(e){}
 
-  var oldDisplayCode=window.getDisplayCode||(typeof getDisplayCode!=='undefined'?getDisplayCode:null);
-  window.getDisplayCode=function(idx,kind){if(kind==='psalms') return 'S'+(idx+1); return oldDisplayCode.apply(this,arguments)}; try{getDisplayCode=window.getDisplayCode}catch(e){}
-  var oldCurrentCode=window.getCurrentCode||(typeof getCurrentCode!=='undefined'?getCurrentCode:null);
-  window.getCurrentCode=function(){if(section==='psalms'){var i=state.psalms.findIndex(function(x){return x.id===state.currentPsalmId});return i>=0?'S'+(i+1):''}return oldCurrentCode.apply(this,arguments)};try{getCurrentCode=window.getCurrentCode}catch(e){}
-
-  var oldNew=window.newItem||(typeof newItem!=='undefined'?newItem:null);
-  window.newItem=function(){
-    if(section!=='psalms') return oldNew.apply(this,arguments);
-    setActiveView('new'); var id=uid(); var item={id:id,title:'Nuevo salmo',content:'',updatedAt:Date.now(),favorite:false,isNewItem:true};
-    state.psalms.unshift(item); state.currentPsalmId=id; saveState(); renderList(); renderReader(); openEditor();
-  }; try{newItem=window.newItem}catch(e){}
-
-  var oldTrashMove=window.moveToTrash||(typeof moveToTrash!=='undefined'?moveToTrash:null);
-  window.moveToTrash=function(){
-    if(section!=='psalms') return oldTrashMove.apply(this,arguments);
-    var item=currentItem(); if(!item)return; var items=state.psalms;
-    if(items.length===1)return alert('Debe quedar al menos un elemento.');
-    if(!confirm('¿Mover a papelera este salmo?\n"'+(item.title||'Sin título')+'"'))return;
-    state.trashPsalms.unshift(Object.assign({},item,{deletedAt:Date.now()})); state.psalms=items.filter(function(x){return x.id!==item.id}); state.currentPsalmId=state.psalms[0].id;
-    saveState();syncTabs();renderList();renderReader();applyReaderFont();openReader();toast('Movido a papelera');
-  }; try{moveToTrash=window.moveToTrash}catch(e){}
-
-  var oldSync=window.syncTabs||(typeof syncTabs!=='undefined'?syncTabs:null);
+  var prevSync=window.syncTabs || syncTabs;
   window.syncTabs=function(){
-    ensurePsalmsV3176(); var r=oldSync.apply(this,arguments);
-    var ps=document.getElementById('tabPsalms');if(ps)ps.classList.toggle('active',section==='psalms');
-    var g=document.getElementById('tabGuides');if(g)g.classList.toggle('active',section==='guides');
-    var search=document.getElementById('search');if(search&&section==='psalms')search.placeholder='Buscar salmo o código (ej. S23)';
-    var c=document.getElementById('counterInfo');if(c)c.textContent='📖 '+state.prayers.length+' | 📝 '+state.notes.length+' | 🎼 '+state.psalms.length+' | 📜 '+(state.guides?state.guides.length:0)+' | 🌱 '+(state.parables?state.parables.length:0)+' | ❤️ '+(state.verses?state.verses.length:0);
-    if(typeof setSearchVisibleV26==='function'&&section==='psalms')setSearchVisibleV26(false);
-    return r;
-  }; try{syncTabs=window.syncTabs}catch(e){}
+    ensurePsalmsV3176();
+    if(typeof prevSync==='function') prevSync.apply(this,arguments);
+    var ps=document.getElementById('tabPsalms'); if(ps) ps.classList.toggle('active',section==='psalms');
+    var g=document.getElementById('tabGuides'); if(g) g.classList.toggle('active',section==='guides');
+    var search=document.getElementById('search'); if(search && section==='psalms') search.placeholder='Buscar salmo o código (ej. S23)';
+    var c=document.getElementById('counterInfo');
+    if(c) c.textContent='📖 '+(state.prayers||[]).length+' | 📝 '+(state.notes||[]).length+' | ♫ '+(state.psalms||[]).length+' | 📜 '+(state.guides||[]).length+' | 🌱 '+(state.parables||[]).length+' | ❤️ '+(state.verses||[]).length;
+  };
+  try{syncTabs=window.syncTabs;}catch(e){}
 
-  var oldReader=window.renderReader||(typeof renderReader!=='undefined'?renderReader:null);
-  window.renderReader=function(){ensurePsalmsV3176();var r=oldReader.apply(this,arguments);if(section==='psalms'&&!currentItem()){var c=document.getElementById('readerCode'),t=document.getElementById('readerTitle'),x=document.getElementById('readerText');if(c)c.textContent='';if(t)t.textContent='🎼 Salmos';if(x)x.textContent='Pulsa ➕ Nueva para guardar un salmo.';}return r};try{renderReader=window.renderReader}catch(e){}
+  var prevSwitchRead=window.switchSectionAndReadV90187 || switchSectionAndReadV90187;
+  window.switchSectionAndReadV90187=function(s){
+    if(s!=='psalms') return prevSwitchRead.apply(this,arguments);
+    ensurePsalmsV3176();
+    section='psalms'; state.section='psalms';
+    try{document.body.dataset.section='psalms';}catch(e){}
+    saveState(); syncTabs(); setSearchVisibleV26(true); setActiveView(null); renderList(); renderReader(); openReader();
+  };
+  try{switchSectionAndReadV90187=window.switchSectionAndReadV90187;}catch(e){}
 
-  var oldRecentLabel=window.recentKindLabel||(typeof recentKindLabel!=='undefined'?recentKindLabel:null);
-  if(typeof oldRecentLabel==='function'){window.recentKindLabel=function(item){if(item&&item.section==='psalms')return'🎼 Salmo';return oldRecentLabel.apply(this,arguments)};try{recentKindLabel=window.recentKindLabel}catch(e){}}
+  var prevReader=window.renderReader || renderReader;
+  window.renderReader=function(){
+    ensurePsalmsV3176();
+    if(section==='psalms' && !currentItem()){
+      var code=document.getElementById('readerCode'); if(code) code.textContent='';
+      var title=document.getElementById('readerTitle'); if(title) title.textContent='♫ Salmos';
+      var text=document.getElementById('readerText'); if(text) text.textContent='Pulsa ➕ Nueva para guardar el primer salmo.';
+      if(typeof updateMoveVerseButtonVisibility==='function') updateMoveVerseButtonVisibility();
+      return;
+    }
+    return prevReader.apply(this,arguments);
+  };
+  try{renderReader=window.renderReader;}catch(e){}
 
-  // Incluir Salmos en separadores y títulos, manteniendo el orden manual.
-  try{
-    var supported=window.__psalmSupportedPlaceholder;
-  }catch(e){}
+  var prevNew=window.newItem || newItem;
+  window.newItem=function(){
+    if(section!=='psalms') return prevNew.apply(this,arguments);
+    ensurePsalmsV3176(); setActiveView('new');
+    var id=uid();
+    var item={id:id,title:'Nuevo salmo',content:'',updatedAt:Date.now(),favorite:false,isNewItem:true};
+    state.psalms.unshift(item); state.currentPsalmId=id; saveState(); renderList(); renderReader(); openEditor();
+  };
+  try{newItem=window.newItem;}catch(e){}
 
-  // Compartir bonito: extensión independiente para Salmos.
-  var oldBeautiful=window.shareBeautifulHTMLV3166;
-  if(typeof oldBeautiful==='function'){
-    window.shareBeautifulHTMLV3166=async function(){
-      if(section!=='psalms') return oldBeautiful.apply(this,arguments);
-      var item=currentItem();if(!item)return;
-      var esc=function(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')};
-      var title=esc(item.title||'Salmo');var body=esc(item.content||'').replace(/\n/g,'<br>');
-      var html='<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>body{margin:0;background:#eef3e8;color:#29302c;font-family:Georgia,serif}.page{max-width:780px;margin:auto;padding:24px}.sheet{background:#fffefb;border-radius:24px;overflow:hidden;box-shadow:0 18px 55px #0002}.hero{text-align:center;padding:38px 26px;background:linear-gradient(145deg,#fff,#f0f5e9);border-bottom:1px solid #d9e2cf}.icon{font-size:36px;color:#6f8b52}.kind{font:700 12px Arial;letter-spacing:.16em;color:#6f8b52;margin:12px}.hero h1{font-size:38px;margin:0}.content{padding:32px;line-height:1.8;font-size:21px}.footer{text-align:center;padding:20px;border-top:1px solid #d9e2cf;color:#6f7871;font:13px Arial}@media(max-width:480px){.page{padding:0}.sheet{border-radius:0;min-height:100vh}.content{padding:25px 20px;font-size:19px}}</style></head><body><main class="page"><article class="sheet"><header class="hero"><div class="icon">🎼</div><div class="kind">Salmo</div><h1>'+title+'</h1></header><div class="content">'+body+'</div><footer class="footer">Compartido con cariño · <strong>Oraciones</strong></footer></article></main></body></html>';
-      var filename=String(item.title||'salmo').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9\s_-]/g,'').trim().replace(/\s+/g,'_').slice(0,80)+'.html';
-      var file=new File([html],filename,{type:'text/html'});try{if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){await navigator.share({title:item.title||'Salmo',text:'He preparado este salmo para que puedas leerlo cómodamente.',files:[file]});toast('Documento compartido');return}downloadBlob(filename,new Blob([html],{type:'text/html;charset=utf-8'}));}catch(err){if(err&&err.name==='AbortError')return;downloadBlob(filename,new Blob([html],{type:'text/html;charset=utf-8'}));}
-    };
+  var prevTrashMove=window.moveToTrash || moveToTrash;
+  window.moveToTrash=function(){
+    if(section!=='psalms') return prevTrashMove.apply(this,arguments);
+    var item=currentItem(); if(!item) return;
+    if(!confirm('¿Mover a papelera este salmo?\n"'+(item.title||'Sin título')+'"')) return;
+    state.trashPsalms.unshift(Object.assign({},item,{deletedAt:Date.now()}));
+    state.psalms=state.psalms.filter(function(x){return x.id!==item.id;});
+    state.currentPsalmId=state.psalms[0]?state.psalms[0].id:null;
+    saveState(); syncTabs(); renderList(); renderReader(); openReader(); toast('Movido a papelera');
+  };
+  try{moveToTrash=window.moveToTrash;}catch(e){}
+
+  var prevApply=window.applyImportedData || (typeof applyImportedData!=='undefined'?applyImportedData:null);
+  window.applyImportedData=function(parsed){
+    var ps=Array.isArray(parsed.psalms)?parsed.psalms:[];
+    var tp=Array.isArray(parsed.trashPsalms)?parsed.trashPsalms:[];
+    var cp=parsed.currentPsalmId || (ps[0]&&ps[0].id) || null;
+    var result=prevApply.apply(this,arguments);
+    state.psalms=ps; state.trashPsalms=tp; state.currentPsalmId=cp; ensurePsalmsV3176(); saveState(); syncTabs(); renderList(); renderReader();
+    return result;
+  };
+  try{applyImportedData=window.applyImportedData;}catch(e){}
+
+  var prevRestoreAuto=window.restoreAutoBackup || restoreAutoBackup;
+  window.restoreAutoBackup=function(){
+    var raw=localStorage.getItem(AUTO_BACKUP_KEY), parsed=null;
+    try{parsed=raw?JSON.parse(raw):null;}catch(e){}
+    var result=prevRestoreAuto.apply(this,arguments);
+    if(parsed && state){
+      state.psalms=Array.isArray(parsed.psalms)?parsed.psalms:[];
+      state.trashPsalms=Array.isArray(parsed.trashPsalms)?parsed.trashPsalms:[];
+      state.currentPsalmId=parsed.currentPsalmId || (state.psalms[0]&&state.psalms[0].id) || null;
+      ensurePsalmsV3176(); saveState(); syncTabs(); renderList(); renderReader();
+    }
+    return result;
+  };
+  try{restoreAutoBackup=window.restoreAutoBackup;}catch(e){}
+
+  var prevMeta=window.beautifulMetaV3166;
+  if(typeof prevMeta==='function'){
+    window.beautifulMetaV3166=function(){ if(section==='psalms') return {label:'Salmo',icon:'♫',accent:'#66805a'}; return prevMeta.apply(this,arguments); };
+  }
+  var prevBeautifulVisibility=window.updateShareBeautifulVisibilityV3166;
+  if(typeof prevBeautifulVisibility==='function'){
+    window.updateShareBeautifulVisibilityV3166=function(){ prevBeautifulVisibility.apply(this,arguments); var b=document.getElementById('shareBeautifulBtnV3166'); if(b&&section==='psalms') b.style.display=''; };
   }
 
-  // Importación: preservar salmos aunque el importador antiguo reconstruya el estado.
-  var oldApply=window.applyImportedData||(typeof applyImportedData!=='undefined'?applyImportedData:null);
-  if(typeof oldApply==='function'){
-    window.applyImportedData=function(parsed){
-      var ps=Array.isArray(parsed.psalms)?parsed.psalms:[],tp=Array.isArray(parsed.trashPsalms)?parsed.trashPsalms:[],cp=parsed.currentPsalmId||null;
-      var r=oldApply.call(this,parsed);state.psalms=ps;state.trashPsalms=tp;state.currentPsalmId=cp||(ps[0]&&ps[0].id)||null;ensurePsalmsV3176();saveState();return r;
-    };try{applyImportedData=window.applyImportedData}catch(e){}
+  var prevRecentLabel=window.recentKindLabel;
+  if(typeof prevRecentLabel==='function'){
+    window.recentKindLabel=function(item){ if(item&&item.section==='psalms') return '♫ Salmo'; return prevRecentLabel.apply(this,arguments); };
+    try{recentKindLabel=window.recentKindLabel;}catch(e){}
   }
 
-  // Restauración automática: completar campos tras el restaurador existente.
-  var oldRestore=window.restoreAutoBackup||(typeof restoreAutoBackup!=='undefined'?restoreAutoBackup:null);
-  if(typeof oldRestore==='function'){
-    window.restoreAutoBackup=function(){var raw=localStorage.getItem(AUTO_BACKUP_KEY),parsed=null;try{parsed=raw?JSON.parse(raw):null}catch(e){};var r=oldRestore.apply(this,arguments);if(parsed){state.psalms=Array.isArray(parsed.psalms)?parsed.psalms:[];state.trashPsalms=Array.isArray(parsed.trashPsalms)?parsed.trashPsalms:[];state.currentPsalmId=parsed.currentPsalmId||(state.psalms[0]&&state.psalms[0].id)||null;ensurePsalmsV3176();saveState();}return r};try{restoreAutoBackup=window.restoreAutoBackup}catch(e){}
-  }
-
-  function finish(){ensurePsalmsV3176();syncTabs();renderList();renderReader();}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(finish,80)});else setTimeout(finish,80);
+  // Garantiza que una base ya existente reciba los nuevos campos sin perder datos.
+  ensurePsalmsV3176(); saveState(); syncTabs();
 })();

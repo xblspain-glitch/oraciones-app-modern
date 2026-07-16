@@ -2810,8 +2810,12 @@ body.dark .separator-mini-action-v3171{color:#c2c9c0}
   opacity:.78;
 }
 
-
-/* v3.1.76 - Icono de arpa y sección Salmos */
-.psalms-harp-v3176{display:inline-flex;width:1.35em;height:1.35em;vertical-align:-.28em;margin-right:.08em;color:#6f8b52}
-.psalms-harp-v3176 svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
-body.dark .psalms-harp-v3176{color:#9fbd7d}
+/* v3.1.76 — icono musical verde para Salmos */
+.psalm-note-icon{
+  color:#66805a;
+  font-size:1.15em;
+  font-weight:800;
+  line-height:1;
+  display:inline-block;
+  transform:translateY(-1px);
+}
