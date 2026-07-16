@@ -2854,3 +2854,40 @@ body.home-active-v9019 .home-fixed-row-four-v31763 #btnTheme{
   body.home-active-v9019 .home-fixed-row-v31763 > .btn{padding-left:9px;padding-right:9px}
   body.home-active-v9019 .home-fixed-row-four-v31763 #btnTheme{flex-basis:50px;width:50px;min-width:50px;max-width:50px}
 }
+
+
+/* v3.1.77 - Categorías de Salmos */
+.psalm-category-editor-v3177{
+  padding:12px 14px 10px;
+  border-bottom:1px solid var(--line);
+  background:rgba(102,128,90,.06);
+}
+.psalm-category-editor-v3177.hidden{display:none!important}
+.psalm-category-editor-v3177 label{
+  display:block;
+  margin:0 0 7px;
+  font-size:14px;
+  font-weight:700;
+  color:#58704e;
+}
+.psalm-category-select-v3177{
+  width:100%;
+  min-height:44px;
+  border-radius:10px!important;
+  border:1px solid rgba(102,128,90,.35)!important;
+  background:var(--panel);
+  font-size:17px!important;
+}
+.psalm-category-icon-v3177{
+  display:inline-block;
+  min-width:1.35em;
+  font-size:1.08em;
+  line-height:1;
+  vertical-align:-.08em;
+}
+body.dark .psalm-category-editor-v3177,
+body.dark-mode .psalm-category-editor-v3177{
+  background:rgba(154,184,137,.08);
+}
+body.dark .psalm-category-editor-v3177 label,
+body.dark-mode .psalm-category-editor-v3177 label{color:#b9d2ad}

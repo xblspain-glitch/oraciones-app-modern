@@ -9094,7 +9094,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     for(var i=0;i<seq.length;i++){
       if(seq[i].type==='item') n++;
       if(seq[i].type==='item' && seq[i].value.id===item.id){
-        var p=section==='prayers'?'O':section==='notes'?'N':section==='guides'?'G':'P';
+        var p=section==='prayers'?'O':section==='notes'?'N':section==='guides'?'G':section==='psalms'?'S':'P';
         return p+n;
       }
     }
@@ -9223,7 +9223,19 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       }
       var item=entry.value; var row=document.createElement('div'); row.className='title-row'+(current&&current.id===item.id?' active':'')+(organizerActiveV3171?' title-row-organize-v3168':''); row.setAttribute('data-layout-token',entry.token);
       var code=document.createElement('div');code.className='title-code';code.textContent=itemCodeV3171(item,seq);
-      var name=document.createElement('div');name.className='title-name';name.textContent=titleV3171(item);
+      var name=document.createElement('div');name.className='title-name';
+      if(section==='psalms' && item.category && typeof window.psalmCategoryMetaV3177==='function'){
+        var catMetaV3177=window.psalmCategoryMetaV3177(item.category);
+        if(catMetaV3177 && catMetaV3177.icon){
+          var catIconV3177=document.createElement('span');
+          catIconV3177.className='psalm-category-icon-v3177';
+          catIconV3177.textContent=catMetaV3177.icon;
+          catIconV3177.title=catMetaV3177.label||'';
+          name.appendChild(catIconV3177);
+          name.appendChild(document.createTextNode(' '));
+        }
+      }
+      name.appendChild(document.createTextNode(titleV3171(item)));
       row.appendChild(code);row.appendChild(name);
       if(organizerActiveV3171){
         var controls=document.createElement('div');controls.className='title-order-controls-v3168';var idx2=seq.findIndex(function(x){return x.token===entry.token;});
@@ -9643,4 +9655,136 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', repairExistingPsalmDraftsV31763);
   else setTimeout(repairExistingPsalmDraftsV31763,0);
+})();
+
+
+/* ===== v3.1.77 - Categorías opcionales para Salmos ===== */
+(function(){
+  if(window.__v3177PsalmCategoriesInstalled) return;
+  window.__v3177PsalmCategoriesInstalled=true;
+
+  var PSALM_CATEGORIES_V3177 = [
+    {id:'', icon:'', label:'Sin categoría'},
+    {id:'alabanza', icon:'🙌🏾', label:'Alabanza'},
+    {id:'adoracion', icon:'✨', label:'Adoración'},
+    {id:'gratitud', icon:'🌅', label:'Gratitud'},
+    {id:'confianza', icon:'🌿', label:'Confianza'},
+    {id:'proteccion', icon:'🛡️', label:'Protección'},
+    {id:'arrepentimiento', icon:'🙏🏾', label:'Arrepentimiento'},
+    {id:'consuelo', icon:'🕊️', label:'Consuelo y paz'},
+    {id:'fortaleza', icon:'💪🏾', label:'Fortaleza'},
+    {id:'esperanza', icon:'🌤️', label:'Esperanza'},
+    {id:'suplica', icon:'🤲🏾', label:'Súplica y auxilio'},
+    {id:'sabiduria', icon:'📚', label:'Sabiduría'},
+    {id:'justicia', icon:'⚖️', label:'Justicia'},
+    {id:'reinado', icon:'👑', label:'Reinado de Dios'},
+    {id:'creacion', icon:'🌍', label:'Creación'},
+    {id:'victoria', icon:'⚔️', label:'Victoria'},
+    {id:'peregrinacion', icon:'🛤️', label:'Camino y peregrinación'}
+  ];
+  window.PSALM_CATEGORIES_V3177=PSALM_CATEGORIES_V3177;
+  window.psalmCategoryMetaV3177=function(id){
+    return PSALM_CATEGORIES_V3177.find(function(x){return x.id===String(id||'');}) || PSALM_CATEGORIES_V3177[0];
+  };
+
+  function ensurePsalmCategoryFieldV3177(){
+    try{
+      if(!state || !Array.isArray(state.psalms)) return;
+      state.psalms.forEach(function(item){
+        if(item && typeof item.category!=='string') item.category='';
+      });
+    }catch(e){ console.error('ensurePsalmCategoryFieldV3177',e); }
+  }
+
+  function buildPsalmCategoryEditorV3177(){
+    var existing=document.getElementById('editPsalmCategoryWrapV3177');
+    if(existing) return existing;
+    var title=document.getElementById('editTitle');
+    if(!title || !title.parentNode) return null;
+    var wrap=document.createElement('div');
+    wrap.id='editPsalmCategoryWrapV3177';
+    wrap.className='psalm-category-editor-v3177 hidden';
+    var label=document.createElement('label');
+    label.setAttribute('for','editPsalmCategoryV3177');
+    label.textContent='Categoría del salmo';
+    var select=document.createElement('select');
+    select.id='editPsalmCategoryV3177';
+    select.className='search psalm-category-select-v3177';
+    PSALM_CATEGORIES_V3177.forEach(function(cat){
+      var opt=document.createElement('option');
+      opt.value=cat.id;
+      opt.textContent=cat.id ? (cat.icon+' '+cat.label) : '— Sin categoría —';
+      select.appendChild(opt);
+    });
+    select.addEventListener('change',function(){
+      try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+    });
+    wrap.appendChild(label); wrap.appendChild(select);
+    title.parentNode.insertBefore(wrap,title.nextSibling);
+    return wrap;
+  }
+
+  var oldOpenEditorV3177=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  window.openEditor=function(){
+    ensurePsalmCategoryFieldV3177();
+    var result=typeof oldOpenEditorV3177==='function'?oldOpenEditorV3177.apply(this,arguments):undefined;
+    var wrap=buildPsalmCategoryEditorV3177();
+    if(wrap){
+      var isPsalm=(typeof section!=='undefined' && section==='psalms');
+      wrap.classList.toggle('hidden',!isPsalm);
+      if(isPsalm){
+        var item=typeof currentItem==='function'?currentItem():null;
+        var select=document.getElementById('editPsalmCategoryV3177');
+        if(select) select.value=(item&&item.category)||'';
+      }
+    }
+    return result;
+  };
+  try{openEditor=window.openEditor;}catch(e){}
+
+  var oldSaveCurrentOriginalV3177=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
+  window.saveCurrentOriginal=function(stay,silent){
+    if(typeof section!=='undefined' && section==='psalms'){
+      try{
+        var item=typeof currentItem==='function'?currentItem():null;
+        var select=document.getElementById('editPsalmCategoryV3177');
+        if(item) item.category=select ? (select.value||'') : (item.category||'');
+      }catch(e){ console.error('save psalm category',e); }
+    }
+    return typeof oldSaveCurrentOriginalV3177==='function'?oldSaveCurrentOriginalV3177.apply(this,arguments):undefined;
+  };
+  try{saveCurrentOriginal=window.saveCurrentOriginal;}catch(e){}
+
+  var oldNewItemV3177=window.newItem || (typeof newItem!=='undefined'?newItem:null);
+  window.newItem=function(){
+    var wasPsalm=(typeof section!=='undefined' && section==='psalms');
+    var result=typeof oldNewItemV3177==='function'?oldNewItemV3177.apply(this,arguments):undefined;
+    if(wasPsalm){
+      try{
+        var item=typeof currentItem==='function'?currentItem():null;
+        if(item && typeof item.category!=='string') item.category='';
+        if(typeof saveState==='function') saveState();
+        var wrap=buildPsalmCategoryEditorV3177();
+        if(wrap) wrap.classList.remove('hidden');
+        var select=document.getElementById('editPsalmCategoryV3177');
+        if(select) select.value=(item&&item.category)||'';
+      }catch(e){ console.error('new psalm category',e); }
+    }
+    return result;
+  };
+  try{newItem=window.newItem;}catch(e){}
+
+  var oldRenderTitlesV3177=window.renderTitles || (typeof renderTitles!=='undefined'?renderTitles:null);
+  window.renderTitles=function(){
+    ensurePsalmCategoryFieldV3177();
+    return typeof oldRenderTitlesV3177==='function'?oldRenderTitlesV3177.apply(this,arguments):undefined;
+  };
+  try{renderTitles=window.renderTitles;}catch(e){}
+
+  function initV3177(){
+    ensurePsalmCategoryFieldV3177();
+    buildPsalmCategoryEditorV3177();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3177);
+  else setTimeout(initV3177,0);
 })();
