@@ -9952,3 +9952,191 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3178);
   else setTimeout(initV3178,0);
 })();
+
+/* ===== v3.1.80 - Selección múltiple de categorías para Oraciones ===== */
+(function(){
+  if(window.__v3180PrayerMultiCategoriesInstalled) return;
+  window.__v3180PrayerMultiCategoriesInstalled=true;
+
+  function categoryListV3180(){
+    return (Array.isArray(window.PSALM_CATEGORIES_V3177) ? window.PSALM_CATEGORIES_V3177 : []).filter(function(cat){ return cat && cat.id; });
+  }
+
+  function normalizePrayerCategoriesV3180(item){
+    if(!item) return [];
+    var values=[];
+    if(Array.isArray(item.categories)) values=item.categories.slice();
+    else if(typeof item.category==='string' && item.category) values=[item.category];
+    var valid={};
+    categoryListV3180().forEach(function(cat){ valid[cat.id]=true; });
+    values=values.map(function(value){ return String(value||''); }).filter(function(value,index,array){ return valid[value] && array.indexOf(value)===index; });
+    item.categories=values;
+    /* Compatibilidad con versiones anteriores: conserva como principal la primera marcada. */
+    item.category=values[0]||'';
+    return values;
+  }
+
+  function ensurePrayerCategoriesV3180(){
+    try{
+      if(!state || !Array.isArray(state.prayers)) return;
+      var changed=false;
+      state.prayers.forEach(function(item){
+        if(!item) return;
+        var before=JSON.stringify(item.categories||null)+'|'+String(item.category||'');
+        normalizePrayerCategoriesV3180(item);
+        var after=JSON.stringify(item.categories||null)+'|'+String(item.category||'');
+        if(before!==after) changed=true;
+      });
+      if(changed && typeof saveState==='function') saveState();
+    }catch(e){ console.error('ensurePrayerCategoriesV3180',e); }
+  }
+
+  function buildPrayerMultiEditorV3180(){
+    var existing=document.getElementById('editPrayerCategoriesWrapV3180');
+    if(existing) return existing;
+    var oldWrap=document.getElementById('editPrayerCategoryWrapV3178');
+    var title=document.getElementById('editTitle');
+    if(!title || !title.parentNode) return null;
+
+    var wrap=document.createElement('div');
+    wrap.id='editPrayerCategoriesWrapV3180';
+    wrap.className='prayer-categories-editor-v3180 hidden';
+
+    var header=document.createElement('div');
+    header.className='prayer-categories-header-v3180';
+    var label=document.createElement('strong');
+    label.textContent='Categorías de la oración';
+    var counter=document.createElement('span');
+    counter.id='prayerCategoryCountV3180';
+    counter.className='prayer-category-count-v3180';
+    header.appendChild(label);
+    header.appendChild(counter);
+
+    var help=document.createElement('div');
+    help.className='prayer-categories-help-v3180';
+    help.textContent='Puedes seleccionar una o varias categorías.';
+
+    var grid=document.createElement('div');
+    grid.id='editPrayerCategoriesV3180';
+    grid.className='prayer-categories-grid-v3180';
+
+    categoryListV3180().forEach(function(cat){
+      var option=document.createElement('label');
+      option.className='prayer-category-option-v3180';
+      var input=document.createElement('input');
+      input.type='checkbox';
+      input.value=cat.id;
+      input.dataset.categoryId=cat.id;
+      input.addEventListener('change',function(){
+        option.classList.toggle('selected',input.checked);
+        updateCountV3180();
+        try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+      });
+      var text=document.createElement('span');
+      text.textContent=cat.icon+' '+cat.label;
+      option.appendChild(input);
+      option.appendChild(text);
+      grid.appendChild(option);
+    });
+
+    wrap.appendChild(header);
+    wrap.appendChild(help);
+    wrap.appendChild(grid);
+    if(oldWrap && oldWrap.parentNode){
+      oldWrap.classList.add('hidden');
+      oldWrap.parentNode.insertBefore(wrap,oldWrap.nextSibling);
+    }else{
+      title.parentNode.insertBefore(wrap,title.nextSibling);
+    }
+    return wrap;
+  }
+
+  function checkedCategoriesV3180(){
+    var grid=document.getElementById('editPrayerCategoriesV3180');
+    if(!grid) return [];
+    return Array.prototype.slice.call(grid.querySelectorAll('input[type="checkbox"]:checked')).map(function(input){ return input.value; });
+  }
+
+  function updateCountV3180(){
+    var count=checkedCategoriesV3180().length;
+    var counter=document.getElementById('prayerCategoryCountV3180');
+    if(counter) counter.textContent=count ? (count+(count===1?' seleccionada':' seleccionadas')) : 'Ninguna seleccionada';
+  }
+
+  function loadPrayerCategoriesV3180(item){
+    var selected=normalizePrayerCategoriesV3180(item||{});
+    var selectedMap={};
+    selected.forEach(function(id){ selectedMap[id]=true; });
+    var grid=document.getElementById('editPrayerCategoriesV3180');
+    if(!grid) return;
+    Array.prototype.forEach.call(grid.querySelectorAll('input[type="checkbox"]'),function(input){
+      input.checked=!!selectedMap[input.value];
+      if(input.parentNode) input.parentNode.classList.toggle('selected',input.checked);
+    });
+    updateCountV3180();
+  }
+
+  function savePrayerCategoriesV3180(){
+    try{
+      if(typeof section==='undefined' || section!=='prayers') return;
+      var item=typeof currentItem==='function'?currentItem():null;
+      if(!item) return;
+      var values=checkedCategoriesV3180();
+      item.categories=values;
+      item.category=values[0]||'';
+    }catch(e){ console.error('savePrayerCategoriesV3180',e); }
+  }
+
+  var previousOpenEditorV3180=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  window.openEditor=function(){
+    var result=typeof previousOpenEditorV3180==='function'?previousOpenEditorV3180.apply(this,arguments):undefined;
+    var wrap=buildPrayerMultiEditorV3180();
+    var isPrayer=(typeof section!=='undefined' && section==='prayers');
+    var oldWrap=document.getElementById('editPrayerCategoryWrapV3178');
+    if(oldWrap) oldWrap.classList.add('hidden');
+    if(wrap){
+      wrap.classList.toggle('hidden',!isPrayer);
+      if(isPrayer) loadPrayerCategoriesV3180(typeof currentItem==='function'?currentItem():null);
+    }
+    return result;
+  };
+  try{openEditor=window.openEditor;}catch(e){}
+
+  var previousSaveCurrentOriginalV3180=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
+  window.saveCurrentOriginal=function(stay,silent){
+    savePrayerCategoriesV3180();
+    /* Sincroniza el selector antiguo oculto para que su envoltorio no sobrescriba la categoría principal. */
+    if(typeof section!=='undefined' && section==='prayers'){
+      var legacy=document.getElementById('editPrayerCategoryV3178');
+      var values=checkedCategoriesV3180();
+      if(legacy) legacy.value=values[0]||'';
+    }
+    var result=typeof previousSaveCurrentOriginalV3180==='function'?previousSaveCurrentOriginalV3180.apply(this,arguments):undefined;
+    savePrayerCategoriesV3180();
+    return result;
+  };
+  try{saveCurrentOriginal=window.saveCurrentOriginal;}catch(e){}
+
+  var previousNewItemV3180=window.newItem || (typeof newItem!=='undefined'?newItem:null);
+  window.newItem=function(){
+    var wasPrayer=(typeof section!=='undefined' && section==='prayers');
+    var result=typeof previousNewItemV3180==='function'?previousNewItemV3180.apply(this,arguments):undefined;
+    if(wasPrayer){
+      var item=typeof currentItem==='function'?currentItem():null;
+      if(item){ item.categories=[]; item.category=''; }
+      var wrap=buildPrayerMultiEditorV3180();
+      if(wrap) wrap.classList.remove('hidden');
+      loadPrayerCategoriesV3180(item);
+      if(typeof saveState==='function') saveState();
+    }
+    return result;
+  };
+  try{newItem=window.newItem;}catch(e){}
+
+  function initV3180(){
+    ensurePrayerCategoriesV3180();
+    buildPrayerMultiEditorV3180();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3180);
+  else setTimeout(initV3180,0);
+})();

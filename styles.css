@@ -2891,3 +2891,16 @@ body.dark-mode .psalm-category-editor-v3177{
 }
 body.dark .psalm-category-editor-v3177 label,
 body.dark-mode .psalm-category-editor-v3177 label{color:#b9d2ad}
+
+/* ===== v3.1.80 - Categorías múltiples de Oraciones ===== */
+.prayer-categories-editor-v3180{margin:14px 0 4px;padding:14px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:rgba(0,0,0,.12)}
+.prayer-categories-header-v3180{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.prayer-category-count-v3180{font-size:.82rem;font-weight:600;opacity:.72;text-align:right}
+.prayer-categories-help-v3180{font-size:.86rem;opacity:.72;margin-bottom:12px}
+.prayer-categories-grid-v3180{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.prayer-category-option-v3180{display:flex;align-items:center;gap:9px;min-height:42px;padding:9px 10px;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:rgba(255,255,255,.045);cursor:pointer;user-select:none;transition:.16s ease}
+.prayer-category-option-v3180:hover{background:rgba(255,255,255,.085)}
+.prayer-category-option-v3180.selected{border-color:rgba(255,255,255,.42);background:rgba(255,255,255,.13)}
+.prayer-category-option-v3180 input{width:18px;height:18px;flex:0 0 auto;accent-color:currentColor}
+.prayer-category-option-v3180 span{line-height:1.2}
+@media(max-width:620px){.prayer-categories-grid-v3180{grid-template-columns:1fr}.prayer-categories-editor-v3180{padding:12px}.prayer-category-option-v3180{min-height:44px}}
