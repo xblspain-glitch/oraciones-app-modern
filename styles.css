@@ -2809,13 +2809,3 @@ body.dark .separator-mini-action-v3171{color:#c2c9c0}
   white-space:nowrap;
   opacity:.78;
 }
-
-/* v3.1.76 — icono musical verde para Salmos */
-.psalm-note-icon{
-  color:#66805a;
-  font-size:1.15em;
-  font-weight:800;
-  line-height:1;
-  display:inline-block;
-  transform:translateY(-1px);
-}
