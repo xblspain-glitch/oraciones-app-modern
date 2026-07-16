@@ -2809,3 +2809,7 @@ body.dark .separator-mini-action-v3171{color:#c2c9c0}
   white-space:nowrap;
   opacity:.78;
 }
+
+/* v3.1.76 - botón Salmos */
+.psalms-note-v3176{color:#66805a;font-weight:900;font-size:1.18em;line-height:1}
+body.dark .psalms-note-v3176{color:#a8c792}
