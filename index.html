@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v3-1-73-separator-counts">
+<link rel="stylesheet" href="styles.css?v=v3-1-76-psalms-section">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 </head>
 <body>
@@ -48,7 +48,7 @@
     <div class="segment">
       <button id="tabPrayers" class="active" type="button" onclick="switchSectionAndReadV90187('prayers')">✝️ Oraciones</button>
       <button id="tabNotes" type="button" onclick="switchSectionAndReadV90187('notes')">📝 Notas</button>
-      <button id="tabGuides" type="button" onclick="switchSectionAndReadV90187('guides')">📜 Guía</button>
+      <button id="tabPsalms" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-harp-v3176" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false"><path d="M18 53c10-14 15-31 13-45M31 8c12 5 20 16 20 30 0 7-2 12-6 17M18 53h30M24 45h25M29 35h20M32 25h14M35 15h6"/></svg></span> Salmos</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
     </div>
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
@@ -66,7 +66,7 @@
     <button id="btnMainFav" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
     <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
     <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-    <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()">🌙</button>
+    <button id="tabGuides" data-view-btn="guides" class="btn soft" type="button" onclick="switchSectionAndReadV90187('guides')">📜 Guía</button>
     <button class="btn danger delete-btn-v66" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
     <div class="topbar-bottom-row-v66 counter-row-v853">
       <div id="counterInfo" class="counter counter-v66"></div>
@@ -272,7 +272,7 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v3-1-75-daily-blessing-expanded"></script>
+<script src="app.js?v=v3-1-76-psalms-section"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 </body>
 </html>
