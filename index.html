@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v3-1-76-2-psalms-ui-polish">
+<link rel="stylesheet" href="styles.css?v=v3-1-76-3-psalms-final-polish">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 </head>
 <body>
@@ -55,21 +55,23 @@
     <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
     <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
-    <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
-    <button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
+    <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
+      <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
+      <button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
+      <button id="btnMainMark" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
+      </div>
         <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
     <button id="btnEdit" data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
     <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
-    <button id="btnMainMark" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
     <button id="btnMainCard" class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
     <button id="btnMainCopy" class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>
-    <span class="home-row-break-v31762" aria-hidden="true"></span>
-    <button id="btnMainMore" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
+    <div class="home-fixed-row-v31763 home-fixed-row-four-v31763">
+      <button id="btnMainMore" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
+      <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
+      <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
+      <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()">🌙</button>
+    </div>
     <button id="btnMainFav" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-    <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
-    <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-    <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()">🌙</button>
-    <span class="home-row-break-v31762" aria-hidden="true"></span>
     <button class="btn danger delete-btn-v66" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
     <div class="topbar-bottom-row-v66 counter-row-v853">
       <div id="counterInfo" class="counter counter-v66"></div>
@@ -275,7 +277,7 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v3-1-76-2-psalms-ui-polish"></script>
+<script src="app.js?v=v3-1-76-3-psalms-final-polish"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 </body>
 </html>

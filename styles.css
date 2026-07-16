@@ -2824,3 +2824,33 @@ body.home-active-v9019 .home-row-break-v31762{
   padding:0;
   margin:0;
 }
+
+/* ===== v3.1.76.3 - Filas fijas del inicio sin alterar el tamaño original ===== */
+.home-fixed-row-v31763{display:contents}
+body.home-active-v9019 .home-fixed-row-v31763{
+  display:flex;
+  flex:0 0 100%;
+  width:100%;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px;
+  flex-wrap:nowrap;
+  min-width:0;
+}
+body.home-active-v9019 .home-fixed-row-v31763 > .btn{
+  flex:0 0 auto;
+  width:auto;
+  min-width:0;
+  max-width:none;
+}
+body.home-active-v9019 .home-fixed-row-four-v31763 #btnTheme{
+  flex:0 0 56px;
+  width:56px;
+  min-width:56px;
+  max-width:56px;
+}
+@media(max-width:420px){
+  body.home-active-v9019 .home-fixed-row-v31763{gap:6px}
+  body.home-active-v9019 .home-fixed-row-v31763 > .btn{padding-left:9px;padding-right:9px}
+  body.home-active-v9019 .home-fixed-row-four-v31763 #btnTheme{flex-basis:50px;width:50px;min-width:50px;max-width:50px}
+}

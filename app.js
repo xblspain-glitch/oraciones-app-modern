@@ -9571,3 +9571,76 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     setTimeout(refreshPsalmsUiV31761, 0);
   }
 })();
+
+/* ===== v3.1.76.3 - Nuevo salmo real y limpieza de borradores heredados ===== */
+(function(){
+  if(window.__v31763PsalmCreationFix) return;
+  window.__v31763PsalmCreationFix = true;
+
+  function normalizePsalmDraftV31763(item){
+    try{
+      if(!item || typeof section === 'undefined' || section !== 'psalms') return item;
+      var legacy = item.title === 'Nueva referencia' || item.reference === 'Nueva referencia';
+      if(legacy){
+        item.title = 'Nuevo salmo';
+        if('reference' in item) delete item.reference;
+        item.isNewItem = true;
+        item.updatedAt = Date.now();
+        if(typeof saveState === 'function') saveState();
+      }
+    }catch(e){ console.error('normalizePsalmDraftV31763', e); }
+    return item;
+  }
+
+  var oldNewItemV31763 = window.newItem || (typeof newItem !== 'undefined' ? newItem : null);
+  window.newItem = function(){
+    if(typeof section === 'undefined' || section !== 'psalms'){
+      return typeof oldNewItemV31763 === 'function' ? oldNewItemV31763.apply(this, arguments) : undefined;
+    }
+    try{
+      if(typeof setActiveView === 'function') setActiveView('new');
+      var id = typeof uid === 'function' ? uid() : String(Date.now());
+      var item = {id:id,title:'Nuevo salmo',content:'',updatedAt:Date.now(),favorite:false,isNewItem:true};
+      var items = typeof getItems === 'function' ? getItems() : [];
+      items.unshift(item);
+      if(typeof setItems === 'function') setItems(items);
+      if(typeof setCurrentId === 'function') setCurrentId(id);
+      if(typeof saveState === 'function') saveState();
+      if(typeof renderList === 'function') renderList();
+      if(typeof renderReader === 'function') renderReader();
+      if(typeof openEditor === 'function') openEditor();
+    }catch(err){
+      console.error('new psalm v3.1.76.3', err);
+      alert('No se pudo crear el salmo.');
+    }
+  };
+  try{ newItem = window.newItem; }catch(e){}
+
+  var oldOpenEditorV31763 = window.openEditor || (typeof openEditor !== 'undefined' ? openEditor : null);
+  window.openEditor = function(){
+    if(typeof section !== 'undefined' && section === 'psalms'){
+      try{ normalizePsalmDraftV31763(typeof currentItem === 'function' ? currentItem() : null); }catch(e){}
+    }
+    return typeof oldOpenEditorV31763 === 'function' ? oldOpenEditorV31763.apply(this, arguments) : undefined;
+  };
+  try{ openEditor = window.openEditor; }catch(e){}
+
+  function repairExistingPsalmDraftsV31763(){
+    try{
+      if(typeof state === 'undefined' || !state || !Array.isArray(state.psalms)) return;
+      var changed=false;
+      state.psalms.forEach(function(item){
+        if(item && (item.title==='Nueva referencia' || item.reference==='Nueva referencia')){
+          item.title='Nuevo salmo';
+          if('reference' in item) delete item.reference;
+          item.isNewItem=true;
+          item.updatedAt=Date.now();
+          changed=true;
+        }
+      });
+      if(changed && typeof saveState === 'function') saveState();
+    }catch(e){ console.error('repairExistingPsalmDraftsV31763', e); }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', repairExistingPsalmDraftsV31763);
+  else setTimeout(repairExistingPsalmDraftsV31763,0);
+})();
