@@ -9665,22 +9665,31 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 
   var PSALM_CATEGORIES_V3177 = [
     {id:'', icon:'', label:'Sin categoría'},
-    {id:'alabanza', icon:'🙌🏾', label:'Alabanza'},
-    {id:'adoracion', icon:'✨', label:'Adoración'},
-    {id:'gratitud', icon:'🌅', label:'Gratitud'},
-    {id:'confianza', icon:'🌿', label:'Confianza'},
-    {id:'proteccion', icon:'🛡️', label:'Protección'},
-    {id:'arrepentimiento', icon:'🙏🏾', label:'Arrepentimiento'},
-    {id:'consuelo', icon:'🕊️', label:'Consuelo y paz'},
+    {id:'alabanza_adoracion', icon:'🙌🏾', label:'Alabanza y adoración'},
+    {id:'amor', icon:'❤️', label:'Amor'},
+    {id:'salvacion_vida_eterna', icon:'✝️', label:'Salvación y vida eterna'},
+    {id:'consagracion_santidad', icon:'🤍', label:'Consagración y santidad'},
+    {id:'confianza_entrega', icon:'💚', label:'Confianza y entrega'},
+    {id:'arrepentimiento_perdon', icon:'🙏🏾', label:'Arrepentimiento y perdón'},
+    {id:'proteccion', icon:'🫂', label:'Protección'},
+    {id:'paz_consuelo', icon:'🕊️', label:'Paz y consuelo'},
     {id:'fortaleza', icon:'💪🏾', label:'Fortaleza'},
-    {id:'esperanza', icon:'🌤️', label:'Esperanza'},
-    {id:'suplica', icon:'🤲🏾', label:'Súplica y auxilio'},
-    {id:'sabiduria', icon:'📚', label:'Sabiduría'},
-    {id:'justicia', icon:'⚖️', label:'Justicia'},
-    {id:'reinado', icon:'👑', label:'Reinado de Dios'},
-    {id:'creacion', icon:'🌍', label:'Creación'},
-    {id:'victoria', icon:'⚔️', label:'Victoria'},
-    {id:'peregrinacion', icon:'🛤️', label:'Camino y peregrinación'}
+    {id:'fe_esperanza', icon:'✨', label:'Fe y esperanza'},
+    {id:'gratitud', icon:'🤲🏾', label:'Gratitud'},
+    {id:'sabiduria_ensenanza', icon:'📖', label:'Sabiduría y enseñanza'},
+    {id:'guia_voluntad', icon:'🧭', label:'Guía y voluntad de Dios'},
+    {id:'justicia_juicio', icon:'⚖️', label:'Justicia y juicio'},
+    {id:'reino_soberania', icon:'👑', label:'Reino y soberanía de Dios'},
+    {id:'espiritu_santo', icon:'🔥', label:'Espíritu Santo'},
+    {id:'creacion_grandeza', icon:'🌍', label:'Creación y grandeza de Dios'},
+    {id:'familia_hogar', icon:'👨‍👩‍👧‍👦', label:'Familia y hogar'},
+    {id:'projimo_servicio_misericordia', icon:'🤝', label:'Prójimo, servicio y misericordia'},
+    {id:'sanacion_salud', icon:'🌿', label:'Sanación y salud'},
+    {id:'lucha_tentacion', icon:'🪨', label:'Lucha espiritual y tentación'},
+    {id:'manana_nuevo_dia', icon:'🌅', label:'Mañana y nuevo día'},
+    {id:'noche_descanso', icon:'🌙', label:'Noche y descanso'},
+    {id:'iglesia_pueblo', icon:'⛪', label:'Iglesia y pueblo de Dios'},
+    {id:'mision_evangelizacion', icon:'🕯️', label:'Misión y evangelización'}
   ];
   window.PSALM_CATEGORIES_V3177=PSALM_CATEGORIES_V3177;
   window.psalmCategoryMetaV3177=function(id){
@@ -9694,6 +9703,40 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
         if(item && typeof item.category!=='string') item.category='';
       });
     }catch(e){ console.error('ensurePsalmCategoryFieldV3177',e); }
+  }
+
+  var CATEGORY_MIGRATION_V3179 = {
+    alabanza:'alabanza_adoracion',
+    adoracion:'alabanza_adoracion',
+    confianza:'confianza_entrega',
+    arrepentimiento:'arrepentimiento_perdon',
+    consuelo:'paz_consuelo',
+    esperanza:'fe_esperanza',
+    suplica:'fe_esperanza',
+    sabiduria:'sabiduria_ensenanza',
+    justicia:'justicia_juicio',
+    reinado:'reino_soberania',
+    creacion:'creacion_grandeza',
+    victoria:'fortaleza',
+    peregrinacion:'guia_voluntad'
+  };
+  function migrateSharedCategoriesV3179(){
+    try{
+      if(!state) return;
+      var changed=false;
+      ['psalms','prayers'].forEach(function(key){
+        var list=Array.isArray(state[key]) ? state[key] : [];
+        list.forEach(function(item){
+          if(!item) return;
+          var current=String(item.category||'');
+          if(CATEGORY_MIGRATION_V3179[current]){
+            item.category=CATEGORY_MIGRATION_V3179[current];
+            changed=true;
+          }
+        });
+      });
+      if(changed && typeof saveState==='function') saveState();
+    }catch(e){ console.error('migrateSharedCategoriesV3179',e); }
   }
 
   function buildPsalmCategoryEditorV3177(){
@@ -9783,6 +9826,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 
   function initV3177(){
     ensurePsalmCategoryFieldV3177();
+    migrateSharedCategoriesV3179();
     buildPsalmCategoryEditorV3177();
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3177);
