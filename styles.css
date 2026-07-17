@@ -3389,6 +3389,19 @@ body.routine-reading-normal-v3194 #readerView{
 .routine-progress-v3194 strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.9rem;color:var(--olive,#5e7352)}
 .routine-progress-v3194 span{display:block;margin-top:3px;font-size:.78rem;color:var(--muted)}
 .routine-normal-nav-v3194 .btn{margin:0;white-space:nowrap}
+/* V3.1.95 — La botonera de la rutina se oculta junto con la barra superior */
+.routine-normal-nav-v3194{
+  transition:opacity .22s ease, transform .22s ease, visibility .22s ease;
+}
+body.fullscreen-reading.hide-reading-ui.routine-reading-normal-v3194 .routine-normal-nav-v3194{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translate(-50%,18px);
+}
+body.fullscreen-reading.hide-reading-ui.routine-reading-normal-v3194 #readerView{
+  padding-bottom:48px;
+}
 @media(max-width:620px){
   body.routine-reading-normal-v3194 #readerView{padding-bottom:calc(154px + env(safe-area-inset-bottom))}
   .routine-normal-nav-v3194{grid-template-columns:1fr 1fr 1fr;gap:7px}

@@ -1,4 +1,4 @@
-/* Oraciones V3.1.94 — Rutinas con el lector habitual */
+/* Oraciones V3.1.95 — Rutinas con lector habitual y controles ocultables */
 (function(){
   'use strict';
   if(window.__dailyRoutinesV3192Installed) return;
