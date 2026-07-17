@@ -1,4 +1,4 @@
-/* Oraciones V3.1.95 — Rutinas con lector habitual y controles ocultables */
+/* Oraciones V3.1.96 — Manos oscuras y títulos completos en rutinas */
 (function(){
   'use strict';
   if(window.__dailyRoutinesV3192Installed) return;
@@ -46,7 +46,7 @@
   }
   function findItem(ref){return byType(ref.type).find(function(x){return String(x.id)===String(ref.id);})||null;}
   function typeMeta(type){
-    if(type==='prayers') return {icon:'🙏',sing:'Oración',plural:'Oraciones'};
+    if(type==='prayers') return {icon:'🙏🏿',sing:'Oración',plural:'Oraciones'};
     if(type==='psalms') return {icon:'♫',sing:'Salmo',plural:'Salmos'};
     return {icon:'✨',sing:'Versículo',plural:'Versículos'};
   }
