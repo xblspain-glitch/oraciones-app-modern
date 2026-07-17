@@ -277,7 +277,17 @@
     openRoutineItemInNormalReaderV3194();
   };
   window.routinePrevV3192=function(){
-    if(readingIndex>0){ readingIndex--; openRoutineItemInNormalReaderV3194(); }
+    if(readingIndex>0){
+      readingIndex--;
+      var refs=routineRefsV3194();
+      var previousRef=refs[readingIndex];
+      // Si se vuelve atrás hasta un grupo de oraciones, se pregunta de nuevo
+      // para permitir cambiar la elección hecha anteriormente.
+      if(previousRef && (previousRef.type==='prayerChoice' || previousRef.type==='dailyPrayer')){
+        delete routineChoiceSelectionV3198[readingIndex];
+      }
+      openRoutineItemInNormalReaderV3194();
+    }
   };
   window.routineNextV3192=function(){
     var refs=routineRefsV3194();
