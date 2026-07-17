@@ -1,4 +1,4 @@
-/* Oraciones V3.1.98 — Grupos de elección de oraciones en Día/Noche */
+/* Oraciones V3.1.99 — Grupo de oraciones genérico en Día/Noche */
 (function(){
   'use strict';
   if(window.__dailyRoutinesV3192Installed) return;
@@ -17,7 +17,7 @@
       if(!Array.isArray(d[k])) d[k]=[];
       d[k]=d[k].filter(function(x){return x&&['prayers','psalms','verses','dailyPrayer','prayerChoice'].indexOf(x.type)>=0&&x.id;})
         .map(function(x){
-          if(x.type==='prayerChoice') return {type:'prayerChoice',id:String(x.id),title:String(x.title||'Elegir oración'),options:Array.isArray(x.options)?x.options.map(String).filter(Boolean):[]};
+          if(x.type==='prayerChoice') return {type:'prayerChoice',id:String(x.id),title:'Grupo de oraciones',options:Array.isArray(x.options)?x.options.map(String).filter(Boolean):[]};
           return {type:x.type,id:String(x.id)};
         }).filter(function(x){return x.type!=='prayerChoice'||x.options.length>=2;});
     });
@@ -48,17 +48,17 @@
       return Array.isArray(state.verses)?state.verses:[];
     }catch(e){return [];}
   }
-  function findItem(ref){if(ref&&ref.type==='dailyPrayer')return {id:'daily-prayer-choice',title:'ORACIÓN DIARIA'};if(ref&&ref.type==='prayerChoice')return {id:ref.id,title:ref.title||'ELEGIR ORACIÓN'};return byType(ref.type).find(function(x){return String(x.id)===String(ref.id);})||null;}
+  function findItem(ref){if(ref&&ref.type==='dailyPrayer')return {id:'legacy-daily-prayer',title:'GRUPO DE ORACIONES'};if(ref&&ref.type==='prayerChoice')return {id:ref.id,title:'GRUPO DE ORACIONES'};return byType(ref.type).find(function(x){return String(x.id)===String(ref.id);})||null;}
   function typeMeta(type){
     if(type==='prayers') return {icon:'🙏🏾',sing:'Oración',plural:'Oraciones'};
-    if(type==='dailyPrayer') return {icon:'🌅',sing:'Oración diaria',plural:'Oraciones diarias'};
-    if(type==='prayerChoice') return {icon:'🎯',sing:'Elegir oración',plural:'Grupos de oración'};
+    if(type==='dailyPrayer') return {icon:'🕯️',sing:'Grupo de oraciones',plural:'Grupos de oraciones'};
+    if(type==='prayerChoice') return {icon:'🕯️',sing:'Grupo de oraciones',plural:'Grupos de oraciones'};
     if(type==='psalms') return {icon:'♫',sing:'Salmo',plural:'Salmos'};
     return {icon:'✨',sing:'Versículo',plural:'Versículos'};
   }
   function itemTitle(item,type){
-    if(type==='dailyPrayer') return 'ORACIÓN DIARIA';
-    if(type==='prayerChoice') return (item&&item.title)||'ELEGIR ORACIÓN';
+    if(type==='dailyPrayer') return 'GRUPO DE ORACIONES';
+    if(type==='prayerChoice') return 'GRUPO DE ORACIONES';
     if(!item) return 'Contenido no disponible';
     return type==='verses'?(item.reference||item.title||'Versículo'):(item.title||item.reference||(type==='psalms'?'Salmo':'Oración'));
   }
@@ -74,13 +74,13 @@
     var modal=document.getElementById('prayerChoiceModalV3198');
     if(modal)return modal;
     modal=document.createElement('div');modal.id='prayerChoiceModalV3198';modal.className='routine-daily-modal-v3197 hidden';
-    modal.innerHTML='<div class="routine-daily-card-v3197"><div class="routine-daily-cross-v3197">✝</div><h2 id="prayerChoiceHeadingV3198">🎯 Elegir oración</h2><p>¿Cuál desea orar en este momento?</p><div id="prayerChoiceListV3198" class="routine-daily-options-v3197"></div><button type="button" class="btn soft" onclick="closePrayerChoiceV3198()">Cancelar</button></div>';
+    modal.innerHTML='<div class="routine-daily-card-v3197"><div class="routine-daily-cross-v3197">✝</div><h2 id="prayerChoiceHeadingV3198">🕯️ Elija una oración</h2><p>Seleccione cuál desea orar en este momento.</p><div id="prayerChoiceListV3198" class="routine-daily-options-v3197"></div><button type="button" class="btn soft" onclick="closePrayerChoiceV3198()">Cancelar</button></div>';
     document.body.appendChild(modal);return modal;
   }
   window.closePrayerChoiceV3198=function(){var m=document.getElementById('prayerChoiceModalV3198');if(m)m.classList.add('hidden');};
   function promptPrayerChoiceV3198(ref){
     var modal=ensurePrayerChoiceModalV3198(), box=document.getElementById('prayerChoiceListV3198'), heading=document.getElementById('prayerChoiceHeadingV3198');
-    if(heading)heading.textContent='🎯 '+String(ref.title||'Elegir oración');
+    if(heading)heading.textContent='🕯️ Elija una oración';
     box.innerHTML='';
     (ref.options||[]).forEach(function(id){
       var item=byType('prayers').find(function(p){return String(p.id)===String(id);});
@@ -160,20 +160,20 @@
   function prayerChoiceSelectedV3198(id){return prayerChoiceDraftV3198.indexOf(String(id))>=0;}
   function renderPrayerChoiceCategoriesV3198(){
     var title=document.getElementById('routineChoiceTitleV3192'),box=document.getElementById('routineChoiceListV3192');
-    title.textContent='🎯 Elegir oraciones · '+prayerChoiceDraftV3198.length+' seleccionadas';title.onclick=null;box.innerHTML='';
+    title.textContent='🕯️ Crear grupo de oraciones · '+prayerChoiceDraftV3198.length+' seleccionadas';title.onclick=null;box.innerHTML='';
     var save=document.createElement('button');save.type='button';save.className='btn primary routine-choice-save-v3198';save.disabled=prayerChoiceDraftV3198.length<2;save.textContent=prayerChoiceDraftV3198.length<2?'Seleccione al menos 2 oraciones':'✓ Añadir grupo ('+prayerChoiceDraftV3198.length+')';save.onclick=savePrayerChoiceGroupV3198;box.appendChild(save);
     var items=byType('prayers'),cats=categoryMeta('prayers'),counts={};items.forEach(function(it){var cs=itemCats(it,'prayers');if(!cs.length)counts['']=(counts['']||0)+1;cs.forEach(function(c){counts[c]=(counts[c]||0)+1;});});
     cats.filter(function(c){return counts[c.id]>0;}).forEach(function(c){var b=document.createElement('button');b.type='button';b.className='routine-choice-v3192';b.innerHTML='<span>'+esc(c.icon||'🙏🏾')+'</span><strong>'+esc(c.label)+'</strong><small>'+counts[c.id]+' disponibles</small>';b.onclick=function(){renderPrayerChoiceItemsV3198(c.id,c.label);};box.appendChild(b);});
     if(counts['']){var b=document.createElement('button');b.type='button';b.className='routine-choice-v3192';b.innerHTML='<span>📁</span><strong>Sin categoría</strong><small>'+counts['']+' disponibles</small>';b.onclick=function(){renderPrayerChoiceItemsV3198('','Sin categoría');};box.appendChild(b);}
   }
   function renderPrayerChoiceItemsV3198(cat,label){
-    var title=document.getElementById('routineChoiceTitleV3192'),box=document.getElementById('routineChoiceListV3192');title.textContent='← '+label+' · '+prayerChoiceDraftV3198.length+' elegidas';title.onclick=renderPrayerChoiceCategoriesV3198;box.innerHTML='';
+    var title=document.getElementById('routineChoiceTitleV3192'),box=document.getElementById('routineChoiceListV3192');title.textContent='← '+label+' · '+prayerChoiceDraftV3198.length+' seleccionadas';title.onclick=renderPrayerChoiceCategoriesV3198;box.innerHTML='';
     var items=byType('prayers').filter(function(it){var cs=itemCats(it,'prayers');return cat?cs.indexOf(cat)>=0:cs.length===0;});
     items.forEach(function(it){var selected=prayerChoiceSelectedV3198(it.id),b=document.createElement('button');b.type='button';b.className='routine-item-choice-v3192 prayer-choice-toggle-v3198'+(selected?' selected-v3198':'');b.innerHTML='<span>'+(selected?'✓':'🙏🏾')+'</span><div><strong>'+esc(itemTitle(it,'prayers'))+'</strong><small>'+(selected?'Seleccionada · pulse para quitar':'Pulse para seleccionar')+'</small></div>';b.onclick=function(){var id=String(it.id),i=prayerChoiceDraftV3198.indexOf(id);if(i>=0)prayerChoiceDraftV3198.splice(i,1);else prayerChoiceDraftV3198.push(id);renderPrayerChoiceItemsV3198(cat,label);};box.appendChild(b);});
   }
   function savePrayerChoiceGroupV3198(){
     if(prayerChoiceDraftV3198.length<2)return;
-    var d=getData(), id='choice-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);d[currentRoutine].push({type:'prayerChoice',id:id,title:'Elegir oración',options:prayerChoiceDraftV3198.slice()});persist(d);closeRoutineAddV3192();renderEditor();if(typeof toast==='function')toast('Grupo de oraciones añadido');
+    var d=getData(), id='choice-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);d[currentRoutine].push({type:'prayerChoice',id:id,title:'Grupo de oraciones',options:prayerChoiceDraftV3198.slice()});persist(d);closeRoutineAddV3192();renderEditor();if(typeof toast==='function')toast('Grupo de oraciones añadido');
   }
 
   function renderCategoryChoices(){
@@ -212,7 +212,7 @@
     if(readingIndex>=refs.length) readingIndex=refs.length-1;
 
     var ref=refs[readingIndex];
-    if(ref&&ref.type==='dailyPrayer'){var legacyOptions=dailyPrayerOptionIdsV3198();ref={type:'prayerChoice',id:'daily-prayer-choice',title:'Oración diaria',options:legacyOptions};}
+    if(ref&&ref.type==='dailyPrayer'){var legacyOptions=dailyPrayerOptionIdsV3198();ref={type:'prayerChoice',id:'legacy-daily-prayer',title:'Grupo de oraciones',options:legacyOptions};}
     if(ref&&ref.type==='prayerChoice'){
       var selectedId=routineChoiceSelectionV3198[readingIndex];
       if(!selectedId){promptPrayerChoiceV3198(ref);return;}
@@ -299,12 +299,15 @@
 
   function init(){
     try{
-      var d=getData(), changed=false, prayers=byType('prayers');
+      var d=getData();
       ['morning','night'].forEach(function(k){d[k]=d[k].map(function(r){
-        if(r.type==='prayers'){var it=prayers.find(function(p){return String(p.id)===String(r.id);});if(it&&normTextV3197(it.title)==='ORACION DIARIA'){var opts=dailyPrayerOptionIdsV3198();if(opts.length>=2){changed=true;return {type:'prayerChoice',id:'daily-prayer-choice',title:'Oración diaria',options:opts};}}}
-        if(r.type==='dailyPrayer'){var opts2=dailyPrayerOptionIdsV3198();if(opts2.length>=2){changed=true;return {type:'prayerChoice',id:'daily-prayer-choice',title:'Oración diaria',options:opts2};}}
+        if(r.type==='dailyPrayer'){
+          var opts=dailyPrayerOptionIdsV3198();
+          if(opts.length>=2)return {type:'prayerChoice',id:'legacy-daily-prayer',title:'Grupo de oraciones',options:opts};
+        }
+        if(r.type==='prayerChoice')return {type:'prayerChoice',id:String(r.id||('choice-'+Date.now())),title:'Grupo de oraciones',options:Array.isArray(r.options)?r.options.map(String).filter(Boolean):[]};
         return r;
-      });});
+      }).filter(function(r){return r.type!=='prayerChoice'||r.options.length>=2;});});
       persist(d);
     }catch(e){}
     var button=document.getElementById('btnDailyRoutinesV3192');if(button)button.classList.remove('hidden');
