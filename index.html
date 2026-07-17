@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v3-1-97-daily-prayer-choice">
+<link rel="stylesheet" href="styles.css?v=v3-1-102-moments-random-groups">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 </head>
 <body>
@@ -55,6 +55,7 @@
     <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
     <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
     <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft" type="button" onclick="openDailyRoutinesV3192()">🌅🌙 Día/Noche</button>
+    <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
       <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
@@ -95,6 +96,27 @@
         <div class="home-phrase-v9019" id="homePhraseV9019">🙏🏾 Que esta palabra fortalezca hoy tu corazón.</div>
       </div>
     </div>
+
+    <div id="momentsHubV31102" class="panel hidden moments-panel-v31102">
+      <div><button class="btn soft" type="button" onclick="closeMomentsV31102()">← Volver</button></div>
+      <div class="moments-title-v31102">🌿 Momentos</div>
+      <div class="moments-sub-v31102">Elija cómo se encuentra o qué necesita. La aplicación le propondrá una oración, un Salmo y un versículo relacionados.</div>
+      <div id="momentsGridV31102" class="moments-grid-v31102"></div>
+    </div>
+
+    <div id="momentPreviewV31102" class="panel hidden moments-panel-v31102">
+      <div><button class="btn soft" type="button" onclick="backMomentsHubV31102()">← Momentos</button></div>
+      <div id="momentPreviewTitleV31102" class="moments-title-v31102"></div>
+      <div id="momentPreviewSubV31102" class="moments-sub-v31102"></div>
+      <div class="moment-preview-actions-v31102">
+        <button id="momentRandomModeV31102" class="btn primary" type="button" onclick="useMomentRandomV31102()">🌿 Propuesta al azar</button>
+        <button id="momentGroupModeV31102" class="btn soft" type="button" onclick="useMomentGroupV31102()">🕯️ Elegir entre un grupo</button>
+        <button class="btn soft" type="button" onclick="regenerateMomentV31102()">↻ Otra propuesta</button>
+      </div>
+      <div id="momentRouteV31102" class="moment-route-v31102"></div>
+      <div class="moment-start-wrap-v31102"><button id="momentStartV31102" class="btn primary" type="button" onclick="startMomentV31102()">▶ Comenzar momento</button></div>
+    </div>
+
     <div id="routineHubV3192" class="panel hidden routine-panel-v3192">
       <div class="routine-head-v3192"><button class="btn soft" type="button" onclick="closeDailyRoutinesV3192()">← Volver</button></div>
       <div class="routine-page-title-v3192">🌅🌙 Día/Noche</div>
@@ -158,6 +180,7 @@
         <button class="btn primary" type="button" onclick="saveCurrent(false,false)">✅ Guardar y volver</button>
         <button class="btn danger" type="button" onclick="discardEditorChanges()">❌ Descartar</button>
         <button class="btn soft" type="button" onclick="openBlockMenu()">📑 Bloque</button>
+        <button class="btn soft" type="button" onclick="openMomentCatalogV31102()">🏷️ Momentos</button>
         <button class="btn soft" type="button" onclick="leaveEditor()">← Volver</button>
         <div id="saveStatus" class="status">Sin cambios</div>
       </div>
@@ -296,6 +319,14 @@
   </div>
 </div>
 
+
+<div id="momentChoiceModalV31102" class="moment-choice-modal-v31102 hidden">
+  <div class="moment-choice-sheet-v31102"><div class="moment-choice-cross-v31102">✝</div><h2 id="momentChoiceHeadingV31102">Elija una propuesta</h2><p style="text-align:center;color:var(--muted)">¿Cuál desea recibir en este momento?</p><div id="momentChoiceListV31102" class="moment-choice-list-v31102"></div></div>
+</div>
+<div id="momentCatalogModalV31102" class="moment-catalog-modal-v31102 hidden">
+  <div class="moment-catalog-sheet-v31102"><h2>🏷️ Catalogar para Momentos</h2><p style="text-align:center;color:var(--muted)">Puede marcar varias categorías. La aplicación utilizará este contenido automáticamente cuando corresponda.</p><div id="momentCatalogListV31102" class="moment-catalog-list-v31102"></div><div class="moment-catalog-actions-v31102"><button class="btn soft" type="button" onclick="closeMomentCatalogV31102()">Cancelar</button><button class="btn primary" type="button" onclick="saveMomentCatalogV31102()">✓ Guardar categorías</button></div></div>
+</div>
+
 <div id="toast" class="toast">Guardado</div>
 
 
@@ -309,6 +340,7 @@
 <script src="app.js?v=v3-1-97-daily-prayer-choice"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v3-1-101-prayer-group-rechoose"></script>
+<script src="moments.js?v=v3-1-102-moments-random-groups"></script>
 </body>
 </html>
 
