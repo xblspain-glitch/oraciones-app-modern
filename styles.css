@@ -3456,3 +3456,51 @@ body.moments-fullscreen-v31102 .topbar{display:none!important}
 .moment-choice-modal-v31102,.moment-catalog-modal-v31102{position:fixed;inset:0;z-index:10020;background:rgba(13,16,24,.72);display:flex;align-items:center;justify-content:center;padding:16px}.moment-choice-modal-v31102.hidden,.moment-catalog-modal-v31102.hidden{display:none!important}.moment-choice-sheet-v31102,.moment-catalog-sheet-v31102{width:min(620px,100%);max-height:88vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:25px;padding:20px;box-shadow:0 20px 70px rgba(0,0,0,.35)}.moment-choice-cross-v31102{text-align:center;font-size:38px}.moment-choice-sheet-v31102 h2,.moment-catalog-sheet-v31102 h2{text-align:center}.moment-choice-list-v31102{display:flex;flex-direction:column;gap:10px}.moment-choice-list-v31102 button{display:flex;align-items:center;gap:13px;text-align:left;padding:15px;border:1px solid var(--line);border-radius:17px;background:var(--bg);color:var(--text)}.moment-choice-list-v31102 button>span{font-size:26px}.moment-choice-list-v31102 button div{display:flex;flex-direction:column;gap:4px}.moment-choice-list-v31102 small{color:var(--muted)}
 .moment-catalog-list-v31102{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin:16px 0}.moment-tag-option-v31102{display:flex;align-items:center;gap:9px;padding:11px;border:1px solid var(--line);border-radius:14px;background:var(--bg);cursor:pointer}.moment-tag-option-v31102 input{width:19px;height:19px}.moment-catalog-actions-v31102{display:flex;justify-content:center;gap:9px;position:sticky;bottom:0;background:var(--panel);padding-top:12px}
 @media(max-width:600px){.moments-grid-v31102{grid-template-columns:1fr}.moments-title-v31102{font-size:26px}.moment-catalog-list-v31102{grid-template-columns:1fr}}
+
+
+/* ===== V3.1.103 — Momentos independiente y lector principal unificado ===== */
+/* Momentos ocupa toda la pantalla de contenido y oculta por completo la lista lateral. */
+body.moments-fullscreen-v31102 .sidebar{display:none!important}
+body.moments-fullscreen-v31102 .main{grid-template-columns:minmax(0,1fr)!important;min-height:100dvh}
+body.moments-fullscreen-v31102 .content{width:100%;max-width:980px;margin:0 auto;padding:14px}
+body.moments-fullscreen-v31102 #list{display:none!important}
+
+/* Cabecera decorativa común del lector. */
+#readerView .reader-identity-v31103{
+  --reader-accent:#2f6fa8;
+  --reader-accent-soft:rgba(83,146,203,.13);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin:5px 0 18px;padding:12px 16px;border-radius:17px;
+  background:var(--reader-accent-soft);border:1px solid color-mix(in srgb,var(--reader-accent) 22%,transparent);
+}
+#readerView .reader-identity-v31103.hidden{display:none!important}
+#readerView .reader-identity-line-v31103{height:1px;flex:1 1 72px;max-width:150px;background:linear-gradient(90deg,transparent,var(--reader-accent))}
+#readerView .reader-identity-line-v31103:last-child{background:linear-gradient(90deg,var(--reader-accent),transparent)}
+#readerView .reader-identity-icon-v31103{
+  display:grid;place-items:center;min-width:38px;height:38px;padding:0 4px;border-radius:50%;
+  color:var(--reader-accent);background:color-mix(in srgb,var(--reader-accent) 11%,white);
+  border:1px solid color-mix(in srgb,var(--reader-accent) 28%,transparent);font-size:1.34rem;font-weight:900;line-height:1;
+}
+#readerView .reader-identity-label-v31103{color:var(--reader-accent);font-size:.84rem;font-weight:850;letter-spacing:.035em;text-transform:uppercase}
+
+#readerView.reader-kind-prayers-v31103 .reader-identity-v31103{--reader-accent:#2f6fa8;--reader-accent-soft:rgba(76,145,205,.14)}
+#readerView.reader-kind-psalms-v31103 .reader-identity-v31103{--reader-accent:#b85f16;--reader-accent-soft:rgba(231,141,56,.15)}
+#readerView.reader-kind-verses-v31103 .reader-identity-v31103{--reader-accent:#76528d;--reader-accent-soft:rgba(151,111,177,.15)}
+#readerView.reader-kind-notes-v31103 .reader-identity-v31103{--reader-accent:#a77908;--reader-accent-soft:rgba(232,190,63,.17)}
+#readerView.reader-kind-neutral-v31103 .reader-identity-v31103{display:none!important}
+
+body.dark #readerView .reader-identity-v31103,body.dark-mode #readerView .reader-identity-v31103{
+  background:color-mix(in srgb,var(--reader-accent) 18%,#171a1d);
+  border-color:color-mix(in srgb,var(--reader-accent) 42%,transparent);
+}
+body.dark #readerView .reader-identity-icon-v31103,body.dark-mode #readerView .reader-identity-icon-v31103{
+  background:color-mix(in srgb,var(--reader-accent) 22%,#171a1d);color:color-mix(in srgb,var(--reader-accent) 72%,white);
+}
+body.dark #readerView .reader-identity-label-v31103,body.dark-mode #readerView .reader-identity-label-v31103{color:color-mix(in srgb,var(--reader-accent) 68%,white)}
+
+@media(max-width:860px){
+  body.moments-fullscreen-v31102 .content{padding:10px}
+  #readerView .reader-identity-v31103{margin-top:2px;padding:10px 12px;gap:8px;border-radius:15px}
+  #readerView .reader-identity-line-v31103{max-width:84px}
+  #readerView .reader-identity-label-v31103{font-size:.78rem}
+}
