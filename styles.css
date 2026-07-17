@@ -3586,3 +3586,19 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 .custom-editor-actions-v31106 button:disabled{opacity:.35}
 .custom-choice-cancel-v31106{width:100%;justify-content:center;margin-top:4px}
 @media(max-width:600px){.custom-moments-heading-v31106{align-items:stretch;flex-direction:column}.custom-editor-item-v31106{padding-right:108px}.custom-editor-actions-v31106 button{width:30px;height:30px}}
+
+
+/* V3.1.107 tweaks */
+.moment-item-actions,.moment-actions,.moment-row-actions{
+  position:absolute;
+  right:12px!important;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.moment-item,.moment-card,.moment-entry{position:relative;padding-right:64px!important;}
+.note-reader,.reader-note,.content-note,.page-note{
+  background:#fffdf6!important;
+}
