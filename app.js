@@ -10301,7 +10301,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   else init();
 })();
 
-/* ===== v3.1.88 - Salmos y versículos recomendados en ventana emergente ===== */
+/* ===== v3.1.89 - Ventanas pulidas y formato original ===== */
 (function(){
   if(window.__v3188RecommendationModalInstalled) return;
   window.__v3188RecommendationModalInstalled=true;
@@ -10363,11 +10363,15 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     }catch(e){return null;}
   }
   function modalTextV3188(text){
-    var raw=String(text||'');
+    var raw=String(text||'').replace(/\r\n?/g,'\n');
+    var formatted='';
     try{
-      if(typeof highlightBibleReferencesV49==='function') return highlightBibleReferencesV49(raw);
-    }catch(e){}
-    return escapeV3188(raw).replace(/\n/g,'<br>');
+      formatted=typeof highlightBibleReferencesV49==='function'
+        ? highlightBibleReferencesV49(raw)
+        : escapeV3188(raw);
+    }catch(e){formatted=escapeV3188(raw);}
+    /* Conserva exactamente los saltos y separaciones del texto original. */
+    return formatted.replace(/\n/g,'<br>');
   }
   function ensureModalV3188(){
     var modal=document.getElementById('recommendationModalV3188');
@@ -10414,6 +10418,8 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       : verseCategoryMetaV3188(item.category);
     var title=isPsalm?(item.title||item.reference||'Salmo'):(item.reference||item.title||'Versículo');
     var content=isPsalm?(item.content||item.text||''):(item.text||item.content||'');
+    modal.classList.toggle('recommendation-psalm-v3189',isPsalm);
+    modal.classList.toggle('recommendation-verse-v3189',!isPsalm);
     modal.querySelector('#recommendationKindV3188').textContent=isPsalm?'📖 Salmo relacionado':'✨ Versículo relacionado';
     modal.querySelector('#recommendationTitleV3188').textContent=title;
     modal.querySelector('#recommendationCategoryV3188').textContent=[categoryMeta.icon||'',categoryMeta.label||''].filter(Boolean).join(' ');
@@ -10481,7 +10487,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       }
       button.addEventListener('click',activate);
       button.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
-    }catch(e){console.error('verse recommendation v3.1.88',e);}
+    }catch(e){console.error('verse recommendation v3.1.89',e);}
   }
   function scheduleV3188(){clearTimeout(pendingTimerV3188);pendingTimerV3188=setTimeout(augmentVerseRecommendationV3188,520);}
   var previousRenderV3188=window.renderReader||(typeof renderReader!=='undefined'?renderReader:null);
