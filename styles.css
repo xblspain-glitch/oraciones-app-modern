@@ -3429,3 +3429,11 @@ body.fullscreen-reading.hide-reading-ui.routine-reading-normal-v3194 #readerView
 .routine-daily-options-v3197 button small{font-size:14px;color:#73786f}
 .routine-daily-options-v3197 button:disabled{opacity:.45}
 @media (prefers-color-scheme:dark){.routine-daily-card-v3197{background:linear-gradient(180deg,#242724,#1e221e);border-color:#475047}.routine-daily-options-v3197 button{background:#2b302b;border-color:#414a41}.routine-daily-options-v3197 button strong{color:#f2f3ef}.routine-daily-options-v3197 button small,.routine-daily-card-v3197 p{color:#b9beb6}}
+
+/* V3.1.98 — grupos de elección de oraciones */
+.routine-type-grid-v3192{grid-template-columns:repeat(2,minmax(0,1fr))}
+.routine-choice-save-v3198{width:100%;margin-bottom:8px;min-height:48px}
+.prayer-choice-toggle-v3198.selected-v3198{border-color:#718967;background:#eef5e9;box-shadow:inset 0 0 0 1px rgba(83,109,73,.2)}
+.prayer-choice-toggle-v3198.selected-v3198>span{color:#58704f;font-weight:900}
+.dark .prayer-choice-toggle-v3198.selected-v3198{background:#33402f;border-color:#718967}
+@media (min-width:620px){.routine-type-grid-v3192{grid-template-columns:repeat(4,minmax(0,1fr))}}
