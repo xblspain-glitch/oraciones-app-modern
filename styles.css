@@ -552,14 +552,14 @@ button.btn.premium-pressing{
 .reader-next-link:hover{background:rgba(47,111,184,.08)}
 
 .reader-next{margin:8px auto 8px;text-align:center}
-.reader-next-label{color:#4f6f95;font-weight:650;margin-bottom:8px}
+.reader-next-label{color:#5d7a2d;font-weight:550;margin-bottom:8px}
 .reader-next-link,.reader-top-link{color:#2f6fb8;font-weight:800;cursor:pointer;display:inline-block;padding:6px 10px;border-radius:10px;transition:background-color .15s ease,transform .09s ease}
 .reader-next-link:hover,.reader-top-link:hover{background:rgba(47,111,184,.08)}
 .reader-next-link:active,.reader-top-link:active{transform:scale(.98) translateY(1px)}
 .reader-top-link{margin-top:8px;color:#5f7086;font-weight:750}
 
 .reader-next{margin:8px auto 8px;text-align:center}
-.reader-next-label{color:#4f6f95;font-weight:650;margin-bottom:8px}
+.reader-next-label{color:#5d7a2d;font-weight:550;margin-bottom:8px}
 .reader-next-link,.reader-top-link{color:#2f6fb8;font-weight:800;cursor:pointer;display:inline-block;padding:6px 10px;border-radius:10px;transition:background-color .15s ease,transform .09s ease}
 .reader-next-link:hover,.reader-top-link:hover{background:rgba(47,111,184,.08)}
 .reader-next-link:active,.reader-top-link:active{transform:scale(.98) translateY(1px)}
@@ -2944,6 +2944,7 @@ body.dark-mode .psalm-category-editor-v3177 label{color:#b9d2ad}
 }
 body.dark .reader-psalm-label-v3182{color:#b9cdec!important}
 body.dark .reader-psalm-link-v3182{color:#d9ebff!important}
+body.dark .reader-next-label{color:#a7c46a!important}
 @media(max-width:420px){
   .reader-next .reader-recommendation-button-v3182{
     width:min(94%,450px)!important;
