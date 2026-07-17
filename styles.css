@@ -3176,3 +3176,77 @@ body.dark-mode .reader-next .reader-verse-link-v3188{
 @media(max-width:620px){
   .recommendation-dialog-v3188::before{width:min(92vw,470px);top:55%;opacity:.30}
 }
+
+
+/* ===== v3.1.90 - Cruz propia y coherencia lavanda del versículo ===== */
+/* La cruz es independiente de la tarjeta compartida. */
+.recommendation-dialog-v3188::before{display:none!important}
+.recommendation-cross-v3190{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 0 8px;
+  border-radius:13px;
+  font-size:1.42rem;
+  line-height:1;
+  font-weight:800;
+  box-shadow:0 5px 14px rgba(0,0,0,.08);
+}
+.recommendation-psalm-v3189 .recommendation-cross-v3190{
+  color:#a85818;
+  background:rgba(255,224,181,.78);
+  border:1px solid rgba(193,105,33,.20);
+}
+.recommendation-verse-v3189 .recommendation-cross-v3190{
+  color:#76518d;
+  background:rgba(231,211,244,.84);
+  border:1px solid rgba(126,82,151,.20);
+}
+/* Recomendación de versículo: título y botón en la misma familia lavanda. */
+.reader-verse-label-v3188{
+  color:#76518d!important;
+}
+.reader-next .reader-verse-link-v3188{
+  color:#68457d!important;
+  background:linear-gradient(180deg,rgba(249,244,253,.99),rgba(235,221,245,.99))!important;
+  border-color:rgba(126,82,151,.28)!important;
+  box-shadow:0 4px 12px rgba(112,73,135,.08)!important;
+}
+/* En el lector emergente del versículo, el botón de retorno también es lavanda. */
+.recommendation-verse-v3189 .recommendation-close-v3188{
+  color:#68457d!important;
+  background:linear-gradient(180deg,rgba(249,244,253,.98),rgba(230,213,242,.98))!important;
+  border-color:rgba(126,82,151,.26)!important;
+}
+.recommendation-verse-v3189 .recommendation-footer-v3188{
+  background:rgba(126,82,151,.035);
+}
+body.dark .recommendation-cross-v3190,
+body.dark-mode .recommendation-cross-v3190{box-shadow:0 5px 14px rgba(0,0,0,.24)}
+body.dark .recommendation-psalm-v3189 .recommendation-cross-v3190,
+body.dark-mode .recommendation-psalm-v3189 .recommendation-cross-v3190{
+  color:#ffc487;background:rgba(138,76,27,.40);border-color:rgba(255,190,125,.24)
+}
+body.dark .recommendation-verse-v3189 .recommendation-cross-v3190,
+body.dark-mode .recommendation-verse-v3189 .recommendation-cross-v3190{
+  color:#e6c4f5;background:rgba(101,61,123,.48);border-color:rgba(216,166,239,.25)
+}
+body.dark .reader-verse-label-v3188,
+body.dark-mode .reader-verse-label-v3188{color:#d9b9e9!important}
+body.dark .reader-next .reader-verse-link-v3188,
+body.dark-mode .reader-next .reader-verse-link-v3188{
+  color:#ead6f4!important;
+  background:rgba(91,55,111,.38)!important;
+  border-color:rgba(190,139,219,.36)!important;
+}
+body.dark .recommendation-verse-v3189 .recommendation-close-v3188,
+body.dark-mode .recommendation-verse-v3189 .recommendation-close-v3188{
+  color:#ead6f4!important;
+  background:rgba(91,55,111,.40)!important;
+  border-color:rgba(190,139,219,.34)!important;
+}
+@media(max-width:620px){
+  .recommendation-cross-v3190{width:38px;height:38px;font-size:1.28rem;margin-bottom:7px}
+}

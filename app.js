@@ -10301,7 +10301,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   else init();
 })();
 
-/* ===== v3.1.89 - Ventanas pulidas y formato original ===== */
+/* ===== v3.1.90 - Ventanas pulidas, paleta lavanda y cruz propia ===== */
 (function(){
   if(window.__v3188RecommendationModalInstalled) return;
   window.__v3188RecommendationModalInstalled=true;
@@ -10384,6 +10384,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       '<div class="recommendation-dialog-v3188" role="dialog" aria-modal="true" aria-labelledby="recommendationTitleV3188">'+
         '<div class="recommendation-head-v3188">'+
           '<div class="recommendation-heading-wrap-v3188">'+
+            '<div class="recommendation-cross-v3190" aria-hidden="true">✝</div>'+
             '<div id="recommendationKindV3188" class="recommendation-kind-v3188"></div>'+
             '<h2 id="recommendationTitleV3188" class="recommendation-title-v3188"></h2>'+
             '<div id="recommendationCategoryV3188" class="recommendation-category-v3188"></div>'+
@@ -10487,7 +10488,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       }
       button.addEventListener('click',activate);
       button.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
-    }catch(e){console.error('verse recommendation v3.1.89',e);}
+    }catch(e){console.error('verse recommendation v3.1.90',e);}
   }
   function scheduleV3188(){clearTimeout(pendingTimerV3188);pendingTimerV3188=setTimeout(augmentVerseRecommendationV3188,520);}
   var previousRenderV3188=window.renderReader||(typeof renderReader!=='undefined'?renderReader:null);
