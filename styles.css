@@ -3587,18 +3587,68 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 .custom-choice-cancel-v31106{width:100%;justify-content:center;margin-top:4px}
 @media(max-width:600px){.custom-moments-heading-v31106{align-items:stretch;flex-direction:column}.custom-editor-item-v31106{padding-right:108px}.custom-editor-actions-v31106 button{width:30px;height:30px}}
 
-
-/* V3.1.107 tweaks */
-.moment-item-actions,.moment-actions,.moment-row-actions{
-  position:absolute;
-  right:12px!important;
-  top:50%;
-  transform:translateY(-50%);
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+/* ===== V3.1.108 — tarjetas integradas y fondo de Notas casi marfil ===== */
+/* El amarillo de toda la página de Notas queda apenas perceptible. */
+#readerView.reader-kind-notes-v31103{
+  --reader-page-bg:#fffef9;
+  background:var(--reader-page-bg)!important;
 }
-.moment-item,.moment-card,.moment-entry{position:relative;padding-right:64px!important;}
-.note-reader,.reader-note,.content-note,.page-note{
-  background:#fffdf6!important;
+
+/* La tarjeta se compone realmente de: icono | contenido | controles.
+   De este modo las flechas y la cruz siempre quedan dentro de su borde. */
+.moment-route-item-v31102.custom-editor-item-v31106{
+  display:grid!important;
+  grid-template-columns:42px minmax(0,1fr) 38px;
+  align-items:center;
+  column-gap:14px;
+  min-height:132px;
+  padding:14px 12px 14px 16px!important;
+  overflow:hidden;
+}
+.moment-route-item-v31102.custom-editor-item-v31106>span{
+  grid-column:1;
+  width:42px;
+  min-width:42px;
+  margin:0;
+}
+.moment-route-item-v31102.custom-editor-item-v31106>div:not(.custom-editor-actions-v31106){
+  grid-column:2;
+  min-width:0;
+  padding-right:2px;
+}
+.moment-route-item-v31102.custom-editor-item-v31106 .custom-editor-actions-v31106{
+  position:static!important;
+  right:auto!important;
+  grid-column:3;
+  width:38px;
+  min-width:38px;
+  align-self:stretch;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  margin:0;
+}
+.moment-route-item-v31102.custom-editor-item-v31106 .custom-editor-actions-v31106 button{
+  box-sizing:border-box;
+  width:34px;
+  height:34px;
+  min-width:34px;
+  flex:0 0 34px;
+  margin:0;
+  padding:0;
+}
+@media(max-width:600px){
+  .moment-route-item-v31102.custom-editor-item-v31106{
+    grid-template-columns:38px minmax(0,1fr) 34px;
+    min-height:124px;
+    column-gap:10px;
+    padding:12px 10px 12px 13px!important;
+  }
+  .moment-route-item-v31102.custom-editor-item-v31106>span{width:38px;min-width:38px}
+  .moment-route-item-v31102.custom-editor-item-v31106 .custom-editor-actions-v31106{width:34px;min-width:34px}
+  .moment-route-item-v31102.custom-editor-item-v31106 .custom-editor-actions-v31106 button{
+    width:30px;height:30px;min-width:30px;flex-basis:30px;
+  }
 }
