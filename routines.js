@@ -1,4 +1,4 @@
-/* Oraciones V3.1.93 — Día/Noche en pantalla independiente */
+/* Oraciones V3.1.94 — Rutinas con el lector habitual */
 (function(){
   'use strict';
   if(window.__dailyRoutinesV3192Installed) return;
@@ -137,17 +137,95 @@
   }
   function addRoutineItem(id){var d=getData();d[currentRoutine].push({type:selectorType,id:String(id)});persist(d);closeRoutineAddV3192();renderEditor();if(typeof toast==='function')toast(typeMeta(selectorType).sing+' añadido a la rutina');}
 
-  window.startRoutineV3192=function(){var refs=getData()[currentRoutine];if(!refs.length)return;readingIndex=0;renderRoutineReading();showOnly('routineReaderV3192');};
-  function renderRoutineReading(){
-    var refs=getData()[currentRoutine],ref=refs[readingIndex],item=ref?findItem(ref):null,meta=routineMeta(),tm=ref?typeMeta(ref.type):typeMeta('prayers');
-    var h=document.getElementById('routineReaderRoutineV3192'),pos=document.getElementById('routineReaderPositionV3192'),kind=document.getElementById('routineReaderKindV3192'),title=document.getElementById('routineReaderTitleV3192'),text=document.getElementById('routineReaderTextV3192');
-    if(h)h.textContent=meta.icon+' '+meta.title;if(pos)pos.textContent=(readingIndex+1)+' de '+refs.length;if(kind)kind.textContent=tm.icon+' '+tm.sing;if(title)title.textContent=itemTitle(item,ref.type);
-    var content=item?String(item.content||item.text||''):'Este contenido ya no está disponible.';if(text)text.innerHTML=esc(content).replace(/\n/g,'<br>');
-    var prev=document.getElementById('routinePrevV3192'),next=document.getElementById('routineNextV3192');if(prev)prev.disabled=readingIndex===0;if(next)next.textContent=readingIndex===refs.length-1?'✓ Terminar':'Siguiente →';window.scrollTo({top:0,behavior:'auto'});
+  function removeRoutineNavV3194(){
+    var bar=document.getElementById('routineNormalNavV3194');
+    if(bar) bar.remove();
+    document.body.classList.remove('routine-reading-normal-v3194');
   }
-  window.routinePrevV3192=function(){if(readingIndex>0){readingIndex--;renderRoutineReading();}};
-  window.routineNextV3192=function(){var refs=getData()[currentRoutine];if(readingIndex<refs.length-1){readingIndex++;renderRoutineReading();}else{if(typeof toast==='function')toast('Rutina completada');openRoutineEditorV3192(currentRoutine);}};
-  window.exitRoutineReadingV3192=function(){openRoutineEditorV3192(currentRoutine);};
+
+  function routineRefsV3194(){ return getData()[currentRoutine]||[]; }
+
+  function openRoutineItemInNormalReaderV3194(){
+    var refs=routineRefsV3194();
+    if(!refs.length){ openRoutineEditorV3192(currentRoutine); return; }
+    if(readingIndex<0) readingIndex=0;
+    if(readingIndex>=refs.length) readingIndex=refs.length-1;
+
+    var ref=refs[readingIndex];
+    var item=ref?findItem(ref):null;
+    if(!item){
+      if(readingIndex<refs.length-1){ readingIndex++; openRoutineItemInNormalReaderV3194(); return; }
+      if(typeof toast==='function') toast('Este contenido ya no está disponible');
+      openRoutineEditorV3192(currentRoutine);
+      return;
+    }
+
+    removeRoutineNavV3194();
+    ['routineHubV3192','routineEditorV3192','routineReaderV3192'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.classList.add('hidden');
+    });
+    document.body.classList.remove('routine-fullscreen-v3193');
+
+    try{
+      section=ref.type;
+      state.section=ref.type;
+      if(ref.type==='prayers') state.currentPrayerId=item.id;
+      else if(ref.type==='psalms') state.currentPsalmId=item.id;
+      else state.currentVerseId=item.id;
+      if(ref.type==='verses' && typeof specialVerseMode!=='undefined') specialVerseMode=null;
+      if(typeof saveState==='function') saveState();
+      if(typeof syncTabs==='function') syncTabs();
+      if(typeof renderList==='function') renderList();
+      if(typeof renderReader==='function') renderReader();
+      if(typeof openReader==='function') openReader();
+      var home=document.getElementById('homeView'); if(home) home.classList.add('hidden');
+      if(typeof enterFullscreenReading==='function') enterFullscreenReading();
+    }catch(e){ console.error('Rutina lector habitual',e); }
+
+    document.body.classList.add('routine-reading-normal-v3194');
+    installRoutineNavV3194();
+    window.scrollTo({top:0,behavior:'auto'});
+  }
+
+  function installRoutineNavV3194(){
+    var reader=document.getElementById('readerView');
+    if(!reader) return;
+    var old=document.getElementById('routineNormalNavV3194'); if(old) old.remove();
+    var refs=routineRefsV3194(), meta=routineMeta();
+    var bar=document.createElement('div');
+    bar.id='routineNormalNavV3194';
+    bar.className='routine-normal-nav-v3194';
+    bar.innerHTML='<button class="btn soft routine-exit-v3194" type="button" onclick="exitRoutineReadingV3192()">← Salir</button>'+
+      '<div class="routine-progress-v3194"><strong>'+esc(meta.icon+' '+meta.title)+'</strong><span>'+(readingIndex+1)+' de '+refs.length+'</span></div>'+
+      '<button class="btn soft" type="button" '+(readingIndex===0?'disabled':'')+' onclick="routinePrevV3192()">← Anterior</button>'+
+      '<button class="btn primary" type="button" onclick="routineNextV3192()">'+(readingIndex===refs.length-1?'✓ Terminar':'Siguiente →')+'</button>';
+    reader.appendChild(bar);
+  }
+
+  window.startRoutineV3192=function(){
+    var refs=routineRefsV3194();
+    if(!refs.length) return;
+    readingIndex=0;
+    openRoutineItemInNormalReaderV3194();
+  };
+  window.routinePrevV3192=function(){
+    if(readingIndex>0){ readingIndex--; openRoutineItemInNormalReaderV3194(); }
+  };
+  window.routineNextV3192=function(){
+    var refs=routineRefsV3194();
+    if(readingIndex<refs.length-1){
+      readingIndex++;
+      openRoutineItemInNormalReaderV3194();
+    }else{
+      removeRoutineNavV3194();
+      if(typeof toast==='function') toast('Rutina completada');
+      openRoutineEditorV3192(currentRoutine);
+    }
+  };
+  window.exitRoutineReadingV3192=function(){
+    removeRoutineNavV3194();
+    openRoutineEditorV3192(currentRoutine);
+  };
 
   function init(){
     try{var d=getData();persist(d);}catch(e){}
