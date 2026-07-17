@@ -2921,3 +2921,35 @@ body.dark-mode .psalm-category-editor-v3177 label{color:#b9d2ad}
 @media (max-width:420px){
   .psalm-category-prefix-v3181{font-size:.94em}
 }
+
+/* ===== v3.1.82 - Recomendaciones compactas al final de una oración ===== */
+.reader-next .reader-recommendation-button-v3182{
+  width:min(92%,470px)!important;
+  min-height:0!important;
+  margin:8px auto!important;
+  padding:12px 15px!important;
+  border-radius:15px!important;
+  font-size:.94em!important;
+  line-height:1.28!important;
+}
+.reader-psalm-label-v3182{
+  margin:16px 0 8px!important;
+  color:#4f7199!important;
+  font-weight:800!important;
+  font-size:.96em!important;
+  text-align:center!important;
+}
+.reader-psalm-link-v3182{
+  color:#2f6f9f!important;
+}
+body.dark .reader-psalm-label-v3182{color:#b9cdec!important}
+body.dark .reader-psalm-link-v3182{color:#d9ebff!important}
+@media(max-width:420px){
+  .reader-next .reader-recommendation-button-v3182{
+    width:min(94%,450px)!important;
+    padding:11px 13px!important;
+    border-radius:14px!important;
+    font-size:.91em!important;
+  }
+  .reader-psalm-label-v3182{font-size:.92em!important;margin-top:14px!important}
+}
