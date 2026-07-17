@@ -1,4 +1,4 @@
-/* Oraciones V3.1.104 — Momentos: lectura inmersiva y controles sincronizados */
+/* Oraciones V3.1.105 — Momentos: azar claro y elección por categorías */
 (function(){
   'use strict';
   if(window.__momentsV31102Installed) return;
@@ -87,28 +87,49 @@
       ['prayers','psalms','verses'].forEach(function(type){var tm=typeMeta(type),count=(groupCandidates.find(function(g){return g.type===type;})||{refs:[]}).refs.length,row=document.createElement('div');row.className='moment-route-item-v31102';row.innerHTML='<span>'+tm.icon+'</span><div><small>'+tm.name+'</small><strong>'+count+' propuestas para elegir</strong></div>';box.appendChild(row);});
       start.disabled=groupCandidates.some(function(g){return !g.refs.length;});start.textContent='🕯️ Comenzar eligiendo';
     }
-    var randomBtn=document.getElementById('momentRandomModeV31102'),groupBtn=document.getElementById('momentGroupModeV31102');randomBtn.classList.toggle('primary',mode==='random');randomBtn.classList.toggle('soft',mode!=='random');groupBtn.classList.toggle('primary',mode==='group');groupBtn.classList.toggle('soft',mode!=='group');
+    var randomBtn=document.getElementById('momentRegenerateV31105'),groupBtn=document.getElementById('momentGroupModeV31102');
+    if(randomBtn){randomBtn.classList.toggle('primary',mode==='random');randomBtn.classList.toggle('soft',mode!=='random');}
+    if(groupBtn){groupBtn.classList.toggle('primary',mode==='group');groupBtn.classList.toggle('soft',mode!=='group');}
   }
   window.regenerateMomentV31102=function(){if(!currentMoment)return;mode='random';route=['prayers','psalms','verses'].map(function(t){return chooseOne(t,currentMoment);}).filter(Boolean);renderPreview();};
-  window.useMomentRandomV31102=function(){mode='random';if(!route.length)window.regenerateMomentV31102();else renderPreview();};
+  window.useMomentRandomV31102=function(){window.regenerateMomentV31102();};
   window.useMomentGroupV31102=function(){mode='group';groupCandidates=['prayers','psalms','verses'].map(function(t){return {type:t,refs:chooseGroup(t,currentMoment)};});groupSelection={};renderPreview();};
   window.backMomentsHubV31102=function(){renderHub();showOnly('momentsHubV31102');};
   window.startMomentV31102=function(){routeIndex=0;groupSelection={};openMomentStep();};
   function activeTypes(){return ['prayers','psalms','verses'];}
-  function currentRef(){if(mode==='random')return route[routeIndex]||null;return groupSelection[routeIndex]||null;}
+  function currentRef(){if(mode==='random')return route[routeIndex]||null;var type=activeTypes()[routeIndex];return groupSelection[type]||null;}
   function openMomentStep(){
-    if(mode==='group'&&!groupSelection[routeIndex]){showGroupQuestion();return;}
+    if(mode==='group'&&!groupSelection[activeTypes()[routeIndex]]){showGroupQuestion();return;}
     var ref=currentRef(),it=ref&&findRef(ref);if(!it){if(routeIndex<2){routeIndex++;openMomentStep();}return;}
     removeNav();document.body.classList.remove('moments-fullscreen-v31102');['momentsHubV31102','momentPreviewV31102'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.add('hidden');});
     try{section=ref.type;state.section=ref.type;if(ref.type==='prayers')state.currentPrayerId=it.id;else if(ref.type==='psalms')state.currentPsalmId=it.id;else state.currentVerseId=it.id;if(ref.type==='verses'&&typeof specialVerseMode!=='undefined')specialVerseMode=null;if(typeof saveState==='function')saveState();if(typeof syncTabs==='function')syncTabs();if(typeof renderList==='function')renderList();if(typeof renderReader==='function')renderReader();if(typeof openReader==='function')openReader();var h=document.getElementById('homeView');if(h)h.classList.add('hidden');if(typeof enterFullscreenReading==='function')enterFullscreenReading();}catch(e){console.error(e);}
     remember(ref);document.body.classList.add('moment-reading-v31102');installNav();window.scrollTo({top:0,behavior:'auto'});
   }
   function showGroupQuestion(){
-    var type=activeTypes()[routeIndex],group=groupCandidates.find(function(g){return g.type===type;}),tm=typeMeta(type),modal=document.getElementById('momentChoiceModalV31102'),box=document.getElementById('momentChoiceListV31102'),heading=document.getElementById('momentChoiceHeadingV31102');heading.textContent=currentMoment.icon+' Elija '+(type==='prayers'?'una oración':type==='psalms'?'un Salmo':'un versículo');box.innerHTML='';(group?group.refs:[]).forEach(function(ref){var it=findRef(ref);if(!it)return;var b=document.createElement('button');b.type='button';b.innerHTML='<span>'+tm.icon+'</span><div><strong>'+esc(titleOf(it,type))+'</strong><small>Elegir esta propuesta</small></div>';b.onclick=function(){groupSelection[routeIndex]=ref;modal.classList.add('hidden');openMomentStep();};box.appendChild(b);});modal.classList.remove('hidden');
+    var type=activeTypes()[routeIndex];
+    var group=groupCandidates.find(function(g){return g.type===type;});
+    var tm=typeMeta(type),modal=document.getElementById('momentChoiceModalV31102');
+    var box=document.getElementById('momentChoiceListV31102'),heading=document.getElementById('momentChoiceHeadingV31102');
+    if(!modal||!box||!heading)return;
+    heading.textContent=currentMoment.icon+' Elija '+(type==='prayers'?'una oración':type==='psalms'?'un Salmo':'un versículo');
+    box.innerHTML='';
+    (group?group.refs:[]).forEach(function(ref){
+      var it=findRef(ref);if(!it)return;
+      var b=document.createElement('button');b.type='button';
+      b.innerHTML='<span>'+tm.icon+'</span><div><strong>'+esc(titleOf(it,type))+'</strong><small>Elegir esta propuesta</small></div>';
+      b.addEventListener('click',function(ev){
+        ev.preventDefault();ev.stopPropagation();
+        groupSelection[type]={type:ref.type,id:String(ref.id)};
+        modal.classList.add('hidden');
+        setTimeout(openMomentStep,0);
+      });
+      box.appendChild(b);
+    });
+    modal.classList.remove('hidden');
   }
   function installNav(){var reader=document.getElementById('readerView');if(!reader)return;var bar=document.createElement('div');bar.id='momentNavV31102';bar.className='routine-normal-nav-v3194 moment-nav-v31102';bar.innerHTML='<button class="btn soft" type="button" onclick="exitMomentReadingV31102()">← Salir</button><div class="routine-progress-v3194"><strong>'+esc(currentMoment.icon+' '+currentMoment.title)+'</strong><span>'+(routeIndex+1)+' de 3</span></div><button class="btn soft" type="button" '+(routeIndex===0?'disabled':'')+' onclick="momentPrevV31102()">← Anterior</button><button class="btn primary" type="button" onclick="momentNextV31102()">'+(routeIndex===2?'✓ Terminar':'Siguiente →')+'</button>';reader.appendChild(bar);}
   function removeNav(){var x=document.getElementById('momentNavV31102');if(x)x.remove();document.body.classList.remove('moment-reading-v31102');}
-  window.momentPrevV31102=function(){if(routeIndex>0){routeIndex--;if(mode==='group')delete groupSelection[routeIndex];openMomentStep();}};
+  window.momentPrevV31102=function(){if(routeIndex>0){routeIndex--;if(mode==='group')delete groupSelection[activeTypes()[routeIndex]];openMomentStep();}};
   window.momentNextV31102=function(){if(routeIndex<2){routeIndex++;openMomentStep();}else{removeNav();if(typeof toast==='function')toast('Momento completado');renderPreview();showOnly('momentPreviewV31102');}};
   window.exitMomentReadingV31102=function(){removeNav();var m=document.getElementById('momentChoiceModalV31102');if(m)m.classList.add('hidden');renderPreview();showOnly('momentPreviewV31102');};
 
