@@ -510,7 +510,7 @@ function renderReader(){
   const identity=document.getElementById("readerIdentityV31103");
   const identityIcon=document.getElementById("readerIdentityIconV31103");
   const identityLabel=document.getElementById("readerIdentityLabelV31103");
-  const readerIdentityMeta = section==="prayers" ? {icon:"✝",label:"Oración"} : section==="psalms" ? {icon:"♫",label:"Salmo"} : section==="verses" ? {icon:"✨",label:"Versículo"} : section==="notes" ? {icon:"📝",label:"Nota"} : null;
+  const readerIdentityMeta = section==="prayers" ? {icon:"✝",label:"Oración"} : section==="psalms" ? {icon:"✝",label:"Salmo"} : section==="verses" ? {icon:"✝",label:"Versículo"} : section==="notes" ? {icon:"✝",label:"Guía"} : null;
   if(identity){
     identity.classList.toggle("hidden",!readerIdentityMeta);
     if(readerIdentityMeta){

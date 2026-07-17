@@ -3504,3 +3504,72 @@ body.dark #readerView .reader-identity-label-v31103,body.dark-mode #readerView .
   #readerView .reader-identity-line-v31103{max-width:84px}
   #readerView .reader-identity-label-v31103{font-size:.78rem}
 }
+
+
+/* ===== V3.1.104 — fondos de lectura por tipo y navegación inmersiva en Momentos ===== */
+/* Toda la página de lectura adopta un tono muy suave del color de su sección. */
+#readerView.reader-kind-prayers-v31103{
+  --reader-page-bg:#f1f7fd;
+  background:var(--reader-page-bg)!important;
+}
+#readerView.reader-kind-psalms-v31103{
+  --reader-page-bg:#fff6ec;
+  background:var(--reader-page-bg)!important;
+}
+#readerView.reader-kind-verses-v31103{
+  --reader-page-bg:#f7f1fb;
+  background:var(--reader-page-bg)!important;
+}
+#readerView.reader-kind-notes-v31103{
+  --reader-page-bg:#fffbea;
+  background:var(--reader-page-bg)!important;
+}
+#readerView.reader-kind-prayers-v31103 .panel-head,
+#readerView.reader-kind-psalms-v31103 .panel-head,
+#readerView.reader-kind-verses-v31103 .panel-head,
+#readerView.reader-kind-notes-v31103 .panel-head{
+  background:color-mix(in srgb,var(--reader-page-bg) 94%,white)!important;
+}
+#readerView.reader-kind-prayers-v31103 .reader-text,
+#readerView.reader-kind-psalms-v31103 .reader-text,
+#readerView.reader-kind-verses-v31103 .reader-text,
+#readerView.reader-kind-notes-v31103 .reader-text{
+  background:transparent!important;
+}
+
+/* La misma cruz para Oraciones, Salmos, Versículos y Guía; solo cambia su color. */
+#readerView .reader-identity-icon-v31103{
+  border-radius:50%;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:1.48rem;
+}
+
+/* En Momentos, la barra inferior se oculta y reaparece junto con la superior. */
+body.fullscreen-reading.hide-reading-ui.moment-reading-v31102 .moment-nav-v31102{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translate(-50%,18px);
+}
+body.fullscreen-reading.moment-reading-v31102 .moment-nav-v31102{
+  transition:opacity .22s ease,transform .22s ease,visibility .22s ease;
+}
+body.fullscreen-reading.hide-reading-ui.moment-reading-v31102 #readerView{
+  padding-bottom:48px!important;
+}
+
+/* Tonos equivalentes y cómodos en modo oscuro. */
+body.dark #readerView.reader-kind-prayers-v31103,body.dark-mode #readerView.reader-kind-prayers-v31103{--reader-page-bg:#172431}
+body.dark #readerView.reader-kind-psalms-v31103,body.dark-mode #readerView.reader-kind-psalms-v31103{--reader-page-bg:#2b2119}
+body.dark #readerView.reader-kind-verses-v31103,body.dark-mode #readerView.reader-kind-verses-v31103{--reader-page-bg:#261f2c}
+body.dark #readerView.reader-kind-notes-v31103,body.dark-mode #readerView.reader-kind-notes-v31103{--reader-page-bg:#292616}
+body.dark #readerView.reader-kind-prayers-v31103 .panel-head,
+body.dark #readerView.reader-kind-psalms-v31103 .panel-head,
+body.dark #readerView.reader-kind-verses-v31103 .panel-head,
+body.dark #readerView.reader-kind-notes-v31103 .panel-head,
+body.dark-mode #readerView.reader-kind-prayers-v31103 .panel-head,
+body.dark-mode #readerView.reader-kind-psalms-v31103 .panel-head,
+body.dark-mode #readerView.reader-kind-verses-v31103 .panel-head,
+body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
+  background:color-mix(in srgb,var(--reader-page-bg) 90%,#111)!important;
+}

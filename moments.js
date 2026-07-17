@@ -1,4 +1,4 @@
-/* Oraciones V3.1.102 — Momentos: propuesta automática y grupos opcionales */
+/* Oraciones V3.1.104 — Momentos: lectura inmersiva y controles sincronizados */
 (function(){
   'use strict';
   if(window.__momentsV31102Installed) return;
