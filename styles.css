@@ -3063,3 +3063,13 @@ body.dark .reader-next .reader-top-link,body.dark-mode .reader-next .reader-top-
     width:min(92%,445px)!important;min-height:50px!important;padding:11px 13px!important;font-size:.90em!important;
   }
 }
+
+
+/* ===== v3.1.86 - Encabezado de continuación en verde oliva ===== */
+.reader-next-label{
+  color:#5f7f31!important;
+}
+body.dark .reader-next-label,
+body.dark-mode .reader-next-label{
+  color:#b9d58a!important;
+}
