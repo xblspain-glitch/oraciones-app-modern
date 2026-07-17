@@ -3250,3 +3250,99 @@ body.dark-mode .recommendation-verse-v3189 .recommendation-close-v3188{
 @media(max-width:620px){
   .recommendation-cross-v3190{width:38px;height:38px;font-size:1.28rem;margin-bottom:7px}
 }
+
+/* ===== v3.1.91 - Botón lavanda y adornos finos en recomendaciones ===== */
+/* Fuerza la paleta lavanda del versículo por encima de la regla verde general. */
+.reader-next .reader-recommendation-button-v3182.reader-verse-link-v3188,
+.reader-next .reader-recommendation-button-v3182:not(.reader-psalm-link-v3182).reader-verse-link-v3188{
+  color:#68457d!important;
+  background:linear-gradient(180deg,rgba(249,244,253,.99),rgba(235,221,245,.99))!important;
+  border-color:rgba(126,82,151,.30)!important;
+  box-shadow:0 4px 12px rgba(112,73,135,.10)!important;
+}
+
+/* Pequeña línea ornamental bajo la cruz, independiente del contenido compartido. */
+.recommendation-cross-v3190{
+  position:relative;
+  margin-bottom:17px;
+}
+.recommendation-cross-v3190::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-10px;
+  width:76px;
+  height:1px;
+  transform:translateX(-50%);
+  border-radius:999px;
+  opacity:.52;
+}
+.recommendation-psalm-v3189 .recommendation-cross-v3190::after{
+  background:linear-gradient(90deg,transparent,#c7772d,transparent);
+}
+.recommendation-verse-v3189 .recommendation-cross-v3190::after{
+  background:linear-gradient(90deg,transparent,#8b63a2,transparent);
+}
+
+/* Categoría en una cápsula discreta. */
+.recommendation-category-v3188{
+  display:inline-flex;
+  align-items:center;
+  width:auto;
+  max-width:100%;
+  padding:5px 10px;
+  border-radius:999px;
+  border:1px solid transparent;
+}
+.recommendation-psalm-v3189 .recommendation-category-v3188{
+  color:#78583b;
+  background:rgba(255,226,188,.52);
+  border-color:rgba(193,105,33,.14);
+}
+.recommendation-verse-v3189 .recommendation-category-v3188{
+  color:#705184;
+  background:rgba(231,211,244,.55);
+  border-color:rgba(126,82,151,.14);
+}
+
+/* Separador delicado entre la cabecera y la lectura. */
+.recommendation-head-v3188{
+  position:relative;
+}
+.recommendation-head-v3188::after{
+  content:"";
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:-1px;
+  height:1px;
+  opacity:.70;
+}
+.recommendation-psalm-v3189 .recommendation-head-v3188::after{
+  background:linear-gradient(90deg,transparent,rgba(197,112,35,.42),transparent);
+}
+.recommendation-verse-v3189 .recommendation-head-v3188::after{
+  background:linear-gradient(90deg,transparent,rgba(126,82,151,.38),transparent);
+}
+
+body.dark .reader-next .reader-recommendation-button-v3182.reader-verse-link-v3188,
+body.dark-mode .reader-next .reader-recommendation-button-v3182.reader-verse-link-v3188,
+body.dark .reader-next .reader-recommendation-button-v3182:not(.reader-psalm-link-v3182).reader-verse-link-v3188,
+body.dark-mode .reader-next .reader-recommendation-button-v3182:not(.reader-psalm-link-v3182).reader-verse-link-v3188{
+  color:#ead6f4!important;
+  background:rgba(91,55,111,.40)!important;
+  border-color:rgba(190,139,219,.38)!important;
+}
+body.dark .recommendation-psalm-v3189 .recommendation-category-v3188,
+body.dark-mode .recommendation-psalm-v3189 .recommendation-category-v3188{
+  color:#ffd2a4;background:rgba(138,76,27,.27);border-color:rgba(255,190,125,.20)
+}
+body.dark .recommendation-verse-v3189 .recommendation-category-v3188,
+body.dark-mode .recommendation-verse-v3189 .recommendation-category-v3188{
+  color:#e7caf4;background:rgba(101,61,123,.31);border-color:rgba(216,166,239,.20)
+}
+@media(max-width:620px){
+  .recommendation-cross-v3190{margin-bottom:15px}
+  .recommendation-cross-v3190::after{width:68px;bottom:-9px}
+  .recommendation-category-v3188{padding:4px 9px}
+}
