@@ -3001,3 +3001,65 @@ body.dark .reader-psalm-link-v3182{color:#d9ebff!important}
     line-height:1.28!important;
   }
 }
+
+/* ===== v3.1.85 - Acciones finales por color y tamaño equilibrado ===== */
+.reader-next .reader-recommendation-button-v3182{
+  width:min(90%,455px)!important;
+  min-height:46px!important;
+  margin:7px auto!important;
+  padding:10px 14px!important;
+  border-radius:14px!important;
+  font-size:.86em!important;
+  line-height:1.22!important;
+  border:1px solid transparent!important;
+  box-shadow:0 4px 12px rgba(55,75,95,.08)!important;
+}
+.reader-next .reader-recommendation-button-v3182:not(.reader-psalm-link-v3182){
+  color:#2f7a4d!important;
+  background:linear-gradient(180deg,rgba(234,248,238,.98),rgba(222,242,228,.98))!important;
+  border-color:rgba(66,139,88,.24)!important;
+}
+.reader-psalm-label-v3182{
+  color:#b86b20!important;
+  margin:12px 0 6px!important;
+  font-size:.86em!important;
+  line-height:1.25!important;
+}
+.reader-next .reader-psalm-link-v3182{
+  color:#b45f16!important;
+  background:linear-gradient(180deg,rgba(255,245,230,.99),rgba(255,235,210,.99))!important;
+  border-color:rgba(214,126,43,.27)!important;
+}
+.reader-next .reader-top-link{
+  width:min(90%,455px)!important;
+  min-height:52px!important;
+  margin:9px auto 6px!important;
+  padding:12px 15px!important;
+  border-radius:15px!important;
+  font-size:.92em!important;
+  line-height:1.2!important;
+  color:#2f69a2!important;
+  background:linear-gradient(180deg,rgba(235,244,255,.99),rgba(221,236,252,.99))!important;
+  border:1px solid rgba(54,112,169,.25)!important;
+  box-shadow:0 5px 14px rgba(47,105,162,.10)!important;
+}
+body.dark .reader-next .reader-recommendation-button-v3182:not(.reader-psalm-link-v3182),
+body.dark-mode .reader-next .reader-recommendation-button-v3182:not(.reader-psalm-link-v3182){
+  color:#bfe8cb!important;background:rgba(45,91,59,.30)!important;border-color:rgba(123,199,145,.34)!important;
+}
+body.dark .reader-psalm-label-v3182,body.dark-mode .reader-psalm-label-v3182{color:#f0b36f!important}
+body.dark .reader-next .reader-psalm-link-v3182,body.dark-mode .reader-next .reader-psalm-link-v3182{
+  color:#ffd09e!important;background:rgba(126,71,24,.30)!important;border-color:rgba(238,158,79,.35)!important;
+}
+body.dark .reader-next .reader-top-link,body.dark-mode .reader-next .reader-top-link{
+  color:#c5ddf8!important;background:rgba(42,78,118,.34)!important;border-color:rgba(118,164,214,.35)!important;
+}
+@media(max-width:420px){
+  .reader-next .reader-recommendation-button-v3182{
+    width:min(92%,445px)!important;min-height:45px!important;padding:9px 12px!important;font-size:.84em!important;
+  }
+  .reader-psalm-label-v3182{font-size:.84em!important;margin:11px 0 5px!important}
+  .reader-next .reader-top-link{
+    width:min(92%,445px)!important;min-height:50px!important;padding:11px 13px!important;font-size:.90em!important;
+  }
+}
