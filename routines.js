@@ -168,6 +168,7 @@
   }
   function renderPrayerChoiceItemsV3198(cat,label){
     var title=document.getElementById('routineChoiceTitleV3192'),box=document.getElementById('routineChoiceListV3192');title.textContent='← '+label+' · '+prayerChoiceDraftV3198.length+' elegidas';title.onclick=renderPrayerChoiceCategoriesV3198;box.innerHTML='';
+    var accept=document.createElement('button');accept.type='button';accept.className='btn primary routine-choice-accept-v3200';accept.disabled=prayerChoiceDraftV3198.length<2;accept.textContent=prayerChoiceDraftV3198.length<2?'Seleccione al menos 2 oraciones':'✓ Aceptar grupo ('+prayerChoiceDraftV3198.length+')';accept.onclick=savePrayerChoiceGroupV3198;box.appendChild(accept);
     var items=byType('prayers').filter(function(it){var cs=itemCats(it,'prayers');return cat?cs.indexOf(cat)>=0:cs.length===0;});
     items.forEach(function(it){var selected=prayerChoiceSelectedV3198(it.id),b=document.createElement('button');b.type='button';b.className='routine-item-choice-v3192 prayer-choice-toggle-v3198'+(selected?' selected-v3198':'');b.innerHTML='<span>'+(selected?'✓':'🙏🏾')+'</span><div><strong>'+esc(itemTitle(it,'prayers'))+'</strong><small>'+(selected?'Seleccionada · pulse para quitar':'Pulse para seleccionar')+'</small></div>';b.onclick=function(){var id=String(it.id),i=prayerChoiceDraftV3198.indexOf(id);if(i>=0)prayerChoiceDraftV3198.splice(i,1);else prayerChoiceDraftV3198.push(id);renderPrayerChoiceItemsV3198(cat,label);};box.appendChild(b);});
   }

@@ -3437,3 +3437,8 @@ body.fullscreen-reading.hide-reading-ui.routine-reading-normal-v3194 #readerView
 .prayer-choice-toggle-v3198.selected-v3198>span{color:#58704f;font-weight:900}
 .dark .prayer-choice-toggle-v3198.selected-v3198{background:#33402f;border-color:#718967}
 @media (min-width:620px){.routine-type-grid-v3192{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* V3.1.100 — botón visible para confirmar un grupo de oraciones */
+.routine-choice-accept-v3200{width:100%;min-height:52px;margin:0 0 10px;border-radius:15px;font-size:16px;font-weight:800;position:sticky;top:0;z-index:3;box-shadow:0 6px 16px rgba(50,70,45,.14)}
+.routine-choice-accept-v3200:disabled{opacity:.58;box-shadow:none}
+.dark .routine-choice-accept-v3200{box-shadow:0 6px 18px rgba(0,0,0,.28)}
