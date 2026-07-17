@@ -10174,7 +10174,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== v3.1.82 - Salmo relacionado al finalizar una oración ===== */
+/* ===== v3.1.83 - Corrección de Salmo relacionado al finalizar una oración ===== */
 (function(){
   if(window.__v3182RelatedPsalmInstalled) return;
   window.__v3182RelatedPsalmInstalled=true;
@@ -10201,7 +10201,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   function chooseRelatedPsalm(prayer){
     try{
-      if(!window.state || !Array.isArray(state.psalms) || !state.psalms.length) return null;
+      if(typeof state==='undefined' || !state || !Array.isArray(state.psalms) || !state.psalms.length) return null;
       var cats=prayerCategories(prayer);
       if(!cats.length) return null;
       var available=cats.filter(function(cat){
@@ -10247,11 +10247,10 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       if(!box || box.dataset.v3182PsalmReady==='1') return;
       var prayer=typeof currentItem==='function'?currentItem():null;
       var psalm=chooseRelatedPsalm(prayer);
-      box.dataset.v3182PsalmReady='1';
-
       var prayerButton=box.querySelector('[data-v59d-next]');
       if(prayerButton) prayerButton.classList.add('reader-recommendation-button-v3182');
       if(!psalm) return;
+      box.dataset.v3182PsalmReady='1';
 
       var top=box.querySelector('[data-v59d-top]');
       var label=document.createElement('div');
@@ -10276,7 +10275,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       button.addEventListener('keydown',function(e){
         if(e.key==='Enter'||e.key===' '){e.preventDefault();activate()}
       });
-    }catch(e){console.error('related psalm v3.1.82',e)}
+    }catch(e){console.error('related psalm v3.1.83',e)}
   }
   function scheduleAugment(){
     clearTimeout(pendingTimer);
