@@ -1,4 +1,4 @@
-/* Oraciones V3.1.96 — Manos oscuras y títulos completos en rutinas */
+/* Oraciones V3.1.97 — Oración diaria dinámica y manos tono medio */
 (function(){
   'use strict';
   if(window.__dailyRoutinesV3192Installed) return;
@@ -14,7 +14,7 @@
     var d=value&&typeof value==='object'?value:emptyData();
     ['morning','night'].forEach(function(k){
       if(!Array.isArray(d[k])) d[k]=[];
-      d[k]=d[k].filter(function(x){return x&&['prayers','psalms','verses'].indexOf(x.type)>=0&&x.id;})
+      d[k]=d[k].filter(function(x){return x&&['prayers','psalms','verses','dailyPrayer'].indexOf(x.type)>=0&&x.id;})
         .map(function(x){return {type:x.type,id:String(x.id)};});
     });
     return d;
@@ -44,17 +44,50 @@
       return Array.isArray(state.verses)?state.verses:[];
     }catch(e){return [];}
   }
-  function findItem(ref){return byType(ref.type).find(function(x){return String(x.id)===String(ref.id);})||null;}
+  function findItem(ref){if(ref&&ref.type==='dailyPrayer')return {id:'daily-prayer-choice',title:'ORACIÓN DIARIA'};return byType(ref.type).find(function(x){return String(x.id)===String(ref.id);})||null;}
   function typeMeta(type){
-    if(type==='prayers') return {icon:'🙏🏿',sing:'Oración',plural:'Oraciones'};
+    if(type==='prayers') return {icon:'🙏🏾',sing:'Oración',plural:'Oraciones'};
+    if(type==='dailyPrayer') return {icon:'🌅',sing:'Oración diaria',plural:'Oraciones diarias'};
     if(type==='psalms') return {icon:'♫',sing:'Salmo',plural:'Salmos'};
     return {icon:'✨',sing:'Versículo',plural:'Versículos'};
   }
   function itemTitle(item,type){
+    if(type==='dailyPrayer') return 'ORACIÓN DIARIA';
     if(!item) return 'Contenido no disponible';
     return type==='verses'?(item.reference||item.title||'Versículo'):(item.title||item.reference||(type==='psalms'?'Salmo':'Oración'));
   }
   function routineMeta(){return currentRoutine==='morning'?{icon:'🌅',title:'Rutina de la mañana',sub:'Prepare su recorrido para comenzar el día con Dios.'}:{icon:'🌙',title:'Rutina de la noche',sub:'Prepare su recorrido para terminar el día en la presencia de Dios.'};}
+
+  var dailyPrayerSelectionV3197={};
+  function normTextV3197(v){return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/\s+/g,' ').trim();}
+  function dailyPrayerVariantsV3197(){
+    var wanted=[
+      {key:'full',label:'Oración diaria',icon:'🙏🏾',names:['ORACION DIARIA']},
+      {key:'short',label:'Oración diaria corta',icon:'⚡',names:['ORACION DIARIA CORTA']},
+      {key:'shared',label:'Oración diaria compartida',icon:'📤',names:['ORACION DIARIA COMPARTIDA']}
+    ];
+    var prayers=byType('prayers');
+    return wanted.map(function(w){
+      var item=prayers.find(function(p){var t=normTextV3197(p.title||p.name||'');return w.names.indexOf(t)>=0;})||null;
+      return {key:w.key,label:w.label,icon:w.icon,item:item};
+    });
+  }
+  function ensureDailyPrayerModalV3197(){
+    var modal=document.getElementById('dailyPrayerChoiceModalV3197');
+    if(modal)return modal;
+    modal=document.createElement('div');modal.id='dailyPrayerChoiceModalV3197';modal.className='routine-daily-modal-v3197 hidden';
+    modal.innerHTML='<div class="routine-daily-card-v3197"><div class="routine-daily-cross-v3197">✝</div><h2>🌅 Oración diaria</h2><p>¿Cuál desea leer hoy?</p><div id="dailyPrayerChoiceListV3197" class="routine-daily-options-v3197"></div><button type="button" class="btn soft" onclick="closeDailyPrayerChoiceV3197()">Cancelar</button></div>';
+    document.body.appendChild(modal);return modal;
+  }
+  window.closeDailyPrayerChoiceV3197=function(){var m=document.getElementById('dailyPrayerChoiceModalV3197');if(m)m.classList.add('hidden');};
+  function promptDailyPrayerChoiceV3197(){
+    var modal=ensureDailyPrayerModalV3197(), box=document.getElementById('dailyPrayerChoiceListV3197');
+    box.innerHTML='';dailyPrayerVariantsV3197().forEach(function(v){
+      var b=document.createElement('button');b.type='button';b.disabled=!v.item;b.innerHTML='<span>'+v.icon+'</span><div><strong>'+esc(v.label)+'</strong><small>'+(v.item?'Abrir en el lector habitual':'No encontrada')+'</small></div>';
+      b.onclick=function(){dailyPrayerSelectionV3197[readingIndex]=String(v.item.id);closeDailyPrayerChoiceV3197();openRoutineItemInNormalReaderV3194();};box.appendChild(b);
+    });
+    modal.classList.remove('hidden');
+  }
 
   function hideMainViews(){
     ['homeView','readerView','editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.add('hidden');});
@@ -120,6 +153,13 @@
     var tm=typeMeta(selectorType), title=document.getElementById('routineChoiceTitleV3192'), box=document.getElementById('routineChoiceListV3192');
     if(title)title.textContent=tm.icon+' Elegir categoría de '+tm.plural.toLowerCase();if(!box)return;box.innerHTML='';
     var items=byType(selectorType), cats=categoryMeta(selectorType), counts={};
+    if(selectorType==='prayers'){
+      var existsDynamic=getData()[currentRoutine].some(function(r){return r.type==='dailyPrayer';});
+      var special=document.createElement('button');special.type='button';special.className='routine-choice-v3192'+(existsDynamic?' already-v3192':'');special.disabled=existsDynamic;
+      special.innerHTML='<span>🌅</span><strong>Oración diaria</strong><small>'+(existsDynamic?'Ya está en la rutina':'Elegir versión al iniciar')+'</small>';
+      special.onclick=function(){var d=getData();d[currentRoutine].push({type:'dailyPrayer',id:'daily-prayer-choice'});persist(d);closeRoutineAddV3192();renderEditor();if(typeof toast==='function')toast('Oración diaria añadida a la rutina');};
+      box.appendChild(special);
+    }
     items.forEach(function(it){var cs=itemCats(it,selectorType);if(!cs.length)counts['']=(counts['']||0)+1;cs.forEach(function(c){counts[c]=(counts[c]||0)+1;});});
     cats.filter(function(c){return counts[c.id]>0;}).forEach(function(c){
       var b=document.createElement('button');b.type='button';b.className='routine-choice-v3192';b.innerHTML='<span>'+esc(c.icon||tm.icon)+'</span><strong>'+esc(c.label)+'</strong><small>'+counts[c.id]+' disponibles</small>';b.onclick=function(){renderItemChoices(c.id,c.label);};box.appendChild(b);
@@ -152,6 +192,11 @@
     if(readingIndex>=refs.length) readingIndex=refs.length-1;
 
     var ref=refs[readingIndex];
+    if(ref&&ref.type==='dailyPrayer'){
+      var selectedId=dailyPrayerSelectionV3197[readingIndex];
+      if(!selectedId){promptDailyPrayerChoiceV3197();return;}
+      ref={type:'prayers',id:selectedId};
+    }
     var item=ref?findItem(ref):null;
     if(!item){
       if(readingIndex<refs.length-1){ readingIndex++; openRoutineItemInNormalReaderV3194(); return; }
@@ -206,6 +251,7 @@
     var refs=routineRefsV3194();
     if(!refs.length) return;
     readingIndex=0;
+    dailyPrayerSelectionV3197={};
     openRoutineItemInNormalReaderV3194();
   };
   window.routinePrevV3192=function(){
@@ -218,17 +264,27 @@
       openRoutineItemInNormalReaderV3194();
     }else{
       removeRoutineNavV3194();
+      dailyPrayerSelectionV3197={};
       if(typeof toast==='function') toast('Rutina completada');
       openRoutineEditorV3192(currentRoutine);
     }
   };
   window.exitRoutineReadingV3192=function(){
+    dailyPrayerSelectionV3197={};
+    closeDailyPrayerChoiceV3197();
     removeRoutineNavV3194();
     openRoutineEditorV3192(currentRoutine);
   };
 
   function init(){
-    try{var d=getData();persist(d);}catch(e){}
+    try{
+      var d=getData(), changed=false, prayers=byType('prayers');
+      ['morning','night'].forEach(function(k){d[k]=d[k].map(function(r){
+        if(r.type==='prayers'){var it=prayers.find(function(p){return String(p.id)===String(r.id);});if(it&&normTextV3197(it.title)==='ORACION DIARIA'){changed=true;return {type:'dailyPrayer',id:'daily-prayer-choice'};}}
+        return r;
+      });});
+      persist(d);
+    }catch(e){}
     var button=document.getElementById('btnDailyRoutinesV3192');if(button)button.classList.remove('hidden');
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else setTimeout(init,0);

@@ -3414,3 +3414,18 @@ body.fullscreen-reading.hide-reading-ui.routine-reading-normal-v3194 #readerView
 .routine-item-v3192{align-items:start}
 .routine-kind-v3192,.routine-order-v3192{margin-top:2px}
 .routine-info-v3192 strong{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;display:block!important;-webkit-line-clamp:unset!important;line-clamp:unset!important;max-height:none!important}
+/* V3.1.97 — selector de Oración diaria dentro de rutinas */
+.routine-daily-modal-v3197{position:fixed;inset:0;z-index:10050;background:rgba(22,29,25,.48);display:flex;align-items:center;justify-content:center;padding:22px;backdrop-filter:blur(3px)}
+.routine-daily-modal-v3197.hidden{display:none!important}
+.routine-daily-card-v3197{width:min(92vw,470px);max-height:88vh;overflow:auto;background:linear-gradient(180deg,#fffdf7,#f5f8f2);border:1px solid rgba(93,112,82,.22);border-radius:28px;padding:25px 20px 20px;text-align:center;box-shadow:0 24px 70px rgba(18,28,20,.28)}
+.routine-daily-cross-v3197{font-size:28px;color:#687f5f;margin-bottom:3px}
+.routine-daily-card-v3197 h2{margin:2px 0 5px;color:#58704f;font-size:27px}
+.routine-daily-card-v3197 p{margin:0 0 18px;color:#6d716a;font-size:18px}
+.routine-daily-options-v3197{display:grid;gap:11px;margin-bottom:17px}
+.routine-daily-options-v3197 button{display:flex;align-items:center;gap:14px;width:100%;border:1px solid rgba(108,126,99,.2);background:#fff;border-radius:18px;padding:14px 15px;text-align:left;box-shadow:0 5px 14px rgba(47,63,44,.06)}
+.routine-daily-options-v3197 button>span{font-size:28px;min-width:36px;text-align:center}
+.routine-daily-options-v3197 button div{display:flex;flex-direction:column;gap:3px}
+.routine-daily-options-v3197 button strong{font-size:18px;color:#252b25}
+.routine-daily-options-v3197 button small{font-size:14px;color:#73786f}
+.routine-daily-options-v3197 button:disabled{opacity:.45}
+@media (prefers-color-scheme:dark){.routine-daily-card-v3197{background:linear-gradient(180deg,#242724,#1e221e);border-color:#475047}.routine-daily-options-v3197 button{background:#2b302b;border-color:#414a41}.routine-daily-options-v3197 button strong{color:#f2f3ef}.routine-daily-options-v3197 button small,.routine-daily-card-v3197 p{color:#b9beb6}}
