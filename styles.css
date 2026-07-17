@@ -3103,3 +3103,17 @@ body.dark .reader-next .reader-verse-link-v3188,body.dark-mode .reader-next .rea
   .recommendation-title-v3188{font-size:1.14rem}
   .reader-verse-label-v3188{font-size:.84em!important;margin:11px 0 5px!important}
 }
+
+
+/* v3.1.89 popup polish */
+.reader-popup-card-v908{
+ background:#fff4de !important;
+ background-image:radial-gradient(circle at center, rgba(210,170,90,.10) 0, rgba(210,170,90,0) 60%) !important;
+}
+.reader-popup-content-v908{
+ white-space:pre-wrap !important;
+}
+.reader-popup-card-v908 .verse-related{
+ background:#eef0ff!important;
+ color:#4b57a6!important;
+}
