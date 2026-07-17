@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v3-1-92-day-night">
+<link rel="stylesheet" href="styles.css?v=v3-1-93-day-night-screen">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 </head>
 <body>
@@ -54,7 +54,7 @@
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
     <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
-    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft" type="button" onclick="openDailyRoutinesV3192()">🌅🌙 Día y noche</button>
+    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft" type="button" onclick="openDailyRoutinesV3192()">🌅🌙 Día/Noche</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
       <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
@@ -97,7 +97,7 @@
     </div>
     <div id="routineHubV3192" class="panel hidden routine-panel-v3192">
       <div class="routine-head-v3192"><button class="btn soft" type="button" onclick="closeDailyRoutinesV3192()">← Volver</button></div>
-      <div class="routine-page-title-v3192">🌅🌙 Día y noche</div>
+      <div class="routine-page-title-v3192">🌅🌙 Día/Noche</div>
       <div class="routine-page-sub-v3192">Cree sus recorridos personales de oración para comenzar y terminar cada día.</div>
       <div class="routine-hub-grid-v3192">
         <button class="routine-hub-card-v3192 morning-v3192" type="button" onclick="openRoutineEditorV3192('morning')"><span class="routine-hub-icon-v3192">🌅</span><strong>Mañana</strong><small id="routineMorningCountV3192">Sin configurar</small></button>
@@ -106,7 +106,7 @@
     </div>
 
     <div id="routineEditorV3192" class="panel hidden routine-panel-v3192">
-      <div class="routine-head-v3192"><button class="btn soft" type="button" onclick="backRoutineHubV3192()">← Día y noche</button><button class="btn primary" type="button" onclick="openRoutineAddMenuV3192()">➕ Añadir</button><button id="routineStartBtnV3192" class="btn soft routine-start-v3192" type="button" onclick="startRoutineV3192()">▶ Iniciar rutina</button></div>
+      <div class="routine-head-v3192"><button class="btn soft" type="button" onclick="backRoutineHubV3192()">← Día/Noche</button><button class="btn primary" type="button" onclick="openRoutineAddMenuV3192()">➕ Añadir</button><button id="routineStartBtnV3192" class="btn soft routine-start-v3192" type="button" onclick="startRoutineV3192()">▶ Iniciar rutina</button></div>
       <div id="routineEditorTitleV3192" class="routine-page-title-v3192"></div><div id="routineEditorSubV3192" class="routine-page-sub-v3192"></div><div id="routineListV3192" class="routine-list-v3192"></div>
     </div>
 
@@ -306,9 +306,9 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v3-1-92-day-night"></script>
+<script src="app.js?v=v3-1-93-day-night-screen"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
-<script src="routines.js?v=v3-1-92-day-night"></script>
+<script src="routines.js?v=v3-1-93-day-night-screen"></script>
 </body>
 </html>
 

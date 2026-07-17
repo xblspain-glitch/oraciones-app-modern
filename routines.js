@@ -1,4 +1,4 @@
-/* Oraciones V3.1.92 — Rutinas de día y noche */
+/* Oraciones V3.1.93 — Día/Noche en pantalla independiente */
 (function(){
   'use strict';
   if(window.__dailyRoutinesV3192Installed) return;
@@ -59,9 +59,11 @@
   function hideMainViews(){
     ['homeView','readerView','editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.add('hidden');});
     document.body.classList.remove('fullscreen-reading','reading-mobile','titles-fullscreen-v72','categories-fullscreen-v73','home-active-v9019');
+    document.body.classList.add('routine-fullscreen-v3193');
   }
   function showOnly(id){hideMainViews();['routineHubV3192','routineEditorV3192','routineReaderV3192'].forEach(function(x){var e=document.getElementById(x);if(e)e.classList.toggle('hidden',x!==id);});window.scrollTo({top:0,behavior:'auto'});}
   function closeRoutineViews(){
+    document.body.classList.remove('routine-fullscreen-v3193');
     ['routineHubV3192','routineEditorV3192','routineReaderV3192'].forEach(function(x){var e=document.getElementById(x);if(e)e.classList.add('hidden');});
     if(typeof showHomeV9019==='function') showHomeV9019(); else {var h=document.getElementById('homeView');if(h)h.classList.remove('hidden');}
   }
