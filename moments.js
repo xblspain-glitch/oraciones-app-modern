@@ -1,4 +1,4 @@
-/* Oraciones V3.1.117 — Automático de Momentos corregido */
+/* Oraciones V3.1.119 — Estado de disponibilidad sincronizado */
 (function(){
   'use strict';
   if(window.__momentsV31106Installed) return;
@@ -128,9 +128,27 @@
   window.openMomentsV31102=function(){renderHub();showOnly('momentsHubV31102');};
   window.closeMomentsV31102=function(){removeNav();document.body.classList.remove('moments-fullscreen-v31102','moment-reading-v31102');['momentsHubV31102','momentPreviewV31102'].forEach(function(x){var e=document.getElementById(x);if(e)e.classList.add('hidden');});if(typeof showHomeV9019==='function')showHomeV9019();};
 
+  function availabilityV31119(type,moment){
+    if(type==='prayers')return candidates(type,moment).length>0;
+    var cfg=settingForV31115(moment.id),part=(cfg&&cfg[type])||{mode:'auto',id:''};
+    if(part.mode==='fixed'&&part.id){
+      return items(type).some(function(x){return String(x.id)===String(part.id);});
+    }
+    return candidates(type,moment).length>0;
+  }
+  function availabilityTextV31119(moment){
+    var missing=[];
+    if(!availabilityV31119('prayers',moment))missing.push('oración');
+    if(!availabilityV31119('psalms',moment))missing.push('Salmo');
+    if(!availabilityV31119('verses',moment))missing.push('versículo');
+    if(!missing.length)return {ready:true,text:'Contenido disponible'};
+    if(missing.length===1)return {ready:false,text:'Falta '+missing[0]};
+    if(missing.length===2)return {ready:false,text:'Faltan '+missing[0]+' y '+missing[1]};
+    return {ready:false,text:'Faltan oración, Salmo y versículo'};
+  }
   function renderHub(){
     var box=document.getElementById('momentsGridV31102');if(!box)return;box.innerHTML='';
-    MOMENTS.forEach(function(m){var counts=['prayers','psalms','verses'].map(function(t){return candidates(t,m).length;}),ready=counts.every(function(n){return n>0;}),b=document.createElement('button');b.type='button';b.className='moment-card-v31102'+(ready?'':' incomplete-v31102');b.innerHTML='<span>'+m.icon+'</span><div><strong>'+esc(m.title)+'</strong><small>'+esc(m.sub)+'</small><em>'+(ready?'Contenido disponible':'Falta catalogar algún tipo de contenido')+'</em></div>';b.onclick=function(){prepareMoment(m);};box.appendChild(b);});
+    MOMENTS.forEach(function(m){var availability=availabilityTextV31119(m),ready=availability.ready,b=document.createElement('button');b.type='button';b.className='moment-card-v31102'+(ready?'':' incomplete-v31102');b.innerHTML='<span>'+m.icon+'</span><div><strong>'+esc(m.title)+'</strong><small>'+esc(m.sub)+'</small><em>'+esc(availability.text)+'</em></div>';b.onclick=function(){prepareMoment(m);};box.appendChild(b);});
     var sep=document.createElement('div');sep.className='custom-moments-heading-v31106';sep.innerHTML='<div><strong>✨ Mis momentos</strong><small>Cree recorridos personales con oraciones, Salmos, versículos y grupos.</small></div><button class="btn primary" type="button" onclick="createCustomMomentV31106()">➕ Crear momento</button>';box.appendChild(sep);
     var customs=customData();
     if(!customs.length){var empty=document.createElement('div');empty.className='custom-moments-empty-v31106';empty.innerHTML='<strong>Aún no ha creado ningún momento personal</strong><span>Pulse «Crear momento» para preparar uno a su manera.</span>';box.appendChild(empty);}
