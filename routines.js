@@ -1,4 +1,4 @@
-/* Oraciones V3.1.110 — Selector multicategoría real para grupos Día/Noche */
+/* Oraciones V3.1.111 — Selector multicategoría en Mis momentos y rutina Sabbath */
 (function(){
   'use strict';
   if(window.__dailyRoutinesV3192Installed) return;
@@ -11,10 +11,10 @@
   var prayerChoiceDraftV3198=[];
   var prayerChoiceCategoryDraftV31110=[];
 
-  function emptyData(){ return {morning:[], night:[]}; }
+  function emptyData(){ return {morning:[], sabbath:[], night:[]}; }
   function normalizeData(value){
     var d=value&&typeof value==='object'?value:emptyData();
-    ['morning','night'].forEach(function(k){
+    ['morning','sabbath','night'].forEach(function(k){
       if(!Array.isArray(d[k])) d[k]=[];
       d[k]=d[k].filter(function(x){return x&&['prayers','psalms','verses','dailyPrayer','prayerChoice'].indexOf(x.type)>=0&&x.id;})
         .map(function(x){
@@ -63,7 +63,11 @@
     if(!item) return 'Contenido no disponible';
     return type==='verses'?(item.reference||item.title||'Versículo'):(item.title||item.reference||(type==='psalms'?'Salmo':'Oración'));
   }
-  function routineMeta(){return currentRoutine==='morning'?{icon:'🌅',title:'Rutina de la mañana',sub:'Prepare su recorrido para comenzar el día con Dios.'}:{icon:'🌙',title:'Rutina de la noche',sub:'Prepare su recorrido para terminar el día en la presencia de Dios.'};}
+  function routineMeta(){
+    if(currentRoutine==='morning') return {icon:'🌅',title:'Rutina de la mañana',sub:'Prepare su recorrido para comenzar el día con Dios.'};
+    if(currentRoutine==='sabbath') return {icon:'🕯️',title:'Rutina de Sabbath',sub:'Prepare su recorrido especial para la mañana del sábado.'};
+    return {icon:'🌙',title:'Rutina de la noche',sub:'Prepare su recorrido para terminar el día en la presencia de Dios.'};
+  }
 
   var routineChoiceSelectionV3198={};
   function normTextV3197(v){return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/\s+/g,' ').trim();}
@@ -110,12 +114,13 @@
   };
   function renderHub(){
     var d=getData();
-    var mc=document.getElementById('routineMorningCountV3192'), nc=document.getElementById('routineNightCountV3192');
+    var mc=document.getElementById('routineMorningCountV3192'), sc=document.getElementById('routineSabbathCountV31111'), nc=document.getElementById('routineNightCountV3192');
     if(mc) mc.textContent=d.morning.length?(d.morning.length+' elementos'):'Sin configurar';
+    if(sc) sc.textContent=d.sabbath.length?(d.sabbath.length+' elementos'):'Sin configurar';
     if(nc) nc.textContent=d.night.length?(d.night.length+' elementos'):'Sin configurar';
   }
   window.closeDailyRoutinesV3192=closeRoutineViews;
-  window.openRoutineEditorV3192=function(kind){currentRoutine=kind==='night'?'night':'morning';renderEditor();showOnly('routineEditorV3192');};
+  window.openRoutineEditorV3192=function(kind){currentRoutine=(kind==='night'||kind==='sabbath')?kind:'morning';renderEditor();showOnly('routineEditorV3192');};
   window.backRoutineHubV3192=function(){renderHub();showOnly('routineHubV3192');};
 
   function renderEditor(){
@@ -331,7 +336,7 @@
   function init(){
     try{
       var d=getData(), changed=false, prayers=byType('prayers');
-      ['morning','night'].forEach(function(k){d[k]=d[k].map(function(r){
+      ['morning','sabbath','night'].forEach(function(k){d[k]=d[k].map(function(r){
         if(r.type==='dailyPrayer'){
           var opts=dailyPrayerOptionIdsV3198();
           if(opts.length>=2){changed=true;return {type:'prayerChoice',id:'daily-prayer-choice',title:'Grupo de oraciones',options:opts};}

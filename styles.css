@@ -3659,3 +3659,9 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 .routine-category-toggle-v31110.selected-v3198{border-color:#718967;background:#eef5e9;box-shadow:inset 0 0 0 1px rgba(83,109,73,.2)}
 .routine-category-toggle-v31110.selected-v3198>span{color:#58704f;font-weight:900}
 .dark .routine-category-toggle-v31110.selected-v3198{background:#33402f;border-color:#718967}
+
+/* V3.1.111 — tarjeta independiente para Sabbath */
+.routine-hub-grid-v3192{grid-template-columns:repeat(3,minmax(0,1fr));max-width:940px}
+.sabbath-v31111{background:linear-gradient(145deg,#f4fbf1,#dfeeda)}
+.dark .sabbath-v31111{background:linear-gradient(145deg,#30402e,#42563e)}
+@media(max-width:760px){.routine-hub-grid-v3192{grid-template-columns:1fr}.routine-hub-card-v3192{min-height:165px}}
