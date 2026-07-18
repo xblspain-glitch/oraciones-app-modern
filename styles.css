@@ -3665,3 +3665,12 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 .sabbath-v31111{background:linear-gradient(145deg,#f4fbf1,#dfeeda)}
 .dark .sabbath-v31111{background:linear-gradient(145deg,#30402e,#42563e)}
 @media(max-width:760px){.routine-hub-grid-v3192{grid-template-columns:1fr}.routine-hub-card-v3192{min-height:165px}}
+
+
+/* v3.1.114 — Catálogo de Momentos completamente legible */
+.moment-catalog-modal-v31102{background:rgba(13,16,24,.78)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.moment-catalog-sheet-v31102{background:#ffffff!important;color:#1f2937!important;opacity:1!important;border-color:#d8dee8!important;box-shadow:0 24px 80px rgba(0,0,0,.42)!important}
+.moment-catalog-sheet-v31102 p{color:#5f6875!important}
+.moment-catalog-list-v31102,.moment-catalog-list-v31102 label,.moment-catalog-list-v31102 button{opacity:1!important}
+.moment-catalog-list-v31102 label{background:#ffffff!important;color:#20242b!important;border-color:#d9dee7!important}
+.moment-catalog-actions-v31102{background:#ffffff!important}

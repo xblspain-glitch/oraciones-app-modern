@@ -10199,36 +10199,49 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   function writeRecent(ids){
     try{localStorage.setItem(RECENT_KEY,JSON.stringify((ids||[]).slice(0,12)))}catch(e){}
   }
-  function prayerCategories(item){
+  function inferPrayerCategoriesV3114(item){
     if(!item) return [];
-    var values=Array.isArray(item.categories)?item.categories.slice():[];
-    if(item.category && values.indexOf(item.category)<0) values.unshift(item.category);
+    var values=[];
+    if(Array.isArray(item.momentCategoriesV31102)) values=values.concat(item.momentCategoriesV31102);
+    if(Array.isArray(item.categories)) values=values.concat(item.categories);
+    if(item.category) values.push(item.category);
+    var text=[item.title,item.content,item.text].filter(Boolean).join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    var rules={
+      alabanza:['alaban','ador','gloria','santo es','grandeza'], gratitud:['gracias','agrade','bendicion'],
+      fe:['fe','esperanza','promesa'], salvacion:['salvacion','vida eterna','cristo','jesus','cruz'],
+      agradar:['agradar','obedec','santidad','consagr'], confianza:['confio','confianza','entrego','descanso en'],
+      amor:['amor','amar','corazon'], proteccion:['protege','proteccion','refugio','amparo','guarda'],
+      fortaleza:['fortaleza','fuerza','animo','victoria'], sabiduria:['sabiduria','entendimiento','ensenanza'],
+      guia:['guia','voluntad','camino','direccion'], espiritu:['espiritu santo','espiritu'],
+      servicio:['servir','servicio','misericordia','projimo'], familia:['familia','hijo','hija','esposa','esposo','hogar'],
+      sanacion:['sanacion','sana','salud','enfermedad','dolor'], paz:['paz','consuelo','calma'],
+      arrepentimiento:['arrepent','perdon','pecado'], lucha:['tentacion','lucha espiritual','enemigo','maligno'],
+      ansiedad:['ansiedad','preocupacion','angustia','miedo'], tristeza:['tristeza','desanimo','llanto','soledad'],
+      intercesion:['mundo','naciones','pueblos','interced'], manana:['manana','nuevo dia','amanecer'], noche:['noche','dormir','descanso']
+    };
+    Object.keys(rules).forEach(function(cat){if(rules[cat].some(function(k){return text.indexOf(k)>=0;})) values.push(cat);});
+    var aliases={esperanza:'fe',santidad:'agradar',arrepentimiento_perdon:'arrepentimiento',paz_consuelo:'paz',
+      confianza_entrega:'confianza',salvacion_vida_eterna:'salvacion',guia_voluntad:'guia',espiritu_santo:'espiritu',
+      familia_hogar:'familia',sanacion_salud:'sanacion',lucha_tentacion:'lucha',manana_nuevo_dia:'manana',noche_descanso:'noche'};
     var seen={};
-    return values.map(function(x){return String(x||'').trim()}).filter(function(x){
-      if(!x || seen[x]) return false;
-      seen[x]=true;
-      return true;
-    });
+    return values.map(function(x){var v=String(x||'').trim();return aliases[v]||v;}).filter(function(x){if(!x||seen[x])return false;seen[x]=true;return true;});
   }
+  function prayerCategories(item){ return inferPrayerCategoriesV3114(item); }
   function chooseRelatedPsalm(prayer){
     try{
       if(typeof state==='undefined' || !state || !Array.isArray(state.psalms) || !state.psalms.length) return null;
-      var cats=prayerCategories(prayer);
-      if(!cats.length) return null;
-      var available=cats.filter(function(cat){
-        return state.psalms.some(function(p){return p && String(p.category||'')===cat});
-      });
-      if(!available.length) return null;
-      var chosenCategory=available[Math.floor(Math.random()*available.length)];
-      var recent=readRecent();
-      var pool=state.psalms.filter(function(p){
-        return p && String(p.category||'')===chosenCategory && recent.indexOf(p.id)<0;
-      });
-      if(!pool.length){
-        pool=state.psalms.filter(function(p){return p && String(p.category||'')===chosenCategory});
+      var cats=prayerCategories(prayer), recent=readRecent();
+      var available=cats.filter(function(cat){return state.psalms.some(function(p){return p&&String(p.category||'')===cat;});});
+      var pool=[];
+      if(available.length){
+        var chosenCategory=available[Math.floor(Math.random()*available.length)];
+        pool=state.psalms.filter(function(p){return p&&String(p.category||'')===chosenCategory&&recent.indexOf(p.id)<0;});
+        if(!pool.length) pool=state.psalms.filter(function(p){return p&&String(p.category||'')===chosenCategory;});
       }
-      if(!pool.length) return null;
-      return pool[Math.floor(Math.random()*pool.length)];
+      /* Si no hay una coincidencia exacta, siempre recomienda automáticamente un Salmo disponible. */
+      if(!pool.length) pool=state.psalms.filter(function(p){return p&&recent.indexOf(p.id)<0;});
+      if(!pool.length) pool=state.psalms.filter(Boolean);
+      return pool.length?pool[Math.floor(Math.random()*pool.length)]:null;
     }catch(e){return null}
   }
   function openPsalm(id){
@@ -10332,7 +10345,13 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     projimo_servicio_misericordia:['amor','santidad'], sanacion_salud:['fortaleza','esperanza'],
     lucha_tentacion:['fortaleza','fe','santidad'], manana_nuevo_dia:['esperanza','alabanza'],
     noche_descanso:['descanso','fe'], iglesia_pueblo:['reino','espiritu'],
-    mision_evangelizacion:['salvacion','espiritu','reino']
+    mision_evangelizacion:['salvacion','espiritu','reino'],
+    alabanza:['alabanza'], gratitud:['alabanza'], fe:['fe','esperanza'], salvacion:['salvacion','esperanza'],
+    agradar:['santidad','sabiduria'], confianza:['fe','descanso','esperanza'], proteccion:['fe','fortaleza'],
+    sabiduria:['sabiduria'], guia:['sabiduria','fe'], espiritu:['espiritu'], servicio:['amor','santidad'],
+    familia:['matrimonio','amor'], sanacion:['fortaleza','esperanza'], paz:['descanso','esperanza'],
+    arrepentimiento:['salvacion','santidad'], lucha:['fortaleza','fe','santidad'], ansiedad:['descanso','fe','esperanza'],
+    tristeza:['descanso','esperanza','amor'], intercesion:['amor','reino'], manana:['esperanza','alabanza'], noche:['descanso','fe']
   };
 
   function escapeV3188(value){
@@ -10341,10 +10360,14 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   function prayerCategoriesV3188(item){
     if(!item) return [];
-    var list=Array.isArray(item.categories)?item.categories.slice():[];
-    if(item.category && list.indexOf(item.category)<0) list.unshift(item.category);
-    var seen={};
-    return list.map(function(x){return String(x||'').trim();}).filter(function(x){if(!x||seen[x])return false;seen[x]=true;return true;});
+    var list=[];
+    if(Array.isArray(item.momentCategoriesV31102)) list=list.concat(item.momentCategoriesV31102);
+    if(Array.isArray(item.categories)) list=list.concat(item.categories);
+    if(item.category) list.unshift(item.category);
+    var text=[item.title,item.content,item.text].filter(Boolean).join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    var rules={alabanza:['alaban','ador','gloria'],gratitud:['gracias','agrade'],fe:['fe','esperanza','promesa'],salvacion:['salvacion','vida eterna','cristo','jesus'],agradar:['agradar','obedec','santidad'],confianza:['confio','confianza','entrego'],amor:['amor','amar'],proteccion:['protege','refugio','amparo'],fortaleza:['fortaleza','fuerza','animo'],sabiduria:['sabiduria','entendimiento'],guia:['guia','voluntad','camino'],espiritu:['espiritu santo'],servicio:['servir','misericordia','projimo'],familia:['familia','hijo','hija','hogar'],sanacion:['sanacion','salud','dolor'],paz:['paz','consuelo','calma'],arrepentimiento:['arrepent','perdon','pecado'],lucha:['tentacion','enemigo','maligno'],ansiedad:['ansiedad','preocupacion','angustia','miedo'],tristeza:['tristeza','desanimo','llanto'],intercesion:['mundo','naciones','pueblos'],manana:['manana','amanecer'],noche:['noche','dormir','descanso']};
+    Object.keys(rules).forEach(function(cat){if(rules[cat].some(function(k){return text.indexOf(k)>=0;}))list.push(cat);});
+    var seen={};return list.map(function(x){return String(x||'').trim();}).filter(function(x){if(!x||seen[x])return false;seen[x]=true;return true;});
   }
   function readRecentV3188(){
     try{return JSON.parse(localStorage.getItem(VERSE_RECENT_KEY)||'[]');}catch(e){return [];}
@@ -10365,12 +10388,13 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       prayerCategoriesV3188(prayer).forEach(function(cat){
         (VERSE_CATEGORY_MAP_V3188[cat]||[]).forEach(function(v){if(target.indexOf(v)<0)target.push(v);});
       });
-      if(!target.length) return null;
       var recent=readRecentV3188();
-      var pool=state.verses.filter(function(v){return v&&target.indexOf(String(v.category||''))>=0&&recent.indexOf(v.id)<0;});
-      if(!pool.length) pool=state.verses.filter(function(v){return v&&target.indexOf(String(v.category||''))>=0;});
-      if(!pool.length) return null;
-      return pool[Math.floor(Math.random()*pool.length)];
+      var pool=target.length?state.verses.filter(function(v){return v&&target.indexOf(String(v.category||''))>=0&&recent.indexOf(v.id)<0;}):[];
+      if(!pool.length&&target.length) pool=state.verses.filter(function(v){return v&&target.indexOf(String(v.category||''))>=0;});
+      /* Si no hay coincidencia exacta, siempre recomienda automáticamente un versículo disponible. */
+      if(!pool.length) pool=state.verses.filter(function(v){return v&&recent.indexOf(v.id)<0;});
+      if(!pool.length) pool=state.verses.filter(Boolean);
+      return pool.length?pool[Math.floor(Math.random()*pool.length)]:null;
     }catch(e){return null;}
   }
   function modalTextV3188(text){
