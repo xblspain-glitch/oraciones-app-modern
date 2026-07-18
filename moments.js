@@ -209,7 +209,7 @@
   window.acceptAutoCatalogV31121=function(){
     var m=ensureAutoCatalogPromptV31121();m.classList.add('hidden');
     var r=autoCatalogMomentsV31120(false);markPromptDoneV31121();
-    alert('Catalogación completada.\n\nSalmos catalogados: '+r.psalms+'\nVersículos catalogados: '+r.verses+'\n\nLas categorías manuales se han respetado.');
+    alert('🎉 Catalogación completada\n\nSe han catalogado automáticamente los Salmos y los versículos para Momentos.\n\nSalmos catalogados: '+r.psalms+'\nVersículos catalogados: '+r.verses+'\n\nYa puede utilizar los Momentos sin necesidad de clasificarlos manualmente.');
     if(typeof renderHub==='function')renderHub();
   };
   window.laterAutoCatalogV31121=function(){ensureAutoCatalogPromptV31121().classList.add('hidden');markPromptDoneV31121();};
