@@ -3687,3 +3687,18 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 #editPrayerCategoriesWrapV3180,
 #editPrayerCategoryWrapV3178,
 #editPsalmCategoryWrapV3177{display:none!important}
+
+
+/* V3.1.124 stable main menu buttons */
+.menu-grid,.home-grid,.main-grid{
+  align-items:start;
+}
+.menu-grid > *, .home-grid > *, .main-grid > *{
+  box-sizing:border-box;
+}
+.menu-grid .active,.home-grid .active,.main-grid .active,
+.menu-grid button.active,.home-grid button.active,.main-grid button.active{
+  border-width:2px !important;
+  min-height:inherit;
+  transform:none !important;
+}
