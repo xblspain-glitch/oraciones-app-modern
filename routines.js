@@ -1,4 +1,4 @@
-/* Oraciones V3.1.111 — Selector multicategoría en Mis momentos y rutina Sabbath */
+/* Oraciones V3.1.135 — Oración al azar en rutinas Día/Noche */
 (function(){
   'use strict';
   if(window.__dailyRoutinesV3192Installed) return;
@@ -10,17 +10,18 @@
   var readingIndex=0;
   var prayerChoiceDraftV3198=[];
   var prayerChoiceCategoryDraftV31110=[];
+  var prayerChoiceModeV3135='group';
 
   function emptyData(){ return {morning:[], sabbath:[], night:[]}; }
   function normalizeData(value){
     var d=value&&typeof value==='object'?value:emptyData();
     ['morning','sabbath','night'].forEach(function(k){
       if(!Array.isArray(d[k])) d[k]=[];
-      d[k]=d[k].filter(function(x){return x&&['prayers','psalms','verses','dailyPrayer','prayerChoice'].indexOf(x.type)>=0&&x.id;})
+      d[k]=d[k].filter(function(x){return x&&['prayers','psalms','verses','dailyPrayer','prayerChoice','randomPrayer'].indexOf(x.type)>=0&&x.id;})
         .map(function(x){
-          if(x.type==='prayerChoice') return {type:'prayerChoice',id:String(x.id),title:String(x.title||'Grupo de oraciones'),options:Array.isArray(x.options)?x.options.map(String).filter(Boolean):[]};
+          if(x.type==='prayerChoice' || x.type==='randomPrayer') return {type:x.type,id:String(x.id),title:String(x.title||(x.type==='randomPrayer'?'Oración al azar':'Grupo de oraciones')),options:Array.isArray(x.options)?x.options.map(String).filter(Boolean):[]};
           return {type:x.type,id:String(x.id)};
-        }).filter(function(x){return x.type!=='prayerChoice'||x.options.length>=2;});
+        }).filter(function(x){return (x.type!=='prayerChoice'&&x.type!=='randomPrayer')||x.options.length>=2;});
     });
     return d;
   }
@@ -49,17 +50,19 @@
       return Array.isArray(state.verses)?state.verses:[];
     }catch(e){return [];}
   }
-  function findItem(ref){if(ref&&ref.type==='dailyPrayer')return {id:'daily-prayer-choice',title:'GRUPO DE ORACIONES'};if(ref&&ref.type==='prayerChoice')return {id:ref.id,title:ref.title||'GRUPO DE ORACIONES'};return byType(ref.type).find(function(x){return String(x.id)===String(ref.id);})||null;}
+  function findItem(ref){if(ref&&ref.type==='dailyPrayer')return {id:'daily-prayer-choice',title:'GRUPO DE ORACIONES'};if(ref&&ref.type==='prayerChoice')return {id:ref.id,title:ref.title||'GRUPO DE ORACIONES'};if(ref&&ref.type==='randomPrayer')return {id:ref.id,title:ref.title||'ORACIÓN AL AZAR'};return byType(ref.type).find(function(x){return String(x.id)===String(ref.id);})||null;}
   function typeMeta(type){
     if(type==='prayers') return {icon:'🙏🏾',sing:'Oración',plural:'Oraciones'};
     if(type==='dailyPrayer') return {icon:'🕯️',sing:'Grupo de oraciones',plural:'Grupos de oraciones'};
     if(type==='prayerChoice') return {icon:'🕯️',sing:'Grupo de oraciones',plural:'Grupos de oraciones'};
+    if(type==='randomPrayer') return {icon:'🌿',sing:'Oración al azar',plural:'Oraciones al azar'};
     if(type==='psalms') return {icon:'♫',sing:'Salmo',plural:'Salmos'};
     return {icon:'✨',sing:'Versículo',plural:'Versículos'};
   }
   function itemTitle(item,type){
     if(type==='dailyPrayer') return 'GRUPO DE ORACIONES';
     if(type==='prayerChoice') return (item&&item.title)||'GRUPO DE ORACIONES';
+    if(type==='randomPrayer') return (item&&item.title)||'ORACIÓN AL AZAR';
     if(!item) return 'Contenido no disponible';
     return type==='verses'?(item.reference||item.title||'Versículo'):(item.title||item.reference||(type==='psalms'?'Salmo':'Oración'));
   }
@@ -142,7 +145,7 @@
 
   window.openRoutineAddMenuV3192=function(){document.getElementById('routineAddModalV3192').classList.remove('hidden');document.getElementById('routineAddTypeV3192').classList.remove('hidden');document.getElementById('routineAddChoicesV3192').classList.add('hidden');};
   window.closeRoutineAddV3192=function(){document.getElementById('routineAddModalV3192').classList.add('hidden');};
-  window.chooseRoutineTypeV3192=function(type){if(type==='prayerChoice'){beginPrayerChoiceGroupV3198();return;}selectorType=type;renderCategoryChoices();document.getElementById('routineAddTypeV3192').classList.add('hidden');document.getElementById('routineAddChoicesV3192').classList.remove('hidden');};
+  window.chooseRoutineTypeV3192=function(type){if(type==='prayerChoice'){beginPrayerChoiceGroupV3198('group');return;}if(type==='randomPrayer'){beginPrayerChoiceGroupV3198('random');return;}selectorType=type;renderCategoryChoices();document.getElementById('routineAddTypeV3192').classList.add('hidden');document.getElementById('routineAddChoicesV3192').classList.remove('hidden');};
   window.backRoutineTypeV3192=function(){document.getElementById('routineAddTypeV3192').classList.remove('hidden');document.getElementById('routineAddChoicesV3192').classList.add('hidden');};
 
   function categoryMeta(type){
@@ -158,7 +161,8 @@
     if(type==='prayers') return Array.isArray(item.categories)?item.categories.map(String):(item.category?[String(item.category)]:[]);
     return item.category?[String(item.category)]:[];
   }
-  function beginPrayerChoiceGroupV3198(){
+  function beginPrayerChoiceGroupV3198(mode){
+    prayerChoiceModeV3135=(mode==='random'?'random':'group');
     selectorType='prayers';prayerChoiceDraftV3198=[];prayerChoiceCategoryDraftV31110=[];
     document.getElementById('routineAddTypeV3192').classList.add('hidden');document.getElementById('routineAddChoicesV3192').classList.remove('hidden');
     renderPrayerChoiceCategoriesV3198();
@@ -172,8 +176,8 @@
   }
   function renderPrayerChoiceCategoriesV3198(){
     var title=document.getElementById('routineChoiceTitleV3192'),box=document.getElementById('routineChoiceListV3192');
-    title.textContent='🕯️ Elegir categorías';title.onclick=null;box.innerHTML='';
-    var info=document.createElement('div');info.className='routine-multicat-info-v31110';info.innerHTML='<strong>Seleccione una o varias categorías</strong><span>Después verá juntas todas sus oraciones.</span>';box.appendChild(info);
+    title.textContent=(prayerChoiceModeV3135==='random'?'🌿':'🕯️')+' Elegir categorías';title.onclick=null;box.innerHTML='';
+    var info=document.createElement('div');info.className='routine-multicat-info-v31110';info.innerHTML='<strong>Seleccione una o varias categorías</strong><span>'+(prayerChoiceModeV3135==='random'?'Después elija las oraciones entre las que se escogerá una al azar.':'Después verá juntas todas sus oraciones.')+'</span>';box.appendChild(info);
     var continueBtn=document.createElement('button');continueBtn.type='button';continueBtn.className='btn primary routine-choice-save-v3198';continueBtn.disabled=!prayerChoiceCategoryDraftV31110.length;continueBtn.textContent=prayerChoiceCategoryDraftV31110.length?'➡️ Continuar ('+prayerChoiceCategoryDraftV31110.length+')':'Seleccione al menos una categoría';continueBtn.onclick=renderPrayerChoiceCombinedItemsV31110;box.appendChild(continueBtn);
     var items=byType('prayers'),cats=categoryMeta('prayers'),counts={};items.forEach(function(it){var cs=itemCats(it,'prayers');if(!cs.length)cs=[''];cs.forEach(function(c){counts[c]=(counts[c]||0)+1;});});
     cats.filter(function(c){return counts[c.id]>0;}).forEach(function(c){var selected=prayerChoiceCategorySelectedV31110(c.id),b=document.createElement('button');b.type='button';b.className='routine-choice-v3192 routine-category-toggle-v31110'+(selected?' selected-v3198':'');b.innerHTML='<span>'+(selected?'✓':esc(c.icon||'🙏🏾'))+'</span><strong>'+esc(c.label)+'</strong><small>'+counts[c.id]+' disponibles'+(selected?' · seleccionada':'')+'</small>';b.onclick=function(){togglePrayerChoiceCategoryV31110(c.id);};box.appendChild(b);});
@@ -185,7 +189,7 @@
   function renderPrayerChoiceCombinedItemsV31110(){
     if(!prayerChoiceCategoryDraftV31110.length){renderPrayerChoiceCategoriesV3198();return;}
     var title=document.getElementById('routineChoiceTitleV3192'),box=document.getElementById('routineChoiceListV3192');title.textContent='← Elegir oraciones · '+prayerChoiceDraftV3198.length+' elegidas';title.onclick=renderPrayerChoiceCategoriesV3198;box.innerHTML='';
-    var accept=document.createElement('button');accept.type='button';accept.className='btn primary routine-choice-accept-v3200';accept.disabled=prayerChoiceDraftV3198.length<2;accept.textContent=prayerChoiceDraftV3198.length<2?'Seleccione al menos 2 oraciones':'✓ Aceptar grupo ('+prayerChoiceDraftV3198.length+')';accept.onclick=savePrayerChoiceGroupV3198;box.appendChild(accept);
+    var accept=document.createElement('button');accept.type='button';accept.className='btn primary routine-choice-accept-v3200';accept.disabled=prayerChoiceDraftV3198.length<2;accept.textContent=prayerChoiceDraftV3198.length<2?'Seleccione al menos 2 oraciones':(prayerChoiceModeV3135==='random'?'✓ Añadir al azar ('+prayerChoiceDraftV3198.length+')':'✓ Aceptar grupo ('+prayerChoiceDraftV3198.length+')');accept.onclick=savePrayerChoiceGroupV3198;box.appendChild(accept);
     if(prayerChoiceDraftV3198.length){var review=document.createElement('button');review.type='button';review.className='btn soft routine-choice-review-v31109';review.textContent='☑ Ver selección ('+prayerChoiceDraftV3198.length+')';review.onclick=renderPrayerChoiceReviewV31109;box.appendChild(review);}
     var items=prayerChoiceCombinedItemsV31110();
     items.forEach(function(it){var selected=prayerChoiceSelectedV3198(it.id),b=document.createElement('button');b.type='button';b.className='routine-item-choice-v3192 prayer-choice-toggle-v3198'+(selected?' selected-v3198':'');b.innerHTML='<span>'+(selected?'✓':'🙏🏾')+'</span><div><strong>'+esc(itemTitle(it,'prayers'))+'</strong><small>'+(selected?'Seleccionada · pulse para quitar':'Pulse para seleccionar')+'</small></div>';b.onclick=function(){var id=String(it.id),i=prayerChoiceDraftV3198.indexOf(id);if(i>=0)prayerChoiceDraftV3198.splice(i,1);else prayerChoiceDraftV3198.push(id);renderPrayerChoiceCombinedItemsV31110();};box.appendChild(b);});
@@ -193,13 +197,13 @@
   }
   function renderPrayerChoiceReviewV31109(){
     var title=document.getElementById('routineChoiceTitleV3192'),box=document.getElementById('routineChoiceListV3192');title.textContent='← Selección completa · '+prayerChoiceDraftV3198.length;title.onclick=renderPrayerChoiceCombinedItemsV31110;box.innerHTML='';
-    var accept=document.createElement('button');accept.type='button';accept.className='btn primary routine-choice-accept-v3200';accept.disabled=prayerChoiceDraftV3198.length<2;accept.textContent=prayerChoiceDraftV3198.length<2?'Seleccione al menos 2 oraciones':'✓ Aceptar grupo ('+prayerChoiceDraftV3198.length+')';accept.onclick=savePrayerChoiceGroupV3198;box.appendChild(accept);
+    var accept=document.createElement('button');accept.type='button';accept.className='btn primary routine-choice-accept-v3200';accept.disabled=prayerChoiceDraftV3198.length<2;accept.textContent=prayerChoiceDraftV3198.length<2?'Seleccione al menos 2 oraciones':(prayerChoiceModeV3135==='random'?'✓ Añadir al azar ('+prayerChoiceDraftV3198.length+')':'✓ Aceptar grupo ('+prayerChoiceDraftV3198.length+')');accept.onclick=savePrayerChoiceGroupV3198;box.appendChild(accept);
     byType('prayers').filter(function(it){return prayerChoiceSelectedV3198(it.id);}).forEach(function(it){var b=document.createElement('button');b.type='button';b.className='routine-item-choice-v3192 prayer-choice-toggle-v3198 selected-v3198';b.innerHTML='<span>✓</span><div><strong>'+esc(itemTitle(it,'prayers'))+'</strong><small>Pulse para quitar de la selección</small></div>';b.onclick=function(){var id=String(it.id),i=prayerChoiceDraftV3198.indexOf(id);if(i>=0)prayerChoiceDraftV3198.splice(i,1);renderPrayerChoiceReviewV31109();};box.appendChild(b);});
   }
 
   function savePrayerChoiceGroupV3198(){
     if(prayerChoiceDraftV3198.length<2)return;
-    var d=getData(), id='choice-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);d[currentRoutine].push({type:'prayerChoice',id:id,title:'Grupo de oraciones',options:prayerChoiceDraftV3198.slice()});persist(d);closeRoutineAddV3192();renderEditor();if(typeof toast==='function')toast('Grupo de oraciones añadido');
+    var d=getData(), isRandom=prayerChoiceModeV3135==='random', id=(isRandom?'random-':'choice-')+Date.now()+'-'+Math.random().toString(36).slice(2,7);d[currentRoutine].push({type:isRandom?'randomPrayer':'prayerChoice',id:id,title:isRandom?'Oración al azar':'Grupo de oraciones',options:prayerChoiceDraftV3198.slice()});persist(d);closeRoutineAddV3192();renderEditor();if(typeof toast==='function')toast(isRandom?'Oración al azar añadida':'Grupo de oraciones añadido');
   }
 
   function renderCategoryChoices(){
@@ -243,6 +247,14 @@
       var selectedId=routineChoiceSelectionV3198[readingIndex];
       if(!selectedId){promptPrayerChoiceV3198(ref);return;}
       ref={type:'prayers',id:selectedId};
+    }
+    if(ref&&ref.type==='randomPrayer'){
+      var randomId=routineChoiceSelectionV3198[readingIndex];
+      if(!randomId){
+        var available=(ref.options||[]).filter(function(id){return byType('prayers').some(function(p){return String(p.id)===String(id);});});
+        if(available.length){randomId=available[Math.floor(Math.random()*available.length)];routineChoiceSelectionV3198[readingIndex]=String(randomId);}
+      }
+      if(randomId) ref={type:'prayers',id:randomId};
     }
     var item=ref?findItem(ref):null;
     if(!item){
@@ -308,7 +320,7 @@
       var previousRef=refs[readingIndex];
       // Si se vuelve atrás hasta un grupo de oraciones, se pregunta de nuevo
       // para permitir cambiar la elección hecha anteriormente.
-      if(previousRef && (previousRef.type==='prayerChoice' || previousRef.type==='dailyPrayer')){
+      if(previousRef && (previousRef.type==='prayerChoice' || previousRef.type==='dailyPrayer' || previousRef.type==='randomPrayer')){
         delete routineChoiceSelectionV3198[readingIndex];
       }
       openRoutineItemInNormalReaderV3194();
