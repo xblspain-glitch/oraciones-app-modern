@@ -1,4 +1,4 @@
-/* Oraciones V3.1.120 — Catalogación automática de Salmos y Versículos */
+/* Oraciones V3.1.123 — Catalogación temática mejorada de Salmos y Versículos */
 (function(){
   'use strict';
   if(window.__momentsV31106Installed) return;
@@ -121,51 +121,64 @@
     if(it&&Array.isArray(it.categories)) parts=parts.concat(it.categories.map(categoryLabelV31117));
     return norm(parts.filter(Boolean).join(' ')).replace(/_/g,' ');
   }
-  var KEYWORDS_V31120={
-    alabanza:['alabad','alaba','alabanza','adorad','adoracion','gloria','glorific','santo es','grande es','majestad','exaltad','bendecid a jah','cantad a jah','nombre de jah'],
-    gratitud:['gracias','gratitud','agrade','accion de gracias','dad gracias','te dare gracias','alabare por','beneficios'],
-    fe:['fe','esperanza','creer','creo','confiare','confiad','promesa','esperare','aguarda a jah','no temas'],
-    salvacion:['salvacion','salvar','salvador','vida eterna','redencion','redentor','mesias','cristo','jesus','resurreccion','libro de la vida'],
-    agradar:['agradar','santidad','santo','consagr','obedec','mandamientos','camino recto','integridad','justicia','temor de jah','corazon limpio'],
-    confianza:['confio','confianza','encomienda','entrega','en tus manos','mi refugio','mi roca','espera en jah','descansa en jah'],
-    amor:['amor','amar','misericordia para siempre','bondad','compasion','benignidad'],
-    proteccion:['protege','proteccion','guarda','guardame','amparo','refugio','escudo','fortaleza mia','librame','defiendeme','alas','abrigo'],
-    fortaleza:['fuerza','fortaleza','fortalec','animo','valentia','sostiene','levanta','poder para','mi fuerza'],
-    sabiduria:['sabiduria','entendimiento','ensen','instruye','conocimiento','prudencia','ley de jah','estatutos','preceptos'],
-    guia:['guiame','guia','direccion','muestrame','ensenarme tu camino','sendas','voluntad','camino que debo','dirige mis pasos'],
-    espiritu:['espiritu santo','tu espiritu','espiritu de dios','no quites de mi tu santo espiritu','renueva un espiritu'],
-    servicio:['servir','servicio','misericordia','pobre','necesitado','huerfano','viuda','projimo','compasion','dar al'],
-    familia:['familia','hogar','casa','hijos','hijo','padres','padre y madre','esposa','esposo','matrimonio','generacion'],
-    sanacion:['sana','saname','sanacion','salud','enfermedad','dolor','heridas','quebranto','medico'],
-    paz:['paz','consuelo','consolar','descanso','reposo','tranquilo','quietud','alma mia','duerme'],
-    arrepentimiento:['perdon','perdona','pecado','pecados','arrepent','confieso','iniquidad','limpiame','misericordia de mi','corazon contrito'],
-    lucha:['enemigo','enemigos','tentacion','maligno','guerra','batalla','acechan','perseguidores','adversarios','libra mi alma','lucha'],
-    ansiedad:['ansiedad','preocup','afanes','temor','miedo','angustia','congoja','atribulado','no temas','echa tu carga'],
-    tristeza:['tristeza','desanimo','abatida','abatido','llanto','lagrimas','dolor','quebrantado','afliccion','soledad'],
-    intercesion:['naciones','pueblos','mundo','reyes','gobernantes','pobres','oprimidos','justicia para','tierra toda','jerusalen'],
-    manana:['manana','amanecer','al alba','nuevo dia','de madrugada','por la manana'],
-    noche:['noche','dormir','acostare','descansare','vigilia','tinieblas','al anochecer']
+  /* V3.1.123 — motor de catalogación mejorado.
+     Prioridad: categorías previas > expresiones claras > palabras aisladas.
+     Los cambios manuales nunca se sobrescriben. */
+  var RULES_V31123={
+    alabanza:[['alabad',4],['alabare',4],['alabanza',4],['adorad',5],['adoracion',5],['glorific',4],['exaltad',4],['majestad',3],['cantad a jah',5],['bendecid a jah',5],['santo santo santo',6],['grande es jah',5]],
+    gratitud:[['dad gracias',6],['doy gracias',6],['te dare gracias',6],['accion de gracias',6],['gratitud',5],['agrade',4],['beneficios',3]],
+    fe:[['por fe',6],['fe',4],['esperanza',5],['creer',4],['creo',4],['promesa',4],['esperare',4],['aguarda a jah',6],['no temas',3]],
+    salvacion:[['salvacion',6],['salvador',6],['vida eterna',7],['redencion',6],['redentor',6],['cristo',5],['jesus',5],['resurreccion',5],['libro de la vida',7]],
+    agradar:[['agradar a dios',7],['agradar a jah',7],['santidad',5],['consagr',5],['obedec',4],['mandamientos',4],['integridad',4],['corazon limpio',6],['temor de jah',5]],
+    confianza:[['confio',6],['confiare',6],['confianza',5],['encomienda',5],['en tus manos',6],['espera en jah',6],['descansa en jah',6],['mi roca',3]],
+    amor:[['amor',5],['amar',5],['amados',4],['bondad',3],['benignidad',4],['compasion',3],['misericordia para siempre',5]],
+    proteccion:[['protege',5],['proteccion',5],['guardame',6],['guardara',5],['amparo',5],['refugio',5],['escudo',5],['librame',6],['defiendeme',6],['bajo sus alas',7],['abrigo del altisimo',8]],
+    fortaleza:[['fortalec',6],['fortaleza',5],['mi fuerza',5],['esfuerzate',6],['valentia',5],['sostiene',4],['levanta',3],['poder',2]],
+    sabiduria:[['sabiduria',6],['entendimiento',5],['instruye',5],['ensen',4],['conocimiento',4],['prudencia',5],['preceptos',4],['estatutos',3]],
+    guia:[['guiame',7],['guia',5],['dirige mis pasos',7],['muestrame tu camino',7],['ensenarme tu camino',7],['sendas',4],['voluntad de dios',6],['voluntad de jah',6],['camino que debo',6]],
+    espiritu:[['espiritu santo',8],['tu espiritu',6],['espiritu de dios',7],['santo espiritu',8],['renueva un espiritu',6]],
+    servicio:[['servir',5],['servicio',5],['projimo',5],['necesitado',4],['huerfano',4],['viuda',4],['dar al pobre',6],['hacer misericordia',6]],
+    familia:[['familia',6],['hogar',5],['hijos',5],['padre y madre',6],['esposa',5],['esposo',5],['matrimonio',6],['generacion',3],['mi casa',4]],
+    sanacion:[['saname',8],['sana',6],['sanacion',7],['salud',5],['enfermedad',5],['dolencia',5],['heridas',4],['quebranto',3]],
+    paz:[['paz',6],['consuelo',6],['consolar',5],['descanso',5],['reposo',5],['quietud',4],['en paz me acostare',8],['alma mia reposa',7]],
+    arrepentimiento:[['perdoname',8],['perdona',7],['arrepent',7],['confieso',6],['pecado',5],['iniquidad',5],['limpiame',7],['corazon contrito',8],['ten misericordia de mi',8]],
+    lucha:[['tentacion',6],['maligno',6],['batalla',5],['guerra espiritual',8],['adversario',5],['enemigos',3],['perseguidores',4],['acechan',4],['libra mi alma',5]],
+    ansiedad:[['ansiedad',8],['preocup',6],['afanes',6],['angustia',6],['congoja',6],['echa tu carga',8],['miedo',4],['temor',2]],
+    tristeza:[['tristeza',7],['desanimo',7],['abatido',6],['abatida',6],['llanto',5],['lagrimas',5],['quebrantado',4],['afliccion',5],['soledad',5]],
+    intercesion:[['naciones',5],['pueblos',4],['gobernantes',6],['oprimidos',5],['tierra toda',5],['jerusalen',3],['por todos',4],['por el mundo',7]],
+    manana:[['por la manana',7],['de madrugada',7],['al alba',6],['amanecer',6],['nuevo dia',5]],
+    noche:[['en paz me acostare',8],['al anochecer',6],['vigilia',5],['dormir',5],['acostare',6],['noche',4]]
   };
-  function keywordTagsV31120(it,type){
-    var text=itemTextV31120(it,type),scores={},out=[];
-    Object.keys(KEYWORDS_V31120).forEach(function(tag){
-      var score=0;
-      KEYWORDS_V31120[tag].forEach(function(k){if(text.indexOf(k)>=0)score+=(k.indexOf(' ')>=0?2:1);});
-      if(score)scores[tag]=score;
-    });
-    Object.keys(scores).sort(function(a,b){return scores[b]-scores[a];}).forEach(function(tag){
-      var max=Math.max.apply(null,Object.keys(scores).map(function(k){return scores[k];}));
-      if(scores[tag]>=2 || scores[tag]===max) out.push(tag);
-    });
-    if(type==='psalms'&&out.length>5)out=out.slice(0,5);
-    if(type==='verses'&&out.length>4)out=out.slice(0,4);
-    return out;
+  function occurrenceCountV31123(text,needle){
+    var n=0,pos=0;while((pos=text.indexOf(needle,pos))>=0){n++;pos+=needle.length;}return n;
   }
-  function autoTagsForV31120(it,type){
-    var mapped=inferredTags(it),keywords=keywordTagsV31120(it,type),out=[];
-    mapped.concat(keywords).forEach(function(t){if(t&&out.indexOf(t)<0)out.push(t);});
-    return out;
+  function mappedTagsV31123(it){
+    var saved=Array.isArray(it&&it.momentCategoriesV31102)?it.momentCategoriesV31102.slice():[];
+    if(saved.length&&it&&it.momentCatalogManualV31120)return saved;
+    var clone={};
+    if(it)Object.keys(it).forEach(function(k){if(k!=='momentCategoriesV31102')clone[k]=it[k];});
+    return inferredTags(clone);
   }
+  function scoredTagsV31123(it,type){
+    var text=itemTextV31120(it,type),scores={},mapped=mappedTagsV31123(it);
+    mapped.forEach(function(tag){scores[tag]=(scores[tag]||0)+12;});
+    Object.keys(RULES_V31123).forEach(function(tag){
+      RULES_V31123[tag].forEach(function(rule){
+        var phrase=rule[0],weight=rule[1],hits=occurrenceCountV31123(text,phrase);
+        if(hits)scores[tag]=(scores[tag]||0)+weight+Math.min(2,hits-1);
+      });
+    });
+    /* Evita asociaciones demasiado generales sin una segunda señal. */
+    var ranked=Object.keys(scores).filter(function(tag){return scores[tag]>=4||mapped.indexOf(tag)>=0;}).sort(function(a,b){
+      var d=scores[b]-scores[a];return d||TAGS.findIndex(function(t){return t.id===a;})-TAGS.findIndex(function(t){return t.id===b;});
+    });
+    var limit=type==='psalms'?5:3;
+    var chosen=ranked.slice(0,limit);
+    /* Si existe una categoría antigua clara, siempre se conserva dentro del límite. */
+    mapped.forEach(function(tag){if(chosen.indexOf(tag)<0){if(chosen.length>=limit)chosen.pop();chosen.push(tag);}});
+    return chosen.filter(function(v,i,a){return a.indexOf(v)===i;}).slice(0,limit);
+  }
+  function autoTagsForV31120(it,type){return scoredTagsV31123(it,type);}
   function autoCatalogMomentsV31120(showNotice){
     try{
       if(typeof state==='undefined'||!state)return {psalms:0,verses:0};
@@ -216,12 +229,29 @@
   window.recatalogMomentsV31121=function(){
     if(!confirm('¿Desea volver a generar automáticamente las categorías de Momentos?\n\nLas categorías asignadas manualmente se conservarán.'))return;
     if(typeof state==='undefined'||!state)return;
-    ['psalms','verses'].forEach(function(type){(Array.isArray(state[type])?state[type]:[]).forEach(function(it){if(it&&!it.momentCatalogManualV31120){it.momentCategoriesV31102=[];it.momentCatalogAutoV31120=false;}});});
-    var r=autoCatalogMomentsV31120(false);markPromptDoneV31121();
+    var r=recatalogWithImprovedEngineV31123();markPromptDoneV31121();
     alert('Recatalogación completada.\n\nSalmos catalogados: '+r.psalms+'\nVersículos catalogados: '+r.verses+'\n\nLas categorías manuales se han conservado.');
     if(typeof renderHub==='function')renderHub();
   };
   window.autoCatalogMomentsV31120=function(){var r=autoCatalogMomentsV31120(true);if(typeof renderHub==='function')renderHub();return r;};
+  var IMPROVED_CATALOG_KEY_V31123='oraciones_v3_moments_catalog_engine_v31123';
+  function recatalogWithImprovedEngineV31123(){
+    ['psalms','verses'].forEach(function(type){(Array.isArray(state[type])?state[type]:[]).forEach(function(it){if(it&&!it.momentCatalogManualV31120){it.momentCategoriesV31102=[];it.momentCatalogAutoV31120=false;}});});
+    return autoCatalogMomentsV31120(false);
+  }
+  function maybeOfferImprovedCatalogV31123(){
+    try{if(localStorage.getItem(IMPROVED_CATALOG_KEY_V31123)==='1')return;localStorage.setItem(IMPROVED_CATALOG_KEY_V31123,'1');}catch(e){}
+    var hasAuto=['psalms','verses'].some(function(type){return (Array.isArray(state[type])?state[type]:[]).some(function(it){return it&&it.momentCatalogAutoV31120&&!it.momentCatalogManualV31120;});});
+    if(!hasAuto)return;
+    setTimeout(function(){
+      if(confirm('La catalogación automática de Momentos ha sido mejorada.\n\nAhora analiza mejor el tema principal, conserva las categorías manuales y limita las asignaciones para evitar resultados excesivos.\n\n¿Desea recatalogar ahora los Salmos y versículos?')){
+        var r=recatalogWithImprovedEngineV31123();markPromptDoneV31121();
+        alert('Catalogación mejorada completada.\n\nSalmos recatalogados: '+r.psalms+'\nVersículos recatalogados: '+r.verses+'\n\nLas categorías manuales se han conservado.');
+        if(typeof renderHub==='function')renderHub();
+      }
+    },350);
+  }
+
   function getRecent(){try{return JSON.parse(localStorage.getItem(RECENT_KEY)||'{}')||{};}catch(e){return {};}}
   function remember(ref){if(customMode)return;var r=getRecent(),key=currentMoment.id+'_'+ref.type;r[key]=[String(ref.id)].concat(r[key]||[]).filter(function(v,i,a){return a.indexOf(v)===i;}).slice(0,6);try{localStorage.setItem(RECENT_KEY,JSON.stringify(r));}catch(e){}}
   function candidates(type,moment){return items(type).map(function(it){var tags=inferredTags(it),score=tags.reduce(function(n,t){return n+(moment.tags.indexOf(t)>=0?1:0);},0);return {item:it,score:score};}).filter(function(x){return x.score>0;}).sort(function(a,b){return b.score-a.score;});}
@@ -373,6 +403,7 @@
         var pending=uncatalogedCountsV31121();
         if((pending.psalms||pending.verses)&&!promptWasHandledV31121())ensureAutoCatalogPromptV31121().classList.remove('hidden');
         else autoCatalogMomentsV31120(false);
+        maybeOfferImprovedCatalogV31123();
       }else if(tries>20)clearInterval(timer);
     },250);
   },300);
