@@ -3702,3 +3702,41 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
   min-height:inherit;
   transform:none !important;
 }
+
+/* ===== v3.1.125 - Filas del menú principal estables en todas las vistas =====
+   Antes solo eran filas flexibles mientras estaba activa la portada.
+   Al abrir Oraciones, Backup, Papelera, etc. pasaban a display:contents
+   y el navegador redistribuía los botones durante unas décimas. */
+.home-fixed-row-v31763{
+  display:flex!important;
+  flex:0 0 100%!important;
+  width:100%!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:8px!important;
+  flex-wrap:nowrap!important;
+  min-width:0!important;
+}
+.home-fixed-row-v31763 > .btn{
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+  box-sizing:border-box!important;
+}
+.home-fixed-row-four-v31763 #btnTheme{
+  flex:0 0 56px!important;
+  width:56px!important;
+  min-width:56px!important;
+  max-width:56px!important;
+}
+@media(max-width:420px){
+  .home-fixed-row-v31763{gap:6px!important}
+  .home-fixed-row-v31763 > .btn{padding-left:9px!important;padding-right:9px!important}
+  .home-fixed-row-four-v31763 #btnTheme{
+    flex-basis:50px!important;
+    width:50px!important;
+    min-width:50px!important;
+    max-width:50px!important;
+  }
+}
