@@ -3674,3 +3674,11 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 .moment-catalog-list-v31102,.moment-catalog-list-v31102 label,.moment-catalog-list-v31102 button{opacity:1!important}
 .moment-catalog-list-v31102 label{background:#ffffff!important;color:#20242b!important;border-color:#d9dee7!important}
 .moment-catalog-actions-v31102{background:#ffffff!important}
+
+/* v3.1.115 */
+.moment-settings-sheet-v31115{background:#fff!important;max-width:620px}
+.moment-settings-help-v31115{text-align:center;color:var(--muted);margin:0 0 14px}
+.moment-setting-block-v31115{display:grid;gap:9px;padding:14px;margin:12px 0;border:1px solid rgba(90,80,55,.18);border-radius:16px;background:#fffdf8}
+.moment-setting-block-v31115>strong{font-size:1.05rem}
+.moment-setting-block-v31115 label{display:flex;align-items:center;gap:8px}
+.moment-setting-block-v31115 select{width:100%}

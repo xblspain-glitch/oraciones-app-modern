@@ -10626,3 +10626,30 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else setTimeout(init,0);
 })();
+
+/* ===== v3.1.115 - Momentos ordenados, contador y retirada de categorías antiguas ===== */
+(function(){
+  if(window.__v31115MomentCatalogCleanupInstalled)return;
+  window.__v31115MomentCatalogCleanupInstalled=true;
+  function currentMomentCount(){try{var it=typeof currentItem==='function'?currentItem():null;return it&&Array.isArray(it.momentCategoriesV31102)?it.momentCategoriesV31102.length:0;}catch(e){return 0;}}
+  function cleanup(){
+    var prayer=document.getElementById('editPrayerCategoriesWrapV3180');if(prayer)prayer.classList.add('hidden');
+    var prayerOld=document.getElementById('editPrayerCategoryWrapV3178');if(prayerOld)prayerOld.classList.add('hidden');
+    var psalm=document.getElementById('editPsalmCategoryWrapV3177');if(psalm)psalm.classList.add('hidden');
+  }
+  window.updateMomentCatalogButtonV31115=function(){
+    cleanup();
+    var btn=document.querySelector('#editorView button[onclick="openMomentCatalogV31102()"]');
+    if(!btn)return;
+    var allowed=(typeof section!=='undefined'&&['prayers','psalms','verses'].indexOf(section)>=0);
+    btn.classList.toggle('hidden',!allowed);
+    btn.textContent='🏷️ Momentos ('+currentMomentCount()+')';
+  };
+  var oldOpen=window.openEditor||(typeof openEditor!=='undefined'?openEditor:null);
+  if(typeof oldOpen==='function'){window.openEditor=function(){var r=oldOpen.apply(this,arguments);setTimeout(window.updateMomentCatalogButtonV31115,0);return r;};try{openEditor=window.openEditor;}catch(e){}}
+  var oldNew=window.newItem||(typeof newItem!=='undefined'?newItem:null);
+  if(typeof oldNew==='function'){window.newItem=function(){var r=oldNew.apply(this,arguments);setTimeout(window.updateMomentCatalogButtonV31115,0);return r;};try{newItem=window.newItem;}catch(e){}}
+  var obs=new MutationObserver(function(){cleanup();window.updateMomentCatalogButtonV31115();});
+  function init(){cleanup();window.updateMomentCatalogButtonV31115();try{obs.observe(document.getElementById('editorView')||document.body,{childList:true,subtree:true});}catch(e){}}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else setTimeout(init,0);
+})();
