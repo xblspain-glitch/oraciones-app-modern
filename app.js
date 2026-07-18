@@ -861,7 +861,34 @@ function registerCurrentAsReadV47G(){
 
 function enterFullscreenReading(){registerCurrentAsReadV47G();setActiveView("read");document.getElementById("readerView").classList.remove("hidden");document.getElementById("editorView").classList.add("hidden");document.getElementById("backupView").classList.add("hidden");document.getElementById("trashView").classList.add("hidden");document.getElementById("titlesView").classList.add("hidden");var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");var cal=document.getElementById("calendarView");if(cal)cal.classList.add("hidden");document.body.classList.remove("titles-fullscreen-v72");document.body.classList.add("fullscreen-reading");document.body.classList.remove("reading-mobile","hide-reading-ui");window.scrollTo({top:0,behavior:"smooth"});toast("Pantalla completa")}
 function exitFullscreenReading(){document.body.classList.remove("fullscreen-reading","hide-reading-ui");openReader()}
-function toggleReadingUI(){if(!document.body.classList.contains("fullscreen-reading")) return;document.body.classList.toggle("hide-reading-ui")}
+function toggleReadingUI(){
+  if(!document.body.classList.contains("fullscreen-reading")) return;
+
+  const willHide = !document.body.classList.contains("hide-reading-ui");
+  document.body.classList.toggle("hide-reading-ui");
+
+  // V3.1.126: al ocultar la botonera, acerca automáticamente el inicio
+  // de la lectura a la parte superior. Los versículos conservan su
+  // comportamiento anterior y al volver a mostrar la botonera no se mueve.
+  if(!willHide || section === "verses") return;
+
+  window.setTimeout(function(){
+    try{
+      const identity = document.getElementById("readerIdentityV31103");
+      const identityVisible = identity && !identity.classList.contains("hidden");
+      const target = identityVisible
+        ? identity
+        : (document.getElementById("readerTitle") || document.getElementById("readerText"));
+
+      if(!target) return;
+      const rect = target.getBoundingClientRect();
+      const top = Math.max(0, window.scrollY + rect.top - 8);
+      window.scrollTo({top: top, behavior: "smooth"});
+    }catch(e){
+      console.warn("No se pudo ajustar el inicio de lectura", e);
+    }
+  }, 80);
+}
 function openEditor(){
   setActiveView("edit");
   clearNavModes();
