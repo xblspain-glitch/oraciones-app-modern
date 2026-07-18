@@ -2,7 +2,7 @@
   "name": "Oraciones V3",
   "short_name": "Oraciones V3",
   "id": "./oraciones-v3-lab",
-  "start_url": "./?v=oraciones-v3-1-131-arranque-seguro",
+  "start_url": "./?v=oraciones-v3-1-110-category-first-groups",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

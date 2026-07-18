@@ -3783,6 +3783,3 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 @media (prefers-reduced-motion:reduce){
   .reader-recommendations-content-v31127,.reader-recommendations-arrow-v31127{transition:none!important}
 }
-
-/* V3.1.130: el botón no ocupa espacio hasta que haya recomendaciones */
-.reader-recommendations-toggle-v31127[hidden]{display:none!important}

@@ -107,11 +107,6 @@
     var w=document.getElementById('ov2Welcome');
     if(w)w.classList.add('ov2-hidden');
   };
-  var enterBtn=document.getElementById('ov2EnterBtn');
-  if(enterBtn && !enterBtn.__welcomeBound){
-    enterBtn.__welcomeBound=true;
-    enterBtn.addEventListener('click',window.enterOv2Welcome);
-  }
   if(document.readyState==='loading'){
     document.addEventListener('DOMContentLoaded',setupWelcome);
   }else{

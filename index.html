@@ -18,17 +18,10 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v3-1-131-arranque-seguro">
+<link rel="stylesheet" href="styles.css?v=v3-1-129-recomendaciones-sin-salto">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 </head>
 <body>
-<script>
-/* V3.1.131: salida de bienvenida independiente del resto de scripts. */
-window.enterOv2Welcome = window.enterOv2Welcome || function(){
-  var w=document.getElementById('ov2Welcome');
-  if(w) w.classList.add('ov2-hidden');
-};
-</script>
 
 <div id="ov2Welcome" role="dialog" aria-label="Bienvenida Oraciones V3">
   <div class="ov2-card">
@@ -37,7 +30,7 @@ window.enterOv2Welcome = window.enterOv2Welcome || function(){
     <h1 class="ov2-title">Oraciones V3</h1>
     <p id="ov2IntroText" class="ov2-sub">Un lugar sencillo para orar, leer, guardar notas y descansar en la fidelidad de Dios.</p>
     <p id="ov2Verse" class="ov2-verse">“Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.”<br><strong>Salmo 34:18</strong></p>
-    <button class="ov2-enter" type="button" id="ov2EnterBtn" onclick="window.enterOv2Welcome()">Entrar</button>
+    <button class="ov2-enter" type="button" onclick="enterOv2Welcome()">Entrar</button>
     <div id="ov2Phrase" class="ov2-small">📖 Diseñada para la oración diaria</div>
   </div>
 </div>
@@ -345,14 +338,14 @@ window.enterOv2Welcome = window.enterOv2Welcome || function(){
 <div id="toast" class="toast">Guardado</div>
 
 
-<script src="welcome.js?v=v3-1-131-arranque-seguro"></script>
+<script src="welcome.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="config.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="utils.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="recent.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v3-1-131-arranque-seguro"></script>
+<script src="app.js?v=v3-1-129-recomendaciones-sin-salto"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v3-1-111-sabbath-custom-groups"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>

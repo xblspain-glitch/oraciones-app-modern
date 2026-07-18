@@ -3793,7 +3793,7 @@ function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(IN
 window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
-if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v3-1-131-arranque-seguro",{updateViaCache:"none"})})}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
 applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
 
 function getCardTextLayout(txt){
@@ -10722,10 +10722,10 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   else setTimeout(initV31116,0);
 })();
 
-/* ===== V3.1.130 - Lectura cómoda y recomendaciones estables antes del pintado ===== */
+/* ===== V3.1.128 - Versículos y recomendaciones plegables estables ===== */
 (function(){
-  if(window.__v31130ReadingComfortInstalled) return;
-  window.__v31130ReadingComfortInstalled=true;
+  if(window.__v31128ReadingComfortInstalled) return;
+  window.__v31128ReadingComfortInstalled=true;
 
   window.toggleReadingUI=function(){
     if(!document.body.classList.contains('fullscreen-reading')) return;
@@ -10745,8 +10745,8 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   };
   try{toggleReadingUI=window.toggleReadingUI;}catch(e){}
 
+  var pending=null;
   var arranging=false;
-  var pendingFrame=0;
 
   function recommendationCount(box){
     return box.querySelectorAll('[data-v59d-next],[data-v3182-psalm],[data-v3188-verse],.reader-psalm-link-v3182,.reader-verse-link-v3188').length;
@@ -10754,99 +10754,90 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 
   function updateToggle(toggle,count,open){
     toggle.innerHTML='<span>🌿 Puede continuar con...'+(count?' ('+count+')':'')+'</span><span class="reader-recommendations-arrow-v31127" aria-hidden="true">'+(open?'▲':'▼')+'</span>';
-    toggle.hidden=!count;
-  }
-
-  function prepareBox(box){
-    var top=box.querySelector(':scope > [data-v59d-top]') || box.querySelector('[data-v59d-top]');
-    if(!top) return;
-
-    var content=box.querySelector(':scope > .reader-recommendations-content-v31127');
-    var toggle=box.querySelector(':scope > .reader-recommendations-toggle-v31127');
-
-    if(!content){
-      content=document.createElement('div');
-      content.className='reader-recommendations-content-v31127';
-      content.setAttribute('aria-hidden','true');
-      box.insertBefore(content,top);
-    }
-
-    if(!toggle){
-      toggle=document.createElement('button');
-      toggle.type='button';
-      toggle.className='reader-recommendations-toggle-v31127';
-      toggle.setAttribute('aria-expanded','false');
-      toggle.hidden=true;
-      box.insertBefore(toggle,content);
-      toggle.addEventListener('click',function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        if(e.stopImmediatePropagation) e.stopImmediatePropagation();
-        var open=toggle.getAttribute('aria-expanded')==='true';
-        toggle.setAttribute('aria-expanded',open?'false':'true');
-        content.setAttribute('aria-hidden',open?'true':'false');
-        box.classList.toggle('recommendations-open-v31127',!open);
-        updateToggle(toggle,recommendationCount(content),!open);
-      },true);
-      toggle.addEventListener('pointerdown',function(e){e.stopPropagation();},true);
-      toggle.addEventListener('touchstart',function(e){e.stopPropagation();},{capture:true,passive:true});
-    }
-
-    /* MutationObserver se ejecuta antes del siguiente pintado: las tarjetas se
-       trasladan al desplegable sin llegar a mostrarse sueltas. */
-    Array.prototype.slice.call(box.children).forEach(function(child){
-      if(child===top || child===toggle || child===content) return;
-      content.appendChild(child);
-    });
-
-    var count=recommendationCount(content);
-    if(!count){
-      toggle.hidden=true;
-      box.classList.remove('recommendations-open-v31127');
-      toggle.setAttribute('aria-expanded','false');
-      content.setAttribute('aria-hidden','true');
-      return;
-    }
-    updateToggle(toggle,count,toggle.getAttribute('aria-expanded')==='true');
   }
 
   function arrangeRecommendations(){
     if(arranging) return;
     arranging=true;
     try{
-      document.querySelectorAll('.reader-next').forEach(prepareBox);
+      document.querySelectorAll('.reader-next').forEach(function(box){
+        var top=box.querySelector(':scope > [data-v59d-top]') || box.querySelector('[data-v59d-top]');
+        if(!top) return;
+
+        var content=box.querySelector(':scope > .reader-recommendations-content-v31127');
+        var toggle=box.querySelector(':scope > .reader-recommendations-toggle-v31127');
+        if(!content){
+          content=document.createElement('div');
+          content.className='reader-recommendations-content-v31127';
+          content.setAttribute('aria-hidden','true');
+          box.insertBefore(content,top);
+        }
+
+        /* Mueve al desplegable todas las recomendaciones que los módulos anteriores
+           ya hayan creado. Se ejecuta tarde para no interferir con su generación. */
+        Array.prototype.slice.call(box.children).forEach(function(child){
+          if(child===top || child===toggle || child===content) return;
+          content.appendChild(child);
+        });
+
+        var count=recommendationCount(content);
+        if(!count){
+          if(toggle) toggle.remove();
+          content.remove();
+          return;
+        }
+
+        if(!toggle){
+          toggle=document.createElement('button');
+          toggle.type='button';
+          toggle.className='reader-recommendations-toggle-v31127';
+          toggle.setAttribute('aria-expanded','false');
+          box.insertBefore(toggle,content);
+          toggle.addEventListener('click',function(e){
+            /* Evita que el toque llegue al lector y active «Volver al inicio». */
+            e.preventDefault();
+            e.stopPropagation();
+            if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+            var open=toggle.getAttribute('aria-expanded')==='true';
+            toggle.setAttribute('aria-expanded',open?'false':'true');
+            content.setAttribute('aria-hidden',open?'true':'false');
+            box.classList.toggle('recommendations-open-v31127',!open);
+            updateToggle(toggle,recommendationCount(content),!open);
+          },true);
+          toggle.addEventListener('pointerdown',function(e){e.stopPropagation();},true);
+          toggle.addEventListener('touchstart',function(e){e.stopPropagation();},{capture:true,passive:true});
+        }
+        updateToggle(toggle,recommendationCount(content),toggle.getAttribute('aria-expanded')==='true');
+      });
     }catch(e){console.error('No se pudieron plegar las recomendaciones',e);}
     finally{arranging=false;}
   }
 
-  function scheduleFrame(){
-    if(pendingFrame) return;
-    pendingFrame=requestAnimationFrame(function(){
-      pendingFrame=0;
-      arrangeRecommendations();
-    });
+  function schedule(delay){
+    clearTimeout(pending);
+    pending=setTimeout(arrangeRecommendations,typeof delay==='number'?delay:25);
   }
 
-  var observer=new MutationObserver(function(){
-    if(!arranging) arrangeRecommendations();
-  });
-
+  /* Espera a que se creen oración, Salmo y versículo antes de plegarlos. */
+  var observer=new MutationObserver(function(){if(!arranging)schedule(25);});
   function init(){
     try{observer.observe(document.body,{childList:true,subtree:true});}catch(e){}
-    arrangeRecommendations();
+    schedule(25);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else init();
 
   var previousRender=window.renderReader || (typeof renderReader!=='undefined'?renderReader:null);
-  if(typeof previousRender==='function' && !window.__v31130RenderWrapped){
-    window.__v31130RenderWrapped=true;
+  if(typeof previousRender==='function' && !window.__v31128RenderWrapped){
+    window.__v31128RenderWrapped=true;
     window.renderReader=function(){
       var result=previousRender.apply(this,arguments);
-      arrangeRecommendations();
-      scheduleFrame();
+      schedule(25);
       return result;
     };
     try{renderReader=window.renderReader;}catch(e){}
   }
 })();
+
+
+/* ===== V3.1.129 - Desplegable de recomendaciones preparado desde el primer render ===== */
