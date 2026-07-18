@@ -3652,3 +3652,10 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
     width:30px;height:30px;min-width:30px;flex-basis:30px;
   }
 }
+
+/* V3.1.110 — selección múltiple de categorías en grupos de Día/Noche */
+.routine-multicat-info-v31110{display:flex;flex-direction:column;gap:4px;text-align:center;padding:2px 12px 10px;color:var(--muted,#778071)}
+.routine-multicat-info-v31110 strong{color:var(--text,#273126);font-size:16px}
+.routine-category-toggle-v31110.selected-v3198{border-color:#718967;background:#eef5e9;box-shadow:inset 0 0 0 1px rgba(83,109,73,.2)}
+.routine-category-toggle-v31110.selected-v3198>span{color:#58704f;font-weight:900}
+.dark .routine-category-toggle-v31110.selected-v3198{background:#33402f;border-color:#718967}
