@@ -10515,3 +10515,90 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3188); else initV3188();
 })();
+
+
+/* ===== v3.1.113 - Selector definitivo de categorías en Oraciones ===== */
+(function(){
+  if(window.__v3113PrayerCategorySelectorInstalled) return;
+  window.__v3113PrayerCategorySelectorInstalled=true;
+
+  var FINAL_PRAYER_CATEGORIES_V3113 = [
+    {id:'alabanza', icon:'👑', label:'Alabanza y adoración'},
+    {id:'gratitud', icon:'🙏🏾', label:'Gratitud'},
+    {id:'fe', icon:'✨', label:'Fe y esperanza'},
+    {id:'salvacion', icon:'✝️', label:'Salvación y vida eterna'},
+    {id:'agradar', icon:'🤍', label:'Agradar a Dios'},
+    {id:'confianza', icon:'💚', label:'Confianza y entrega'},
+    {id:'amor', icon:'❤️', label:'Amor'},
+    {id:'proteccion', icon:'🫂', label:'Protección'},
+    {id:'fortaleza', icon:'💪🏾', label:'Fortaleza'},
+    {id:'sabiduria', icon:'📖', label:'Sabiduría'},
+    {id:'guia', icon:'🧭', label:'Guía y voluntad de Dios'},
+    {id:'espiritu', icon:'🔥', label:'Espíritu Santo'},
+    {id:'servicio', icon:'🤝🏾', label:'Servicio y misericordia'},
+    {id:'familia', icon:'👨🏾‍👩🏾‍👧🏾‍👦🏾', label:'Familia'},
+    {id:'sanacion', icon:'🌿', label:'Sanación'},
+    {id:'paz', icon:'🕊️', label:'Paz y consuelo'},
+    {id:'arrepentimiento', icon:'🤲🏾', label:'Arrepentimiento y perdón'},
+    {id:'lucha', icon:'🪨', label:'Lucha espiritual'},
+    {id:'ansiedad', icon:'😰', label:'Preocupación o ansiedad'},
+    {id:'tristeza', icon:'😔', label:'Tristeza y desánimo'},
+    {id:'intercesion', icon:'🌍', label:'Intercesión por el mundo'},
+    {id:'manana', icon:'🌅', label:'Mañana y nuevo día'},
+    {id:'noche', icon:'🌙', label:'Noche y descanso'}
+  ];
+
+  function selectedIds(){
+    var item=(typeof currentItem==='function') ? currentItem() : null;
+    var values=item && Array.isArray(item.categories) ? item.categories.slice() : [];
+    if(item && item.category && values.indexOf(item.category)<0) values.unshift(item.category);
+    return values;
+  }
+
+  function rebuildPrayerCategoryGridV3113(){
+    var grid=document.getElementById('editPrayerCategoriesV3180');
+    if(!grid) return;
+    var selected={};
+    selectedIds().forEach(function(id){ selected[String(id||'')]=true; });
+    grid.innerHTML='';
+    FINAL_PRAYER_CATEGORIES_V3113.forEach(function(cat){
+      var option=document.createElement('label');
+      option.className='prayer-category-option-v3180'+(selected[cat.id]?' selected':'');
+      var input=document.createElement('input');
+      input.type='checkbox';
+      input.value=cat.id;
+      input.dataset.categoryId=cat.id;
+      input.checked=!!selected[cat.id];
+      input.addEventListener('change',function(){
+        option.classList.toggle('selected',input.checked);
+        var checked=grid.querySelectorAll('input[type="checkbox"]:checked').length;
+        var counter=document.getElementById('prayerCategoryCountV3180');
+        if(counter) counter.textContent=checked ? (checked+(checked===1?' seleccionada':' seleccionadas')) : 'Ninguna seleccionada';
+        try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
+      });
+      var text=document.createElement('span');
+      text.textContent=cat.icon+' '+cat.label;
+      option.appendChild(input);
+      option.appendChild(text);
+      grid.appendChild(option);
+    });
+    var checked=grid.querySelectorAll('input[type="checkbox"]:checked').length;
+    var counter=document.getElementById('prayerCategoryCountV3180');
+    if(counter) counter.textContent=checked ? (checked+(checked===1?' seleccionada':' seleccionadas')) : 'Ninguna seleccionada';
+  }
+
+  var previousOpenEditorV3113=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  window.openEditor=function(){
+    var result=typeof previousOpenEditorV3113==='function' ? previousOpenEditorV3113.apply(this,arguments) : undefined;
+    if(typeof section!=='undefined' && section==='prayers') rebuildPrayerCategoryGridV3113();
+    return result;
+  };
+  try{openEditor=window.openEditor;}catch(e){}
+
+  function init(){
+    window.PSALM_CATEGORIES_V3177=[{id:'',icon:'',label:'Sin categoría'}].concat(FINAL_PRAYER_CATEGORIES_V3113);
+    rebuildPrayerCategoryGridV3113();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else setTimeout(init,0);
+})();
