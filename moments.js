@@ -1,4 +1,4 @@
-/* Oraciones V3.1.119 — Estado de disponibilidad sincronizado */
+/* Oraciones V3.1.120 — Catalogación automática de Salmos y Versículos */
 (function(){
   'use strict';
   if(window.__momentsV31106Installed) return;
@@ -112,6 +112,80 @@
     });
     return out;
   }
+
+  var AUTO_CATALOG_KEY_V31120='oraciones_v3_moments_auto_catalog_v31120';
+  function itemTextV31120(it,type){
+    var parts=[it&&it.title,it&&it.reference,it&&it.content,it&&it.text,it&&it.body,it&&it.notes];
+    if(type==='verses') parts.push(categoryLabelV31117(it&&it.category));
+    if(it&&Array.isArray(it.categories)) parts=parts.concat(it.categories.map(categoryLabelV31117));
+    return norm(parts.filter(Boolean).join(' ')).replace(/_/g,' ');
+  }
+  var KEYWORDS_V31120={
+    alabanza:['alabad','alaba','alabanza','adorad','adoracion','gloria','glorific','santo es','grande es','majestad','exaltad','bendecid a jah','cantad a jah','nombre de jah'],
+    gratitud:['gracias','gratitud','agrade','accion de gracias','dad gracias','te dare gracias','alabare por','beneficios'],
+    fe:['fe','esperanza','creer','creo','confiare','confiad','promesa','esperare','aguarda a jah','no temas'],
+    salvacion:['salvacion','salvar','salvador','vida eterna','redencion','redentor','mesias','cristo','jesus','resurreccion','libro de la vida'],
+    agradar:['agradar','santidad','santo','consagr','obedec','mandamientos','camino recto','integridad','justicia','temor de jah','corazon limpio'],
+    confianza:['confio','confianza','encomienda','entrega','en tus manos','mi refugio','mi roca','espera en jah','descansa en jah'],
+    amor:['amor','amar','misericordia para siempre','bondad','compasion','benignidad'],
+    proteccion:['protege','proteccion','guarda','guardame','amparo','refugio','escudo','fortaleza mia','librame','defiendeme','alas','abrigo'],
+    fortaleza:['fuerza','fortaleza','fortalec','animo','valentia','sostiene','levanta','poder para','mi fuerza'],
+    sabiduria:['sabiduria','entendimiento','ensen','instruye','conocimiento','prudencia','ley de jah','estatutos','preceptos'],
+    guia:['guiame','guia','direccion','muestrame','ensenarme tu camino','sendas','voluntad','camino que debo','dirige mis pasos'],
+    espiritu:['espiritu santo','tu espiritu','espiritu de dios','no quites de mi tu santo espiritu','renueva un espiritu'],
+    servicio:['servir','servicio','misericordia','pobre','necesitado','huerfano','viuda','projimo','compasion','dar al'],
+    familia:['familia','hogar','casa','hijos','hijo','padres','padre y madre','esposa','esposo','matrimonio','generacion'],
+    sanacion:['sana','saname','sanacion','salud','enfermedad','dolor','heridas','quebranto','medico'],
+    paz:['paz','consuelo','consolar','descanso','reposo','tranquilo','quietud','alma mia','duerme'],
+    arrepentimiento:['perdon','perdona','pecado','pecados','arrepent','confieso','iniquidad','limpiame','misericordia de mi','corazon contrito'],
+    lucha:['enemigo','enemigos','tentacion','maligno','guerra','batalla','acechan','perseguidores','adversarios','libra mi alma','lucha'],
+    ansiedad:['ansiedad','preocup','afanes','temor','miedo','angustia','congoja','atribulado','no temas','echa tu carga'],
+    tristeza:['tristeza','desanimo','abatida','abatido','llanto','lagrimas','dolor','quebrantado','afliccion','soledad'],
+    intercesion:['naciones','pueblos','mundo','reyes','gobernantes','pobres','oprimidos','justicia para','tierra toda','jerusalen'],
+    manana:['manana','amanecer','al alba','nuevo dia','de madrugada','por la manana'],
+    noche:['noche','dormir','acostare','descansare','vigilia','tinieblas','al anochecer']
+  };
+  function keywordTagsV31120(it,type){
+    var text=itemTextV31120(it,type),scores={},out=[];
+    Object.keys(KEYWORDS_V31120).forEach(function(tag){
+      var score=0;
+      KEYWORDS_V31120[tag].forEach(function(k){if(text.indexOf(k)>=0)score+=(k.indexOf(' ')>=0?2:1);});
+      if(score)scores[tag]=score;
+    });
+    Object.keys(scores).sort(function(a,b){return scores[b]-scores[a];}).forEach(function(tag){
+      var max=Math.max.apply(null,Object.keys(scores).map(function(k){return scores[k];}));
+      if(scores[tag]>=2 || scores[tag]===max) out.push(tag);
+    });
+    if(type==='psalms'&&out.length>5)out=out.slice(0,5);
+    if(type==='verses'&&out.length>4)out=out.slice(0,4);
+    return out;
+  }
+  function autoTagsForV31120(it,type){
+    var mapped=inferredTags(it),keywords=keywordTagsV31120(it,type),out=[];
+    mapped.concat(keywords).forEach(function(t){if(t&&out.indexOf(t)<0)out.push(t);});
+    return out;
+  }
+  function autoCatalogMomentsV31120(showNotice){
+    try{
+      if(typeof state==='undefined'||!state)return {psalms:0,verses:0};
+      var counts={psalms:0,verses:0};
+      ['psalms','verses'].forEach(function(type){
+        (Array.isArray(state[type])?state[type]:[]).forEach(function(it){
+          if(!it||it.momentCatalogManualV31120)return;
+          if(Array.isArray(it.momentCategoriesV31102)&&it.momentCategoriesV31102.length)return;
+          var tags=autoTagsForV31120(it,type);
+          if(tags.length){it.momentCategoriesV31102=tags;it.momentCatalogAutoV31120=true;counts[type]++;}
+        });
+      });
+      if(counts.psalms||counts.verses){
+        if(typeof saveState==='function')saveState();
+        try{localStorage.setItem(AUTO_CATALOG_KEY_V31120,JSON.stringify({at:Date.now(),psalms:counts.psalms,verses:counts.verses}));}catch(e){}
+        if(showNotice&&typeof toast==='function')toast('Catalogación automática: '+counts.psalms+' Salmos y '+counts.verses+' versículos');
+      }
+      return counts;
+    }catch(e){console.error('Catalogación automática de Momentos',e);return {psalms:0,verses:0};}
+  }
+  window.autoCatalogMomentsV31120=function(){var r=autoCatalogMomentsV31120(true);if(typeof renderHub==='function')renderHub();return r;};
   function getRecent(){try{return JSON.parse(localStorage.getItem(RECENT_KEY)||'{}')||{};}catch(e){return {};}}
   function remember(ref){if(customMode)return;var r=getRecent(),key=currentMoment.id+'_'+ref.type;r[key]=[String(ref.id)].concat(r[key]||[]).filter(function(v,i,a){return a.indexOf(v)===i;}).slice(0,6);try{localStorage.setItem(RECENT_KEY,JSON.stringify(r));}catch(e){}}
   function candidates(type,moment){return items(type).map(function(it){var tags=inferredTags(it),score=tags.reduce(function(n,t){return n+(moment.tags.indexOf(t)>=0?1:0);},0);return {item:it,score:score};}).filter(function(x){return x.score>0;}).sort(function(a,b){return b.score-a.score;});}
@@ -147,6 +221,7 @@
     return {ready:false,text:'Faltan oración, Salmo y versículo'};
   }
   function renderHub(){
+    autoCatalogMomentsV31120(false);
     var box=document.getElementById('momentsGridV31102');if(!box)return;box.innerHTML='';
     MOMENTS.forEach(function(m){var availability=availabilityTextV31119(m),ready=availability.ready,b=document.createElement('button');b.type='button';b.className='moment-card-v31102'+(ready?'':' incomplete-v31102');b.innerHTML='<span>'+m.icon+'</span><div><strong>'+esc(m.title)+'</strong><small>'+esc(m.sub)+'</small><em>'+esc(availability.text)+'</em></div>';b.onclick=function(){prepareMoment(m);};box.appendChild(b);});
     var sep=document.createElement('div');sep.className='custom-moments-heading-v31106';sep.innerHTML='<div><strong>✨ Mis momentos</strong><small>Cree recorridos personales con oraciones, Salmos, versículos y grupos.</small></div><button class="btn primary" type="button" onclick="createCustomMomentV31106()">➕ Crear momento</button>';box.appendChild(sep);
@@ -249,8 +324,17 @@
 
   window.openMomentCatalogV31102=function(){var it=typeof currentItem==='function'?currentItem():null;if(!it||['prayers','psalms','verses'].indexOf(section)<0){if(typeof toast==='function')toast('Esta sección no se utiliza en Momentos');return;}var selected=inferredTags(it),box=document.getElementById('momentCatalogListV31102');box.innerHTML='';TAGS.forEach(function(tag){var label=document.createElement('label');label.className='moment-tag-option-v31102';label.innerHTML='<input type="checkbox" value="'+tag.id+'" '+(selected.indexOf(tag.id)>=0?'checked':'')+'><span>'+esc(tag.label)+'</span>';box.appendChild(label);});document.getElementById('momentCatalogModalV31102').classList.remove('hidden');};
   window.closeMomentCatalogV31102=function(){document.getElementById('momentCatalogModalV31102').classList.add('hidden');};
-  window.saveMomentCatalogV31102=function(){var it=typeof currentItem==='function'?currentItem():null;if(!it)return;var vals=Array.from(document.querySelectorAll('#momentCatalogListV31102 input:checked')).map(function(x){return x.value;});it.momentCategoriesV31102=vals;it.updatedAt=Date.now();if(typeof saveState==='function')saveState();closeMomentCatalogV31102();if(typeof window.updateMomentCatalogButtonV31116==='function')window.updateMomentCatalogButtonV31116();if(typeof toast==='function')toast(vals.length?'Catalogado para Momentos':'Quitado de Momentos');};
+  window.saveMomentCatalogV31102=function(){var it=typeof currentItem==='function'?currentItem():null;if(!it)return;var vals=Array.from(document.querySelectorAll('#momentCatalogListV31102 input:checked')).map(function(x){return x.value;});it.momentCategoriesV31102=vals;it.momentCatalogManualV31120=true;it.momentCatalogAutoV31120=false;it.updatedAt=Date.now();if(typeof saveState==='function')saveState();closeMomentCatalogV31102();if(typeof window.updateMomentCatalogButtonV31116==='function')window.updateMomentCatalogButtonV31116();if(typeof toast==='function')toast(vals.length?'Catalogado para Momentos':'Quitado de Momentos');};
 
   function init(){var b=document.getElementById('btnMomentsV31102');if(b)b.classList.remove('hidden');}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else setTimeout(init,0);
+
+  setTimeout(function(){
+    var tries=0,timer=setInterval(function(){
+      tries++;
+      if(typeof state!=='undefined'&&state&&Array.isArray(state.psalms)&&Array.isArray(state.verses)){
+        clearInterval(timer);autoCatalogMomentsV31120(true);
+      }else if(tries>20)clearInterval(timer);
+    },250);
+  },300);
 })();
