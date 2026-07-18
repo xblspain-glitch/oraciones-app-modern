@@ -10627,29 +10627,67 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   else setTimeout(init,0);
 })();
 
-/* ===== v3.1.115 - Momentos ordenados, contador y retirada de categorías antiguas ===== */
+/* ===== v3.1.116 - Momentos ordenados, contador y retirada segura de categorías antiguas ===== */
 (function(){
-  if(window.__v31115MomentCatalogCleanupInstalled)return;
-  window.__v31115MomentCatalogCleanupInstalled=true;
-  function currentMomentCount(){try{var it=typeof currentItem==='function'?currentItem():null;return it&&Array.isArray(it.momentCategoriesV31102)?it.momentCategoriesV31102.length:0;}catch(e){return 0;}}
-  function cleanup(){
-    var prayer=document.getElementById('editPrayerCategoriesWrapV3180');if(prayer)prayer.classList.add('hidden');
-    var prayerOld=document.getElementById('editPrayerCategoryWrapV3178');if(prayerOld)prayerOld.classList.add('hidden');
-    var psalm=document.getElementById('editPsalmCategoryWrapV3177');if(psalm)psalm.classList.add('hidden');
+  if(window.__v31116MomentCatalogCleanupInstalled)return;
+  window.__v31116MomentCatalogCleanupInstalled=true;
+
+  function currentMomentCountV31116(){
+    try{
+      var it=typeof currentItem==='function'?currentItem():null;
+      return it&&Array.isArray(it.momentCategoriesV31102)?it.momentCategoriesV31102.length:0;
+    }catch(e){return 0;}
   }
+
+  function cleanupLegacyCategoriesV31116(){
+    try{
+      var prayer=document.getElementById('editPrayerCategoriesWrapV3180');
+      if(prayer&&!prayer.classList.contains('hidden'))prayer.classList.add('hidden');
+      var prayerOld=document.getElementById('editPrayerCategoryWrapV3178');
+      if(prayerOld&&!prayerOld.classList.contains('hidden'))prayerOld.classList.add('hidden');
+      var psalm=document.getElementById('editPsalmCategoryWrapV3177');
+      if(psalm&&!psalm.classList.contains('hidden'))psalm.classList.add('hidden');
+    }catch(e){console.error('cleanupLegacyCategoriesV31116',e);}
+  }
+
   window.updateMomentCatalogButtonV31115=function(){
-    cleanup();
-    var btn=document.querySelector('#editorView button[onclick="openMomentCatalogV31102()"]');
-    if(!btn)return;
-    var allowed=(typeof section!=='undefined'&&['prayers','psalms','verses'].indexOf(section)>=0);
-    btn.classList.toggle('hidden',!allowed);
-    btn.textContent='🏷️ Momentos ('+currentMomentCount()+')';
+    try{
+      cleanupLegacyCategoriesV31116();
+      var btn=document.querySelector('#editorView button[onclick="openMomentCatalogV31102()"]');
+      if(!btn)return;
+      var allowed=(typeof section!=='undefined'&&['prayers','psalms','verses'].indexOf(section)>=0);
+      btn.classList.toggle('hidden',!allowed);
+      var nextText='🏷️ Momentos ('+currentMomentCountV31116()+')';
+      if(btn.textContent!==nextText)btn.textContent=nextText;
+    }catch(e){console.error('updateMomentCatalogButtonV31116',e);}
   };
-  var oldOpen=window.openEditor||(typeof openEditor!=='undefined'?openEditor:null);
-  if(typeof oldOpen==='function'){window.openEditor=function(){var r=oldOpen.apply(this,arguments);setTimeout(window.updateMomentCatalogButtonV31115,0);return r;};try{openEditor=window.openEditor;}catch(e){}}
-  var oldNew=window.newItem||(typeof newItem!=='undefined'?newItem:null);
-  if(typeof oldNew==='function'){window.newItem=function(){var r=oldNew.apply(this,arguments);setTimeout(window.updateMomentCatalogButtonV31115,0);return r;};try{newItem=window.newItem;}catch(e){}}
-  var obs=new MutationObserver(function(){cleanup();window.updateMomentCatalogButtonV31115();});
-  function init(){cleanup();window.updateMomentCatalogButtonV31115();try{obs.observe(document.getElementById('editorView')||document.body,{childList:true,subtree:true});}catch(e){}}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else setTimeout(init,0);
+
+  function refreshSoonV31116(){setTimeout(function(){window.updateMomentCatalogButtonV31115();},0);}
+
+  var oldOpenV31116=window.openEditor||(typeof openEditor!=='undefined'?openEditor:null);
+  if(typeof oldOpenV31116==='function'){
+    window.openEditor=function(){
+      var result=oldOpenV31116.apply(this,arguments);
+      refreshSoonV31116();
+      return result;
+    };
+    try{openEditor=window.openEditor;}catch(e){}
+  }
+
+  var oldNewV31116=window.newItem||(typeof newItem!=='undefined'?newItem:null);
+  if(typeof oldNewV31116==='function'){
+    window.newItem=function(){
+      var result=oldNewV31116.apply(this,arguments);
+      refreshSoonV31116();
+      return result;
+    };
+    try{newItem=window.newItem;}catch(e){}
+  }
+
+  function initV31116(){
+    cleanupLegacyCategoriesV31116();
+    window.updateMomentCatalogButtonV31115();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initV31116);
+  else setTimeout(initV31116,0);
 })();

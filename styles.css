@@ -3682,3 +3682,8 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 .moment-setting-block-v31115>strong{font-size:1.05rem}
 .moment-setting-block-v31115 label{display:flex;align-items:center;gap:8px}
 .moment-setting-block-v31115 select{width:100%}
+
+/* v3.1.116: ocultar selectores antiguos sin alterar el DOM */
+#editPrayerCategoriesWrapV3180,
+#editPrayerCategoryWrapV3178,
+#editPsalmCategoryWrapV3177{display:none!important}

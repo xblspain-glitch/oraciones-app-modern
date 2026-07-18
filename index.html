@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v3-1-115-moment-counter-fixed">
+<link rel="stylesheet" href="styles.css?v=v3-1-116-editor-freeze-fix">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 </head>
 <body>
@@ -185,7 +185,7 @@
         <button class="btn primary" type="button" onclick="saveCurrent(false,false)">✅ Guardar y volver</button>
         <button class="btn danger" type="button" onclick="discardEditorChanges()">❌ Descartar</button>
         <button class="btn soft" type="button" onclick="openBlockMenu()">📑 Bloque</button>
-        <button class="btn soft" type="button" onclick="openMomentCatalogV31102()">🏷️ Momentos</button>
+        <button id="momentCatalogEditorButtonV31116" class="btn soft" type="button" onclick="openMomentCatalogV31102()">🏷️ Momentos (0)</button>
         <button class="btn soft" type="button" onclick="leaveEditor()">← Volver</button>
         <div id="saveStatus" class="status">Sin cambios</div>
       </div>
@@ -342,10 +342,10 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v3-1-115-moment-counter-cleanup"></script>
+<script src="app.js?v=v3-1-116-editor-freeze-fix"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v3-1-111-sabbath-custom-groups"></script>
-<script src="moments.js?v=v3-1-115-fixed-or-random"></script>
+<script src="moments.js?v=v3-1-116-fixed-or-random"></script>
 </body>
 </html>
 
