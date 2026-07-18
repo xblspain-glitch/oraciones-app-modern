@@ -1,4 +1,4 @@
-/* Oraciones V3.1.111 — Mis momentos con selector multicategoría */
+/* Oraciones V3.1.117 — Automático de Momentos corregido */
 (function(){
   'use strict';
   if(window.__momentsV31106Installed) return;
@@ -66,21 +66,51 @@
   function titleOf(it,type){return type==='verses'?(it.reference||it.title||'Versículo'):(it.title||it.reference||(type==='psalms'?'Salmo':'Oración'));}
   function typeMeta(type){return type==='prayers'?{icon:'🙏🏾',name:'Oración'}:type==='psalms'?{icon:'♫',name:'Salmo'}:type==='verses'?{icon:'✨',name:'Versículo'}:{icon:'🕯️',name:'Grupo de oraciones'};}
   function norm(v){return String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');}
+  function categoryLabelV31117(value){
+    var id=String(value==null?'':value);
+    try{
+      var cats=(typeof state!=='undefined'&&state&&Array.isArray(state.verseCategories))?state.verseCategories:[];
+      var found=cats.find(function(c){return String(c.id)===id;});
+      if(found&&found.label)return found.label;
+    }catch(e){}
+    return id;
+  }
   function inferredTags(it){
     var raw=[];
     if(Array.isArray(it.momentCategoriesV31102)) raw=it.momentCategoriesV31102.slice();
     if(!raw.length){if(Array.isArray(it.categories))raw=raw.concat(it.categories);if(it.category)raw.push(it.category);}
     var aliases={
-      esperanza:'fe',fe_esperanza:'fe',santidad:'agradar',consagracion_santidad:'agradar',
-      confianza_entrega:'confianza',arrepentimiento_perdon:'arrepentimiento',paz_consuelo:'paz',
-      sabiduria_ensenanza:'sabiduria',guia_voluntad:'guia',espiritu_santo:'espiritu',
-      servicio_misericordia:'servicio',familia_matrimonio:'familia',familia_hogar:'familia',
-      sanacion_salud:'sanacion',lucha_espiritual:'lucha',preocupacion_ansiedad:'ansiedad',
-      tristeza_desanimo:'tristeza',intercesion_mundo:'intercesion',manana_nuevo_dia:'manana',noche_descanso:'noche',
-      descanso:'noche',perdon:'arrepentimiento',direccion:'guia',mundo:'intercesion'
+      alabanza_adoracion:'alabanza',alabanza_y_adoracion:'alabanza',adoracion:'alabanza',dios:'alabanza',reino_de_dios:'alabanza',reino:'alabanza',
+      gratitud_accion_de_gracias:'gratitud',accion_de_gracias:'gratitud',agradecimiento:'gratitud',
+      esperanza:'fe',fe_esperanza:'fe',fe_y_esperanza:'fe',
+      salvacion_vida_eterna:'salvacion',salvacion_y_vida_eterna:'salvacion',vida_eterna:'salvacion',cristo_jesus_es_dios:'salvacion',segunda_venida:'salvacion',
+      santidad:'agradar',consagracion:'agradar',consagracion_santidad:'agradar',agradar_a_dios:'agradar',
+      confianza_entrega:'confianza',confianza_y_entrega:'confianza',
+      proteccion_amparo:'proteccion',amparo:'proteccion',
+      fortaleza_animo:'fortaleza',animo:'fortaleza',
+      sabiduria_ensenanza:'sabiduria',sabiduria_y_ensenanza:'sabiduria',ensenanza:'sabiduria',
+      guia_voluntad:'guia',guia_y_voluntad_de_dios:'guia',direccion:'guia',
+      espiritu_santo:'espiritu',
+      servicio_misericordia:'servicio',servicio_y_misericordia:'servicio',misericordia:'servicio',
+      familia_matrimonio:'familia',familia_hogar:'familia',matrimonio:'familia',
+      sanacion_salud:'sanacion',salud:'sanacion',
+      paz_consuelo:'paz',paz_y_consuelo:'paz',descanso:'paz',
+      arrepentimiento_perdon:'arrepentimiento',arrepentimiento_y_perdon:'arrepentimiento',perdon:'arrepentimiento',
+      lucha_espiritual:'lucha',tentacion:'lucha',
+      preocupacion_ansiedad:'ansiedad',preocupacion_o_ansiedad:'ansiedad',
+      tristeza_desanimo:'tristeza',tristeza_y_desanimo:'tristeza',
+      intercesion_mundo:'intercesion',intercesion_por_el_mundo:'intercesion',mundo:'intercesion',
+      manana_nuevo_dia:'manana',manana_y_nuevo_dia:'manana',
+      noche_descanso:'noche',noche_y_descanso:'noche',
+      oracion:'fe'
     };
     var valid={};TAGS.forEach(function(t){valid[t.id]=true;});
-    return Array.from(new Set(raw.map(function(x){var n=norm(x);return aliases[n]||n;}).filter(function(x){return valid[x];})));
+    var out=[];
+    raw.forEach(function(x){
+      var direct=norm(x),fromLabel=norm(categoryLabelV31117(x));
+      [direct,fromLabel].forEach(function(n){var mapped=aliases[n]||n;if(valid[mapped]&&out.indexOf(mapped)<0)out.push(mapped);});
+    });
+    return out;
   }
   function getRecent(){try{return JSON.parse(localStorage.getItem(RECENT_KEY)||'{}')||{};}catch(e){return {};}}
   function remember(ref){if(customMode)return;var r=getRecent(),key=currentMoment.id+'_'+ref.type;r[key]=[String(ref.id)].concat(r[key]||[]).filter(function(v,i,a){return a.indexOf(v)===i;}).slice(0,6);try{localStorage.setItem(RECENT_KEY,JSON.stringify(r));}catch(e){}}
