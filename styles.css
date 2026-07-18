@@ -3740,3 +3740,46 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
     max-width:50px!important;
   }
 }
+
+/* ===== V3.1.127 - Recomendaciones plegables al final de la lectura ===== */
+.reader-recommendations-toggle-v31127{
+  width:100%;
+  min-height:64px;
+  margin:18px 0 12px;
+  padding:14px 20px;
+  border:1px solid rgba(96,146,72,.28);
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(242,252,239,.98),rgba(229,247,225,.98));
+  box-shadow:0 8px 22px rgba(72,112,57,.10);
+  color:#557d35;
+  font:inherit;
+  font-size:1.08em;
+  font-weight:800;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.reader-recommendations-toggle-v31127:active{transform:scale(.985)}
+.reader-recommendations-arrow-v31127{font-size:.82em;transition:transform .22s ease}
+.reader-recommendations-content-v31127{
+  overflow:hidden;
+  max-height:0;
+  opacity:0;
+  transform:translateY(-6px);
+  transition:max-height .32s ease,opacity .22s ease,transform .25s ease,margin .25s ease;
+  margin:0;
+}
+.reader-next.recommendations-open-v31127 .reader-recommendations-content-v31127{
+  max-height:900px;
+  opacity:1;
+  transform:translateY(0);
+  margin:4px 0 12px;
+}
+.reader-recommendations-content-v31127 > .reader-next-label{display:none!important}
+.reader-next > .reader-top-link{margin-top:14px}
+@media (prefers-reduced-motion:reduce){
+  .reader-recommendations-content-v31127,.reader-recommendations-arrow-v31127{transition:none!important}
+}

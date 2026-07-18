@@ -10718,3 +10718,130 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initV31116);
   else setTimeout(initV31116,0);
 })();
+
+/* ===== V3.1.127 - Inicio automático también en versículos y recomendaciones plegables ===== */
+(function(){
+  if(window.__v31127ReadingComfortInstalled) return;
+  window.__v31127ReadingComfortInstalled=true;
+
+  /* Sustituye únicamente la función de alternancia: conserva el comportamiento
+     existente y extiende el desplazamiento automático a los versículos. */
+  window.toggleReadingUI=function(){
+    if(!document.body.classList.contains('fullscreen-reading')) return;
+
+    var willHide=!document.body.classList.contains('hide-reading-ui');
+    document.body.classList.toggle('hide-reading-ui');
+    if(!willHide) return;
+
+    window.setTimeout(function(){
+      try{
+        var identity=document.getElementById('readerIdentityV31103');
+        var identityVisible=identity && !identity.classList.contains('hidden');
+        var target=identityVisible
+          ? identity
+          : (document.getElementById('readerTitle') || document.getElementById('readerText'));
+        if(!target) return;
+        var rect=target.getBoundingClientRect();
+        var top=Math.max(0,window.scrollY+rect.top-8);
+        window.scrollTo({top:top,behavior:'smooth'});
+      }catch(e){
+        console.warn('No se pudo ajustar el inicio de lectura',e);
+      }
+    },80);
+  };
+  try{toggleReadingUI=window.toggleReadingUI;}catch(e){}
+
+  var pending=null;
+  var arranging=false;
+
+  function recommendationCount(box){
+    return box.querySelectorAll(
+      '[data-v59d-next],[data-v3182-psalm],[data-v3188-verse],'+
+      '.reader-psalm-link-v3182,.reader-verse-link-v3188'
+    ).length;
+  }
+
+  function arrangeRecommendations(){
+    if(arranging) return;
+    arranging=true;
+    try{
+      document.querySelectorAll('.reader-next').forEach(function(box){
+        var top=box.querySelector('[data-v59d-top]');
+        if(!top) return;
+
+        var movable=Array.prototype.filter.call(box.children,function(child){
+          return child!==top &&
+            !child.classList.contains('reader-recommendations-toggle-v31127') &&
+            !child.classList.contains('reader-recommendations-content-v31127');
+        });
+
+        var content=box.querySelector('.reader-recommendations-content-v31127');
+        var toggle=box.querySelector('.reader-recommendations-toggle-v31127');
+
+        if(!content){
+          content=document.createElement('div');
+          content.className='reader-recommendations-content-v31127';
+          content.setAttribute('aria-hidden','true');
+          box.insertBefore(content,top);
+        }
+        movable.forEach(function(node){content.appendChild(node);});
+
+        var count=recommendationCount(content);
+        if(!count){
+          if(toggle) toggle.remove();
+          content.remove();
+          return;
+        }
+
+        if(!toggle){
+          toggle=document.createElement('button');
+          toggle.type='button';
+          toggle.className='reader-recommendations-toggle-v31127';
+          toggle.setAttribute('aria-expanded','false');
+          box.insertBefore(toggle,content);
+          toggle.addEventListener('click',function(){
+            var open=toggle.getAttribute('aria-expanded')==='true';
+            toggle.setAttribute('aria-expanded',open?'false':'true');
+            content.setAttribute('aria-hidden',open?'true':'false');
+            box.classList.toggle('recommendations-open-v31127',!open);
+            updateToggle(toggle,count,!open);
+          });
+        }
+        var open=toggle.getAttribute('aria-expanded')==='true';
+        updateToggle(toggle,count,open);
+      });
+    }catch(e){
+      console.error('No se pudieron plegar las recomendaciones',e);
+    }finally{
+      arranging=false;
+    }
+  }
+
+  function updateToggle(toggle,count,open){
+    toggle.innerHTML='<span>🌿 Puede continuar con...'+(count?' ('+count+')':'')+'</span><span class="reader-recommendations-arrow-v31127" aria-hidden="true">'+(open?'▲':'▼')+'</span>';
+  }
+
+  function schedule(){
+    clearTimeout(pending);
+    pending=setTimeout(arrangeRecommendations,90);
+  }
+
+  var observer=new MutationObserver(function(){if(!arranging)schedule();});
+  function init(){
+    try{observer.observe(document.body,{childList:true,subtree:true});}catch(e){}
+    schedule();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+
+  var previousRender=window.renderReader || (typeof renderReader!=='undefined'?renderReader:null);
+  if(typeof previousRender==='function' && !window.__v31127RenderWrapped){
+    window.__v31127RenderWrapped=true;
+    window.renderReader=function(){
+      var result=previousRender.apply(this,arguments);
+      setTimeout(schedule,650);
+      return result;
+    };
+    try{renderReader=window.renderReader;}catch(e){}
+  }
+})();
