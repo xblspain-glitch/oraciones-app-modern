@@ -114,6 +114,7 @@
   }
 
   var AUTO_CATALOG_KEY_V31120='oraciones_v3_moments_auto_catalog_v31120';
+  var AUTO_CATALOG_PROMPT_KEY_V31121='oraciones_v3_moments_auto_catalog_prompt_v31121';
   function itemTextV31120(it,type){
     var parts=[it&&it.title,it&&it.reference,it&&it.content,it&&it.text,it&&it.body,it&&it.notes];
     if(type==='verses') parts.push(categoryLabelV31117(it&&it.category));
@@ -185,6 +186,41 @@
       return counts;
     }catch(e){console.error('Catalogación automática de Momentos',e);return {psalms:0,verses:0};}
   }
+  function uncatalogedCountsV31121(){
+    var out={psalms:0,verses:0};
+    if(typeof state==='undefined'||!state)return out;
+    ['psalms','verses'].forEach(function(type){
+      (Array.isArray(state[type])?state[type]:[]).forEach(function(it){
+        if(it&&!it.momentCatalogManualV31120&&(!Array.isArray(it.momentCategoriesV31102)||!it.momentCategoriesV31102.length))out[type]++;
+      });
+    });
+    return out;
+  }
+  function markPromptDoneV31121(){try{localStorage.setItem(AUTO_CATALOG_PROMPT_KEY_V31121,'1');}catch(e){}}
+  function promptWasHandledV31121(){
+    try{return localStorage.getItem(AUTO_CATALOG_PROMPT_KEY_V31121)==='1'||!!localStorage.getItem(AUTO_CATALOG_KEY_V31120);}catch(e){return false;}
+  }
+  function ensureAutoCatalogPromptV31121(){
+    var m=document.getElementById('momentAutoCatalogModalV31121');if(m)return m;
+    m=document.createElement('div');m.id='momentAutoCatalogModalV31121';m.className='routine-modal-v3192 hidden';
+    m.innerHTML='<div class="routine-modal-sheet-v3192 moment-auto-catalog-sheet-v31121"><div class="routine-modal-title-v3192">🏷️ Catalogación de Momentos</div><p class="moment-settings-help-v31115">Se ha detectado contenido sin catalogar para Momentos. La aplicación puede asignar automáticamente categorías a los Salmos y versículos.</p><div class="moment-catalog-actions-v31102"><button class="btn soft" type="button" onclick="laterAutoCatalogV31121()">Más tarde</button><button class="btn primary" type="button" onclick="acceptAutoCatalogV31121()">✓ Catalogar ahora</button></div></div>';
+    document.body.appendChild(m);return m;
+  }
+  window.acceptAutoCatalogV31121=function(){
+    var m=ensureAutoCatalogPromptV31121();m.classList.add('hidden');
+    var r=autoCatalogMomentsV31120(false);markPromptDoneV31121();
+    alert('Catalogación completada.\n\nSalmos catalogados: '+r.psalms+'\nVersículos catalogados: '+r.verses+'\n\nLas categorías manuales se han respetado.');
+    if(typeof renderHub==='function')renderHub();
+  };
+  window.laterAutoCatalogV31121=function(){ensureAutoCatalogPromptV31121().classList.add('hidden');markPromptDoneV31121();};
+  window.recatalogMomentsV31121=function(){
+    if(!confirm('¿Desea volver a generar automáticamente las categorías de Momentos?\n\nLas categorías asignadas manualmente se conservarán.'))return;
+    if(typeof state==='undefined'||!state)return;
+    ['psalms','verses'].forEach(function(type){(Array.isArray(state[type])?state[type]:[]).forEach(function(it){if(it&&!it.momentCatalogManualV31120){it.momentCategoriesV31102=[];it.momentCatalogAutoV31120=false;}});});
+    var r=autoCatalogMomentsV31120(false);markPromptDoneV31121();
+    alert('Recatalogación completada.\n\nSalmos catalogados: '+r.psalms+'\nVersículos catalogados: '+r.verses+'\n\nLas categorías manuales se han conservado.');
+    if(typeof renderHub==='function')renderHub();
+  };
   window.autoCatalogMomentsV31120=function(){var r=autoCatalogMomentsV31120(true);if(typeof renderHub==='function')renderHub();return r;};
   function getRecent(){try{return JSON.parse(localStorage.getItem(RECENT_KEY)||'{}')||{};}catch(e){return {};}}
   function remember(ref){if(customMode)return;var r=getRecent(),key=currentMoment.id+'_'+ref.type;r[key]=[String(ref.id)].concat(r[key]||[]).filter(function(v,i,a){return a.indexOf(v)===i;}).slice(0,6);try{localStorage.setItem(RECENT_KEY,JSON.stringify(r));}catch(e){}}
@@ -333,7 +369,10 @@
     var tries=0,timer=setInterval(function(){
       tries++;
       if(typeof state!=='undefined'&&state&&Array.isArray(state.psalms)&&Array.isArray(state.verses)){
-        clearInterval(timer);autoCatalogMomentsV31120(true);
+        clearInterval(timer);
+        var pending=uncatalogedCountsV31121();
+        if((pending.psalms||pending.verses)&&!promptWasHandledV31121())ensureAutoCatalogPromptV31121().classList.remove('hidden');
+        else autoCatalogMomentsV31120(false);
       }else if(tries>20)clearInterval(timer);
     },250);
   },300);
