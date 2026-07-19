@@ -11523,3 +11523,55 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     }
   };
 })();
+
+/* ===== V2 LAB 170 - EMERGENTE EN RAIZ, SIN ANIMACION ===== */
+(function(){
+  'use strict';
+  function currentText(){
+    try{
+      var item=(typeof currentItem==='function')?currentItem():null;
+      if(!item)return '';
+      return String(section==='verses'?(item.text||item.content||''):(item.content||''));
+    }catch(e){return '';}
+  }
+  function blocks(text){
+    var out=[],re=/\[emergente\s+titulo="([^"]*)"\]([\s\S]*?)\[\/emergente\]/gi,m,n=0;
+    while((m=re.exec(String(text||'')))&&n++<500)out.push({title:m[1]||'Emergente',body:m[2]||''});
+    return out;
+  }
+  function remove(){
+    var el=document.getElementById('readerPopupOverlayV908');
+    if(el)el.remove();
+  }
+  window.closeReaderPopupBlockV908=remove;
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var b=blocks(currentText())[Number(idx)];
+      if(!b){alert('No se ha encontrado este bloque emergente.');return;}
+      remove();
+      var overlay=document.createElement('div');
+      overlay.id='readerPopupOverlayV908';
+      overlay.className='reader-popup-overlay-v908 v31148-persistent v31167-rescue v2lab170-root-overlay';
+      var card=document.createElement('div');
+      card.className='reader-popup-card-v908';
+      card.setAttribute('role','dialog');
+      card.setAttribute('aria-modal','true');
+      var h=document.createElement('h3');h.textContent=String(b.title||'Emergente');
+      var content=document.createElement('div');
+      content.className='reader-popup-content-v908 v31148-popup-content';
+      content.style.whiteSpace='pre-wrap';content.style.overflowWrap='anywhere';content.textContent=String(b.body||'');
+      var actions=document.createElement('div');actions.className='reader-popup-actions-v913';
+      var close=document.createElement('button');close.className='btn primary';close.type='button';close.textContent='Cerrar';
+      close.addEventListener('click',function(ev){ev.preventDefault();remove();},{once:true});
+      actions.appendChild(close);card.appendChild(h);card.appendChild(content);card.appendChild(actions);overlay.appendChild(card);
+      overlay.addEventListener('click',function(ev){if(ev.target===overlay){ev.preventDefault();remove();}});
+      document.documentElement.appendChild(overlay);
+    }catch(e){console.error('V2 LAB 170 popup',e);alert('No se pudo abrir este emergente.');}
+  };
+  document.addEventListener('pointerdown',function(ev){
+    var t=ev.target&&ev.target.closest?ev.target.closest('[onclick*="openReaderPopupBlockV908"]'):null;
+    if(t)ev.preventDefault();
+  },true);
+  try{openReaderPopupBlockV908=window.openReaderPopupBlockV908;}catch(e){}
+  try{closeReaderPopupBlockV908=window.closeReaderPopupBlockV908;}catch(e){}
+})();
