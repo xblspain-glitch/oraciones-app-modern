@@ -11636,3 +11636,30 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installButton);else installButton();
 })();
+
+
+/* ===== V2 LAB 173 - DIAGNOSTICO EXCLUSIVO DEL EMERGENTE DE NOTAS ===== */
+(function(){
+  'use strict';
+  function tag(name){
+    try{
+      var ev=new CustomEvent('v2lab173-note-popup',{detail:{name:name,section:(typeof section!=='undefined'?section:'')}});
+      document.dispatchEvent(ev);
+    }catch(e){}
+  }
+  document.addEventListener('pointerdown',function(ev){
+    var btn=ev.target&&ev.target.closest?ev.target.closest('.reader-popup-title'):null;
+    if(btn && typeof section!=='undefined' && section==='notes') tag('NOTAS-pointerdown-emergente');
+  },true);
+  document.addEventListener('click',function(ev){
+    var btn=ev.target&&ev.target.closest?ev.target.closest('.reader-popup-title'):null;
+    if(btn && typeof section!=='undefined' && section==='notes'){
+      tag('NOTAS-click-emergente');
+      setTimeout(function(){tag('NOTAS-click+50');},50);
+      setTimeout(function(){tag('NOTAS-click+250');},250);
+      setTimeout(function(){tag('NOTAS-click+700');},700);
+    }
+    var close=ev.target&&ev.target.closest?ev.target.closest('#readerPopupOverlayV908 button'):null;
+    if(close && typeof section!=='undefined' && section==='notes') tag('NOTAS-cerrar-emergente');
+  },true);
+})();

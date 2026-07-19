@@ -353,7 +353,7 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v3-1-153-popup-background-lock"></script>
+<script src="app.js?v=v2-lab-173-notas-diagnostico"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v3-1-137-ajustes-visuales-editor-grupo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
@@ -364,7 +364,7 @@
 #diag172Panel.open{display:block!important}
 #diag172Close{position:sticky;top:0;float:right;background:#222;color:#fff;border:0;border-radius:8px;padding:8px 10px;font-weight:700}
 </style>
-<button id="diag172Btn" type="button">📋 COPIAR DIAGNÓSTICO</button>
+<button id="diag172Btn" type="button">📋 COPIAR NOTAS</button>
 <div id="diag172Panel"><button id="diag172Close" type="button">Cerrar</button><div id="diag172Text"></div></div>
 <script id="diag172-script">
 (function(){
@@ -394,9 +394,10 @@
   document.addEventListener('focusin',function(e){snap('focusin:'+(e.target.id||e.target.tagName));},true);
   if(window.visualViewport){visualViewport.addEventListener('scroll',function(){snap('vv-scroll')},{passive:true});visualViewport.addEventListener('resize',function(){snap('vv-resize')},{passive:true});}
   window.addEventListener('resize',function(){snap('window-resize')},{passive:true});
+  document.addEventListener('v2lab173-note-popup',function(e){snap((e.detail&&e.detail.name)||'NOTAS-evento');});
   var b=document.getElementById('diag172Btn'), panel=document.getElementById('diag172Panel'), out=document.getElementById('diag172Text');
-  function text(){snap('copiar');return 'DIAGNÓSTICO V2 LAB 172\n'+navigator.userAgent+'\n\n'+log.join('\n');}
-  b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var t=text();out.textContent=t;navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(t).then(function(){b.textContent='✅ COPIADO';setTimeout(function(){b.textContent='📋 COPIAR DIAGNÓSTICO'},1600)}).catch(function(){panel.classList.add('open')}):panel.classList.add('open');},true);
+  function text(){snap('copiar');return 'DIAGNÓSTICO NOTAS V2 LAB 173\n'+navigator.userAgent+'\n\n'+log.join('\n');}
+  b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var t=text();out.textContent=t;navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(t).then(function(){b.textContent='✅ COPIADO';setTimeout(function(){b.textContent='📋 COPIAR NOTAS'},1600)}).catch(function(){panel.classList.add('open')}):panel.classList.add('open');},true);
   document.getElementById('diag172Close').addEventListener('click',function(){panel.classList.remove('open')});
 })();
 </script>
