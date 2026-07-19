@@ -438,10 +438,12 @@ function highlightBibleReferencesV49(text){
     "gi"
   );
 
-  return safe.replace(re,function(_,pre,icon,ref){
+  const rendered=safe.replace(re,function(_,pre,icon,ref){
     const cleanRef=String(ref||"").replace(/\s+/g," ").trim();
     return pre+'<span class="bible-ref-highlight">📖 '+cleanRef+'</span>';
   });
+  // V3.1.139: permite destacar la numeración migrada, por ejemplo **1.**
+  return rendered.replace(/\*\*(\d{1,3}\.)\*\*/g,'<strong class="note-number-v3139">$1</strong>');
 }
 function renderCollapsibleBlocksV864(text){
   const raw = String(text || "");
@@ -1467,8 +1469,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v3.1.138";
-const APP_VERSION_ZIP = "oraciones_v3_1_138_icono_dia_noche_version_actualizada.zip";
+const APP_VERSION_LABEL = "v3.1.148";
+const APP_VERSION_ZIP = "oraciones_v3_1_167_rescate_emergentes_guardados.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -10865,4 +10867,663 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     };
     try{renderReader=window.renderReader;}catch(e){}
   }
+})();
+
+
+/* ===== V3.1.140 - Migración única de flechas antiguas en Notas y Guía ===== */
+(function(){
+  if(window.__v31140NoteGuideArrowMigrationInstalled) return;
+  window.__v31140NoteGuideArrowMigrationInstalled=true;
+
+  /* Clave nueva: permite ejecutar esta ampliación aunque la migración anterior de Notas ya se completara. */
+  var MIGRATION_KEY='oraciones_note_guide_arrows_migration_v3140_definitiva';
+  var LEGACY_ARROW=/(?:👉|➡\uFE0F?)/g;
+
+  function hasLegacyArrow(text){
+    LEGACY_ARROW.lastIndex=0;
+    return LEGACY_ARROW.test(String(text||''));
+  }
+
+  function convertLegacyArrows(text){
+    LEGACY_ARROW.lastIndex=0;
+    return String(text||'').replace(LEGACY_ARROW,'→');
+  }
+
+  function collectAffected(){
+    var affected=[];
+    if(typeof state==='undefined' || !state) return affected;
+
+    function addItems(items,kind){
+      if(!Array.isArray(items)) return;
+      items.forEach(function(item){
+        if(item && hasLegacyArrow(item.content)) affected.push({item:item,kind:kind});
+      });
+    }
+
+    addItems(state.notes,'nota');
+    addItems(state.guides,'guía');
+    return affected;
+  }
+
+  function markHandled(value){
+    try{localStorage.setItem(MIGRATION_KEY,value);}catch(e){}
+  }
+
+  function runMigrationPrompt(){
+    try{
+      if(localStorage.getItem(MIGRATION_KEY)) return;
+    }catch(e){}
+
+    var affected=collectAffected();
+    if(!affected.length) return;
+
+    var noteCount=affected.filter(function(x){return x.kind==='nota';}).length;
+    var guideCount=affected.filter(function(x){return x.kind==='guía';}).length;
+    var parts=[];
+    if(noteCount) parts.push(noteCount+' nota'+(noteCount===1?'':'s'));
+    if(guideCount) parts.push(guideCount+' guía'+(guideCount===1?'':'s'));
+
+    var accept=window.confirm(
+      'Se han detectado flechas antiguas en '+parts.join(' y ')+'.\n\n'+
+      '¿Desea sustituir automáticamente 👉 y ➡️ por la flecha sencilla →?'
+    );
+
+    if(!accept){
+      markHandled('cancelled');
+      return;
+    }
+
+    var changedNotes=0;
+    var changedGuides=0;
+    affected.forEach(function(entry){
+      var item=entry.item;
+      var converted=convertLegacyArrows(item.content);
+      if(converted!==String(item.content||'')){
+        item.content=converted;
+        item.updatedAt=Date.now();
+        if(entry.kind==='nota') changedNotes++;
+        else changedGuides++;
+      }
+    });
+
+    if(changedNotes || changedGuides){
+      try{if(typeof saveState==='function') saveState();}catch(e){console.error('No se pudo guardar la migración de flechas',e);}
+      try{
+        if(typeof section!=='undefined' && (section==='notes' || section==='guides')){
+          if(typeof renderList==='function') renderList();
+          if(typeof renderReader==='function') renderReader();
+        }
+      }catch(e){}
+    }
+
+    markHandled('updated');
+    var updatedParts=[];
+    if(changedNotes) updatedParts.push(changedNotes+' nota'+(changedNotes===1?'':'s'));
+    if(changedGuides) updatedParts.push(changedGuides+' guía'+(changedGuides===1?'':'s'));
+    window.alert('✓ Se han actualizado correctamente '+updatedParts.join(' y ')+'.');
+  }
+
+  function init(){window.setTimeout(runMigrationPrompt,700);}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
+
+
+/* ===== V3.1.141 - Migración única de 🔟 ===== */
+(function(){
+ if(window.__v31141TenMigrationInstalled)return;
+ window.__v31141TenMigrationInstalled=true;
+ var KEY='oraciones_note_ten_migration_v3141';
+ function fix(t){return String(t||'').replace(/🔟/g,'**10.**');}
+ function run(){
+  try{if(localStorage.getItem(KEY))return;}catch(e){}
+  if(typeof state==='undefined'||!state)return;
+  var items=[];
+  ['notes','guides'].forEach(function(k){
+    var arr=state[k];
+    if(Array.isArray(arr))arr.forEach(function(it){if(it&&String(it.content||'').indexOf('🔟')!==-1)items.push(it);});
+  });
+  if(!items.length)return;
+  if(!confirm('Se ha detectado la numeración 🔟 en algunas notas o guías.\n\n¿Desea actualizarla automáticamente al formato 10.?')){
+    try{localStorage.setItem(KEY,'cancelled');}catch(e){}
+    return;
+  }
+  items.forEach(function(it){it.content=fix(it.content); it.updatedAt=Date.now();});
+  try{if(typeof saveState==='function')saveState();}catch(e){}
+  try{localStorage.setItem(KEY,'updated');}catch(e){}
+  alert('✓ Numeración 10 actualizada.');
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(run,500);});
+ else setTimeout(run,500);
+})();
+
+/* ===== V3.1.143 - Posición estable sin pequeño salto ===== */
+(function(){
+  if(window.__v31143ScrollStable) return;
+  window.__v31143ScrollStable = true;
+
+  function captureV31143(){
+    var root=document.scrollingElement || document.documentElement;
+    var reader=document.getElementById('readerText');
+    return {
+      x: window.pageXOffset || root.scrollLeft || 0,
+      y: window.pageYOffset || root.scrollTop || 0,
+      reader: reader,
+      readerTop: reader && reader.scrollHeight>reader.clientHeight ? reader.scrollTop : null,
+      rootAnchor: root.style.overflowAnchor,
+      bodyAnchor: document.body ? document.body.style.overflowAnchor : '',
+      readerAnchor: reader ? reader.style.overflowAnchor : ''
+    };
+  }
+
+  function lockAnchoringV31143(pos){
+    var root=document.scrollingElement || document.documentElement;
+    try{ root.style.overflowAnchor='none'; }catch(e){}
+    try{ if(document.body) document.body.style.overflowAnchor='none'; }catch(e){}
+    try{ if(pos && pos.reader) pos.reader.style.overflowAnchor='none'; }catch(e){}
+  }
+
+  function putBackV31143(pos){
+    if(!pos) return;
+    try{ window.scrollTo(pos.x,pos.y); }catch(e){ try{window.scrollTo(0,pos.y);}catch(e2){} }
+    try{ if(pos.reader && pos.readerTop!==null) pos.reader.scrollTop=pos.readerTop; }catch(e){}
+  }
+
+  function unlockAnchoringV31143(pos){
+    var root=document.scrollingElement || document.documentElement;
+    try{ root.style.overflowAnchor=pos.rootAnchor||''; }catch(e){}
+    try{ if(document.body) document.body.style.overflowAnchor=pos.bodyAnchor||''; }catch(e){}
+    try{ if(pos.reader) pos.reader.style.overflowAnchor=pos.readerAnchor||''; }catch(e){}
+  }
+
+  function settleV31143(pos){
+    // Se restaura en el mismo ciclo y una vez tras el recálculo de diseño.
+    // Se evita la cadena de temporizadores que producía el pequeño “bote”.
+    putBackV31143(pos);
+    requestAnimationFrame(function(){
+      putBackV31143(pos);
+      requestAnimationFrame(function(){
+        putBackV31143(pos);
+        unlockAnchoringV31143(pos);
+      });
+    });
+  }
+
+  document.addEventListener('click',function(ev){
+    var summary=ev.target && ev.target.closest ? ev.target.closest('.reader-collapse-block > summary') : null;
+    if(!summary) return;
+    var details=summary.parentElement;
+    if(!details || details.tagName!=='DETAILS') return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    var pos=captureV31143();
+    lockAnchoringV31143(pos);
+    details.open=!details.open;
+    settleV31143(pos);
+  },true);
+
+  function wrapV31143(name){
+    var original=window[name];
+    if(typeof original!=='function' || original.__v31143Wrapped) return;
+    var wrapped=function(){
+      var pos=captureV31143();
+      lockAnchoringV31143(pos);
+      var result;
+      try{ result=original.apply(this,arguments); }
+      finally{ settleV31143(pos); }
+      return result;
+    };
+    wrapped.__v31143Wrapped=true;
+    window[name]=wrapped;
+    try{ eval(name+'=window["'+name+'"]'); }catch(e){}
+  }
+
+  wrapV31143('openReaderPopupBlockV908');
+  wrapV31143('closeReaderPopupBlockV908');
+  setTimeout(function(){
+    wrapV31143('openReaderPopupBlockV908');
+    wrapV31143('closeReaderPopupBlockV908');
+  },300);
+})();
+
+/* ===== V3.1.144 - Emergentes: conservar posición desde pointerdown ===== */
+(function(){
+  if(window.__v31144PopupPointerScrollFix) return;
+  window.__v31144PopupPointerScrollFix = true;
+
+  var pendingSnapshot = null;
+  var activeSnapshot = null;
+  var restoreTimers = [];
+
+  function scrollHost(){
+    var content=document.querySelector('.content');
+    if(content && content.scrollHeight>content.clientHeight) return content;
+    return document.scrollingElement || document.documentElement;
+  }
+
+  function capture(){
+    var host=scrollHost();
+    var root=document.scrollingElement || document.documentElement;
+    return {
+      at:Date.now(),
+      host:host,
+      hostTop:host ? host.scrollTop : 0,
+      hostLeft:host ? host.scrollLeft : 0,
+      winX:window.pageXOffset || root.scrollLeft || 0,
+      winY:window.pageYOffset || root.scrollTop || 0,
+      hostOverflow:host && host.style ? host.style.overflow : '',
+      hostAnchor:host && host.style ? host.style.overflowAnchor : '',
+      rootAnchor:root.style.overflowAnchor || '',
+      bodyAnchor:document.body ? (document.body.style.overflowAnchor || '') : ''
+    };
+  }
+
+  function restore(pos){
+    if(!pos) return;
+    try{
+      if(pos.host){
+        pos.host.scrollLeft=pos.hostLeft;
+        pos.host.scrollTop=pos.hostTop;
+      }
+    }catch(e){}
+    try{window.scrollTo(pos.winX,pos.winY);}catch(e){}
+  }
+
+  function clearTimers(){
+    while(restoreTimers.length){
+      try{clearTimeout(restoreTimers.pop());}catch(e){}
+    }
+  }
+
+  function lock(pos){
+    if(!pos) return;
+    var root=document.scrollingElement || document.documentElement;
+    try{root.style.overflowAnchor='none';}catch(e){}
+    try{if(document.body)document.body.style.overflowAnchor='none';}catch(e){}
+    try{
+      if(pos.host && pos.host.style){
+        pos.host.style.overflowAnchor='none';
+        pos.host.style.overflow='hidden';
+      }
+    }catch(e){}
+  }
+
+  function unlock(pos){
+    if(!pos) return;
+    var root=document.scrollingElement || document.documentElement;
+    try{root.style.overflowAnchor=pos.rootAnchor;}catch(e){}
+    try{if(document.body)document.body.style.overflowAnchor=pos.bodyAnchor;}catch(e){}
+    try{
+      if(pos.host && pos.host.style){
+        pos.host.style.overflow=pos.hostOverflow;
+        pos.host.style.overflowAnchor=pos.hostAnchor;
+      }
+    }catch(e){}
+  }
+
+  function keepPosition(pos){
+    clearTimers();
+    restore(pos);
+    [0,16,50,120,250,500,800].forEach(function(ms){
+      restoreTimers.push(setTimeout(function(){restore(pos);},ms));
+    });
+  }
+
+  function preCapture(ev){
+    try{
+      var btn=ev.target && ev.target.closest ? ev.target.closest('.reader-popup-title') : null;
+      if(!btn) return;
+      pendingSnapshot=capture();
+    }catch(e){}
+  }
+  document.addEventListener('pointerdown',preCapture,true);
+  document.addEventListener('touchstart',preCapture,{capture:true,passive:true});
+  document.addEventListener('mousedown',preCapture,true);
+
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var pos=(pendingSnapshot && Date.now()-pendingSnapshot.at<1800) ? pendingSnapshot : capture();
+      pendingSnapshot=null;
+      activeSnapshot=pos;
+      lock(pos);
+
+      var text='';
+      try{text=getCurrentContentTextV865();}catch(e){text='';}
+      var blocks=(typeof parsePopupBlocksV908==='function') ? parsePopupBlocksV908(text) : [];
+      var b=blocks[idx];
+      if(!b){unlock(pos);activeSnapshot=null;alert('No se ha encontrado este bloque emergente.');return;}
+
+      var old=document.getElementById('readerPopupOverlayV908');
+      if(old) old.remove();
+
+      var wrap=document.createElement('div');
+      wrap.id='readerPopupOverlayV908';
+      wrap.className='reader-popup-overlay-v908';
+      wrap.onclick=function(ev){if(ev.target===wrap)window.closeReaderPopupBlockV908();};
+      var title=(typeof escapeHtml==='function') ? escapeHtml(b.title||'Emergente') : String(b.title||'Emergente');
+      var body=(typeof highlightBibleReferencesV49==='function') ? highlightBibleReferencesV49(b.body||'') : ((typeof escapeHtml==='function') ? escapeHtml(b.body||'') : String(b.body||''));
+      wrap.innerHTML='<div class="reader-popup-card-v908"><h3>'+title+'</h3><div class="reader-popup-content-v908">'+body+'</div><div class="reader-popup-actions-v913"><button class="btn soft" type="button" onclick="closeReaderPopupBlockV908(); editPopupBlockV908('+idx+')">✏️ Editar</button><button class="btn soft danger" type="button" onclick="closeReaderPopupBlockV908(); deletePopupBlockV908('+idx+')">🗑️ Eliminar</button><button class="btn primary" type="button" onclick="closeReaderPopupBlockV908()">Cerrar</button></div></div>';
+      document.body.appendChild(wrap);
+      keepPosition(pos);
+    }catch(e){
+      console.error('openReaderPopupBlockV31144',e);
+      if(activeSnapshot){unlock(activeSnapshot);restore(activeSnapshot);activeSnapshot=null;}
+    }
+  };
+
+  window.closeReaderPopupBlockV908=function(){
+    var pos=activeSnapshot;
+    clearTimers();
+    var el=document.getElementById('readerPopupOverlayV908');
+    if(el)el.remove();
+    if(pos){
+      unlock(pos);
+      restore(pos);
+      requestAnimationFrame(function(){restore(pos);requestAnimationFrame(function(){restore(pos);});});
+    }
+    activeSnapshot=null;
+  };
+
+  try{openReaderPopupBlockV908=window.openReaderPopupBlockV908;}catch(e){}
+  try{closeReaderPopupBlockV908=window.closeReaderPopupBlockV908;}catch(e){}
+})();
+
+/* ===== V3.1.153 - Emergente persistente con fondo inmóvil sin overflow:hidden ===== */
+(function(){
+  if(window.__v31148StablePopup) return;
+  window.__v31148StablePopup=true;
+
+  var pending=null;
+  var active=null;
+  var timers=[];
+  var overlay=null;
+  var currentIndex=-1;
+
+  function host(){
+    var content=document.querySelector('.content');
+    if(content && content.scrollHeight>content.clientHeight) return content;
+    return document.scrollingElement || document.documentElement;
+  }
+
+  function snap(){
+    var h=host();
+    var root=document.scrollingElement || document.documentElement;
+    return {
+      at:Date.now(), host:h,
+      top:h ? h.scrollTop : 0,
+      left:h ? h.scrollLeft : 0,
+      x:window.pageXOffset || root.scrollLeft || 0,
+      y:window.pageYOffset || root.scrollTop || 0,
+      overflow:h && h.style ? h.style.overflow : '',
+      anchor:h && h.style ? h.style.overflowAnchor : '',
+      rootAnchor:root.style.overflowAnchor || '',
+      bodyAnchor:document.body ? (document.body.style.overflowAnchor || '') : ''
+    };
+  }
+
+  function cancelTimers(){
+    while(timers.length){ try{clearTimeout(timers.pop());}catch(e){} }
+  }
+
+  function differs(p){
+    if(!p) return false;
+    try{
+      if(p.host && (Math.abs(p.host.scrollTop-p.top)>1 || Math.abs(p.host.scrollLeft-p.left)>1)) return true;
+      var root=document.scrollingElement || document.documentElement;
+      var x=window.pageXOffset || root.scrollLeft || 0;
+      var y=window.pageYOffset || root.scrollTop || 0;
+      return Math.abs(x-p.x)>1 || Math.abs(y-p.y)>1;
+    }catch(e){ return true; }
+  }
+
+  function restoreOnlyIfNeeded(p){
+    if(!p || !differs(p)) return;
+    try{ if(p.host){p.host.scrollTop=p.top;p.host.scrollLeft=p.left;} }catch(e){}
+    try{window.scrollTo(p.x,p.y);}catch(e){}
+  }
+
+  function lock(p){
+    if(!p) return;
+    var root=document.scrollingElement || document.documentElement;
+    try{root.style.overflowAnchor='none';}catch(e){}
+    try{if(document.body)document.body.style.overflowAnchor='none';}catch(e){}
+    try{
+      if(p.host && p.host.style){
+        p.host.style.overflowAnchor='none';
+        /* V3.1.152: no tocar overflow del contenedor raíz. En Android,
+           overflow:hidden iniciaba un desplazamiento nativo diferido que
+           luego era corregido por el temporizador, produciendo el temblor. */
+      }
+    }catch(e){}
+  }
+
+  function unlock(p){
+    if(!p) return;
+    var root=document.scrollingElement || document.documentElement;
+    try{root.style.overflowAnchor=p.rootAnchor;}catch(e){}
+    try{if(document.body)document.body.style.overflowAnchor=p.bodyAnchor;}catch(e){}
+    try{
+      if(p.host && p.host.style){
+        p.host.style.overflow=p.overflow;
+        p.host.style.overflowAnchor=p.anchor;
+      }
+    }catch(e){}
+  }
+
+  function stabilize(p){
+    cancelTimers();
+    restoreOnlyIfNeeded(p);
+    requestAnimationFrame(function(){restoreOnlyIfNeeded(p);});
+    timers.push(setTimeout(function(){restoreOnlyIfNeeded(p);},90));
+    timers.push(setTimeout(function(){restoreOnlyIfNeeded(p);},260));
+  }
+
+  function ensureOverlay(){
+    if(overlay && overlay.isConnected) return overlay;
+    overlay=document.getElementById('readerPopupOverlayV908');
+    if(!overlay){
+      overlay=document.createElement('div');
+      overlay.id='readerPopupOverlayV908';
+      document.body.appendChild(overlay);
+    }
+    overlay.className='reader-popup-overlay-v908 v31148-persistent';
+    overlay.setAttribute('aria-hidden','true');
+    overlay.innerHTML='<div class="reader-popup-card-v908" role="dialog" aria-modal="true">'+
+      '<h3 class="v31148-popup-title"></h3>'+
+      '<div class="reader-popup-content-v908 v31148-popup-content"></div>'+
+      '<div class="reader-popup-actions-v913">'+
+      '<button class="btn soft v31148-edit" type="button">✏️ Editar</button>'+
+      '<button class="btn soft danger v31148-delete" type="button">🗑️ Eliminar</button>'+
+      '<button class="btn primary v31148-close" type="button">Cerrar</button>'+
+      '</div></div>';
+    overlay.addEventListener('click',function(ev){
+      if(ev.target===overlay || ev.target.closest('.v31148-close')) window.closeReaderPopupBlockV908();
+      else if(ev.target.closest('.v31148-edit')){
+        var i=currentIndex; window.closeReaderPopupBlockV908();
+        if(typeof window.editPopupBlockV908==='function') window.editPopupBlockV908(i);
+      }else if(ev.target.closest('.v31148-delete')){
+        var j=currentIndex; window.closeReaderPopupBlockV908();
+        if(typeof window.deletePopupBlockV908==='function') window.deletePopupBlockV908(j);
+      }
+    });
+    return overlay;
+  }
+
+  function preCapture(ev){
+    try{
+      if(ev.target && ev.target.closest && ev.target.closest('.reader-popup-title')) pending=snap();
+    }catch(e){}
+  }
+  document.addEventListener('pointerdown',preCapture,true);
+  document.addEventListener('touchstart',preCapture,{capture:true,passive:true});
+  document.addEventListener('mousedown',preCapture,true);
+
+  /* V3.1.153: bloquear únicamente los gestos que intentarían desplazar el
+     documento situado detrás del emergente. No se cambia overflow, position,
+     height ni scrollTop del fondo, por lo que su posición permanece intacta. */
+  var lastTouchY=null;
+
+  function popupVisible(){
+    return !!(overlay && overlay.classList.contains('v31148-visible'));
+  }
+
+  function popupScrollerFrom(target){
+    try{return target && target.closest ? target.closest('.v31148-popup-content') : null;}catch(e){return null;}
+  }
+
+  document.addEventListener('touchstart',function(ev){
+    if(!popupVisible()) return;
+    var t=ev.touches && ev.touches[0];
+    lastTouchY=t ? t.clientY : null;
+  },{capture:true,passive:true});
+
+  document.addEventListener('touchmove',function(ev){
+    if(!popupVisible()) return;
+    var t=ev.touches && ev.touches[0];
+    var scroller=popupScrollerFrom(ev.target);
+    if(!t || !scroller){
+      ev.preventDefault();
+      return;
+    }
+
+    var y=t.clientY;
+    var dy=(lastTouchY===null) ? 0 : y-lastTouchY;
+    lastTouchY=y;
+    var max=Math.max(0,scroller.scrollHeight-scroller.clientHeight);
+    var atTop=scroller.scrollTop<=0;
+    var atBottom=scroller.scrollTop>=max-1;
+
+    /* Permitir el desplazamiento interno del texto, pero cortar el gesto al
+       llegar a sus extremos para que no se encadene con la página de fondo. */
+    if(max<=1 || (dy>0 && atTop) || (dy<0 && atBottom)){
+      ev.preventDefault();
+    }
+  },{capture:true,passive:false});
+
+  document.addEventListener('touchend',function(){lastTouchY=null;},{capture:true,passive:true});
+  document.addEventListener('touchcancel',function(){lastTouchY=null;},{capture:true,passive:true});
+
+  document.addEventListener('wheel',function(ev){
+    if(!popupVisible()) return;
+    var scroller=popupScrollerFrom(ev.target);
+    if(!scroller){ev.preventDefault();return;}
+    var max=Math.max(0,scroller.scrollHeight-scroller.clientHeight);
+    if(max<=1 || (ev.deltaY<0 && scroller.scrollTop<=0) ||
+       (ev.deltaY>0 && scroller.scrollTop>=max-1)){
+      ev.preventDefault();
+    }
+  },{capture:true,passive:false});
+
+  function install(){
+    ensureOverlay();
+
+    window.openReaderPopupBlockV908=function(idx){
+      var p=(pending && Date.now()-pending.at<1800) ? pending : snap();
+      pending=null; active=p; currentIndex=idx; lock(p);
+      try{
+        var text='';
+        try{text=getCurrentContentTextV865();}catch(e){}
+        var blocks=(typeof parsePopupBlocksV908==='function') ? parsePopupBlocksV908(text) : [];
+        var b=blocks[idx];
+        if(!b){unlock(p);active=null;alert('No se ha encontrado este bloque emergente.');return;}
+        var el=ensureOverlay();
+        var title=(typeof escapeHtml==='function') ? escapeHtml(b.title||'Emergente') : String(b.title||'Emergente');
+        var body=(typeof highlightBibleReferencesV49==='function') ? highlightBibleReferencesV49(b.body||'') : ((typeof escapeHtml==='function') ? escapeHtml(b.body||'') : String(b.body||''));
+        el.querySelector('.v31148-popup-title').innerHTML=title;
+        el.querySelector('.v31148-popup-content').innerHTML=body;
+        el.querySelector('.v31148-popup-content').scrollTop=0;
+        el.classList.add('v31148-visible');
+        el.setAttribute('aria-hidden','false');
+        stabilize(p);
+      }catch(e){
+        console.error('openReaderPopupBlockV31148',e);
+        unlock(p);restoreOnlyIfNeeded(p);active=null;
+      }
+    };
+
+    window.closeReaderPopupBlockV908=function(){
+      var p=active;
+      cancelTimers();
+      var el=ensureOverlay();
+      el.classList.remove('v31148-visible');
+      el.setAttribute('aria-hidden','true');
+      if(p){
+        unlock(p);
+        restoreOnlyIfNeeded(p);
+        requestAnimationFrame(function(){restoreOnlyIfNeeded(p);});
+      }
+      active=null;
+    };
+
+    try{openReaderPopupBlockV908=window.openReaderPopupBlockV908;}catch(e){}
+    try{closeReaderPopupBlockV908=window.closeReaderPopupBlockV908;}catch(e){}
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){setTimeout(install,380);},{once:true});
+  else setTimeout(install,380);
+})();
+
+/* ===== V3.1.167 - MODO RESCATE DE EMERGENTES GUARDADOS ===== */
+(function(){
+  'use strict';
+  function getCurrentTextSafe(){
+    try{
+      var item=(typeof currentItem==='function') ? currentItem() : null;
+      if(!item) return '';
+      return String(section==='verses' ? (item.text||item.content||'') : (item.content||''));
+    }catch(e){ return ''; }
+  }
+  function parseSafe(text){
+    var raw=String(text||''), blocks=[];
+    var re=/\[emergente\s+titulo="([^"]*)"\]([\s\S]*?)\[\/emergente\]/gi, m, guard=0;
+    while((m=re.exec(raw)) && guard++<500){
+      blocks.push({title:m[1]||'Emergente',body:m[2]||''});
+      if(re.lastIndex===m.index) re.lastIndex++;
+    }
+    return blocks;
+  }
+  function removeOverlay(){
+    var old=document.getElementById('readerPopupOverlayV908');
+    if(old && old.parentNode) old.parentNode.removeChild(old);
+  }
+  window.closeReaderPopupBlockV908=function(){ removeOverlay(); };
+  window.openReaderPopupBlockV908=function(idx){
+    try{
+      var before=window.scrollY||document.documentElement.scrollTop||0;
+      var blocks=parseSafe(getCurrentTextSafe());
+      var b=blocks[Number(idx)];
+      if(!b){ alert('No se ha encontrado este bloque emergente.'); return; }
+      removeOverlay();
+      var overlay=document.createElement('div');
+      overlay.id='readerPopupOverlayV908';
+      overlay.className='reader-popup-overlay-v908 v31148-persistent v31167-rescue';
+      var card=document.createElement('div');
+      card.className='reader-popup-card-v908';
+      card.setAttribute('role','dialog');
+      card.setAttribute('aria-modal','true');
+      var h=document.createElement('h3');
+      h.textContent=String(b.title||'Emergente');
+      var content=document.createElement('div');
+      content.className='reader-popup-content-v908 v31148-popup-content';
+      content.style.whiteSpace='pre-wrap';
+      content.style.overflowWrap='anywhere';
+      content.textContent=String(b.body||'');
+      var actions=document.createElement('div');
+      actions.className='reader-popup-actions-v913';
+      var close=document.createElement('button');
+      close.className='btn primary'; close.type='button'; close.textContent='Cerrar';
+      close.addEventListener('click',window.closeReaderPopupBlockV908,{once:true});
+      actions.appendChild(close); card.appendChild(h); card.appendChild(content); card.appendChild(actions); overlay.appendChild(card);
+      overlay.addEventListener('click',function(ev){if(ev.target===overlay) window.closeReaderPopupBlockV908();});
+      document.body.appendChild(overlay);
+      overlay.classList.add('v31148-visible');
+      requestAnimationFrame(function(){
+        var now=window.scrollY||document.documentElement.scrollTop||0;
+        if(Math.abs(now-before)>0.5) window.scrollTo(0,before);
+      });
+    }catch(e){
+      console.error('V3.1.167 rescue popup',e);
+      alert('No se pudo abrir este emergente. Puede estar dañado, pero sus datos no se han borrado.');
+    }
+  };
 })();

@@ -3783,3 +3783,46 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 @media (prefers-reduced-motion:reduce){
   .reader-recommendations-content-v31127,.reader-recommendations-arrow-v31127{transition:none!important}
 }
+
+/* ===== V3.1.148 - Emergente persistente y composición estable ===== */
+#readerPopupOverlayV908.v31148-persistent{
+  visibility:hidden;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 120ms ease-out, visibility 0s linear 120ms !important;
+  animation:none !important;
+  contain:layout paint style;
+  transform:translateZ(0);
+  backface-visibility:hidden;
+}
+#readerPopupOverlayV908.v31148-persistent.v31148-visible{
+  visibility:visible;
+  opacity:1;
+  pointer-events:auto;
+  transition:opacity 120ms ease-out !important;
+}
+#readerPopupOverlayV908.v31148-persistent .reader-popup-card-v908{
+  animation:none !important;
+  transform:translateZ(0) !important;
+  will-change:auto !important;
+  backface-visibility:hidden;
+  contain:layout paint;
+}
+@media (prefers-reduced-motion:reduce){
+  #readerPopupOverlayV908.v31148-persistent{transition:none !important;}
+}
+
+
+/* ===== V3.1.153 - El emergente absorbe los gestos sin mover el fondo ===== */
+#readerPopupOverlayV908.v31148-persistent{
+  touch-action:none;
+  overscroll-behavior:none;
+}
+#readerPopupOverlayV908.v31148-persistent .reader-popup-card-v908{
+  overscroll-behavior:contain;
+}
+#readerPopupOverlayV908.v31148-persistent .v31148-popup-content{
+  touch-action:pan-y;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+}

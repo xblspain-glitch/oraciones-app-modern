@@ -1,8 +1,8 @@
 {
-  "name": "Oraciones V3",
-  "short_name": "Oraciones V3",
-  "id": "./oraciones-v3-lab",
-  "start_url": "./?v=oraciones-v3-1-110-category-first-groups",
+  "name": "Oraciones V2 Laboratorio",
+  "short_name": "Oraciones V2",
+  "id": "./oraciones-v2-laboratorio-emergentes",
+  "start_url": "./?v=oraciones-v2-lab-168-emergentes-seguros",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

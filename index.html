@@ -4,11 +4,11 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V3</title>
+<title>Oraciones V2 Laboratorio</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Oraciones V3">
+<meta name="apple-mobile-web-app-title" content="Oraciones V2">
 <link rel="manifest" href="manifest.json">
 <link rel="preload" as="image" href="icon-192.png">
 <link rel="preload" as="image" href="bg-morning.webp">
@@ -18,16 +18,24 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v3-1-126-scroll-lectura">
+<link rel="stylesheet" href="styles.css?v=v3-1-153-popup-background-lock">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
+
+<style>
+.modal,.popup,.dialog,[role="dialog"],.overlay-content{contain: layout paint;will-change:opacity;transform:translateZ(0);backface-visibility:hidden;
+ will-change: opacity;
+ transform: translateZ(0);
+ backface-visibility:hidden;
+}
+</style>
 </head>
 <body>
 
-<div id="ov2Welcome" role="dialog" aria-label="Bienvenida Oraciones V3">
+<div id="ov2Welcome" role="dialog" aria-label="Bienvenida Oraciones V2 Laboratorio">
   <div class="ov2-card">
-    <img class="ov2-logo" src="icon-192.png" alt="Oraciones V3" fetchpriority="high" decoding="async">
+    <img class="ov2-logo" src="icon-192.png" alt="Oraciones V2" fetchpriority="high" decoding="async">
     <div id="ov2Greeting" class="ov2-kicker">Bienvenido</div>
-    <h1 class="ov2-title">Oraciones V3</h1>
+    <h1 class="ov2-title">Oraciones V2 · Laboratorio</h1>
     <p id="ov2IntroText" class="ov2-sub">Un lugar sencillo para orar, leer, guardar notas y descansar en la fidelidad de Dios.</p>
     <p id="ov2Verse" class="ov2-verse">“Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.”<br><strong>Salmo 34:18</strong></p>
     <button class="ov2-enter" type="button" onclick="enterOv2Welcome()">Entrar</button>
@@ -345,7 +353,7 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v3-1-138-icono-dia-noche-version"></script>
+<script src="app.js?v=v3-1-153-popup-background-lock"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v3-1-137-ajustes-visuales-editor-grupo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
