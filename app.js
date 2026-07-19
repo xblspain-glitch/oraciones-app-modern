@@ -11489,7 +11489,6 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   window.closeReaderPopupBlockV908=function(){ removeOverlay(); };
   window.openReaderPopupBlockV908=function(idx){
     try{
-      var before=window.scrollY||document.documentElement.scrollTop||0;
       var blocks=parseSafe(getCurrentTextSafe());
       var b=blocks[Number(idx)];
       if(!b){ alert('No se ha encontrado este bloque emergente.'); return; }
@@ -11517,10 +11516,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       overlay.addEventListener('click',function(ev){if(ev.target===overlay) window.closeReaderPopupBlockV908();});
       document.body.appendChild(overlay);
       overlay.classList.add('v31148-visible');
-      requestAnimationFrame(function(){
-        var now=window.scrollY||document.documentElement.scrollTop||0;
-        if(Math.abs(now-before)>0.5) window.scrollTo(0,before);
-      });
+
     }catch(e){
       console.error('V3.1.167 rescue popup',e);
       alert('No se pudo abrir este emergente. Puede estar dañado, pero sus datos no se han borrado.');
