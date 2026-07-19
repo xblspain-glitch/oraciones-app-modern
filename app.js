@@ -11575,3 +11575,64 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   try{openReaderPopupBlockV908=window.openReaderPopupBlockV908;}catch(e){}
   try{closeReaderPopupBlockV908=window.closeReaderPopupBlockV908;}catch(e){}
 })();
+
+/* ===== V2 LAB 171 - DIAGNOSTICO REAL DE MOVIMIENTO ANDROID ===== */
+(function(){
+  'use strict';
+  var logs=[];
+  function num(v){return Math.round((Number(v)||0)*100)/100;}
+  function snap(label){
+    var vv=window.visualViewport;
+    var ae=document.activeElement;
+    var ov=document.getElementById('readerPopupOverlayV908');
+    var r=ov&&ov.getBoundingClientRect?ov.getBoundingClientRect():null;
+    logs.push({
+      t:Date.now(),label:label,
+      scrollX:num(window.scrollX),scrollY:num(window.scrollY),
+      docScrollTop:num(document.documentElement.scrollTop),bodyScrollTop:num(document.body&&document.body.scrollTop),
+      innerH:num(window.innerHeight),innerW:num(window.innerWidth),
+      vvPageTop:vv?num(vv.pageTop):null,vvOffsetTop:vv?num(vv.offsetTop):null,vvHeight:vv?num(vv.height):null,
+      clientH:num(document.documentElement.clientHeight),scrollH:num(document.documentElement.scrollHeight),
+      active:ae?(ae.id||ae.className||ae.tagName):null,
+      overlay:!!ov,overlayTop:r?num(r.top):null,overlayHeight:r?num(r.height):null
+    });
+    try{localStorage.setItem('v2lab171_diag',JSON.stringify(logs.slice(-80)));}catch(e){}
+  }
+  function later(prefix){
+    snap(prefix+'-0');
+    setTimeout(function(){snap(prefix+'-16');},16);
+    setTimeout(function(){snap(prefix+'-50');},50);
+    setTimeout(function(){snap(prefix+'-150');},150);
+    setTimeout(function(){snap(prefix+'-300');},300);
+    setTimeout(function(){snap(prefix+'-700');},700);
+  }
+  document.addEventListener('pointerdown',function(ev){
+    var b=ev.target&&ev.target.closest&&ev.target.closest('.reader-popup-btn-v908');
+    if(b){logs=[];snap('pointerdown-boton');}
+  },true);
+  document.addEventListener('click',function(ev){
+    var b=ev.target&&ev.target.closest&&ev.target.closest('.reader-popup-btn-v908');
+    if(b) later('click-boton');
+  },true);
+  window.addEventListener('scroll',function(){snap('evento-scroll');},{passive:true});
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('scroll',function(){snap('vv-scroll');},{passive:true});
+    window.visualViewport.addEventListener('resize',function(){snap('vv-resize');},{passive:true});
+  }
+  var oldClose=window.closeReaderPopupBlockV908;
+  window.closeReaderPopupBlockV908=function(){snap('antes-cerrar');var x=oldClose&&oldClose.apply(this,arguments);later('despues-cerrar');return x;};
+  function installButton(){
+    if(document.getElementById('v2lab171CopyDiag'))return;
+    var b=document.createElement('button');
+    b.id='v2lab171CopyDiag';b.type='button';b.textContent='Copiar diagnóstico';
+    b.style.cssText='position:fixed;right:10px;bottom:10px;z-index:2147483647;border:0;border-radius:999px;padding:10px 14px;background:#173b67;color:#fff;font:600 13px system-ui;box-shadow:0 3px 12px rgba(0,0,0,.25)';
+    b.addEventListener('click',function(){
+      var txt='V2 LAB 171\n'+JSON.stringify(logs.length?logs:JSON.parse(localStorage.getItem('v2lab171_diag')||'[]'),null,2);
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){b.textContent='Copiado ✓';setTimeout(function(){b.textContent='Copiar diagnóstico';},1800);}).catch(function(){fallback(txt);});}
+      else fallback(txt);
+      function fallback(t){var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');b.textContent='Copiado ✓';}catch(e){b.textContent='No se pudo copiar';}ta.remove();setTimeout(function(){b.textContent='Copiar diagnóstico';},1800);}
+    });
+    document.documentElement.appendChild(b);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installButton);else installButton();
+})();
