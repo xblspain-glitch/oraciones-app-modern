@@ -139,7 +139,7 @@
       var item=findItem(ref), tm=typeMeta(ref.type), row=document.createElement('div');row.className='routine-item-v3192';
       var displayTitle=itemTitle(item,ref.type);
       if(ref.type==='randomPrayer') displayTitle+=' ('+(Array.isArray(ref.options)?ref.options.length:0)+')';
-      var editButton=ref.type==='randomPrayer'?'<button type="button" title="Editar selección" onclick="editRandomPrayerV3136('+i+')">✎</button>':'';
+      var editButton=(ref.type==='randomPrayer'||ref.type==='prayerChoice')?'<button type="button" title="Editar selección" onclick="editPrayerSelectionV3137('+i+')">✎</button>':'';
       row.innerHTML='<div class="routine-order-v3192">'+(i+1)+'</div><div class="routine-kind-v3192">'+tm.icon+'</div><div class="routine-info-v3192"><strong>'+esc(displayTitle)+'</strong><span>'+tm.sing+(item?'':' · Ya no existe')+'</span></div><div class="routine-actions-v3192">'+editButton+'<button type="button" title="Subir" '+(i===0?'disabled':'')+' onclick="moveRoutineItemV3192('+i+',-1)">↑</button><button type="button" title="Bajar" '+(i===refs.length-1?'disabled':'')+' onclick="moveRoutineItemV3192('+i+',1)">↓</button><button class="routine-remove-v3192" type="button" title="Quitar" onclick="removeRoutineItemV3192('+i+')">×</button></div>';
       box.appendChild(row);
     });
@@ -171,11 +171,11 @@
     document.getElementById('routineAddTypeV3192').classList.add('hidden');document.getElementById('routineAddChoicesV3192').classList.remove('hidden');
     renderPrayerChoiceCategoriesV3198();
   }
-  window.editRandomPrayerV3136=function(index){
+  window.editPrayerSelectionV3137=function(index){
     var d=getData(), ref=d[currentRoutine]&&d[currentRoutine][index];
-    if(!ref||ref.type!=='randomPrayer')return;
+    if(!ref||(ref.type!=='randomPrayer'&&ref.type!=='prayerChoice'))return;
     prayerChoiceEditIndexV3136=index;
-    prayerChoiceModeV3135='random';selectorType='prayers';
+    prayerChoiceModeV3135=(ref.type==='randomPrayer'?'random':'group');selectorType='prayers';
     prayerChoiceDraftV3198=Array.isArray(ref.options)?ref.options.slice():[];
     prayerChoiceCategoryDraftV31110=[];
     byType('prayers').forEach(function(it){
@@ -209,7 +209,7 @@
   function renderPrayerChoiceCombinedItemsV31110(){
     if(!prayerChoiceCategoryDraftV31110.length){renderPrayerChoiceCategoriesV3198();return;}
     var title=document.getElementById('routineChoiceTitleV3192'),box=document.getElementById('routineChoiceListV3192');title.textContent='← Elegir oraciones · '+prayerChoiceDraftV3198.length+' elegidas';title.onclick=renderPrayerChoiceCategoriesV3198;box.innerHTML='';
-    var accept=document.createElement('button');accept.type='button';accept.className='btn primary routine-choice-accept-v3200';accept.disabled=prayerChoiceDraftV3198.length<2;accept.textContent=prayerChoiceDraftV3198.length<2?'Seleccione al menos 2 oraciones':(prayerChoiceModeV3135==='random'?(prayerChoiceEditIndexV3136>=0?'✓ Guardar cambios ('+prayerChoiceDraftV3198.length+')':'✓ Añadir al azar ('+prayerChoiceDraftV3198.length+')'):'✓ Aceptar grupo ('+prayerChoiceDraftV3198.length+')');accept.onclick=savePrayerChoiceGroupV3198;box.appendChild(accept);
+    var accept=document.createElement('button');accept.type='button';accept.className='btn primary routine-choice-accept-v3200';accept.disabled=prayerChoiceDraftV3198.length<2;accept.textContent=prayerChoiceDraftV3198.length<2?'Seleccione al menos 2 oraciones':(prayerChoiceEditIndexV3136>=0?'✓ Guardar cambios ('+prayerChoiceDraftV3198.length+')':(prayerChoiceModeV3135==='random'?'✓ Añadir al azar ('+prayerChoiceDraftV3198.length+')':'✓ Aceptar grupo ('+prayerChoiceDraftV3198.length+')'));accept.onclick=savePrayerChoiceGroupV3198;box.appendChild(accept);
     if(prayerChoiceDraftV3198.length){var review=document.createElement('button');review.type='button';review.className='btn soft routine-choice-review-v31109';review.textContent='☑ Ver selección ('+prayerChoiceDraftV3198.length+')';review.onclick=renderPrayerChoiceReviewV31109;box.appendChild(review);}
     var items=prayerChoiceCombinedItemsV31110();
     items.forEach(function(it){var selected=prayerChoiceSelectedV3198(it.id),b=document.createElement('button');b.type='button';b.className='routine-item-choice-v3192 prayer-choice-toggle-v3198'+(selected?' selected-v3198':'');b.innerHTML='<span>'+(selected?'✓':'🙏🏾')+'</span><div><strong>'+esc(itemTitle(it,'prayers'))+'</strong><small>'+(selected?'Seleccionada · pulse para quitar':'Pulse para seleccionar')+'</small></div>';b.onclick=function(){var id=String(it.id),i=prayerChoiceDraftV3198.indexOf(id);if(i>=0)prayerChoiceDraftV3198.splice(i,1);else prayerChoiceDraftV3198.push(id);renderPrayerChoiceCombinedItemsV31110();};box.appendChild(b);});
@@ -217,17 +217,21 @@
   }
   function renderPrayerChoiceReviewV31109(){
     var title=document.getElementById('routineChoiceTitleV3192'),box=document.getElementById('routineChoiceListV3192');title.textContent='← Selección completa · '+prayerChoiceDraftV3198.length;title.onclick=renderPrayerChoiceCombinedItemsV31110;box.innerHTML='';
-    var accept=document.createElement('button');accept.type='button';accept.className='btn primary routine-choice-accept-v3200';accept.disabled=prayerChoiceDraftV3198.length<2;accept.textContent=prayerChoiceDraftV3198.length<2?'Seleccione al menos 2 oraciones':(prayerChoiceModeV3135==='random'?(prayerChoiceEditIndexV3136>=0?'✓ Guardar cambios ('+prayerChoiceDraftV3198.length+')':'✓ Añadir al azar ('+prayerChoiceDraftV3198.length+')'):'✓ Aceptar grupo ('+prayerChoiceDraftV3198.length+')');accept.onclick=savePrayerChoiceGroupV3198;box.appendChild(accept);
+    var accept=document.createElement('button');accept.type='button';accept.className='btn primary routine-choice-accept-v3200';accept.disabled=prayerChoiceDraftV3198.length<2;accept.textContent=prayerChoiceDraftV3198.length<2?'Seleccione al menos 2 oraciones':(prayerChoiceEditIndexV3136>=0?'✓ Guardar cambios ('+prayerChoiceDraftV3198.length+')':(prayerChoiceModeV3135==='random'?'✓ Añadir al azar ('+prayerChoiceDraftV3198.length+')':'✓ Aceptar grupo ('+prayerChoiceDraftV3198.length+')'));accept.onclick=savePrayerChoiceGroupV3198;box.appendChild(accept);
     byType('prayers').filter(function(it){return prayerChoiceSelectedV3198(it.id);}).forEach(function(it){var b=document.createElement('button');b.type='button';b.className='routine-item-choice-v3192 prayer-choice-toggle-v3198 selected-v3198';b.innerHTML='<span>✓</span><div><strong>'+esc(itemTitle(it,'prayers'))+'</strong><small>Pulse para quitar de la selección</small></div>';b.onclick=function(){var id=String(it.id),i=prayerChoiceDraftV3198.indexOf(id);if(i>=0)prayerChoiceDraftV3198.splice(i,1);renderPrayerChoiceReviewV31109();};box.appendChild(b);});
   }
 
   function savePrayerChoiceGroupV3198(){
     if(prayerChoiceDraftV3198.length<2)return;
     var d=getData(), isRandom=prayerChoiceModeV3135==='random';
-    if(isRandom&&prayerChoiceEditIndexV3136>=0&&d[currentRoutine][prayerChoiceEditIndexV3136]&&d[currentRoutine][prayerChoiceEditIndexV3136].type==='randomPrayer'){
-      d[currentRoutine][prayerChoiceEditIndexV3136].options=prayerChoiceDraftV3198.slice();
-      d[currentRoutine][prayerChoiceEditIndexV3136].title='Oración al azar';
-      persist(d);closeRoutineAddV3192();renderEditor();if(typeof toast==='function')toast('Oración al azar actualizada');return;
+    if(prayerChoiceEditIndexV3136>=0&&d[currentRoutine][prayerChoiceEditIndexV3136]){
+      var editing=d[currentRoutine][prayerChoiceEditIndexV3136];
+      var expectedType=isRandom?'randomPrayer':'prayerChoice';
+      if(editing.type===expectedType){
+        editing.options=prayerChoiceDraftV3198.slice();
+        editing.title=isRandom?'Oración al azar':'Grupo de oraciones';
+        persist(d);closeRoutineAddV3192();renderEditor();if(typeof toast==='function')toast(isRandom?'Oración al azar actualizada':'Grupo de oraciones actualizado');return;
+      }
     }
     var id=(isRandom?'random-':'choice-')+Date.now()+'-'+Math.random().toString(36).slice(2,7);d[currentRoutine].push({type:isRandom?'randomPrayer':'prayerChoice',id:id,title:isRandom?'Oración al azar':'Grupo de oraciones',options:prayerChoiceDraftV3198.slice()});persist(d);closeRoutineAddV3192();renderEditor();if(typeof toast==='function')toast(isRandom?'Oración al azar añadida':'Grupo de oraciones añadido');
   }
