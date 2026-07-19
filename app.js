@@ -6431,7 +6431,7 @@ setInterval(updateVersePositionCounter, 1000);
         dIdx++;
       }else{
         out += '<div class="reader-popup-block" data-popup-index="'+pIdx+'">' +
-          '<button class="reader-popup-title" type="button" onclick="openReaderPopupBlockV908('+pIdx+')">'+title+'</button>' +
+          '<button class="reader-popup-title" type="button" tabindex="-1" onpointerdown="event.preventDefault();event.stopPropagation()" onclick="event.preventDefault();event.stopPropagation();this.blur();openReaderPopupBlockV908('+pIdx+');return false">'+title+'</button>' +
           '<div class="block-controls-v865">' +
           '<button class="block-mini-v865" type="button" onclick="event.preventDefault();event.stopPropagation();editPopupBlockV908('+pIdx+')">✏️ Editar</button>' +
           '<button class="block-mini-v865 danger" type="button" onclick="event.preventDefault();event.stopPropagation();deletePopupBlockV908('+pIdx+')">🗑️ Eliminar</button>' +
@@ -11443,6 +11443,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 
     window.closeReaderPopupBlockV908=function(){
       var p=active;
+      try{ if(document.activeElement && document.activeElement.blur) document.activeElement.blur(); }catch(e){}
       cancelTimers();
       var el=ensureOverlay();
       el.classList.remove('v31148-visible');

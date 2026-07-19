@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V2 Laboratorio 171</title>
+<title>Oraciones V2 Laboratorio 175</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -353,55 +353,12 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v2-lab-174-notas-visible"></script>
+<script src="app.js?v=v2-lab-175-notas-sin-propagacion"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v3-1-137-ajustes-visuales-editor-grupo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
 
-<style id="diag172-style">
-#diag172Btn{position:fixed!important;right:10px!important;bottom:14px!important;z-index:2147483647!important;background:#e66a00!important;color:#fff!important;border:3px solid #fff!important;border-radius:14px!important;padding:12px 14px!important;font:700 14px/1.1 Arial,sans-serif!important;box-shadow:0 3px 14px rgba(0,0,0,.45)!important;display:block!important;visibility:visible!important;opacity:1!important;transform:none!important;pointer-events:auto!important}
-#diag172Panel{position:fixed!important;inset:8px!important;z-index:2147483646!important;background:#fff!important;color:#111!important;border:3px solid #e66a00!important;border-radius:12px!important;padding:12px!important;display:none!important;overflow:auto!important;font:12px/1.35 monospace!important;white-space:pre-wrap!important}
-#diag172Panel.open{display:block!important}
-#diag172Close{position:sticky;top:0;float:right;background:#222;color:#fff;border:0;border-radius:8px;padding:8px 10px;font-weight:700}
-</style>
-<div id="lab174Mark" style="position:fixed!important;left:8px!important;top:8px!important;z-index:2147483647!important;background:#111!important;color:#fff!important;border:2px solid #ff9800!important;border-radius:8px!important;padding:6px 8px!important;font:700 12px Arial,sans-serif!important;display:block!important">V2 LAB 174</div>
-<button id="diag172Btn" type="button">📋 COPIAR NOTAS</button>
-<div id="diag172Panel"><button id="diag172Close" type="button">Cerrar</button><div id="diag172Text"></div></div>
-<script id="diag172-script">
-(function(){
-  'use strict';
-  var log=[]; var start=Date.now();
-  function snap(tag){
-    var vv=window.visualViewport;
-    var ae=document.activeElement;
-    var row=[
-      String(Date.now()-start).padStart(5,'0')+'ms', tag,
-      'scrollY='+Math.round(window.scrollY||window.pageYOffset||0),
-      'docTop='+Math.round(document.documentElement.scrollTop||0),
-      'bodyTop='+Math.round(document.body?document.body.scrollTop||0:0),
-      'innerH='+Math.round(window.innerHeight||0),
-      'docH='+Math.round(document.documentElement.scrollHeight||0),
-      'vvTop='+(vv?Math.round(vv.offsetTop):'na'),
-      'vvH='+(vv?Math.round(vv.height):'na'),
-      'focus='+(ae?(ae.id||ae.tagName||'none'):'none')
-    ].join(' | ');
-    log.push(row); if(log.length>180) log.shift();
-  }
-  snap('inicio');
-  window.addEventListener('scroll',function(){snap('window-scroll')},{passive:true});
-  document.addEventListener('scroll',function(e){if(e.target!==document)snap('element-scroll:'+(e.target.id||e.target.className||e.target.tagName));},true);
-  document.addEventListener('pointerdown',function(e){snap('pointerdown:'+(e.target.id||e.target.className||e.target.tagName));},true);
-  document.addEventListener('click',function(e){snap('click:'+(e.target.id||e.target.className||e.target.tagName)); setTimeout(function(){snap('click+50')},50); setTimeout(function(){snap('click+250')},250); setTimeout(function(){snap('click+700')},700);},true);
-  document.addEventListener('focusin',function(e){snap('focusin:'+(e.target.id||e.target.tagName));},true);
-  if(window.visualViewport){visualViewport.addEventListener('scroll',function(){snap('vv-scroll')},{passive:true});visualViewport.addEventListener('resize',function(){snap('vv-resize')},{passive:true});}
-  window.addEventListener('resize',function(){snap('window-resize')},{passive:true});
-  document.addEventListener('v2lab173-note-popup',function(e){snap((e.detail&&e.detail.name)||'NOTAS-evento');});
-  var b=document.getElementById('diag172Btn'), panel=document.getElementById('diag172Panel'), out=document.getElementById('diag172Text');
-  function text(){snap('copiar');return 'DIAGNÓSTICO NOTAS V2 LAB 173\n'+navigator.userAgent+'\n\n'+log.join('\n');}
-  b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var t=text();out.textContent=t;navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(t).then(function(){b.textContent='✅ COPIADO';setTimeout(function(){b.textContent='📋 COPIAR NOTAS'},1600)}).catch(function(){panel.classList.add('open')}):panel.classList.add('open');},true);
-  document.getElementById('diag172Close').addEventListener('click',function(){panel.classList.remove('open')});
-})();
-</script>
+
 
 </body>
 </html>
