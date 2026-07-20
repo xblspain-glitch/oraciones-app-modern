@@ -4630,3 +4630,32 @@ body.dark-mode .reader-end-card::after{
   .reader-end-card .end-card-ethiopian-cross-v2194{top:23px!important;width:58px!important;height:64px!important}
   .reader-end-card::after{right:18px!important;bottom:16px!important;font-size:54px!important}
 }
+
+
+/* ===== V2 LAB 198 — halo superior más discreto ===== */
+.reader-end-card::before{
+  top:16px!important;
+  width:78px!important;
+  height:78px!important;
+  border-radius:24px!important;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.22) 0%, rgba(205,175,255,.18) 18%, rgba(154,118,235,.14) 40%, rgba(110,132,228,.08) 66%, transparent 100%)!important;
+  box-shadow:
+    0 0 14px rgba(174,140,244,.16),
+    0 0 28px rgba(146,126,232,.10),
+    0 10px 22px rgba(110,101,214,.08),
+    inset 0 1px 0 rgba(255,255,255,.18)!important;
+}
+body.dark .reader-end-card::before,
+body.dark-mode .reader-end-card::before{
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.14) 0%, rgba(198,168,255,.14) 18%, rgba(152,116,233,.12) 40%, rgba(109,132,226,.07) 66%, transparent 100%)!important;
+  box-shadow:
+    0 0 14px rgba(154,132,232,.12),
+    0 0 28px rgba(128,108,214,.08),
+    0 10px 22px rgba(72,68,160,.12),
+    inset 0 1px 0 rgba(255,255,255,.12)!important;
+}
+@media(max-width:420px){
+  .reader-end-card::before{top:17px!important;width:72px!important;height:72px!important;border-radius:22px!important}
+}
