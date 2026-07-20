@@ -4006,56 +4006,56 @@ body.dark.home-active-v9019 .segment button.active{
 
 
 /* V2 LAB 183 · colores suaves por sección en el menú principal
-   Selectores ligados al texto funcional expuesto (data-view-btn) o a la
-   acción real (onclick/data-mark-button), nunca a la posición del botón.
-   Cambio exclusivamente visual. */
-body.home-active-v9019 button[data-view-btn="daily"][onclick*="openDailyVerse"]{
+   Selectores ligados a la acción real de cada botón, nunca a su posición.
+   Se incluye la estructura real del menú para superar las reglas generales
+   .topbar-row .btn.soft sin modificar lógica ni navegación. */
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="daily"][onclick*="openDailyVerse"]{
   background:linear-gradient(180deg,#e2f3ff 0%,#d3eaf8 100%)!important;
   border-color:rgba(73,139,178,.24)!important;
 }
-body.home-active-v9019 button[data-view-btn="routines"][onclick*="openDailyRoutines"]{
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="routines"][onclick*="openDailyRoutines"]{
   background:linear-gradient(180deg,#e8edf5 0%,#dce4ee 100%)!important;
   border-color:rgba(91,111,139,.24)!important;
 }
-body.home-active-v9019 button[data-view-btn="moments"][onclick*="openMoments"]{
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="moments"][onclick*="openMoments"]{
   background:linear-gradient(180deg,#edf6e7 0%,#deecd5 100%)!important;
   border-color:rgba(94,137,77,.24)!important;
 }
-body.home-active-v9019 button[data-view-btn="calendar"][onclick*="openChristianCalendar"]{
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="calendar"][onclick*="openChristianCalendar"]{
   background:linear-gradient(180deg,#fff0ec 0%,#f8ded7 100%)!important;
   border-color:rgba(181,93,72,.23)!important;
 }
-body.home-active-v9019 button[data-view-btn="parables"][onclick*="'parables'"]{
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="parables"][onclick*="'parables'"]{
   background:linear-gradient(180deg,#eef9e9 0%,#dff0d7 100%)!important;
   border-color:rgba(91,148,71,.24)!important;
 }
-body.home-active-v9019 button[data-view-btn="psalms"][onclick*="'psalms'"]{
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="psalms"][onclick*="'psalms'"]{
   background:linear-gradient(180deg,#fff0df 0%,#f8dfc3 100%)!important;
   border-color:rgba(185,119,52,.24)!important;
 }
-body.home-active-v9019 button[data-mark-button="1"][onclick*="openReadingMarkMenu"]{
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"][onclick*="openReadingMarkMenu"]{
   background:linear-gradient(180deg,#fff0f3 0%,#f7dde3 100%)!important;
   border-color:rgba(178,85,107,.22)!important;
 }
-body.home-active-v9019 button[onclick*="toggleTheme"]{
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[onclick*="toggleTheme"]{
   background:linear-gradient(180deg,#eeeafd 0%,#dfd9f5 100%)!important;
   border-color:rgba(105,88,157,.22)!important;
 }
-body.home-active-v9019 button[data-view-btn="daily"][onclick*="openDailyVerse"],
-body.home-active-v9019 button[data-view-btn="routines"][onclick*="openDailyRoutines"],
-body.home-active-v9019 button[data-view-btn="moments"][onclick*="openMoments"],
-body.home-active-v9019 button[data-view-btn="calendar"][onclick*="openChristianCalendar"],
-body.home-active-v9019 button[data-view-btn="parables"][onclick*="'parables'"],
-body.home-active-v9019 button[data-view-btn="psalms"][onclick*="'psalms'"],
-body.home-active-v9019 button[data-mark-button="1"][onclick*="openReadingMarkMenu"],
-body.home-active-v9019 button[onclick*="toggleTheme"]{
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="daily"][onclick*="openDailyVerse"],
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="routines"][onclick*="openDailyRoutines"],
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="moments"][onclick*="openMoments"],
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="calendar"][onclick*="openChristianCalendar"],
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="parables"][onclick*="'parables'"],
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="psalms"][onclick*="'psalms'"],
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"][onclick*="openReadingMarkMenu"],
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[onclick*="toggleTheme"]{
   box-shadow:0 2px 7px rgba(56,70,90,.07),inset 0 1px 0 rgba(255,255,255,.72)!important;
 }
-body.dark.home-active-v9019 button[data-view-btn="daily"][onclick*="openDailyVerse"]{background:#294c60!important;}
-body.dark.home-active-v9019 button[data-view-btn="routines"][onclick*="openDailyRoutines"]{background:#354150!important;}
-body.dark.home-active-v9019 button[data-view-btn="moments"][onclick*="openMoments"]{background:#354b31!important;}
-body.dark.home-active-v9019 button[data-view-btn="calendar"][onclick*="openChristianCalendar"]{background:#563b35!important;}
-body.dark.home-active-v9019 button[data-view-btn="parables"][onclick*="'parables'"]{background:#355032!important;}
-body.dark.home-active-v9019 button[data-view-btn="psalms"][onclick*="'psalms'"]{background:#5a432d!important;}
-body.dark.home-active-v9019 button[data-mark-button="1"][onclick*="openReadingMarkMenu"]{background:#553840!important;}
-body.dark.home-active-v9019 button[onclick*="toggleTheme"]{background:#42395b!important;}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="daily"][onclick*="openDailyVerse"]{background:#294c60!important;}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="routines"][onclick*="openDailyRoutines"]{background:#354150!important;}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="moments"][onclick*="openMoments"]{background:#354b31!important;}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="calendar"][onclick*="openChristianCalendar"]{background:#563b35!important;}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="parables"][onclick*="'parables'"]{background:#355032!important;}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="psalms"][onclick*="'psalms'"]{background:#5a432d!important;}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"][onclick*="openReadingMarkMenu"]{background:#553840!important;}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[onclick*="toggleTheme"]{background:#42395b!important;}
