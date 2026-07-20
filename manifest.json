@@ -1,8 +1,8 @@
 {
-  "name": "Oraciones V2 Laboratorio 179",
+  "name": "Oraciones V2 Laboratorio 180",
   "short_name": "Oraciones V2",
-  "id": "/oraciones-app-modern/?v2lab=179",
-  "start_url": "./?v2lab=179",
+  "id": "/oraciones-app-modern/?v2lab=180",
+  "start_url": "./?v2lab=180",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",

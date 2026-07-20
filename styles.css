@@ -3942,3 +3942,56 @@ body.dark .global-search-modal-v3177{background:var(--bg)}
     padding-top:8px!important;
   }
 }
+
+
+/* V2 LAB 180 · accesos superiores diferenciados
+   Solo presentación: cuatro pastillas azules independientes. */
+body.home-active-v9019 .segment{
+  background:rgba(212,231,250,.72)!important;
+  border:1px solid rgba(153,190,226,.52)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.72)!important;
+}
+body.home-active-v9019 .segment button{
+  border:1px solid rgba(101,153,202,.22)!important;
+  box-shadow:0 2px 7px rgba(48,103,158,.08), inset 0 1px 0 rgba(255,255,255,.70)!important;
+  font-weight:600!important;
+  transition:transform .14s ease, box-shadow .14s ease, filter .14s ease!important;
+}
+body.home-active-v9019 .segment #tabPrayers{
+  background:#d9e9fb!important;
+}
+body.home-active-v9019 .segment #tabNotes{
+  background:#cfe6fa!important;
+}
+body.home-active-v9019 .segment #tabGuides{
+  background:#d7e4f3!important;
+}
+body.home-active-v9019 .segment #tabVerses{
+  background:#c9e1f8!important;
+}
+body.home-active-v9019 .segment button:active{
+  transform:scale(.97)!important;
+  filter:brightness(.98)!important;
+}
+body.home-active-v9019 .segment button.active{
+  border-color:rgba(55,117,177,.45)!important;
+  box-shadow:0 4px 12px rgba(36,91,145,.16), inset 0 1px 0 rgba(255,255,255,.82)!important;
+  font-weight:750!important;
+}
+body.dark.home-active-v9019 .segment{
+  background:rgba(24,50,77,.78)!important;
+  border-color:rgba(109,159,207,.25)!important;
+}
+body.dark.home-active-v9019 .segment #tabPrayers{background:#254a70!important;}
+body.dark.home-active-v9019 .segment #tabNotes{background:#214f78!important;}
+body.dark.home-active-v9019 .segment #tabGuides{background:#2b4863!important;}
+body.dark.home-active-v9019 .segment #tabVerses{background:#1f527d!important;}
+body.dark.home-active-v9019 .segment button{
+  border-color:rgba(154,196,234,.18)!important;
+  color:#f4f8fc!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
+body.dark.home-active-v9019 .segment button.active{
+  border-color:rgba(184,218,247,.45)!important;
+  box-shadow:0 4px 12px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.10)!important;
+}
