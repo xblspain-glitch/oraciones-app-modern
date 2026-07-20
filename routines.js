@@ -162,8 +162,22 @@
     return list;
   }
   function itemCats(item,type){
-    if(type==='prayers') return Array.isArray(item.categories)?item.categories.map(String):(item.category?[String(item.category)]:[]);
-    return item.category?[String(item.category)]:[];
+    var out=[];
+    function add(value){
+      if(value==null||value==='')return;
+      var id=String(value);
+      if(out.indexOf(id)<0)out.push(id);
+    }
+    if(type==='prayers'){
+      if(Array.isArray(item.categories))item.categories.forEach(add);
+      else add(item.category);
+    }else{
+      add(item.category);
+    }
+    /* V2 LAB 176: las categorías elegidas en «Momentos» también alimentan
+       el selector Día/Noche, sin sustituir la categoría principal. */
+    if(Array.isArray(item.momentCategoriesV31102))item.momentCategoriesV31102.forEach(add);
+    return out;
   }
   function beginPrayerChoiceGroupV3198(mode){
     prayerChoiceModeV3135=(mode==='random'?'random':'group');
