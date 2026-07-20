@@ -4134,3 +4134,32 @@ body.dark.home-active-v9019 .topbar-row #btnBackup,
 body.dark.home-active-v9019 .topbar-row #btnTrash{
   background:linear-gradient(110deg,#3d4650,#2f3740 62%,#252b32)!important;
 }
+
+/* V2.189 · Backup y Papelera en pantalla independiente */
+body.utility-fullscreen-v2189 .topbar,
+body.utility-fullscreen-v2189 .sidebar{
+  display:none!important;
+}
+body.utility-fullscreen-v2189 .main{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  min-height:100vh;
+  padding:0!important;
+  margin:0!important;
+}
+body.utility-fullscreen-v2189 .content{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  min-height:100vh;
+  padding:14px!important;
+  box-sizing:border-box;
+}
+body.utility-fullscreen-v2189 #backupView,
+body.utility-fullscreen-v2189 #trashView{
+  width:100%!important;
+  max-width:none!important;
+  min-height:calc(100vh - 28px);
+  margin:0!important;
+}

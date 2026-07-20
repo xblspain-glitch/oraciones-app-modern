@@ -11776,3 +11776,91 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   };
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){var m=document.getElementById('globalSearchModalV3177');if(m&&!m.classList.contains('hidden'))window.closeGlobalSearchV3177();}});
 })();
+
+/* =========================================================
+   V2.189 · Backup y Papelera como pantallas independientes
+   - Oculta completamente la portada/botonera al abrirlas.
+   - Conserva y restaura la pantalla exacta desde la que se entró.
+   ========================================================= */
+(function(){
+  var utilityReturnV2189 = null;
+
+  function captureUtilityReturnV2189(){
+    var panels = {};
+    document.querySelectorAll('.content .panel').forEach(function(el){
+      if(el && el.id) panels[el.id] = el.classList.contains('hidden');
+    });
+    var buttons = {};
+    document.querySelectorAll('.topbar button').forEach(function(el, idx){
+      var key = el.id || ('__idx_' + idx);
+      buttons[key] = el.className;
+    });
+    return {
+      panels: panels,
+      buttons: buttons,
+      bodyClass: document.body.className,
+      scrollY: window.scrollY || document.documentElement.scrollTop || 0
+    };
+  }
+
+  function enterUtilityFullscreenV2189(){
+    document.body.classList.add('utility-fullscreen-v2189','special-view-only');
+    window.scrollTo({top:0, behavior:'auto'});
+  }
+
+  window.closeUtilityScreenV2189 = function(){
+    var snapshot = utilityReturnV2189;
+    utilityReturnV2189 = null;
+
+    var backup = document.getElementById('backupView');
+    var trash = document.getElementById('trashView');
+    if(backup) backup.classList.add('hidden');
+    if(trash) trash.classList.add('hidden');
+
+    if(!snapshot){
+      document.body.classList.remove('utility-fullscreen-v2189','special-view-only','backup-only');
+      if(typeof showHomeV9019 === 'function') showHomeV9019();
+      return;
+    }
+
+    document.body.className = snapshot.bodyClass;
+    Object.keys(snapshot.panels || {}).forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      el.classList.toggle('hidden', !!snapshot.panels[id]);
+    });
+    var idx = 0;
+    document.querySelectorAll('.topbar button').forEach(function(el){
+      var key = el.id || ('__idx_' + idx);
+      if(Object.prototype.hasOwnProperty.call(snapshot.buttons || {}, key)){
+        el.className = snapshot.buttons[key];
+      }
+      idx++;
+    });
+    requestAnimationFrame(function(){
+      window.scrollTo({top:snapshot.scrollY || 0, behavior:'auto'});
+      setTimeout(function(){ window.scrollTo({top:snapshot.scrollY || 0, behavior:'auto'}); }, 40);
+    });
+  };
+
+  var originalOpenBackupV2189 = window.openBackup;
+  window.openBackup = function(){
+    if(!document.body.classList.contains('utility-fullscreen-v2189')){
+      utilityReturnV2189 = captureUtilityReturnV2189();
+    }
+    if(typeof originalOpenBackupV2189 === 'function') originalOpenBackupV2189.apply(this, arguments);
+    enterUtilityFullscreenV2189();
+  };
+  try{ openBackup = window.openBackup; }catch(e){}
+
+  var originalOpenTrashV2189 = window.openTrash;
+  window.openTrash = function(){
+    if(!document.body.classList.contains('utility-fullscreen-v2189')){
+      utilityReturnV2189 = captureUtilityReturnV2189();
+    }
+    if(typeof originalOpenTrashV2189 === 'function') originalOpenTrashV2189.apply(this, arguments);
+    document.body.classList.remove('backup-only');
+    enterUtilityFullscreenV2189();
+  };
+  try{ openTrash = window.openTrash; }catch(e){}
+})();
