@@ -4060,3 +4060,13 @@ body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="parables"
 body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="psalms"][onclick*="'psalms'"]{background:#5a432d!important;}
 body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"][onclick*="openReadingMarkMenu"]{background:#553840!important;}
 body.dark.home-active-v9019 .topbar-row button.btn.soft[onclick*="toggleTheme"]{background:#42395b!important;}
+
+
+/* V2.186 — Día/Noche: transición visual de día a noche, solo CSS. */
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="routines"][onclick*="openDailyRoutines"]{
+  background:linear-gradient(110deg,#63bceb 0%,#779fdb 52%,#4d5f9f 100%)!important;
+  border-color:#526ba8!important;
+  color:#fff!important;
+  text-shadow:0 1px 2px rgba(22,39,78,.38)!important;
+  box-shadow:0 5px 12px rgba(66,91,151,.28),inset 0 1px 0 rgba(255,255,255,.42),inset 0 0 14px rgba(255,255,255,.10)!important;
+}
