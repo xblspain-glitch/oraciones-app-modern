@@ -1,8 +1,8 @@
 {
-  "name": "Oraciones V3",
-  "short_name": "Oraciones V3",
-  "id": "./oraciones-v3-lab",
-  "start_url": "./?v=oraciones-v3-1-110-category-first-groups",
+  "name": "Oraciones V2 Laboratorio 188",
+  "short_name": "Oraciones V2",
+  "id": "/oraciones-app-modern/?v2lab=188",
+  "start_url": "./?v2lab=188",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
