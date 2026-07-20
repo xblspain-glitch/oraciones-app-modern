@@ -4070,3 +4070,67 @@ body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="rou
   text-shadow:0 1px 2px rgba(22,39,78,.38)!important;
   box-shadow:0 5px 12px rgba(66,91,151,.28),inset 0 1px 0 rgba(255,255,255,.42),inset 0 0 14px rgba(255,255,255,.10)!important;
 }
+
+
+/* V2 LAB 188 · Portada con degradados por función y Eliminar dentro de Papelera.
+   Conserva la identidad cromática de cada sección y da a todos los accesos
+   principales una transición suave equivalente a Día/Noche. */
+body:not(.dark).home-active-v9019 .segment #tabPrayers{
+  background:linear-gradient(110deg,#e9f4ff 0%,#c7e0fa 58%,#a9cbed 100%)!important;
+}
+body:not(.dark).home-active-v9019 .segment #tabNotes{
+  background:linear-gradient(110deg,#fff9e9 0%,#f7e9bd 58%,#ecd68c 100%)!important;
+}
+body:not(.dark).home-active-v9019 .segment #tabGuides{
+  background:linear-gradient(110deg,#fbf0de 0%,#ead4ac 58%,#dcb978 100%)!important;
+}
+body:not(.dark).home-active-v9019 .segment #tabVerses{
+  background:linear-gradient(110deg,#f5ecff 0%,#e1cdf5 58%,#c9a9e8 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="daily"]{
+  background:linear-gradient(110deg,#f8f2ff 0%,#e6d9f7 56%,#ceb9eb 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="moments"]{
+  background:linear-gradient(110deg,#f4faed 0%,#dceecf 56%,#b9d99f 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="global-search"]{
+  background:linear-gradient(110deg,#f8fbfd 0%,#e4edf2 56%,#c8dbe4 100%)!important;
+  border-color:rgba(55,102,119,.28)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="calendar"]{
+  background:linear-gradient(110deg,#fff6f2 0%,#f8ddd4 56%,#efbcae 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="parables"]{
+  background:linear-gradient(110deg,#f4fcec 0%,#dcefcf 56%,#b9dc9e 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="psalms"]{
+  background:linear-gradient(110deg,#fff6eb 0%,#f7dfc3 56%,#edbd88 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"]{
+  background:linear-gradient(110deg,#fff5f7 0%,#f5dce2 56%,#eeb5c2 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row #btnMainMore{
+  background:linear-gradient(110deg,#ffffff 0%,#edf3f8 56%,#d5e1ec 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row #btnBackup{
+  background:linear-gradient(110deg,#fbfdff 0%,#e7eef4 56%,#cbd9e4 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row #btnTrash{
+  background:linear-gradient(110deg,#fbfffd 0%,#e2f0ea 56%,#bfd9ce 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row #btnTheme{
+  background:linear-gradient(110deg,#f6f3ff 0%,#dfd7f4 56%,#bfb0e5 100%)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft:not([data-view-btn="routines"]),
+body:not(.dark).home-active-v9019 .segment button{
+  box-shadow:0 3px 8px rgba(50,66,86,.10),inset 0 1px 0 rgba(255,255,255,.82)!important;
+}
+body.dark.home-active-v9019 .segment #tabPrayers{background:linear-gradient(110deg,#365f88,#294564 62%,#21374f)!important;}
+body.dark.home-active-v9019 .segment #tabNotes{background:linear-gradient(110deg,#6c5a32,#554621 62%,#403516)!important;}
+body.dark.home-active-v9019 .segment #tabGuides{background:linear-gradient(110deg,#685039,#503d28 62%,#392b1d)!important;}
+body.dark.home-active-v9019 .segment #tabVerses{background:linear-gradient(110deg,#5b4774,#463656 62%,#34283f)!important;}
+body.dark.home-active-v9019 .topbar-row #btnMainMore,
+body.dark.home-active-v9019 .topbar-row #btnBackup,
+body.dark.home-active-v9019 .topbar-row #btnTrash{
+  background:linear-gradient(110deg,#3d4650,#2f3740 62%,#252b32)!important;
+}

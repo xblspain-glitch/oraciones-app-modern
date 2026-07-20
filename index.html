@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v2-lab-186-dia-noche-degradado">
+<link rel="stylesheet" href="styles.css?v=v2-lab-188-degradados-papelera">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 
 <style>
@@ -83,7 +83,6 @@
       <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()">🌙</button>
     </div>
     <button id="btnMainFav" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-    <button class="btn danger delete-btn-v66" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
     <div class="topbar-bottom-row-v66 counter-row-v853">
       <div id="counterInfo" class="counter counter-v66"></div>
     </div>
@@ -291,6 +290,7 @@
     <div id="trashView" class="panel hidden">
       <div class="panel-head">
         <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
+        <button class="btn danger" type="button" onclick="moveToTrash()">🗑️ Eliminar</button>
         <button class="btn danger" type="button" onclick="emptyTrash()">Vaciar papelera</button>
       </div>
       <div id="trashList" class="trash-list"></div>
