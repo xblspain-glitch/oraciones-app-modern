@@ -4208,3 +4208,44 @@ body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="psalms"]{
 body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"]{
   background:linear-gradient(110deg,#704653 0%,#5c3743 52%,#432831 100%)!important;
 }
+
+/* =========================================================
+   V2 LAB 191 · retoques finales de portada
+   - Contador inferior con mejor legibilidad y respiración.
+   - Más separación entre botonera y Palabra para este momento.
+   - Referencia bíblica ligeramente más contenida.
+   - Marco exterior principal un poco menos redondeado.
+   - El botón de diagnóstico permanece visible como distintivo LAB.
+   ========================================================= */
+@media (max-width:600px){
+  body.home-active-v9019 .topbar-row{
+    border-radius:17px!important;
+    padding-bottom:10px!important;
+  }
+  body.home-active-v9019 .topbar-bottom-row-v66{
+    margin-top:2px!important;
+    padding:2px 7px 1px!important;
+  }
+  body.home-active-v9019 .counter-v66{
+    color:#526478!important;
+    font-weight:650!important;
+    letter-spacing:.08px!important;
+    line-height:1.35!important;
+    text-shadow:0 1px 0 rgba(255,255,255,.82)!important;
+  }
+  body.home-active-v9019 .content{
+    padding-top:5px!important;
+  }
+  body.home-active-v9019 .home-panel-v9019{
+    padding-top:13px!important;
+  }
+  body.home-active-v9019 .home-ref-v9019{
+    font-size:22.8px!important;
+    line-height:1.18!important;
+    margin-bottom:16px!important;
+  }
+  body.dark.home-active-v9019 .counter-v66{
+    color:#c8d3df!important;
+    text-shadow:0 1px 0 rgba(0,0,0,.36)!important;
+  }
+}
