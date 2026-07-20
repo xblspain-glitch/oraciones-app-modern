@@ -4163,3 +4163,48 @@ body.utility-fullscreen-v2189 #trashView{
   min-height:calc(100vh - 28px);
   margin:0!important;
 }
+
+/* V2 LAB 190 · Degradados reforzados en los seis accesos de contenido.
+   Se mantienen sin cambios Buscar, Más, Backup y Papelera. */
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="daily"]{
+  background:linear-gradient(110deg,#fbf3ff 0%,#dcc8f3 48%,#b995df 100%)!important;
+  border-color:rgba(128,82,171,.28)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="moments"]{
+  background:linear-gradient(110deg,#f8fdec 0%,#d3eabf 48%,#9fcf7d 100%)!important;
+  border-color:rgba(81,132,53,.27)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="calendar"]{
+  background:linear-gradient(110deg,#fff8f2 0%,#f5d1c5 48%,#e99b87 100%)!important;
+  border-color:rgba(159,82,61,.25)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="parables"]{
+  background:linear-gradient(110deg,#f8fdec 0%,#cfe9b8 48%,#98ca72 100%)!important;
+  border-color:rgba(74,128,43,.27)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="psalms"]{
+  background:linear-gradient(110deg,#fff8eb 0%,#f3d4ad 48%,#e5a965 100%)!important;
+  border-color:rgba(158,99,35,.25)!important;
+}
+body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"]{
+  background:linear-gradient(110deg,#fff7f9 0%,#f2cdd7 48%,#e797aa 100%)!important;
+  border-color:rgba(154,73,96,.24)!important;
+}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="daily"]{
+  background:linear-gradient(110deg,#543c69 0%,#49325e 52%,#352344 100%)!important;
+}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="moments"]{
+  background:linear-gradient(110deg,#48623d 0%,#394f31 52%,#293b24 100%)!important;
+}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="calendar"]{
+  background:linear-gradient(110deg,#704d43 0%,#5d3e36 52%,#442d28 100%)!important;
+}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="parables"]{
+  background:linear-gradient(110deg,#49683e 0%,#395331 52%,#293d24 100%)!important;
+}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-view-btn="psalms"]{
+  background:linear-gradient(110deg,#765638 0%,#60442d 52%,#463120 100%)!important;
+}
+body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"]{
+  background:linear-gradient(110deg,#704653 0%,#5c3743 52%,#432831 100%)!important;
+}
