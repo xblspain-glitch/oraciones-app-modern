@@ -4288,3 +4288,50 @@ body.dark-mode #readerView .reader-identity-icon-v31103::before{
   #readerView .reader-identity-icon-v31103{width:40px;min-width:40px;height:40px}
   #readerView .reader-identity-icon-v31103::before{width:31px;height:33px}
 }
+
+/* ===== V2 LAB 193 — cabeceras etíopes ampliadas ===== */
+#readerView .reader-identity-v31103{
+  min-height:94px;
+  padding:16px 18px;
+  gap:12px;
+  border-radius:19px;
+}
+#readerView .reader-identity-line-v31103{
+  flex-basis:82px;
+  max-width:165px;
+}
+#readerView .reader-identity-icon-v31103{
+  width:60px;
+  min-width:60px;
+  height:60px;
+  padding:0;
+  flex:0 0 60px;
+}
+#readerView .reader-identity-icon-v31103::before{
+  width:49px;
+  height:52px;
+}
+#readerView .reader-identity-label-v31103{
+  font-size:.91rem;
+  letter-spacing:.045em;
+}
+@media(max-width:860px){
+  #readerView .reader-identity-v31103{
+    min-height:84px;
+    padding:13px 12px;
+    gap:9px;
+    border-radius:17px;
+  }
+  #readerView .reader-identity-line-v31103{max-width:92px}
+  #readerView .reader-identity-icon-v31103{
+    width:54px;
+    min-width:54px;
+    height:54px;
+    flex-basis:54px;
+  }
+  #readerView .reader-identity-icon-v31103::before{
+    width:44px;
+    height:47px;
+  }
+  #readerView .reader-identity-label-v31103{font-size:.82rem}
+}
