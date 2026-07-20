@@ -505,14 +505,14 @@ function renderReader(){
   const item=currentItem();
   const readerPanel=document.getElementById("readerView");
   if(readerPanel){
-    readerPanel.classList.remove("reader-sent-bg-v3134","reader-kind-prayers-v31103","reader-kind-psalms-v31103","reader-kind-verses-v31103","reader-kind-notes-v31103","reader-kind-neutral-v31103");
-    const readerKindClass = section==="prayers" ? "reader-kind-prayers-v31103" : section==="psalms" ? "reader-kind-psalms-v31103" : section==="verses" ? "reader-kind-verses-v31103" : section==="notes" ? "reader-kind-notes-v31103" : "reader-kind-neutral-v31103";
+    readerPanel.classList.remove("reader-sent-bg-v3134","reader-kind-prayers-v31103","reader-kind-psalms-v31103","reader-kind-verses-v31103","reader-kind-notes-v31103","reader-kind-guides-v3192","reader-kind-parables-v3192","reader-kind-neutral-v31103");
+    const readerKindClass = section==="prayers" ? "reader-kind-prayers-v31103" : section==="psalms" ? "reader-kind-psalms-v31103" : section==="verses" ? "reader-kind-verses-v31103" : section==="notes" ? "reader-kind-notes-v31103" : section==="guides" ? "reader-kind-guides-v3192" : section==="parables" ? "reader-kind-parables-v3192" : "reader-kind-neutral-v31103";
     readerPanel.classList.add(readerKindClass);
   }
   const identity=document.getElementById("readerIdentityV31103");
   const identityIcon=document.getElementById("readerIdentityIconV31103");
   const identityLabel=document.getElementById("readerIdentityLabelV31103");
-  const readerIdentityMeta = section==="prayers" ? {icon:"✝",label:"Oración"} : section==="psalms" ? {icon:"✝",label:"Salmo"} : section==="verses" ? {icon:"✝",label:"Versículo"} : section==="notes" ? {icon:"✝",label:"Nota"} : null;
+  const readerIdentityMeta = section==="prayers" ? {icon:"",label:"Oración"} : section==="psalms" ? {icon:"",label:"Salmo"} : section==="verses" ? {icon:"",label:"Versículo"} : section==="notes" ? {icon:"",label:"Nota"} : section==="guides" ? {icon:"",label:"Guía"} : section==="parables" ? {icon:"",label:"Parábola"} : null;
   if(identity){
     identity.classList.toggle("hidden",!readerIdentityMeta);
     if(readerIdentityMeta){
