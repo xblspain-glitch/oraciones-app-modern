@@ -11682,7 +11682,9 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       {key:'prayers',label:'✝️ Oraciones',items:(state&&state.prayers)||[],title:function(x){return x.title||'Oración sin título';}},
       {key:'psalms',label:'♫ Salmos',items:(state&&state.psalms)||[],title:function(x,i){return x.title||('Salmo '+(i+1));}},
       {key:'verses',label:'❤️ Versículos',items:(state&&state.verses)||[],title:function(x){return x.reference||x.title||'Versículo';}},
-      {key:'notes',label:'📝 Notas',items:(state&&state.notes)||[],title:function(x){return x.title||'Nota sin título';}}
+      {key:'notes',label:'📝 Notas',items:(state&&state.notes)||[],title:function(x){return x.title||'Nota sin título';}},
+      {key:'parables',label:'🌱 Parábolas',items:(state&&state.parables)||[],title:function(x){return x.title||'Parábola sin título';}},
+      {key:'guides',label:'📜 Guía',items:(state&&state.guides)||[],title:function(x){return x.title||'Guía sin título';}}
     ];
   }
   window.openGlobalSearchV3177=function(){
@@ -11734,6 +11736,8 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     else if(sec==='notes')state.currentNoteId=id;
     else if(sec==='psalms')state.currentPsalmId=id;
     else if(sec==='verses')state.currentVerseId=id;
+    else if(sec==='parables')state.currentParableId=id;
+    else if(sec==='guides')state.currentGuideId=id;
     try{saveState();syncTabs();renderList();renderReader();openReader();setTimeout(function(){try{enterFullscreenReading();}catch(e){}},0);}catch(e){console.error('Buscador general',e);}
   };
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){var m=document.getElementById('globalSearchModalV3177');if(m&&!m.classList.contains('hidden'))window.closeGlobalSearchV3177();}});
