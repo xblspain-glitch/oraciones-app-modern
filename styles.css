@@ -4336,31 +4336,203 @@ body.dark-mode #readerView .reader-identity-icon-v31103::before{
   #readerView .reader-identity-label-v31103{font-size:.82rem}
 }
 
-/* ===== V2 LAB 194 — cruz etíope en tarjeta «Fin de la lectura» ===== */
+
+/* ===== V2 LAB 194 — tarjeta de despedida con cruz etíope ===== */
 .reader-end-card::before{
   content:""!important;
-  background:linear-gradient(145deg,rgba(156,75,222,.96),rgba(91,121,220,.92))!important;
+  position:absolute!important;
+  top:16px!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  width:72px!important;
+  height:72px!important;
+  border-radius:22px!important;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(172,96,232,.22), rgba(112,132,226,.11) 62%, transparent 100%)!important;
+  box-shadow:
+    0 14px 34px rgba(110,101,214,.14),
+    0 0 30px rgba(145,111,225,.10),
+    inset 0 1px 0 rgba(255,255,255,.18)!important;
+  filter:none!important;
+}
+.reader-end-card::before{
+  -webkit-mask:none!important;
+  mask:none!important;
+}
+.reader-end-card::before,
+.reader-end-card .end-card-cross-v2194{
+  pointer-events:none!important;
+}
+.reader-end-card::after{
+  content:"🌿"!important;
+}
+.reader-end-card .line::after{
+  content:""!important;
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  width:20px!important;
+  height:20px!important;
+  background:rgba(104,134,199,.74)!important;
   -webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat!important;
   mask:url("cross-ethiopian-mask.png") center/contain no-repeat!important;
-  border-radius:0!important;
-  width:58px!important;
-  height:62px!important;
-  top:15px!important;
-  box-shadow:none!important;
-  filter:drop-shadow(0 8px 16px rgba(108,82,205,.22))!important;
-  backdrop-filter:none!important;
-  -webkit-backdrop-filter:none!important;
+  box-shadow:0 2px 10px rgba(76,122,196,.14)!important;
+}
+.reader-end-card .line:first-child::after,
+.reader-end-card .line:first-of-type::after,
+.reader-end-card .line:nth-of-type(1)::after,
+.reader-end-card .line.reader-line-top-v902011::after{
+  content:""!important;
+  display:none!important;
+  opacity:0!important;
+  visibility:hidden!important;
+}
+.reader-end-card .title{
+  margin-top:20px!important;
+}
+.reader-end-card .msg{
+  max-width:440px!important;
+}
+.reader-end-card .end-card-ethiopian-cross-v2194{
+  position:absolute!important;
+  top:28px!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  width:42px!important;
+  height:46px!important;
+  background:#ffffff!important;
+  -webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat!important;
+  mask:url("cross-ethiopian-mask.png") center/contain no-repeat!important;
+  filter:drop-shadow(0 2px 8px rgba(77,76,170,.16))!important;
+  pointer-events:none!important;
+  z-index:1!important;
 }
 body.dark .reader-end-card::before,
 body.dark-mode .reader-end-card::before{
-  background:linear-gradient(145deg,#d7b8ff,#9ebaff)!important;
-  box-shadow:none!important;
-  filter:drop-shadow(0 8px 18px rgba(0,0,0,.30))!important;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(176,104,236,.20), rgba(116,137,228,.10) 62%, transparent 100%)!important;
+  box-shadow:
+    0 14px 34px rgba(72,68,160,.20),
+    0 0 30px rgba(141,111,225,.09),
+    inset 0 1px 0 rgba(255,255,255,.12)!important;
+}
+body.dark .reader-end-card .line::after,
+body.dark-mode .reader-end-card .line::after{
+  background:rgba(171,193,235,.72)!important;
 }
 @media(max-width:420px){
-  .reader-end-card::before{
-    width:54px!important;
-    height:58px!important;
-    top:15px!important;
-  }
+  .reader-end-card::before{width:66px!important;height:66px!important;border-radius:20px!important}
+  .reader-end-card .end-card-ethiopian-cross-v2194{top:29px!important;width:38px!important;height:42px!important}
+  .reader-end-card .line::after{width:18px!important;height:18px!important}
+}
+
+
+/* ===== V2 LAB 195 — brillo suave y ajuste final de la despedida ===== */
+.reader-end-card::before{
+  top:19px!important;
+  width:84px!important;
+  height:84px!important;
+  border-radius:26px!important;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(250,250,255,.72) 0%, rgba(210,194,255,.42) 22%, rgba(166,136,235,.20) 46%, rgba(116,134,225,.10) 68%, transparent 100%)!important;
+  box-shadow:
+    0 0 38px rgba(170,130,235,.18),
+    0 0 72px rgba(130,151,232,.11),
+    inset 0 1px 0 rgba(255,255,255,.18)!important;
+}
+.reader-end-card .end-card-ethiopian-cross-v2194{
+  top:31px!important;
+  width:44px!important;
+  height:48px!important;
+  background:linear-gradient(180deg,#ffffff 0%, #f5f0ff 100%)!important;
+  filter:
+    drop-shadow(0 0 8px rgba(255,255,255,.55))
+    drop-shadow(0 0 12px rgba(164,124,232,.26))
+    drop-shadow(0 2px 8px rgba(77,76,170,.18))!important;
+}
+.reader-end-card .title{
+  margin-top:14px!important;
+}
+.reader-end-card .line::after{
+  width:18px!important;
+  height:18px!important;
+  background:rgba(113,142,205,.78)!important;
+  filter:drop-shadow(0 0 5px rgba(170,200,255,.28)) drop-shadow(0 1px 5px rgba(76,122,196,.12))!important;
+}
+body.dark .reader-end-card::before,
+body.dark-mode .reader-end-card::before{
+  background:
+    radial-gradient(circle at 50% 42%, rgba(247,247,255,.46) 0%, rgba(210,194,255,.24) 22%, rgba(166,136,235,.16) 46%, rgba(116,134,225,.08) 68%, transparent 100%)!important;
+  box-shadow:
+    0 0 42px rgba(155,118,228,.18),
+    0 0 74px rgba(102,130,220,.10),
+    inset 0 1px 0 rgba(255,255,255,.10)!important;
+}
+body.dark .reader-end-card .end-card-ethiopian-cross-v2194,
+body.dark-mode .reader-end-card .end-card-ethiopian-cross-v2194{
+  filter:
+    drop-shadow(0 0 8px rgba(255,255,255,.30))
+    drop-shadow(0 0 12px rgba(164,124,232,.22))
+    drop-shadow(0 2px 8px rgba(40,44,110,.22))!important;
+}
+body.dark .reader-end-card .line::after,
+body.dark-mode .reader-end-card .line::after{
+  background:rgba(180,203,240,.78)!important;
+  filter:drop-shadow(0 0 5px rgba(190,214,255,.18)) drop-shadow(0 1px 5px rgba(76,122,196,.08))!important;
+}
+@media(max-width:420px){
+  .reader-end-card::before{top:21px!important;width:76px!important;height:76px!important;border-radius:24px!important}
+  .reader-end-card .end-card-ethiopian-cross-v2194{top:32px!important;width:40px!important;height:44px!important}
+  .reader-end-card .title{margin-top:12px!important}
+  .reader-end-card .line::after{width:16px!important;height:16px!important}
+}
+
+
+/* ===== V2 LAB 195 — brillo suave y ajuste final de despedida ===== */
+.reader-end-card::before{
+  top:14px!important;
+  width:82px!important;
+  height:82px!important;
+  border-radius:26px!important;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.26) 0%, rgba(205,175,255,.24) 18%, rgba(154,118,235,.20) 38%, rgba(110,132,228,.12) 62%, rgba(110,132,228,.03) 82%, transparent 100%)!important;
+  box-shadow:
+    0 0 22px rgba(174,140,244,.24),
+    0 0 44px rgba(146,126,232,.16),
+    0 14px 34px rgba(110,101,214,.12),
+    inset 0 1px 0 rgba(255,255,255,.26)!important;
+}
+.reader-end-card .end-card-ethiopian-cross-v2194{
+  top:31px!important;
+  width:44px!important;
+  height:49px!important;
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,.75)) drop-shadow(0 2px 10px rgba(104,96,196,.18))!important;
+}
+.reader-end-card .title{
+  margin-top:12px!important;
+}
+.reader-end-card .line::after{
+  width:22px!important;
+  height:22px!important;
+  background:rgba(109,137,202,.86)!important;
+}
+body.dark .reader-end-card::before,
+body.dark-mode .reader-end-card::before{
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.18) 0%, rgba(198,168,255,.19) 18%, rgba(152,116,233,.18) 38%, rgba(109,132,226,.10) 62%, rgba(109,132,226,.025) 82%, transparent 100%)!important;
+  box-shadow:
+    0 0 22px rgba(154,132,232,.16),
+    0 0 44px rgba(128,108,214,.10),
+    0 14px 34px rgba(72,68,160,.18),
+    inset 0 1px 0 rgba(255,255,255,.16)!important;
+}
+body.dark .reader-end-card .line::after,
+body.dark-mode .reader-end-card .line::after{
+  background:rgba(186,205,242,.82)!important;
+}
+@media(max-width:420px){
+  .reader-end-card::before{width:74px!important;height:74px!important;border-radius:23px!important}
+  .reader-end-card .end-card-ethiopian-cross-v2194{top:30px!important;width:40px!important;height:45px!important}
+  .reader-end-card .line::after{width:20px!important;height:20px!important}
 }

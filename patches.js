@@ -20,6 +20,12 @@
         msg.dataset.v90207='1';
         msg.textContent='Que la paz de Cristo permanezca en su corazón.';
       }
+      if (!end.querySelector('.end-card-ethiopian-cross-v2194')) {
+        var cross=document.createElement('div');
+        cross.className='end-card-ethiopian-cross-v2194';
+        cross.setAttribute('aria-hidden','true');
+        end.appendChild(cross);
+      }
     } catch (e) {}
   }
   var old = window.renderReader || (typeof renderReader !== 'undefined' ? renderReader : null);
