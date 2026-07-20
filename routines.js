@@ -174,7 +174,7 @@
     }else{
       add(item.category);
     }
-    /* V2 LAB 176: las categorías elegidas en «Momentos» también alimentan
+    /* V3.1.169: las categorías elegidas en «Momentos» también alimentan
        el selector Día/Noche, sin sustituir la categoría principal. */
     if(Array.isArray(item.momentCategoriesV31102))item.momentCategoriesV31102.forEach(add);
     return out;

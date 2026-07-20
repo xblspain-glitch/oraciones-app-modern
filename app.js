@@ -11524,6 +11524,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   window.closeReaderPopupBlockV908=function(){ removeOverlay(); };
   window.openReaderPopupBlockV908=function(idx){
     try{
+      var before=window.scrollY||document.documentElement.scrollTop||0;
       var blocks=parseSafe(getCurrentTextSafe());
       var b=blocks[Number(idx)];
       if(!b){ alert('No se ha encontrado este bloque emergente.'); return; }
@@ -11551,7 +11552,10 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       overlay.addEventListener('click',function(ev){if(ev.target===overlay) window.closeReaderPopupBlockV908();});
       document.body.appendChild(overlay);
       overlay.classList.add('v31148-visible');
-
+      requestAnimationFrame(function(){
+        var now=window.scrollY||document.documentElement.scrollTop||0;
+        if(Math.abs(now-before)>0.5) window.scrollTo(0,before);
+      });
     }catch(e){
       console.error('V3.1.167 rescue popup',e);
       alert('No se pudo abrir este emergente. Puede estar dañado, pero sus datos no se han borrado.');
@@ -11559,147 +11563,9 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   };
 })();
 
-/* ===== V2 LAB 170 - EMERGENTE EN RAIZ, SIN ANIMACION ===== */
-(function(){
-  'use strict';
-  function currentText(){
-    try{
-      var item=(typeof currentItem==='function')?currentItem():null;
-      if(!item)return '';
-      return String(section==='verses'?(item.text||item.content||''):(item.content||''));
-    }catch(e){return '';}
-  }
-  function blocks(text){
-    var out=[],re=/\[emergente\s+titulo="([^"]*)"\]([\s\S]*?)\[\/emergente\]/gi,m,n=0;
-    while((m=re.exec(String(text||'')))&&n++<500)out.push({title:m[1]||'Emergente',body:m[2]||''});
-    return out;
-  }
-  function remove(){
-    var el=document.getElementById('readerPopupOverlayV908');
-    if(el)el.remove();
-  }
-  window.closeReaderPopupBlockV908=remove;
-  window.openReaderPopupBlockV908=function(idx){
-    try{
-      var b=blocks(currentText())[Number(idx)];
-      if(!b){alert('No se ha encontrado este bloque emergente.');return;}
-      remove();
-      var overlay=document.createElement('div');
-      overlay.id='readerPopupOverlayV908';
-      overlay.className='reader-popup-overlay-v908 v31148-persistent v31167-rescue v2lab170-root-overlay';
-      var card=document.createElement('div');
-      card.className='reader-popup-card-v908';
-      card.setAttribute('role','dialog');
-      card.setAttribute('aria-modal','true');
-      var h=document.createElement('h3');h.textContent=String(b.title||'Emergente');
-      var content=document.createElement('div');
-      content.className='reader-popup-content-v908 v31148-popup-content';
-      content.style.whiteSpace='pre-wrap';content.style.overflowWrap='anywhere';content.textContent=String(b.body||'');
-      var actions=document.createElement('div');actions.className='reader-popup-actions-v913';
-      var close=document.createElement('button');close.className='btn primary';close.type='button';close.textContent='Cerrar';
-      close.addEventListener('click',function(ev){ev.preventDefault();remove();},{once:true});
-      actions.appendChild(close);card.appendChild(h);card.appendChild(content);card.appendChild(actions);overlay.appendChild(card);
-      overlay.addEventListener('click',function(ev){if(ev.target===overlay){ev.preventDefault();remove();}});
-      document.documentElement.appendChild(overlay);
-    }catch(e){console.error('V2 LAB 170 popup',e);alert('No se pudo abrir este emergente.');}
-  };
-  document.addEventListener('pointerdown',function(ev){
-    var t=ev.target&&ev.target.closest?ev.target.closest('[onclick*="openReaderPopupBlockV908"]'):null;
-    if(t)ev.preventDefault();
-  },true);
-  try{openReaderPopupBlockV908=window.openReaderPopupBlockV908;}catch(e){}
-  try{closeReaderPopupBlockV908=window.closeReaderPopupBlockV908;}catch(e){}
-})();
+/* ===== V3.1.171 · Corrección de posición al cerrar recomendaciones ===== */
 
-/* ===== V2 LAB 171 - DIAGNOSTICO REAL DE MOVIMIENTO ANDROID ===== */
-(function(){
-  'use strict';
-  var logs=[];
-  function num(v){return Math.round((Number(v)||0)*100)/100;}
-  function snap(label){
-    var vv=window.visualViewport;
-    var ae=document.activeElement;
-    var ov=document.getElementById('readerPopupOverlayV908');
-    var r=ov&&ov.getBoundingClientRect?ov.getBoundingClientRect():null;
-    logs.push({
-      t:Date.now(),label:label,
-      scrollX:num(window.scrollX),scrollY:num(window.scrollY),
-      docScrollTop:num(document.documentElement.scrollTop),bodyScrollTop:num(document.body&&document.body.scrollTop),
-      innerH:num(window.innerHeight),innerW:num(window.innerWidth),
-      vvPageTop:vv?num(vv.pageTop):null,vvOffsetTop:vv?num(vv.offsetTop):null,vvHeight:vv?num(vv.height):null,
-      clientH:num(document.documentElement.clientHeight),scrollH:num(document.documentElement.scrollHeight),
-      active:ae?(ae.id||ae.className||ae.tagName):null,
-      overlay:!!ov,overlayTop:r?num(r.top):null,overlayHeight:r?num(r.height):null
-    });
-    try{localStorage.setItem('v2lab171_diag',JSON.stringify(logs.slice(-80)));}catch(e){}
-  }
-  function later(prefix){
-    snap(prefix+'-0');
-    setTimeout(function(){snap(prefix+'-16');},16);
-    setTimeout(function(){snap(prefix+'-50');},50);
-    setTimeout(function(){snap(prefix+'-150');},150);
-    setTimeout(function(){snap(prefix+'-300');},300);
-    setTimeout(function(){snap(prefix+'-700');},700);
-  }
-  document.addEventListener('pointerdown',function(ev){
-    var b=ev.target&&ev.target.closest&&ev.target.closest('.reader-popup-btn-v908');
-    if(b){logs=[];snap('pointerdown-boton');}
-  },true);
-  document.addEventListener('click',function(ev){
-    var b=ev.target&&ev.target.closest&&ev.target.closest('.reader-popup-btn-v908');
-    if(b) later('click-boton');
-  },true);
-  window.addEventListener('scroll',function(){snap('evento-scroll');},{passive:true});
-  if(window.visualViewport){
-    window.visualViewport.addEventListener('scroll',function(){snap('vv-scroll');},{passive:true});
-    window.visualViewport.addEventListener('resize',function(){snap('vv-resize');},{passive:true});
-  }
-  var oldClose=window.closeReaderPopupBlockV908;
-  window.closeReaderPopupBlockV908=function(){snap('antes-cerrar');var x=oldClose&&oldClose.apply(this,arguments);later('despues-cerrar');return x;};
-  function installButton(){
-    if(document.getElementById('v2lab171CopyDiag'))return;
-    var b=document.createElement('button');
-    b.id='v2lab171CopyDiag';b.type='button';b.textContent='Copiar diagnóstico';
-    b.style.cssText='position:fixed;right:10px;bottom:10px;z-index:2147483647;border:0;border-radius:999px;padding:10px 14px;background:#173b67;color:#fff;font:600 13px system-ui;box-shadow:0 3px 12px rgba(0,0,0,.25)';
-    b.addEventListener('click',function(){
-      var txt='V2 LAB 171\n'+JSON.stringify(logs.length?logs:JSON.parse(localStorage.getItem('v2lab171_diag')||'[]'),null,2);
-      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){b.textContent='Copiado ✓';setTimeout(function(){b.textContent='Copiar diagnóstico';},1800);}).catch(function(){fallback(txt);});}
-      else fallback(txt);
-      function fallback(t){var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');b.textContent='Copiado ✓';}catch(e){b.textContent='No se pudo copiar';}ta.remove();setTimeout(function(){b.textContent='Copiar diagnóstico';},1800);}
-    });
-    document.documentElement.appendChild(b);
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installButton);else installButton();
-})();
-
-
-/* ===== V2 LAB 173 - DIAGNOSTICO EXCLUSIVO DEL EMERGENTE DE NOTAS ===== */
-(function(){
-  'use strict';
-  function tag(name){
-    try{
-      var ev=new CustomEvent('v2lab173-note-popup',{detail:{name:name,section:(typeof section!=='undefined'?section:'')}});
-      document.dispatchEvent(ev);
-    }catch(e){}
-  }
-  document.addEventListener('pointerdown',function(ev){
-    var btn=ev.target&&ev.target.closest?ev.target.closest('.reader-popup-title'):null;
-    if(btn && typeof section!=='undefined' && section==='notes') tag('NOTAS-pointerdown-emergente');
-  },true);
-  document.addEventListener('click',function(ev){
-    var btn=ev.target&&ev.target.closest?ev.target.closest('.reader-popup-title'):null;
-    if(btn && typeof section!=='undefined' && section==='notes'){
-      tag('NOTAS-click-emergente');
-      setTimeout(function(){tag('NOTAS-click+50');},50);
-      setTimeout(function(){tag('NOTAS-click+250');},250);
-      setTimeout(function(){tag('NOTAS-click+700');},700);
-    }
-    var close=ev.target&&ev.target.closest?ev.target.closest('#readerPopupOverlayV908 button'):null;
-    if(close && typeof section!=='undefined' && section==='notes') tag('NOTAS-cerrar-emergente');
-  },true);
-})();
-
-/* ===== V2 LAB 177 · BUSCADOR GENERAL ===== */
+/* ===== V3.1.170 · BUSCADOR GENERAL ===== */
 (function(){
   var filterV3177='all';
   function escV3177(v){

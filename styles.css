@@ -3827,38 +3827,7 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
   -webkit-overflow-scrolling:touch;
 }
 
-/* ===== V2 LAB 170 - OVERLAY RAIZ SIN EFECTOS NI RECOMPOSICION ===== */
-html > #readerPopupOverlayV908.reader-popup-overlay-v908.v2lab170-root-overlay{
-  position:fixed !important;
-  top:0 !important;
-  right:0 !important;
-  bottom:0 !important;
-  left:0 !important;
-  width:auto !important;
-  height:auto !important;
-  margin:0 !important;
-  padding:16px !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  background:rgba(12,33,56,.34) !important;
-  backdrop-filter:none !important;
-  -webkit-backdrop-filter:none !important;
-  animation:none !important;
-  transform:none !important;
-  contain:strict !important;
-  overscroll-behavior:none !important;
-  touch-action:none !important;
-}
-html > #readerPopupOverlayV908.v2lab170-root-overlay .reader-popup-card-v908{
-  animation:none !important;
-  transform:none !important;
-  will-change:auto !important;
-  touch-action:pan-y !important;
-  overscroll-behavior:contain !important;
-}
-
-/* ===== V2 LAB 177 · BUSCADOR GENERAL ===== */
+/* ===== V3.1.170 · BUSCADOR GENERAL ===== */
 .global-search-main-v3177{font-weight:800!important;border-color:rgba(35,87,104,.45)!important;background:linear-gradient(135deg,rgba(35,87,104,.16),rgba(51,109,126,.08))!important}
 .global-search-modal-v3177{position:fixed;inset:0;z-index:100000;background:var(--bg,#f5f2ea);overflow:auto;overscroll-behavior:contain;padding:calc(10px + env(safe-area-inset-top)) 10px calc(18px + env(safe-area-inset-bottom))}
 .global-search-modal-v3177.hidden{display:none!important}
@@ -3884,7 +3853,7 @@ html > #readerPopupOverlayV908.v2lab170-root-overlay .reader-popup-card-v908{
 body.dark .global-search-modal-v3177{background:var(--bg)}
 @media(max-width:600px){.global-search-modal-v3177{padding:0}.global-search-sheet-v3177{border-radius:0;border:0;min-height:100vh;padding:calc(10px + env(safe-area-inset-top)) 10px calc(16px + env(safe-area-inset-bottom))}.global-search-title-v3177{font-size:1.08rem;padding-right:44px}}
 
-/* ===== V2 LAB 179 · PORTADA COMPACTA SUAVE =====
+/* ===== V3.1.170 · PORTADA COMPACTA SUAVE =====
    Solo reduce espacios verticales del menú principal en móvil.
    Mantiene objetivos táctiles cómodos y no modifica lógica ni contenido. */
 @media (max-width:600px){
@@ -3944,7 +3913,7 @@ body.dark .global-search-modal-v3177{background:var(--bg)}
 }
 
 
-/* V2 LAB 181 · identidad cromática por sección
+/* V3.1.170 · identidad cromática por sección
    Solo presentación: colores pastel coherentes con cada área. */
 body.home-active-v9019 .segment{
   background:rgba(236,242,248,.78)!important;
@@ -4005,7 +3974,7 @@ body.dark.home-active-v9019 .segment button.active{
 
 
 
-/* V2 LAB 185 · Día/Noche destacado como llamada serena a la oración
+/* V3.1.170 · Día/Noche destacado como llamada serena a la oración
    Selectores ligados a la acción real de cada botón, nunca a su posición.
    Se incluye la estructura real del menú para superar las reglas generales
    .topbar-row .btn.soft sin modificar lógica ni navegación. */
@@ -4062,7 +4031,7 @@ body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"][on
 body.dark.home-active-v9019 .topbar-row button.btn.soft[onclick*="toggleTheme"]{background:#42395b!important;}
 
 
-/* V2.186 — Día/Noche: transición visual de día a noche, solo CSS. */
+/* V3.1.170 — Día/Noche: transición visual de día a noche, solo CSS. */
 body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="routines"][onclick*="openDailyRoutines"]{
   background:linear-gradient(110deg,#63bceb 0%,#779fdb 52%,#4d5f9f 100%)!important;
   border-color:#526ba8!important;
@@ -4070,7 +4039,6 @@ body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="rou
   text-shadow:0 1px 2px rgba(22,39,78,.38)!important;
   box-shadow:0 5px 12px rgba(66,91,151,.28),inset 0 1px 0 rgba(255,255,255,.42),inset 0 0 14px rgba(255,255,255,.10)!important;
 }
-
 
 /* V2 LAB 188 · Portada con degradados por función y Eliminar dentro de Papelera.
    Conserva la identidad cromática de cada sección y da a todos los accesos
@@ -4251,21 +4219,22 @@ body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"]{
 }
 
 
-/* ===== V2 LAB 192 — prueba de cruz etíope de la app en cabeceras ===== */
+/* ===== V3.1.174 — cruz etíope ampliada en cabeceras ===== */
 #readerView .reader-identity-icon-v31103{
   position:relative;
-  width:44px;
-  min-width:44px;
-  height:44px;
+  width:60px;
+  min-width:60px;
+  height:60px;
   padding:0;
   font-size:0!important;
   overflow:visible;
+  flex:0 0 60px;
 }
 #readerView .reader-identity-icon-v31103::before{
   content:"";
   display:block;
-  width:34px;
-  height:36px;
+  width:49px;
+  height:52px;
   background:var(--reader-accent);
   -webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;
   mask:url("cross-ethiopian-mask.png") center/contain no-repeat;
@@ -4279,17 +4248,6 @@ body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"]{
   --reader-accent:#4f7d45;
   --reader-accent-soft:rgba(119,172,103,.16);
 }
-body.dark #readerView .reader-identity-icon-v31103::before,
-body.dark-mode #readerView .reader-identity-icon-v31103::before{
-  background:color-mix(in srgb,var(--reader-accent) 72%,white);
-  filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));
-}
-@media(max-width:860px){
-  #readerView .reader-identity-icon-v31103{width:40px;min-width:40px;height:40px}
-  #readerView .reader-identity-icon-v31103::before{width:31px;height:33px}
-}
-
-/* ===== V2 LAB 193 — cabeceras etíopes ampliadas ===== */
 #readerView .reader-identity-v31103{
   min-height:94px;
   padding:16px 18px;
@@ -4300,20 +4258,14 @@ body.dark-mode #readerView .reader-identity-icon-v31103::before{
   flex-basis:82px;
   max-width:165px;
 }
-#readerView .reader-identity-icon-v31103{
-  width:60px;
-  min-width:60px;
-  height:60px;
-  padding:0;
-  flex:0 0 60px;
-}
-#readerView .reader-identity-icon-v31103::before{
-  width:49px;
-  height:52px;
-}
 #readerView .reader-identity-label-v31103{
   font-size:.91rem;
   letter-spacing:.045em;
+}
+body.dark #readerView .reader-identity-icon-v31103::before,
+body.dark-mode #readerView .reader-identity-icon-v31103::before{
+  background:color-mix(in srgb,var(--reader-accent) 72%,white);
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));
 }
 @media(max-width:860px){
   #readerView .reader-identity-v31103{
@@ -4337,7 +4289,7 @@ body.dark-mode #readerView .reader-identity-icon-v31103::before{
 }
 
 
-/* ===== V2 LAB 194 — tarjeta de despedida con cruz etíope ===== */
+/* ===== V3.1.175 — tarjeta de despedida con cruz etíope ===== */
 .reader-end-card::before{
   content:""!important;
   position:absolute!important;
@@ -4428,7 +4380,7 @@ body.dark-mode .reader-end-card .line::after{
 }
 
 
-/* ===== V2 LAB 195 — brillo suave y ajuste final de la despedida ===== */
+/* ===== V3.1.175 — brillo suave y ajuste final de la despedida ===== */
 .reader-end-card::before{
   top:19px!important;
   width:84px!important;
@@ -4489,7 +4441,7 @@ body.dark-mode .reader-end-card .line::after{
 }
 
 
-/* ===== V2 LAB 195 — brillo suave y ajuste final de despedida ===== */
+/* ===== V3.1.175 — brillo suave y ajuste final de despedida ===== */
 .reader-end-card::before{
   top:14px!important;
   width:82px!important;
@@ -4538,7 +4490,7 @@ body.dark-mode .reader-end-card .line::after{
 }
 
 
-/* ===== V2 LAB 196 — cruz superior por delante del halo ===== */
+/* ===== V3.1.175 — cruz superior por delante del halo ===== */
 .reader-end-card{
   isolation:isolate!important;
 }
@@ -4578,7 +4530,7 @@ body.dark-mode .reader-end-card .end-card-ethiopian-cross-v2194{
 }
 
 
-/* ===== V2 LAB 197 — proporciones originales y cruz superior ampliada ===== */
+/* ===== V3.1.175 — proporciones originales y cruz superior ampliada ===== */
 .reader-end-card{
   min-height:0!important;
   height:auto!important;
@@ -4632,7 +4584,7 @@ body.dark-mode .reader-end-card::after{
 }
 
 
-/* ===== V2 LAB 198 — halo superior más discreto ===== */
+/* ===== V3.1.175 — halo superior más discreto ===== */
 .reader-end-card::before{
   top:16px!important;
   width:78px!important;
@@ -4661,7 +4613,7 @@ body.dark-mode .reader-end-card::before{
 }
 
 
-/* ===== V2 LAB 199 — líneas superiores más hacia los lados ===== */
+/* ===== V3.1.175 — líneas superiores más hacia los lados ===== */
 .reader-end-card .line:first-child,
 .reader-end-card .line:first-of-type,
 .reader-end-card .line:nth-of-type(1),
@@ -4714,7 +4666,7 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
 }
 
 
-/* ===== V2 LAB 199 — líneas superiores abiertas hacia los lados ===== */
+/* ===== V3.1.175 — líneas superiores abiertas hacia los lados ===== */
 .reader-end-card .line:first-child,
 .reader-end-card .line:first-of-type,
 .reader-end-card .line:nth-of-type(1),
