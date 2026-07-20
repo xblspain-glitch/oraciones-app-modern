@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V2 Laboratorio 176</title>
+<title>Oraciones V2 Laboratorio 177</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -64,6 +64,7 @@
     <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
     <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft" type="button" onclick="openDailyRoutinesV3192()">🙏🏾 Día/Noche</button>
     <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
+    <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
       <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
@@ -343,6 +344,28 @@
   <div class="moment-catalog-sheet-v31102"><h2>🏷️ Catalogar para Momentos</h2><p style="text-align:center;color:var(--muted)">Puede marcar varias categorías. La aplicación utilizará este contenido automáticamente cuando corresponda.</p><div id="momentCatalogListV31102" class="moment-catalog-list-v31102"></div><div class="moment-catalog-actions-v31102"><button class="btn soft" type="button" onclick="closeMomentCatalogV31102()">Cancelar</button><button class="btn primary" type="button" onclick="saveMomentCatalogV31102()">✓ Guardar categorías</button></div></div>
 </div>
 
+<div id="globalSearchModalV3177" class="global-search-modal-v3177 hidden" role="dialog" aria-modal="true" aria-label="Buscar en toda la app">
+  <div class="global-search-sheet-v3177">
+    <div class="global-search-head-v3177">
+      <button class="btn soft" type="button" onclick="closeGlobalSearchV3177()">← Volver</button>
+      <div class="global-search-title-v3177">🔎 Buscar en toda la app</div>
+    </div>
+    <div class="global-search-box-v3177">
+      <input id="globalSearchInputV3177" type="search" autocomplete="off" placeholder="Buscar oraciones, salmos, versículos y notas…" oninput="renderGlobalSearchV3177()">
+      <button id="globalSearchClearV3177" type="button" onclick="clearGlobalSearchV3177()" aria-label="Borrar búsqueda">×</button>
+    </div>
+    <div class="global-search-filters-v3177" id="globalSearchFiltersV3177">
+      <button type="button" class="active" data-filter="all" onclick="setGlobalSearchFilterV3177('all',this)">Todo</button>
+      <button type="button" data-filter="prayers" onclick="setGlobalSearchFilterV3177('prayers',this)">✝️ Oraciones</button>
+      <button type="button" data-filter="psalms" onclick="setGlobalSearchFilterV3177('psalms',this)">♫ Salmos</button>
+      <button type="button" data-filter="verses" onclick="setGlobalSearchFilterV3177('verses',this)">❤️ Versículos</button>
+      <button type="button" data-filter="notes" onclick="setGlobalSearchFilterV3177('notes',this)">📝 Notas</button>
+    </div>
+    <div id="globalSearchSummaryV3177" class="global-search-summary-v3177">Escriba una palabra para buscar en todo su contenido.</div>
+    <div id="globalSearchResultsV3177" class="global-search-results-v3177"></div>
+  </div>
+</div>
+
 <div id="toast" class="toast">Guardado</div>
 
 
@@ -353,7 +376,7 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v2-lab-175-notas-sin-propagacion"></script>
+<script src="app.js?v=v2-lab-177-buscador-general"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-lab-176-momentos-dia-noche"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>

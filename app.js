@@ -11664,3 +11664,77 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     if(close && typeof section!=='undefined' && section==='notes') tag('NOTAS-cerrar-emergente');
   },true);
 })();
+
+/* ===== V2 LAB 177 · BUSCADOR GENERAL ===== */
+(function(){
+  var filterV3177='all';
+  function escV3177(v){
+    return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});
+  }
+  function plainV3177(v){
+    var d=document.createElement('div'); d.innerHTML=String(v==null?'':v); return (d.textContent||d.innerText||'').replace(/\s+/g,' ').trim();
+  }
+  function foldV3177(v){
+    return plainV3177(v).normalize ? plainV3177(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase() : plainV3177(v).toLowerCase();
+  }
+  function sourcesV3177(){
+    return [
+      {key:'prayers',label:'✝️ Oraciones',items:(state&&state.prayers)||[],title:function(x){return x.title||'Oración sin título';}},
+      {key:'psalms',label:'♫ Salmos',items:(state&&state.psalms)||[],title:function(x,i){return x.title||('Salmo '+(i+1));}},
+      {key:'verses',label:'❤️ Versículos',items:(state&&state.verses)||[],title:function(x){return x.reference||x.title||'Versículo';}},
+      {key:'notes',label:'📝 Notas',items:(state&&state.notes)||[],title:function(x){return x.title||'Nota sin título';}}
+    ];
+  }
+  window.openGlobalSearchV3177=function(){
+    var m=document.getElementById('globalSearchModalV3177'); if(!m)return;
+    filterV3177='all';
+    var buttons=document.querySelectorAll('#globalSearchFiltersV3177 button'); buttons.forEach(function(b){b.classList.toggle('active',b.dataset.filter==='all');});
+    m.classList.remove('hidden');
+    document.body.style.overflow='hidden';
+    var input=document.getElementById('globalSearchInputV3177'); if(input){input.value='';setTimeout(function(){try{input.focus({preventScroll:true});}catch(e){input.focus();}},80);}
+    window.renderGlobalSearchV3177();
+  };
+  window.closeGlobalSearchV3177=function(){
+    var m=document.getElementById('globalSearchModalV3177'); if(m)m.classList.add('hidden');
+    document.body.style.overflow='';
+    try{document.activeElement.blur();}catch(e){}
+  };
+  window.clearGlobalSearchV3177=function(){var i=document.getElementById('globalSearchInputV3177');if(i){i.value='';i.focus();}window.renderGlobalSearchV3177();};
+  window.setGlobalSearchFilterV3177=function(f,btn){filterV3177=f||'all';document.querySelectorAll('#globalSearchFiltersV3177 button').forEach(function(b){b.classList.toggle('active',b===btn);});window.renderGlobalSearchV3177();};
+  window.renderGlobalSearchV3177=function(){
+    var input=document.getElementById('globalSearchInputV3177'), box=document.getElementById('globalSearchResultsV3177'), sum=document.getElementById('globalSearchSummaryV3177');
+    if(!input||!box||!sum)return;
+    var raw=input.value.trim(), q=foldV3177(raw); box.innerHTML='';
+    if(!q){sum.textContent='Escriba una palabra para buscar en todo su contenido.';box.innerHTML='<div class="global-search-empty-v3177">🔎 Puede buscar por título, referencia, categoría o cualquier palabra del contenido.</div>';return;}
+    var total=0, html='';
+    sourcesV3177().forEach(function(src){
+      if(filterV3177!=='all'&&filterV3177!==src.key)return;
+      var matches=[];
+      src.items.forEach(function(item,idx){
+        if(!item)return;
+        var title=src.title(item,idx), content=item.content||item.text||item.body||item.verse||'', hay=foldV3177([title,content,item.reference,item.category,(item.momentCategoriesV31102||[]).join(' ')].join(' '));
+        if(hay.indexOf(q)!==-1)matches.push({item:item,idx:idx,title:title,content:plainV3177(content)});
+      });
+      if(!matches.length)return;
+      total+=matches.length;
+      html+='<section class="global-search-group-v3177"><div class="global-search-group-title-v3177">'+src.label+' · '+matches.length+'</div>';
+      matches.slice(0,60).forEach(function(r){
+        var snippet=r.content||plainV3177(r.item.category||r.item.reference||'');
+        html+='<button class="global-search-result-v3177" type="button" onclick="openGlobalSearchResultV3177(\''+src.key+'\',\''+String(r.item.id).replace(/'/g,"\\'")+'\')"><div class="global-search-result-title-v3177">'+escV3177(r.title)+'</div>'+(snippet?'<div class="global-search-result-snippet-v3177">'+escV3177(snippet)+'</div>':'')+'</button>';
+      });
+      html+='</section>';
+    });
+    sum.textContent=total===1?'1 resultado encontrado':total+' resultados encontrados';
+    box.innerHTML=html||'<div class="global-search-empty-v3177">No se ha encontrado contenido con “'+escV3177(raw)+'”.</div>';
+  };
+  window.openGlobalSearchResultV3177=function(sec,id){
+    window.closeGlobalSearchV3177();
+    section=sec; state.section=sec;
+    if(sec==='prayers')state.currentPrayerId=id;
+    else if(sec==='notes')state.currentNoteId=id;
+    else if(sec==='psalms')state.currentPsalmId=id;
+    else if(sec==='verses')state.currentVerseId=id;
+    try{saveState();syncTabs();renderList();renderReader();openReader();setTimeout(function(){try{enterFullscreenReading();}catch(e){}},0);}catch(e){console.error('Buscador general',e);}
+  };
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){var m=document.getElementById('globalSearchModalV3177');if(m&&!m.classList.contains('hidden'))window.closeGlobalSearchV3177();}});
+})();
