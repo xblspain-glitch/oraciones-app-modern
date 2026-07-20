@@ -4576,3 +4576,57 @@ body.dark-mode .reader-end-card .end-card-ethiopian-cross-v2194{
 @media(max-width:420px){
   .reader-end-card .end-card-ethiopian-cross-v2194{top:31px!important;width:42px!important;height:47px!important}
 }
+
+
+/* ===== V2 LAB 197 — proporciones originales y cruz superior ampliada ===== */
+.reader-end-card{
+  min-height:0!important;
+  height:auto!important;
+  padding:58px 24px 28px!important;
+}
+.reader-end-card::after{
+  position:absolute!important;
+  right:22px!important;
+  bottom:18px!important;
+  left:auto!important;
+  top:auto!important;
+  z-index:0!important;
+  display:block!important;
+  font-size:58px!important;
+  transform:rotate(-14deg)!important;
+  opacity:.075!important;
+}
+.reader-end-card::before{
+  top:12px!important;
+  width:96px!important;
+  height:96px!important;
+  border-radius:29px!important;
+  z-index:0!important;
+}
+.reader-end-card .end-card-ethiopian-cross-v2194{
+  top:22px!important;
+  width:64px!important;
+  height:70px!important;
+  z-index:4!important;
+  background:#9b7bdc!important;
+}
+.reader-end-card .title{
+  margin-top:18px!important;
+  position:relative!important;
+  z-index:1!important;
+}
+.reader-end-card .msg,
+.reader-end-card .line{
+  position:relative!important;
+  z-index:1!important;
+}
+body.dark .reader-end-card::after,
+body.dark-mode .reader-end-card::after{
+  opacity:.065!important;
+}
+@media(max-width:420px){
+  .reader-end-card{padding:56px 18px 26px!important}
+  .reader-end-card::before{top:14px!important;width:88px!important;height:88px!important;border-radius:27px!important}
+  .reader-end-card .end-card-ethiopian-cross-v2194{top:23px!important;width:58px!important;height:64px!important}
+  .reader-end-card::after{right:18px!important;bottom:16px!important;font-size:54px!important}
+}
