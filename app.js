@@ -10362,6 +10362,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   var VERSE_RECENT_KEY='oraciones_recent_related_verses_v3188';
   var pendingTimerV3188=null;
   var previousBodyOverflowV3188='';
+  var recommendationScrollPositionV3171=null;
 
   var VERSE_CATEGORY_MAP_V3188={
     alabanza_adoracion:['alabanza'], amor:['amor'], salvacion_vida_eterna:['salvacion','esperanza'],
@@ -10461,16 +10462,41 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     document.body.appendChild(modal);
     modal.addEventListener('click',function(e){if(e.target===modal) closeRecommendationModalV3188();});
     modal.querySelector('#recommendationCloseXV3188').addEventListener('click',closeRecommendationModalV3188);
-    modal.querySelector('#recommendationCloseV3188').addEventListener('click',closeRecommendationModalV3188);
+    /* El botón inferior comparte estilos con otros botones de navegación.
+       Cerramos aquí el evento por completo para que ningún manejador global
+       actúe después de ocultar el modal y lleve el lector al inicio. */
+    modal.querySelector('#recommendationCloseV3188').addEventListener('click',function(e){
+      if(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();}
+      closeRecommendationModalV3188();
+    });
     return modal;
+  }
+  function restoreRecommendationScrollV3171(){
+    var pos=recommendationScrollPositionV3171;
+    if(!pos) return;
+    try{window.scrollTo(pos.x,pos.y);}catch(e){try{window.scrollTo(0,pos.y);}catch(e2){}}
+    try{if(pos.reader)pos.reader.scrollTop=pos.readerTop;}catch(e){}
   }
   function closeRecommendationModalV3188(){
     var modal=document.getElementById('recommendationModalV3188');
     if(!modal) return;
+    /* Evita que Android intente recolocar en pantalla el botón enfocado
+       cuando su modal pasa a estar oculto. */
+    try{if(modal.contains(document.activeElement))document.activeElement.blur();}catch(e){}
     modal.classList.add('hidden');
     modal.setAttribute('aria-hidden','true');
     document.body.classList.remove('recommendation-open-v3188');
     document.body.style.overflow=previousBodyOverflowV3188;
+    restoreRecommendationScrollV3171();
+    requestAnimationFrame(function(){
+      restoreRecommendationScrollV3171();
+      requestAnimationFrame(restoreRecommendationScrollV3171);
+    });
+    /* Android/Chrome puede reajustar la ventana al terminar el evento táctil
+       del botón inferior; repetimos la restauración tras esos reajustes. */
+    setTimeout(restoreRecommendationScrollV3171,0);
+    setTimeout(restoreRecommendationScrollV3171,80);
+    setTimeout(restoreRecommendationScrollV3171,220);
   }
   window.closeRecommendationModalV3188=closeRecommendationModalV3188;
 
@@ -10489,6 +10515,14 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     modal.querySelector('#recommendationTitleV3188').textContent=title;
     modal.querySelector('#recommendationCategoryV3188').textContent=[categoryMeta.icon||'',categoryMeta.label||''].filter(Boolean).join(' ');
     modal.querySelector('#recommendationContentV3188').innerHTML=modalTextV3188(content);
+    var rootV3171=document.scrollingElement||document.documentElement;
+    var readerV3171=document.getElementById('readerText');
+    recommendationScrollPositionV3171={
+      x:window.pageXOffset||rootV3171.scrollLeft||0,
+      y:window.pageYOffset||rootV3171.scrollTop||0,
+      reader:readerV3171,
+      readerTop:readerV3171?readerV3171.scrollTop:0
+    };
     previousBodyOverflowV3188=document.body.style.overflow||'';
     document.body.classList.add('recommendation-open-v3188');
     document.body.style.overflow='hidden';
