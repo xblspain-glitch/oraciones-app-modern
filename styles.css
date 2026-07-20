@@ -4335,3 +4335,32 @@ body.dark-mode #readerView .reader-identity-icon-v31103::before{
   }
   #readerView .reader-identity-label-v31103{font-size:.82rem}
 }
+
+/* ===== V2 LAB 194 — cruz etíope en tarjeta «Fin de la lectura» ===== */
+.reader-end-card::before{
+  content:""!important;
+  background:linear-gradient(145deg,rgba(156,75,222,.96),rgba(91,121,220,.92))!important;
+  -webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat!important;
+  mask:url("cross-ethiopian-mask.png") center/contain no-repeat!important;
+  border-radius:0!important;
+  width:58px!important;
+  height:62px!important;
+  top:15px!important;
+  box-shadow:none!important;
+  filter:drop-shadow(0 8px 16px rgba(108,82,205,.22))!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+body.dark .reader-end-card::before,
+body.dark-mode .reader-end-card::before{
+  background:linear-gradient(145deg,#d7b8ff,#9ebaff)!important;
+  box-shadow:none!important;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.30))!important;
+}
+@media(max-width:420px){
+  .reader-end-card::before{
+    width:54px!important;
+    height:58px!important;
+    top:15px!important;
+  }
+}
