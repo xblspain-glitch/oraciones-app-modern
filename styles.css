@@ -4536,3 +4536,43 @@ body.dark-mode .reader-end-card .line::after{
   .reader-end-card .end-card-ethiopian-cross-v2194{top:30px!important;width:40px!important;height:45px!important}
   .reader-end-card .line::after{width:20px!important;height:20px!important}
 }
+
+
+/* ===== V2 LAB 196 — cruz superior por delante del halo ===== */
+.reader-end-card{
+  isolation:isolate!important;
+}
+.reader-end-card::before{
+  z-index:0!important;
+}
+.reader-end-card .end-card-ethiopian-cross-v2194{
+  z-index:3!important;
+  top:30px!important;
+  width:46px!important;
+  height:51px!important;
+  background:#9f85dd!important;
+  opacity:1!important;
+  box-shadow:none!important;
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.55))
+    drop-shadow(0 0 6px rgba(181,151,245,.30))
+    drop-shadow(0 1px 3px rgba(108,94,194,.20))!important;
+}
+.reader-end-card .title,
+.reader-end-card .msg,
+.reader-end-card .line,
+.reader-end-card::after{
+  position:relative!important;
+  z-index:1!important;
+}
+body.dark .reader-end-card .end-card-ethiopian-cross-v2194,
+body.dark-mode .reader-end-card .end-card-ethiopian-cross-v2194{
+  background:#c8baf0!important;
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.30))
+    drop-shadow(0 0 7px rgba(181,151,245,.26))
+    drop-shadow(0 1px 3px rgba(62,58,124,.22))!important;
+}
+@media(max-width:420px){
+  .reader-end-card .end-card-ethiopian-cross-v2194{top:31px!important;width:42px!important;height:47px!important}
+}
