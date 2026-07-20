@@ -4005,7 +4005,7 @@ body.dark.home-active-v9019 .segment button.active{
 
 
 
-/* V2 LAB 184 · colores suaves por sección en el menú principal
+/* V2 LAB 185 · Día/Noche destacado como llamada serena a la oración
    Selectores ligados a la acción real de cada botón, nunca a su posición.
    Se incluye la estructura real del menú para superar las reglas generales
    .topbar-row .btn.soft sin modificar lógica ni navegación. */
@@ -4014,9 +4014,9 @@ body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="dai
   border-color:rgba(126,103,169,.28)!important;
 }
 body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="routines"][onclick*="openDailyRoutines"]{
-  background:linear-gradient(180deg,#d7e1f7 0%,#c8d5f2 100%)!important;
-  border-color:#9eafe0!important;
-  box-shadow:0 4px 12px rgba(73,91,145,.18),inset 0 1px 0 rgba(255,255,255,.82)!important;
+  background:linear-gradient(180deg,#d2dcf6 0%,#bcccf1 100%)!important;
+  border-color:#879dd8!important;
+  box-shadow:0 4px 10px rgba(86,111,175,.22),inset 0 1px 0 rgba(255,255,255,.88),inset 0 0 12px rgba(255,255,255,.18)!important;
 }
 body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="moments"][onclick*="openMoments"]{
   background:linear-gradient(180deg,#edf6e7 0%,#deecd5 100%)!important;
