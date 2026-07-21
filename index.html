@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V2 Laboratorio 200</title>
+<title>Oraciones V2 Laboratorio 201</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v2-lab-199_lineas_superiores_laterales">
+<link rel="stylesheet" href="styles.css?v=v2-lab-201_iconos_png_raiz">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 
 <style>
@@ -54,22 +54,22 @@
 <div class="topbar">
   <div class="topbar-row">
     <div class="segment">
-      <button id="tabPrayers" class="active" type="button" onclick="switchSectionAndReadV90187('prayers')">✝️ Oraciones</button>
-      <button id="tabNotes" type="button" onclick="switchSectionAndReadV90187('notes')">📝 Notas</button>
-      <button id="tabGuides" type="button" onclick="switchSectionAndReadV90187('guides')">📜 Guía</button>
-      <button id="tabVerses" type="button" onclick="switchSection('verses')">❤️ Versículos</button>
+      <button id="tabPrayers" class="active" type="button" onclick="switchSectionAndReadV90187('prayers')"><img class="menu-icon-img-v2201" src="icon-menu-oraciones.png" alt="">Oraciones</button>
+      <button id="tabNotes" type="button" onclick="switchSectionAndReadV90187('notes')"><img class="menu-icon-img-v2201" src="icon-menu-notas.png" alt="">Notas</button>
+      <button id="tabGuides" type="button" onclick="switchSectionAndReadV90187('guides')"><img class="menu-icon-img-v2201" src="icon-menu-guia.png" alt="">Guía</button>
+      <button id="tabVerses" type="button" onclick="switchSection('verses')"><img class="menu-icon-img-v2201" src="icon-menu-versiculos.png" alt="">Versículos</button>
     </div>
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
-    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft" type="button" onclick="openDailyRoutinesV3192()">🙏🏾 Día/Noche</button>
-    <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
-    <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
-    <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
+    <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()"><img class="menu-icon-img-v2201" src="icon-menu-dia.png" alt="">Versículo del día</button>
+    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft" type="button" onclick="openDailyRoutinesV3192()"><img class="menu-icon-img-v2201" src="icon-menu-dia-noche.png" alt="">Día/Noche</button>
+    <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft" type="button" onclick="openMomentsV31102()"><img class="menu-icon-img-v2201" src="icon-menu-momentos.png" alt="">Momentos</button>
+    <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()"><img class="menu-icon-img-v2201" src="icon-menu-buscar.png" alt="">Buscar en toda la app</button>
+    <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()"><img class="menu-icon-img-v2201" src="icon-menu-calendario.png" alt="">Calendario</button>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
-      <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
-      <button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
-      <button id="btnMainMark" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
+      <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSectionAndReadV90187('parables')"><img class="menu-icon-img-v2201" src="icon-menu-parabolas.png" alt="">Parábolas</button>
+      <button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176" type="button" onclick="switchSectionAndReadV90187('psalms')"><img class="menu-icon-img-v2201" src="icon-menu-salmos.png" alt="">Salmos</button>
+      <button id="btnMainMark" class="btn soft" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)"><img class="menu-icon-img-v2201" src="icon-menu-marca.png" alt="">Marca</button>
       </div>
         <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
     <button id="btnEdit" data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
@@ -77,10 +77,10 @@
     <button id="btnMainCard" class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
     <button id="btnMainCopy" class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>
     <div class="home-fixed-row-v31763 home-fixed-row-four-v31763">
-      <button id="btnMainMore" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
-      <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()">☁️ Backup</button>
-      <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()">🗑️ Papelera</button>
-      <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()">🌙</button>
+      <button id="btnMainMore" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)"><img class="menu-icon-img-v2201" src="icon-menu-mas.png" alt="">Más</button>
+      <button id="btnBackup" data-view-btn="backup" class="btn soft" type="button" onclick="openBackup()"><img class="menu-icon-img-v2201" src="icon-menu-backup.png" alt="">Backup</button>
+      <button id="btnTrash" data-view-btn="trash" class="btn soft" type="button" onclick="openTrash()"><img class="menu-icon-img-v2201" src="icon-menu-papelera.png" alt="">Papelera</button>
+      <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()"><img class="menu-icon-img-v2201 menu-icon-only-v2201" src="icon-menu-noche.png" alt="Modo de color"></button>
     </div>
     <button id="btnMainFav" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
     <div class="topbar-bottom-row-v66 counter-row-v853">
@@ -378,7 +378,7 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v2-lab-199_lineas_superiores_laterales"></script>
+<script src="app.js?v=v2-lab-201_iconos_png_raiz"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-lab-176-momentos-dia-noche"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>

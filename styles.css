@@ -4766,24 +4766,37 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
   }
 }
 
-/* ===== V2 LAB 200 — iconografía propia del menú ===== */
-.app-own-icon-v2200{display:inline-flex;align-items:center;justify-content:center;width:25px;height:25px;flex:0 0 25px;color:currentColor;vertical-align:middle}
-.app-own-icon-v2200 svg{width:100%;height:100%;display:block}
-.app-own-label-v2200{display:inline-block;vertical-align:middle}
-#tabPrayers,#tabNotes,#tabGuides,#tabVerses,#btnDaily,#btnDailyRoutinesV3192,#btnMomentsV31102,#calendarBtn,#tabParables,#tabPsalms,#btnMainMark,#btnMainMore,#btnBackup,#btnTrash,#globalSearchButtonV3177{gap:8px!important;align-items:center!important}
-#tabPrayers .app-own-icon-v2200{color:#2f73ab}
-#tabNotes .app-own-icon-v2200{color:#b88319}
-#tabGuides .app-own-icon-v2200{color:#a06e18}
-#tabVerses .app-own-icon-v2200{color:#a14dad}
-#btnDaily .app-own-icon-v2200{color:#8b66ba}
-#btnDailyRoutinesV3192 .app-own-icon-v2200{color:#f3f7ff}
-#btnMomentsV31102 .app-own-icon-v2200,#tabParables .app-own-icon-v2200{color:#4f8a45}
-#calendarBtn .app-own-icon-v2200{color:#c2694e}
-#tabPsalms .app-own-icon-v2200{color:#8b7040}
-#btnMainMark .app-own-icon-v2200{color:#ba5267}
-#btnMainMore .app-own-icon-v2200{color:#75879a}
-#btnBackup .app-own-icon-v2200{color:#718ba0}
-#btnTrash .app-own-icon-v2200{color:#5a9481}
-#globalSearchButtonV3177 .app-own-icon-v2200{color:#436c84}
-body.dark .app-own-icon-v2200,body.dark-mode .app-own-icon-v2200{filter:brightness(1.16)}
-@media(max-width:420px){.app-own-icon-v2200{width:23px;height:23px;flex-basis:23px}}
+
+/* ===== V2 LAB 201 — iconos PNG propios en la raíz ===== */
+.topbar .menu-icon-img-v2201{
+  width:27px!important;
+  height:27px!important;
+  flex:0 0 27px!important;
+  object-fit:contain!important;
+  display:inline-block!important;
+  vertical-align:middle!important;
+  margin-right:7px!important;
+  filter:drop-shadow(0 1px 1px rgba(255,255,255,.45))!important;
+}
+.topbar button:has(.menu-icon-img-v2201){
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:0!important;
+}
+#btnGlobalSearchV3177 .menu-icon-img-v2201{width:25px!important;height:25px!important;flex-basis:25px!important}
+#btnTheme .menu-icon-img-v2201{
+  width:30px!important;
+  height:30px!important;
+  flex-basis:30px!important;
+  margin-right:0!important;
+}
+body.dark .topbar .menu-icon-img-v2201,
+body.dark-mode .topbar .menu-icon-img-v2201{
+  filter:brightness(1.12) saturate(.92) drop-shadow(0 1px 2px rgba(0,0,0,.30))!important;
+}
+@media(max-width:420px){
+  .topbar .menu-icon-img-v2201{width:25px!important;height:25px!important;flex-basis:25px!important;margin-right:6px!important}
+  #btnGlobalSearchV3177 .menu-icon-img-v2201{width:23px!important;height:23px!important;flex-basis:23px!important}
+  #btnTheme .menu-icon-img-v2201{width:28px!important;height:28px!important;flex-basis:28px!important;margin-right:0!important}
+}
