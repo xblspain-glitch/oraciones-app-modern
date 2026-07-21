@@ -4815,3 +4815,36 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
   #tabPrayers{gap:3px!important}
   #tabPrayers .menu-app-cross-v2204{width:17px;height:19px;flex-basis:19px}
 }
+
+
+/* ===== V2 LAB 206 — cruz centrada arriba y texto cómodo en Oraciones ===== */
+#tabPrayers{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  gap:2px!important;
+  line-height:1.02!important;
+  padding:8px 10px 9px!important;
+  min-height:68px!important;
+}
+#tabPrayers .menu-app-label-v2205{
+  display:block!important;
+  width:100%!important;
+  text-align:center!important;
+  font-size:.96em!important;
+  white-space:nowrap!important;
+}
+#tabPrayers .menu-app-cross-v2204{
+  width:18px!important;
+  height:20px!important;
+  flex:0 0 20px!important;
+  transform:none!important;
+  margin:0 0 1px 0!important;
+}
+@media(max-width:420px){
+  #tabPrayers{gap:2px!important;padding:7px 8px 8px!important;min-height:64px!important}
+  #tabPrayers .menu-app-label-v2205{font-size:.93em!important}
+  #tabPrayers .menu-app-cross-v2204{width:17px!important;height:19px!important;flex-basis:19px!important}
+}
