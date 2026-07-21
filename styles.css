@@ -4765,3 +4765,31 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
       transparent 100%)!important;
   }
 }
+
+
+/* ===== V2 LAB 204 — cruz de la app en Oraciones + corazón verde en Versículos ===== */
+#tabPrayers,
+#tabVerses{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.menu-app-cross-v2204{
+  display:inline-block;
+  width:17px;
+  height:19px;
+  flex:0 0 17px;
+  background:linear-gradient(180deg,#6c8fca 0%, #4f74b7 100%);
+  -webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;
+  mask:url("cross-ethiopian-mask.png") center/contain no-repeat;
+  filter:drop-shadow(0 1px 1px rgba(255,255,255,.35)) drop-shadow(0 1px 2px rgba(73,103,156,.18));
+  transform:translateY(1px);
+}
+#tabPrayers.active .menu-app-cross-v2204{
+  background:linear-gradient(180deg,#5f83c4 0%, #426aa8 100%);
+}
+@media(max-width:420px){
+  .menu-app-cross-v2204{width:16px;height:18px;flex-basis:16px}
+  #tabPrayers,#tabVerses{gap:7px}
+}
