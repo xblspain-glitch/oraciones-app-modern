@@ -4765,3 +4765,104 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
       transparent 100%)!important;
   }
 }
+
+
+/* ===== V2 LAB 217 — mejoras visuales aprobadas de V3 ===== */
+/* Versículos en verde; Compartido conserva el lavanda. */
+body.home-active-v9019 .segment #tabVerses,
+body:not(.dark).home-active-v9019 .segment #tabVerses{
+  background:linear-gradient(110deg,#f4fcec 0%,#dcefcf 56%,#b9dc9e 100%)!important;
+  border-color:rgba(91,148,71,.24)!important;
+  color:#243322!important;
+}
+body.home-active-v9019 .segment #tabVerses.active,
+body:not(.dark).home-active-v9019 .segment #tabVerses.active{
+  background:linear-gradient(110deg,#eef8e5 0%,#d5eac2 56%,#acd48b 100%)!important;
+  border-color:rgba(79,125,69,.48)!important;
+  color:#243322!important;
+}
+body.dark.home-active-v9019 .segment #tabVerses,
+body.dark-mode.home-active-v9019 .segment #tabVerses{
+  background:linear-gradient(110deg,#47653f,#385132 62%,#2a3d25)!important;
+  border-color:rgba(171,210,148,.26)!important;
+  color:#eef6e8!important;
+}
+#readerView.reader-kind-verses-v31103 .reader-identity-v31103{
+  --reader-accent:#5a874b;
+  --reader-accent-soft:rgba(124,173,95,.16);
+}
+#readerView.reader-kind-verses-v31103{
+  --reader-page-bg:#f4faee;
+  background:var(--reader-page-bg)!important;
+}
+body.dark #readerView.reader-kind-verses-v31103,
+body.dark-mode #readerView.reader-kind-verses-v31103{--reader-page-bg:#1f2b1d;}
+.item.verse-sent-bg-v3134,
+.title-row.verse-sent-bg-v3134,
+.category-card.verse-sent-bg-v3134{
+  background:#ebe2ff!important;
+  border-color:#cbb8ff!important;
+}
+.title-row.verse-sent-bg-v3134.active{background:#ebe2ff!important;}
+#readerView.reader-sent-bg-v3134{
+  background:#ebe2ff!important;
+  border-color:#cbb8ff!important;
+}
+body.dark .item.verse-sent-bg-v3134,
+body.dark .title-row.verse-sent-bg-v3134,
+body.dark .category-card.verse-sent-bg-v3134,
+body.dark-mode .item.verse-sent-bg-v3134,
+body.dark-mode .title-row.verse-sent-bg-v3134,
+body.dark-mode .category-card.verse-sent-bg-v3134,
+body.dark #readerView.reader-sent-bg-v3134,
+body.dark-mode #readerView.reader-sent-bg-v3134{
+  background:rgba(150,110,220,.20)!important;
+  border-color:rgba(190,160,245,.38)!important;
+}
+
+/* Contadores inferiores con los iconos propios y la posición original. */
+#counterInfo.counter-v66{
+  text-align:right!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+.counter-items-v3182{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;white-space:nowrap;}
+.counter-entry-v3182{display:inline-flex;align-items:center;justify-content:center;gap:3px;min-width:0;}
+.counter-entry-v3182 b{font-weight:750;line-height:1}
+.counter-separator-v3182{opacity:.48;font-weight:700}
+.counter-entry-v3182 img{display:block;width:18px;height:18px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(0,0,0,.10));}
+.counter-cross-v3182{display:block;width:17px;height:18px;background:linear-gradient(180deg,#6c8fca 0%,#4f74b7 100%);-webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;mask:url("cross-ethiopian-mask.png") center/contain no-repeat;filter:drop-shadow(0 1px 1px rgba(73,103,156,.18));}
+.counter-symbol-v3182{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;font-size:15px;line-height:1;}
+.counter-psalm-v3182{font-weight:900;color:#66805a;font-size:16px}
+.counter-heart-v3182{font-size:15px}
+body.dark .counter-cross-v3182,body.dark-mode .counter-cross-v3182{background:linear-gradient(180deg,#9ab4e2 0%,#7898d0 100%);}
+@media(max-width:430px){
+  .counter-items-v3182{gap:3px}.counter-entry-v3182{gap:2px}.counter-entry-v3182 img{width:17px;height:17px}.counter-cross-v3182{width:16px;height:17px}.counter-symbol-v3182{width:17px;height:17px;font-size:14px}.counter-psalm-v3182{font-size:15px}
+}
+
+/* Iconos aprobados de Versículo del día y Día/Noche al máximo útil. */
+body.home-active-v9019 .home-icon-button-v2217{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:3px!important;
+  overflow:hidden!important;
+}
+body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-v2217{
+  display:block!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.16));
+}
+body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-daily-v2217{
+  width:62px!important;height:54px!important;flex:0 0 62px!important;
+}
+body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-daynight-v2217{
+  width:58px!important;height:54px!important;flex:0 0 58px!important;
+}
+body.home-active-v9019 .home-icon-button-v2217 span{display:inline-block!important;white-space:nowrap!important;}
+@media(max-width:420px){
+  body.home-active-v9019 .home-icon-button-v2217{gap:2px!important;}
+  body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-daily-v2217{width:56px!important;height:49px!important;flex-basis:56px!important;}
+  body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-daynight-v2217{width:52px!important;height:49px!important;flex-basis:52px!important;}
+}

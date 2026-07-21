@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v2-lab-216_cruz_maxima_centrada">
+<link rel="stylesheet" href="styles.css?v=v2-lab-218_iconos_sin_destello">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 
 <style>
@@ -30,6 +30,16 @@
 
 .top-tab-emoji-wrap-v2212 .top-tab-emoji-v2212{display:block!important;width:27px!important;height:27px!important;line-height:27px!important;font-size:23px!important;text-align:center!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.22)) drop-shadow(0 2px 3px rgba(0,0,0,.10))}
 @media(max-width:420px){.top-tab-emoji-wrap-v2212 .top-tab-emoji-v2212{width:25px!important;height:25px!important;line-height:25px!important;font-size:21px!important}}
+
+/* V2.218 · tamaño crítico desde el primer render: evita destello a tamaño natural */
+.home-special-icon-v2217{display:block!important;object-fit:contain!important;max-width:none!important;max-height:none!important}
+.home-special-icon-daily-v2217{width:62px!important;height:54px!important;min-width:62px!important;max-width:62px!important;flex:0 0 62px!important}
+.home-special-icon-daynight-v2217{width:58px!important;height:54px!important;min-width:58px!important;max-width:58px!important;flex:0 0 58px!important}
+.home-icon-button-v2217{overflow:hidden!important}
+@media(max-width:420px){
+ .home-special-icon-daily-v2217{width:56px!important;height:49px!important;min-width:56px!important;max-width:56px!important;flex-basis:56px!important}
+ .home-special-icon-daynight-v2217{width:52px!important;height:49px!important;min-width:52px!important;max-width:52px!important;flex-basis:52px!important}
+}
 </style>
 
 <style id="v2208-oraciones-style">
@@ -89,8 +99,8 @@
     </div>
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button id="btnDaily" data-view-btn="daily" class="btn soft" type="button" onclick="openDailyVerse()">🌅 Versículo del día</button>
-    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft" type="button" onclick="openDailyRoutinesV3192()">🙏🏾 Día/Noche</button>
+    <button id="btnDaily" data-view-btn="daily" class="btn soft home-icon-button-v2217" type="button" onclick="openDailyVerse()"><img src="icon-versiculo-dia-v3185.png" class="home-special-icon-v2217 home-special-icon-daily-v2217" width="62" height="54" style="width:62px;height:54px;object-fit:contain;display:block;max-width:62px" alt=""><span>Versículo del día</span></button>
+    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft home-icon-button-v2217" type="button" onclick="openDailyRoutinesV3192()"><img src="icon-dia-noche-v3185.png" class="home-special-icon-v2217 home-special-icon-daynight-v2217" width="58" height="54" style="width:58px;height:54px;object-fit:contain;display:block;max-width:58px" alt=""><span>Día/Noche</span></button>
     <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
     <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
@@ -406,13 +416,14 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v2-lab-216_cruz_maxima_centrada"></script>
+<script src="app.js?v=v2-lab-218_iconos_sin_destello"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-lab-176-momentos-dia-noche"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
 
 
 
+<script src="counters-v2217.js?v=v2-lab-218_iconos_sin_destello"></script>
 </body>
 </html>
 
