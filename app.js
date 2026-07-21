@@ -11864,3 +11864,33 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   };
   try{ openTrash = window.openTrash; }catch(e){}
 })();
+
+
+/* ===== V2 LAB 219 — evita el pequeño salto al abrir algunas secciones ===== */
+(function(){
+  if(window.__v2219StableViewSwitch) return;
+  window.__v2219StableViewSwitch = true;
+
+  document.addEventListener('click', function(ev){
+    try{
+      if(!document.body.classList.contains('home-active-v9019')) return;
+      var btn = ev.target && ev.target.closest ? ev.target.closest('button') : null;
+      if(!btn) return;
+      var inMainNavigation = btn.matches('[data-view-btn], #tabPrayers, #tabNotes, #tabGuides, #tabVerses, #tabParables, #tabPsalms');
+      if(!inMainNavigation) return;
+      if(btn.id === 'btnTheme' || btn.id === 'btnMainMore') return;
+
+      document.body.classList.add('view-switching-v2219');
+      var home = document.getElementById('homeView');
+      if(home) home.classList.add('hidden');
+
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          setTimeout(function(){
+            document.body.classList.remove('view-switching-v2219');
+          }, 40);
+        });
+      });
+    }catch(_e){}
+  }, true);
+})();

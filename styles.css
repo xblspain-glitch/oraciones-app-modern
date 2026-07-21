@@ -4866,3 +4866,15 @@ body.home-active-v9019 .home-icon-button-v2217 span{display:inline-block!importa
   body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-daily-v2217{width:56px!important;height:49px!important;flex-basis:56px!important;}
   body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-daynight-v2217{width:52px!important;height:49px!important;flex-basis:52px!important;}
 }
+
+
+/* ===== V2 LAB 219 — transición estable al salir de Inicio ===== */
+body.view-switching-v2219 *,
+body.view-switching-v2219 *::before,
+body.view-switching-v2219 *::after{
+  transition:none!important;
+  animation:none!important;
+}
+body.view-switching-v2219 #homeView{
+  display:none!important;
+}
