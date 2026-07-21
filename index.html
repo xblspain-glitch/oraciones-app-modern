@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V2 Laboratorio 209</title>
+<title>Oraciones V2 Laboratorio 210</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v2-lab-209_iconos_top_notas_guia_versiculos">
+<link rel="stylesheet" href="styles.css?v=v2-lab-210_iconos_png_detallados">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 
 <style>
@@ -37,11 +37,11 @@
 @media(max-width:420px){#tabPrayers.tab-prayers-v2208{gap:3px!important;padding:7px 6px 8px!important;min-height:64px!important}#tabPrayers.tab-prayers-v2208 .prayer-cross-top-v2208{width:17px!important;height:19px!important}#tabPrayers.tab-prayers-v2208 .prayer-label-top-v2208{font-size:.92em!important}}
 </style>
 
-<style id="v2209-top-icons-style">
-.top-tab-vertical-v2209{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;padding:8px 8px 10px!important;min-height:68px!important;line-height:1!important;text-align:center!important;}
-.top-tab-vertical-v2209 .top-tab-icon-img-v2209{display:block!important;width:22px!important;height:22px!important;object-fit:contain!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.32)) drop-shadow(0 1px 2px rgba(0,0,0,.10));}
-.top-tab-vertical-v2209 .top-tab-label-v2209{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important;}
-@media(max-width:420px){.top-tab-vertical-v2209{gap:3px!important;padding:7px 6px 8px!important;min-height:64px!important}.top-tab-vertical-v2209 .top-tab-icon-img-v2209{width:20px!important;height:20px!important}.top-tab-vertical-v2209 .top-tab-label-v2209{font-size:.92em!important}}
+<style id="v2210-png-icons-style">
+.top-tab-png-v2210{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:7px 7px 9px!important;min-height:68px!important;line-height:1!important;text-align:center!important}
+.top-tab-png-v2210 .top-tab-png-icon-v2210{display:block!important;width:27px!important;height:27px!important;object-fit:contain!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.22)) drop-shadow(0 2px 3px rgba(0,0,0,.12))}
+.top-tab-png-v2210 span{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important}
+@media(max-width:420px){.top-tab-png-v2210{min-height:64px!important;padding:6px 5px 8px!important;gap:2px!important}.top-tab-png-v2210 .top-tab-png-icon-v2210{width:25px!important;height:25px!important}.top-tab-png-v2210 span{font-size:.92em!important}}
 </style>
 </head>
 <body>
@@ -70,9 +70,9 @@
   <div class="topbar-row">
     <div class="segment">
       <button id="tabPrayers" class="active tab-prayers-v2208" type="button" onclick="switchSectionAndReadV90187('prayers')"><span class="prayer-cross-top-v2208" aria-hidden="true"></span><span class="prayer-label-top-v2208">Oraciones</span></button>
-      <button id="tabNotes" class="top-tab-vertical-v2209" type="button" onclick="switchSectionAndReadV90187('notes')"><img class="top-tab-icon-img-v2209" src="icon-top-notes-v2209.png" alt="" aria-hidden="true"><span class="top-tab-label-v2209">Notas</span></button>
-      <button id="tabGuides" class="top-tab-vertical-v2209" type="button" onclick="switchSectionAndReadV90187('guides')"><img class="top-tab-icon-img-v2209" src="icon-top-guide-v2209.png" alt="" aria-hidden="true"><span class="top-tab-label-v2209">Guía</span></button>
-      <button id="tabVerses" class="top-tab-vertical-v2209" type="button" onclick="switchSection('verses')"><img class="top-tab-icon-img-v2209" src="icon-top-verses-v2209.png" alt="" aria-hidden="true"><span class="top-tab-label-v2209">Versículos</span></button>
+      <button id="tabNotes" class="top-tab-png-v2210" type="button" onclick="switchSectionAndReadV90187('notes')"><img src="icon-notas-detallado-v2210.png" class="top-tab-png-icon-v2210" alt=""><span>Notas</span></button>
+      <button id="tabGuides" class="top-tab-png-v2210" type="button" onclick="switchSectionAndReadV90187('guides')"><img src="icon-guia-detallado-v2210.png" class="top-tab-png-icon-v2210" alt=""><span>Guía</span></button>
+      <button id="tabVerses" class="top-tab-png-v2210" type="button" onclick="switchSection('verses')"><img src="icon-versiculos-detallado-v2210.png" class="top-tab-png-icon-v2210" alt=""><span>Versículos</span></button>
     </div>
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
@@ -393,7 +393,7 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v2-lab-209_iconos_top_notas_guia_versiculos"></script>
+<script src="app.js?v=v2-lab-210_iconos_png_detallados"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-lab-176-momentos-dia-noche"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
