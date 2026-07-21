@@ -20,24 +20,28 @@ const VERSE_CATEGORIES = [
 ];
 
 
-/* ===== V2 LAB 221 — iconos ilustrados de categorías ===== */
+/* ===== V2 LAB 222 — iconos ilustrados de categorías ===== */
 const CATEGORY_ICON_ASSETS_V2221 = {
-  salvacion:"category-icons/cat-amor.png",
-  fe:"category-icons/cat-oracion.png",
-  esperanza:"category-icons/cat-esperanza.png",
-  fortaleza:"category-icons/cat-fortaleza.png",
-  amor:"category-icons/cat-amor.png",
-  descanso:"category-icons/cat-descanso.png",
-  sabiduria:"category-icons/cat-sabiduria.png",
-  alabanza:"category-icons/cat-alabanza.png",
-  reino:"category-icons/cat-reino.png",
-  espiritu:"category-icons/cat-espiritu-santo.png",
-  segunda_venida:"category-icons/cat-segunda-venida.png",
-  juicio:"category-icons/cat-juicio.png",
-  misericordia:"category-icons/cat-misericordia.png",
-  vida_eterna:"category-icons/cat-vida-eterna.png",
-  oracion:"category-icons/cat-oracion.png",
-  dios:"category-icons/cat-reino.png"
+  salvacion:"cat-amor.png",
+  fe:"cat-oracion.png",
+  esperanza:"cat-esperanza.png",
+  fortaleza:"cat-fortaleza.png",
+  amor:"cat-amor.png",
+  descanso:"cat-descanso.png",
+  sabiduria:"cat-sabiduria.png",
+  alabanza:"cat-alabanza.png",
+  reino:"cat-reino.png",
+  espiritu:"cat-espiritu-santo.png",
+  segunda_venida:"cat-segunda-venida.png",
+  juicio:"cat-juicio.png",
+  misericordia:"cat-misericordia.png",
+  vida_eterna:"cat-vida-eterna.png",
+  oracion:"cat-oracion.png",
+  dios:"cat-reino.png",
+  gratitud:"cat-misericordia.png",
+  sanacion:"cat-descanso.png",
+  paz:"cat-esperanza.png",
+  arrepentimiento:"cat-oracion.png"
 };
 function categoryPlainLabelV2221(label){
   return String(label||"").replace(/^\s*(?:[\p{Extended_Pictographic}\p{Emoji_Presentation}\uFE0F\u200D\u{1F3FB}-\u{1F3FF}]+)\s*/u,"").trim();
@@ -57,7 +61,11 @@ function categoryIconAssetV2221(id,label){
   if(t.includes('espiritu santo')) return CATEGORY_ICON_ASSETS_V2221.espiritu;
   if(t.includes('segunda venida')) return CATEGORY_ICON_ASSETS_V2221.segunda_venida;
   if(t==='juicio'||t.includes('justicia')) return CATEGORY_ICON_ASSETS_V2221.juicio;
-  if(t.includes('misericordia')) return CATEGORY_ICON_ASSETS_V2221.misericordia;
+  if(t.includes('gratitud')) return CATEGORY_ICON_ASSETS_V2221.gratitud;
+  if(t.includes('sanacion')||t.includes('salud')) return CATEGORY_ICON_ASSETS_V2221.sanacion;
+  if(t.includes('paz')||t.includes('consuelo')) return CATEGORY_ICON_ASSETS_V2221.paz;
+  if(t.includes('arrepentimiento')||t.includes('perdon')) return CATEGORY_ICON_ASSETS_V2221.arrepentimiento;
+  if(t.includes('misericordia')||t.includes('servicio')) return CATEGORY_ICON_ASSETS_V2221.misericordia;
   if(t.includes('vida eterna')) return CATEGORY_ICON_ASSETS_V2221.vida_eterna;
   return "";
 }
