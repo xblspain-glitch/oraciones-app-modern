@@ -4848,3 +4848,38 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
   #tabPrayers .menu-app-label-v2205{font-size:.93em!important}
   #tabPrayers .menu-app-cross-v2204{width:17px!important;height:19px!important;flex-basis:19px!important}
 }
+
+
+/* ===== V2 LAB 207 — cruz realmente por encima de Oraciones ===== */
+#tabPrayers{
+  display:block!important;
+  text-align:center!important;
+  line-height:1.02!important;
+  padding:7px 8px 8px!important;
+  min-height:68px!important;
+}
+#tabPrayers .menu-app-cross-wrap-v2207{
+  display:block!important;
+  width:18px!important;
+  height:20px!important;
+  margin:0 auto 3px auto!important;
+}
+#tabPrayers .menu-app-cross-v2204{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  flex:none!important;
+  transform:none!important;
+  margin:0!important;
+}
+#tabPrayers .menu-app-label-v2207{
+  display:block!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  font-size:.95em!important;
+}
+@media(max-width:420px){
+  #tabPrayers{padding:7px 7px 8px!important;min-height:64px!important}
+  #tabPrayers .menu-app-cross-wrap-v2207{width:17px!important;height:19px!important;margin-bottom:3px!important}
+  #tabPrayers .menu-app-label-v2207{font-size:.92em!important}
+}
