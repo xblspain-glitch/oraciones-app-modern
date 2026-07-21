@@ -724,3 +724,40 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
     }catch(_e){}
   }, true);
 })();
+
+/* ===== V2 LAB 200 — familia propia de iconos del menú principal ===== */
+(function(){
+  if(window.__v2Lab200CustomIcons) return;
+  window.__v2Lab200CustomIcons=true;
+  var icons={
+    tabPrayers:'<path d="M12 3v18M7 8h10"/><path d="M4 21h16"/>',
+    tabNotes:'<path d="M5 3h11l3 3v15H5z"/><path d="M16 3v4h4M8 11h8M8 15h8"/>',
+    tabGuides:'<path d="M6 4h12v16H6z"/><path d="M9 8h6M9 12h6M9 16h4"/><path d="M4 6h2M18 6h2"/>',
+    tabVerses:'<path d="M4 5.5A3.5 3.5 0 0 1 10 3l2 2 2-2a3.5 3.5 0 0 1 6 2.5c0 5-8 10.5-8 10.5S4 10.5 4 5.5z"/><path d="M7 19h10"/>',
+    btnDaily:'<path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1"/><path d="M7 15a5 5 0 0 1 10 0"/><path d="M4 19h16"/>',
+    btnDailyRoutinesV3192:'<path d="M8 4a8 8 0 0 0 8 13A7 7 0 1 1 8 4z"/><path d="M17 4v2M20 7h-2"/>',
+    btnMomentsV31102:'<path d="M12 21V9"/><path d="M12 13c-5 0-7-3-7-6 5 0 7 3 7 6zM12 17c5 0 7-3 7-6-5 0-7 3-7 6z"/>',
+    calendarBtn:'<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 9h16M8 13h3M13 13h3M8 16h3"/>',
+    tabParables:'<path d="M12 21V11"/><path d="M12 13c-4 0-6-2.5-6-5 4 0 6 2.5 6 5zM12 16c4 0 6-2.5 6-5-4 0-6 2.5-6 5z"/><path d="M8 21h8"/>',
+    tabPsalms:'<path d="M9 18V6l8-2v12"/><circle cx="7" cy="18" r="2"/><circle cx="15" cy="16" r="2"/>',
+    btnMainMark:'<path d="M7 3h10v18l-5-3-5 3z"/><path d="M12 7v6M9 10h6"/>',
+    btnMainMore:'<path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H12v17H7.5A3.5 3.5 0 0 0 4 22zM20 5.5A3.5 3.5 0 0 0 16.5 2H12v17h4.5A3.5 3.5 0 0 1 20 22z"/><path d="M8 8h1M8 12h1M15 8h1M15 12h1"/>',
+    btnBackup:'<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 8.5 4.5 4.5 0 0 0 7 18z"/><path d="M12 10v6M9.5 12.5 12 10l2.5 2.5"/>',
+    btnTrash:'<path d="M5 7h14M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/>',
+    globalSearchButtonV3177:'<circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/>'
+  };
+  function svg(body){return '<span class="app-own-icon-v2200" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+body+'</svg></span>';}
+  function labelFor(el){
+    var txt=(el.textContent||'').trim().replace(/^[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+/u,'').trim();
+    return txt;
+  }
+  function apply(){
+    Object.keys(icons).forEach(function(id){
+      var el=document.getElementById(id); if(!el||el.dataset.ownIconV2200==='1') return;
+      var label=labelFor(el); el.dataset.ownIconV2200='1';
+      el.innerHTML=svg(icons[id])+'<span class="app-own-label-v2200">'+label+'</span>';
+    });
+  }
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(apply,50);setTimeout(apply,500);});
+  document.addEventListener('click',function(){setTimeout(apply,60)},true);
+})();
