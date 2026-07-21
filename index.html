@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V2 Laboratorio 207</title>
+<title>Oraciones V2 Laboratorio 208</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v2-lab-199_lineas_superiores_laterales">
+<link rel="stylesheet" href="styles.css?v=v2-lab-208_oraciones_cruz_arriba_real">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 
 <style>
@@ -27,6 +27,14 @@
  transform: translateZ(0);
  backface-visibility:hidden;
 }
+</style>
+
+<style id="v2208-oraciones-style">
+#tabPrayers.tab-prayers-v2208{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;padding:8px 8px 10px!important;min-height:68px!important;line-height:1!important;text-align:center!important;}
+#tabPrayers.tab-prayers-v2208 .prayer-cross-top-v2208{display:block!important;width:18px!important;height:20px!important;margin:0 auto!important;background:linear-gradient(180deg,#6c8fca 0%,#4f74b7 100%)!important;-webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;mask:url("cross-ethiopian-mask.png") center/contain no-repeat;filter:drop-shadow(0 1px 1px rgba(255,255,255,.35)) drop-shadow(0 1px 2px rgba(73,103,156,.18))!important;flex:none!important;}
+#tabPrayers.tab-prayers-v2208.active .prayer-cross-top-v2208{background:linear-gradient(180deg,#5f83c4 0%, #426aa8 100%)!important;}
+#tabPrayers.tab-prayers-v2208 .prayer-label-top-v2208{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important;}
+@media(max-width:420px){#tabPrayers.tab-prayers-v2208{gap:3px!important;padding:7px 6px 8px!important;min-height:64px!important}#tabPrayers.tab-prayers-v2208 .prayer-cross-top-v2208{width:17px!important;height:19px!important}#tabPrayers.tab-prayers-v2208 .prayer-label-top-v2208{font-size:.92em!important}}
 </style>
 </head>
 <body>
@@ -54,7 +62,7 @@
 <div class="topbar">
   <div class="topbar-row">
     <div class="segment">
-      <button id="tabPrayers" class="active" type="button" onclick="switchSectionAndReadV90187('prayers')"><span class="menu-app-cross-wrap-v2207" aria-hidden="true"><span class="menu-app-cross-v2204"></span></span><span class="menu-app-label-v2207">Oraciones</span></button>
+      <button id="tabPrayers" class="active tab-prayers-v2208" type="button" onclick="switchSectionAndReadV90187('prayers')"><span class="prayer-cross-top-v2208" aria-hidden="true"></span><span class="prayer-label-top-v2208">Oraciones</span></button>
       <button id="tabNotes" type="button" onclick="switchSectionAndReadV90187('notes')">📝 Notas</button>
       <button id="tabGuides" type="button" onclick="switchSectionAndReadV90187('guides')">📜 Guía</button>
       <button id="tabVerses" type="button" onclick="switchSection('verses')">💚 Versículos</button>
@@ -358,7 +366,7 @@
       <button type="button" class="active" data-filter="all" onclick="setGlobalSearchFilterV3177('all',this)">Todo</button>
       <button type="button" data-filter="prayers" onclick="setGlobalSearchFilterV3177('prayers',this)">✝️ Oraciones</button>
       <button type="button" data-filter="psalms" onclick="setGlobalSearchFilterV3177('psalms',this)">♫ Salmos</button>
-      <button type="button" data-filter="verses" onclick="setGlobalSearchFilterV3177('verses',this)">❤️ Versículos</button>
+      <button type="button" data-filter="verses" onclick="setGlobalSearchFilterV3177('verses',this)">💚 Versículos</button>
       <button type="button" data-filter="notes" onclick="setGlobalSearchFilterV3177('notes',this)">📝 Notas</button>
       <button type="button" data-filter="parables" onclick="setGlobalSearchFilterV3177('parables',this)">🌱 Parábolas</button>
       <button type="button" data-filter="guides" onclick="setGlobalSearchFilterV3177('guides',this)">📜 Guía</button>
@@ -378,7 +386,7 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v2-lab-199_lineas_superiores_laterales"></script>
+<script src="app.js?v=v2-lab-208_oraciones_cruz_arriba_real"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-lab-176-momentos-dia-noche"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
