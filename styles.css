@@ -4793,3 +4793,25 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
   .menu-app-cross-v2204{width:16px;height:18px;flex-basis:16px}
   #tabPrayers,#tabVerses{gap:7px}
 }
+
+
+/* ===== V2 LAB 205 — cruz superior en Oraciones ===== */
+#tabPrayers{
+  flex-direction:column;
+  gap:4px!important;
+  line-height:1.05;
+}
+#tabPrayers .menu-app-label-v2205{
+  display:block;
+}
+#tabPrayers .menu-app-cross-v2204{
+  width:18px;
+  height:20px;
+  flex:0 0 20px;
+  transform:none;
+  margin-top:1px;
+}
+@media(max-width:420px){
+  #tabPrayers{gap:3px!important}
+  #tabPrayers .menu-app-cross-v2204{width:17px;height:19px;flex-basis:19px}
+}
