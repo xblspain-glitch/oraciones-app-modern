@@ -533,7 +533,8 @@ function renderReader(){
     }
     const catEl=document.getElementById("readerCategory");
     if(catEl){
-      catEl.textContent=verseCategoryLabel(item.category);
+      const catLabelV2221=verseCategoryLabel(item.category);
+      catEl.innerHTML=(typeof categoryLabelHtmlV2221==="function")?categoryLabelHtmlV2221(item.category,catLabelV2221,"reader-category-icon-v2221"):escapeHtml(catLabelV2221);
       catEl.classList.remove("hidden");
     }
 
@@ -1787,7 +1788,8 @@ function renderVerseCategories(){
       const preview = String(v.content || "").replace(/\n+/g, " ").slice(0, 95);
 
       div.className = "category-card" + ((v.shared || v.lastCardSentAt) ? " verse-sent-bg-v3134" : "");
-      div.innerHTML = '<div><strong>' + escapeHtml(((v.shared || v.lastCardSentAt) ? '✓ ' : '') + (v.reference || v.title || "Sin referencia")) + '</strong></div><div class="category-count">' + escapeHtml(catLabel(v.category)) + (preview ? ' · ' + escapeHtml(preview) : '') + '</div>';
+      const resultCatLabelV2221=catLabel(v.category);
+      div.innerHTML = '<div><strong>' + escapeHtml(((v.shared || v.lastCardSentAt) ? '✓ ' : '') + (v.reference || v.title || "Sin referencia")) + '</strong></div><div class="category-count category-result-v2221">' + ((typeof categoryLabelHtmlV2221==="function")?categoryLabelHtmlV2221(v.category,resultCatLabelV2221,"category-result-icon-v2221"):escapeHtml(resultCatLabelV2221)) + (preview ? '<span class="category-result-preview-v2221"> · ' + escapeHtml(preview) + '</span>' : '') + '</div>';
       div.onclick = ()=>{
         verseNavigationMode = "verse";
         currentVerseCategory = v.category || currentVerseCategory || "fe";
@@ -1815,7 +1817,7 @@ function renderVerseCategories(){
     const div = document.createElement("div");
 
     div.className = "category-card";
-    div.innerHTML = '<div>' + escapeHtml(cat.label) + '</div><div class="category-count">' + count + ' versículo' + (count===1 ? '' : 's') + '</div>';
+    div.innerHTML = '<div>' + ((typeof categoryLabelHtmlV2221==="function")?categoryLabelHtmlV2221(cat.id,cat.label,"category-card-icon-v2221"):escapeHtml(cat.label)) + '</div><div class="category-count">' + count + ' versículo' + (count===1 ? '' : 's') + '</div>';
     div.onclick = ()=>openVerseCategory(cat.id);
 
     box.appendChild(div);
@@ -4033,8 +4035,25 @@ async function shareVerseCard(){
     const fecha=ds.getDate()+" de "+meses[ds.getMonth()]+" de "+ds.getFullYear();
     ctx.fillText(fecha,540,655);
 
+    const categoryPlainV2221=(typeof categoryPlainLabelV2221==="function")?categoryPlainLabelV2221(category):category;
+    const categoryAssetV2221=(typeof categoryIconAssetV2221==="function")?categoryIconAssetV2221(item&&item.category,category):"";
     ctx.font="54px Georgia, serif";
-    ctx.fillText(category,540,742);
+    if(categoryAssetV2221){
+      try{
+        const categoryImageV2221=await loadCardLogoImage(categoryAssetV2221);
+        const tw=ctx.measureText(categoryPlainV2221).width;
+        const iconSize=76;
+        const gap=18;
+        const total=iconSize+gap+tw;
+        const startX=540-total/2;
+        ctx.drawImage(categoryImageV2221,startX,685,iconSize,iconSize);
+        ctx.textAlign="left";
+        ctx.fillText(categoryPlainV2221,startX+iconSize+gap,742);
+        ctx.textAlign="center";
+      }catch(_catIconError){ctx.fillText(categoryPlainV2221,540,742);}
+    }else{
+      ctx.fillText(categoryPlainV2221,540,742);
+    }
 
     ctx.font="bold 74px Georgia, serif";
     ctx.fillText(ref,540,875);
@@ -5170,7 +5189,7 @@ setInterval(updateVersePositionCounter, 1000);
       const count=state.verses.filter(v=>v.category===cat.id).length;
       const div=document.createElement("div");
       div.className="category-card";
-      div.innerHTML='<div>'+escapeHtml(cat.label)+'</div><div class="category-count">'+count+' versículos</div>';
+      div.innerHTML='<div>'+((typeof categoryLabelHtmlV2221==="function")?categoryLabelHtmlV2221(cat.id,cat.label,"category-card-icon-v2221"):escapeHtml(cat.label))+'</div><div class="category-count">'+count+' versículos</div>';
       div.onclick=()=>openVerseCategory(cat.id);
       box.appendChild(div);
     });
