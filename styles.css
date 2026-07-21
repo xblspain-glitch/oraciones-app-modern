@@ -4765,23 +4765,3 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
       transparent 100%)!important;
   }
 }
-
-
-/* ===== V2 LAB 203 — cuatro iconos PNG reales, sin alterar bienvenida ===== */
-.topbar .menu-icon-img-v2203{
-  width:28px!important;
-  height:28px!important;
-  flex:0 0 28px!important;
-  object-fit:contain!important;
-  display:inline-block!important;
-  margin-right:7px!important;
-  vertical-align:middle!important;
-}
-.topbar button:has(.menu-icon-img-v2203){
-  display:inline-flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-}
-@media(max-width:420px){
-  .topbar .menu-icon-img-v2203{width:25px!important;height:25px!important;flex-basis:25px!important;margin-right:5px!important}
-}
