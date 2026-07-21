@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Oraciones V2 Laboratorio 214</title>
+<title>Oraciones V2 Laboratorio 220</title>
 <meta name="theme-color" content="#111111">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,65 +15,94 @@
 <link rel="preload" as="image" href="bg-day.webp">
 <link rel="preload" as="image" href="bg-sunset.webp">
 <link rel="preload" as="image" href="bg-night.webp">
+<link rel="preload" as="image" href="icon-versiculo-dia-v3185.png">
+<link rel="preload" as="image" href="icon-dia-noche-v3185.png">
+<link rel="preload" as="image" href="icon-rutina-manana-v3191.png">
+<link rel="preload" as="image" href="icon-rutina-noche-v3191.png">
+<link rel="preload" as="image" href="icon-manana-global-v3193.png">
+<link rel="preload" as="image" href="icon-noche-global-v3193.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 
-<link rel="stylesheet" href="styles.css?v=v2-lab-219_transicion_estable">
+<link rel="stylesheet" href="styles.css?v=v2-lab-220-sincronizada-v3198">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 
 <style>
-.modal,.popup,.dialog,[role="dialog"],.overlay-content{contain: layout paint;will-change:opacity;transform:translateZ(0);backface-visibility:hidden;
- will-change: opacity;
- transform: translateZ(0);
- backface-visibility:hidden;
-}
+.modal,.popup,.dialog,[role="dialog"],.overlay-content{contain:layout paint;will-change:opacity;transform:translateZ(0);backface-visibility:hidden}
 
-.top-tab-emoji-wrap-v2212 .top-tab-emoji-v2212{display:block!important;width:27px!important;height:27px!important;line-height:27px!important;font-size:23px!important;text-align:center!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.22)) drop-shadow(0 2px 3px rgba(0,0,0,.10))}
-@media(max-width:420px){.top-tab-emoji-wrap-v2212 .top-tab-emoji-v2212{width:25px!important;height:25px!important;line-height:25px!important;font-size:21px!important}}
-
-/* V2.218 · tamaño crítico desde el primer render: evita destello a tamaño natural */
-.home-special-icon-v2217{display:block!important;object-fit:contain!important;max-width:none!important;max-height:none!important}
-.home-special-icon-daily-v2217{width:62px!important;height:54px!important;min-width:62px!important;max-width:62px!important;flex:0 0 62px!important}
-.home-special-icon-daynight-v2217{width:58px!important;height:54px!important;min-width:58px!important;max-width:58px!important;flex:0 0 58px!important}
-.home-icon-button-v2217{overflow:hidden!important}
+/* V3.1.188 · tamaño crítico desde el primer render para evitar destellos */
+#btnDaily.home-icon-button-v3184>img.home-special-icon-daily-v3184{display:block;width:62px;height:54px;max-width:62px;max-height:54px;object-fit:contain;flex:0 0 62px}
+#btnDailyRoutinesV3192.home-icon-button-v3184>img.home-special-icon-daynight-v3184{display:block;width:58px;height:54px;max-width:58px;max-height:54px;object-fit:contain;flex:0 0 58px}
+.routine-title-icons-v3192{display:inline-flex;align-items:center;gap:6px;vertical-align:middle;margin-right:8px}
+.routine-title-icons-v3192 img{display:block;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}
+.routine-title-icon-morning-v3192{width:34px;height:34px}
+.routine-title-icon-night-v3192{width:30px;height:30px}
+.routine-editor-icon-wrap-v3192{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;flex:none}
+.routine-editor-icon-wrap-v3192 img{display:block;width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,.12))}
+.routine-editor-icon-emoji-v3192{font-size:40px;line-height:1}
+.routine-page-title-v3192 .routine-editor-icon-wrap-v3192{margin-right:10px}
+.routine-empty-icon-v3192 .routine-editor-icon-wrap-v3192 img{width:74px;height:74px}
+.routine-progress-v3194 strong{display:flex;align-items:center;justify-content:center;gap:8px}
+.routine-progress-v3194 .routine-editor-icon-wrap-v3192 img{width:28px;height:28px}
+.routine-progress-v3194 .routine-editor-icon-emoji-v3192{font-size:24px}
 @media(max-width:420px){
- .home-special-icon-daily-v2217{width:56px!important;height:49px!important;min-width:56px!important;max-width:56px!important;flex-basis:56px!important}
- .home-special-icon-daynight-v2217{width:52px!important;height:49px!important;min-width:52px!important;max-width:52px!important;flex-basis:52px!important}
+  #btnDaily.home-icon-button-v3184>img.home-special-icon-daily-v3184{width:56px;height:49px;max-width:56px;max-height:49px;flex-basis:56px}
+  #btnDailyRoutinesV3192.home-icon-button-v3184>img.home-special-icon-daynight-v3184{width:52px;height:49px;max-width:52px;max-height:49px;flex-basis:52px}
+  .routine-title-icons-v3192{gap:5px;margin-right:7px}
+  .routine-title-icon-morning-v3192{width:31px;height:31px}
+  .routine-title-icon-night-v3192{width:27px;height:27px}
+  .routine-editor-icon-wrap-v3192 img{width:40px;height:40px}
+  .routine-empty-icon-v3192 .routine-editor-icon-wrap-v3192 img{width:68px;height:68px}
+}
+
+/* V3.1.193 · iconos ilustrados globales en textos, títulos y botones */
+.inline-faith-icon-v3193{display:inline-block;vertical-align:-.16em;width:1.22em;height:1.22em;object-fit:contain;margin:0 .08em;filter:drop-shadow(0 .05em .10em rgba(0,0,0,.14));pointer-events:none}
+.inline-faith-icon-morning-v3193{width:1.28em;height:1.28em}
+.inline-faith-icon-night-v3193{width:1.22em;height:1.22em}
+.inline-faith-cross-v3193{display:inline-block;vertical-align:-.14em;width:1.05em;height:1.20em;margin:0 .08em;background:linear-gradient(180deg,#6d91ca,#416da9);-webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;mask:url("cross-ethiopian-mask.png") center/contain no-repeat;filter:drop-shadow(0 .05em .08em rgba(46,83,138,.24));pointer-events:none}
+.reader-title .inline-faith-icon-v3193,.reader-text .inline-faith-icon-v3193{margin-left:0;margin-right:.10em}
+button .inline-faith-icon-v3193{width:1.18em;height:1.18em;vertical-align:-.18em}
+button .inline-faith-cross-v3193{width:1em;height:1.12em}
+
+</style>
+
+
+<style id="v3176-top-tabs-style">
+#tabPrayers.tab-prayers-v3176{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:2px!important;padding:6px 8px 8px!important;min-height:70px!important;line-height:1!important;text-align:center!important}
+#tabPrayers.tab-prayers-v3176 .prayer-cross-top-v3176{display:block!important;width:22px!important;height:24px!important;margin:0 auto!important;background:linear-gradient(180deg,#6c8fca 0%,#4f74b7 100%)!important;-webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;mask:url("cross-ethiopian-mask.png") center/contain no-repeat;filter:drop-shadow(0 1px 1px rgba(255,255,255,.35)) drop-shadow(0 1px 2px rgba(73,103,156,.18))!important;flex:none!important}
+#tabPrayers.tab-prayers-v3176.active .prayer-cross-top-v3176{background:linear-gradient(180deg,#5f83c4 0%,#426aa8 100%)!important}
+#tabPrayers.tab-prayers-v3176 .prayer-label-top-v3176{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important}
+.top-tab-png-v3176{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:7px 7px 9px!important;min-height:68px!important;line-height:1!important;text-align:center!important}
+.top-tab-png-v3176 .top-tab-png-icon-v3176{display:block!important;width:27px!important;height:27px!important;object-fit:contain!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.22)) drop-shadow(0 2px 3px rgba(0,0,0,.12))}
+.top-tab-png-v3176 span{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important}
+#tabNotes .top-tab-png-icon-v3176{width:29px!important;height:29px!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 4px rgba(120,97,35,.18))!important;transform:translateY(-1px)!important}
+#tabGuides .top-tab-png-icon-v3176{width:30px!important;height:30px!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 4px rgba(120,87,28,.20))!important;transform:translateY(-1px)!important}
+#tabVerses.tab-verses-heart-v3176{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:7px 7px 9px!important;min-height:68px!important;line-height:1!important;text-align:center!important}
+#tabVerses.tab-verses-heart-v3176::before{content:"💚"!important;display:block!important;width:24px!important;height:24px!important;line-height:24px!important;font-size:20px!important;text-align:center!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 3px rgba(0,0,0,.10))}
+#tabVerses.tab-verses-heart-v3176 .tab-verses-label-v3176{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important}
+@media(max-width:420px){
+#tabPrayers.tab-prayers-v3176{gap:2px!important;padding:5px 6px 7px!important;min-height:66px!important}
+#tabPrayers.tab-prayers-v3176 .prayer-cross-top-v3176{width:20px!important;height:22px!important}
+#tabPrayers.tab-prayers-v3176 .prayer-label-top-v3176{font-size:.92em!important}
+.top-tab-png-v3176{min-height:64px!important;padding:6px 5px 8px!important;gap:2px!important}
+.top-tab-png-v3176 .top-tab-png-icon-v3176{width:25px!important;height:25px!important}
+.top-tab-png-v3176 span{font-size:.92em!important}
+#tabNotes .top-tab-png-icon-v3176{width:27px!important;height:27px!important}
+#tabGuides .top-tab-png-icon-v3176{width:28px!important;height:28px!important}
+#tabVerses.tab-verses-heart-v3176{min-height:64px!important;padding:6px 5px 8px!important;gap:2px!important}
+#tabVerses.tab-verses-heart-v3176::before{width:23px!important;height:23px!important;line-height:23px!important;font-size:19px!important}
+#tabVerses.tab-verses-heart-v3176 .tab-verses-label-v3176{font-size:.92em!important}
 }
 </style>
 
-<style id="v2208-oraciones-style">
-#tabPrayers.tab-prayers-v2208{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:2px!important;padding:6px 8px 8px!important;min-height:70px!important;line-height:1!important;text-align:center!important;}
-#tabPrayers.tab-prayers-v2208 .prayer-cross-top-v2208{display:block!important;width:22px!important;height:24px!important;margin:0 auto!important;background:linear-gradient(180deg,#6c8fca 0%,#4f74b7 100%)!important;-webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;mask:url("cross-ethiopian-mask.png") center/contain no-repeat;filter:drop-shadow(0 1px 1px rgba(255,255,255,.35)) drop-shadow(0 1px 2px rgba(73,103,156,.18))!important;flex:none!important;}
-#tabPrayers.tab-prayers-v2208.active .prayer-cross-top-v2208{background:linear-gradient(180deg,#5f83c4 0%, #426aa8 100%)!important;}
-#tabPrayers.tab-prayers-v2208 .prayer-label-top-v2208{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important;margin-top:0!important;}
-@media(max-width:420px){#tabPrayers.tab-prayers-v2208{gap:2px!important;padding:5px 6px 7px!important;min-height:66px!important}#tabPrayers.tab-prayers-v2208 .prayer-cross-top-v2208{width:20px!important;height:22px!important}#tabPrayers.tab-prayers-v2208 .prayer-label-top-v2208{font-size:.92em!important;margin-top:0!important}}
-</style>
-
-<style id="v2210-png-icons-style">
-.top-tab-png-v2210{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:7px 7px 9px!important;min-height:68px!important;line-height:1!important;text-align:center!important}
-.top-tab-png-v2210 .top-tab-png-icon-v2210{display:block!important;width:27px!important;height:27px!important;object-fit:contain!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.22)) drop-shadow(0 2px 3px rgba(0,0,0,.12))}
-.top-tab-png-v2210 span{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important}
-@media(max-width:420px){.top-tab-png-v2210{min-height:64px!important;padding:6px 5px 8px!important;gap:2px!important}.top-tab-png-v2210 .top-tab-png-icon-v2210{width:25px!important;height:25px!important}.top-tab-png-v2210 span{font-size:.92em!important}}
-#tabNotes .top-tab-png-icon-v2210{width:29px!important;height:29px!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 4px rgba(120,97,35,.18))!important;transform:translateY(-1px)!important;}
-#tabGuides .top-tab-png-icon-v2210{width:30px!important;height:30px!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 4px rgba(120,87,28,.20))!important;transform:translateY(-1px)!important;}
-@media(max-width:420px){#tabNotes .top-tab-png-icon-v2210{width:27px!important;height:27px!important}#tabGuides .top-tab-png-icon-v2210{width:28px!important;height:28px!important}}
-</style>
-
-<style id="v2213-heart-fix">
-#tabVerses.tab-verses-heart-v2213{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:7px 7px 9px!important;min-height:68px!important;line-height:1!important;text-align:center!important;}
-#tabVerses.tab-verses-heart-v2213::before{content:"💚"!important;display:block!important;width:24px!important;height:24px!important;line-height:24px!important;font-size:20px!important;text-align:center!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 3px rgba(0,0,0,.10));}
-#tabVerses.tab-verses-heart-v2213 .tab-verses-label-v2213{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important;}
-@media(max-width:420px){#tabVerses.tab-verses-heart-v2213{min-height:64px!important;padding:6px 5px 8px!important;gap:2px!important}#tabVerses.tab-verses-heart-v2213::before{width:23px!important;height:23px!important;line-height:23px!important;font-size:19px!important}#tabVerses.tab-verses-heart-v2213 .tab-verses-label-v2213{font-size:.92em!important}}
-</style>
 </head>
 <body>
 
-<div id="ov2Welcome" role="dialog" aria-label="Bienvenida Oraciones V2 Laboratorio">
+<div id="ov2Welcome" role="dialog" aria-label="Bienvenida Oraciones V3">
   <div class="ov2-card">
-    <img class="ov2-logo" src="icon-192.png" alt="Oraciones V2" fetchpriority="high" decoding="async">
+    <img class="ov2-logo" src="icon-192.png" alt="Oraciones V3" fetchpriority="high" decoding="async">
     <div id="ov2Greeting" class="ov2-kicker">Bienvenido</div>
-    <h1 class="ov2-title">Oraciones V2 · Laboratorio</h1>
+    <h1 class="ov2-title">Oraciones V3</h1>
     <p id="ov2IntroText" class="ov2-sub">Un lugar sencillo para orar, leer, guardar notas y descansar en la fidelidad de Dios.</p>
     <p id="ov2Verse" class="ov2-verse">“Cercano está Jehová a los quebrantados de corazón; y salva a los contritos de espíritu.”<br><strong>Salmo 34:18</strong></p>
     <button class="ov2-enter" type="button" onclick="enterOv2Welcome()">Entrar</button>
@@ -92,15 +121,15 @@
 <div class="topbar">
   <div class="topbar-row">
     <div class="segment">
-      <button id="tabPrayers" class="active tab-prayers-v2208" type="button" onclick="switchSectionAndReadV90187('prayers')"><span class="prayer-cross-top-v2208" aria-hidden="true"></span><span class="prayer-label-top-v2208">Oraciones</span></button>
-      <button id="tabNotes" class="top-tab-png-v2210" type="button" onclick="switchSectionAndReadV90187('notes')"><img src="icon-notas-detallado-v2210.png" class="top-tab-png-icon-v2210" alt=""><span>Notas</span></button>
-      <button id="tabGuides" class="top-tab-png-v2210" type="button" onclick="switchSectionAndReadV90187('guides')"><img src="icon-guia-detallado-v2210.png" class="top-tab-png-icon-v2210" alt=""><span>Guía</span></button>
-      <button id="tabVerses" class="top-tab-png-v2210 tab-verses-heart-v2213" type="button" onclick="switchSection('verses')"><span class="tab-verses-label-v2213">Versículos</span></button>
+      <button id="tabPrayers" class="active tab-prayers-v3176" type="button" onclick="switchSectionAndReadV90187('prayers')"><span class="prayer-cross-top-v3176" aria-hidden="true"></span><span class="prayer-label-top-v3176">Oraciones</span></button>
+      <button id="tabNotes" class="top-tab-png-v3176" type="button" onclick="switchSectionAndReadV90187('notes')"><img src="icon-notas-detallado-v2210.png" class="top-tab-png-icon-v3176" alt=""><span>Notas</span></button>
+      <button id="tabGuides" class="top-tab-png-v3176" type="button" onclick="switchSectionAndReadV90187('guides')"><img src="icon-guia-detallado-v2210.png" class="top-tab-png-icon-v3176" alt=""><span>Guía</span></button>
+      <button id="tabVerses" class="tab-verses-heart-v3176" type="button" onclick="switchSection('verses')"><span class="tab-verses-label-v3176">Versículos</span></button>
     </div>
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button id="btnDaily" data-view-btn="daily" class="btn soft home-icon-button-v2217" type="button" onclick="openDailyVerse()"><img src="icon-versiculo-dia-v3185.png" class="home-special-icon-v2217 home-special-icon-daily-v2217" width="62" height="54" style="width:62px;height:54px;object-fit:contain;display:block;max-width:62px" alt=""><span>Versículo del día</span></button>
-    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft home-icon-button-v2217" type="button" onclick="openDailyRoutinesV3192()"><img src="icon-dia-noche-v3185.png" class="home-special-icon-v2217 home-special-icon-daynight-v2217" width="58" height="54" style="width:58px;height:54px;object-fit:contain;display:block;max-width:58px" alt=""><span>Día/Noche</span></button>
+    <button id="btnDaily" data-view-btn="daily" class="btn soft home-icon-button-v3184" type="button" onclick="openDailyVerse()"><img src="icon-manana-global-v3193.png?v=v3-1-193" class="home-special-icon-v3184 home-special-icon-daily-v3184" alt="" width="62" height="54" style="display:block;width:62px;height:54px;max-width:62px;max-height:54px;object-fit:contain;flex:0 0 62px"><span>Versículo del día</span></button>
+    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft home-icon-button-v3184" type="button" onclick="openDailyRoutinesV3192()"><img src="icon-dia-noche-v3185.png" class="home-special-icon-v3184 home-special-icon-daynight-v3184" alt="" width="58" height="54" style="display:block;width:58px;height:54px;max-width:58px;max-height:54px;object-fit:contain;flex:0 0 58px"><span>Día/Noche</span></button>
     <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
     <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
@@ -121,7 +150,7 @@
       <button id="btnTheme" class="btn soft theme-btn-v66" type="button" onclick="toggleTheme()">🌙</button>
     </div>
     <button id="btnMainFav" data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
-    <div class="topbar-bottom-row-v66 counter-row-v853">
+        <div class="topbar-bottom-row-v66 counter-row-v853">
       <div id="counterInfo" class="counter counter-v66"></div>
     </div>
     <input id="search" class="search" placeholder="Buscar..." oninput="renderList();renderTitles();renderVerseCategories()">
@@ -163,12 +192,12 @@
 
     <div id="routineHubV3192" class="panel hidden routine-panel-v3192">
       <div class="routine-head-v3192"><button class="btn soft" type="button" onclick="closeDailyRoutinesV3192()">← Volver</button></div>
-      <div class="routine-page-title-v3192">🌅🌙 Día/Noche</div>
+      <div class="routine-page-title-v3192"><span class="routine-title-icons-v3192"><img src="icon-rutina-manana-v3191.png?v=v3-1-192" class="routine-title-icon-morning-v3192" alt=""><img src="icon-rutina-noche-v3191.png?v=v3-1-192" class="routine-title-icon-night-v3192" alt=""></span><span>Día/Noche</span></div>
       <div class="routine-page-sub-v3192">Cree sus recorridos personales de oración para comenzar y terminar cada día.</div>
       <div class="routine-hub-grid-v3192">
-        <button class="routine-hub-card-v3192 morning-v3192" type="button" onclick="openRoutineEditorV3192('morning')"><span class="routine-hub-icon-v3192">🌅</span><strong>Mañana</strong><small id="routineMorningCountV3192">Sin configurar</small></button>
+        <button class="routine-hub-card-v3192 morning-v3192" type="button" onclick="openRoutineEditorV3192('morning')"><span class="routine-hub-icon-v3192 routine-hub-image-wrap-v3190"><img src="icon-rutina-manana-v3191.png?v=v3-1-191" class="routine-hub-image-v3190" alt=""></span><strong>Mañana</strong><small id="routineMorningCountV3192">Sin configurar</small></button>
         <button class="routine-hub-card-v3192 sabbath-v31111" type="button" onclick="openRoutineEditorV3192('sabbath')"><span class="routine-hub-icon-v3192">🕯️</span><strong>Sabbath</strong><small id="routineSabbathCountV31111">Sin configurar</small></button>
-        <button class="routine-hub-card-v3192 night-v3192" type="button" onclick="openRoutineEditorV3192('night')"><span class="routine-hub-icon-v3192">🌙</span><strong>Noche</strong><small id="routineNightCountV3192">Sin configurar</small></button>
+        <button class="routine-hub-card-v3192 night-v3192" type="button" onclick="openRoutineEditorV3192('night')"><span class="routine-hub-icon-v3192 routine-hub-image-wrap-v3190"><img src="icon-rutina-noche-v3191.png?v=v3-1-191" class="routine-hub-image-v3190" alt=""></span><strong>Noche</strong><small id="routineNightCountV3192">Sin configurar</small></button>
       </div>
     </div>
 
@@ -396,7 +425,7 @@
       <button type="button" class="active" data-filter="all" onclick="setGlobalSearchFilterV3177('all',this)">Todo</button>
       <button type="button" data-filter="prayers" onclick="setGlobalSearchFilterV3177('prayers',this)">✝️ Oraciones</button>
       <button type="button" data-filter="psalms" onclick="setGlobalSearchFilterV3177('psalms',this)">♫ Salmos</button>
-      <button type="button" data-filter="verses" onclick="setGlobalSearchFilterV3177('verses',this)">💚 Versículos</button>
+      <button type="button" data-filter="verses" onclick="setGlobalSearchFilterV3177('verses',this)">❤️ Versículos</button>
       <button type="button" data-filter="notes" onclick="setGlobalSearchFilterV3177('notes',this)">📝 Notas</button>
       <button type="button" data-filter="parables" onclick="setGlobalSearchFilterV3177('parables',this)">🌱 Parábolas</button>
       <button type="button" data-filter="guides" onclick="setGlobalSearchFilterV3177('guides',this)">📜 Guía</button>
@@ -416,14 +445,11 @@
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v2-lab-219_transicion_estable"></script>
+<script src="app.js?v=v2-lab-220-sincronizada-v3198"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
-<script src="routines.js?v=v2-lab-176-momentos-dia-noche"></script>
+<script src="routines.js?v=v2-lab-220-sincronizada-v3198"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
-
-
-
-<script src="counters-v2217.js?v=v2-lab-218_iconos_sin_destello"></script>
+<script src="counters-v3183.js?v=v2-lab-220-sincronizada-v3198"></script>
 </body>
 </html>
 

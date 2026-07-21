@@ -3827,38 +3827,7 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
   -webkit-overflow-scrolling:touch;
 }
 
-/* ===== V2 LAB 170 - OVERLAY RAIZ SIN EFECTOS NI RECOMPOSICION ===== */
-html > #readerPopupOverlayV908.reader-popup-overlay-v908.v2lab170-root-overlay{
-  position:fixed !important;
-  top:0 !important;
-  right:0 !important;
-  bottom:0 !important;
-  left:0 !important;
-  width:auto !important;
-  height:auto !important;
-  margin:0 !important;
-  padding:16px !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  background:rgba(12,33,56,.34) !important;
-  backdrop-filter:none !important;
-  -webkit-backdrop-filter:none !important;
-  animation:none !important;
-  transform:none !important;
-  contain:strict !important;
-  overscroll-behavior:none !important;
-  touch-action:none !important;
-}
-html > #readerPopupOverlayV908.v2lab170-root-overlay .reader-popup-card-v908{
-  animation:none !important;
-  transform:none !important;
-  will-change:auto !important;
-  touch-action:pan-y !important;
-  overscroll-behavior:contain !important;
-}
-
-/* ===== V2 LAB 177 · BUSCADOR GENERAL ===== */
+/* ===== V3.1.170 · BUSCADOR GENERAL ===== */
 .global-search-main-v3177{font-weight:800!important;border-color:rgba(35,87,104,.45)!important;background:linear-gradient(135deg,rgba(35,87,104,.16),rgba(51,109,126,.08))!important}
 .global-search-modal-v3177{position:fixed;inset:0;z-index:100000;background:var(--bg,#f5f2ea);overflow:auto;overscroll-behavior:contain;padding:calc(10px + env(safe-area-inset-top)) 10px calc(18px + env(safe-area-inset-bottom))}
 .global-search-modal-v3177.hidden{display:none!important}
@@ -3884,7 +3853,7 @@ html > #readerPopupOverlayV908.v2lab170-root-overlay .reader-popup-card-v908{
 body.dark .global-search-modal-v3177{background:var(--bg)}
 @media(max-width:600px){.global-search-modal-v3177{padding:0}.global-search-sheet-v3177{border-radius:0;border:0;min-height:100vh;padding:calc(10px + env(safe-area-inset-top)) 10px calc(16px + env(safe-area-inset-bottom))}.global-search-title-v3177{font-size:1.08rem;padding-right:44px}}
 
-/* ===== V2 LAB 179 · PORTADA COMPACTA SUAVE =====
+/* ===== V3.1.170 · PORTADA COMPACTA SUAVE =====
    Solo reduce espacios verticales del menú principal en móvil.
    Mantiene objetivos táctiles cómodos y no modifica lógica ni contenido. */
 @media (max-width:600px){
@@ -3944,7 +3913,7 @@ body.dark .global-search-modal-v3177{background:var(--bg)}
 }
 
 
-/* V2 LAB 181 · identidad cromática por sección
+/* V3.1.170 · identidad cromática por sección
    Solo presentación: colores pastel coherentes con cada área. */
 body.home-active-v9019 .segment{
   background:rgba(236,242,248,.78)!important;
@@ -4005,7 +3974,7 @@ body.dark.home-active-v9019 .segment button.active{
 
 
 
-/* V2 LAB 185 · Día/Noche destacado como llamada serena a la oración
+/* V3.1.170 · Día/Noche destacado como llamada serena a la oración
    Selectores ligados a la acción real de cada botón, nunca a su posición.
    Se incluye la estructura real del menú para superar las reglas generales
    .topbar-row .btn.soft sin modificar lógica ni navegación. */
@@ -4062,7 +4031,7 @@ body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"][on
 body.dark.home-active-v9019 .topbar-row button.btn.soft[onclick*="toggleTheme"]{background:#42395b!important;}
 
 
-/* V2.186 — Día/Noche: transición visual de día a noche, solo CSS. */
+/* V3.1.170 — Día/Noche: transición visual de día a noche, solo CSS. */
 body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="routines"][onclick*="openDailyRoutines"]{
   background:linear-gradient(110deg,#63bceb 0%,#779fdb 52%,#4d5f9f 100%)!important;
   border-color:#526ba8!important;
@@ -4070,7 +4039,6 @@ body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="rou
   text-shadow:0 1px 2px rgba(22,39,78,.38)!important;
   box-shadow:0 5px 12px rgba(66,91,151,.28),inset 0 1px 0 rgba(255,255,255,.42),inset 0 0 14px rgba(255,255,255,.10)!important;
 }
-
 
 /* V2 LAB 188 · Portada con degradados por función y Eliminar dentro de Papelera.
    Conserva la identidad cromática de cada sección y da a todos los accesos
@@ -4251,21 +4219,22 @@ body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"]{
 }
 
 
-/* ===== V2 LAB 192 — prueba de cruz etíope de la app en cabeceras ===== */
+/* ===== V3.1.174 — cruz etíope ampliada en cabeceras ===== */
 #readerView .reader-identity-icon-v31103{
   position:relative;
-  width:44px;
-  min-width:44px;
-  height:44px;
+  width:60px;
+  min-width:60px;
+  height:60px;
   padding:0;
   font-size:0!important;
   overflow:visible;
+  flex:0 0 60px;
 }
 #readerView .reader-identity-icon-v31103::before{
   content:"";
   display:block;
-  width:34px;
-  height:36px;
+  width:49px;
+  height:52px;
   background:var(--reader-accent);
   -webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;
   mask:url("cross-ethiopian-mask.png") center/contain no-repeat;
@@ -4279,17 +4248,6 @@ body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"]{
   --reader-accent:#4f7d45;
   --reader-accent-soft:rgba(119,172,103,.16);
 }
-body.dark #readerView .reader-identity-icon-v31103::before,
-body.dark-mode #readerView .reader-identity-icon-v31103::before{
-  background:color-mix(in srgb,var(--reader-accent) 72%,white);
-  filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));
-}
-@media(max-width:860px){
-  #readerView .reader-identity-icon-v31103{width:40px;min-width:40px;height:40px}
-  #readerView .reader-identity-icon-v31103::before{width:31px;height:33px}
-}
-
-/* ===== V2 LAB 193 — cabeceras etíopes ampliadas ===== */
 #readerView .reader-identity-v31103{
   min-height:94px;
   padding:16px 18px;
@@ -4300,20 +4258,14 @@ body.dark-mode #readerView .reader-identity-icon-v31103::before{
   flex-basis:82px;
   max-width:165px;
 }
-#readerView .reader-identity-icon-v31103{
-  width:60px;
-  min-width:60px;
-  height:60px;
-  padding:0;
-  flex:0 0 60px;
-}
-#readerView .reader-identity-icon-v31103::before{
-  width:49px;
-  height:52px;
-}
 #readerView .reader-identity-label-v31103{
   font-size:.91rem;
   letter-spacing:.045em;
+}
+body.dark #readerView .reader-identity-icon-v31103::before,
+body.dark-mode #readerView .reader-identity-icon-v31103::before{
+  background:color-mix(in srgb,var(--reader-accent) 72%,white);
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));
 }
 @media(max-width:860px){
   #readerView .reader-identity-v31103{
@@ -4337,7 +4289,7 @@ body.dark-mode #readerView .reader-identity-icon-v31103::before{
 }
 
 
-/* ===== V2 LAB 194 — tarjeta de despedida con cruz etíope ===== */
+/* ===== V3.1.175 — tarjeta de despedida con cruz etíope ===== */
 .reader-end-card::before{
   content:""!important;
   position:absolute!important;
@@ -4428,7 +4380,7 @@ body.dark-mode .reader-end-card .line::after{
 }
 
 
-/* ===== V2 LAB 195 — brillo suave y ajuste final de la despedida ===== */
+/* ===== V3.1.175 — brillo suave y ajuste final de la despedida ===== */
 .reader-end-card::before{
   top:19px!important;
   width:84px!important;
@@ -4489,7 +4441,7 @@ body.dark-mode .reader-end-card .line::after{
 }
 
 
-/* ===== V2 LAB 195 — brillo suave y ajuste final de despedida ===== */
+/* ===== V3.1.175 — brillo suave y ajuste final de despedida ===== */
 .reader-end-card::before{
   top:14px!important;
   width:82px!important;
@@ -4538,7 +4490,7 @@ body.dark-mode .reader-end-card .line::after{
 }
 
 
-/* ===== V2 LAB 196 — cruz superior por delante del halo ===== */
+/* ===== V3.1.175 — cruz superior por delante del halo ===== */
 .reader-end-card{
   isolation:isolate!important;
 }
@@ -4578,7 +4530,7 @@ body.dark-mode .reader-end-card .end-card-ethiopian-cross-v2194{
 }
 
 
-/* ===== V2 LAB 197 — proporciones originales y cruz superior ampliada ===== */
+/* ===== V3.1.175 — proporciones originales y cruz superior ampliada ===== */
 .reader-end-card{
   min-height:0!important;
   height:auto!important;
@@ -4632,7 +4584,7 @@ body.dark-mode .reader-end-card::after{
 }
 
 
-/* ===== V2 LAB 198 — halo superior más discreto ===== */
+/* ===== V3.1.175 — halo superior más discreto ===== */
 .reader-end-card::before{
   top:16px!important;
   width:78px!important;
@@ -4661,7 +4613,7 @@ body.dark-mode .reader-end-card::before{
 }
 
 
-/* ===== V2 LAB 199 — líneas superiores más hacia los lados ===== */
+/* ===== V3.1.175 — líneas superiores más hacia los lados ===== */
 .reader-end-card .line:first-child,
 .reader-end-card .line:first-of-type,
 .reader-end-card .line:nth-of-type(1),
@@ -4714,7 +4666,7 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
 }
 
 
-/* ===== V2 LAB 199 — líneas superiores abiertas hacia los lados ===== */
+/* ===== V3.1.175 — líneas superiores abiertas hacia los lados ===== */
 .reader-end-card .line:first-child,
 .reader-end-card .line:first-of-type,
 .reader-end-card .line:nth-of-type(1),
@@ -4767,26 +4719,21 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
 }
 
 
-/* ===== V2 LAB 217 — mejoras visuales aprobadas de V3 ===== */
-/* Versículos en verde; Compartido conserva el lavanda. */
-body.home-active-v9019 .segment #tabVerses,
-body:not(.dark).home-active-v9019 .segment #tabVerses{
+/* ===== V3.1.177 — Versículos en verde para armonizar con el corazón ===== */
+/* Botón principal de Versículos */
+body.home-active-v9019 .segment #tabVerses{
   background:linear-gradient(110deg,#f4fcec 0%,#dcefcf 56%,#b9dc9e 100%)!important;
   border-color:rgba(91,148,71,.24)!important;
-  color:#243322!important;
 }
-body.home-active-v9019 .segment #tabVerses.active,
-body:not(.dark).home-active-v9019 .segment #tabVerses.active{
-  background:linear-gradient(110deg,#eef8e5 0%,#d5eac2 56%,#acd48b 100%)!important;
+body.home-active-v9019 .segment #tabVerses.active{
   border-color:rgba(79,125,69,.48)!important;
-  color:#243322!important;
 }
-body.dark.home-active-v9019 .segment #tabVerses,
-body.dark-mode.home-active-v9019 .segment #tabVerses{
+body.dark.home-active-v9019 .segment #tabVerses{
   background:linear-gradient(110deg,#47653f,#385132 62%,#2a3d25)!important;
   border-color:rgba(171,210,148,.26)!important;
-  color:#eef6e8!important;
 }
+
+/* Lector de Versículos: fondo general, cabecera y cruz */
 #readerView.reader-kind-verses-v31103 .reader-identity-v31103{
   --reader-accent:#5a874b;
   --reader-accent-soft:rgba(124,173,95,.16);
@@ -4796,85 +4743,391 @@ body.dark-mode.home-active-v9019 .segment #tabVerses{
   background:var(--reader-page-bg)!important;
 }
 body.dark #readerView.reader-kind-verses-v31103,
-body.dark-mode #readerView.reader-kind-verses-v31103{--reader-page-bg:#1f2b1d;}
+body.dark-mode #readerView.reader-kind-verses-v31103{
+  --reader-page-bg:#1f2b1d;
+}
+
+/* Versículos enviados/compartidos */
 .item.verse-sent-bg-v3134,
 .title-row.verse-sent-bg-v3134,
 .category-card.verse-sent-bg-v3134{
-  background:#ebe2ff!important;
-  border-color:#cbb8ff!important;
+  background:#e8f6df!important;
+  border-color:#b7d89a!important;
 }
-.title-row.verse-sent-bg-v3134.active{background:#ebe2ff!important;}
-#readerView.reader-sent-bg-v3134{
-  background:#ebe2ff!important;
-  border-color:#cbb8ff!important;
+.title-row.verse-sent-bg-v3134.active{
+  background:#e8f6df!important;
 }
 body.dark .item.verse-sent-bg-v3134,
 body.dark .title-row.verse-sent-bg-v3134,
 body.dark .category-card.verse-sent-bg-v3134,
 body.dark-mode .item.verse-sent-bg-v3134,
 body.dark-mode .title-row.verse-sent-bg-v3134,
-body.dark-mode .category-card.verse-sent-bg-v3134,
+body.dark-mode .category-card.verse-sent-bg-v3134{
+  background:rgba(104,151,74,.18)!important;
+  border-color:rgba(171,210,148,.34)!important;
+}
+#readerView.reader-sent-bg-v3134{
+  background:#e8f6df!important;
+  border-color:#b7d89a!important;
+}
+body.dark #readerView.reader-sent-bg-v3134,
+body.dark-mode #readerView.reader-sent-bg-v3134{
+  background:rgba(104,151,74,.18)!important;
+  border-color:rgba(171,210,148,.34)!important;
+}
+
+/* Recomendaciones y elementos auxiliares de Versículos */
+.recommendation-verse-v3189 .recommendation-cross-v3190{
+  color:#5a874b;
+  background:rgba(228,242,215,.88);
+  border:1px solid rgba(90,135,75,.20);
+}
+.reader-verse-label-v3188{
+  color:#5a874b!important;
+}
+.reader-next .reader-verse-link-v3188,
+.reader-next .reader-recommendation-button-v3182.reader-verse-link-v3188,
+.reader-next .reader-recommendation-button-v3182:not(.reader-psalm-link-v3182).reader-verse-link-v3188{
+  color:#476b3c!important;
+  background:linear-gradient(180deg,rgba(250,253,247,.99),rgba(226,241,211,.99))!important;
+  border-color:rgba(90,135,75,.30)!important;
+  box-shadow:0 4px 12px rgba(84,122,66,.10)!important;
+}
+.recommendation-verse-v3189 .recommendation-close-v3188{
+  color:#476b3c!important;
+  background:linear-gradient(180deg,rgba(250,253,247,.98),rgba(220,238,202,.98))!important;
+  border-color:rgba(90,135,75,.24)!important;
+}
+.recommendation-verse-v3189 .recommendation-footer-v3188{
+  background:rgba(90,135,75,.04);
+}
+.recommendation-verse-v3189 .recommendation-cross-v3190::after{
+  background:linear-gradient(90deg,transparent,#6e9d5b,transparent);
+}
+.recommendation-verse-v3189 .recommendation-category-v3188{
+  color:#557546;
+  background:rgba(228,242,215,.62);
+  border-color:rgba(90,135,75,.14);
+}
+.recommendation-verse-v3189 .recommendation-head-v3188::after{
+  background:linear-gradient(90deg,transparent,rgba(90,135,75,.36),transparent);
+}
+body.dark .recommendation-verse-v3189 .recommendation-cross-v3190,
+body.dark-mode .recommendation-verse-v3189 .recommendation-cross-v3190{
+  color:#d8efc7;
+  background:rgba(67,98,53,.52);
+  border-color:rgba(171,210,148,.26);
+}
+body.dark .reader-verse-label-v3188,
+body.dark-mode .reader-verse-label-v3188{
+  color:#d8efc7!important;
+}
+body.dark .reader-next .reader-verse-link-v3188,
+body.dark-mode .reader-next .reader-verse-link-v3188,
+body.dark .reader-next .reader-recommendation-button-v3182.reader-verse-link-v3188,
+body.dark-mode .reader-next .reader-recommendation-button-v3182.reader-verse-link-v3188,
+body.dark .reader-next .reader-recommendation-button-v3182:not(.reader-psalm-link-v3182).reader-verse-link-v3188,
+body.dark-mode .reader-next .reader-recommendation-button-v3182:not(.reader-psalm-link-v3182).reader-verse-link-v3188{
+  color:#e6f5da!important;
+  background:rgba(67,98,53,.42)!important;
+  border-color:rgba(171,210,148,.34)!important;
+}
+body.dark .recommendation-verse-v3189 .recommendation-close-v3188,
+body.dark-mode .recommendation-verse-v3189 .recommendation-close-v3188{
+  color:#e6f5da!important;
+  background:rgba(67,98,53,.44)!important;
+  border-color:rgba(171,210,148,.32)!important;
+}
+body.dark .recommendation-verse-v3189 .recommendation-category-v3188,
+body.dark-mode .recommendation-verse-v3189 .recommendation-category-v3188{
+  color:#d8efc7;
+  background:rgba(67,98,53,.30);
+  border-color:rgba(171,210,148,.20);
+}
+
+
+/* ===== V3.1.178 — Compartido de Versículos vuelve a lavanda ===== */
+.item.verse-sent-bg-v3134,
+.title-row.verse-sent-bg-v3134,
+.category-card.verse-sent-bg-v3134{
+  background:#ebe2ff!important;
+  border-color:#cbb8ff!important;
+}
+.title-row.verse-sent-bg-v3134.active{
+  background:#ebe2ff!important;
+}
+body.dark .item.verse-sent-bg-v3134,
+body.dark .title-row.verse-sent-bg-v3134,
+body.dark .category-card.verse-sent-bg-v3134,
+body.dark-mode .item.verse-sent-bg-v3134,
+body.dark-mode .title-row.verse-sent-bg-v3134,
+body.dark-mode .category-card.verse-sent-bg-v3134{
+  background:rgba(150,110,220,.20)!important;
+  border-color:rgba(190,160,245,.38)!important;
+}
+#readerView.reader-sent-bg-v3134{
+  background:#ebe2ff!important;
+  border-color:#cbb8ff!important;
+}
+#readerView.reader-sent-bg-v3134 .reader-code,
+#readerView.reader-sent-bg-v3134 .reader-title,
+#readerView.reader-sent-bg-v3134 .reader-text{
+  background:transparent!important;
+}
 body.dark #readerView.reader-sent-bg-v3134,
 body.dark-mode #readerView.reader-sent-bg-v3134{
   background:rgba(150,110,220,.20)!important;
   border-color:rgba(190,160,245,.38)!important;
 }
 
-/* Contadores inferiores con los iconos propios y la posición original. */
+
+/* ===== V3.1.179 — Botón superior de Versículos forzado en verde ===== */
+.segment #tabVerses,
+#tabVerses.tab-verses-heart-v3176{
+  background:linear-gradient(110deg,#f4fcec 0%,#dcefcf 56%,#b9dc9e 100%)!important;
+  border:1px solid rgba(91,148,71,.24)!important;
+  color:#243322!important;
+}
+.segment #tabVerses.active,
+#tabVerses.tab-verses-heart-v3176.active{
+  background:linear-gradient(110deg,#eef8e5 0%,#d5eac2 56%,#acd48b 100%)!important;
+  border-color:rgba(79,125,69,.48)!important;
+  color:#243322!important;
+}
+body.dark .segment #tabVerses,
+body.dark #tabVerses.tab-verses-heart-v3176,
+body.dark-mode .segment #tabVerses,
+body.dark-mode #tabVerses.tab-verses-heart-v3176{
+  background:linear-gradient(110deg,#47653f,#385132 62%,#2a3d25)!important;
+  border:1px solid rgba(171,210,148,.26)!important;
+  color:#eef6e8!important;
+}
+body.dark .segment #tabVerses.active,
+body.dark #tabVerses.tab-verses-heart-v3176.active,
+body.dark-mode .segment #tabVerses.active,
+body.dark-mode #tabVerses.tab-verses-heart-v3176.active{
+  background:linear-gradient(110deg,#527347,#3f5d38 62%,#30462b)!important;
+  border-color:rgba(190,225,170,.40)!important;
+  color:#f4faef!important;
+}
+
+
+/* ===== V3.1.180 — Botón superior de Versículos realmente verde ===== */
+body.home-active-v9019 .segment #tabVerses,
+body.home-active-v9019 .segment #tabVerses.tab-verses-heart-v3176,
+body:not(.dark).home-active-v9019 .segment #tabVerses,
+body:not(.dark).home-active-v9019 .segment #tabVerses.tab-verses-heart-v3176{
+  background:linear-gradient(110deg,#f4fcec 0%,#dcefcf 56%,#b9dc9e 100%)!important;
+  border-color:rgba(91,148,71,.24)!important;
+  color:#243322!important;
+}
+body.home-active-v9019 .segment #tabVerses.active,
+body.home-active-v9019 .segment #tabVerses.tab-verses-heart-v3176.active,
+body:not(.dark).home-active-v9019 .segment #tabVerses.active,
+body:not(.dark).home-active-v9019 .segment #tabVerses.tab-verses-heart-v3176.active{
+  background:linear-gradient(110deg,#eef8e5 0%,#d5eac2 56%,#acd48b 100%)!important;
+  border-color:rgba(79,125,69,.48)!important;
+  color:#243322!important;
+}
+body.dark.home-active-v9019 .segment #tabVerses,
+body.dark.home-active-v9019 .segment #tabVerses.tab-verses-heart-v3176,
+body.dark-mode.home-active-v9019 .segment #tabVerses,
+body.dark-mode.home-active-v9019 .segment #tabVerses.tab-verses-heart-v3176{
+  background:linear-gradient(110deg,#47653f,#385132 62%,#2a3d25)!important;
+  border-color:rgba(171,210,148,.26)!important;
+  color:#eef6e8!important;
+}
+body.dark.home-active-v9019 .segment #tabVerses.active,
+body.dark.home-active-v9019 .segment #tabVerses.tab-verses-heart-v3176.active,
+body.dark-mode.home-active-v9019 .segment #tabVerses.active,
+body.dark-mode.home-active-v9019 .segment #tabVerses.tab-verses-heart-v3176.active{
+  background:linear-gradient(110deg,#527347,#3f5d38 62%,#30462b)!important;
+  border-color:rgba(190,225,170,.40)!important;
+  color:#f4faef!important;
+}
+
+/* ===== V3.1.182 — iconos propios en contadores, posición original ===== */
 #counterInfo.counter-v66{
   text-align:right!important;
   white-space:nowrap!important;
   overflow:visible!important;
   text-overflow:clip!important;
 }
-.counter-items-v3182{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;white-space:nowrap;}
-.counter-entry-v3182{display:inline-flex;align-items:center;justify-content:center;gap:3px;min-width:0;}
+.counter-items-v3182{
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:4px;
+  white-space:nowrap;
+}
+.counter-entry-v3182{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  min-width:0;
+}
 .counter-entry-v3182 b{font-weight:750;line-height:1}
 .counter-separator-v3182{opacity:.48;font-weight:700}
-.counter-entry-v3182 img{display:block;width:18px;height:18px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(0,0,0,.10));}
-.counter-cross-v3182{display:block;width:17px;height:18px;background:linear-gradient(180deg,#6c8fca 0%,#4f74b7 100%);-webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;mask:url("cross-ethiopian-mask.png") center/contain no-repeat;filter:drop-shadow(0 1px 1px rgba(73,103,156,.18));}
-.counter-symbol-v3182{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;font-size:15px;line-height:1;}
+.counter-entry-v3182 img{
+  display:block;
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.10));
+}
+.counter-cross-v3182{
+  display:block;
+  width:17px;
+  height:18px;
+  background:linear-gradient(180deg,#6c8fca 0%,#4f74b7 100%);
+  -webkit-mask:url("cross-ethiopian-mask.png") center/contain no-repeat;
+  mask:url("cross-ethiopian-mask.png") center/contain no-repeat;
+  filter:drop-shadow(0 1px 1px rgba(73,103,156,.18));
+}
+.counter-symbol-v3182{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:18px;
+  height:18px;
+  font-size:15px;
+  line-height:1;
+}
 .counter-psalm-v3182{font-weight:900;color:#66805a;font-size:16px}
 .counter-heart-v3182{font-size:15px}
-body.dark .counter-cross-v3182,body.dark-mode .counter-cross-v3182{background:linear-gradient(180deg,#9ab4e2 0%,#7898d0 100%);}
+body.dark .counter-cross-v3182,body.dark-mode .counter-cross-v3182{
+  background:linear-gradient(180deg,#9ab4e2 0%,#7898d0 100%);
+}
 @media(max-width:430px){
-  .counter-items-v3182{gap:3px}.counter-entry-v3182{gap:2px}.counter-entry-v3182 img{width:17px;height:17px}.counter-cross-v3182{width:16px;height:17px}.counter-symbol-v3182{width:17px;height:17px;font-size:14px}.counter-psalm-v3182{font-size:15px}
+  .counter-items-v3182{gap:3px}
+  .counter-entry-v3182{gap:2px}
+  .counter-entry-v3182 img{width:17px;height:17px}
+  .counter-cross-v3182{width:16px;height:17px}
+  .counter-symbol-v3182{width:17px;height:17px;font-size:14px}
+  .counter-psalm-v3182{font-size:15px}
 }
 
-/* Iconos aprobados de Versículo del día y Día/Noche al máximo útil. */
-body.home-active-v9019 .home-icon-button-v2217{
+
+/* ===== V3.1.184 — Iconos propios para Versículo del día y Día/Noche ===== */
+body.home-active-v9019 .home-icon-button-v3184{
   display:inline-flex!important;
   align-items:center!important;
   justify-content:center!important;
+  gap:9px!important;
+}
+body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-v3184{
+  display:block!important;
+  width:38px!important;
+  height:34px!important;
+  object-fit:contain!important;
+  flex:0 0 38px!important;
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.16));
+}
+body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daily-v3184{
+  width:40px!important;
+  height:35px!important;
+  flex-basis:40px!important;
+}
+body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daynight-v3184{
+  width:37px!important;
+  height:35px!important;
+  flex-basis:37px!important;
+}
+body.home-active-v9019 .home-icon-button-v3184 span{
+  display:inline-block!important;
+  white-space:nowrap!important;
+}
+@media(max-width:420px){
+  body.home-active-v9019 .home-icon-button-v3184{gap:7px!important;}
+  body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-v3184{width:34px!important;height:31px!important;flex-basis:34px!important;}
+  body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daily-v3184{width:36px!important;height:32px!important;flex-basis:36px!important;}
+}
+
+
+/* ===== V3.1.185 — iconos exactos tomados de la muestra aprobada ===== */
+body.home-active-v9019 .home-icon-button-v3184{
+  gap:6px!important;
+}
+body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daily-v3184{
+  width:50px!important;height:44px!important;flex-basis:50px!important;object-fit:contain!important;
+}
+body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daynight-v3184{
+  width:47px!important;height:44px!important;flex-basis:47px!important;object-fit:contain!important;
+}
+@media(max-width:420px){
+ body.home-active-v9019 .home-icon-button-v3184{gap:5px!important;}
+ body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daily-v3184{width:45px!important;height:40px!important;flex-basis:45px!important;}
+ body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daynight-v3184{width:42px!important;height:40px!important;flex-basis:42px!important;}
+}
+
+
+/* ===== V3.1.187 — iconos al máximo útil sin agrandar los botones ===== */
+body.home-active-v9019 .home-icon-button-v3184{
   gap:3px!important;
   overflow:hidden!important;
 }
-body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-v2217{
-  display:block!important;
+body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daily-v3184{
+  width:62px!important;
+  height:54px!important;
+  flex:0 0 62px!important;
   object-fit:contain!important;
-  filter:drop-shadow(0 2px 3px rgba(0,0,0,.16));
 }
-body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-daily-v2217{
-  width:62px!important;height:54px!important;flex:0 0 62px!important;
+body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daynight-v3184{
+  width:58px!important;
+  height:54px!important;
+  flex:0 0 58px!important;
+  object-fit:contain!important;
 }
-body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-daynight-v2217{
-  width:58px!important;height:54px!important;flex:0 0 58px!important;
-}
-body.home-active-v9019 .home-icon-button-v2217 span{display:inline-block!important;white-space:nowrap!important;}
 @media(max-width:420px){
-  body.home-active-v9019 .home-icon-button-v2217{gap:2px!important;}
-  body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-daily-v2217{width:56px!important;height:49px!important;flex-basis:56px!important;}
-  body.home-active-v9019 .home-icon-button-v2217 .home-special-icon-daynight-v2217{width:52px!important;height:49px!important;flex-basis:52px!important;}
+  body.home-active-v9019 .home-icon-button-v3184{gap:2px!important;}
+  body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daily-v3184{
+    width:56px!important;height:49px!important;flex-basis:56px!important;
+  }
+  body.home-active-v9019 .home-icon-button-v3184 .home-special-icon-daynight-v3184{
+    width:52px!important;height:49px!important;flex-basis:52px!important;
+  }
 }
 
-
-/* ===== V2 LAB 219 — transición estable al salir de Inicio ===== */
-body.view-switching-v2219 *,
-body.view-switching-v2219 *::before,
-body.view-switching-v2219 *::after{
+/* ===== V3.1.189 — transición estable al salir de Inicio ===== */
+body.view-switching-v3189 *,
+body.view-switching-v3189 *::before,
+body.view-switching-v3189 *::after{
   transition:none!important;
   animation:none!important;
 }
-body.view-switching-v2219 #homeView{
+body.view-switching-v3189 #homeView{
+  display:none!important;
+}
+
+
+/* ===== V3.1.190 — imágenes aprobadas para Mañana y Noche ===== */
+.routine-hub-image-wrap-v3190{
+  width:112px!important;
+  height:112px!important;
+  display:grid!important;
+  place-items:center!important;
+  line-height:1!important;
+}
+.routine-hub-image-v3190{
+  display:block!important;
+  width:112px!important;
+  height:112px!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 5px 8px rgba(65,55,35,.18));
+}
+@media(max-width:420px){
+  .routine-hub-image-wrap-v3190,.routine-hub-image-v3190{width:104px!important;height:104px!important;}
+}
+
+
+/* ===== V2 LAB 220 — transición estable al salir de Inicio (heredada de V2.219) ===== */
+body.view-switching-v2220 *,
+body.view-switching-v2220 *::before,
+body.view-switching-v2220 *::after{
+  transition:none!important;
+  animation:none!important;
+}
+body.view-switching-v2220 #homeView{
   display:none!important;
 }
