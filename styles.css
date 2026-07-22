@@ -5187,8 +5187,8 @@ body.view-switching-v3189 #homeView{
   .routine-hub-grid-v3192{gap:32px!important}
   .routine-hub-card-v3192.morning-v3192,
   .routine-hub-card-v3192.night-v3192{
-    width:180px!important;
-    min-height:320px!important;
+    width:150px!important;
+    min-height:210px!important;
   }
 }
 @media(max-width:300px){
