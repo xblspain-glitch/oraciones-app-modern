@@ -11,7 +11,7 @@ function buildInitialState(){
     "currentNoteId": noteId,
     "prayers": [{
       "id": prayerId,
-      "title": "🌅 ✝️ Oración diaria completa",
+      "title": "🌅 🙏🏾 Oración diaria completa",
       "content": seedPrayer,
       "updatedAt": Date.now(),
       "favorite": true
@@ -5657,7 +5657,7 @@ setInterval(updateVersePositionCounter, 1000);
   window.setTrash=function(items){ensureParablesState();if(section==="prayers")state.trashPrayers=items;else if(section==="notes")state.trashNotes=items;else if(section==="guides")state.trashGuides=items;else if(section==="parables")state.trashParables=items;else state.trashVerses=items;};try{setTrash=window.setTrash;}catch(e){}
   window.currentItem=function(){ensureParablesState();var items=getItems();var id=section==="prayers"?state.currentPrayerId:section==="notes"?state.currentNoteId:section==="guides"?state.currentGuideId:section==="parables"?state.currentParableId:state.currentVerseId;var found=(items||[]).find(function(x){return x.id===id});if(found)return found;var first=(items||[])[0]||null;if(first){if(section==="prayers")state.currentPrayerId=first.id;else if(section==="notes")state.currentNoteId=first.id;else if(section==="guides")state.currentGuideId=first.id;else if(section==="parables")state.currentParableId=first.id;else state.currentVerseId=first.id;}return first;};try{currentItem=window.currentItem;}catch(e){}
   window.setCurrentId=function(id){ensureParablesState();if(section==="prayers")state.currentPrayerId=id;else if(section==="notes")state.currentNoteId=id;else if(section==="guides")state.currentGuideId=id;else if(section==="parables")state.currentParableId=id;else state.currentVerseId=id;saveState();};try{setCurrentId=window.setCurrentId;}catch(e){}
-  window.recentKindLabel=function(item){if(!item)return"";if(item.kind==="festivityPassage")return"📅 Festividad · 📖 Pasaje";if(item.kind==="festivity")return"📅 Festividad";if(item.section==="verses")return"❤️ Versículo";if(item.section==="prayers")return"✝️ Oración";if(item.section==="notes")return"📝 Nota";if(item.section==="guides")return"📜 Guía";if(item.section==="parables")return"🌱 Parábola";return"Elemento";};try{recentKindLabel=window.recentKindLabel;}catch(e){}
+  window.recentKindLabel=function(item){if(!item)return"";if(item.kind==="festivityPassage")return"📅 Festividad · 📖 Pasaje";if(item.kind==="festivity")return"📅 Festividad";if(item.section==="verses")return"❤️ Versículo";if(item.section==="prayers")return"🙏🏾 Oración";if(item.section==="notes")return"📝 Nota";if(item.section==="guides")return"📜 Guía";if(item.section==="parables")return"🌱 Parábola";return"Elemento";};try{recentKindLabel=window.recentKindLabel;}catch(e){}
   window.syncTabs=function(){ensureParablesState();setSearchVisibleV26(!(section==="prayers"||section==="notes"||section==="guides"||section==="parables"||section==="psalms"));var p=document.getElementById("tabPrayers");if(p)p.classList.toggle("active",section==="prayers");var n=document.getElementById("tabNotes");if(n)n.classList.toggle("active",section==="notes");var g=document.getElementById("tabGuides");if(g)g.classList.toggle("active",section==="guides");var pa=document.getElementById("tabParables");if(pa)pa.classList.toggle("active",section==="parables");var v=document.getElementById("tabVerses");if(v)v.classList.toggle("active",section==="verses");var search=document.getElementById("search");if(search)search.placeholder=sectionLabelV85(section).search;var c=document.getElementById("counterInfo");if(c)c.textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | 🌱 ${state.parables?state.parables.length:0} | ❤️ ${state.verses?state.verses.length:0}`;};try{syncTabs=window.syncTabs;}catch(e){}
   window.switchSection=function(s){ensureParablesState();section=s;state.section=s;try{document.body.dataset.section=s;}catch(e){};saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}renderReader();openReader();};try{switchSection=window.switchSection;}catch(e){}
   window.titlesPlaceholderV72=function(){return sectionLabelV85(section).search;};try{titlesPlaceholderV72=window.titlesPlaceholderV72;}catch(e){}
@@ -9728,8 +9728,8 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 
   var PSALM_CATEGORIES_V3177 = [
     {id:'', icon:'', label:'Sin categoría'},
-    {id:'alabanza', icon:'👑', label:'Alabanza y adoración'},
-    {id:'gratitud', icon:'🙏🏾', label:'Gratitud'},
+    {id:'alabanza', icon:'🙌🏾', label:'Alabanza y adoración'},
+    {id:'gratitud', icon:'🤲🏾', label:'Gratitud'},
     {id:'fe', icon:'✨', label:'Fe y esperanza'},
     {id:'salvacion', icon:'✝️', label:'Salvación y vida eterna'},
     {id:'agradar', icon:'🤍', label:'Agradar a Dios'},
@@ -9744,7 +9744,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     {id:'familia', icon:'🧑‍🧑‍🧒', label:'Familia'},
     {id:'sanacion', icon:'🌿', label:'Sanación'},
     {id:'paz', icon:'🕊️', label:'Paz y consuelo'},
-    {id:'arrepentimiento', icon:'🤲🏾', label:'Arrepentimiento y perdón'},
+    {id:'arrepentimiento', icon:'🙏🏾', label:'Arrepentimiento y perdón'},
     {id:'lucha', icon:'🪨', label:'Lucha espiritual'},
     {id:'ansiedad', icon:'😰', label:'Preocupación o ansiedad'},
     {id:'tristeza', icon:'😔', label:'Tristeza y desánimo'},
@@ -10615,8 +10615,8 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   window.__v3113PrayerCategorySelectorInstalled=true;
 
   var FINAL_PRAYER_CATEGORIES_V3113 = [
-    {id:'alabanza', icon:'👑', label:'Alabanza y adoración'},
-    {id:'gratitud', icon:'🙏🏾', label:'Gratitud'},
+    {id:'alabanza', icon:'🙌🏾', label:'Alabanza y adoración'},
+    {id:'gratitud', icon:'🤲🏾', label:'Gratitud'},
     {id:'fe', icon:'✨', label:'Fe y esperanza'},
     {id:'salvacion', icon:'✝️', label:'Salvación y vida eterna'},
     {id:'agradar', icon:'🤍', label:'Agradar a Dios'},
@@ -10631,7 +10631,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     {id:'familia', icon:'🧑‍🧑‍🧒', label:'Familia'},
     {id:'sanacion', icon:'🌿', label:'Sanación'},
     {id:'paz', icon:'🕊️', label:'Paz y consuelo'},
-    {id:'arrepentimiento', icon:'🤲🏾', label:'Arrepentimiento y perdón'},
+    {id:'arrepentimiento', icon:'🙏🏾', label:'Arrepentimiento y perdón'},
     {id:'lucha', icon:'🪨', label:'Lucha espiritual'},
     {id:'ansiedad', icon:'😰', label:'Preocupación o ansiedad'},
     {id:'tristeza', icon:'😔', label:'Tristeza y desánimo'},
@@ -11584,7 +11584,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   function sourcesV3177(){
     return [
-      {key:'prayers',label:'✝️ Oraciones',items:(state&&state.prayers)||[],title:function(x){return x.title||'Oración sin título';}},
+      {key:'prayers',label:'🙏🏾 Oraciones',items:(state&&state.prayers)||[],title:function(x){return x.title||'Oración sin título';}},
       {key:'psalms',label:'♫ Salmos',items:(state&&state.psalms)||[],title:function(x,i){return x.title||('Salmo '+(i+1));}},
       {key:'verses',label:'❤️ Versículos',items:(state&&state.verses)||[],title:function(x){return x.reference||x.title||'Versículo';}},
       {key:'notes',label:'📝 Notas',items:(state&&state.notes)||[],title:function(x){return x.title||'Nota sin título';}},
@@ -11766,29 +11766,37 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V3.1.193 — iconos ilustrados globales: Mañana, Noche y Cruz ===== */
+/* ===== V2 LAB 236 — colección ilustrada global aprobada ===== */
 (function(){
+  if(window.__v2236GlobalApprovedIcons) return;
+  window.__v2236GlobalApprovedIcons=true;
   const ICONS={
-    '🌅':{kind:'img',src:'icon-manana-global-v3193.png?v=v3-1-193',cls:'inline-faith-icon-v3193 inline-faith-icon-morning-v3193',label:'Mañana'},
-    '🌙':{kind:'img',src:'icon-noche-global-v3193.png?v=v3-1-193',cls:'inline-faith-icon-v3193 inline-faith-icon-night-v3193',label:'Noche'},
-    '✝️':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'},
-    '✝':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'}
+    '🌅':{src:'icon-manana-global-v3193.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-faith-icon-morning-v3193',label:'Mañana'},
+    '🌙':{src:'icon-noche-global-v3193.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-faith-icon-night-v3193',label:'Noche'},
+    '❤️':{src:'cat-amor.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-heart-v2236',label:'Amor'},
+    '✝️':{src:'cat-salvacion.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-cross-v2236',label:'Salvación'},
+    '✝':{src:'cat-salvacion.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-cross-v2236',label:'Salvación'},
+    '💪🏾':{src:'cat-fortaleza.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-rock-v2236',label:'Fortaleza'},
+    '💪':{src:'cat-fortaleza.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-rock-v2236',label:'Fortaleza'},
+    '🙌🏾':{src:'cat-alabanza.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-praise-v2236',label:'Alabanza'},
+    '🙌':{src:'cat-alabanza.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-praise-v2236',label:'Alabanza'},
+    '🤲🏾':{src:'cat-gratitud.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-mercy-v2236',label:'Gratitud y misericordia'},
+    '🤲':{src:'cat-gratitud.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-mercy-v2236',label:'Gratitud y misericordia'},
+    '🙏🏾':{src:'cat-oracion.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-prayer-v2236',label:'Oración'},
+    '🙏':{src:'cat-oracion.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-prayer-v2236',label:'Oración'}
   };
-  const RX=/(🌅|🌙|✝️|✝)/g;
+  const RX=/(🌅|🌙|❤️|✝️|✝|💪🏾|💪|🙌🏾|🙌|🤲🏾|🤲|🙏🏾|🙏)/g;
   const SKIP=new Set(['SCRIPT','STYLE','TEXTAREA','INPUT','SELECT','OPTION','CANVAS','NOSCRIPT']);
   function makeIcon(token){
     const cfg=ICONS[token];
     if(!cfg)return document.createTextNode(token);
-    if(cfg.kind==='img'){
-      const img=document.createElement('img');
-      img.src=cfg.src; img.className=cfg.cls; img.alt=''; img.setAttribute('aria-label',cfg.label); img.decoding='async';
-      return img;
-    }
-    const span=document.createElement('span'); span.className=cfg.cls; span.setAttribute('aria-label',cfg.label); return span;
+    const img=document.createElement('img');
+    img.src=cfg.src; img.className=cfg.cls; img.alt=''; img.setAttribute('aria-label',cfg.label); img.decoding='async';
+    return img;
   }
   function replaceNode(node){
     const parent=node.parentElement;
-    if(!parent||SKIP.has(parent.tagName)||parent.closest('.no-global-faith-icons-v3193'))return;
+    if(!parent||SKIP.has(parent.tagName)||parent.closest('.no-global-faith-icons-v3193,.ov2-logo,.prayer-cross-top-v3176,.header-cross-v3175,.reader-end-card'))return;
     const text=node.nodeValue||'';
     if(!RX.test(text)){RX.lastIndex=0;return;} RX.lastIndex=0;
     const frag=document.createDocumentFragment(); let last=0,m;

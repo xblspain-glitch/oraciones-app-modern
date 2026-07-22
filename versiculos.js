@@ -22,7 +22,7 @@ const VERSE_CATEGORIES = [
 
 /* ===== V2 LAB 222 — iconos ilustrados de categorías ===== */
 const CATEGORY_ICON_ASSETS_V2221 = {
-  salvacion:"cat-amor.png",
+  salvacion:"cat-salvacion.png",
   fe:"cat-oracion.png",
   esperanza:"cat-esperanza.png",
   fortaleza:"cat-fortaleza.png",
@@ -34,11 +34,11 @@ const CATEGORY_ICON_ASSETS_V2221 = {
   espiritu:"cat-espiritu-santo.png",
   segunda_venida:"cat-segunda-venida.png",
   juicio:"cat-juicio.png",
-  misericordia:"cat-misericordia.png",
+  misericordia:"cat-gratitud.png",
   vida_eterna:"cat-vida-eterna.png",
   oracion:"cat-oracion.png",
   dios:"cat-reino.png",
-  gratitud:"cat-misericordia.png",
+  gratitud:"cat-gratitud.png",
   sanacion:"cat-descanso.png",
   paz:"cat-esperanza.png",
   arrepentimiento:"cat-oracion.png"
@@ -50,7 +50,8 @@ function categoryIconAssetV2221(id,label){
   const direct=CATEGORY_ICON_ASSETS_V2221[String(id||"").toLowerCase()];
   if(direct) return direct;
   const t=categoryPlainLabelV2221(label).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-  if(t.includes('salvacion')||t==='amor') return CATEGORY_ICON_ASSETS_V2221.amor;
+  if(t.includes('salvacion')) return CATEGORY_ICON_ASSETS_V2221.salvacion;
+  if(t==='amor') return CATEGORY_ICON_ASSETS_V2221.amor;
   if(t==='fe'||t==='oracion') return CATEGORY_ICON_ASSETS_V2221.oracion;
   if(t.includes('esperanza')) return CATEGORY_ICON_ASSETS_V2221.esperanza;
   if(t.includes('fortaleza')) return CATEGORY_ICON_ASSETS_V2221.fortaleza;

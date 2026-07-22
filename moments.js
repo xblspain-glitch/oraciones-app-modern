@@ -6,7 +6,7 @@
 
   var TAGS=[
     {id:'alabanza',label:'👑 Alabanza y adoración'},
-    {id:'gratitud',label:'🙏🏾 Gratitud'},
+    {id:'gratitud',label:'🤲🏾 Gratitud'},
     {id:'fe',label:'✨ Fe y esperanza'},
     {id:'salvacion',label:'✝️ Salvación y vida eterna'},
     {id:'agradar',label:'🤍 Agradar a Dios'},
@@ -21,7 +21,7 @@
     {id:'familia',label:'👨🏾‍👩🏾‍👧🏾‍👦🏾 Familia'},
     {id:'sanacion',label:'🌿 Sanación'},
     {id:'paz',label:'🕊️ Paz y consuelo'},
-    {id:'arrepentimiento',label:'🤲🏾 Arrepentimiento y perdón'},
+    {id:'arrepentimiento',label:'🙏🏾 Arrepentimiento y perdón'},
     {id:'lucha',label:'🪨 Lucha espiritual'},
     {id:'ansiedad',label:'😰 Preocupación o ansiedad'},
     {id:'tristeza',label:'😔 Tristeza y desánimo'},
@@ -30,8 +30,8 @@
     {id:'noche',label:'🌙 Noche y descanso'}
   ];
   var MOMENTS=[
-    {id:'alabanza',icon:'👑',title:'Alabanza y adoración',sub:'Contemple la grandeza de Dios y adore su santo nombre.',tags:['alabanza']},
-    {id:'gratitud',icon:'🙏🏾',title:'Gratitud',sub:'Reconozca con alegría las bendiciones y la fidelidad de Dios.',tags:['gratitud']},
+    {id:'alabanza',icon:'🙌🏾',title:'Alabanza y adoración',sub:'Contemple la grandeza de Dios y adore su santo nombre.',tags:['alabanza']},
+    {id:'gratitud',icon:'🤲🏾',title:'Gratitud',sub:'Reconozca con alegría las bendiciones y la fidelidad de Dios.',tags:['gratitud']},
     {id:'fe',icon:'✨',title:'Fe y esperanza',sub:'Renueve su confianza en Dios y en sus promesas.',tags:['fe']},
     {id:'salvacion',icon:'✝️',title:'Salvación y vida eterna',sub:'Recuerde la gracia de Cristo y la esperanza de la vida eterna.',tags:['salvacion']},
     {id:'agradar',icon:'🤍',title:'Agradar a Dios',sub:'Busque vivir conforme a la voluntad de Dios.',tags:['agradar']},
@@ -46,7 +46,7 @@
     {id:'familia',icon:'👨🏾‍👩🏾‍👧🏾‍👦🏾',title:'Familia',sub:'Ore por amor, unión, protección y guía para su familia.',tags:['familia']},
     {id:'sanacion',icon:'🌿',title:'Sanación',sub:'Presente a Dios el dolor y reciba consuelo y esperanza.',tags:['sanacion']},
     {id:'paz',icon:'🕊️',title:'Paz y consuelo',sub:'Descanse en la presencia de Dios y reciba su consuelo.',tags:['paz']},
-    {id:'arrepentimiento',icon:'🤲🏾',title:'Arrepentimiento y perdón',sub:'Acérquese a Dios con sinceridad y confianza en su misericordia.',tags:['arrepentimiento']},
+    {id:'arrepentimiento',icon:'🙏🏾',title:'Arrepentimiento y perdón',sub:'Acérquese a Dios con sinceridad y confianza en su misericordia.',tags:['arrepentimiento']},
     {id:'lucha',icon:'🪨',title:'Lucha espiritual',sub:'Permanezca firme ante la tentación y toda dificultad espiritual.',tags:['lucha']},
     {id:'ansiedad',icon:'😰',title:'Preocupación o ansiedad',sub:'Reciba paz y vuelva a confiar sus cargas a Dios.',tags:['ansiedad']},
     {id:'tristeza',icon:'😔',title:'Tristeza y desánimo',sub:'Encuentre consuelo, esperanza y compañía en Dios.',tags:['tristeza']},
