@@ -11685,6 +11685,14 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       return;
     }
 
+    /* V3.1.212: el parche de transición oculta la tarjeta antes del click.
+       La clase home-active conserva la intención real de volver al inicio. */
+    if((snapshot.bodyClass || '').split(/\s+/).indexOf('home-active-v9019') !== -1){
+      document.body.classList.remove('utility-fullscreen-v2189','special-view-only','backup-only');
+      if(typeof showHomeV9019 === 'function') showHomeV9019();
+      return;
+    }
+
     document.body.className = snapshot.bodyClass;
     Object.keys(snapshot.panels || {}).forEach(function(id){
       var el = document.getElementById(id);
