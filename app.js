@@ -1816,19 +1816,7 @@ function renderVerseCategories(){
     const div = document.createElement("div");
 
     div.className = "category-card";
-    const customCategoryIconsV3199={
-      amor:'icon-cat-amor-v3199.png',
-      arrepentimiento:'icon-cat-arrepentimiento-v3199.png',
-      arrepentimiento_perdon:'icon-cat-arrepentimiento-v3199.png',
-      arrepentimiento_y_perdon:'icon-cat-arrepentimiento-v3199.png',
-      justicia:'icon-cat-justicia-v3199.png',
-      justicia_juicio:'icon-cat-justicia-v3199.png'
-    };
-    const customIconV3199=customCategoryIconsV3199[String(cat.id||'')];
-    const cleanCategoryLabelV3199=String(cat.label||'').replace(/^[^\p{L}\p{N}]+\s*/u,'');
-    div.innerHTML = customIconV3199
-      ? '<div class="category-title-v3199"><img class="category-icon-v3199" src="'+customIconV3199+'" alt=""><span>'+escapeHtml(cleanCategoryLabelV3199)+'</span></div><div class="category-count">' + count + ' versículo' + (count===1 ? '' : 's') + '</div>'
-      : '<div>' + escapeHtml(cat.label) + '</div><div class="category-count">' + count + ' versículo' + (count===1 ? '' : 's') + '</div>';
+    div.innerHTML = '<div>' + escapeHtml(cat.label) + '</div><div class="category-count">' + count + ' versículo' + (count===1 ? '' : 's') + '</div>';
     div.onclick = ()=>openVerseCategory(cat.id);
 
     box.appendChild(div);
@@ -11769,7 +11757,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V3.1.208 — la cruz ilustrada se conserva; 🌅 y 🌙 son emojis reales ===== */
+/* ===== V3.1.193 — iconos ilustrados globales: Mañana, Noche y Cruz ===== */
 (function(){
   const ICONS={
     '✝️':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'},
@@ -11780,9 +11768,12 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   function makeIcon(token){
     const cfg=ICONS[token];
     if(!cfg)return document.createTextNode(token);
-    const span=document.createElement('span');
-    span.className=cfg.cls; span.setAttribute('aria-label',cfg.label);
-    return span;
+    if(cfg.kind==='img'){
+      const img=document.createElement('img');
+      img.src=cfg.src; img.className=cfg.cls; img.alt=''; img.setAttribute('aria-label',cfg.label); img.decoding='async';
+      return img;
+    }
+    const span=document.createElement('span'); span.className=cfg.cls; span.setAttribute('aria-label',cfg.label); return span;
   }
   function replaceNode(node){
     const parent=node.parentElement;
@@ -11811,4 +11802,4 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     obs.observe(document.body,{childList:true,subtree:true});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
-})();;
+})();
