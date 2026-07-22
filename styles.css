@@ -5121,62 +5121,7 @@ body.view-switching-v3189 #homeView{
 }
 
 
-/* ===== V2 LAB 220 — transición estable al salir de Inicio (heredada de V2.219) ===== */
-body.view-switching-v2220 *,
-body.view-switching-v2220 *::before,
-body.view-switching-v2220 *::after{
-  transition:none!important;
-  animation:none!important;
-}
-body.view-switching-v2220 #homeView{
-  display:none!important;
-}
-
-
-/* ===== V2 LAB 222 — iconos transparentes de categorías ===== */
-.category-label-illustrated-v2221{display:inline-flex;align-items:center;gap:12px;vertical-align:middle;min-width:0}
-.category-label-illustrated-v2221>img{width:46px;height:46px;object-fit:contain;flex:0 0 46px;filter:drop-shadow(0 3px 7px rgba(86,55,10,.24))}
-.category-card-icon-v2221{font-size:1.08rem}
-.category-card-icon-v2221>img{width:50px;height:50px;flex-basis:50px}
-.reader-category-icon-v2221>img{width:42px;height:42px;flex-basis:42px}
-.category-result-icon-v2221{gap:7px}
-.category-result-icon-v2221>img{width:27px;height:27px;flex-basis:27px}
-.category-result-preview-v2221{opacity:.86}
-#readerCategory:has(.category-label-illustrated-v2221){display:flex;align-items:center}
-@media(max-width:520px){
- .category-label-illustrated-v2221{gap:10px}
- .category-card-icon-v2221>img{width:44px;height:44px;flex-basis:44px}
-}
-
-/* V2 LAB 222 — iconos de categoría desde la raíz en todas las vistas compatibles */
-.moment-category-icon-v2222{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 44px}
-.moment-category-icon-v2222>img{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 3px 7px rgba(86,55,10,.24))}
-.moment-tag-icon-v2222>img{width:32px!important;height:32px!important;flex-basis:32px!important}
-
-/* V2 LAB 242 · Galería de iconos cristianos */
-.icon-gallery-overlay-v242{position:fixed;inset:0;z-index:25000;background:rgba(20,24,27,.64);backdrop-filter:blur(5px);display:flex;align-items:stretch;justify-content:center;padding:14px}
-.icon-gallery-shell-v242{width:min(980px,100%);height:100%;max-height:960px;background:linear-gradient(180deg,#fffdf7 0%,#f8f0df 100%);border:1px solid rgba(125,94,39,.22);border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.3);overflow:hidden;display:flex;flex-direction:column}
-.icon-gallery-head-v242{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid rgba(125,94,39,.15);background:rgba(255,255,255,.8)}
-.icon-gallery-head-v242 h2{margin:0;flex:1;text-align:center;font-size:clamp(20px,4vw,28px);color:#4b3824}
-.icon-gallery-close-v242{border:0;background:#efe4cf;border-radius:14px;padding:10px 14px;font-weight:800;color:#4b3824;font-size:16px}
-.icon-gallery-intro-v242{text-align:center;padding:14px 18px 4px;color:#725c42;font-size:14px;line-height:1.45}
-.icon-gallery-grid-v242{padding:16px;overflow:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
-.icon-gallery-item-v242{border:1px solid rgba(129,96,45,.16);background:rgba(255,255,255,.78);border-radius:20px;padding:14px 10px 12px;min-height:154px;box-shadow:0 6px 18px rgba(91,66,31,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:#493827;font-weight:800;font-size:15px;transition:transform .16s ease,box-shadow .16s ease}
-.icon-gallery-item-v242:active{transform:scale(.97)}
-.icon-gallery-item-v242 img{width:92px;height:92px;object-fit:contain;display:block}
-.icon-detail-v242{position:absolute;inset:0;background:linear-gradient(180deg,#fffdf8,#f5ead6);display:flex;flex-direction:column;align-items:center;padding:18px;overflow:auto;animation:iconDetailInV242 .18s ease}
-@keyframes iconDetailInV242{from{opacity:0;transform:scale(.975)}to{opacity:1;transform:scale(1)}}
-.icon-detail-top-v242{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.icon-detail-back-v242,.icon-detail-close-v242{border:0;background:#efe4cf;border-radius:14px;padding:10px 14px;font-weight:800;color:#4b3824;font-size:15px}
-.icon-detail-image-v242{width:min(330px,72vw);height:min(330px,72vw);object-fit:contain;margin:20px 0 8px;filter:drop-shadow(0 12px 18px rgba(79,48,20,.13));transform-origin:center;transition:transform .18s ease}
-.icon-detail-image-v242.zoomed{transform:scale(1.35)}
-.icon-detail-title-v242{font-size:clamp(27px,7vw,40px);font-weight:900;color:#493522;text-align:center;margin:4px 0 10px}
-.icon-detail-meaning-v242{max-width:680px;text-align:center;color:#6d573d;line-height:1.55;font-size:16px;background:rgba(255,255,255,.7);border:1px solid rgba(130,96,44,.14);border-radius:18px;padding:14px 16px}
-.icon-detail-caption-v242{margin-top:16px;color:#987a50;font-size:13px;text-align:center}
-.icon-detail-hint-v242{margin-top:8px;color:#8a704e;font-size:12px}
-@media(max-width:520px){.icon-gallery-overlay-v242{padding:0}.icon-gallery-shell-v242{border-radius:0;max-height:none}.icon-gallery-grid-v242{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px}.icon-gallery-item-v242{min-height:145px}.icon-gallery-item-v242 img{width:86px;height:86px}}
-
-/* V2 LAB 244 · iconos definitivos */
-.definitive-icon-v2244{width:1.35em;height:1.35em;object-fit:contain;vertical-align:-.3em;margin:0 .12em;filter:none!important;background:transparent!important}
-button .definitive-icon-v2244,.btn .definitive-icon-v2244{width:1.55em;height:1.55em;vertical-align:-.42em}
-.icon-gallery-item-v242 img,.icon-detail-image-v242{object-fit:contain;background:transparent!important}
+/* ===== V3.1.199 — iconos ilustrados de categorías ===== */
+.category-title-v3199{display:flex;align-items:center;gap:12px;min-width:0}
+.category-icon-v3199{width:48px;height:48px;object-fit:contain;flex:0 0 48px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.20))}
+@media (max-width:600px){.category-icon-v3199{width:44px;height:44px;flex-basis:44px}.category-title-v3199{gap:10px}}

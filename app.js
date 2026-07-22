@@ -1,4 +1,4 @@
-const BUILD_V235_CACHE_BUST = "v2-lab-235-cache-limpia";
+const BUILD_V3_1_200="tarjeta-final-limpia";
 /* Oraciones V3 LAB - app.js paso 45: limpieza render de versículos */
 
 /* ===== PWA / INSTALACIÓN ===== */
@@ -11,7 +11,7 @@ function buildInitialState(){
     "currentNoteId": noteId,
     "prayers": [{
       "id": prayerId,
-      "title": "🌅 🙏🏾 Oración diaria completa",
+      "title": "🌅 ✝️ Oración diaria completa",
       "content": seedPrayer,
       "updatedAt": Date.now(),
       "favorite": true
@@ -534,8 +534,7 @@ function renderReader(){
     }
     const catEl=document.getElementById("readerCategory");
     if(catEl){
-      const catLabelV2221=verseCategoryLabel(item.category);
-      catEl.innerHTML=(typeof categoryLabelHtmlV2221==="function")?categoryLabelHtmlV2221(item.category,catLabelV2221,"reader-category-icon-v2221"):escapeHtml(catLabelV2221);
+      catEl.textContent=verseCategoryLabel(item.category);
       catEl.classList.remove("hidden");
     }
 
@@ -1444,7 +1443,6 @@ function openMoreMenu(ev){
       '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📭 Nunca enviados</button>' +
       '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📤 Enviados</button>' +
       '<button type="button" onclick="closeMoreMenu(); openRecentHistory()">🕘 Recientes</button>' +
-      '<button type="button" onclick="closeMoreMenu(); openChristianIconsV242()">✝️ Iconos cristianos</button>' +
       '<button type="button" onclick="closeMoreMenu(); exportCurrentHTML()">🌐 Exportar lectura</button>' +
       '<button type="button" onclick="closeMoreMenu(); openAppCredits()"><img src="icon-192.png" alt="" style="width:20px;height:20px;border-radius:6px;vertical-align:-4px;margin-right:4px"> App / Versión</button>';
 
@@ -1790,8 +1788,7 @@ function renderVerseCategories(){
       const preview = String(v.content || "").replace(/\n+/g, " ").slice(0, 95);
 
       div.className = "category-card" + ((v.shared || v.lastCardSentAt) ? " verse-sent-bg-v3134" : "");
-      const resultCatLabelV2221=catLabel(v.category);
-      div.innerHTML = '<div><strong>' + escapeHtml(((v.shared || v.lastCardSentAt) ? '✓ ' : '') + (v.reference || v.title || "Sin referencia")) + '</strong></div><div class="category-count category-result-v2221">' + ((typeof categoryLabelHtmlV2221==="function")?categoryLabelHtmlV2221(v.category,resultCatLabelV2221,"category-result-icon-v2221"):escapeHtml(resultCatLabelV2221)) + (preview ? '<span class="category-result-preview-v2221"> · ' + escapeHtml(preview) + '</span>' : '') + '</div>';
+      div.innerHTML = '<div><strong>' + escapeHtml(((v.shared || v.lastCardSentAt) ? '✓ ' : '') + (v.reference || v.title || "Sin referencia")) + '</strong></div><div class="category-count">' + escapeHtml(catLabel(v.category)) + (preview ? ' · ' + escapeHtml(preview) : '') + '</div>';
       div.onclick = ()=>{
         verseNavigationMode = "verse";
         currentVerseCategory = v.category || currentVerseCategory || "fe";
@@ -1819,7 +1816,19 @@ function renderVerseCategories(){
     const div = document.createElement("div");
 
     div.className = "category-card";
-    div.innerHTML = '<div>' + ((typeof categoryLabelHtmlV2221==="function")?categoryLabelHtmlV2221(cat.id,cat.label,"category-card-icon-v2221"):escapeHtml(cat.label)) + '</div><div class="category-count">' + count + ' versículo' + (count===1 ? '' : 's') + '</div>';
+    const customCategoryIconsV3199={
+      amor:'icon-cat-amor-v3199.png',
+      arrepentimiento:'icon-cat-arrepentimiento-v3199.png',
+      arrepentimiento_perdon:'icon-cat-arrepentimiento-v3199.png',
+      arrepentimiento_y_perdon:'icon-cat-arrepentimiento-v3199.png',
+      justicia:'icon-cat-justicia-v3199.png',
+      justicia_juicio:'icon-cat-justicia-v3199.png'
+    };
+    const customIconV3199=customCategoryIconsV3199[String(cat.id||'')];
+    const cleanCategoryLabelV3199=String(cat.label||'').replace(/^[^\p{L}\p{N}]+\s*/u,'');
+    div.innerHTML = customIconV3199
+      ? '<div class="category-title-v3199"><img class="category-icon-v3199" src="'+customIconV3199+'" alt=""><span>'+escapeHtml(cleanCategoryLabelV3199)+'</span></div><div class="category-count">' + count + ' versículo' + (count===1 ? '' : 's') + '</div>'
+      : '<div>' + escapeHtml(cat.label) + '</div><div class="category-count">' + count + ' versículo' + (count===1 ? '' : 's') + '</div>';
     div.onclick = ()=>openVerseCategory(cat.id);
 
     box.appendChild(div);
@@ -3799,7 +3808,7 @@ function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(IN
 window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
-if("serviceWorker" in navigator){window.addEventListener("load",async()=>{try{const reg=await navigator.serviceWorker.register("sw.js?v=v2-lab-243-cache-clean-gallery-heart",{updateViaCache:"none"});await reg.update();}catch(e){console.warn("No se pudo actualizar la caché",e);}})}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js")})}
 applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
 
 function getCardTextLayout(txt){
@@ -3939,7 +3948,7 @@ async function shareVerseCard(){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src="card-header-sky-v3197.webp?v=231";
+        im.src="card-header-sky-v3197.webp?v=v3-1-197";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
@@ -4037,20 +4046,13 @@ async function shareVerseCard(){
     const fecha=ds.getDate()+" de "+meses[ds.getMonth()]+" de "+ds.getFullYear();
     ctx.fillText(fecha,540,655);
 
-    const categoryPlainV2221=((typeof categoryPlainLabelV2221==="function")?categoryPlainLabelV2221(category):category).toLocaleUpperCase("es-ES");
-    const categoryAssetV2221=(typeof categoryIconAssetV2221==="function")?categoryIconAssetV2221(item&&item.category,category):"";
+    // V3.1.200 — categoría sin icono, en mayúsculas y centrada.
+    const categoryTextV3200=String(category||"")
+      .replace(/^[^\p{L}\p{N}]+\s*/u,"")
+      .toLocaleUpperCase("es-ES");
     ctx.font="44px Georgia, serif";
     ctx.textAlign="center";
-    if(categoryAssetV2221){
-      try{
-        await loadCardLogoImage(categoryAssetV2221);
-        ctx.fillText(categoryPlainV2221,540,742);
-      }catch(_catIconError){
-        ctx.fillText(categoryPlainV2221,540,742);
-      }
-    }else{
-      ctx.fillText(categoryPlainV2221,540,742);
-    }
+    ctx.fillText(categoryTextV3200,540,742);
 
     ctx.font="bold 74px Georgia, serif";
     ctx.fillText(ref,540,865);
@@ -5186,7 +5188,7 @@ setInterval(updateVersePositionCounter, 1000);
       const count=state.verses.filter(v=>v.category===cat.id).length;
       const div=document.createElement("div");
       div.className="category-card";
-      div.innerHTML='<div>'+((typeof categoryLabelHtmlV2221==="function")?categoryLabelHtmlV2221(cat.id,cat.label,"category-card-icon-v2221"):escapeHtml(cat.label))+'</div><div class="category-count">'+count+' versículos</div>';
+      div.innerHTML='<div>'+escapeHtml(cat.label)+'</div><div class="category-count">'+count+' versículos</div>';
       div.onclick=()=>openVerseCategory(cat.id);
       box.appendChild(div);
     });
@@ -5658,7 +5660,7 @@ setInterval(updateVersePositionCounter, 1000);
   window.setTrash=function(items){ensureParablesState();if(section==="prayers")state.trashPrayers=items;else if(section==="notes")state.trashNotes=items;else if(section==="guides")state.trashGuides=items;else if(section==="parables")state.trashParables=items;else state.trashVerses=items;};try{setTrash=window.setTrash;}catch(e){}
   window.currentItem=function(){ensureParablesState();var items=getItems();var id=section==="prayers"?state.currentPrayerId:section==="notes"?state.currentNoteId:section==="guides"?state.currentGuideId:section==="parables"?state.currentParableId:state.currentVerseId;var found=(items||[]).find(function(x){return x.id===id});if(found)return found;var first=(items||[])[0]||null;if(first){if(section==="prayers")state.currentPrayerId=first.id;else if(section==="notes")state.currentNoteId=first.id;else if(section==="guides")state.currentGuideId=first.id;else if(section==="parables")state.currentParableId=first.id;else state.currentVerseId=first.id;}return first;};try{currentItem=window.currentItem;}catch(e){}
   window.setCurrentId=function(id){ensureParablesState();if(section==="prayers")state.currentPrayerId=id;else if(section==="notes")state.currentNoteId=id;else if(section==="guides")state.currentGuideId=id;else if(section==="parables")state.currentParableId=id;else state.currentVerseId=id;saveState();};try{setCurrentId=window.setCurrentId;}catch(e){}
-  window.recentKindLabel=function(item){if(!item)return"";if(item.kind==="festivityPassage")return"📅 Festividad · 📖 Pasaje";if(item.kind==="festivity")return"📅 Festividad";if(item.section==="verses")return"❤️ Versículo";if(item.section==="prayers")return"🙏🏾 Oración";if(item.section==="notes")return"📝 Nota";if(item.section==="guides")return"📜 Guía";if(item.section==="parables")return"🌱 Parábola";return"Elemento";};try{recentKindLabel=window.recentKindLabel;}catch(e){}
+  window.recentKindLabel=function(item){if(!item)return"";if(item.kind==="festivityPassage")return"📅 Festividad · 📖 Pasaje";if(item.kind==="festivity")return"📅 Festividad";if(item.section==="verses")return"❤️ Versículo";if(item.section==="prayers")return"✝️ Oración";if(item.section==="notes")return"📝 Nota";if(item.section==="guides")return"📜 Guía";if(item.section==="parables")return"🌱 Parábola";return"Elemento";};try{recentKindLabel=window.recentKindLabel;}catch(e){}
   window.syncTabs=function(){ensureParablesState();setSearchVisibleV26(!(section==="prayers"||section==="notes"||section==="guides"||section==="parables"||section==="psalms"));var p=document.getElementById("tabPrayers");if(p)p.classList.toggle("active",section==="prayers");var n=document.getElementById("tabNotes");if(n)n.classList.toggle("active",section==="notes");var g=document.getElementById("tabGuides");if(g)g.classList.toggle("active",section==="guides");var pa=document.getElementById("tabParables");if(pa)pa.classList.toggle("active",section==="parables");var v=document.getElementById("tabVerses");if(v)v.classList.toggle("active",section==="verses");var search=document.getElementById("search");if(search)search.placeholder=sectionLabelV85(section).search;var c=document.getElementById("counterInfo");if(c)c.textContent=`📖 ${state.prayers.length} | 📝 ${state.notes.length} | 📜 ${state.guides?state.guides.length:0} | 🌱 ${state.parables?state.parables.length:0} | ❤️ ${state.verses?state.verses.length:0}`;};try{syncTabs=window.syncTabs;}catch(e){}
   window.switchSection=function(s){ensureParablesState();section=s;state.section=s;try{document.body.dataset.section=s;}catch(e){};saveState();syncTabs();setSearchVisibleV26(true);setActiveView(null);renderList();if(s==="verses"){currentVerseCategory=currentVerseCategory||"fe";verseNavigationMode="categories";openVerseCategories();return}renderReader();openReader();};try{switchSection=window.switchSection;}catch(e){}
   window.titlesPlaceholderV72=function(){return sectionLabelV85(section).search;};try{titlesPlaceholderV72=window.titlesPlaceholderV72;}catch(e){}
@@ -9729,8 +9731,8 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 
   var PSALM_CATEGORIES_V3177 = [
     {id:'', icon:'', label:'Sin categoría'},
-    {id:'alabanza', icon:'🙌🏾', label:'Alabanza y adoración'},
-    {id:'gratitud', icon:'🤲🏾', label:'Gratitud'},
+    {id:'alabanza', icon:'👑', label:'Alabanza y adoración'},
+    {id:'gratitud', icon:'🙏🏾', label:'Gratitud'},
     {id:'fe', icon:'✨', label:'Fe y esperanza'},
     {id:'salvacion', icon:'✝️', label:'Salvación y vida eterna'},
     {id:'agradar', icon:'🤍', label:'Agradar a Dios'},
@@ -9745,7 +9747,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     {id:'familia', icon:'🧑‍🧑‍🧒', label:'Familia'},
     {id:'sanacion', icon:'🌿', label:'Sanación'},
     {id:'paz', icon:'🕊️', label:'Paz y consuelo'},
-    {id:'arrepentimiento', icon:'🙏🏾', label:'Arrepentimiento y perdón'},
+    {id:'arrepentimiento', icon:'🤲🏾', label:'Arrepentimiento y perdón'},
     {id:'lucha', icon:'🪨', label:'Lucha espiritual'},
     {id:'ansiedad', icon:'😰', label:'Preocupación o ansiedad'},
     {id:'tristeza', icon:'😔', label:'Tristeza y desánimo'},
@@ -10616,8 +10618,8 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   window.__v3113PrayerCategorySelectorInstalled=true;
 
   var FINAL_PRAYER_CATEGORIES_V3113 = [
-    {id:'alabanza', icon:'🙌🏾', label:'Alabanza y adoración'},
-    {id:'gratitud', icon:'🤲🏾', label:'Gratitud'},
+    {id:'alabanza', icon:'👑', label:'Alabanza y adoración'},
+    {id:'gratitud', icon:'🙏🏾', label:'Gratitud'},
     {id:'fe', icon:'✨', label:'Fe y esperanza'},
     {id:'salvacion', icon:'✝️', label:'Salvación y vida eterna'},
     {id:'agradar', icon:'🤍', label:'Agradar a Dios'},
@@ -10632,7 +10634,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     {id:'familia', icon:'🧑‍🧑‍🧒', label:'Familia'},
     {id:'sanacion', icon:'🌿', label:'Sanación'},
     {id:'paz', icon:'🕊️', label:'Paz y consuelo'},
-    {id:'arrepentimiento', icon:'🙏🏾', label:'Arrepentimiento y perdón'},
+    {id:'arrepentimiento', icon:'🤲🏾', label:'Arrepentimiento y perdón'},
     {id:'lucha', icon:'🪨', label:'Lucha espiritual'},
     {id:'ansiedad', icon:'😰', label:'Preocupación o ansiedad'},
     {id:'tristeza', icon:'😔', label:'Tristeza y desánimo'},
@@ -11585,7 +11587,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   function sourcesV3177(){
     return [
-      {key:'prayers',label:'🙏🏾 Oraciones',items:(state&&state.prayers)||[],title:function(x){return x.title||'Oración sin título';}},
+      {key:'prayers',label:'✝️ Oraciones',items:(state&&state.prayers)||[],title:function(x){return x.title||'Oración sin título';}},
       {key:'psalms',label:'♫ Salmos',items:(state&&state.psalms)||[],title:function(x,i){return x.title||('Salmo '+(i+1));}},
       {key:'verses',label:'❤️ Versículos',items:(state&&state.verses)||[],title:function(x){return x.reference||x.title||'Versículo';}},
       {key:'notes',label:'📝 Notas',items:(state&&state.notes)||[],title:function(x){return x.title||'Nota sin título';}},
@@ -11767,126 +11769,51 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V2 LAB 244 — colección definitiva de iconos en toda la aplicación ===== */
+/* ===== V3.1.193 — iconos ilustrados globales: Mañana, Noche y Cruz ===== */
 (function(){
-  if(window.__v2244GlobalDefinitiveIcons) return;
-  window.__v2244GlobalDefinitiveIcons=true;
-  const V='?v=v2-lab-246-iconos-pulidos';
   const ICONS={
-    '🌅':{src:'icon-manana.png'+V,label:'Mañana'}, '🌙':{src:'icon-noche.png'+V,label:'Noche'},
-    '❤️':{src:'icon-amor.png'+V,label:'Amor'}, '✝️':{src:'icon-cruz-etiope.png'+V,label:'Salvación'}, '✝':{src:'icon-cruz-etiope.png'+V,label:'Salvación'},
-    '🙏🏾':{src:'icon-oracion.png'+V,label:'Oración'}, '🙏':{src:'icon-oracion.png'+V,label:'Oración'},
-    '🙌🏾':{src:'icon-alabanza.png'+V,label:'Alabanza'}, '🙌':{src:'icon-alabanza.png'+V,label:'Alabanza'},
-    '🤲🏾':{src:'icon-gratitud.png'+V,label:'Gratitud'}, '🤲':{src:'icon-gratitud.png'+V,label:'Gratitud'},
-    '🤝🏾':{src:'icon-misericordia.png'+V,label:'Misericordia'}, '🤝':{src:'icon-misericordia.png'+V,label:'Misericordia'},
-    '🕊️':{src:'icon-paloma.png'+V,label:'Paz y esperanza'}, '🕊':{src:'icon-paloma.png'+V,label:'Paz y esperanza'},
-    '🔥':{src:'icon-fuego.png'+V,label:'Espíritu Santo'}, '👑':{src:'icon-reino.png'+V,label:'Reino de Dios'},
-    '⚖️':{src:'icon-justicia.png'+V,label:'Justicia'}, '⚖':{src:'icon-justicia.png'+V,label:'Justicia'},
-    '🌿':{src:'icon-creacion-rama.png'+V,label:'Creación y descanso'}, '🌱':{src:'icon-crecimiento.png'+V,label:'Crecimiento'},
-    '📖':{src:'icon-biblia-abierta.png'+V,label:'Biblia'}, '📚':{src:'icon-biblia-cruz.png'+V,label:'Sabiduría'},
-    '📜':{src:'icon-pergamino.png'+V,label:'Guía'}, '📝':{src:'icon-notas.png'+V,label:'Notas'},
-    '🗑️':{src:'icon-papelera.png'+V,label:'Papelera'}, '🗑':{src:'icon-papelera.png'+V,label:'Papelera'},
-    '🔍':{src:'icon-lupa.png'+V,label:'Buscar'}, '🌍':{src:'icon-mundo.png'+V,label:'Mundo'},
-    '⏳':{src:'icon-vida-eterna.png'+V,label:'Vida eterna'}, '♫':{src:'icon-salmos.png'+V,label:'Salmos'}, '🎼':{src:'icon-salmos.png'+V,label:'Salmos'},
-    '💪🏾':{src:'icon-proteccion.png'+V,label:'Fortaleza y protección'}, '💪':{src:'icon-proteccion.png'+V,label:'Fortaleza y protección'},
-    '✨':{src:'icon-paloma.png'+V,label:'Fe y esperanza'}, '♻️':{src:'icon-backup.png'+V,label:'Copia de seguridad'}, '♻':{src:'icon-backup.png'+V,label:'Copia de seguridad'}
+    '🌅':{kind:'img',src:'icon-manana-global-v3193.png?v=v3-1-193',cls:'inline-faith-icon-v3193 inline-faith-icon-morning-v3193',label:'Mañana'},
+    '🌙':{kind:'img',src:'icon-noche-global-v3193.png?v=v3-1-193',cls:'inline-faith-icon-v3193 inline-faith-icon-night-v3193',label:'Noche'},
+    '✝️':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'},
+    '✝':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'}
   };
-  const tokens=Object.keys(ICONS).sort((a,b)=>b.length-a.length).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
-  const RX=new RegExp('('+tokens.join('|')+')','g');
+  const RX=/(🌅|🌙|✝️|✝)/g;
   const SKIP=new Set(['SCRIPT','STYLE','TEXTAREA','INPUT','SELECT','OPTION','CANVAS','NOSCRIPT']);
   function makeIcon(token){
-    const cfg=ICONS[token]; if(!cfg)return document.createTextNode(token);
-    const img=document.createElement('img'); img.src=cfg.src; img.className='inline-faith-icon-v3193 definitive-icon-v2244';
-    img.alt=''; img.setAttribute('aria-label',cfg.label); img.decoding='async'; return img;
+    const cfg=ICONS[token];
+    if(!cfg)return document.createTextNode(token);
+    if(cfg.kind==='img'){
+      const img=document.createElement('img');
+      img.src=cfg.src; img.className=cfg.cls; img.alt=''; img.setAttribute('aria-label',cfg.label); img.decoding='async';
+      return img;
+    }
+    const span=document.createElement('span'); span.className=cfg.cls; span.setAttribute('aria-label',cfg.label); return span;
   }
   function replaceNode(node){
     const parent=node.parentElement;
-    if(!parent||SKIP.has(parent.tagName)||parent.closest('.no-global-faith-icons-v3193,.ov2-logo,.prayer-cross-top-v3176,.header-cross-v3175,.reader-end-card'))return;
-    const text=node.nodeValue||''; if(!RX.test(text)){RX.lastIndex=0;return;} RX.lastIndex=0;
+    if(!parent||SKIP.has(parent.tagName)||parent.closest('.no-global-faith-icons-v3193'))return;
+    const text=node.nodeValue||'';
+    if(!RX.test(text)){RX.lastIndex=0;return;} RX.lastIndex=0;
     const frag=document.createDocumentFragment(); let last=0,m;
-    while((m=RX.exec(text))){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));frag.appendChild(makeIcon(m[0]));last=m.index+m[0].length;}
-    if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.replaceWith(frag);
+    while((m=RX.exec(text))){
+      if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));
+      frag.appendChild(makeIcon(m[0])); last=m.index+m[0].length;
+    }
+    if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));
+    node.replaceWith(frag);
   }
-  function scan(root){if(!root)return;if(root.nodeType===3){replaceNode(root);return;}if(root.nodeType!==1&&root.nodeType!==9&&root.nodeType!==11)return;const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];let n;while((n=walker.nextNode()))nodes.push(n);nodes.forEach(replaceNode);}
-  function start(){scan(document.body);const obs=new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(scan)));obs.observe(document.body,{childList:true,subtree:true});}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+  function scan(root){
+    if(!root)return;
+    if(root.nodeType===3){replaceNode(root);return;}
+    if(root.nodeType!==1&&root.nodeType!==9&&root.nodeType!==11)return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[]; let n; while((n=walker.nextNode()))nodes.push(n);
+    nodes.forEach(replaceNode);
+  }
+  function start(){
+    scan(document.body);
+    const obs=new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(scan)));
+    obs.observe(document.body,{childList:true,subtree:true});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
-
-/* ===== V2 LAB 220 — conserva la transición estable de V2.219 ===== */
-(function(){
-  if(window.__v2220StableViewSwitch) return;
-  window.__v2220StableViewSwitch = true;
-
-  document.addEventListener('click', function(ev){
-    try{
-      if(!document.body.classList.contains('home-active-v9019')) return;
-      var btn = ev.target && ev.target.closest ? ev.target.closest('button') : null;
-      if(!btn) return;
-      var inMainNavigation = btn.matches('[data-view-btn], #tabPrayers, #tabNotes, #tabGuides, #tabVerses, #tabParables, #tabPsalms');
-      if(!inMainNavigation) return;
-      if(btn.id === 'btnTheme' || btn.id === 'btnMainMore') return;
-
-      document.body.classList.add('view-switching-v2220');
-      var home = document.getElementById('homeView');
-      if(home) home.classList.add('hidden');
-
-      requestAnimationFrame(function(){
-        requestAnimationFrame(function(){
-          setTimeout(function(){
-            document.body.classList.remove('view-switching-v2220');
-          }, 40);
-        });
-      });
-    }catch(_e){}
-  }, true);
-})();
-
-/* V2 LAB 245 · Galería de iconos cristianos */
-const CHRISTIAN_ICONS_V242 = [
-  {name:'Oración',src:'icon-oracion.png',meaning:'Comunión con Dios, confianza, arrepentimiento e intercesión.'},
-  {name:'Sabiduría',src:'icon-biblia-cruz.png',meaning:'Sabiduría y discernimiento recibidos de Dios para vivir conforme a su voluntad.'},
-  {name:'Alabanza',src:'icon-alabanza.png',meaning:'Adoración, entrega y reconocimiento de la grandeza de Dios.'},
-  {name:'Gratitud',src:'icon-gratitud.png',meaning:'Un corazón abierto que recibe los dones de Dios con humildad.'},
-  {name:'Espíritu Santo',src:'icon-fuego.png',meaning:'Presencia, poder, guía y obra del Espíritu Santo.'},
-  {name:'Fe y esperanza',src:'icon-paloma.png',meaning:'Confianza en Dios, paz y esperanza en sus promesas.'},
-  {name:'Reino de Dios',src:'icon-reino.png',meaning:'La soberanía de Cristo y su Reino eterno.'},
-  {name:'Creación',src:'icon-creacion-rama.png',meaning:'La belleza y vida de toda la obra creada por Dios.'},
-  {name:'Justicia',src:'icon-justicia.png',meaning:'La justicia perfecta de Dios, unida a su verdad y misericordia.'},
-  {name:'Vida eterna',src:'icon-vida-eterna.png',meaning:'La esperanza de resurrección y comunión eterna con Dios.'},
-  {name:'Confianza',src:'icon-confianza.png',meaning:'El corazón protegido por la cruz descansa en la fidelidad de Dios.'},
-  {name:'Amor',src:'icon-amor.png',meaning:'El amor de Dios revelado en Cristo y compartido con el prójimo.'},
-  {name:'Mañana',src:'icon-manana.png',meaning:'Un nuevo día iluminado por la Palabra de Dios.'},
-  {name:'Noche',src:'icon-noche.png',meaning:'Descanso, silencio y confianza bajo el cuidado de Dios.'},
-  {name:'Guía',src:'icon-pergamino.png',meaning:'Enseñanza y orientación para caminar según la voluntad de Dios.'},
-  {name:'Misericordia',src:'icon-misericordia.png',meaning:'La compasión de Dios recibida y ofrecida a los demás.'},
-  {name:'Salvación',src:'icon-cruz-etiope.png',meaning:'La victoria de Jesucristo y la esperanza de salvación.'},
-  {name:'Tristeza y desánimo',src:'icon-santidad.png',meaning:'El lirio expresa el consuelo, el cuidado y la esperanza que Dios concede en la tristeza.'},
-  {name:'Crecimiento espiritual',src:'icon-crecimiento.png',meaning:'La fe que germina, echa raíces y produce fruto.'},
-  {name:'Salmos',src:'icon-salmos.png',meaning:'Alabanza, oración y canto inspirado dirigido a Dios.'},
-  {name:'Biblia',src:'icon-biblia-abierta.png',meaning:'Lectura y meditación diaria de las Sagradas Escrituras.'},
-  {name:'Protección',src:'icon-proteccion.png',meaning:'Cristo como refugio y protección en las pruebas.'},
-  {name:'Fortaleza',src:'cat-fortaleza.png',meaning:'Dios es roca firme y concede fuerzas para permanecer.'},
-  {name:'Lucha espiritual',src:'cat-fortaleza.png',meaning:'Permanecer firme sobre la roca en medio del combate espiritual.'},
-  {name:'Preocupación y ansiedad',src:'icon-ansiedad.png',meaning:'El gorrión recuerda que Dios cuida incluso de las criaturas más pequeñas.'},
-  {name:'Resurrección',src:'icon-resurreccion.png',meaning:'La cruz vacía proclama la victoria de Cristo sobre la muerte.'},
-  {name:'Mundo',src:'icon-mundo.png',meaning:'La creación y la intercesión por todos los pueblos de la tierra.'},
-  {name:'Familia',src:'icon-familia.png',meaning:'El hogar sostenido, protegido y bendecido por Dios.'}
-];
-function closeChristianIconsV242(){const el=document.getElementById('iconGalleryOverlayV242');if(el)el.remove();}
-function openChristianIconsV242(){
-  closeChristianIconsV242();
-  const overlay=document.createElement('div');
-  overlay.id='iconGalleryOverlayV242';overlay.className='icon-gallery-overlay-v242';
-  overlay.onclick=e=>{if(e.target===overlay)closeChristianIconsV242();};
-  const cards=CHRISTIAN_ICONS_V242.map((it,i)=>'<button class="icon-gallery-item-v242" type="button" onclick="openChristianIconDetailV242('+i+')"><img src="'+it.src+'?v=245" alt=""><span>'+escapeHtml(it.name)+'</span></button>').join('');
-  overlay.innerHTML='<div class="icon-gallery-shell-v242" id="iconGalleryShellV242"><div class="icon-gallery-head-v242"><button class="icon-gallery-close-v242" type="button" onclick="closeChristianIconsV242()">← Volver</button><h2>Iconos cristianos</h2><span style="width:76px"></span></div><div class="icon-gallery-intro-v242">Colección oficial de iconos de la aplicación. Pulse cualquiera para verlo en grande y conocer su significado.</div><div class="icon-gallery-grid-v242">'+cards+'</div></div>';
-  document.body.appendChild(overlay);
-}
-function openChristianIconDetailV242(index){
-  const it=CHRISTIAN_ICONS_V242[index],shell=document.getElementById('iconGalleryShellV242');if(!it||!shell)return;
-  const old=document.getElementById('iconDetailV242');if(old)old.remove();
-  const detail=document.createElement('div');detail.id='iconDetailV242';detail.className='icon-detail-v242';
-  detail.innerHTML='<div class="icon-detail-top-v242"><button class="icon-detail-back-v242" type="button" onclick="closeChristianIconDetailV242()">← Galería</button><button class="icon-detail-close-v242" type="button" onclick="closeChristianIconsV242()">Cerrar</button></div><img id="iconDetailImageV242" class="icon-detail-image-v242" src="'+it.src+'?v=245" alt="'+escapeHtml(it.name)+'" onclick="this.classList.toggle(\'zoomed\')"><div class="icon-detail-title-v242">'+escapeHtml(it.name)+'</div><div class="icon-detail-meaning-v242">'+escapeHtml(it.meaning)+'</div><div class="icon-detail-caption-v242">Colección oficial de iconos cristianos de la aplicación</div><div class="icon-detail-hint-v242">Pulse el icono para ampliar o reducir.</div>';
-  shell.style.position='relative';shell.appendChild(detail);
-}
-function closeChristianIconDetailV242(){const el=document.getElementById('iconDetailV242');if(el)el.remove();}

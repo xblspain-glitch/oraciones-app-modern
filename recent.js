@@ -136,7 +136,7 @@ function recentKindLabel(item){
   if(item.kind === "festivityPassage")return "📅 Festividad · 📖 Pasaje";
   if(item.kind === "festivity")return "📅 Festividad";
   if(item.section === "verses")return "❤️ Versículo";
-  if(item.section === "prayers")return "🙏🏾 Oración";
+  if(item.section === "prayers")return "✝️ Oración";
   if(item.section === "notes")return "📝 Nota";
   if(item.section === "guides")return "📜 Guía";
 

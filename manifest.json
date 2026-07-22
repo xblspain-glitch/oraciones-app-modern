@@ -1,8 +1,8 @@
 {
-  "name": "Oraciones V2 LAB 244 · Iconos definitivos",
-  "short_name": "Oraciones LAB244",
-  "id": "/oraciones-v2-lab-227",
-  "start_url": "./?v2lab=243",
+  "name": "Oraciones V3",
+  "short_name": "Oraciones V3",
+  "id": "./oraciones-v3-lab",
+  "start_url": "./?v=oraciones-v3-1-110-category-first-groups",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -22,6 +22,6 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "2.43",
-  "build": "v2-lab-243-cache-clean-gallery-heart"
+  "version": "3.1.200",
+  "build": "tarjeta-final-limpia"
 }
