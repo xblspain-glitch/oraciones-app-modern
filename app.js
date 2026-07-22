@@ -11769,7 +11769,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V3.1.193 — iconos ilustrados globales: Mañana, Noche y Cruz ===== */
+/* ===== V3.1.208 — la cruz ilustrada se conserva; 🌅 y 🌙 son emojis reales ===== */
 (function(){
   const ICONS={
     '✝️':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'},
@@ -11780,12 +11780,9 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   function makeIcon(token){
     const cfg=ICONS[token];
     if(!cfg)return document.createTextNode(token);
-    if(cfg.kind==='img'){
-      const img=document.createElement('img');
-      img.src=cfg.src; img.className=cfg.cls; img.alt=''; img.setAttribute('aria-label',cfg.label); img.decoding='async';
-      return img;
-    }
-    const span=document.createElement('span'); span.className=cfg.cls; span.setAttribute('aria-label',cfg.label); return span;
+    const span=document.createElement('span');
+    span.className=cfg.cls; span.setAttribute('aria-label',cfg.label);
+    return span;
   }
   function replaceNode(node){
     const parent=node.parentElement;
@@ -11814,4 +11811,4 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     obs.observe(document.body,{childList:true,subtree:true});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
-})();
+})();;
