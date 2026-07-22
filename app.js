@@ -4037,22 +4037,17 @@ async function shareVerseCard(){
 
     const categoryPlainV2221=((typeof categoryPlainLabelV2221==="function")?categoryPlainLabelV2221(category):category).toLocaleUpperCase("es-ES");
     const categoryAssetV2221=(typeof categoryIconAssetV2221==="function")?categoryIconAssetV2221(item&&item.category,category):"";
-    ctx.font="48px Georgia, serif";
+    ctx.font="44px Georgia, serif";
+    ctx.textAlign="center";
     if(categoryAssetV2221){
       try{
-        const categoryImageV2221=await loadCardLogoImage(categoryAssetV2221);
-        const tw=ctx.measureText(categoryPlainV2221).width;
-        const iconSize=76;
-        const gap=0;
-        const total=tw;
-        const startX=540-total/2;
-        
-        ctx.textAlign="left";
-        ctx.fillText(categoryPlainV2221,534,742);
-        ctx.textAlign="center";
-      }catch(_catIconError){ctx.fillText(categoryPlainV2221,534,742);}
+        await loadCardLogoImage(categoryAssetV2221);
+        ctx.fillText(categoryPlainV2221,540,742);
+      }catch(_catIconError){
+        ctx.fillText(categoryPlainV2221,540,742);
+      }
     }else{
-      ctx.fillText(categoryPlainV2221,534,742);
+      ctx.fillText(categoryPlainV2221,540,742);
     }
 
     ctx.font="bold 74px Georgia, serif";
