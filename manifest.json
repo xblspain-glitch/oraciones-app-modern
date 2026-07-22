@@ -21,5 +21,7 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "version": "2.35",
+  "build": "v2-lab-235-cache-limpia"
 }

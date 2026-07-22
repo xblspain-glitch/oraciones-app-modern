@@ -1,3 +1,4 @@
+const BUILD_V235_CACHE_BUST = "v2-lab-235-cache-limpia";
 /* Oraciones V3 LAB - app.js paso 45: limpieza render de versículos */
 
 /* ===== PWA / INSTALACIÓN ===== */
