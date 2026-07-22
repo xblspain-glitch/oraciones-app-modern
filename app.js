@@ -11780,7 +11780,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     '🤲🏾':{src:'icon-gratitud.png'+V,label:'Gratitud'}, '🤲':{src:'icon-gratitud.png'+V,label:'Gratitud'},
     '🤝🏾':{src:'icon-misericordia.png'+V,label:'Misericordia'}, '🤝':{src:'icon-misericordia.png'+V,label:'Misericordia'},
     '🕊️':{src:'icon-paloma.png'+V,label:'Paz y esperanza'}, '🕊':{src:'icon-paloma.png'+V,label:'Paz y esperanza'},
-    '🔥':{src:'icon-fuego.png'+V,label:'Espíritu Santo'}, '👑':{src:'icon-reino.png'+V,label:'Reino de Dios'},
+    '🔥':{src:'icon-paloma.png'+V,label:'Espíritu Santo'}, '👑':{src:'icon-reino.png'+V,label:'Reino de Dios'},
     '⚖️':{src:'icon-justicia.png'+V,label:'Justicia'}, '⚖':{src:'icon-justicia.png'+V,label:'Justicia'},
     '🌿':{src:'icon-creacion-rama.png'+V,label:'Creación y descanso'}, '🌱':{src:'icon-crecimiento.png'+V,label:'Crecimiento'},
     '📖':{src:'icon-biblia-abierta.png'+V,label:'Biblia'}, '📚':{src:'icon-biblia-cruz.png'+V,label:'Sabiduría'},
@@ -11841,35 +11841,28 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }, true);
 })();
 
-/* V2 LAB 242 · Galería de iconos cristianos */
+/* V2 LAB 245 · Galería de iconos cristianos */
 const CHRISTIAN_ICONS_V242 = [
   {name:'Oración',src:'icon-oracion.png',meaning:'Comunión con Dios, confianza, arrepentimiento e intercesión.'},
-  {name:'Biblia',src:'icon-biblia-cruz.png',meaning:'La Palabra de Dios iluminada por la cruz de Cristo.'},
+  {name:'Sabiduría',src:'icon-biblia-cruz.png',meaning:'Sabiduría y discernimiento recibidos de Dios para vivir conforme a su voluntad.'},
   {name:'Alabanza',src:'icon-alabanza.png',meaning:'Adoración, entrega y reconocimiento de la grandeza de Dios.'},
   {name:'Gratitud',src:'icon-gratitud.png',meaning:'Un corazón abierto que recibe los dones de Dios con humildad.'},
   {name:'Espíritu Santo',src:'icon-paloma.png',meaning:'Presencia, paz, guía y consuelo del Espíritu Santo.'},
-  {name:'Pentecostés',src:'icon-fuego.png',meaning:'El fuego del Espíritu Santo que fortalece y santifica.'},
   {name:'Reino de Dios',src:'icon-reino.png',meaning:'La soberanía de Cristo y su Reino eterno.'},
   {name:'Creación',src:'icon-creacion-rama.png',meaning:'La belleza y vida de toda la obra creada por Dios.'},
   {name:'Justicia',src:'icon-justicia.png',meaning:'La justicia perfecta de Dios, unida a su verdad y misericordia.'},
   {name:'Vida eterna',src:'icon-vida-eterna.png',meaning:'La esperanza de resurrección y comunión eterna con Dios.'},
-  {name:'Nueva Jerusalén',src:'icon-nueva-jerusalen.png',meaning:'La ciudad santa y el cumplimiento final de las promesas de Dios.'},
   {name:'Confianza',src:'icon-confianza.png',meaning:'El corazón protegido por la cruz descansa en la fidelidad de Dios.'},
   {name:'Amor',src:'icon-amor.png',meaning:'El amor de Dios revelado en Cristo y compartido con el prójimo.'},
-  {name:'Notas',src:'icon-notas.png',meaning:'Espacio personal para conservar pensamientos y reflexiones.'},
   {name:'Mañana',src:'icon-manana.png',meaning:'Un nuevo día iluminado por la Palabra de Dios.'},
   {name:'Noche',src:'icon-noche.png',meaning:'Descanso, silencio y confianza bajo el cuidado de Dios.'},
-  {name:'Día y noche',src:'icon-dia-noche.png',meaning:'La oración constante durante toda la jornada.'},
   {name:'Guía',src:'icon-pergamino.png',meaning:'Enseñanza y orientación para caminar según la voluntad de Dios.'},
   {name:'Misericordia',src:'icon-misericordia.png',meaning:'La compasión de Dios recibida y ofrecida a los demás.'},
   {name:'Salvación',src:'icon-cruz-etiope.png',meaning:'La victoria de Jesucristo y la esperanza de salvación.'},
   {name:'Santidad',src:'icon-santidad.png',meaning:'Pureza, consagración y vida dedicada a Dios.'},
   {name:'Crecimiento espiritual',src:'icon-crecimiento.png',meaning:'La fe que germina, echa raíces y produce fruto.'},
   {name:'Salmos',src:'icon-salmos.png',meaning:'Alabanza, oración y canto inspirado dirigido a Dios.'},
-  {name:'Lectura bíblica',src:'icon-biblia-abierta.png',meaning:'Lectura y meditación diaria de las Sagradas Escrituras.'},
-  {name:'Papelera',src:'icon-papelera.png',meaning:'Elementos eliminados que todavía pueden recuperarse.'},
-  {name:'Copia de seguridad',src:'icon-backup.png',meaning:'Protección y recuperación de los datos personales de la aplicación.'},
-  {name:'Buscar',src:'icon-lupa.png',meaning:'Búsqueda rápida dentro de todo el contenido.'},
+  {name:'Biblia',src:'icon-biblia-abierta.png',meaning:'Lectura y meditación diaria de las Sagradas Escrituras.'},
   {name:'Protección',src:'icon-proteccion.png',meaning:'Cristo como fuerza, refugio y protección en las pruebas.'},
   {name:'Preocupación y ansiedad',src:'icon-ansiedad.png',meaning:'El gorrión recuerda que Dios cuida incluso de las criaturas más pequeñas.'},
   {name:'Resurrección',src:'icon-resurreccion.png',meaning:'La cruz vacía proclama la victoria de Cristo sobre la muerte.'},
@@ -11882,7 +11875,7 @@ function openChristianIconsV242(){
   const overlay=document.createElement('div');
   overlay.id='iconGalleryOverlayV242';overlay.className='icon-gallery-overlay-v242';
   overlay.onclick=e=>{if(e.target===overlay)closeChristianIconsV242();};
-  const cards=CHRISTIAN_ICONS_V242.map((it,i)=>'<button class="icon-gallery-item-v242" type="button" onclick="openChristianIconDetailV242('+i+')"><img src="'+it.src+'?v=242" alt=""><span>'+escapeHtml(it.name)+'</span></button>').join('');
+  const cards=CHRISTIAN_ICONS_V242.map((it,i)=>'<button class="icon-gallery-item-v242" type="button" onclick="openChristianIconDetailV242('+i+')"><img src="'+it.src+'?v=245" alt=""><span>'+escapeHtml(it.name)+'</span></button>').join('');
   overlay.innerHTML='<div class="icon-gallery-shell-v242" id="iconGalleryShellV242"><div class="icon-gallery-head-v242"><button class="icon-gallery-close-v242" type="button" onclick="closeChristianIconsV242()">← Volver</button><h2>Iconos cristianos</h2><span style="width:76px"></span></div><div class="icon-gallery-intro-v242">Colección oficial de iconos de la aplicación. Pulse cualquiera para verlo en grande y conocer su significado.</div><div class="icon-gallery-grid-v242">'+cards+'</div></div>';
   document.body.appendChild(overlay);
 }
@@ -11890,7 +11883,7 @@ function openChristianIconDetailV242(index){
   const it=CHRISTIAN_ICONS_V242[index],shell=document.getElementById('iconGalleryShellV242');if(!it||!shell)return;
   const old=document.getElementById('iconDetailV242');if(old)old.remove();
   const detail=document.createElement('div');detail.id='iconDetailV242';detail.className='icon-detail-v242';
-  detail.innerHTML='<div class="icon-detail-top-v242"><button class="icon-detail-back-v242" type="button" onclick="closeChristianIconDetailV242()">← Galería</button><button class="icon-detail-close-v242" type="button" onclick="closeChristianIconsV242()">Cerrar</button></div><img id="iconDetailImageV242" class="icon-detail-image-v242" src="'+it.src+'?v=242" alt="'+escapeHtml(it.name)+'" onclick="this.classList.toggle(\'zoomed\')"><div class="icon-detail-title-v242">'+escapeHtml(it.name)+'</div><div class="icon-detail-meaning-v242">'+escapeHtml(it.meaning)+'</div><div class="icon-detail-caption-v242">Colección oficial de iconos cristianos de la aplicación</div><div class="icon-detail-hint-v242">Pulse el icono para ampliar o reducir.</div>';
+  detail.innerHTML='<div class="icon-detail-top-v242"><button class="icon-detail-back-v242" type="button" onclick="closeChristianIconDetailV242()">← Galería</button><button class="icon-detail-close-v242" type="button" onclick="closeChristianIconsV242()">Cerrar</button></div><img id="iconDetailImageV242" class="icon-detail-image-v242" src="'+it.src+'?v=245" alt="'+escapeHtml(it.name)+'" onclick="this.classList.toggle(\'zoomed\')"><div class="icon-detail-title-v242">'+escapeHtml(it.name)+'</div><div class="icon-detail-meaning-v242">'+escapeHtml(it.meaning)+'</div><div class="icon-detail-caption-v242">Colección oficial de iconos cristianos de la aplicación</div><div class="icon-detail-hint-v242">Pulse el icono para ampliar o reducir.</div>';
   shell.style.position='relative';shell.appendChild(detail);
 }
 function closeChristianIconDetailV242(){const el=document.getElementById('iconDetailV242');if(el)el.remove();}

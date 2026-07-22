@@ -22,15 +22,15 @@ const VERSE_CATEGORIES = [
 
 /* ===== V2 LAB 222 — iconos ilustrados de categorías ===== */
 const CATEGORY_ICON_ASSETS_V2221 = {
-  salvacion:'icon-cruz-etiope.png?v=v2-lab-244', fe:'icon-confianza.png?v=v2-lab-244', esperanza:'icon-paloma.png?v=v2-lab-244',
-  fortaleza:'icon-proteccion.png?v=v2-lab-244', amor:'icon-amor.png?v=v2-lab-244', descanso:'icon-noche.png?v=v2-lab-244',
-  sabiduria:'icon-biblia-cruz.png?v=v2-lab-244', alabanza:'icon-alabanza.png?v=v2-lab-244', santidad:'icon-santidad.png?v=v2-lab-244',
-  reino:'icon-reino.png?v=v2-lab-244', espiritu:'icon-fuego.png?v=v2-lab-244', segunda_venida:'icon-vida-eterna.png?v=v2-lab-244',
-  juicio:'icon-justicia.png?v=v2-lab-244', misericordia:'icon-misericordia.png?v=v2-lab-244', vida_eterna:'icon-nueva-jerusalen.png?v=v2-lab-244',
-  oracion:'icon-oracion.png?v=v2-lab-244', dios:'icon-reino.png?v=v2-lab-244', gratitud:'icon-gratitud.png?v=v2-lab-244',
-  sanacion:'icon-crecimiento.png?v=v2-lab-244', paz:'icon-paloma.png?v=v2-lab-244', arrepentimiento:'icon-oracion.png?v=v2-lab-244',
-  matrimonio:'icon-familia.png?v=v2-lab-244', familia:'icon-familia.png?v=v2-lab-244', creacion:'icon-mundo.png?v=v2-lab-244',
-  proteccion:'icon-proteccion.png?v=v2-lab-244', ansiedad:'icon-ansiedad.png?v=v2-lab-244'
+  salvacion:'icon-cruz-etiope.png?v=v2-lab-245', fe:'icon-confianza.png?v=v2-lab-245', esperanza:'icon-paloma.png?v=v2-lab-245',
+  fortaleza:'icon-proteccion.png?v=v2-lab-245', amor:'icon-amor.png?v=v2-lab-245', descanso:'icon-noche.png?v=v2-lab-245',
+  sabiduria:'icon-biblia-cruz.png?v=v2-lab-245', alabanza:'icon-alabanza.png?v=v2-lab-245', santidad:'icon-santidad.png?v=v2-lab-245',
+  reino:'icon-reino.png?v=v2-lab-245', espiritu:'icon-paloma.png?v=v2-lab-245', segunda_venida:'icon-vida-eterna.png?v=v2-lab-245',
+  juicio:'icon-justicia.png?v=v2-lab-245', misericordia:'icon-misericordia.png?v=v2-lab-245', vida_eterna:'icon-vida-eterna.png?v=v2-lab-245',
+  oracion:'icon-oracion.png?v=v2-lab-245', dios:'icon-reino.png?v=v2-lab-245', gratitud:'icon-gratitud.png?v=v2-lab-245',
+  sanacion:'icon-crecimiento.png?v=v2-lab-245', paz:'icon-paloma.png?v=v2-lab-245', arrepentimiento:'icon-oracion.png?v=v2-lab-245',
+  matrimonio:'icon-familia.png?v=v2-lab-245', familia:'icon-familia.png?v=v2-lab-245', creacion:'icon-mundo.png?v=v2-lab-245',
+  proteccion:'icon-proteccion.png?v=v2-lab-245', ansiedad:'icon-ansiedad.png?v=v2-lab-245'
 };
 function categoryPlainLabelV2221(label){
   return String(label||"").replace(/^\s*(?:[\p{Extended_Pictographic}\p{Emoji_Presentation}\uFE0F\u200D\u{1F3FB}-\u{1F3FF}]+)\s*/u,"").trim();
