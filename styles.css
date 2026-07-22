@@ -5195,3 +5195,78 @@ body.view-switching-v3189 #homeView{
   .routine-hub-card-v3192.morning-v3192,
   .routine-hub-card-v3192.night-v3192{width:calc(100vw - 32px)!important}
 }
+
+
+/* ===== V2 Laboratorio 204 — Mañana y Noche vuelven a emojis en toda la app ===== */
+.home-special-emoji-v2204{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:62px;
+  min-width:62px;
+  height:54px;
+  font-size:42px;
+  line-height:1;
+}
+.home-daynight-emojis-v2204{
+  width:66px;
+  min-width:66px;
+  font-size:29px;
+  letter-spacing:-8px;
+  padding-right:8px;
+}
+.routine-title-emojis-v2204{
+  display:inline-block;
+  margin-right:8px;
+  font-size:.88em;
+  letter-spacing:-5px;
+}
+.routine-hub-card-v3192.morning-v3192,
+.routine-hub-card-v3192.night-v3192{
+  position:static!important;
+  isolation:auto!important;
+  overflow:visible!important;
+  width:auto!important;
+  min-height:210px!important;
+  padding:30px 20px!important;
+  justify-content:center!important;
+  gap:10px!important;
+  border-radius:26px!important;
+  background-image:none!important;
+  background-position:initial!important;
+  background-size:auto!important;
+  background-repeat:initial!important;
+  border:1px solid rgba(80,100,70,.14)!important;
+  box-shadow:0 14px 32px rgba(60,70,55,.1)!important;
+}
+.routine-hub-card-v3192.morning-v3192{background:linear-gradient(145deg,#fff9e9,#f8e4b9)!important}
+.routine-hub-card-v3192.night-v3192{background:linear-gradient(145deg,#f1efff,#dcd8f2)!important}
+.routine-hub-card-v3192.morning-v3192::before,
+.routine-hub-card-v3192.night-v3192::before{display:none!important;content:none!important}
+.routine-hub-card-v3192.morning-v3192 .routine-hub-icon-v3192,
+.routine-hub-card-v3192.night-v3192 .routine-hub-icon-v3192{
+  display:block!important;
+  font-size:52px!important;
+  line-height:1!important;
+}
+.routine-hub-card-v3192.morning-v3192 strong,
+.routine-hub-card-v3192.night-v3192 strong{
+  position:static!important;
+  font-size:25px!important;
+  line-height:normal!important;
+  color:inherit!important;
+  text-shadow:none!important;
+}
+.routine-hub-card-v3192.morning-v3192 small,
+.routine-hub-card-v3192.night-v3192 small{
+  position:static!important;
+  font-size:14px!important;
+  color:inherit!important;
+  opacity:.72!important;
+}
+.dark .routine-hub-card-v3192.morning-v3192{background:linear-gradient(145deg,#4b412d,#625235)!important;color:#f4f2ea!important}
+.dark .routine-hub-card-v3192.night-v3192{background:linear-gradient(145deg,#302e46,#44405f)!important;color:#f4f2ea!important}
+@media(max-width:600px){
+  .routine-hub-card-v3192.morning-v3192,
+  .routine-hub-card-v3192.night-v3192{min-height:165px!important}
+}

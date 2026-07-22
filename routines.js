@@ -68,9 +68,9 @@
     return type==='verses'?(item.reference||item.title||'Versículo'):(item.title||item.reference||(type==='psalms'?'Salmo':'Oración'));
   }
   function routineMeta(){
-    if(currentRoutine==='morning') return {icon:'🌅',iconHtml:'<span class="routine-editor-icon-wrap-v3192"><img src="icon-rutina-manana-v3191.png?v=v3-1-192" alt=""></span>',title:'Rutina de la mañana',sub:'Prepare su recorrido para comenzar el día con Dios.'};
+    if(currentRoutine==='morning') return {icon:'🌅',iconHtml:'<span class="routine-editor-icon-wrap-v3192 routine-editor-icon-emoji-v3192">🌅</span>',title:'Rutina de la mañana',sub:'Prepare su recorrido para comenzar el día con Dios.'};
     if(currentRoutine==='sabbath') return {icon:'🕯️',iconHtml:'<span class="routine-editor-icon-wrap-v3192 routine-editor-icon-emoji-v3192">🕯️</span>',title:'Rutina de Sabbath',sub:'Prepare su recorrido especial para la mañana del sábado.'};
-    return {icon:'🌙',iconHtml:'<span class="routine-editor-icon-wrap-v3192"><img src="icon-rutina-noche-v3191.png?v=v3-1-192" alt=""></span>',title:'Rutina de la noche',sub:'Prepare su recorrido para terminar el día en la presencia de Dios.'};
+    return {icon:'🌙',iconHtml:'<span class="routine-editor-icon-wrap-v3192 routine-editor-icon-emoji-v3192">🌙</span>',title:'Rutina de la noche',sub:'Prepare su recorrido para terminar el día en la presencia de Dios.'};
   }
 
   var routineChoiceSelectionV3198={};
