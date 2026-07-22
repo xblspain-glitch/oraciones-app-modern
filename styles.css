@@ -5125,3 +5125,73 @@ body.view-switching-v3189 #homeView{
 .category-title-v3199{display:flex;align-items:center;gap:12px;min-width:0}
 .category-icon-v3199{width:48px;height:48px;object-fit:contain;flex:0 0 48px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.20))}
 @media (max-width:600px){.category-icon-v3199{width:44px;height:44px;flex-basis:44px}.category-title-v3199{gap:10px}}
+
+
+/* ===== V2 Laboratorio 201 — portadas integradas en Mañana y Noche ===== */
+.routine-hub-grid-v3192{justify-items:center}
+.routine-hub-card-v3192.morning-v3192,
+.routine-hub-card-v3192.night-v3192{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  width:min(100%,248px);
+  min-height:400px;
+  padding:0 18px 34px!important;
+  justify-content:flex-end!important;
+  gap:8px!important;
+  border-radius:30px!important;
+  background-position:center!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+  border:1px solid rgba(77,78,73,.16)!important;
+  box-shadow:0 15px 34px rgba(43,48,55,.16)!important;
+}
+.routine-hub-card-v3192.morning-v3192{background-image:url("routine-card-morning-v2201.webp")!important}
+.routine-hub-card-v3192.night-v3192{background-image:url("routine-card-night-v2201.webp")!important}
+.routine-hub-card-v3192.morning-v3192::before,
+.routine-hub-card-v3192.night-v3192::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+}
+.routine-hub-card-v3192.morning-v3192::before{
+  background:linear-gradient(to bottom,transparent 0%,transparent 60%,rgba(255,226,157,.14) 68%,rgba(255,220,137,.88) 82%,rgba(255,218,128,.98) 100%);
+}
+.routine-hub-card-v3192.night-v3192::before{
+  background:linear-gradient(to bottom,transparent 0%,transparent 60%,rgba(115,91,166,.12) 68%,rgba(151,124,205,.87) 82%,rgba(157,129,211,.97) 100%);
+}
+.routine-hub-card-v3192.morning-v3192 .routine-hub-image-wrap-v3190,
+.routine-hub-card-v3192.night-v3192 .routine-hub-image-wrap-v3190{display:none!important}
+.routine-hub-card-v3192.morning-v3192 strong,
+.routine-hub-card-v3192.night-v3192 strong{
+  position:relative;
+  z-index:1;
+  font-size:35px!important;
+  line-height:1.05;
+  color:#17130e!important;
+  text-shadow:0 1px 1px rgba(255,255,255,.26);
+}
+.routine-hub-card-v3192.morning-v3192 small,
+.routine-hub-card-v3192.night-v3192 small{
+  position:relative;
+  z-index:1;
+  font-size:18px!important;
+  color:#39332c!important;
+  opacity:.92!important;
+}
+.dark .routine-hub-card-v3192.morning-v3192,
+.dark .routine-hub-card-v3192.night-v3192{color:inherit!important}
+@media(max-width:600px){
+  .routine-hub-grid-v3192{gap:32px!important}
+  .routine-hub-card-v3192.morning-v3192,
+  .routine-hub-card-v3192.night-v3192{
+    width:248px!important;
+    min-height:400px!important;
+  }
+}
+@media(max-width:300px){
+  .routine-hub-card-v3192.morning-v3192,
+  .routine-hub-card-v3192.night-v3192{width:calc(100vw - 32px)!important}
+}
