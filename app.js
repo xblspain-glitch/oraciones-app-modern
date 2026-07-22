@@ -11767,65 +11767,50 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V2 LAB 237 — colección ilustrada global aprobada ===== */
+/* ===== V2 LAB 244 — colección definitiva de iconos en toda la aplicación ===== */
 (function(){
-  if(window.__v2237GlobalApprovedIcons) return;
-  window.__v2237GlobalApprovedIcons=true;
+  if(window.__v2244GlobalDefinitiveIcons) return;
+  window.__v2244GlobalDefinitiveIcons=true;
+  const V='?v=v2-lab-244-iconos-definitivos';
   const ICONS={
-    '🌅':{src:'icon-manana-global-v3193.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-faith-icon-morning-v3193',label:'Mañana'},
-    '🌙':{src:'icon-noche-global-v3193.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-faith-icon-night-v3193',label:'Noche'},
-    '❤️':{src:'cat-amor.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-heart-v2237',label:'Amor'},
-    '✝️':{src:'cat-salvacion.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-cross-v2237',label:'Salvación'},
-    '✝':{src:'cat-salvacion.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-cross-v2237',label:'Salvación'},
-    '💪🏾':{src:'cat-fortaleza.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-rock-v2237',label:'Fortaleza'},
-    '💪':{src:'cat-fortaleza.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-rock-v2237',label:'Fortaleza'},
-    '🙌🏾':{src:'cat-alabanza.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-praise-v2237',label:'Alabanza'},
-    '🙌':{src:'cat-alabanza.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-praise-v2237',label:'Alabanza'},
-    '🤲🏾':{src:'cat-gratitud.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-mercy-v2237',label:'Gratitud y misericordia'},
-    '🤲':{src:'cat-gratitud.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-mercy-v2237',label:'Gratitud y misericordia'},
-    '🤝🏾':{src:'cat-misericordia.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-mercy-v2237',label:'Servicio y misericordia'},
-    '🤝':{src:'cat-misericordia.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-mercy-v2237',label:'Servicio y misericordia'},
-    '🙏🏾':{src:'cat-oracion.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-prayer-v2237',label:'Oración'},
-    '🙏':{src:'cat-oracion.png?v=v2-lab-243-cache-clean-gallery-heart',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-prayer-v2237',label:'Oración'}
+    '🌅':{src:'icon-manana.png'+V,label:'Mañana'}, '🌙':{src:'icon-noche.png'+V,label:'Noche'},
+    '❤️':{src:'icon-amor.png'+V,label:'Amor'}, '✝️':{src:'icon-cruz-etiope.png'+V,label:'Salvación'}, '✝':{src:'icon-cruz-etiope.png'+V,label:'Salvación'},
+    '🙏🏾':{src:'icon-oracion.png'+V,label:'Oración'}, '🙏':{src:'icon-oracion.png'+V,label:'Oración'},
+    '🙌🏾':{src:'icon-alabanza.png'+V,label:'Alabanza'}, '🙌':{src:'icon-alabanza.png'+V,label:'Alabanza'},
+    '🤲🏾':{src:'icon-gratitud.png'+V,label:'Gratitud'}, '🤲':{src:'icon-gratitud.png'+V,label:'Gratitud'},
+    '🤝🏾':{src:'icon-misericordia.png'+V,label:'Misericordia'}, '🤝':{src:'icon-misericordia.png'+V,label:'Misericordia'},
+    '🕊️':{src:'icon-paloma.png'+V,label:'Paz y esperanza'}, '🕊':{src:'icon-paloma.png'+V,label:'Paz y esperanza'},
+    '🔥':{src:'icon-fuego.png'+V,label:'Espíritu Santo'}, '👑':{src:'icon-reino.png'+V,label:'Reino de Dios'},
+    '⚖️':{src:'icon-justicia.png'+V,label:'Justicia'}, '⚖':{src:'icon-justicia.png'+V,label:'Justicia'},
+    '🌿':{src:'icon-creacion-rama.png'+V,label:'Creación y descanso'}, '🌱':{src:'icon-crecimiento.png'+V,label:'Crecimiento'},
+    '📖':{src:'icon-biblia-abierta.png'+V,label:'Biblia'}, '📚':{src:'icon-biblia-cruz.png'+V,label:'Sabiduría'},
+    '📜':{src:'icon-pergamino.png'+V,label:'Guía'}, '📝':{src:'icon-notas.png'+V,label:'Notas'},
+    '🗑️':{src:'icon-papelera.png'+V,label:'Papelera'}, '🗑':{src:'icon-papelera.png'+V,label:'Papelera'},
+    '🔍':{src:'icon-lupa.png'+V,label:'Buscar'}, '🌍':{src:'icon-mundo.png'+V,label:'Mundo'},
+    '⏳':{src:'icon-vida-eterna.png'+V,label:'Vida eterna'}, '♫':{src:'icon-salmos.png'+V,label:'Salmos'}, '🎼':{src:'icon-salmos.png'+V,label:'Salmos'},
+    '💪🏾':{src:'icon-proteccion.png'+V,label:'Fortaleza y protección'}, '💪':{src:'icon-proteccion.png'+V,label:'Fortaleza y protección'},
+    '✨':{src:'icon-confianza.png'+V,label:'Fe y esperanza'}, '♻️':{src:'icon-backup.png'+V,label:'Copia de seguridad'}, '♻':{src:'icon-backup.png'+V,label:'Copia de seguridad'}
   };
-  const RX=/(🌅|🌙|❤️|✝️|✝|💪🏾|💪|🙌🏾|🙌|🤲🏾|🤲|🙏🏾|🙏)/g;
+  const tokens=Object.keys(ICONS).sort((a,b)=>b.length-a.length).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
+  const RX=new RegExp('('+tokens.join('|')+')','g');
   const SKIP=new Set(['SCRIPT','STYLE','TEXTAREA','INPUT','SELECT','OPTION','CANVAS','NOSCRIPT']);
   function makeIcon(token){
-    const cfg=ICONS[token];
-    if(!cfg)return document.createTextNode(token);
-    const img=document.createElement('img');
-    img.src=cfg.src; img.className=cfg.cls; img.alt=''; img.setAttribute('aria-label',cfg.label); img.decoding='async';
-    return img;
+    const cfg=ICONS[token]; if(!cfg)return document.createTextNode(token);
+    const img=document.createElement('img'); img.src=cfg.src; img.className='inline-faith-icon-v3193 definitive-icon-v2244';
+    img.alt=''; img.setAttribute('aria-label',cfg.label); img.decoding='async'; return img;
   }
   function replaceNode(node){
     const parent=node.parentElement;
     if(!parent||SKIP.has(parent.tagName)||parent.closest('.no-global-faith-icons-v3193,.ov2-logo,.prayer-cross-top-v3176,.header-cross-v3175,.reader-end-card'))return;
-    const text=node.nodeValue||'';
-    if(!RX.test(text)){RX.lastIndex=0;return;} RX.lastIndex=0;
+    const text=node.nodeValue||''; if(!RX.test(text)){RX.lastIndex=0;return;} RX.lastIndex=0;
     const frag=document.createDocumentFragment(); let last=0,m;
-    while((m=RX.exec(text))){
-      if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));
-      frag.appendChild(makeIcon(m[0])); last=m.index+m[0].length;
-    }
-    if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));
-    node.replaceWith(frag);
+    while((m=RX.exec(text))){if(m.index>last)frag.appendChild(document.createTextNode(text.slice(last,m.index)));frag.appendChild(makeIcon(m[0]));last=m.index+m[0].length;}
+    if(last<text.length)frag.appendChild(document.createTextNode(text.slice(last)));node.replaceWith(frag);
   }
-  function scan(root){
-    if(!root)return;
-    if(root.nodeType===3){replaceNode(root);return;}
-    if(root.nodeType!==1&&root.nodeType!==9&&root.nodeType!==11)return;
-    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
-    const nodes=[]; let n; while((n=walker.nextNode()))nodes.push(n);
-    nodes.forEach(replaceNode);
-  }
-  function start(){
-    scan(document.body);
-    const obs=new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(scan)));
-    obs.observe(document.body,{childList:true,subtree:true});
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
+  function scan(root){if(!root)return;if(root.nodeType===3){replaceNode(root);return;}if(root.nodeType!==1&&root.nodeType!==9&&root.nodeType!==11)return;const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const nodes=[];let n;while((n=walker.nextNode()))nodes.push(n);nodes.forEach(replaceNode);}
+  function start(){scan(document.body);const obs=new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(scan)));obs.observe(document.body,{childList:true,subtree:true});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
-
 
 /* ===== V2 LAB 220 — conserva la transición estable de V2.219 ===== */
 (function(){
@@ -11858,21 +11843,38 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 
 /* V2 LAB 242 · Galería de iconos cristianos */
 const CHRISTIAN_ICONS_V242 = [
-  {name:'Alabanza',src:'cat-alabanza.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Las manos elevadas expresan adoración, entrega y reconocimiento de la grandeza de Dios.'},
-  {name:'Amor',src:'cat-amor.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'El corazón con la cruz etíope representa el amor de Dios revelado en Cristo y el llamado a amar al prójimo.'},
-  {name:'Salvación',src:'cat-salvacion.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'La cruz etíope recuerda la victoria de Jesucristo, su sacrificio y la esperanza de salvación.'},
-  {name:'Fortaleza',src:'cat-fortaleza.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'La roca representa firmeza, refugio y la fuerza que procede de Dios en medio de las pruebas.'},
-  {name:'Oración',src:'cat-oracion.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Las manos unidas representan comunión con Dios, confianza, arrepentimiento e intercesión.'},
-  {name:'Gratitud',src:'cat-gratitud.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Las manos abiertas simbolizan un corazón agradecido que recibe los dones de Dios con humildad.'},
-  {name:'Misericordia',src:'cat-misericordia.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Las manos abiertas expresan compasión, servicio y disposición para dar y recibir misericordia.'},
-  {name:'Esperanza',src:'cat-esperanza.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Representa la confianza perseverante en las promesas de Dios y en la vida que Él prepara.'},
-  {name:'Espíritu Santo',src:'cat-espiritu-santo.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Recuerda la presencia, guía, consuelo y obra santificadora del Espíritu Santo.'},
-  {name:'Sabiduría',src:'cat-sabiduria.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Representa la sabiduría que viene de Dios y orienta la vida conforme a su voluntad.'},
-  {name:'Reino',src:'cat-reino.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'La corona proclama el reinado de Dios y la soberanía de Cristo sobre toda la creación.'},
-  {name:'Descanso',src:'cat-descanso.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Evoca la paz de descansar en la fidelidad, la palabra y las promesas de Dios.'},
-  {name:'Juicio',src:'cat-juicio.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Representa la justicia perfecta de Dios, que juzga con verdad, santidad y misericordia.'},
-  {name:'Segunda venida',src:'cat-segunda-venida.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Expresa la esperanza cristiana en el regreso glorioso de Jesucristo.'},
-  {name:'Vida eterna',src:'cat-vida-eterna.png?v=v2-lab-243-cache-clean-gallery-heart',meaning:'Representa la promesa de resurrección, comunión eterna con Dios y la Nueva Jerusalén.'}
+  {name:'Oración',src:'icon-oracion.png',meaning:'Comunión con Dios, confianza, arrepentimiento e intercesión.'},
+  {name:'Biblia',src:'icon-biblia-cruz.png',meaning:'La Palabra de Dios iluminada por la cruz de Cristo.'},
+  {name:'Alabanza',src:'icon-alabanza.png',meaning:'Adoración, entrega y reconocimiento de la grandeza de Dios.'},
+  {name:'Gratitud',src:'icon-gratitud.png',meaning:'Un corazón abierto que recibe los dones de Dios con humildad.'},
+  {name:'Espíritu Santo',src:'icon-paloma.png',meaning:'Presencia, paz, guía y consuelo del Espíritu Santo.'},
+  {name:'Pentecostés',src:'icon-fuego.png',meaning:'El fuego del Espíritu Santo que fortalece y santifica.'},
+  {name:'Reino de Dios',src:'icon-reino.png',meaning:'La soberanía de Cristo y su Reino eterno.'},
+  {name:'Creación',src:'icon-creacion-rama.png',meaning:'La belleza y vida de toda la obra creada por Dios.'},
+  {name:'Justicia',src:'icon-justicia.png',meaning:'La justicia perfecta de Dios, unida a su verdad y misericordia.'},
+  {name:'Vida eterna',src:'icon-vida-eterna.png',meaning:'La esperanza de resurrección y comunión eterna con Dios.'},
+  {name:'Nueva Jerusalén',src:'icon-nueva-jerusalen.png',meaning:'La ciudad santa y el cumplimiento final de las promesas de Dios.'},
+  {name:'Confianza',src:'icon-confianza.png',meaning:'El corazón protegido por la cruz descansa en la fidelidad de Dios.'},
+  {name:'Amor',src:'icon-amor.png',meaning:'El amor de Dios revelado en Cristo y compartido con el prójimo.'},
+  {name:'Notas',src:'icon-notas.png',meaning:'Espacio personal para conservar pensamientos y reflexiones.'},
+  {name:'Mañana',src:'icon-manana.png',meaning:'Un nuevo día iluminado por la Palabra de Dios.'},
+  {name:'Noche',src:'icon-noche.png',meaning:'Descanso, silencio y confianza bajo el cuidado de Dios.'},
+  {name:'Día y noche',src:'icon-dia-noche.png',meaning:'La oración constante durante toda la jornada.'},
+  {name:'Guía',src:'icon-pergamino.png',meaning:'Enseñanza y orientación para caminar según la voluntad de Dios.'},
+  {name:'Misericordia',src:'icon-misericordia.png',meaning:'La compasión de Dios recibida y ofrecida a los demás.'},
+  {name:'Salvación',src:'icon-cruz-etiope.png',meaning:'La victoria de Jesucristo y la esperanza de salvación.'},
+  {name:'Santidad',src:'icon-santidad.png',meaning:'Pureza, consagración y vida dedicada a Dios.'},
+  {name:'Crecimiento espiritual',src:'icon-crecimiento.png',meaning:'La fe que germina, echa raíces y produce fruto.'},
+  {name:'Salmos',src:'icon-salmos.png',meaning:'Alabanza, oración y canto inspirado dirigido a Dios.'},
+  {name:'Lectura bíblica',src:'icon-biblia-abierta.png',meaning:'Lectura y meditación diaria de las Sagradas Escrituras.'},
+  {name:'Papelera',src:'icon-papelera.png',meaning:'Elementos eliminados que todavía pueden recuperarse.'},
+  {name:'Copia de seguridad',src:'icon-backup.png',meaning:'Protección y recuperación de los datos personales de la aplicación.'},
+  {name:'Buscar',src:'icon-lupa.png',meaning:'Búsqueda rápida dentro de todo el contenido.'},
+  {name:'Protección',src:'icon-proteccion.png',meaning:'Cristo como fuerza, refugio y protección en las pruebas.'},
+  {name:'Preocupación y ansiedad',src:'icon-ansiedad.png',meaning:'El gorrión recuerda que Dios cuida incluso de las criaturas más pequeñas.'},
+  {name:'Resurrección',src:'icon-resurreccion.png',meaning:'La cruz vacía proclama la victoria de Cristo sobre la muerte.'},
+  {name:'Mundo',src:'icon-mundo.png',meaning:'La creación y la intercesión por todos los pueblos de la tierra.'},
+  {name:'Familia',src:'icon-familia.png',meaning:'El hogar sostenido, protegido y bendecido por Dios.'}
 ];
 function closeChristianIconsV242(){const el=document.getElementById('iconGalleryOverlayV242');if(el)el.remove();}
 function openChristianIconsV242(){

@@ -5175,3 +5175,8 @@ body.view-switching-v2220 #homeView{
 .icon-detail-caption-v242{margin-top:16px;color:#987a50;font-size:13px;text-align:center}
 .icon-detail-hint-v242{margin-top:8px;color:#8a704e;font-size:12px}
 @media(max-width:520px){.icon-gallery-overlay-v242{padding:0}.icon-gallery-shell-v242{border-radius:0;max-height:none}.icon-gallery-grid-v242{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px}.icon-gallery-item-v242{min-height:145px}.icon-gallery-item-v242 img{width:86px;height:86px}}
+
+/* V2 LAB 244 · iconos definitivos */
+.definitive-icon-v2244{width:1.35em;height:1.35em;object-fit:contain;vertical-align:-.3em;margin:0 .12em;filter:none!important;background:transparent!important}
+button .definitive-icon-v2244,.btn .definitive-icon-v2244{width:1.55em;height:1.55em;vertical-align:-.42em}
+.icon-gallery-item-v242 img,.icon-detail-image-v242{object-fit:contain;background:transparent!important}
