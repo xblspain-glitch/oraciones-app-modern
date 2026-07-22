@@ -1444,6 +1444,7 @@ function openMoreMenu(ev){
       '<button type="button" onclick="closeMoreMenu(); openNeverSentStatsMenu()">📭 Nunca enviados</button>' +
       '<button type="button" onclick="closeMoreMenu(); openSentVersesList()">📤 Enviados</button>' +
       '<button type="button" onclick="closeMoreMenu(); openRecentHistory()">🕘 Recientes</button>' +
+      '<button type="button" onclick="closeMoreMenu(); openChristianIconsV242()">✝️ Iconos cristianos</button>' +
       '<button type="button" onclick="closeMoreMenu(); exportCurrentHTML()">🌐 Exportar lectura</button>' +
       '<button type="button" onclick="closeMoreMenu(); openAppCredits()"><img src="icon-192.png" alt="" style="width:20px;height:20px;border-radius:6px;vertical-align:-4px;margin-right:4px"> App / Versión</button>';
 
@@ -11854,3 +11855,40 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     }catch(_e){}
   }, true);
 })();
+
+/* V2 LAB 242 · Galería de iconos cristianos */
+const CHRISTIAN_ICONS_V242 = [
+  {name:'Alabanza',src:'cat-alabanza.png',meaning:'Las manos elevadas expresan adoración, entrega y reconocimiento de la grandeza de Dios.'},
+  {name:'Amor',src:'cat-amor.png',meaning:'El corazón con la cruz etíope representa el amor de Dios revelado en Cristo y el llamado a amar al prójimo.'},
+  {name:'Salvación',src:'cat-salvacion.png',meaning:'La cruz etíope recuerda la victoria de Jesucristo, su sacrificio y la esperanza de salvación.'},
+  {name:'Fortaleza',src:'cat-fortaleza.png',meaning:'La roca representa firmeza, refugio y la fuerza que procede de Dios en medio de las pruebas.'},
+  {name:'Oración',src:'cat-oracion.png',meaning:'Las manos unidas representan comunión con Dios, confianza, arrepentimiento e intercesión.'},
+  {name:'Gratitud',src:'cat-gratitud.png',meaning:'Las manos abiertas simbolizan un corazón agradecido que recibe los dones de Dios con humildad.'},
+  {name:'Misericordia',src:'cat-misericordia.png',meaning:'Las manos abiertas expresan compasión, servicio y disposición para dar y recibir misericordia.'},
+  {name:'Esperanza',src:'cat-esperanza.png',meaning:'Representa la confianza perseverante en las promesas de Dios y en la vida que Él prepara.'},
+  {name:'Espíritu Santo',src:'cat-espiritu-santo.png',meaning:'Recuerda la presencia, guía, consuelo y obra santificadora del Espíritu Santo.'},
+  {name:'Sabiduría',src:'cat-sabiduria.png',meaning:'Representa la sabiduría que viene de Dios y orienta la vida conforme a su voluntad.'},
+  {name:'Reino',src:'cat-reino.png',meaning:'La corona proclama el reinado de Dios y la soberanía de Cristo sobre toda la creación.'},
+  {name:'Descanso',src:'cat-descanso.png',meaning:'Evoca la paz de descansar en la fidelidad, la palabra y las promesas de Dios.'},
+  {name:'Juicio',src:'cat-juicio.png',meaning:'Representa la justicia perfecta de Dios, que juzga con verdad, santidad y misericordia.'},
+  {name:'Segunda venida',src:'cat-segunda-venida.png',meaning:'Expresa la esperanza cristiana en el regreso glorioso de Jesucristo.'},
+  {name:'Vida eterna',src:'cat-vida-eterna.png',meaning:'Representa la promesa de resurrección, comunión eterna con Dios y la Nueva Jerusalén.'}
+];
+function closeChristianIconsV242(){const el=document.getElementById('iconGalleryOverlayV242');if(el)el.remove();}
+function openChristianIconsV242(){
+  closeChristianIconsV242();
+  const overlay=document.createElement('div');
+  overlay.id='iconGalleryOverlayV242';overlay.className='icon-gallery-overlay-v242';
+  overlay.onclick=e=>{if(e.target===overlay)closeChristianIconsV242();};
+  const cards=CHRISTIAN_ICONS_V242.map((it,i)=>'<button class="icon-gallery-item-v242" type="button" onclick="openChristianIconDetailV242('+i+')"><img src="'+it.src+'?v=242" alt=""><span>'+escapeHtml(it.name)+'</span></button>').join('');
+  overlay.innerHTML='<div class="icon-gallery-shell-v242" id="iconGalleryShellV242"><div class="icon-gallery-head-v242"><button class="icon-gallery-close-v242" type="button" onclick="closeChristianIconsV242()">← Volver</button><h2>Iconos cristianos</h2><span style="width:76px"></span></div><div class="icon-gallery-intro-v242">Colección oficial de iconos de la aplicación. Pulse cualquiera para verlo en grande y conocer su significado.</div><div class="icon-gallery-grid-v242">'+cards+'</div></div>';
+  document.body.appendChild(overlay);
+}
+function openChristianIconDetailV242(index){
+  const it=CHRISTIAN_ICONS_V242[index],shell=document.getElementById('iconGalleryShellV242');if(!it||!shell)return;
+  const old=document.getElementById('iconDetailV242');if(old)old.remove();
+  const detail=document.createElement('div');detail.id='iconDetailV242';detail.className='icon-detail-v242';
+  detail.innerHTML='<div class="icon-detail-top-v242"><button class="icon-detail-back-v242" type="button" onclick="closeChristianIconDetailV242()">← Galería</button><button class="icon-detail-close-v242" type="button" onclick="closeChristianIconsV242()">Cerrar</button></div><img id="iconDetailImageV242" class="icon-detail-image-v242" src="'+it.src+'?v=242" alt="'+escapeHtml(it.name)+'" onclick="this.classList.toggle(\'zoomed\')"><div class="icon-detail-title-v242">'+escapeHtml(it.name)+'</div><div class="icon-detail-meaning-v242">'+escapeHtml(it.meaning)+'</div><div class="icon-detail-caption-v242">Colección oficial de iconos cristianos de la aplicación</div><div class="icon-detail-hint-v242">Pulse el icono para ampliar o reducir.</div>';
+  shell.style.position='relative';shell.appendChild(detail);
+}
+function closeChristianIconDetailV242(){const el=document.getElementById('iconDetailV242');if(el)el.remove();}
