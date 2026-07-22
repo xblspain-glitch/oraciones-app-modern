@@ -11766,24 +11766,26 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V2 LAB 236 — colección ilustrada global aprobada ===== */
+/* ===== V2 LAB 237 — colección ilustrada global aprobada ===== */
 (function(){
-  if(window.__v2236GlobalApprovedIcons) return;
-  window.__v2236GlobalApprovedIcons=true;
+  if(window.__v2237GlobalApprovedIcons) return;
+  window.__v2237GlobalApprovedIcons=true;
   const ICONS={
-    '🌅':{src:'icon-manana-global-v3193.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-faith-icon-morning-v3193',label:'Mañana'},
-    '🌙':{src:'icon-noche-global-v3193.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-faith-icon-night-v3193',label:'Noche'},
-    '❤️':{src:'cat-amor.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-heart-v2236',label:'Amor'},
-    '✝️':{src:'cat-salvacion.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-cross-v2236',label:'Salvación'},
-    '✝':{src:'cat-salvacion.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-cross-v2236',label:'Salvación'},
-    '💪🏾':{src:'cat-fortaleza.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-rock-v2236',label:'Fortaleza'},
-    '💪':{src:'cat-fortaleza.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-rock-v2236',label:'Fortaleza'},
-    '🙌🏾':{src:'cat-alabanza.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-praise-v2236',label:'Alabanza'},
-    '🙌':{src:'cat-alabanza.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-praise-v2236',label:'Alabanza'},
-    '🤲🏾':{src:'cat-gratitud.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-mercy-v2236',label:'Gratitud y misericordia'},
-    '🤲':{src:'cat-gratitud.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-mercy-v2236',label:'Gratitud y misericordia'},
-    '🙏🏾':{src:'cat-oracion.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-prayer-v2236',label:'Oración'},
-    '🙏':{src:'cat-oracion.png?v=v2-lab-236',cls:'inline-faith-icon-v3193 inline-approved-icon-v2236 inline-prayer-v2236',label:'Oración'}
+    '🌅':{src:'icon-manana-global-v3193.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-faith-icon-morning-v3193',label:'Mañana'},
+    '🌙':{src:'icon-noche-global-v3193.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-faith-icon-night-v3193',label:'Noche'},
+    '❤️':{src:'cat-amor.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-heart-v2237',label:'Amor'},
+    '✝️':{src:'cat-salvacion.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-cross-v2237',label:'Salvación'},
+    '✝':{src:'cat-salvacion.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-cross-v2237',label:'Salvación'},
+    '💪🏾':{src:'cat-fortaleza.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-rock-v2237',label:'Fortaleza'},
+    '💪':{src:'cat-fortaleza.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-rock-v2237',label:'Fortaleza'},
+    '🙌🏾':{src:'cat-alabanza.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-praise-v2237',label:'Alabanza'},
+    '🙌':{src:'cat-alabanza.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-praise-v2237',label:'Alabanza'},
+    '🤲🏾':{src:'cat-gratitud.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-mercy-v2237',label:'Gratitud y misericordia'},
+    '🤲':{src:'cat-gratitud.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-mercy-v2237',label:'Gratitud y misericordia'},
+    '🤝🏾':{src:'cat-misericordia.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-mercy-v2237',label:'Servicio y misericordia'},
+    '🤝':{src:'cat-misericordia.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-mercy-v2237',label:'Servicio y misericordia'},
+    '🙏🏾':{src:'cat-oracion.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-prayer-v2237',label:'Oración'},
+    '🙏':{src:'cat-oracion.png?v=v2-lab-237',cls:'inline-faith-icon-v3193 inline-approved-icon-v2237 inline-prayer-v2237',label:'Oración'}
   };
   const RX=/(🌅|🌙|❤️|✝️|✝|💪🏾|💪|🙌🏾|🙌|🤲🏾|🤲|🙏🏾|🙏)/g;
   const SKIP=new Set(['SCRIPT','STYLE','TEXTAREA','INPUT','SELECT','OPTION','CANVAS','NOSCRIPT']);
