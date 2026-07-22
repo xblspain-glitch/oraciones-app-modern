@@ -11771,7 +11771,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 (function(){
   if(window.__v2244GlobalDefinitiveIcons) return;
   window.__v2244GlobalDefinitiveIcons=true;
-  const V='?v=v2-lab-244-iconos-definitivos';
+  const V='?v=v2-lab-246-iconos-pulidos';
   const ICONS={
     '🌅':{src:'icon-manana.png'+V,label:'Mañana'}, '🌙':{src:'icon-noche.png'+V,label:'Noche'},
     '❤️':{src:'icon-amor.png'+V,label:'Amor'}, '✝️':{src:'icon-cruz-etiope.png'+V,label:'Salvación'}, '✝':{src:'icon-cruz-etiope.png'+V,label:'Salvación'},
@@ -11780,7 +11780,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     '🤲🏾':{src:'icon-gratitud.png'+V,label:'Gratitud'}, '🤲':{src:'icon-gratitud.png'+V,label:'Gratitud'},
     '🤝🏾':{src:'icon-misericordia.png'+V,label:'Misericordia'}, '🤝':{src:'icon-misericordia.png'+V,label:'Misericordia'},
     '🕊️':{src:'icon-paloma.png'+V,label:'Paz y esperanza'}, '🕊':{src:'icon-paloma.png'+V,label:'Paz y esperanza'},
-    '🔥':{src:'icon-paloma.png'+V,label:'Espíritu Santo'}, '👑':{src:'icon-reino.png'+V,label:'Reino de Dios'},
+    '🔥':{src:'icon-fuego.png'+V,label:'Espíritu Santo'}, '👑':{src:'icon-reino.png'+V,label:'Reino de Dios'},
     '⚖️':{src:'icon-justicia.png'+V,label:'Justicia'}, '⚖':{src:'icon-justicia.png'+V,label:'Justicia'},
     '🌿':{src:'icon-creacion-rama.png'+V,label:'Creación y descanso'}, '🌱':{src:'icon-crecimiento.png'+V,label:'Crecimiento'},
     '📖':{src:'icon-biblia-abierta.png'+V,label:'Biblia'}, '📚':{src:'icon-biblia-cruz.png'+V,label:'Sabiduría'},
@@ -11789,7 +11789,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     '🔍':{src:'icon-lupa.png'+V,label:'Buscar'}, '🌍':{src:'icon-mundo.png'+V,label:'Mundo'},
     '⏳':{src:'icon-vida-eterna.png'+V,label:'Vida eterna'}, '♫':{src:'icon-salmos.png'+V,label:'Salmos'}, '🎼':{src:'icon-salmos.png'+V,label:'Salmos'},
     '💪🏾':{src:'icon-proteccion.png'+V,label:'Fortaleza y protección'}, '💪':{src:'icon-proteccion.png'+V,label:'Fortaleza y protección'},
-    '✨':{src:'icon-confianza.png'+V,label:'Fe y esperanza'}, '♻️':{src:'icon-backup.png'+V,label:'Copia de seguridad'}, '♻':{src:'icon-backup.png'+V,label:'Copia de seguridad'}
+    '✨':{src:'icon-paloma.png'+V,label:'Fe y esperanza'}, '♻️':{src:'icon-backup.png'+V,label:'Copia de seguridad'}, '♻':{src:'icon-backup.png'+V,label:'Copia de seguridad'}
   };
   const tokens=Object.keys(ICONS).sort((a,b)=>b.length-a.length).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
   const RX=new RegExp('('+tokens.join('|')+')','g');
@@ -11847,7 +11847,8 @@ const CHRISTIAN_ICONS_V242 = [
   {name:'Sabiduría',src:'icon-biblia-cruz.png',meaning:'Sabiduría y discernimiento recibidos de Dios para vivir conforme a su voluntad.'},
   {name:'Alabanza',src:'icon-alabanza.png',meaning:'Adoración, entrega y reconocimiento de la grandeza de Dios.'},
   {name:'Gratitud',src:'icon-gratitud.png',meaning:'Un corazón abierto que recibe los dones de Dios con humildad.'},
-  {name:'Espíritu Santo',src:'icon-paloma.png',meaning:'Presencia, paz, guía y consuelo del Espíritu Santo.'},
+  {name:'Espíritu Santo',src:'icon-fuego.png',meaning:'Presencia, poder, guía y obra del Espíritu Santo.'},
+  {name:'Fe y esperanza',src:'icon-paloma.png',meaning:'Confianza en Dios, paz y esperanza en sus promesas.'},
   {name:'Reino de Dios',src:'icon-reino.png',meaning:'La soberanía de Cristo y su Reino eterno.'},
   {name:'Creación',src:'icon-creacion-rama.png',meaning:'La belleza y vida de toda la obra creada por Dios.'},
   {name:'Justicia',src:'icon-justicia.png',meaning:'La justicia perfecta de Dios, unida a su verdad y misericordia.'},
@@ -11859,11 +11860,13 @@ const CHRISTIAN_ICONS_V242 = [
   {name:'Guía',src:'icon-pergamino.png',meaning:'Enseñanza y orientación para caminar según la voluntad de Dios.'},
   {name:'Misericordia',src:'icon-misericordia.png',meaning:'La compasión de Dios recibida y ofrecida a los demás.'},
   {name:'Salvación',src:'icon-cruz-etiope.png',meaning:'La victoria de Jesucristo y la esperanza de salvación.'},
-  {name:'Santidad',src:'icon-santidad.png',meaning:'Pureza, consagración y vida dedicada a Dios.'},
+  {name:'Tristeza y desánimo',src:'icon-santidad.png',meaning:'El lirio expresa el consuelo, el cuidado y la esperanza que Dios concede en la tristeza.'},
   {name:'Crecimiento espiritual',src:'icon-crecimiento.png',meaning:'La fe que germina, echa raíces y produce fruto.'},
   {name:'Salmos',src:'icon-salmos.png',meaning:'Alabanza, oración y canto inspirado dirigido a Dios.'},
   {name:'Biblia',src:'icon-biblia-abierta.png',meaning:'Lectura y meditación diaria de las Sagradas Escrituras.'},
-  {name:'Protección',src:'icon-proteccion.png',meaning:'Cristo como fuerza, refugio y protección en las pruebas.'},
+  {name:'Protección',src:'icon-proteccion.png',meaning:'Cristo como refugio y protección en las pruebas.'},
+  {name:'Fortaleza',src:'cat-fortaleza.png',meaning:'Dios es roca firme y concede fuerzas para permanecer.'},
+  {name:'Lucha espiritual',src:'cat-fortaleza.png',meaning:'Permanecer firme sobre la roca en medio del combate espiritual.'},
   {name:'Preocupación y ansiedad',src:'icon-ansiedad.png',meaning:'El gorrión recuerda que Dios cuida incluso de las criaturas más pequeñas.'},
   {name:'Resurrección',src:'icon-resurreccion.png',meaning:'La cruz vacía proclama la victoria de Cristo sobre la muerte.'},
   {name:'Mundo',src:'icon-mundo.png',meaning:'La creación y la intercesión por todos los pueblos de la tierra.'},
