@@ -3937,7 +3937,7 @@ async function shareVerseCard(){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src="card-header-sky-v3197.webp?v=228";
+        im.src="card-header-sky-v3197.webp?v=230";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
@@ -4036,9 +4036,24 @@ async function shareVerseCard(){
     ctx.fillText(fecha,540,655);
 
     const categoryPlainV2221=(typeof categoryPlainLabelV2221==="function")?categoryPlainLabelV2221(category):category;
+    const categoryAssetV2221=(typeof categoryIconAssetV2221==="function")?categoryIconAssetV2221(item&&item.category,category):"";
     ctx.font="54px Georgia, serif";
-    ctx.textAlign="center";
-    ctx.fillText(categoryPlainV2221,540,742);
+    if(categoryAssetV2221){
+      try{
+        const categoryImageV2221=await loadCardLogoImage(categoryAssetV2221);
+        const tw=ctx.measureText(categoryPlainV2221).width;
+        const iconSize=76;
+        const gap=0;
+        const total=tw;
+        const startX=540-total/2;
+        
+        ctx.textAlign="left";
+        ctx.fillText(categoryPlainV2221,540,742);
+        ctx.textAlign="center";
+      }catch(_catIconError){ctx.fillText(categoryPlainV2221,540,742);}
+    }else{
+      ctx.fillText(categoryPlainV2221,540,742);
+    }
 
     ctx.font="bold 74px Georgia, serif";
     ctx.fillText(ref,540,875);
