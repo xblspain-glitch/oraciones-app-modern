@@ -11772,12 +11772,10 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 /* ===== V3.1.193 — iconos ilustrados globales: Mañana, Noche y Cruz ===== */
 (function(){
   const ICONS={
-    '🌅':{kind:'img',src:'icon-manana-global-v3193.png?v=v3-1-193',cls:'inline-faith-icon-v3193 inline-faith-icon-morning-v3193',label:'Mañana'},
-    '🌙':{kind:'img',src:'icon-noche-global-v3193.png?v=v3-1-193',cls:'inline-faith-icon-v3193 inline-faith-icon-night-v3193',label:'Noche'},
     '✝️':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'},
     '✝':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'}
   };
-  const RX=/(🌅|🌙|✝️|✝)/g;
+  const RX=/(✝️|✝)/g;
   const SKIP=new Set(['SCRIPT','STYLE','TEXTAREA','INPUT','SELECT','OPTION','CANVAS','NOSCRIPT']);
   function makeIcon(token){
     const cfg=ICONS[token];
