@@ -68,9 +68,9 @@
     return type==='verses'?(item.reference||item.title||'Versículo'):(item.title||item.reference||(type==='psalms'?'Salmo':'Oración'));
   }
   function routineMeta(){
-    if(currentRoutine==='morning') return {icon:'🌅',iconHtml:'<span class="routine-editor-icon-wrap-v3192 routine-editor-icon-emoji-v3192">🌅</span>',title:'Rutina de la mañana',sub:'Prepare su recorrido para comenzar el día con Dios.'};
-    if(currentRoutine==='sabbath') return {icon:'🕯️',iconHtml:'<span class="routine-editor-icon-wrap-v3192 routine-editor-icon-emoji-v3192">🕯️</span>',title:'Rutina de Sabbath',sub:'Prepare su recorrido especial para la mañana del sábado.'};
-    return {icon:'🌙',iconHtml:'<span class="routine-editor-icon-wrap-v3192 routine-editor-icon-emoji-v3192">🌙</span>',title:'Rutina de la noche',sub:'Prepare su recorrido para terminar el día en la presencia de Dios.'};
+    if(currentRoutine==='morning') return {icon:'🌅',title:'Rutina de la mañana',sub:'Prepare su recorrido para comenzar el día con Dios.'};
+    if(currentRoutine==='sabbath') return {icon:'🕯️',title:'Rutina de Sabbath',sub:'Prepare su recorrido especial para la mañana del sábado.'};
+    return {icon:'🌙',title:'Rutina de la noche',sub:'Prepare su recorrido para terminar el día en la presencia de Dios.'};
   }
 
   var routineChoiceSelectionV3198={};
@@ -130,10 +130,10 @@
   function renderEditor(){
     var meta=routineMeta(), d=getData(), refs=d[currentRoutine];
     var title=document.getElementById('routineEditorTitleV3192'), sub=document.getElementById('routineEditorSubV3192');
-    if(title)title.innerHTML=(meta.iconHtml||esc(meta.icon))+'<span>'+esc(meta.title)+'</span>';if(sub)sub.textContent=meta.sub;
+    if(title)title.innerHTML=esc(meta.icon)+' '+esc(meta.title);if(sub)sub.textContent=meta.sub;
     var start=document.getElementById('routineStartBtnV3192');if(start)start.disabled=!refs.length;
     var box=document.getElementById('routineListV3192');if(!box)return;
-    if(!refs.length){box.innerHTML='<div class="routine-empty-v3192"><div class="routine-empty-icon-v3192">'+(meta.iconHtml||esc(meta.icon))+'</div><strong>Su rutina está vacía</strong><span>Pulse «Añadir» para incluir oraciones, Salmos o versículos.</span></div>';return;}
+    if(!refs.length){box.innerHTML='<div class="routine-empty-v3192"><div class="routine-empty-icon-v3192">'+esc(meta.icon)+'</div><strong>Su rutina está vacía</strong><span>Pulse «Añadir» para incluir oraciones, Salmos o versículos.</span></div>';return;}
     box.innerHTML='';
     refs.forEach(function(ref,i){
       var item=findItem(ref), tm=typeMeta(ref.type), row=document.createElement('div');row.className='routine-item-v3192';
@@ -344,7 +344,7 @@
     bar.id='routineNormalNavV3194';
     bar.className='routine-normal-nav-v3194';
     bar.innerHTML='<button class="btn soft routine-exit-v3194" type="button" onclick="exitRoutineReadingV3192()">← Salir</button>'+
-      '<div class="routine-progress-v3194"><strong>'+(meta.iconHtml||esc(meta.icon))+'<span>'+esc(meta.title)+'</span></strong><span>'+(readingIndex+1)+' de '+refs.length+'</span></div>'+
+      '<div class="routine-progress-v3194"><strong>'+esc(meta.icon)+'<span>'+esc(meta.title)+'</span></strong><span>'+(readingIndex+1)+' de '+refs.length+'</span></div>'+
       '<button class="btn soft" type="button" '+(readingIndex===0?'disabled':'')+' onclick="routinePrevV3192()">← Anterior</button>'+
       '<button class="btn primary" type="button" onclick="routineNextV3192()">'+(readingIndex===refs.length-1?'✓ Terminar':'Siguiente →')+'</button>';
     reader.appendChild(bar);
