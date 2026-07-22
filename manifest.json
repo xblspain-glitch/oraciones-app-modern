@@ -1,8 +1,8 @@
 {
-  "name": "Oraciones V2 Laboratorio 221",
+  "name": "Oraciones V2 Laboratorio 243",
   "short_name": "Oraciones V2",
   "id": "/oraciones-v2-lab-227",
-  "start_url": "./?v2lab=221",
+  "start_url": "./?v2lab=243",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -22,6 +22,6 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "2.35",
-  "build": "v2-lab-239-cuatro-iconos-limpios"
+  "version": "2.43",
+  "build": "v2-lab-243-cache-clean-gallery-heart"
 }

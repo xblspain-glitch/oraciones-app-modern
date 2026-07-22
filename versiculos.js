@@ -22,26 +22,26 @@ const VERSE_CATEGORIES = [
 
 /* ===== V2 LAB 222 — iconos ilustrados de categorías ===== */
 const CATEGORY_ICON_ASSETS_V2221 = {
-  salvacion:"cat-salvacion.png",
-  fe:"cat-oracion.png",
-  esperanza:"cat-esperanza.png",
-  fortaleza:"cat-fortaleza.png",
-  amor:"cat-amor.png",
-  descanso:"cat-descanso.png",
-  sabiduria:"cat-sabiduria.png",
-  alabanza:"cat-alabanza.png",
-  reino:"cat-reino.png",
-  espiritu:"cat-espiritu-santo.png",
-  segunda_venida:"cat-segunda-venida.png",
-  juicio:"cat-juicio.png",
-  misericordia:"cat-gratitud.png",
-  vida_eterna:"cat-vida-eterna.png",
-  oracion:"cat-oracion.png",
-  dios:"cat-reino.png",
-  gratitud:"cat-gratitud.png",
-  sanacion:"cat-descanso.png",
-  paz:"cat-esperanza.png",
-  arrepentimiento:"cat-oracion.png"
+  salvacion:"cat-salvacion.png?v=v2-lab-243-cache-clean-gallery-heart",
+  fe:"cat-oracion.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart",
+  esperanza:"cat-esperanza.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart",
+  fortaleza:"cat-fortaleza.png?v=v2-lab-243-cache-clean-gallery-heart",
+  amor:"cat-amor.png?v=v2-lab-243-cache-clean-gallery-heart",
+  descanso:"cat-descanso.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart",
+  sabiduria:"cat-sabiduria.png?v=v2-lab-243-cache-clean-gallery-heart",
+  alabanza:"cat-alabanza.png?v=v2-lab-243-cache-clean-gallery-heart",
+  reino:"cat-reino.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart",
+  espiritu:"cat-espiritu-santo.png?v=v2-lab-243-cache-clean-gallery-heart",
+  segunda_venida:"cat-segunda-venida.png?v=v2-lab-243-cache-clean-gallery-heart",
+  juicio:"cat-juicio.png?v=v2-lab-243-cache-clean-gallery-heart",
+  misericordia:"cat-gratitud.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart",
+  vida_eterna:"cat-vida-eterna.png?v=v2-lab-243-cache-clean-gallery-heart",
+  oracion:"cat-oracion.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart",
+  dios:"cat-reino.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart",
+  gratitud:"cat-gratitud.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart",
+  sanacion:"cat-descanso.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart",
+  paz:"cat-esperanza.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart",
+  arrepentimiento:"cat-oracion.png?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart?v=v2-lab-243-cache-clean-gallery-heart"
 };
 function categoryPlainLabelV2221(label){
   return String(label||"").replace(/^\s*(?:[\p{Extended_Pictographic}\p{Emoji_Presentation}\uFE0F\u200D\u{1F3FB}-\u{1F3FF}]+)\s*/u,"").trim();
