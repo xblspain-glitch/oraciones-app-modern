@@ -20,7 +20,7 @@
 
 <link rel="preload" as="image" href="routine-morning-bible-v2216.webp">
 <link rel="preload" as="image" href="routine-night-bible-v2216.webp">
-<link rel="stylesheet" href="styles.css?v=v2-216-imagenes-rutina">
+<link rel="stylesheet" href="styles.css?v=v2-217-selector-tarjetas">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 
 <style>
@@ -112,7 +112,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
         <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
     <button id="btnEdit" data-view-btn="edit" class="btn soft" type="button" onclick="openEditor()">✍️ Editar</button>
     <button id="btnFavorites" data-view-btn="favorites" class="btn soft" type="button" onclick="openFavoritesView()">⭐ Favoritos</button>
-    <button id="btnMainCard" class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
+    <button id="btnMainCard" class="btn soft" type="button" onclick="openCardStyleSelectorV2217()">🖼️ Tarjeta</button>
     <button id="btnMainCopy" class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>
     <div class="home-fixed-row-v31763 home-fixed-row-four-v31763">
       <button id="btnMainMore" class="btn soft" type="button" data-more-button="1" onclick="openMoreMenu(event)">📖 Más</button>
@@ -208,7 +208,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
         <button class="btn soft" type="button" onclick="shareCurrent()">🔗 Compartir</button>
         <button id="shareBeautifulBtnV3166" class="btn soft" type="button" onclick="shareBeautifulHTMLV3166()">✨ Compartir bonito</button>
         <span class="toolbar-break-v68"></span>
-        <button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>
+        <button class="btn soft" type="button" onclick="openCardStyleSelectorV2217()">🖼️ Tarjeta</button>
         <button data-fav-btn="1" class="btn soft" type="button" onclick="toggleFavorite()">⭐</button>
 
       </div>
@@ -406,6 +406,27 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
   </div>
 </div>
 
+<div id="cardStyleModalV2217" class="card-style-modal-v2217 hidden" role="dialog" aria-modal="true" aria-labelledby="cardStyleTitleV2217">
+  <div class="card-style-sheet-v2217">
+    <div class="card-style-head-v2217">
+      <h2 id="cardStyleTitleV2217">🖼️ Elegir estilo de tarjeta</h2>
+      <button class="card-style-close-v2217" type="button" onclick="closeCardStyleSelectorV2217()" aria-label="Cerrar">×</button>
+    </div>
+    <p class="card-style-sub-v2217">Seleccione el diseño que desea compartir.</p>
+    <div class="card-style-grid-v2217">
+      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('classic')">
+        <span class="card-style-preview-v2217 classic-v2217"></span>
+        <span><strong>📖 Biblia</strong><small>Tarjeta original</small></span>
+      </button>
+      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('jerusalem')">
+        <span class="card-style-preview-v2217 jerusalem-v2217"></span>
+        <span><strong>👑 Nueva Jerusalén</strong><small>Ciudad celestial y Biblia</small></span>
+      </button>
+    </div>
+    <button class="btn soft card-style-cancel-v2217" type="button" onclick="closeCardStyleSelectorV2217()">Cancelar</button>
+  </div>
+</div>
+
 <div id="toast" class="toast">Guardado</div>
 
 
@@ -416,7 +437,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
+<script src="app.js?v=v2-217-selector-tarjetas"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>

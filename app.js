@@ -3859,8 +3859,32 @@ function markCurrentVerseCardSentDirect(){
   }
 }
 
-async function shareVerseCard(){
+function getNewJerusalemCardTextLayoutV2217(txt){
+  const n=String(txt||"").length;
+  if(n<=150) return {font:48,line:68,max:7,y:1165};
+  if(n<=240) return {font:44,line:62,max:9,y:1155};
+  if(n<=340) return {font:40,line:56,max:11,y:1145};
+  if(n<=480) return {font:36,line:50,max:13,y:1135};
+  return {font:32,line:44,max:15,y:1125};
+}
+
+function openCardStyleSelectorV2217(){
+  const modal=document.getElementById("cardStyleModalV2217");
+  if(modal) modal.classList.remove("hidden");
+}
+function closeCardStyleSelectorV2217(){
+  const modal=document.getElementById("cardStyleModalV2217");
+  if(modal) modal.classList.add("hidden");
+}
+async function chooseCardStyleV2217(style){
+  closeCardStyleSelectorV2217();
+  markCurrentVerseCardSentDirect();
+  await shareVerseCard(style);
+}
+
+async function shareVerseCard(cardStyle="classic"){
   try{
+    const isJerusalemV2217 = cardStyle === "jerusalem";
     const item = (typeof currentItem === "function") ? currentItem() : null;
 
     // Marcamos la tarjeta como enviada al pulsar el botón Tarjeta.
@@ -3958,7 +3982,7 @@ async function shareVerseCard(){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src="card-header-sky-v3197.webp?v=v3-1-197";
+        im.src=isJerusalemV2217 ? "shared-card-new-jerusalem-v2217.png?v=v2-217-selector" : "card-header-sky-v3197.webp?v=v3-1-197";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
@@ -4049,12 +4073,12 @@ async function shareVerseCard(){
     // La cabecera visual (sol, nubes y Biblia) ya forma parte del fondo.
     // No se dibuja ningún icono superpuesto, evitando el efecto de pegatina.
     ctx.font="italic 56px Georgia, serif";
-    ctx.fillText("Versículo del día",540,590);
+    ctx.fillText("Versículo del día",540,isJerusalemV2217?790:590);
     ctx.font="34px Georgia, serif";
     const ds=new Date();
     const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
     const fecha=ds.getDate()+" de "+meses[ds.getMonth()]+" de "+ds.getFullYear();
-    ctx.fillText(fecha,540,655);
+    ctx.fillText(fecha,540,isJerusalemV2217?855:655);
 
     // V3.1.200 — categoría sin icono, en mayúsculas y centrada.
     const categoryTextV3200=String(category||"")
@@ -4062,10 +4086,10 @@ async function shareVerseCard(){
       .toLocaleUpperCase("es-ES");
     ctx.font="44px Georgia, serif";
     ctx.textAlign="center";
-    ctx.fillText(categoryTextV3200,540,742);
+    ctx.fillText(categoryTextV3200,540,isJerusalemV2217?935:742);
 
     ctx.font="bold 74px Georgia, serif";
-    ctx.fillText(ref,540,865);
+    ctx.fillText(ref,540,isJerusalemV2217?1040:865);
 
     // Línea decorativa azul tenue con cruz central
     ctx.save();
@@ -4074,14 +4098,14 @@ async function shareVerseCard(){
     ctx.shadowOffsetY=0;
     ctx.strokeStyle="rgba(190,238,248,0.58)";
     ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(180,925); ctx.lineTo(500,925); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(580,925); ctx.lineTo(900,925); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(180,isJerusalemV2217?1092:925); ctx.lineTo(500,isJerusalemV2217?1092:925); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(580,isJerusalemV2217?1092:925); ctx.lineTo(900,isJerusalemV2217?1092:925); ctx.stroke();
     ctx.fillStyle="rgba(214,249,255,0.78)";
     ctx.font="34px Georgia, serif";
-    ctx.fillText("✝",540,937);
+    ctx.fillText("✝",540,isJerusalemV2217?1104:937);
     ctx.restore();
 
-    const textLayout=getCardTextLayout(body);
+    const textLayout=isJerusalemV2217 ? getNewJerusalemCardTextLayoutV2217(body) : getCardTextLayout(body);
     ctx.font="italic "+textLayout.font+"px Georgia, serif";
     wrapText(ctx,body,540,textLayout.y,930,textLayout.line,textLayout.max);
 
@@ -5247,7 +5271,7 @@ setInterval(updateVersePositionCounter, 1000);
     head.innerHTML =
       '<button class="btn soft" type="button" onclick="restoreReaderHeadV75(); openVerseCategories()">← Volver</button>' +
       randomBtn +
-      '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>' +
+      '<button class="btn soft" type="button" onclick="openCardStyleSelectorV2217()">🖼️ Tarjeta</button>' +
       '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>' +
       '<button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory(); setTimeout(function(){ if(typeof renderReader===\'function\') renderReader(); },80)">📂 Mover</button>';
   }
@@ -6004,7 +6028,7 @@ setInterval(updateVersePositionCounter, 1000);
       if(!head) return;
       head.innerHTML =
         '<button class="btn soft" type="button" onclick="restoreReaderHeadV75(); openVerseCategories()">← Volver</button>' +
-        '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>' +
+        '<button class="btn soft" type="button" onclick="openCardStyleSelectorV2217()">🖼️ Tarjeta</button>' +
         '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>' +
         '<button id="moveVerseBtn" class="btn soft" type="button" onclick="moveVerseToCategory(); setTimeout(function(){ if(typeof renderReader===\'function\') renderReader(); },80)">📂 Mover</button>' +
         '<button class="btn soft" type="button" onclick="openNeverSentStatsMenu()">📭 Nunca enviados</button>' +
@@ -6147,7 +6171,7 @@ setInterval(updateVersePositionCounter, 1000);
       if(head){
         head.innerHTML =
           '<button class="btn soft" type="button" onclick="backToSentListV903()">← Volver</button>'+
-          '<button class="btn soft" type="button" onclick="markCurrentVerseCardSentDirect(); shareVerseCard()">🖼️ Tarjeta</button>'+
+          '<button class="btn soft" type="button" onclick="openCardStyleSelectorV2217()">🖼️ Tarjeta</button>'+
           '<button class="btn soft" type="button" onclick="copyCurrent()">📋 Copiar</button>';
         head.style.display="flex";
       }
