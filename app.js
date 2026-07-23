@@ -3862,7 +3862,7 @@ function markCurrentVerseCardSentDirect(){
 
 function getThematicCardTextLayoutV2220(txt){
   const n=String(txt||"").length;
-  // V2.221 — texto debajo de la ilustración y transiciones azules armonizadas.
+  // V2.220 — texto completamente debajo de la ilustración.
   // Los pasajes largos se compactan y se limitan para conservar una tarjeta limpia.
   if(n<=150) return {font:50,line:68,max:5,y:1285};
   if(n<=240) return {font:44,line:60,max:6,y:1285};
@@ -4013,7 +4013,7 @@ async function shareVerseCard(cardStyle="classic"){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src=selectedBackgroundV2219+"?v=v2-222-fondo-adaptado-por-tarjeta";
+        im.src=selectedBackgroundV2219+"?v=v2-220-ilustracion-arriba";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
@@ -4093,10 +4093,7 @@ async function shareVerseCard(cardStyle="classic"){
         ctx.restore();
       }
     }
-    // V2.221 — marca de agua unificada: misma posición, tamaño y opacidad en todas las tarjetas temáticas.
-    const thematicWatermarkYV2221=1420;
-    const thematicWatermarkSizeV2221=650;
-    await drawExactLogoWatermark(ctx,540,isThematicV2220?thematicWatermarkYV2221:1168,isThematicV2220?thematicWatermarkSizeV2221:780);
+    await drawExactLogoWatermark(ctx,540,isThematicV2220?1420:1168,isThematicV2220?650:780);
 
     ctx.textAlign="center";
     ctx.fillStyle="#ffffff";
