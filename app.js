@@ -1089,7 +1089,11 @@ function saveCurrent(stay, silent){
 
             renderList();
             renderReader();
-            openReader();
+            applyReaderFont();
+            // Abre el versículo con el mismo flujo que al pulsarlo desde su categoría.
+            // Así se oculta la botonera general y se conserva la interfaz normal de lectura.
+            verseNavigationMode = "verse";
+            enterFullscreenReading();
             window.scrollTo({top:0,behavior:"auto"});
             toast("Duplicado descartado");
             return;
