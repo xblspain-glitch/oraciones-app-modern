@@ -3823,11 +3823,12 @@ applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont(
 
 function getCardTextLayout(txt){
   const n = String(txt || "").length;
-  if(n <= 150) return {font:50, line:72, max:7, y:1015};
-  if(n <= 240) return {font:46, line:66, max:9, y:1015};
-  if(n <= 340) return {font:42, line:60, max:11, y:1000};
-  if(n <= 480) return {font:38, line:54, max:13, y:985};
-  return {font:35, line:49, max:15, y:970};
+  // V2.218 — aumenta únicamente el cuerpo del versículo en la tarjeta Biblia.
+  if(n <= 150) return {font:54, line:77, max:7, y:1015};
+  if(n <= 240) return {font:50, line:71, max:9, y:1015};
+  if(n <= 340) return {font:45, line:64, max:11, y:1000};
+  if(n <= 480) return {font:41, line:58, max:13, y:985};
+  return {font:38, line:53, max:15, y:970};
 }
 
 function markCurrentVerseCardSentDirect(){
@@ -3861,11 +3862,13 @@ function markCurrentVerseCardSentDirect(){
 
 function getNewJerusalemCardTextLayoutV2217(txt){
   const n=String(txt||"").length;
-  if(n<=150) return {font:48,line:68,max:7,y:1165};
-  if(n<=240) return {font:44,line:62,max:9,y:1155};
-  if(n<=340) return {font:40,line:56,max:11,y:1145};
-  if(n<=480) return {font:36,line:50,max:13,y:1135};
-  return {font:32,line:44,max:15,y:1125};
+  // V2.218 — cuerpo del versículo algo mayor y comienzo más bajo
+  // para que respire respecto a la línea decorativa con la cruz.
+  if(n<=150) return {font:52,line:73,max:7,y:1190};
+  if(n<=240) return {font:48,line:67,max:9,y:1180};
+  if(n<=340) return {font:43,line:60,max:11,y:1170};
+  if(n<=480) return {font:39,line:54,max:13,y:1160};
+  return {font:34,line:47,max:15,y:1150};
 }
 
 function openCardStyleSelectorV2217(){
