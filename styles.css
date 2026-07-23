@@ -5074,13 +5074,15 @@ body.home-active-v9019 .home-illustrated-btn-v2220{
   display:inline-flex!important;
   align-items:center!important;
   justify-content:center!important;
-  gap:7px!important;
+  gap:10px!important;
   white-space:nowrap!important;
+  min-height:52px!important;
+  padding:8px 16px!important;
 }
 body.home-active-v9019 .home-btn-icon-v2220{
-  width:30px!important;
-  height:30px!important;
-  flex:0 0 30px!important;
+  width:38px!important;
+  height:38px!important;
+  flex:0 0 38px!important;
   object-fit:cover!important;
   border-radius:8px!important;
   box-shadow:0 1px 4px rgba(25,38,68,.24)!important;
