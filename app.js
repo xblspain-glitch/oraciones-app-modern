@@ -11647,8 +11647,66 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     sum.textContent=total===1?'1 resultado encontrado':total+' resultados encontrados';
     box.innerHTML=html||'<div class="global-search-empty-v3177">No se ha encontrado contenido con “'+escV3177(raw)+'”.</div>';
   };
+  window.returnFromGlobalSearchV3215=function(){
+    try{
+      /* Regreso exclusivo desde un resultado del buscador a la portada. */
+      document.body.classList.remove(
+        'editing-focus','reading-mobile','fullscreen-reading','hide-reading-ui',
+        'titles-fullscreen-v72','categories-fullscreen-v73','backup-only',
+        'special-view-only','list-only','titles-only','utility-fullscreen-v2189',
+        'verse-special-fullscreen-v74','verse-special-fullscreen-v751',
+        'sent-fullscreen-v76','sent-reader-v903','view-switching-v3189'
+      );
+      document.body.classList.add('home-active-v9019');
+
+      ['readerView','editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView',
+       'momentsHubV31102','momentPreviewV31102','routineHubV3192','routineEditorV3192','routineReaderV3192']
+      .forEach(function(viewId){
+        var view=document.getElementById(viewId);
+        if(view)view.classList.add('hidden');
+      });
+
+      var home=document.getElementById('homeView');
+      var card=document.getElementById('homeCardV9019');
+      if(home){
+        home.classList.remove('hidden');
+        home.style.removeProperty('display');
+        home.style.removeProperty('visibility');
+        home.style.removeProperty('opacity');
+      }
+      if(card){
+        card.classList.remove('hidden');
+        card.style.removeProperty('display');
+        card.style.removeProperty('visibility');
+        card.style.removeProperty('opacity');
+      }
+      if(typeof renderHomeV9019==='function')renderHomeV9019();
+
+      /* El botón recupera su funcionamiento habitual para próximas aperturas. */
+      var back=document.querySelector('#readerView .panel-head button:first-child');
+      if(back)back.setAttribute('onclick','smartBack()');
+      window.__openedFromGlobalSearchV3215=false;
+
+      function confirmHomeV3215(){
+        var h=document.getElementById('homeView');
+        var c=document.getElementById('homeCardV9019');
+        document.body.classList.add('home-active-v9019');
+        if(h){h.classList.remove('hidden');h.style.removeProperty('display');}
+        if(c){c.classList.remove('hidden');c.style.removeProperty('display');}
+      }
+      requestAnimationFrame(confirmHomeV3215);
+      setTimeout(confirmHomeV3215,60);
+      setTimeout(confirmHomeV3215,220);
+      try{window.scrollTo({top:0,behavior:'auto'});}catch(_e){window.scrollTo(0,0);}
+    }catch(e){
+      console.error('Volver desde buscador',e);
+      if(typeof showHomeV9019==='function')showHomeV9019();
+    }
+  };
+
   window.openGlobalSearchResultV3177=function(sec,id){
     window.closeGlobalSearchV3177();
+    window.__openedFromGlobalSearchV3215=true;
     section=sec; state.section=sec;
     if(sec==='prayers')state.currentPrayerId=id;
     else if(sec==='notes')state.currentNoteId=id;
@@ -11656,7 +11714,16 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     else if(sec==='verses')state.currentVerseId=id;
     else if(sec==='parables')state.currentParableId=id;
     else if(sec==='guides')state.currentGuideId=id;
-    try{saveState();syncTabs();renderList();renderReader();openReader();setTimeout(function(){try{enterFullscreenReading();}catch(e){}},0);}catch(e){console.error('Buscador general',e);}
+    try{
+      saveState();syncTabs();renderList();renderReader();openReader();
+      var back=document.querySelector('#readerView .panel-head button:first-child');
+      if(back)back.setAttribute('onclick','returnFromGlobalSearchV3215()');
+      setTimeout(function(){
+        try{enterFullscreenReading();}catch(e){}
+        var currentBack=document.querySelector('#readerView .panel-head button:first-child');
+        if(currentBack)currentBack.setAttribute('onclick','returnFromGlobalSearchV3215()');
+      },0);
+    }catch(e){console.error('Buscador general',e);}
   };
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){var m=document.getElementById('globalSearchModalV3177');if(m&&!m.classList.contains('hidden'))window.closeGlobalSearchV3177();}});
 })();
@@ -11769,7 +11836,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       if(!btn) return;
       var inMainNavigation = btn.matches('[data-view-btn], #tabPrayers, #tabNotes, #tabGuides, #tabVerses, #tabParables, #tabPsalms');
       if(!inMainNavigation) return;
-      if(btn.id === 'btnTheme' || btn.id === 'btnMainMore') return;
+      if(btn.id === 'btnTheme' || btn.id === 'btnMainMore' || btn.id === 'btnGlobalSearchV3177') return;
 
       document.body.classList.add('view-switching-v3189');
       var home = document.getElementById('homeView');
@@ -11832,98 +11899,4 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     obs.observe(document.body,{childList:true,subtree:true});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
-})();
-
-/* ===== V2 LAB 215 · Regreso exacto desde resultado del buscador a la tarjeta de Inicio =====
-   Corrección aislada sobre V2.214:
-   - Solo se activa al abrir un resultado desde "Buscar en toda la app".
-   - Intercepta el botón Volver del lector antes de los manejadores heredados.
-   - Restaura expresamente homeView y homeCardV9019. */
-(function(){
-  if(window.__v2215GlobalSearchHomeCardFix) return;
-  window.__v2215GlobalSearchHomeCardFix = true;
-  var fromGlobalSearchV2215 = false;
-
-  function forceHomeCardV2215(){
-    fromGlobalSearchV2215 = false;
-    try{ window.__fromGlobalSearchV2215 = false; }catch(_e){}
-
-    try{
-      document.body.classList.remove(
-        'reading-mobile','fullscreen-reading','hide-reading-ui','editing-focus',
-        'titles-fullscreen-v72','categories-fullscreen-v73','backup-only','special-view-only',
-        'verse-special-fullscreen-v74','verse-special-fullscreen-v751','sent-fullscreen-v76',
-        'sent-reader-v903','favorites-fullscreen-v791','calendar-fullscreen-v78',
-        'list-only','titles-only','utility-fullscreen-v2189','view-switching-v3189'
-      );
-      document.body.classList.add('home-active-v9019');
-    }catch(_e){}
-
-    try{
-      if(typeof setActiveView === 'function') setActiveView(null);
-    }catch(_e){}
-
-    try{
-      document.querySelectorAll('.content > .panel').forEach(function(panel){
-        panel.classList.add('hidden');
-      });
-    }catch(_e){}
-
-    var home = document.getElementById('homeView');
-    var card = document.getElementById('homeCardV9019');
-    if(home){
-      home.classList.remove('hidden');
-      home.style.removeProperty('display');
-      home.style.setProperty('display','flex','important');
-    }
-    if(card){
-      card.classList.remove('hidden');
-      card.style.removeProperty('display');
-      card.style.removeProperty('visibility');
-      card.style.removeProperty('opacity');
-      card.style.setProperty('display','block','important');
-      card.style.setProperty('visibility','visible','important');
-      card.style.setProperty('opacity','1','important');
-    }
-
-    try{ if(typeof renderHomeV9019 === 'function') renderHomeV9019(); }catch(_e){}
-    try{ window.scrollTo({top:0,behavior:'auto'}); }catch(_e){ window.scrollTo(0,0); }
-
-    /* Reafirmación tras finalizar el mismo clic y cualquier transición pendiente. */
-    [0,40,140].forEach(function(delay){
-      setTimeout(function(){
-        var h = document.getElementById('homeView');
-        var c = document.getElementById('homeCardV9019');
-        try{ document.body.classList.add('home-active-v9019'); }catch(_e){}
-        if(h){ h.classList.remove('hidden'); h.style.setProperty('display','flex','important'); }
-        if(c){
-          c.classList.remove('hidden');
-          c.style.setProperty('display','block','important');
-          c.style.setProperty('visibility','visible','important');
-          c.style.setProperty('opacity','1','important');
-        }
-        try{ if(typeof renderHomeV9019 === 'function') renderHomeV9019(); }catch(_e){}
-      }, delay);
-    });
-  }
-
-  var oldOpenGlobalSearchResultV2215 = window.openGlobalSearchResultV3177;
-  if(typeof oldOpenGlobalSearchResultV2215 === 'function'){
-    window.openGlobalSearchResultV3177 = function(){
-      fromGlobalSearchV2215 = true;
-      window.__fromGlobalSearchV2215 = true;
-      return oldOpenGlobalSearchResultV2215.apply(this, arguments);
-    };
-    try{ openGlobalSearchResultV3177 = window.openGlobalSearchResultV3177; }catch(_e){}
-  }
-
-  document.addEventListener('click', function(ev){
-    if(!fromGlobalSearchV2215 && !window.__fromGlobalSearchV2215) return;
-    var btn = ev.target && ev.target.closest ? ev.target.closest('#readerView .panel-head button:first-child') : null;
-    if(!btn) return;
-    ev.preventDefault();
-    ev.stopPropagation();
-    if(typeof ev.stopImmediatePropagation === 'function') ev.stopImmediatePropagation();
-    forceHomeCardV2215();
-  }, true);
 })();
