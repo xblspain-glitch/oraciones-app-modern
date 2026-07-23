@@ -749,15 +749,6 @@ function consumeReturnToSentList(){
 }
 
 function smartBack(){
-  if(window.__returnHomeFromGlobalSearchV3215){
-    window.__returnHomeFromGlobalSearchV3215=false;
-    try{
-      if(typeof showHomeV9019==="function") showHomeV9019();
-      else if(window.showHomeV9019) window.showHomeV9019();
-    }catch(e){ console.error("Volver desde búsqueda",e); }
-    return;
-  }
-
   if(typeof categoryListActive !== "undefined" && categoryListActive){
     categoryListActive=false;
     try{
@@ -11657,7 +11648,6 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     box.innerHTML=html||'<div class="global-search-empty-v3177">No se ha encontrado contenido con “'+escV3177(raw)+'”.</div>';
   };
   window.openGlobalSearchResultV3177=function(sec,id){
-    window.__returnHomeFromGlobalSearchV3215=true;
     window.closeGlobalSearchV3177();
     section=sec; state.section=sec;
     if(sec==='prayers')state.currentPrayerId=id;
@@ -11844,140 +11834,55 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
 
-/* ===== V3.1.216 — regreso fiable desde un resultado del buscador global ===== */
+/* ===== V2.215 limpio · Volver desde Buscar en toda la app =====
+   Cambio único sobre V2.214: marca los resultados abiertos desde el buscador
+   general e intercepta exclusivamente el botón Volver del lector para regresar
+   a la tarjeta de Inicio completa. No modifica Papelera, Backup ni smartBack. */
 (function(){
-  if(window.__v3216GlobalSearchBackFix) return;
-  window.__v3216GlobalSearchBackFix = true;
+  if(window.__v2215GlobalSearchBackFix) return;
+  window.__v2215GlobalSearchBackFix = true;
 
-  function forceHomeFromGlobalSearchV3216(){
-    window.__returnHomeFromGlobalSearchV3215 = false;
+  var openedFromGlobalSearchV2215 = false;
+  var oldOpenGlobalSearchResultV2215 = window.openGlobalSearchResultV3177;
+
+  if(typeof oldOpenGlobalSearchResultV2215 === 'function'){
+    window.openGlobalSearchResultV3177 = function(){
+      openedFromGlobalSearchV2215 = true;
+      return oldOpenGlobalSearchResultV2215.apply(this, arguments);
+    };
+  }
+
+  function returnHomeFromGlobalSearchV2215(){
+    openedFromGlobalSearchV2215 = false;
     try{
-      document.body.classList.remove(
-        'view-switching-v3189','fullscreen-reading','reading-mobile','hide-reading-ui',
-        'editing-focus','titles-fullscreen-v72','categories-fullscreen-v73',
-        'backup-only','special-view-only','utility-fullscreen-v2189',
-        'sent-fullscreen-v76','sent-reader-v903'
-      );
-      document.body.classList.add('home-active-v9019');
-
-      var ids=['readerView','editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView','routineHubV3192','routineEditorV3192','routineReaderV3192'];
-      ids.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('hidden');});
-
-      var home=document.getElementById('homeView');
-      if(home){
-        home.classList.remove('hidden');
-        home.style.removeProperty('display');
-        home.style.removeProperty('visibility');
-        home.style.removeProperty('opacity');
-      }
-      var card=document.getElementById('homeCardV9019');
-      if(card){
-        card.classList.remove('hidden');
-        card.style.removeProperty('display');
-        card.style.removeProperty('visibility');
-        card.style.removeProperty('opacity');
-      }
-
-      if(typeof setActiveView==='function') setActiveView(null);
-      if(typeof renderHomeV9019==='function') renderHomeV9019();
-      if(typeof renderHomeCountersV3183==='function') renderHomeCountersV3183();
-      else if(typeof renderHomeCountersV3182==='function') renderHomeCountersV3182();
-
-      requestAnimationFrame(function(){
-        document.body.classList.remove('view-switching-v3189');
+      document.body.style.overflow = '';
+      var modal = document.getElementById('globalSearchModalV3177');
+      if(modal) modal.classList.add('hidden');
+      if(typeof showHomeV9019 === 'function'){
+        showHomeV9019();
+      }else{
+        document.body.classList.remove('reading-mobile','fullscreen-reading','hide-reading-ui','titles-fullscreen-v72','categories-fullscreen-v73');
+        var reader = document.getElementById('readerView');
+        var home = document.getElementById('homeView');
+        if(reader) reader.classList.add('hidden');
         if(home) home.classList.remove('hidden');
-        if(card) card.classList.remove('hidden');
-        try{window.scrollTo(0,0);}catch(_e){}
-      });
+      }
+      if(typeof renderHomeV9019 === 'function') renderHomeV9019();
+      window.scrollTo({top:0,behavior:'auto'});
     }catch(e){
-      console.error('Regreso desde búsqueda global',e);
-      try{ if(typeof showHomeV9019==='function') showHomeV9019(); }catch(_e){}
+      console.error('Volver desde buscador general V2.215', e);
     }
   }
-  window.forceHomeFromGlobalSearchV3216=forceHomeFromGlobalSearchV3216;
 
-  /* Intercepta únicamente el botón Volver del lector cuando se abrió desde Buscar. */
-  document.addEventListener('click',function(ev){
-    if(!window.__returnHomeFromGlobalSearchV3215) return;
-    var btn=ev.target&&ev.target.closest?ev.target.closest('#readerView .panel-head button:first-child'):null;
+  document.addEventListener('click', function(ev){
+    if(!openedFromGlobalSearchV2215) return;
+    var btn = ev.target && ev.target.closest ? ev.target.closest('#readerView .panel-head button') : null;
     if(!btn) return;
+    var text = (btn.textContent || '').trim();
+    if(text.indexOf('Volver') === -1) return;
     ev.preventDefault();
     ev.stopPropagation();
-    if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-    forceHomeFromGlobalSearchV3216();
-  },true);
-
-  var previousSmartBackV3216=window.smartBack || (typeof smartBack!=='undefined'?smartBack:null);
-  window.smartBack=function(){
-    if(window.__returnHomeFromGlobalSearchV3215){
-      forceHomeFromGlobalSearchV3216();
-      return;
-    }
-    if(typeof previousSmartBackV3216==='function') return previousSmartBackV3216.apply(this,arguments);
-  };
-  try{smartBack=window.smartBack;}catch(_e){}
-})();
-
-/* ===== V3.1.217 — regreso definitivo desde Buscar en toda la app =====
-   El lector y varios parches antiguos compiten por el botón Volver.
-   Para evitar estados parciales, se reinicia únicamente la interfaz y se
-   conserva todo el contenido guardado en localStorage. ===== */
-(function(){
-  if(window.__v3217GlobalSearchHardBack) return;
-  window.__v3217GlobalSearchHardBack = true;
-
-  function hardReturnHomeV3217(){
-    if(!window.__returnHomeFromGlobalSearchV3215) return false;
-    window.__returnHomeFromGlobalSearchV3215 = false;
-    try{ sessionStorage.setItem('oraciones-return-home-v3217','1'); }catch(_e){}
-    var base = window.location.pathname || './';
-    var query = '?home=v3217&t=' + Date.now();
-    window.location.replace(base + query + '#inicio');
-    return true;
-  }
-  window.hardReturnHomeV3217 = hardReturnHomeV3217;
-
-  /* Captura cualquier botón Volver del lector antes que los manejadores antiguos. */
-  document.addEventListener('click',function(ev){
-    if(!window.__returnHomeFromGlobalSearchV3215) return;
-    var el = ev.target && ev.target.closest ? ev.target.closest('button,a') : null;
-    if(!el) return;
-    var inReader = !!el.closest('#readerView');
-    var label = (el.textContent || el.getAttribute('aria-label') || el.title || '').trim().toLowerCase();
-    var isBack = label.indexOf('volver') !== -1 || label === '←' || label.indexOf('atrás') !== -1;
-    if(!inReader || !isBack) return;
-    ev.preventDefault();
-    ev.stopPropagation();
-    if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
-    hardReturnHomeV3217();
-  },true);
-
-  var priorSmartBackV3217 = window.smartBack || (typeof smartBack!=='undefined' ? smartBack : null);
-  window.smartBack = function(){
-    if(hardReturnHomeV3217()) return;
-    if(typeof priorSmartBackV3217 === 'function') return priorSmartBackV3217.apply(this,arguments);
-  };
-  try{ smartBack = window.smartBack; }catch(_e){}
-
-  function restoreHomeV3217(){
-    var marked=false;
-    try{
-      marked = sessionStorage.getItem('oraciones-return-home-v3217') === '1';
-      if(marked) sessionStorage.removeItem('oraciones-return-home-v3217');
-    }catch(_e){}
-    if(!marked && window.location.hash !== '#inicio') return;
-    setTimeout(function(){
-      try{
-        if(typeof showHomeV9019 === 'function') showHomeV9019();
-        else if(window.showHomeV9019) window.showHomeV9019();
-        var home=document.getElementById('homeView');
-        var card=document.getElementById('homeCardV9019');
-        if(home) home.classList.remove('hidden');
-        if(card){ card.classList.remove('hidden'); card.style.removeProperty('display'); }
-        window.scrollTo(0,0);
-      }catch(e){ console.error('Restauración de Inicio V3.1.217',e); }
-    },120);
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',restoreHomeV3217,{once:true});
-  else restoreHomeV3217();
+    if(typeof ev.stopImmediatePropagation === 'function') ev.stopImmediatePropagation();
+    returnHomeFromGlobalSearchV2215();
+  }, true);
 })();
