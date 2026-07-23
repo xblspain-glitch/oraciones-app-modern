@@ -3823,11 +3823,12 @@ applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont(
 
 function getCardTextLayout(txt){
   const n = String(txt || "").length;
-  if(n <= 150) return {font:50, line:72, max:7, y:1015};
-  if(n <= 240) return {font:46, line:66, max:9, y:1015};
-  if(n <= 340) return {font:42, line:60, max:11, y:1000};
-  if(n <= 480) return {font:38, line:54, max:13, y:985};
-  return {font:35, line:49, max:15, y:970};
+  // V2.217 prueba: texto desplazado a la zona azul libre de la nueva tarjeta compartida.
+  if(n <= 150) return {font:46, line:62, max:7, y:1165};
+  if(n <= 240) return {font:40, line:55, max:9, y:1155};
+  if(n <= 340) return {font:36, line:49, max:11, y:1145};
+  if(n <= 480) return {font:32, line:44, max:12, y:1135};
+  return {font:29, line:39, max:14, y:1125};
 }
 
 function markCurrentVerseCardSentDirect(){
@@ -3958,7 +3959,7 @@ async function shareVerseCard(){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src="card-header-sky-v3197.webp?v=v3-1-197";
+        im.src="shared-card-new-jerusalem-v2217.png?v=v2-217-shared-card";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
@@ -4049,12 +4050,12 @@ async function shareVerseCard(){
     // La cabecera visual (sol, nubes y Biblia) ya forma parte del fondo.
     // No se dibuja ningún icono superpuesto, evitando el efecto de pegatina.
     ctx.font="italic 56px Georgia, serif";
-    ctx.fillText("Versículo del día",540,590);
+    ctx.fillText("Versículo del día",540,790);
     ctx.font="34px Georgia, serif";
     const ds=new Date();
     const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
     const fecha=ds.getDate()+" de "+meses[ds.getMonth()]+" de "+ds.getFullYear();
-    ctx.fillText(fecha,540,655);
+    ctx.fillText(fecha,540,855);
 
     // V3.1.200 — categoría sin icono, en mayúsculas y centrada.
     const categoryTextV3200=String(category||"")
@@ -4062,10 +4063,10 @@ async function shareVerseCard(){
       .toLocaleUpperCase("es-ES");
     ctx.font="44px Georgia, serif";
     ctx.textAlign="center";
-    ctx.fillText(categoryTextV3200,540,742);
+    ctx.fillText(categoryTextV3200,540,935);
 
     ctx.font="bold 74px Georgia, serif";
-    ctx.fillText(ref,540,865);
+    ctx.fillText(ref,540,1040);
 
     // Línea decorativa azul tenue con cruz central
     ctx.save();
@@ -4074,11 +4075,11 @@ async function shareVerseCard(){
     ctx.shadowOffsetY=0;
     ctx.strokeStyle="rgba(190,238,248,0.58)";
     ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(180,925); ctx.lineTo(500,925); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(580,925); ctx.lineTo(900,925); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(180,1092); ctx.lineTo(500,1092); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(580,1092); ctx.lineTo(900,1092); ctx.stroke();
     ctx.fillStyle="rgba(214,249,255,0.78)";
     ctx.font="34px Georgia, serif";
-    ctx.fillText("✝",540,937);
+    ctx.fillText("✝",540,1104);
     ctx.restore();
 
     const textLayout=getCardTextLayout(body);
