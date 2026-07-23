@@ -11834,54 +11834,96 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
 
-/* ===== V2.215 · Restaurar SOLO la tarjeta inferior al volver desde Buscar ===== */
+/* ===== V2 LAB 215 · Regreso exacto desde resultado del buscador a la tarjeta de Inicio =====
+   Corrección aislada sobre V2.214:
+   - Solo se activa al abrir un resultado desde "Buscar en toda la app".
+   - Intercepta el botón Volver del lector antes de los manejadores heredados.
+   - Restaura expresamente homeView y homeCardV9019. */
 (function(){
   if(window.__v2215GlobalSearchHomeCardFix) return;
   window.__v2215GlobalSearchHomeCardFix = true;
+  var fromGlobalSearchV2215 = false;
 
-  var previousOpenGlobalSearchResultV2215 = window.openGlobalSearchResultV3177;
-  if(typeof previousOpenGlobalSearchResultV2215 === 'function'){
+  function forceHomeCardV2215(){
+    fromGlobalSearchV2215 = false;
+    try{ window.__fromGlobalSearchV2215 = false; }catch(_e){}
+
+    try{
+      document.body.classList.remove(
+        'reading-mobile','fullscreen-reading','hide-reading-ui','editing-focus',
+        'titles-fullscreen-v72','categories-fullscreen-v73','backup-only','special-view-only',
+        'verse-special-fullscreen-v74','verse-special-fullscreen-v751','sent-fullscreen-v76',
+        'sent-reader-v903','favorites-fullscreen-v791','calendar-fullscreen-v78',
+        'list-only','titles-only','utility-fullscreen-v2189','view-switching-v3189'
+      );
+      document.body.classList.add('home-active-v9019');
+    }catch(_e){}
+
+    try{
+      if(typeof setActiveView === 'function') setActiveView(null);
+    }catch(_e){}
+
+    try{
+      document.querySelectorAll('.content > .panel').forEach(function(panel){
+        panel.classList.add('hidden');
+      });
+    }catch(_e){}
+
+    var home = document.getElementById('homeView');
+    var card = document.getElementById('homeCardV9019');
+    if(home){
+      home.classList.remove('hidden');
+      home.style.removeProperty('display');
+      home.style.setProperty('display','flex','important');
+    }
+    if(card){
+      card.classList.remove('hidden');
+      card.style.removeProperty('display');
+      card.style.removeProperty('visibility');
+      card.style.removeProperty('opacity');
+      card.style.setProperty('display','block','important');
+      card.style.setProperty('visibility','visible','important');
+      card.style.setProperty('opacity','1','important');
+    }
+
+    try{ if(typeof renderHomeV9019 === 'function') renderHomeV9019(); }catch(_e){}
+    try{ window.scrollTo({top:0,behavior:'auto'}); }catch(_e){ window.scrollTo(0,0); }
+
+    /* Reafirmación tras finalizar el mismo clic y cualquier transición pendiente. */
+    [0,40,140].forEach(function(delay){
+      setTimeout(function(){
+        var h = document.getElementById('homeView');
+        var c = document.getElementById('homeCardV9019');
+        try{ document.body.classList.add('home-active-v9019'); }catch(_e){}
+        if(h){ h.classList.remove('hidden'); h.style.setProperty('display','flex','important'); }
+        if(c){
+          c.classList.remove('hidden');
+          c.style.setProperty('display','block','important');
+          c.style.setProperty('visibility','visible','important');
+          c.style.setProperty('opacity','1','important');
+        }
+        try{ if(typeof renderHomeV9019 === 'function') renderHomeV9019(); }catch(_e){}
+      }, delay);
+    });
+  }
+
+  var oldOpenGlobalSearchResultV2215 = window.openGlobalSearchResultV3177;
+  if(typeof oldOpenGlobalSearchResultV2215 === 'function'){
     window.openGlobalSearchResultV3177 = function(){
-      window.__v2215OpenedFromGlobalSearch = true;
-      return previousOpenGlobalSearchResultV2215.apply(this, arguments);
+      fromGlobalSearchV2215 = true;
+      window.__fromGlobalSearchV2215 = true;
+      return oldOpenGlobalSearchResultV2215.apply(this, arguments);
     };
     try{ openGlobalSearchResultV3177 = window.openGlobalSearchResultV3177; }catch(_e){}
   }
 
-  var previousSmartBackV2215 = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
-  if(typeof previousSmartBackV2215 !== 'function') return;
-
-  window.smartBack = function(){
-    try{
-      var reader = document.getElementById('readerView');
-      var readerVisible = !!(reader && !reader.classList.contains('hidden'));
-      if(window.__v2215OpenedFromGlobalSearch && readerVisible){
-        window.__v2215OpenedFromGlobalSearch = false;
-
-        /* Usa el regreso normal de Inicio y fuerza únicamente la tarjeta que faltaba. */
-        if(typeof showHomeV9019 === 'function') showHomeV9019();
-
-        document.body.classList.remove('view-switching-v3189');
-        var home = document.getElementById('homeView');
-        var card = document.getElementById('homeCardV9019');
-        if(home){
-          home.classList.remove('hidden');
-          home.style.removeProperty('display');
-        }
-        if(card){
-          card.classList.remove('hidden');
-          card.style.removeProperty('display');
-          card.style.removeProperty('visibility');
-          card.style.removeProperty('opacity');
-        }
-        if(typeof renderHomeV9019 === 'function') renderHomeV9019();
-        try{ window.scrollTo({top:0, behavior:'auto'}); }catch(_scrollErr){ window.scrollTo(0,0); }
-        return;
-      }
-    }catch(e){
-      console.error('V2.215 búsqueda → tarjeta de inicio', e);
-    }
-    return previousSmartBackV2215.apply(this, arguments);
-  };
-  try{ smartBack = window.smartBack; }catch(_e2){}
+  document.addEventListener('click', function(ev){
+    if(!fromGlobalSearchV2215 && !window.__fromGlobalSearchV2215) return;
+    var btn = ev.target && ev.target.closest ? ev.target.closest('#readerView .panel-head button:first-child') : null;
+    if(!btn) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    if(typeof ev.stopImmediatePropagation === 'function') ev.stopImmediatePropagation();
+    forceHomeCardV2215();
+  }, true);
 })();
