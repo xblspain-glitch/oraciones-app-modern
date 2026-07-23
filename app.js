@@ -11917,3 +11917,67 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   };
   try{smartBack=window.smartBack;}catch(_e){}
 })();
+
+/* ===== V3.1.217 — regreso definitivo desde Buscar en toda la app =====
+   El lector y varios parches antiguos compiten por el botón Volver.
+   Para evitar estados parciales, se reinicia únicamente la interfaz y se
+   conserva todo el contenido guardado en localStorage. ===== */
+(function(){
+  if(window.__v3217GlobalSearchHardBack) return;
+  window.__v3217GlobalSearchHardBack = true;
+
+  function hardReturnHomeV3217(){
+    if(!window.__returnHomeFromGlobalSearchV3215) return false;
+    window.__returnHomeFromGlobalSearchV3215 = false;
+    try{ sessionStorage.setItem('oraciones-return-home-v3217','1'); }catch(_e){}
+    var base = window.location.pathname || './';
+    var query = '?home=v3217&t=' + Date.now();
+    window.location.replace(base + query + '#inicio');
+    return true;
+  }
+  window.hardReturnHomeV3217 = hardReturnHomeV3217;
+
+  /* Captura cualquier botón Volver del lector antes que los manejadores antiguos. */
+  document.addEventListener('click',function(ev){
+    if(!window.__returnHomeFromGlobalSearchV3215) return;
+    var el = ev.target && ev.target.closest ? ev.target.closest('button,a') : null;
+    if(!el) return;
+    var inReader = !!el.closest('#readerView');
+    var label = (el.textContent || el.getAttribute('aria-label') || el.title || '').trim().toLowerCase();
+    var isBack = label.indexOf('volver') !== -1 || label === '←' || label.indexOf('atrás') !== -1;
+    if(!inReader || !isBack) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    if(ev.stopImmediatePropagation) ev.stopImmediatePropagation();
+    hardReturnHomeV3217();
+  },true);
+
+  var priorSmartBackV3217 = window.smartBack || (typeof smartBack!=='undefined' ? smartBack : null);
+  window.smartBack = function(){
+    if(hardReturnHomeV3217()) return;
+    if(typeof priorSmartBackV3217 === 'function') return priorSmartBackV3217.apply(this,arguments);
+  };
+  try{ smartBack = window.smartBack; }catch(_e){}
+
+  function restoreHomeV3217(){
+    var marked=false;
+    try{
+      marked = sessionStorage.getItem('oraciones-return-home-v3217') === '1';
+      if(marked) sessionStorage.removeItem('oraciones-return-home-v3217');
+    }catch(_e){}
+    if(!marked && window.location.hash !== '#inicio') return;
+    setTimeout(function(){
+      try{
+        if(typeof showHomeV9019 === 'function') showHomeV9019();
+        else if(window.showHomeV9019) window.showHomeV9019();
+        var home=document.getElementById('homeView');
+        var card=document.getElementById('homeCardV9019');
+        if(home) home.classList.remove('hidden');
+        if(card){ card.classList.remove('hidden'); card.style.removeProperty('display'); }
+        window.scrollTo(0,0);
+      }catch(e){ console.error('Restauración de Inicio V3.1.217',e); }
+    },120);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',restoreHomeV3217,{once:true});
+  else restoreHomeV3217();
+})();
