@@ -3887,7 +3887,23 @@ async function chooseCardStyleV2217(style){
 
 async function shareVerseCard(cardStyle="classic"){
   try{
-    const isJerusalemV2217 = cardStyle === "jerusalem";
+    const cardBackgroundsV2219={
+      classic:"card-header-sky-v3197.webp",
+      jerusalem:"shared-card-new-jerusalem-v2217.png",
+      salvacion:"card-salvacion-v2219.jpg",
+      oracion:"card-oracion-v2219.jpg",
+      "espiritu-santo":"card-espiritu-santo-v2219.jpg",
+      misericordia:"card-misericordia-v2219.jpg",
+      alabanza:"card-alabanza-v2219.jpg",
+      fortaleza:"card-fortaleza-v2219.jpg",
+      amor:"card-amor-v2219.jpg",
+      esperanza:"card-esperanza-v2219.jpg",
+      juicio:"card-juicio-v2219.jpg",
+      fe:"card-fe-v2219.jpg",
+      "segunda-venida":"card-segunda-venida-v2219.jpg"
+    };
+    const isIllustratedV2219 = cardStyle !== "classic";
+    const selectedBackgroundV2219 = cardBackgroundsV2219[cardStyle] || cardBackgroundsV2219.classic;
     const item = (typeof currentItem === "function") ? currentItem() : null;
 
     // Marcamos la tarjeta como enviada al pulsar el botón Tarjeta.
@@ -3985,7 +4001,7 @@ async function shareVerseCard(cardStyle="classic"){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src=isJerusalemV2217 ? "shared-card-new-jerusalem-v2217.png?v=v2-217-selector" : "card-header-sky-v3197.webp?v=v3-1-197";
+        im.src=selectedBackgroundV2219+"?v=v2-219-once-tarjetas";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
@@ -4076,12 +4092,12 @@ async function shareVerseCard(cardStyle="classic"){
     // La cabecera visual (sol, nubes y Biblia) ya forma parte del fondo.
     // No se dibuja ningún icono superpuesto, evitando el efecto de pegatina.
     ctx.font="italic 56px Georgia, serif";
-    ctx.fillText("Versículo del día",540,isJerusalemV2217?790:590);
+    ctx.fillText("Versículo del día",540,isIllustratedV2219?790:590);
     ctx.font="34px Georgia, serif";
     const ds=new Date();
     const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
     const fecha=ds.getDate()+" de "+meses[ds.getMonth()]+" de "+ds.getFullYear();
-    ctx.fillText(fecha,540,isJerusalemV2217?855:655);
+    ctx.fillText(fecha,540,isIllustratedV2219?855:655);
 
     // V3.1.200 — categoría sin icono, en mayúsculas y centrada.
     const categoryTextV3200=String(category||"")
@@ -4089,10 +4105,10 @@ async function shareVerseCard(cardStyle="classic"){
       .toLocaleUpperCase("es-ES");
     ctx.font="44px Georgia, serif";
     ctx.textAlign="center";
-    ctx.fillText(categoryTextV3200,540,isJerusalemV2217?935:742);
+    ctx.fillText(categoryTextV3200,540,isIllustratedV2219?935:742);
 
     ctx.font="bold 74px Georgia, serif";
-    ctx.fillText(ref,540,isJerusalemV2217?1040:865);
+    ctx.fillText(ref,540,isIllustratedV2219?1040:865);
 
     // Línea decorativa azul tenue con cruz central
     ctx.save();
@@ -4101,14 +4117,14 @@ async function shareVerseCard(cardStyle="classic"){
     ctx.shadowOffsetY=0;
     ctx.strokeStyle="rgba(190,238,248,0.58)";
     ctx.lineWidth=2;
-    ctx.beginPath(); ctx.moveTo(180,isJerusalemV2217?1092:925); ctx.lineTo(500,isJerusalemV2217?1092:925); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(580,isJerusalemV2217?1092:925); ctx.lineTo(900,isJerusalemV2217?1092:925); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(180,isIllustratedV2219?1092:925); ctx.lineTo(500,isIllustratedV2219?1092:925); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(580,isIllustratedV2219?1092:925); ctx.lineTo(900,isIllustratedV2219?1092:925); ctx.stroke();
     ctx.fillStyle="rgba(214,249,255,0.78)";
     ctx.font="34px Georgia, serif";
-    ctx.fillText("✝",540,isJerusalemV2217?1104:937);
+    ctx.fillText("✝",540,isIllustratedV2219?1104:937);
     ctx.restore();
 
-    const textLayout=isJerusalemV2217 ? getNewJerusalemCardTextLayoutV2217(body) : getCardTextLayout(body);
+    const textLayout=isIllustratedV2219 ? getNewJerusalemCardTextLayoutV2217(body) : getCardTextLayout(body);
     ctx.font="italic "+textLayout.font+"px Georgia, serif";
     wrapText(ctx,body,540,textLayout.y,930,textLayout.line,textLayout.max);
 

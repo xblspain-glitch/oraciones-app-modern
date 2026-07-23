@@ -5077,7 +5077,7 @@ body.view-switching-v3189 #homeView{
 .card-style-head-v2217 h2{font-size:1.3rem;margin:0;color:var(--text,#222)}
 .card-style-close-v2217{border:0;background:var(--soft,#eef3f7);width:40px;height:40px;border-radius:50%;font-size:1.7rem;line-height:1;cursor:pointer;color:var(--text,#222)}
 .card-style-sub-v2217{margin:8px 0 18px;text-align:left;color:var(--muted,#667);font-size:.98rem}
-.card-style-grid-v2217{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card-style-grid-v2217{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .card-style-option-v2217{border:1px solid var(--border,rgba(0,0,0,.12));background:var(--card,#fff);border-radius:20px;padding:10px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:10px;box-shadow:0 5px 16px rgba(25,55,80,.10);color:var(--text,#222)}
 .card-style-option-v2217:active{transform:scale(.985)}
 .card-style-option-v2217 strong{display:block;font-size:1rem;margin-bottom:3px}
@@ -5087,3 +5087,17 @@ body.view-switching-v3189 #homeView{
 .card-style-preview-v2217.jerusalem-v2217{background-image:url('shared-card-new-jerusalem-v2217.png')}
 .card-style-cancel-v2217{width:100%;margin-top:16px}
 @media (min-width:700px){.card-style-modal-v2217{align-items:center}.card-style-sheet-v2217{padding:24px}.card-style-preview-v2217{aspect-ratio:9/10}}
+
+/* V2.219 — once nuevas tarjetas temáticas */
+.card-style-preview-v2217.salvacion-v2219{background-image:url('card-salvacion-v2219.jpg')}
+.card-style-preview-v2217.oracion-v2219{background-image:url('card-oracion-v2219.jpg')}
+.card-style-preview-v2217.espiritu-santo-v2219{background-image:url('card-espiritu-santo-v2219.jpg')}
+.card-style-preview-v2217.misericordia-v2219{background-image:url('card-misericordia-v2219.jpg')}
+.card-style-preview-v2217.alabanza-v2219{background-image:url('card-alabanza-v2219.jpg')}
+.card-style-preview-v2217.fortaleza-v2219{background-image:url('card-fortaleza-v2219.jpg')}
+.card-style-preview-v2217.amor-v2219{background-image:url('card-amor-v2219.jpg')}
+.card-style-preview-v2217.esperanza-v2219{background-image:url('card-esperanza-v2219.jpg')}
+.card-style-preview-v2217.juicio-v2219{background-image:url('card-juicio-v2219.jpg')}
+.card-style-preview-v2217.fe-v2219{background-image:url('card-fe-v2219.jpg')}
+.card-style-preview-v2217.segunda-venida-v2219{background-image:url('card-segunda-venida-v2219.jpg')}
+@media(max-width:380px){.card-style-grid-v2217{grid-template-columns:1fr}}
