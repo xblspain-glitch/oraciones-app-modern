@@ -749,6 +749,15 @@ function consumeReturnToSentList(){
 }
 
 function smartBack(){
+  if(window.__returnHomeFromGlobalSearchV3215){
+    window.__returnHomeFromGlobalSearchV3215=false;
+    try{
+      if(typeof showHomeV9019==="function") showHomeV9019();
+      else if(window.showHomeV9019) window.showHomeV9019();
+    }catch(e){ console.error("Volver desde búsqueda",e); }
+    return;
+  }
+
   if(typeof categoryListActive !== "undefined" && categoryListActive){
     categoryListActive=false;
     try{
@@ -11648,6 +11657,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     box.innerHTML=html||'<div class="global-search-empty-v3177">No se ha encontrado contenido con “'+escV3177(raw)+'”.</div>';
   };
   window.openGlobalSearchResultV3177=function(sec,id){
+    window.__returnHomeFromGlobalSearchV3215=true;
     window.closeGlobalSearchV3177();
     section=sec; state.section=sec;
     if(sec==='prayers')state.currentPrayerId=id;
