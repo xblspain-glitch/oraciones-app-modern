@@ -1067,12 +1067,30 @@ function saveCurrent(stay, silent){
             // En pruebas detectamos que a veces el autosave ya había creado la copia.
             // Por eso eliminamos siempre el item actual al cancelar.
             state.verses = state.verses.filter(v => v.id !== item.id);
+            section = "verses";
+            state.section = "verses";
             state.currentVerseId = dup.id;
             currentVerseCategory = dup.category || currentVerseCategory || "sin_categoria";
+            verseNavigationMode = "reader";
             saveState();
+
+            // Reconstruye la navegación completa antes de abrir el versículo existente.
+            // Evita que la tarjeta de Inicio quede visible y que la botonera pierda sus colores.
+            try{ document.body.dataset.section = "verses"; }catch(_e){}
+            syncTabs();
+            setActiveView("read");
+            setSearchVisibleV26(true);
+            clearNavModes();
+
+            ["homeView","editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView","welcomeView","momentsView","routineView","routineReaderV3192"].forEach(function(id){
+              var view=document.getElementById(id);
+              if(view) view.classList.add("hidden");
+            });
+
             renderList();
             renderReader();
             openReader();
+            window.scrollTo({top:0,behavior:"auto"});
             toast("Duplicado descartado");
             return;
           }
