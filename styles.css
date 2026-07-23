@@ -5049,9 +5049,9 @@ body.view-switching-v3189 #homeView{
 
 /* V2.216 — ilustraciones de Biblia en los botones Mañana y Noche */
 .routine-hub-image-slot-v2216{
-  width:92px;
-  height:92px;
-  flex:0 0 92px;
+  width:103px;
+  height:103px;
+  flex:0 0 103px;
   display:block;
   overflow:hidden;
   border-radius:20px;
@@ -5064,6 +5064,6 @@ body.view-switching-v3189 #homeView{
   object-fit:cover;
 }
 @media(min-width:761px){
-  .routine-hub-image-slot-v2216{width:104px;height:104px;flex-basis:104px;border-radius:22px}
+  .routine-hub-image-slot-v2216{width:116px;height:116px;flex-basis:116px;border-radius:22px}
 }
 .dark .routine-hub-image-slot-v2216{box-shadow:0 7px 18px rgba(0,0,0,.28)}
