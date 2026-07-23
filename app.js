@@ -4013,7 +4013,7 @@ async function shareVerseCard(cardStyle="classic"){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src=selectedBackgroundV2219+"?v=v2-221-integracion-azul";
+        im.src=selectedBackgroundV2219+"?v=v2-222-fondo-adaptado-por-tarjeta";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
