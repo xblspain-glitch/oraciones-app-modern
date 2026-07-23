@@ -11833,3 +11833,55 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
 })();
+
+/* ===== V2.215 · Restaurar SOLO la tarjeta inferior al volver desde Buscar ===== */
+(function(){
+  if(window.__v2215GlobalSearchHomeCardFix) return;
+  window.__v2215GlobalSearchHomeCardFix = true;
+
+  var previousOpenGlobalSearchResultV2215 = window.openGlobalSearchResultV3177;
+  if(typeof previousOpenGlobalSearchResultV2215 === 'function'){
+    window.openGlobalSearchResultV3177 = function(){
+      window.__v2215OpenedFromGlobalSearch = true;
+      return previousOpenGlobalSearchResultV2215.apply(this, arguments);
+    };
+    try{ openGlobalSearchResultV3177 = window.openGlobalSearchResultV3177; }catch(_e){}
+  }
+
+  var previousSmartBackV2215 = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
+  if(typeof previousSmartBackV2215 !== 'function') return;
+
+  window.smartBack = function(){
+    try{
+      var reader = document.getElementById('readerView');
+      var readerVisible = !!(reader && !reader.classList.contains('hidden'));
+      if(window.__v2215OpenedFromGlobalSearch && readerVisible){
+        window.__v2215OpenedFromGlobalSearch = false;
+
+        /* Usa el regreso normal de Inicio y fuerza únicamente la tarjeta que faltaba. */
+        if(typeof showHomeV9019 === 'function') showHomeV9019();
+
+        document.body.classList.remove('view-switching-v3189');
+        var home = document.getElementById('homeView');
+        var card = document.getElementById('homeCardV9019');
+        if(home){
+          home.classList.remove('hidden');
+          home.style.removeProperty('display');
+        }
+        if(card){
+          card.classList.remove('hidden');
+          card.style.removeProperty('display');
+          card.style.removeProperty('visibility');
+          card.style.removeProperty('opacity');
+        }
+        if(typeof renderHomeV9019 === 'function') renderHomeV9019();
+        try{ window.scrollTo({top:0, behavior:'auto'}); }catch(_scrollErr){ window.scrollTo(0,0); }
+        return;
+      }
+    }catch(e){
+      console.error('V2.215 búsqueda → tarjeta de inicio', e);
+    }
+    return previousSmartBackV2215.apply(this, arguments);
+  };
+  try{ smartBack = window.smartBack; }catch(_e2){}
+})();
