@@ -5083,7 +5083,7 @@ body.view-switching-v3189 #homeView{
 .card-style-option-v2217 strong{display:block;font-size:1rem;margin-bottom:3px}
 .card-style-option-v2217 small{display:block;color:var(--muted,#667);font-size:.82rem;line-height:1.25}
 .card-style-preview-v2217{display:block;width:100%;aspect-ratio:9/12;border-radius:14px;background-size:cover;background-position:center top;border:1px solid rgba(255,255,255,.5)}
-.card-style-preview-v2217.classic-v2217{background-image:url('card-sabiduria-v2237.jpg?v=v2-237-selector-sabiduria-santidad-cache-limpia')}
+.card-style-preview-v2217.classic-v2217{background-image:url('card-sabiduria-v2235.png?v=v2-238-selector-canonical-assets')}
 .card-style-preview-v2217.jerusalem-v2217{background-image:url('shared-card-new-jerusalem-v2217.png')}
 .card-style-cancel-v2217{width:100%;margin-top:16px}
 @media (min-width:700px){.card-style-modal-v2217{align-items:center}.card-style-sheet-v2217{padding:24px}.card-style-preview-v2217{aspect-ratio:9/10}}
@@ -5101,6 +5101,6 @@ body.view-switching-v3189 #homeView{
 .card-style-preview-v2217.fe-v2219{background-image:url('card-fe-v2219.jpg')}
 .card-style-preview-v2217.segunda-venida-v2219{background-image:url('card-segunda-venida-v2219.jpg')}
 .card-style-preview-v2217.reino-dios-v2230{background-image:url('card-reino-dios-v2230.jpg')}
-.card-style-preview-v2217.santidad-v2230{background-image:url('card-santidad-v2237.jpg?v=v2-237-selector-sabiduria-santidad-cache-limpia')}
+.card-style-preview-v2217.santidad-v2230{background-image:url('card-santidad-v2230.jpg?v=v2-238-selector-canonical-assets')}
 .card-style-preview-v2217.cristo-es-dios-v2230{background-image:url('card-cristo-es-dios-v2230.jpg')}
 @media(max-width:380px){.card-style-grid-v2217{grid-template-columns:1fr}}
