@@ -2,7 +2,7 @@
   "name": "Oraciones V3",
   "short_name": "Oraciones V3",
   "id": "./oraciones-v3-lab",
-  "start_url": "./?v=v2-228-marca-agua-grande-prueba",
+  "start_url": "./?v=v2-229-marca-agua-grande-prueba",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -22,6 +22,6 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "2.228",
-  "build": "v2-228-marca-agua-grande-prueba"
+  "version": "2.229",
+  "build": "v2-229-marca-agua-grande-prueba"
 }
