@@ -3818,7 +3818,7 @@ function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(IN
 window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
-if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v2-232-jerusalen-marca-agua-unificada",{updateViaCache:"none"})})}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v2-233-sabiduria-layout-unificado",{updateViaCache:"none"})})}
 applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
 
 function getCardTextLayout(txt){
@@ -3920,7 +3920,7 @@ async function shareVerseCard(cardStyle="classic"){
     const isThematicV2220 = cardStyle !== "classic" && cardStyle !== "jerusalem";
     // V2.232 — Nueva Jerusalén usa exactamente el mismo layout completo
     // que las tarjetas temáticas nuevas: textos y marca de agua.
-    const usesNewTextLayoutV2231 = cardStyle !== "classic";
+    const usesNewTextLayoutV2231 = true; // V2.233 — Sabiduría también usa el layout unificado
     const selectedBackgroundV2219 = cardBackgroundsV2219[cardStyle] || cardBackgroundsV2219.classic;
     const item = (typeof currentItem === "function") ? currentItem() : null;
 
@@ -4019,7 +4019,7 @@ async function shareVerseCard(cardStyle="classic"){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src=selectedBackgroundV2219+"?v=v2-232-jerusalen-marca-agua-unificada";
+        im.src=selectedBackgroundV2219+"?v=v2-233-sabiduria-layout-unificado";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
@@ -4099,7 +4099,7 @@ async function shareVerseCard(cardStyle="classic"){
         ctx.restore();
       }
     }
-    await drawExactLogoWatermark(ctx,540,isIllustratedV2219?1335:1168,isIllustratedV2219?870:780);
+    await drawExactLogoWatermark(ctx,540,usesNewTextLayoutV2231?1335:1168,usesNewTextLayoutV2231?870:780);
 
     ctx.textAlign="center";
     ctx.fillStyle="#ffffff";
