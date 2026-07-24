@@ -3818,7 +3818,7 @@ function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(IN
 window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
-if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v2-228-marca-agua-grande-prueba",{updateViaCache:"none"})})}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v2-230-nuevas-tarjetas-codigo",{updateViaCache:"none"})})}
 applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
 
 function getCardTextLayout(txt){
@@ -3911,7 +3911,10 @@ async function shareVerseCard(cardStyle="classic"){
       esperanza:"card-esperanza-v2219.jpg",
       juicio:"card-juicio-v2219.jpg",
       fe:"card-fe-v2219.jpg",
-      "segunda-venida":"card-segunda-venida-v2219.jpg"
+      "segunda-venida":"card-segunda-venida-v2219.jpg",
+      "reino-dios":"card-reino-dios-v2230.jpg",
+      santidad:"card-santidad-v2230.jpg",
+      "cristo-es-dios":"card-cristo-es-dios-v2230.jpg"
     };
     const isIllustratedV2219 = cardStyle !== "classic";
     const isThematicV2220 = cardStyle !== "classic" && cardStyle !== "jerusalem";
@@ -4013,7 +4016,7 @@ async function shareVerseCard(cardStyle="classic"){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src=selectedBackgroundV2219+"?v=v2-228-marca-agua-grande-prueba";
+        im.src=selectedBackgroundV2219+"?v=v2-230-nuevas-tarjetas-codigo";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
