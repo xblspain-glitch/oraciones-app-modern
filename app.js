@@ -1,3 +1,4 @@
+/* V2.243 · integración de Personajes Bíblicos como sección independiente */
 const BUILD_V3_1_200="tarjeta-final-limpia";
 /* Oraciones V3 LAB - app.js paso 45: limpieza render de versículos */
 
