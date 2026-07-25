@@ -2072,6 +2072,518 @@ const BIBLICAL_CHARACTERS_V2242=[
       "       │",
       "Cristo, sacerdote y rey"
     ]
+  },
+  {
+    "id": "enós",
+    "nombre": "Enós",
+    "categoria": "Primeros seres humanos",
+    "quienFue": "Hijo de Set y nieto de Adán. Forma parte de la línea genealógica que conduce desde Adán hasta Noé y, posteriormente, hasta Abraham.",
+    "importante": "Génesis relaciona su nacimiento con el tiempo en que los hombres comenzaron a invocar el nombre del Señor. Su vida representa la continuidad de una descendencia que buscaba a Dios en medio de un mundo herido por el pecado.",
+    "aprendizaje": "Cada generación puede volver su corazón a Dios e invocar su nombre.",
+    "apariciones": "Génesis 4:25-26; 5:6-11; Lucas 3:38",
+    "frase": "El descendiente de Set asociado con la invocación del nombre de Dios.",
+    "relacionCristo": "Aparece en la genealogía de Jesucristo según Lucas, dentro de la línea humana que llega hasta el Salvador.",
+    "cronologia": "Generaciones anteriores al diluvio, después de Set y antes de Enoc y Noé.",
+    "relacionados": [
+      "set",
+      "enoc",
+      "adán"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Adán ── Eva",
+      "   │",
+      "Set",
+      "   │",
+      "Enós"
+    ]
+  },
+  {
+    "id": "taré",
+    "nombre": "Taré",
+    "categoria": "Patriarcas",
+    "quienFue": "Padre de Abram, Nacor y Harán, y abuelo de Lot. Vivió en Ur de los caldeos y emprendió con parte de su familia el camino hacia Canaán.",
+    "importante": "Salió de Ur acompañado por Abram, Sarai y Lot, pero se estableció en Harán, donde murió. Su desplazamiento forma el trasfondo inmediato del llamamiento que Dios hizo después a Abraham.",
+    "aprendizaje": "Los comienzos del plan de Dios pueden prepararse antes de que comprendamos plenamente su alcance.",
+    "apariciones": "Génesis 11:24-32; Josué 24:2",
+    "frase": "El padre de Abraham que salió de Ur hacia Harán.",
+    "relacionCristo": "Su importancia respecto a Cristo es genealógica: fue antepasado de Abraham, de cuya descendencia vendría el Mesías.",
+    "cronologia": "Finales de la etapa posterior al diluvio y comienzo de la historia patriarcal.",
+    "relacionados": [
+      "abraham",
+      "sara",
+      "lot"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Taré",
+      " ├─ Abram / Abraham",
+      " ├─ Nacor",
+      " └─ Harán → Lot"
+    ]
+  },
+  {
+    "id": "agar",
+    "nombre": "Agar",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Sierva egipcia de Sara y madre de Ismael por Abraham. Su historia refleja las tensiones surgidas cuando Abraham y Sara intentaron obtener por medios humanos el hijo prometido.",
+    "importante": "Huyó al desierto después de ser afligida, pero el ángel del Señor la encontró y le prometió descendencia. Años después, expulsada con Ismael, volvió a experimentar la provisión de Dios en el desierto.",
+    "aprendizaje": "Dios ve y escucha a quienes se sienten abandonados, incluso en el desierto.",
+    "apariciones": "Génesis 16; 21:8-21; Gálatas 4:21-31",
+    "frase": "La mujer que llamó a Dios «el Dios que ve».",
+    "relacionCristo": "Pablo utiliza a Agar de forma alegórica para contrastar esclavitud y libertad, mostrando que la promesa alcanza su plenitud en la libertad recibida por Cristo.",
+    "cronologia": "Época de Abraham y Sara, aproximadamente en el segundo milenio a. C.",
+    "relacionados": [
+      "abraham",
+      "sara",
+      "ismael"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Abraham ── Sara",
+      "   │",
+      "Agar",
+      "   │",
+      "Ismael"
+    ]
+  },
+  {
+    "id": "ismael",
+    "nombre": "Ismael",
+    "categoria": "Patriarcas",
+    "quienFue": "Hijo de Abraham y Agar. Fue circuncidado como miembro de la casa de Abraham y recibió de Dios la promesa de llegar a ser padre de una gran nación.",
+    "importante": "Creció en el desierto después de ser despedido junto con su madre. Dios oyó su voz, los protegió y cumplió su palabra haciendo de él antepasado de doce príncipes.",
+    "aprendizaje": "Dios mantiene su cuidado y sus promesas aun cuando la historia humana está marcada por conflictos.",
+    "apariciones": "Génesis 16–17; 21; 25:12-18",
+    "frase": "El hijo de Abraham a quien Dios escuchó en el desierto.",
+    "relacionCristo": "Su historia es contrastada por Pablo con la de Isaac para explicar la diferencia entre la descendencia según la carne y los hijos de la promesa, cuya herencia se recibe en Cristo.",
+    "cronologia": "Época de Abraham e Isaac, aproximadamente en el segundo milenio a. C.",
+    "relacionados": [
+      "agar",
+      "abraham",
+      "isaac"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Abraham",
+      " ├─ Ismael (Agar)",
+      " └─ Isaac (Sara)"
+    ]
+  },
+  {
+    "id": "labán",
+    "nombre": "Labán",
+    "categoria": "Patriarcas",
+    "quienFue": "Hermano de Rebeca, padre de Lea y Raquel, y tío y suegro de Jacob. Vivía en Harán y recibió a Jacob cuando este huyó de Esaú.",
+    "importante": "Jacob trabajó para él durante muchos años. Labán cambió repetidamente sus condiciones, sustituyó a Raquel por Lea en la boda y trató de retener a Jacob, hasta que ambos establecieron un pacto de separación.",
+    "aprendizaje": "La astucia y el engaño deterioran las relaciones, pero Dios puede proteger y guiar a quien persevera.",
+    "apariciones": "Génesis 24; 29–31",
+    "frase": "El suegro de Jacob que intentó retenerlo en Harán.",
+    "relacionCristo": "Su relación con Cristo es indirecta: mediante sus hijas Lea y Raquel quedó unido a la familia de Jacob, de la cual surgieron las tribus de Israel y la línea mesiánica.",
+    "cronologia": "Época de Isaac y Jacob, durante la etapa patriarcal.",
+    "relacionados": [
+      "rebeca",
+      "jacob",
+      "lea",
+      "raquel"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Betuel",
+      " ├─ Rebeca → Isaac",
+      " └─ Labán",
+      "     ├─ Lea",
+      "     └─ Raquel"
+    ]
+  },
+  {
+    "id": "booz",
+    "nombre": "Booz",
+    "categoria": "Patriarcas",
+    "quienFue": "Hombre rico y piadoso de Belén, pariente de Elimelec. Mostró bondad y protección a Rut, una viuda moabita que recogía espigas en sus campos.",
+    "importante": "Actuó como pariente redentor: respetó la ley, resolvió públicamente el derecho de redención y tomó a Rut por esposa. Fue padre de Obed, abuelo de Isaí y bisabuelo de David.",
+    "aprendizaje": "La verdadera bondad une generosidad, justicia y respeto por la dignidad de los demás.",
+    "apariciones": "Rut 2–4; Mateo 1:5",
+    "frase": "El pariente redentor que acogió a Rut.",
+    "relacionCristo": "Como redentor familiar, Booz anticipa de manera limitada la obra de Cristo, quien rescata, acoge y da una nueva herencia. Además, aparece directamente en la genealogía de Jesús.",
+    "cronologia": "Período de los jueces, varias generaciones antes del rey David.",
+    "relacionados": [
+      "rut",
+      "noemí",
+      "david"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Su papel de pariente redentor ofrece una figura de la redención realizada por Cristo.",
+    "mapa": [
+      "Rahab",
+      "  │",
+      "Booz ── Rut",
+      "   │",
+      "Obed → Isaí → David → Cristo"
+    ]
+  },
+  {
+    "id": "elí",
+    "nombre": "Elí",
+    "categoria": "Sacerdotes y levitas",
+    "quienFue": "Sacerdote y juez de Israel que servía en el santuario de Silo. Recibió al joven Samuel cuando Ana lo dedicó al servicio de Dios.",
+    "importante": "Enseñó a Samuel a responder a la voz de Dios, pero no corrigió con firmeza la corrupción de sus hijos Ofni y Finees. Por ello recibió una sentencia contra su casa y murió al conocer la captura del arca.",
+    "aprendizaje": "La responsabilidad espiritual exige escuchar a Dios y corregir el mal con valentía.",
+    "apariciones": "1 Samuel 1–4",
+    "frase": "El sacerdote que orientó a Samuel, pero no gobernó bien su propia casa.",
+    "relacionCristo": "Su sacerdocio imperfecto resalta la necesidad de un sacerdote fiel y definitivo, cumplimiento que el Nuevo Testamento encuentra en Jesucristo.",
+    "cronologia": "Final del período de los jueces, antes del ministerio público de Samuel.",
+    "relacionados": [
+      "ana",
+      "samuel",
+      "ofni",
+      "finees-hijo-elí"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Elí",
+      " ├─ Ofni",
+      " ├─ Finees",
+      " └─ guía a Samuel"
+    ]
+  },
+  {
+    "id": "ofni",
+    "nombre": "Ofni",
+    "categoria": "Sacerdotes y levitas",
+    "quienFue": "Hijo del sacerdote Elí y hermano de Finees. Ejercía funciones sacerdotales en Silo, pero abusaba de su posición y despreciaba las ofrendas del Señor.",
+    "importante": "Junto con su hermano cometió graves pecados contra el pueblo y contra Dios. Murió en batalla el mismo día en que los filisteos capturaron el arca, cumpliéndose el juicio anunciado sobre la casa de Elí.",
+    "aprendizaje": "El servicio religioso sin obediencia ni temor de Dios puede convertirse en corrupción.",
+    "apariciones": "1 Samuel 2–4",
+    "frase": "El sacerdote que profanó su responsabilidad sagrada.",
+    "relacionCristo": "Su fracaso contrasta con Jesucristo, Sumo Sacerdote santo, fiel y sin pecado.",
+    "cronologia": "Final del período de los jueces, en tiempos de Elí y del joven Samuel.",
+    "relacionados": [
+      "elí",
+      "finees-hijo-elí",
+      "samuel"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Elí",
+      " ├─ Ofni",
+      " └─ Finees",
+      "Juicio sobre su casa"
+    ]
+  },
+  {
+    "id": "finees-hijo-elí",
+    "nombre": "Finees, hijo de Elí",
+    "categoria": "Sacerdotes y levitas",
+    "quienFue": "Hijo de Elí y hermano de Ofni. No debe confundirse con Finees, nieto de Aarón. Sirvió como sacerdote en Silo, pero participó en los abusos de su hermano.",
+    "importante": "Murió contra los filisteos cuando el arca fue llevada imprudentemente al campo de batalla. Su esposa dio a luz a Icabod al conocer la muerte de su familia y la captura del arca.",
+    "aprendizaje": "No debemos convertir los símbolos sagrados en amuletos ni sustituir la obediencia por una apariencia religiosa.",
+    "apariciones": "1 Samuel 1–4",
+    "frase": "El sacerdote cuya muerte acompañó la captura del arca.",
+    "relacionCristo": "Su sacerdocio infiel contrasta con la obediencia perfecta y el sacerdocio eterno de Cristo.",
+    "cronologia": "Final del período de los jueces, en tiempos de Elí y Samuel.",
+    "relacionados": [
+      "elí",
+      "ofni",
+      "samuel"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Elí",
+      " ├─ Ofni",
+      " └─ Finees",
+      "      │",
+      "Icabod"
+    ]
+  },
+  {
+    "id": "jefté",
+    "nombre": "Jefté",
+    "categoria": "Jueces",
+    "quienFue": "Guerrero galaadita, hijo de una mujer ramera, rechazado inicialmente por sus hermanos. Los ancianos de Galaad acudieron a él cuando los amonitas amenazaron la región.",
+    "importante": "Fue levantado como juez y derrotó a Amón después de exponer la historia de Israel. Su voto precipitado produjo una tragedia familiar y su conflicto con Efraín causó más violencia.",
+    "aprendizaje": "La fe y el valor no eliminan la necesidad de prudencia; nuestras palabras y votos tienen consecuencias.",
+    "apariciones": "Jueces 10:6–12:7; Hebreos 11:32",
+    "frase": "El juez valiente marcado por un voto imprudente.",
+    "relacionCristo": "Hebreos lo incluye entre los ejemplos de fe, pero su vida no constituye una figura directa de Cristo. Más bien muestra la necesidad de un libertador perfecto y sabio.",
+    "cronologia": "Período de los jueces, después de Gedeón y antes de Sansón.",
+    "relacionados": [
+      "gedeón",
+      "sansón"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Israel oprimido",
+      "      │",
+      "Jefté → libera Galaad",
+      "      │",
+      "Voto precipitado"
+    ]
+  },
+  {
+    "id": "ezequías",
+    "nombre": "Ezequías",
+    "categoria": "Reyes",
+    "quienFue": "Rey de Judá, hijo de Acaz. Fue recordado por confiar en Dios, eliminar lugares de culto idolátrico y restaurar la adoración en el templo.",
+    "importante": "Durante la invasión asiria acudió al Señor y recibió por medio de Isaías la promesa de liberación de Jerusalén. También enfermó gravemente, oró y recibió años adicionales de vida, aunque después mostró con orgullo sus tesoros a enviados de Babilonia.",
+    "aprendizaje": "La confianza sincera en Dios debe ir acompañada de humildad constante, incluso después de una gran victoria.",
+    "apariciones": "2 Reyes 18–20; 2 Crónicas 29–32; Isaías 36–39",
+    "frase": "El rey que confió en Dios frente al imperio asirio.",
+    "relacionCristo": "Perteneció a la dinastía de David y figura en la genealogía de Jesucristo. Sus reformas y su liberación temporal apuntan hacia el Rey perfecto que salva definitivamente a su pueblo.",
+    "cronologia": "Finales del siglo VIII y comienzos del VII a. C.",
+    "relacionados": [
+      "isaías",
+      "josías",
+      "david"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "David",
+      "  │ dinastía",
+      "Ezequías ── Isaías",
+      "  │",
+      "Liberación de Jerusalén"
+    ]
+  },
+  {
+    "id": "josías",
+    "nombre": "Josías",
+    "categoria": "Reyes",
+    "quienFue": "Rey de Judá que comenzó a reinar siendo niño. Buscó al Dios de David, destruyó numerosos elementos idolátricos y promovió una profunda reforma religiosa.",
+    "importante": "Durante la reparación del templo fue hallado el libro de la ley. Al oírlo, Josías se humilló, renovó el pacto y celebró una Pascua extraordinaria, aunque murió más tarde en batalla en Meguido.",
+    "aprendizaje": "La Palabra de Dios debe movernos a la humildad, al arrepentimiento y a cambios concretos.",
+    "apariciones": "2 Reyes 22–23; 2 Crónicas 34–35",
+    "frase": "El rey que se humilló al escuchar el libro de la ley.",
+    "relacionCristo": "Fue descendiente de David y antepasado de Jesús según Mateo. Su deseo de restaurar el pacto señala hacia Cristo, quien establece el nuevo pacto de forma definitiva.",
+    "cronologia": "Siglo VII a. C., poco antes de la caída de Jerusalén.",
+    "relacionados": [
+      "jeremías",
+      "sofonías",
+      "ezequías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Ezequías",
+      "   │",
+      "Josías",
+      " ├─ reforma",
+      " ├─ libro de la ley",
+      " └─ Pascua"
+    ]
+  },
+  {
+    "id": "roboam",
+    "nombre": "Roboam",
+    "categoria": "Reyes",
+    "quienFue": "Hijo de Salomón y primer rey de Judá después de la división del reino. Heredó una nación unida, pero respondió con dureza a la petición del pueblo de aliviar las cargas.",
+    "importante": "Rechazó el consejo de los ancianos y siguió el de sus jóvenes compañeros, provocando la separación de las tribus del norte. Más adelante Judá también cayó en infidelidad y sufrió la invasión de Sisac.",
+    "aprendizaje": "La soberbia y la incapacidad de escuchar buenos consejos pueden destruir una herencia recibida.",
+    "apariciones": "1 Reyes 11:43–14:31; 2 Crónicas 9:31–12:16",
+    "frase": "El rey cuya dureza aceleró la división del reino.",
+    "relacionCristo": "Perteneció a la línea de David y aparece en la genealogía de Jesucristo. Su gobierno fallido contrasta con el reinado justo y humilde del Mesías.",
+    "cronologia": "Finales del siglo X a. C., después de Salomón.",
+    "relacionados": [
+      "salomón",
+      "jeroboam",
+      "david"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Salomón",
+      "   │",
+      "Roboam",
+      " ├─ Judá",
+      " └─ división con Jeroboam"
+    ]
+  },
+  {
+    "id": "jeroboam",
+    "nombre": "Jeroboam",
+    "categoria": "Reyes",
+    "quienFue": "Primer rey del reino del norte después de la división de Israel. Había sido funcionario de Salomón y recibió por medio del profeta Ahías la promesa de gobernar diez tribus si obedecía a Dios.",
+    "importante": "Por temor a perder el reino estableció becerros de oro en Bet-el y Dan, creó sacerdotes y fiestas alternativas y condujo a Israel a una idolatría duradera. Su conducta se convirtió en medida de comparación para muchos reyes posteriores.",
+    "aprendizaje": "El miedo a perder poder puede llevar a sustituir la obediencia por sistemas religiosos convenientes.",
+    "apariciones": "1 Reyes 11:26–14:20; 2 Crónicas 10–13",
+    "frase": "El rey que desvió a Israel mediante un culto alternativo.",
+    "relacionCristo": "No existe una relación positiva directa con Cristo. Su reinado dividido e idólatra contrasta con Jesús, el verdadero Rey que reúne y conduce al pueblo en fidelidad a Dios.",
+    "cronologia": "Finales del siglo X a. C., contemporáneo de Roboam.",
+    "relacionados": [
+      "roboam",
+      "salomón"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Reino unido",
+      "   │ división",
+      "Jeroboam → Israel norte",
+      "Roboam → Judá sur"
+    ]
+  },
+  {
+    "id": "acab",
+    "nombre": "Acab",
+    "categoria": "Reyes",
+    "quienFue": "Rey de Israel, hijo de Omri y esposo de Jezabel. Fortaleció políticamente el reino, pero promovió de manera grave el culto a Baal.",
+    "importante": "Entró repetidamente en conflicto con el profeta Elías, permitió la persecución de los profetas del Señor y codició la viña de Nabot. Aunque se humilló temporalmente ante una sentencia, murió en batalla después de ignorar una advertencia profética.",
+    "aprendizaje": "El éxito político no compensa la idolatría, la injusticia ni el rechazo persistente de la verdad.",
+    "apariciones": "1 Reyes 16:28–22:40",
+    "frase": "El rey que promovió el culto a Baal y se enfrentó a Elías.",
+    "relacionCristo": "Su gobierno injusto contrasta con Cristo, Rey verdadero, defensor de la justicia y obediente a la voluntad del Padre.",
+    "cronologia": "Siglo IX a. C., durante el reino del norte.",
+    "relacionados": [
+      "jezabel",
+      "elías",
+      "eliseo"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Omri",
+      " │",
+      "Acab ── Jezabel",
+      " │",
+      "Conflicto con Elías"
+    ]
+  },
+  {
+    "id": "jezabel",
+    "nombre": "Jezabel",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Princesa sidonia, esposa del rey Acab y reina de Israel. Favoreció activamente el culto a Baal y persiguió a los profetas del Señor.",
+    "importante": "Sostuvo a numerosos profetas paganos, amenazó a Elías y organizó mediante testigos falsos la muerte de Nabot para que Acab tomara su viña. Murió durante la revolución de Jehú, conforme a la palabra profética.",
+    "aprendizaje": "El poder usado para idolatría, manipulación e injusticia termina produciendo destrucción.",
+    "apariciones": "1 Reyes 16:31; 18–21; 2 Reyes 9",
+    "frase": "La reina que utilizó su poder contra la verdad y la justicia.",
+    "relacionCristo": "No representa a Cristo; su conducta es un fuerte contraste con la pureza, la verdad y el servicio propios del reino de Jesucristo.",
+    "cronologia": "Siglo IX a. C., durante el reinado de Acab.",
+    "relacionados": [
+      "acab",
+      "elías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Acab ── Jezabel",
+      "  ├─ culto a Baal",
+      "  ├─ persecución",
+      "  └─ muerte de Nabot"
+    ]
+  },
+  {
+    "id": "josafat",
+    "nombre": "Josafat",
+    "categoria": "Reyes",
+    "quienFue": "Rey de Judá, hijo de Asa. Fortaleció el reino, envió maestros para enseñar la ley y promovió reformas judiciales y religiosas.",
+    "importante": "Buscó a Dios en una gran amenaza militar y condujo al pueblo a orar; la victoria llegó mientras los cantores alababan. Sin embargo, sus alianzas con la casa de Acab produjeron consecuencias peligrosas.",
+    "aprendizaje": "Buscar a Dios y enseñar su Palabra da firmeza, pero las alianzas imprudentes pueden comprometer incluso una buena obra.",
+    "apariciones": "1 Reyes 22; 2 Crónicas 17–20",
+    "frase": "El rey que puso cantores al frente y vio la liberación de Dios.",
+    "relacionCristo": "Fue rey de la casa de David y antepasado de Jesucristo. Su confianza en la salvación de Dios anticipa de forma limitada al Rey mesiánico que libra a su pueblo.",
+    "cronologia": "Siglo IX a. C., contemporáneo de Acab.",
+    "relacionados": [
+      "acab",
+      "david"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Asa",
+      " │",
+      "Josafat",
+      " ├─ enseñanza de la ley",
+      " ├─ oración",
+      " └─ alianza con Acab"
+    ]
+  },
+  {
+    "id": "nabucodonosor",
+    "nombre": "Nabucodonosor",
+    "categoria": "Reyes",
+    "quienFue": "Rey del imperio babilónico que conquistó Jerusalén, destruyó el primer templo y llevó a muchos habitantes de Judá al exilio.",
+    "importante": "Aparece ampliamente en Daniel: tuvo sueños revelados por Dios, levantó una estatua de oro y finalmente fue humillado por su orgullo hasta reconocer que el Altísimo gobierna sobre los reinos humanos.",
+    "aprendizaje": "Ningún poder humano está por encima de Dios, y el orgullo puede ser quebrantado para conducir al reconocimiento de su soberanía.",
+    "apariciones": "2 Reyes 24–25; 2 Crónicas 36; Jeremías 21–52; Daniel 1–4",
+    "frase": "El emperador orgulloso que terminó reconociendo el dominio del Altísimo.",
+    "relacionCristo": "Sus sueños sobre un reino eterno y una piedra que vence a los reinos humanos se comprenden en la esperanza cristiana del reinado universal de Cristo.",
+    "cronologia": "Finales del siglo VII y primera mitad del VI a. C.",
+    "relacionados": [
+      "daniel",
+      "jeremías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Nabucodonosor",
+      " ├─ conquista Jerusalén",
+      " ├─ exilio de Daniel",
+      " └─ humillado por Dios"
+    ]
+  },
+  {
+    "id": "ciro",
+    "nombre": "Ciro",
+    "categoria": "Reyes",
+    "quienFue": "Rey de Persia que conquistó Babilonia. Permitió que los judíos regresaran a Jerusalén y reconstruyeran el templo, devolviendo además utensilios que habían sido llevados al exilio.",
+    "importante": "Isaías lo presenta anticipadamente como instrumento escogido por Dios, aun sin pertenecer a Israel. Su decreto abrió una nueva etapa de restauración para el pueblo y facilitó la labor de Zorobabel, Josué, Esdras y Nehemías.",
+    "aprendizaje": "Dios puede utilizar incluso a gobernantes ajenos al pueblo de la fe para cumplir propósitos de libertad y restauración.",
+    "apariciones": "Isaías 44:28–45:7; 2 Crónicas 36:22-23; Esdras 1",
+    "frase": "El rey persa que autorizó el regreso del exilio.",
+    "relacionCristo": "Fue llamado ungido en un sentido histórico e instrumental, pero no es el Mesías definitivo. Su liberación temporal ayuda a comprender por contraste la liberación plena realizada por Cristo.",
+    "cronologia": "Segunda mitad del siglo VI a. C., al inicio del período persa.",
+    "relacionados": [
+      "zorobabel",
+      "esdras",
+      "nehemías",
+      "josué-sumo-sacerdote"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Ciro de Persia",
+      "      │ decreto",
+      "Regreso del exilio",
+      " ├─ Zorobabel",
+      " ├─ Josué",
+      " ├─ Esdras",
+      " └─ Nehemías"
+    ]
+  },
+  {
+    "id": "mardoqueo",
+    "nombre": "Mardoqueo",
+    "categoria": "Reyes",
+    "quienFue": "Judío de la tribu de Benjamín que vivía en Susa y crió a su prima Ester como hija. Permaneció fiel a su identidad y descubrió una conspiración contra el rey.",
+    "importante": "Se negó a inclinarse ante Amán, lo que desencadenó el plan de exterminio contra los judíos. Animó a Ester a intervenir, fue finalmente honrado por el rey y llegó a ocupar una posición de gran autoridad para procurar el bienestar de su pueblo.",
+    "aprendizaje": "Dios puede usar la fidelidad, el valor y una posición providencial para proteger a muchas personas.",
+    "apariciones": "Ester 2–10",
+    "frase": "El tutor de Ester que buscó el bien de su pueblo.",
+    "relacionCristo": "No posee una relación tipológica directa con Cristo, aunque su defensa del pueblo y su exaltación después de la amenaza recuerdan el tema bíblico de la liberación providencial.",
+    "cronologia": "Siglo V a. C., durante el imperio persa.",
+    "relacionados": [
+      "ester"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Mardoqueo",
+      "    │ cría",
+      "Ester → reina",
+      "    │",
+      "Liberación del pueblo"
+    ]
   }
 ]
 
@@ -2131,4 +2643,4 @@ function biblicalRelatedCardV2244(ids){if(!ids||!ids.length)return '';const item
 function backBiblicalCharactersV2242(){const d=document.getElementById('biblicalCharacterDetailV2242');if(d)d.classList.add('hidden');const h=document.getElementById('biblicalCharactersHomeV2242');if(h)h.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
 
 
-/* V2.247: 100 personajes, árboles familiares o históricos y nuevos marcos. */
+/* V2.248: 120 personajes y marcos uniformes de 2 px. */
