@@ -382,3 +382,11 @@ function openBiblicalCharacterDetailV2242(id){
 }
 function biblicalDetailCardV2242(title,body){return '<section class="biblical-detail-card-v2242"><h2>'+escapeBiblicalHtmlV2242(title)+'</h2><p>'+escapeBiblicalHtmlV2242(body)+'</p></section>'}
 function backBiblicalCharactersV2242(){const d=document.getElementById('biblicalCharacterDetailV2242');if(d)d.classList.add('hidden');const h=document.getElementById('biblicalCharactersHomeV2242');if(h)h.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
+
+
+/* V2.244 roadmap:
+- Ampliar 'Quién fue' y 'Lo más importante de su vida' con más contexto bíblico.
+- Añadir campos: relacionConCristo, cronologia, significadoNombre (cuando exista).
+- Diferenciar claramente datos RV1960 de deuterocanónicos y canon ortodoxo etíope.
+- Ampliar progresivamente la base de datos a 200+ personajes.
+*/
