@@ -66,6 +66,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 }
 </style>
 
+  <link rel="stylesheet" href="biblical-characters-v2242.css?v=v2-242-personajes-biblicos-inicial">
 </head>
 <body>
 
@@ -104,6 +105,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
     <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
     <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
+    <button id="biblicalCharactersBtnV2242" data-view-btn="biblical-characters" class="btn soft biblical-characters-main-v2242" type="button" onclick="openBiblicalCharactersV2242()">👥 Personajes</button>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
       <button id="tabParables" data-view-btn="parables" class="btn soft" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
       <button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
@@ -141,6 +143,24 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
         <div class="home-line-v9019"></div>
         <div class="home-phrase-v9019" id="homePhraseV9019">🙏🏾 Que esta palabra fortalezca hoy tu corazón.</div>
       </div>
+    </div>
+
+    <div id="biblicalCharactersViewV2242" class="panel hidden biblical-characters-panel-v2242">
+      <div class="biblical-characters-head-v2242">
+        <button class="btn soft" type="button" onclick="closeBiblicalCharactersV2242()">← Volver</button>
+      </div>
+      <div id="biblicalCharactersHomeV2242">
+        <h1 class="biblical-characters-title-v2242">Personajes Bíblicos</h1>
+        <p class="biblical-characters-sub-v2242">Recuerde quién fue cada personaje, por qué es importante y qué enseñanza nos deja.</p>
+        <label class="biblical-characters-search-v2242">
+          <span aria-hidden="true">🔎</span>
+          <input id="biblicalCharactersSearchV2242" type="search" autocomplete="off" placeholder="Buscar personaje, libro o categoría…" oninput="renderBiblicalCharactersV2242()">
+        </label>
+        <div id="biblicalCharactersCategoriesV2242" class="biblical-characters-categories-v2242"></div>
+        <div class="biblical-characters-list-head-v2242"><strong id="biblicalCharactersListTitleV2242">Todos los personajes</strong><span id="biblicalCharactersCountV2242"></span></div>
+        <div id="biblicalCharactersListV2242" class="biblical-characters-list-v2242"></div>
+      </div>
+      <article id="biblicalCharacterDetailV2242" class="biblical-character-detail-v2242 hidden"></article>
     </div>
 
     <div id="momentsHubV31102" class="panel hidden moments-panel-v31102">
@@ -451,7 +471,8 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=v2-241-ajuste-dinamico-referencia-fija"></script>
+<script src="app.js?v=v2-242-personajes-biblicos-inicial"></script>
+<script src="biblical-characters-v2242.js?v=v2-242-personajes-biblicos-inicial"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>

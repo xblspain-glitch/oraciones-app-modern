@@ -166,6 +166,7 @@ function setActiveView(view){
     read: 'btnRead',
     daily: 'btnDaily',
     calendar: 'calendarBtn',
+    'biblical-characters': 'biblicalCharactersBtnV2242',
     random: 'btnRandom',
     titles: 'btnTitles',
     edit: 'btnEdit',
