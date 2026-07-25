@@ -67,6 +67,26 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 </style>
 
   <link rel="stylesheet" href="biblical-characters-v2243.css?v=248">
+
+<style>
+.biblical-characters-main-v2242{
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.biblical-characters-button-icon-v2252{
+  width:30px;
+  height:30px;
+  object-fit:contain;
+  flex:0 0 30px;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.18));
+}
+@media(max-width:420px){
+  .biblical-characters-button-icon-v2252{width:27px;height:27px;flex-basis:27px}
+}
+</style>
+
 </head>
 <body>
 
@@ -105,7 +125,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
     <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft section-frame-green-moments-v245" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
     <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft section-frame-orange-calendar-v247" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
-    <button id="biblicalCharactersBtnV2242" data-view-btn="biblical-characters" class="btn soft biblical-characters-main-v2242" type="button" onclick="openBiblicalCharactersV2242()">👥 Personajes</button>
+    <button id="biblicalCharactersBtnV2242" data-view-btn="biblical-characters" class="btn soft biblical-characters-main-v2242" type="button" onclick="openBiblicalCharactersV2242()"><img class="biblical-characters-button-icon-v2252" src="icon-personajes-biblicos-v2252.png" alt="" aria-hidden="true"> <span>Personajes</span></button>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
       <button id="tabParables" data-view-btn="parables" class="btn soft section-frame-green-parables-v245" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
       <button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176 section-frame-peach-psalms-v247" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
@@ -472,7 +492,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
 <script src="app.js?v=251"></script>
-<script src="biblical-characters-v2243.js?v=251"></script>
+<script src="biblical-characters-v2243.js?v=252"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>

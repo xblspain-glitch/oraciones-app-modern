@@ -1,37 +1,37 @@
-/* V2.251 · Personajes bíblicos cargados desde JSON.
-   El diseño y la navegación permanecen en JavaScript; los datos están en biblical-characters-v2251.json. */
+/* V2.252 · Personajes bíblicos cargados desde JSON.
+   El diseño y la navegación permanecen en JavaScript; los datos están en biblical-characters-v2252.json. */
 let BIBLICAL_CHARACTER_CATEGORIES_V2242=[];
 let BIBLICAL_CHARACTERS_V2242=[];
 window.BIBLICAL_CHARACTERS_V2242=BIBLICAL_CHARACTERS_V2242;
-let biblicalCharactersLoadedV2251=false;
-let biblicalCharactersLoadErrorV2251="";
+let biblicalCharactersLoadedV2252=false;
+let biblicalCharactersLoadErrorV2252="";
 let biblicalCategoryV2242="Todos";
 
-async function loadBiblicalCharactersV2251(){
-  if(biblicalCharactersLoadedV2251)return BIBLICAL_CHARACTERS_V2242;
+async function loadBiblicalCharactersV2252(){
+  if(biblicalCharactersLoadedV2252)return BIBLICAL_CHARACTERS_V2242;
   try{
-    const response=await fetch("biblical-characters-v2251.json?v=251",{cache:"no-store"});
+    const response=await fetch("biblical-characters-v2252.json?v=252",{cache:"no-store"});
     if(!response.ok)throw new Error("HTTP "+response.status);
     const payload=await response.json();
     if(!payload||!Array.isArray(payload.categories)||!Array.isArray(payload.characters))throw new Error("Formato JSON no válido");
     BIBLICAL_CHARACTER_CATEGORIES_V2242=payload.categories;
     BIBLICAL_CHARACTERS_V2242=payload.characters;
     window.BIBLICAL_CHARACTERS_V2242=BIBLICAL_CHARACTERS_V2242;
-    biblicalCharactersLoadedV2251=true;
-    biblicalCharactersLoadErrorV2251="";
+    biblicalCharactersLoadedV2252=true;
+    biblicalCharactersLoadErrorV2252="";
     if(typeof renderHomeV9019==="function")try{renderHomeV9019()}catch(e){}
     const view=document.getElementById("biblicalCharactersViewV2242");
     if(view&&!view.classList.contains("hidden"))renderBiblicalCharactersV2242();
     return BIBLICAL_CHARACTERS_V2242;
   }catch(error){
-    biblicalCharactersLoadErrorV2251="No se pudieron cargar los personajes bíblicos.";
-    console.error("Error cargando biblical-characters-v2251.json",error);
+    biblicalCharactersLoadErrorV2252="No se pudieron cargar los personajes bíblicos.";
+    console.error("Error cargando biblical-characters-v2252.json",error);
     const list=document.getElementById("biblicalCharactersListV2242");
     if(list)list.innerHTML='<div class="biblical-empty-v2242">No se pudieron cargar los personajes. Cierre y vuelva a abrir la aplicación.</div>';
     throw error;
   }
 }
-void loadBiblicalCharactersV2251();
+void loadBiblicalCharactersV2252();
 function normalizeBiblicalTextV2242(v){return String(v||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
 function escapeBiblicalHtmlV2242(v){return String(v||"").replace(/[&<>"']/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"})[c]})}
 function hideMainPanelsForBiblicalV2242(){
@@ -45,7 +45,7 @@ async function openBiblicalCharactersV2242(){
   const home=document.getElementById('biblicalCharactersHomeV2242'); if(home)home.classList.remove('hidden');
   const detail=document.getElementById('biblicalCharacterDetailV2242'); if(detail)detail.classList.add('hidden');
   if(typeof setActiveView==='function')setActiveView('biblical-characters');
-  if(!biblicalCharactersLoadedV2251){const list=document.getElementById('biblicalCharactersListV2242');if(list)list.innerHTML='<div class="biblical-empty-v2242">Cargando personajes…</div>';try{await loadBiblicalCharactersV2251()}catch(e){return;}}
+  if(!biblicalCharactersLoadedV2252){const list=document.getElementById('biblicalCharactersListV2242');if(list)list.innerHTML='<div class="biblical-empty-v2242">Cargando personajes…</div>';try{await loadBiblicalCharactersV2252()}catch(e){return;}}
   renderBiblicalCharactersV2242(); window.scrollTo({top:0,behavior:'smooth'});
 }
 function closeBiblicalCharactersV2242(){
@@ -91,4 +91,4 @@ function biblicalRelatedCardV2244(ids){if(!ids||!ids.length)return '';const item
 function backBiblicalCharactersV2242(){const d=document.getElementById('biblicalCharacterDetailV2242');if(d)d.classList.add('hidden');const h=document.getElementById('biblicalCharactersHomeV2242');if(h)h.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
 
 
-/* V2.251: datos migrados a JSON con carga offline mediante service worker. */
+/* V2.252: datos migrados a JSON con carga offline mediante service worker. */
