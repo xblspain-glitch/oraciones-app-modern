@@ -906,61 +906,6 @@ const BIBLICAL_CHARACTERS_V2242=[
     "tipoCristo": ""
   },
   {
-    "id": "miriam",
-    "nombre": "Miriam",
-    "categoria": "Mujeres destacadas",
-    "quienFue": "Hermana de Moisés y Aarón, profetisa de Israel. Vigiló a Moisés cuando era un niño colocado en el río y ayudó a que su propia madre lo criara.",
-    "importante": "Después del paso del mar dirigió a las mujeres en canto y danza para alabar a Dios. Más adelante fue disciplinada por hablar contra Moisés, pero el pueblo esperó su restauración antes de continuar el viaje.",
-    "aprendizaje": "Los dones espirituales deben ir acompañados de humildad, y la corrección de Dios puede conducir a la restauración.",
-    "apariciones": "Éxodo 2:1-10; 15:20-21; Números 12; 20:1; Miqueas 6:4",
-    "frase": "La profetisa que cantó junto al mar.",
-    "relacionCristo": "Formó parte de la generación del éxodo, acontecimiento que el Nuevo Testamento relaciona con la liberación y salvación cumplidas en Cristo.",
-    "cronologia": "Siglo del éxodo, hermana mayor de Moisés y Aarón.",
-    "relacionados": [
-      "moisés",
-      "aarón"
-    ],
-    "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
-  },
-  {
-    "id": "débora",
-    "nombre": "Débora",
-    "categoria": "Jueces",
-    "quienFue": "Profetisa y jueza de Israel que atendía al pueblo bajo una palmera en la región montañosa de Efraín.",
-    "importante": "Transmitió a Barac el mandato de combatir a Sísara y lo acompañó cuando él pidió su presencia. Tras la victoria entonó con Barac un canto que celebra la intervención de Dios y la valentía de quienes se ofrecieron voluntariamente.",
-    "aprendizaje": "Dios puede levantar líderes valientes y sabios en momentos de temor y opresión.",
-    "apariciones": "Jueces 4–5",
-    "frase": "La profetisa que levantó a Israel con valor.",
-    "relacionCristo": "Como jueza fue instrumento de una liberación temporal; Cristo es el libertador y juez perfecto que vence definitivamente al pecado y al mal.",
-    "cronologia": "Periodo de los jueces, varios siglos antes de la monarquía de Israel.",
-    "relacionados": [
-      "barac",
-      "jael",
-      "sísara"
-    ],
-    "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Figura parcial de liberación y juicio."
-  },
-  {
-    "id": "gedeón",
-    "nombre": "Gedeón",
-    "categoria": "Jueces",
-    "quienFue": "Juez de Israel llamado por Dios cuando los madianitas oprimían al pueblo. Al principio se veía pequeño e incapaz dentro de su familia.",
-    "importante": "Dios redujo su ejército a trescientos hombres para que la victoria no pudiera atribuirse a la fuerza humana. Derribó el altar de Baal, venció a Madián y rechazó inicialmente ser rey, aunque sus últimos años dejaron también decisiones ambiguas.",
-    "aprendizaje": "Dios puede obrar mediante nuestra debilidad, pero una gran victoria no elimina la necesidad de permanecer fiel después.",
-    "apariciones": "Jueces 6–8; Hebreos 11:32",
-    "frase": "El hombre temeroso convertido en libertador.",
-    "relacionCristo": "Su victoria con un grupo pequeño muestra que la salvación depende del poder de Dios; en Cristo la victoria se alcanza de forma suprema mediante lo que parecía debilidad: la cruz.",
-    "cronologia": "Periodo de los jueces, después de Débora y antes de la monarquía.",
-    "relacionados": [
-      "débora",
-      "abimelec"
-    ],
-    "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Figura parcial del libertador escogido por Dios."
-  },
-  {
     "id": "eliseo",
     "nombre": "Eliseo",
     "categoria": "Profetas",
@@ -1108,8 +1053,409 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
+  },
+  {
+    "id": "cam",
+    "nombre": "Cam",
+    "categoria": "Patriarcas",
+    "quienFue": "Hijo de Noé y hermano de Sem y Jafet. Fue uno de los ocho sobrevivientes del diluvio y antepasado de varios pueblos mencionados en la tabla de las naciones.",
+    "importante": "Después del diluvio participó en el episodio de la embriaguez de Noé. La maldición pronunciada en el relato recayó sobre Canaán, hijo de Cam, no sobre todos sus descendientes.",
+    "aprendizaje": "La falta de respeto y la exposición del pecado ajeno pueden dejar consecuencias profundas.",
+    "apariciones": "Génesis 5:32; 6:10; 7:13; 9:18-27; 10:6-20",
+    "frase": "El hijo de Noé del que procedieron varios pueblos.",
+    "relacionCristo": "Pertenece a la línea de las naciones que, según el Evangelio, son llamadas a recibir la bendición prometida en Cristo.",
+    "cronologia": "Generación inmediatamente posterior al diluvio.",
+    "relacionados": [
+      "noé",
+      "sem",
+      "jafet"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "raquel",
+    "nombre": "Raquel",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Hija de Labán, hermana de Lea, esposa amada de Jacob y madre de José y Benjamín.",
+    "importante": "Jacob trabajó muchos años para casarse con ella. Después de una larga esterilidad, Dios le concedió a José y más tarde a Benjamín; murió al dar a luz a este último y fue sepultada cerca de Belén.",
+    "aprendizaje": "La espera puede ser dolorosa, pero Dios conoce nuestras lágrimas y nuestra historia.",
+    "apariciones": "Génesis 29–35; 48:7; Jeremías 31:15; Mateo 2:18",
+    "frase": "La esposa amada de Jacob y madre de José y Benjamín.",
+    "relacionCristo": "Raquel forma parte de la familia de Israel. Su sepultura cerca de Belén y la figura de su llanto aparecen en una profecía aplicada en Mateo a los acontecimientos que rodearon la infancia de Jesús.",
+    "cronologia": "Época patriarcal, esposa de Jacob.",
+    "relacionados": [
+      "jacob",
+      "lea",
+      "josé",
+      "benjamín"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "lea",
+    "nombre": "Lea",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Hija de Labán, hermana mayor de Raquel y primera esposa de Jacob. Fue madre de seis hijos y de Dina.",
+    "importante": "Aunque se sintió menos amada, Dios vio su aflicción. De ella nacieron, entre otros, Leví y Judá, tribus decisivas para el sacerdocio y la línea real.",
+    "aprendizaje": "Nuestro valor no depende de la preferencia humana; Dios ve a quien se siente relegado.",
+    "apariciones": "Génesis 29–35; 49:31",
+    "frase": "La mujer vista por Dios en medio del rechazo.",
+    "relacionCristo": "De su hijo Judá procede la línea del rey David y, según la genealogía del Nuevo Testamento, Jesucristo.",
+    "cronologia": "Época patriarcal, esposa de Jacob.",
+    "relacionados": [
+      "jacob",
+      "raquel",
+      "judá",
+      "leví"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "rahab",
+    "nombre": "Rahab",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Mujer de Jericó que escondió a los espías israelitas y confesó que el Dios de Israel era Dios arriba en los cielos y abajo en la tierra.",
+    "importante": "Protegió a los mensajeros y pidió misericordia para su familia. Fue preservada cuando cayó Jericó y pasó a vivir en Israel. Hebreos y Santiago la recuerdan por su fe acompañada de obras.",
+    "aprendizaje": "La fe verdadera puede cambiar el rumbo de una vida y abrir un nuevo comienzo.",
+    "apariciones": "Josué 2; 6:22-25; Mateo 1:5; Hebreos 11:31; Santiago 2:25",
+    "frase": "La mujer de Jericó cuya fe salvó a su casa.",
+    "relacionCristo": "Mateo la incluye en la genealogía de Jesucristo, mostrando que la gracia de Dios incorpora a personas de otros pueblos y con pasados difíciles.",
+    "cronologia": "Tiempo de la conquista de Canaán, después de Moisés.",
+    "relacionados": [
+      "josué",
+      "salmón",
+      "rut"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Antepasada de Cristo según Mateo 1."
+  },
+  {
+    "id": "barac",
+    "nombre": "Barac",
+    "categoria": "Jueces",
+    "quienFue": "Guerrero israelita llamado por la profetisa Débora para reunir a las tribus de Neftalí y Zabulón contra el ejército de Sísara.",
+    "importante": "Aceptó la misión, aunque pidió que Débora lo acompañara. Dios entregó al enemigo y Barac participó en una gran liberación de Israel. Hebreos lo menciona entre los hombres de fe.",
+    "aprendizaje": "La fe puede comenzar con temor y aun así crecer mediante la obediencia.",
+    "apariciones": "Jueces 4–5; Hebreos 11:32",
+    "frase": "El comandante que combatió junto a Débora.",
+    "relacionCristo": "Su liberación fue temporal y parcial; Cristo trae la liberación definitiva del pecado y del mal.",
+    "cronologia": "Periodo de los jueces, antes de Gedeón.",
+    "relacionados": [
+      "débora",
+      "jael",
+      "sísara"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "jael",
+    "nombre": "Jael",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Esposa de Heber ceneo. Recibió en su tienda a Sísara cuando huía de la batalla contra Barac.",
+    "importante": "Cuando Sísara quedó dormido, Jael le dio muerte y cumplió la palabra de Débora de que la victoria final sería entregada en manos de una mujer.",
+    "aprendizaje": "Dios puede servirse de personas inesperadas para detener la opresión.",
+    "apariciones": "Jueces 4:17-24; 5:24-27",
+    "frase": "La mujer que puso fin a la amenaza de Sísara.",
+    "relacionCristo": "Su acción pertenece a una liberación concreta de Israel; no es presentada en el Nuevo Testamento como figura directa de Cristo.",
+    "cronologia": "Periodo de los jueces, contemporánea de Débora y Barac.",
+    "relacionados": [
+      "débora",
+      "barac",
+      "sísara"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "sansón",
+    "nombre": "Sansón",
+    "categoria": "Jueces",
+    "quienFue": "Juez de Israel consagrado como nazareo desde antes de nacer. Dios le concedió una fuerza extraordinaria para comenzar a librar a Israel de los filisteos.",
+    "importante": "Realizó grandes hazañas, pero su impulsividad y sus relaciones desordenadas lo llevaron a caer en manos enemigas. Ciego y humillado, pidió fuerzas a Dios y en su muerte derrotó a muchos filisteos.",
+    "aprendizaje": "Los dones recibidos no sustituyen la obediencia, el dominio propio ni la fidelidad.",
+    "apariciones": "Jueces 13–16; Hebreos 11:32",
+    "frase": "El juez de gran fuerza y débil dominio propio.",
+    "relacionCristo": "Su muerte trajo una victoria sobre los enemigos de Israel, pero Cristo se entrega voluntariamente y sin pecado para vencer definitivamente al pecado y a la muerte.",
+    "cronologia": "Final del periodo de los jueces, antes de Samuel y Saúl.",
+    "relacionados": [
+      "manoa",
+      "dalila",
+      "samuel"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Contraste parcial con el Salvador que vence mediante su entrega."
+  },
+  {
+    "id": "ana",
+    "nombre": "Ana",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Esposa de Elcana y madre del profeta Samuel. Sufrió esterilidad y humillación, pero derramó su alma delante de Dios en el santuario.",
+    "importante": "Prometió dedicar a su hijo al Señor. Cuando nació Samuel cumplió su voto y pronunció un cántico de alabanza sobre la santidad, el poder y la justicia de Dios.",
+    "aprendizaje": "La oración sincera puede transformar el dolor en entrega y alabanza.",
+    "apariciones": "1 Samuel 1–2",
+    "frase": "La mujer que oró por Samuel y lo entregó a Dios.",
+    "relacionCristo": "Su cántico anticipa temas que reaparecen en el cántico de María: Dios exalta a los humildes y derriba el orgullo.",
+    "cronologia": "Final del periodo de los jueces, madre de Samuel.",
+    "relacionados": [
+      "samuel",
+      "elcana",
+      "maría"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Su cántico anticipa el lenguaje de alabanza asociado a la venida del Mesías."
+  },
+  {
+    "id": "jonatán",
+    "nombre": "Jonatán",
+    "categoria": "Reyes",
+    "quienFue": "Hijo del rey Saúl, valiente guerrero y amigo íntimo de David. A pesar de ser heredero natural del trono, reconoció que Dios había escogido a David.",
+    "importante": "Protegió a David frente a la ira de Saúl y selló con él un pacto de amistad. Murió junto a su padre en la batalla del monte Gilboa.",
+    "aprendizaje": "La amistad fiel busca el bien del otro incluso cuando exige renunciar a intereses propios.",
+    "apariciones": "1 Samuel 13–31; 2 Samuel 1",
+    "frase": "El príncipe que amó a David como a sí mismo.",
+    "relacionCristo": "Su lealtad al ungido de Dios ofrece una imagen de fidelidad y amor sacrificado, aunque no es un tipo directo de Cristo.",
+    "cronologia": "Siglo XI a. C., contemporáneo de Saúl y David.",
+    "relacionados": [
+      "saúl",
+      "david",
+      "mical"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "natán",
+    "nombre": "Natán",
+    "categoria": "Profetas",
+    "quienFue": "Profeta de Dios durante el reinado de David y los primeros años de Salomón. Fue consejero real y portavoz de la palabra divina.",
+    "importante": "Comunicó a David la promesa de una dinastía duradera. También lo confrontó con valentía por su pecado con Betsabé y apoyó la entronización de Salomón.",
+    "aprendizaje": "La verdadera fidelidad habla con verdad, incluso ante quienes tienen poder.",
+    "apariciones": "2 Samuel 7; 12; 1 Reyes 1; 1 Crónicas 17",
+    "frase": "El profeta que anunció la promesa davídica y corrigió al rey.",
+    "relacionCristo": "La promesa transmitida por Natán sobre un descendiente de David y un reino firme encuentra su cumplimiento pleno en Jesucristo, el Rey eterno.",
+    "cronologia": "Siglo X a. C., durante los reinados de David y Salomón.",
+    "relacionados": [
+      "david",
+      "salomón",
+      "betsabé"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Anunció la promesa del reino davídico cumplida en Cristo."
+  },
+  {
+    "id": "job",
+    "nombre": "Job",
+    "categoria": "Patriarcas",
+    "quienFue": "Hombre íntegro y temeroso de Dios que vivía en la tierra de Uz. El libro que lleva su nombre explora su sufrimiento, sus preguntas y su perseverancia.",
+    "importante": "Perdió bienes, hijos y salud, y debatió con sus amigos sobre el sentido del dolor. Dios le respondió mostrando la grandeza de su sabiduría, y Job reconoció los límites de su comprensión.",
+    "aprendizaje": "Podemos llevar nuestras preguntas a Dios sin abandonar la fe ni reducir el sufrimiento a explicaciones fáciles.",
+    "apariciones": "Job 1–42; Santiago 5:11",
+    "frase": "El justo que perseveró en medio del sufrimiento.",
+    "relacionCristo": "Job expresa su esperanza en un Redentor vivo. La inocencia sufriente alcanza su sentido más profundo en Cristo, el Justo que padeció y venció la muerte.",
+    "cronologia": "Época incierta; el relato presenta un ambiente semejante al patriarcal.",
+    "relacionados": [
+      "elífaz",
+      "bildad",
+      "zofar"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Figura del justo sufriente y testigo de la esperanza en el Redentor."
+  },
+  {
+    "id": "oseas",
+    "nombre": "Oseas",
+    "categoria": "Profetas",
+    "quienFue": "Profeta del reino del norte llamado a anunciar la palabra de Dios mediante su propia vida matrimonial.",
+    "importante": "Su relación con Gómer simbolizó la infidelidad de Israel y el amor persistente de Dios. Proclamó juicio, pero también restauración, misericordia y un nuevo comienzo.",
+    "aprendizaje": "La fidelidad de Dios es mayor que nuestra infidelidad y nos llama a volver a Él.",
+    "apariciones": "Oseas 1–14; Mateo 2:15; 9:13; Romanos 9:25-26",
+    "frase": "El profeta del amor fiel de Dios.",
+    "relacionCristo": "El Nuevo Testamento aplica varias palabras de Oseas a Jesús y a la inclusión del pueblo de Dios. Cristo revela plenamente la misericordia que busca y restaura.",
+    "cronologia": "Siglo VIII a. C., reino del norte.",
+    "relacionados": [
+      "amós",
+      "isaías",
+      "gómer"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Sus profecías son aplicadas a Cristo y al pueblo redimido."
+  },
+  {
+    "id": "amós",
+    "nombre": "Amós",
+    "categoria": "Profetas",
+    "quienFue": "Pastor y cultivador de sicómoros de Judá enviado a profetizar al reino del norte durante una época de prosperidad e injusticia.",
+    "importante": "Denunció el culto vacío, la explotación de los pobres y la falsa seguridad religiosa. Anunció juicio, pero terminó con una promesa de restauración de la casa de David.",
+    "aprendizaje": "Dios no separa la adoración de la justicia y la compasión hacia el prójimo.",
+    "apariciones": "Amós 1–9; Hechos 7:42-43; 15:15-17",
+    "frase": "El pastor que clamó por justicia.",
+    "relacionCristo": "Santiago cita la promesa de restaurar el tabernáculo caído de David al explicar la incorporación de los gentiles a la Iglesia de Cristo.",
+    "cronologia": "Siglo VIII a. C., contemporáneo de Oseas.",
+    "relacionados": [
+      "oseas",
+      "isaías",
+      "jeroboam"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Su promesa davídica es leída en Hechos a la luz de Cristo."
+  },
+  {
+    "id": "miqueas",
+    "nombre": "Miqueas",
+    "categoria": "Profetas",
+    "quienFue": "Profeta de Judá contemporáneo de Isaías. Procedía de Moreset y denunció la injusticia de gobernantes, sacerdotes y falsos profetas.",
+    "importante": "Anunció juicio sobre Samaria y Jerusalén, pero también esperanza: un gobernante saldría de Belén y Dios volvería a mostrar misericordia.",
+    "aprendizaje": "Dios pide hacer justicia, amar misericordia y caminar humildemente con Él.",
+    "apariciones": "Miqueas 1–7; Mateo 2:5-6",
+    "frase": "El profeta que anunció al gobernante nacido en Belén.",
+    "relacionCristo": "Su profecía de Miqueas 5:2 es aplicada directamente al nacimiento de Jesucristo en Belén.",
+    "cronologia": "Siglo VIII a. C., reino de Judá.",
+    "relacionados": [
+      "isaías",
+      "jeremías",
+      "david"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Anunció el nacimiento del gobernante mesiánico en Belén."
+  },
+  {
+    "id": "zacarías",
+    "nombre": "Zacarías",
+    "categoria": "Profetas",
+    "quienFue": "Profeta que animó al pueblo de Judá después del exilio, durante la reconstrucción del templo.",
+    "importante": "Recibió visiones sobre la restauración, el sacerdocio, el rey humilde y el futuro de Jerusalén. Sus palabras contienen numerosas imágenes retomadas en el Nuevo Testamento.",
+    "aprendizaje": "Dios puede renovar a un pueblo desanimado y llama a volver a Él de corazón.",
+    "apariciones": "Esdras 5:1; 6:14; Zacarías 1–14; Mateo 21:5; Juan 19:37",
+    "frase": "El profeta del Rey humilde y traspasado.",
+    "relacionCristo": "El Nuevo Testamento aplica a Jesús las profecías del rey que entra humilde sobre un asno, del pastor herido y del traspasado a quien mirarán.",
+    "cronologia": "Finales del siglo VI a. C., después del exilio.",
+    "relacionados": [
+      "hageo",
+      "esdras",
+      "nehemías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Profetizó imágenes mesiánicas cumplidas en Jesús."
+  },
+  {
+    "id": "malaquías",
+    "nombre": "Malaquías",
+    "categoria": "Profetas",
+    "quienFue": "Profeta posterior al exilio cuyo mensaje cierra la colección profética del Antiguo Testamento en la tradición cristiana occidental.",
+    "importante": "Reprendió la indiferencia espiritual, los sacrificios defectuosos y la infidelidad. Anunció la llegada de un mensajero que prepararía el camino del Señor.",
+    "aprendizaje": "Dios merece una adoración sincera, fiel y reverente, no una religión descuidada.",
+    "apariciones": "Malaquías 1–4; Mateo 11:10-14; Marcos 1:2",
+    "frase": "El profeta que anunció al mensajero preparador.",
+    "relacionCristo": "Jesús y los evangelistas relacionan la profecía del mensajero con Juan el Bautista, quien preparó el camino de Cristo.",
+    "cronologia": "Siglo V a. C., después del exilio.",
+    "relacionados": [
+      "nehemías",
+      "juan-bautista",
+      "zacarías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Anunció al mensajero que prepararía el camino de Cristo."
+  },
+  {
+    "id": "marta",
+    "nombre": "Marta",
+    "categoria": "Personajes del Nuevo Testamento",
+    "quienFue": "Hermana de María y Lázaro, residente en Betania y amiga cercana de Jesús.",
+    "importante": "Recibió a Jesús en su casa y fue corregida con cariño por estar afanada. Ante la muerte de Lázaro confesó que Jesús era el Cristo, el Hijo de Dios, antes de presenciar la resurrección de su hermano.",
+    "aprendizaje": "El servicio es valioso, pero debe brotar de escuchar a Cristo y confiar en Él.",
+    "apariciones": "Lucas 10:38-42; Juan 11–12",
+    "frase": "La mujer que sirvió y confesó a Jesús como el Cristo.",
+    "relacionCristo": "Su relación con Cristo fue directa: lo recibió, aprendió de Él y proclamó su fe en Jesús como la resurrección y la vida.",
+    "cronologia": "Siglo I d. C., durante el ministerio de Jesús.",
+    "relacionados": [
+      "lázaro",
+      "maría-betania",
+      "maría-magdalena"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "lázaro",
+    "nombre": "Lázaro",
+    "categoria": "Personajes del Nuevo Testamento",
+    "quienFue": "Hermano de Marta y María de Betania, amado por Jesús.",
+    "importante": "Enfermó y murió, pero Jesús lo llamó fuera del sepulcro después de cuatro días. Su resurrección provocó que muchos creyeran y aumentó la oposición de los dirigentes.",
+    "aprendizaje": "Cristo puede entrar en nuestro dolor y su autoridad alcanza incluso a la muerte.",
+    "apariciones": "Juan 11–12",
+    "frase": "El amigo a quien Jesús llamó fuera del sepulcro.",
+    "relacionCristo": "Su resurrección fue una señal de que Jesús es la resurrección y la vida, y anticipó la victoria definitiva de Cristo y la resurrección futura.",
+    "cronologia": "Siglo I d. C., poco antes de la pasión de Jesús.",
+    "relacionados": [
+      "marta",
+      "maría-betania",
+      "jesús"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Su resurrección anticipa la victoria de Cristo sobre la muerte."
+  },
+  {
+    "id": "tomás",
+    "nombre": "Tomás",
+    "categoria": "Apóstoles",
+    "quienFue": "Uno de los doce apóstoles, llamado también Dídimo. Se mostró dispuesto a acompañar a Jesús aun ante el peligro, aunque después dudó del testimonio de la resurrección.",
+    "importante": "Al encontrarse con Cristo resucitado respondió con una de las confesiones más claras del Nuevo Testamento: «¡Señor mío, y Dios mío!».",
+    "aprendizaje": "La duda honesta puede ser llevada a Cristo, pero estamos llamados a avanzar hacia la fe.",
+    "apariciones": "Mateo 10:3; Juan 11:16; 14:5; 20:24-29; 21:2",
+    "frase": "El apóstol que confesó: Señor mío y Dios mío.",
+    "relacionCristo": "Fue discípulo directo de Jesús y testigo de su resurrección. Su confesión proclama abiertamente la divinidad de Cristo.",
+    "cronologia": "Siglo I d. C., apóstol de Jesús.",
+    "relacionados": [
+      "pedro",
+      "juan",
+      "felipe"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Testigo de la resurrección y de la divinidad de Cristo."
+  },
+  {
+    "id": "felipe",
+    "nombre": "Felipe",
+    "categoria": "Apóstoles",
+    "quienFue": "Uno de los doce apóstoles, originario de Betsaida. Jesús lo llamó personalmente y Felipe llevó a Natanael ante Él.",
+    "importante": "Participó en la alimentación de la multitud y pidió a Jesús que mostrara al Padre. Cristo le respondió que quien lo había visto a Él había visto al Padre.",
+    "aprendizaje": "Seguir a Cristo incluye invitar a otros a conocerlo y crecer en la comprensión de quién es Él.",
+    "apariciones": "Mateo 10:3; Juan 1:43-48; 6:5-7; 12:21-22; 14:8-11",
+    "frase": "El apóstol que invitó: Ven y ve.",
+    "relacionCristo": "Fue llamado directamente por Jesús y recibió una enseñanza central sobre la unidad entre el Hijo y el Padre.",
+    "cronologia": "Siglo I d. C., apóstol de Jesús.",
+    "relacionados": [
+      "natanael",
+      "pedro",
+      "tomás"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "apolos",
+    "nombre": "Apolos",
+    "categoria": "Primeros cristianos",
+    "quienFue": "Judío de Alejandría, elocuente y poderoso en las Escrituras, que predicaba acerca de Jesús con gran fervor.",
+    "importante": "Priscila y Aquila le explicaron con mayor exactitud el camino de Dios. Después sirvió eficazmente en Acaya y ayudó a quienes habían creído por la gracia.",
+    "aprendizaje": "La capacidad y el conocimiento crecen cuando aceptamos aprender con humildad.",
+    "apariciones": "Hechos 18:24-28; 1 Corintios 1–4; 16:12; Tito 3:13",
+    "frase": "El maestro elocuente que aceptó ser instruido.",
+    "relacionCristo": "Dedicó sus dones a demostrar por las Escrituras que Jesús era el Cristo y a fortalecer a la Iglesia.",
+    "cronologia": "Siglo I d. C., durante los viajes apostólicos.",
+    "relacionados": [
+      "priscila",
+      "aquila",
+      "pablo"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
   }
-];
+]
 
 let biblicalCategoryV2242="Todos";
 function normalizeBiblicalTextV2242(v){return String(v||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
@@ -1164,4 +1510,4 @@ function biblicalRelatedCardV2244(ids){if(!ids||!ids.length)return '';const item
 function backBiblicalCharactersV2242(){const d=document.getElementById('biblicalCharacterDetailV2242');if(d)d.classList.add('hidden');const h=document.getElementById('biblicalCharactersHomeV2242');if(h)h.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
 
 
-/* V2.244: fichas ampliadas y nuevos personajes integrados. */
+/* V2.246: 79 personajes únicos, nuevas fichas y duplicados corregidos. */
