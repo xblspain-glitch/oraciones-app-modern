@@ -5107,3 +5107,13 @@ body.view-switching-v3189 #homeView{
 
 /* V2.240 — Sabiduría: miniatura como IMG directa para máxima compatibilidad */
 img.card-style-preview-v2217.classic-v2217{display:block;width:100%;height:auto;aspect-ratio:9/12;object-fit:cover;object-position:center top;}
+
+
+/* V2.245 — marcos cromáticos exclusivos de botones de sección */
+body.home-active-v9019 .section-frame-blue-v245{border:3px solid #6fa8dc!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.72),0 3px 8px rgba(61,116,168,.16)!important}
+body.home-active-v9019 .section-frame-yellow-v245{border:3px solid #d5b54f!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.72),0 3px 8px rgba(171,134,31,.15)!important}
+body.home-active-v9019 .section-frame-green-verses-v245{border:3px solid #78b95a!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.72),0 3px 8px rgba(75,135,52,.15)!important}
+body.home-active-v9019 .section-frame-green-moments-v245{border:3px solid #91bd68!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.72),0 3px 8px rgba(77,126,51,.14)!important}
+body.home-active-v9019 .section-frame-green-parables-v245{border:3px solid #9bc66d!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.72),0 3px 8px rgba(79,130,49,.14)!important}
+body.home-active-v9019 .section-frame-lavender-v245{border:3px solid #b89ad3!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),0 3px 8px rgba(119,83,153,.14)!important}
+body.dark.home-active-v9019 .section-frame-blue-v245,body.dark.home-active-v9019 .section-frame-yellow-v245,body.dark.home-active-v9019 .section-frame-green-verses-v245,body.dark.home-active-v9019 .section-frame-green-moments-v245,body.dark.home-active-v9019 .section-frame-green-parables-v245,body.dark.home-active-v9019 .section-frame-lavender-v245{box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 3px 9px rgba(0,0,0,.30)!important}

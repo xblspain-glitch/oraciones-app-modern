@@ -18,7 +18,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "abel",
       "set"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Contraste con Cristo, el nuevo Adán."
   },
   {
@@ -38,7 +38,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "abel",
       "set"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -58,7 +58,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "matusalén",
       "noé"
     ],
-    "canon": "Génesis, Hebreos y Judas pertenecen a la Biblia canónica. El Libro de Enoc es canónico en la Iglesia Ortodoxa Etíope y considerado apócrifo o no canónico por la mayoría de las demás iglesias.",
+    "canon": "Fuente principal: Reina-Valera 1960 (Génesis, Hebreos y Judas). Información complementaria: Libro de Enoc, canónico en la Iglesia Ortodoxa Etíope y no incluido en el canon protestante.",
     "tipoCristo": ""
   },
   {
@@ -79,7 +79,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "cam",
       "jafet"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -100,7 +100,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "ismael",
       "melquisedec"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Su historia contiene promesas mesiánicas cumplidas en Cristo."
   },
   {
@@ -115,7 +115,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Génesis 11–23.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -136,7 +136,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jacob",
       "esaú"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura de Cristo como Hijo amado ofrecido."
   },
   {
@@ -151,7 +151,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Génesis 25–50.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -171,7 +171,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "judá",
       "faraón"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura de Cristo en su rechazo, sufrimiento, exaltación y perdón."
   },
   {
@@ -191,7 +191,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "josué",
       "faraón"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura de Cristo como libertador, profeta y mediador."
   },
   {
@@ -206,7 +206,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Éxodo–Números.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -221,7 +221,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Éxodo 2:1-10.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -236,7 +236,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Éxodo 17.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -251,7 +251,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Jueces 4–5.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -266,7 +266,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Jueces 6–8.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -281,7 +281,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en 1 Samuel 1–25.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -296,7 +296,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Rut.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -311,7 +311,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en 1 Samuel 9–31.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -332,7 +332,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "salomón",
       "betsabé"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura del Mesías como rey ungido y pastor."
   },
   {
@@ -347,7 +347,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en 2 Samuel 12.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -362,7 +362,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en 1 Reyes 17–19.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -377,7 +377,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Ester.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -392,7 +392,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Judit.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -407,7 +407,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en 1 Macabeos 2.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -422,7 +422,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en 1 Macabeos 2–9.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -442,7 +442,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "elisabet",
       "juan-bautista"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -462,7 +462,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "maría-madre-jesús",
       "jesús"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -482,7 +482,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "santiago-zebedeo",
       "pablo"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -497,7 +497,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Evangelios.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -512,7 +512,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Mateo 27–28.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -533,7 +533,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "timoteo",
       "pedro"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -548,7 +548,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Hechos 6–8.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -563,7 +563,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionCristo": "",
     "cronologia": "Personaje situado dentro del período narrado en Hechos 18.",
     "relacionados": [],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -582,7 +582,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "eva",
       "caín"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Su muerte inocente anticipa, de manera limitada, al Justo rechazado."
   },
   {
@@ -601,7 +601,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "eva",
       "abel"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -620,7 +620,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "eva",
       "enoc"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -638,7 +638,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "enoc",
       "noé"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -658,7 +658,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jafet",
       "abraham"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -676,7 +676,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "abraham",
       "sara"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -693,7 +693,7 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [
       "abraham"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura explícita del sacerdocio eterno de Cristo."
   },
   {
@@ -712,7 +712,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jacob",
       "esaú"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -732,7 +732,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "mesac",
       "abed-nego"
     ],
-    "canon": "Biblia canónica; las adiciones griegas a Daniel son deuterocanónicas en diversas tradiciones.",
+    "canon": "Fuente principal: Reina-Valera 1960. Las adiciones griegas a Daniel pertenecen al canon deuterocanónico de diversas tradiciones cristianas.",
     "tipoCristo": "Su visión del Hijo del Hombre anuncia el reino de Cristo."
   },
   {
@@ -750,7 +750,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "ezequías",
       "jeremías"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Profecías mesiánicas centrales cumplidas en Cristo."
   },
   {
@@ -769,7 +769,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "baruc",
       "ezequiel"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Anuncia el nuevo pacto cumplido por Cristo."
   },
   {
@@ -787,7 +787,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "maría-madre-jesús",
       "jesús"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -807,7 +807,7 @@ const BIBLICAL_CHARACTERS_V2242=[
       "eunice",
       "loida"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   },
   {
@@ -826,7 +826,287 @@ const BIBLICAL_CHARACTERS_V2242=[
       "juan-marcos",
       "esteban"
     ],
-    "canon": "Biblia canónica",
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "lamec",
+    "nombre": "Lamec",
+    "categoria": "Primeros seres humanos",
+    "quienFue": "Descendiente de Set, hijo de Matusalén y padre de Noé. No debe confundirse con el Lamec de la línea de Caín.",
+    "importante": "Al nacer Noé expresó la esperanza de que su hijo traería consuelo frente al trabajo y al dolor de una tierra afectada por la maldición. Vivió dentro de la generación anterior al diluvio y transmitió la línea familiar que conduce desde Adán hasta Noé.",
+    "aprendizaje": "La esperanza puede mantenerse incluso en épocas de gran corrupción y cansancio.",
+    "apariciones": "Génesis 5:25-31; 1 Crónicas 1:3",
+    "frase": "El padre de Noé que esperó consuelo.",
+    "relacionCristo": "La esperanza expresada en torno a Noé anticipa el anhelo de una liberación más profunda, cumplida definitivamente en Cristo, quien ofrece descanso y una nueva creación.",
+    "cronologia": "Generación anterior al diluvio, después de Matusalén y antes de Noé.",
+    "relacionados": [
+      "matusalén",
+      "noé",
+      "enoc"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "jafet",
+    "nombre": "Jafet",
+    "categoria": "Patriarcas",
+    "quienFue": "Uno de los tres hijos de Noé y hermano de Sem y Cam. Sobrevivió al diluvio dentro del arca junto con su familia.",
+    "importante": "Después del diluvio recibió junto con sus hermanos el encargo de multiplicarse y llenar la tierra. Génesis relaciona a sus descendientes con diversos pueblos extendidos por regiones lejanas.",
+    "aprendizaje": "Toda la humanidad comparte un mismo origen y una responsabilidad común ante Dios.",
+    "apariciones": "Génesis 5:32; 6–10; 1 Crónicas 1:4-7",
+    "frase": "El hijo de Noé asociado a pueblos extendidos.",
+    "relacionCristo": "La incorporación de las naciones al pueblo de Dios por medio del Evangelio muestra que la bendición de Cristo alcanza también a los pueblos gentiles.",
+    "cronologia": "Época del diluvio y primeras generaciones posteriores a Noé.",
+    "relacionados": [
+      "noé",
+      "sem",
+      "cam"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "esaú",
+    "nombre": "Esaú",
+    "categoria": "Patriarcas",
+    "quienFue": "Hijo mayor de Isaac y Rebeca, hermano gemelo de Jacob y antepasado de Edom. Era un hábil cazador y hombre del campo.",
+    "importante": "Vendió su primogenitura a Jacob por alimento y más tarde perdió también la bendición paterna. Aunque surgió una profunda enemistad entre los hermanos, años después recibió a Jacob con un abrazo y ambos se reconciliaron.",
+    "aprendizaje": "No debemos cambiar lo verdaderamente valioso por una satisfacción inmediata; también es posible abandonar el resentimiento.",
+    "apariciones": "Génesis 25–36; Malaquías 1:2-3; Romanos 9:10-13; Hebreos 12:16-17",
+    "frase": "El hermano que menospreció su primogenitura.",
+    "relacionCristo": "Su historia sirve en el Nuevo Testamento para reflexionar sobre la elección, la gracia y el valor de la herencia espiritual que alcanza su plenitud en Cristo.",
+    "cronologia": "Época patriarcal, hijo de Isaac y contemporáneo de Jacob.",
+    "relacionados": [
+      "isaac",
+      "rebeca",
+      "jacob"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "benjamín",
+    "nombre": "Benjamín",
+    "categoria": "Patriarcas",
+    "quienFue": "Hijo menor de Jacob y Raquel, y hermano de José. Raquel murió al darle a luz y Jacob le puso el nombre Benjamín.",
+    "importante": "Ocupó un lugar central en la prueba que José hizo a sus hermanos en Egipto. De él procedió la tribu de Benjamín, a la que pertenecieron el rey Saúl y, siglos después, el apóstol Pablo.",
+    "aprendizaje": "Dios puede preservar a una familia herida y transformar el temor en reconciliación.",
+    "apariciones": "Génesis 35; 42–45; 49:27; Jueces 19–21; 1 Samuel 9; Romanos 11:1",
+    "frase": "El hijo menor por quien sus hermanos aprendieron a protegerse.",
+    "relacionCristo": "De su tribu procedió Pablo, escogido para anunciar a Jesucristo entre las naciones.",
+    "cronologia": "Época patriarcal, hijo menor de Jacob y contemporáneo de José.",
+    "relacionados": [
+      "jacob",
+      "raquel",
+      "josé"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "miriam",
+    "nombre": "Miriam",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Hermana de Moisés y Aarón, profetisa de Israel. Vigiló a Moisés cuando era un niño colocado en el río y ayudó a que su propia madre lo criara.",
+    "importante": "Después del paso del mar dirigió a las mujeres en canto y danza para alabar a Dios. Más adelante fue disciplinada por hablar contra Moisés, pero el pueblo esperó su restauración antes de continuar el viaje.",
+    "aprendizaje": "Los dones espirituales deben ir acompañados de humildad, y la corrección de Dios puede conducir a la restauración.",
+    "apariciones": "Éxodo 2:1-10; 15:20-21; Números 12; 20:1; Miqueas 6:4",
+    "frase": "La profetisa que cantó junto al mar.",
+    "relacionCristo": "Formó parte de la generación del éxodo, acontecimiento que el Nuevo Testamento relaciona con la liberación y salvación cumplidas en Cristo.",
+    "cronologia": "Siglo del éxodo, hermana mayor de Moisés y Aarón.",
+    "relacionados": [
+      "moisés",
+      "aarón"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "débora",
+    "nombre": "Débora",
+    "categoria": "Jueces",
+    "quienFue": "Profetisa y jueza de Israel que atendía al pueblo bajo una palmera en la región montañosa de Efraín.",
+    "importante": "Transmitió a Barac el mandato de combatir a Sísara y lo acompañó cuando él pidió su presencia. Tras la victoria entonó con Barac un canto que celebra la intervención de Dios y la valentía de quienes se ofrecieron voluntariamente.",
+    "aprendizaje": "Dios puede levantar líderes valientes y sabios en momentos de temor y opresión.",
+    "apariciones": "Jueces 4–5",
+    "frase": "La profetisa que levantó a Israel con valor.",
+    "relacionCristo": "Como jueza fue instrumento de una liberación temporal; Cristo es el libertador y juez perfecto que vence definitivamente al pecado y al mal.",
+    "cronologia": "Periodo de los jueces, varios siglos antes de la monarquía de Israel.",
+    "relacionados": [
+      "barac",
+      "jael",
+      "sísara"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Figura parcial de liberación y juicio."
+  },
+  {
+    "id": "gedeón",
+    "nombre": "Gedeón",
+    "categoria": "Jueces",
+    "quienFue": "Juez de Israel llamado por Dios cuando los madianitas oprimían al pueblo. Al principio se veía pequeño e incapaz dentro de su familia.",
+    "importante": "Dios redujo su ejército a trescientos hombres para que la victoria no pudiera atribuirse a la fuerza humana. Derribó el altar de Baal, venció a Madián y rechazó inicialmente ser rey, aunque sus últimos años dejaron también decisiones ambiguas.",
+    "aprendizaje": "Dios puede obrar mediante nuestra debilidad, pero una gran victoria no elimina la necesidad de permanecer fiel después.",
+    "apariciones": "Jueces 6–8; Hebreos 11:32",
+    "frase": "El hombre temeroso convertido en libertador.",
+    "relacionCristo": "Su victoria con un grupo pequeño muestra que la salvación depende del poder de Dios; en Cristo la victoria se alcanza de forma suprema mediante lo que parecía debilidad: la cruz.",
+    "cronologia": "Periodo de los jueces, después de Débora y antes de la monarquía.",
+    "relacionados": [
+      "débora",
+      "abimelec"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Figura parcial del libertador escogido por Dios."
+  },
+  {
+    "id": "eliseo",
+    "nombre": "Eliseo",
+    "categoria": "Profetas",
+    "quienFue": "Profeta llamado para suceder a Elías. Era hijo de Safat y dejó su trabajo para seguir al profeta cuando este echó sobre él su manto.",
+    "importante": "Recibió una doble porción del espíritu profético de Elías y sirvió durante los reinados de varios reyes. Dios obró por medio de él sanidades, provisiones, resurrección de un niño y ayuda tanto a israelitas como a extranjeros, entre ellos Naamán.",
+    "aprendizaje": "El poder de Dios se manifiesta en la compasión, el servicio cotidiano y la fidelidad perseverante.",
+    "apariciones": "1 Reyes 19:16-21; 2 Reyes 2–13; Lucas 4:27",
+    "frase": "El profeta de la doble porción y la misericordia.",
+    "relacionCristo": "Sus milagros de sanidad, provisión y resurrección anticipan las señales del ministerio de Cristo, aunque Jesús las realiza con autoridad propia y lleva la salvación a su plenitud.",
+    "cronologia": "Siglo IX a. C., sucesor de Elías en el reino del norte.",
+    "relacionados": [
+      "elías",
+      "naamán",
+      "gehazi"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Sus obras anticipan aspectos del ministerio de Cristo."
+  },
+  {
+    "id": "ezequiel",
+    "nombre": "Ezequiel",
+    "categoria": "Profetas",
+    "quienFue": "Sacerdote y profeta llevado al exilio en Babilonia. Recibió visiones junto al río Quebar y habló a una comunidad que había perdido Jerusalén y el templo.",
+    "importante": "Anunció el juicio por la idolatría y la injusticia, pero también la responsabilidad personal, un corazón nuevo, un espíritu nuevo, la resurrección figurada de los huesos secos y la restauración de la presencia de Dios entre su pueblo.",
+    "aprendizaje": "Dios llama al arrepentimiento, puede dar vida a lo que parece muerto y no abandona su propósito de habitar con su pueblo.",
+    "apariciones": "Libro de Ezequiel",
+    "frase": "El profeta que vio vida en los huesos secos.",
+    "relacionCristo": "Las promesas del buen Pastor, el corazón nuevo, el Espíritu y la presencia de Dios encuentran su cumplimiento decisivo en Jesucristo y en el nuevo pacto.",
+    "cronologia": "Siglo VI a. C., durante el exilio babilónico y contemporáneo de Jeremías y Daniel.",
+    "relacionados": [
+      "jeremías",
+      "daniel",
+      "nabucodonosor"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Anuncia al buen Pastor y el nuevo pacto."
+  },
+  {
+    "id": "esdras",
+    "nombre": "Esdras",
+    "categoria": "Sacerdotes y levitas",
+    "quienFue": "Sacerdote y escriba experto en la ley de Moisés que regresó de Babilonia a Jerusalén con autorización del rey persa.",
+    "importante": "Se dedicó a estudiar, practicar y enseñar la ley de Dios. Dirigió una reforma espiritual y, junto con los levitas, ayudó al pueblo a comprender la lectura pública de las Escrituras.",
+    "aprendizaje": "La enseñanza tiene verdadera autoridad cuando primero se estudia y se vive lo que se comunica.",
+    "apariciones": "Esdras 7–10; Nehemías 8; 12",
+    "frase": "El escriba que estudió, vivió y enseñó la Palabra.",
+    "relacionCristo": "Su ministerio preparó a la comunidad del regreso para vivir de nuevo bajo la Palabra, dentro de la historia que conduciría a la llegada del Mesías.",
+    "cronologia": "Siglo V a. C., durante el dominio persa, después del exilio babilónico.",
+    "relacionados": [
+      "nehemías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "nehemías",
+    "nombre": "Nehemías",
+    "categoria": "Profetas",
+    "quienFue": "Copero del rey Artajerjes y posteriormente gobernador de Judá. Al conocer la ruina de Jerusalén lloró, ayunó y oró antes de actuar.",
+    "importante": "Organizó la reconstrucción de los muros frente a amenazas y burlas, corrigió abusos contra los pobres y colaboró con Esdras en la renovación del pacto y la enseñanza de la ley.",
+    "aprendizaje": "La oración, la planificación, el valor y la justicia social deben caminar juntas.",
+    "apariciones": "Libro de Nehemías",
+    "frase": "El gobernador que oró y reconstruyó.",
+    "relacionCristo": "Ayudó a restaurar Jerusalén y la comunidad del pacto, preservando el pueblo dentro del cual nacería Jesucristo.",
+    "cronologia": "Siglo V a. C., después del exilio y contemporáneo de Esdras.",
+    "relacionados": [
+      "esdras",
+      "artajerjes"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "juan-marcos",
+    "nombre": "Juan Marcos",
+    "categoria": "Primeros cristianos",
+    "quienFue": "Cristiano de Jerusalén, primo de Bernabé y colaborador de los apóstoles. La casa de su madre María era lugar de reunión para la Iglesia.",
+    "importante": "Acompañó a Pablo y Bernabé, pero abandonó el primer viaje, lo que provocó después una separación entre ambos misioneros. Bernabé volvió a confiar en él y, años más tarde, Pablo lo consideró útil para el ministerio.",
+    "aprendizaje": "Un fracaso no tiene por qué definir toda la vida; la paciencia y una nueva oportunidad pueden restaurar un llamado.",
+    "apariciones": "Hechos 12:12,25; 13:5,13; 15:36-39; Colosenses 4:10; 2 Timoteo 4:11; Filemón 24; 1 Pedro 5:13",
+    "frase": "El colaborador restaurado y vuelto a considerar útil.",
+    "relacionCristo": "Sirvió a quienes anunciaban a Cristo y la tradición cristiana antigua lo relaciona con la transmisión del Evangelio según Marcos; esta última identificación pertenece a la tradición eclesial.",
+    "cronologia": "Cristiano del siglo I d. C., activo durante la misión apostólica.",
+    "relacionados": [
+      "bernabé",
+      "pablo",
+      "pedro"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960. La atribución del Evangelio de Marcos procede de la tradición cristiana antigua.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "silas",
+    "nombre": "Silas",
+    "categoria": "Primeros cristianos",
+    "quienFue": "Profeta y dirigente de la iglesia de Jerusalén, también llamado Silvano en varias cartas del Nuevo Testamento.",
+    "importante": "Fue enviado para comunicar las decisiones del concilio de Jerusalén y después acompañó a Pablo en su segundo viaje misionero. En Filipos fue golpeado y encarcelado, pero oró y cantó himnos junto a Pablo antes de que un terremoto abriera las puertas.",
+    "aprendizaje": "La fidelidad puede convertir incluso una prisión en lugar de oración, testimonio y salvación para otros.",
+    "apariciones": "Hechos 15–18; 2 Corintios 1:19; 1–2 Tesalonicenses; 1 Pedro 5:12",
+    "frase": "El misionero que cantó en la cárcel.",
+    "relacionCristo": "Anunció a Jesucristo entre judíos y gentiles y sufrió por el Evangelio sin dejar de alabar a Dios.",
+    "cronologia": "Misionero cristiano del siglo I d. C., compañero de Pablo.",
+    "relacionados": [
+      "pablo",
+      "timoteo",
+      "pedro"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "lucas",
+    "nombre": "Lucas",
+    "categoria": "Primeros cristianos",
+    "quienFue": "Médico amado y colaborador de Pablo. El Nuevo Testamento lo menciona como compañero fiel durante etapas importantes del ministerio apostólico.",
+    "importante": "Permaneció junto a Pablo incluso en circunstancias difíciles. La tradición cristiana antigua lo reconoce como autor del Evangelio según Lucas y de Hechos, obras que destacan la acción del Espíritu Santo, la oración, la misericordia y la extensión del Evangelio a todas las naciones.",
+    "aprendizaje": "Los dones profesionales, la investigación cuidadosa y la fidelidad personal pueden ponerse al servicio del Evangelio.",
+    "apariciones": "Colosenses 4:14; Filemón 24; 2 Timoteo 4:11",
+    "frase": "El médico amado y compañero fiel.",
+    "relacionCristo": "Su vida estuvo dedicada a servir la misión de Cristo. La tradición antigua lo vincula con un Evangelio que presenta con especial claridad la compasión y universalidad de la salvación de Jesús.",
+    "cronologia": "Cristiano del siglo I d. C., compañero de Pablo.",
+    "relacionados": [
+      "pablo",
+      "timoteo",
+      "silas"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960. La autoría de Lucas y Hechos se apoya en la tradición cristiana antigua.",
+    "tipoCristo": ""
+  },
+  {
+    "id": "lidia",
+    "nombre": "Lidia",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Comerciante de púrpura originaria de Tiatira que vivía en Filipos y adoraba a Dios.",
+    "importante": "Escuchó la predicación de Pablo junto al río, el Señor abrió su corazón y fue bautizada con su casa. Ofreció hospitalidad a los misioneros y su hogar se convirtió en punto de apoyo para la naciente comunidad cristiana de Filipos.",
+    "aprendizaje": "Un corazón abierto a Dios puede transformar el hogar, los recursos y el trabajo en instrumentos de hospitalidad y misión.",
+    "apariciones": "Hechos 16:11-15,40",
+    "frase": "La mujer cuyo corazón y hogar se abrieron al Evangelio.",
+    "relacionCristo": "Fue una de las primeras personas de Filipos en recibir el mensaje de Jesucristo y apoyó de manera concreta el establecimiento de su Iglesia en Europa.",
+    "cronologia": "Cristiana del siglo I d. C., durante el segundo viaje misionero de Pablo.",
+    "relacionados": [
+      "pablo",
+      "silas",
+      "timoteo"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": ""
   }
 ];
@@ -876,7 +1156,7 @@ function openBiblicalCharacterDetailV2242(id){
   const tags=[p.categoria]; if(p.tipoCristo)tags.push('✝ Figura relacionada con Cristo');
   d.innerHTML='<button class="btn soft biblical-detail-back-v2242" type="button" onclick="backBiblicalCharactersV2242()">← Personajes</button>'+
   '<div class="biblical-detail-top-v2242"><h1>'+escapeBiblicalHtmlV2242(p.nombre)+'</h1><p>'+escapeBiblicalHtmlV2242(p.frase)+'</p><div class="biblical-detail-tags-v2242">'+tags.map(function(t){return '<span>'+escapeBiblicalHtmlV2242(t)+'</span>'}).join('')+'</div></div>'+
-  biblicalDetailCardV2242('Quién fue',p.quienFue)+biblicalDetailCardV2242('Lo más importante de su vida',p.importante)+biblicalDetailCardV2242('Qué podemos aprender de él o ella',p.aprendizaje)+biblicalDetailCardV2242('Dónde aparece en la Biblia',p.apariciones)+(p.relacionCristo?biblicalDetailCardV2242('Relación con Cristo',p.relacionCristo):'')+(p.tipoCristo?biblicalDetailCardV2242('Figura o vínculo profético',p.tipoCristo):'')+biblicalDetailCardV2242('Cronología',p.cronologia)+(p.canon?biblicalDetailCardV2242('Fuente y canon',p.canon):'')+biblicalRelatedCardV2244(p.relacionados)+biblicalDetailCardV2242('Frase para recordarlo',p.frase);
+  biblicalDetailCardV2242('Quién fue',p.quienFue)+biblicalDetailCardV2242('Lo más importante de su vida',p.importante)+biblicalDetailCardV2242('Qué podemos aprender de él o ella',p.aprendizaje)+biblicalDetailCardV2242('Dónde aparece en la Biblia',p.apariciones)+(p.relacionCristo?biblicalDetailCardV2242('Relación con Cristo',p.relacionCristo):'')+(p.tipoCristo?biblicalDetailCardV2242('Figura o vínculo profético',p.tipoCristo):'')+biblicalDetailCardV2242('Cronología',p.cronologia)+(p.canon?biblicalDetailCardV2242('Fuente',p.canon):'')+biblicalRelatedCardV2244(p.relacionados)+biblicalDetailCardV2242('Frase para recordarlo',p.frase);
   d.classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'});
 }
 function biblicalDetailCardV2242(title,body){return '<section class="biblical-detail-card-v2242"><h2>'+escapeBiblicalHtmlV2242(title)+'</h2><p>'+escapeBiblicalHtmlV2242(body)+'</p></section>'}
