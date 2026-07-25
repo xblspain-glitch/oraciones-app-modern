@@ -1,5 +1,5 @@
-/* V2.258 · Personajes bíblicos cargados desde JSON.
-   El diseño y la navegación permanecen en JavaScript; los datos están en biblical-characters-v2259.json. */
+/* V2.261 · Buscador de personajes ordenado por relevancia.
+   El diseño y la navegación permanecen en JavaScript; los datos están en biblical-characters-v2260.json. */
 let BIBLICAL_CHARACTER_CATEGORIES_V2242=[];
 let BIBLICAL_CHARACTERS_V2242=[];
 window.BIBLICAL_CHARACTERS_V2242=BIBLICAL_CHARACTERS_V2242;
@@ -10,7 +10,7 @@ let biblicalCategoryV2242="Todos";
 async function loadBiblicalCharactersV2252(){
   if(biblicalCharactersLoadedV2252)return BIBLICAL_CHARACTERS_V2242;
   try{
-    const response=await fetch("biblical-characters-v2259.json?v=259",{cache:"no-store"});
+    const response=await fetch("biblical-characters-v2260.json?v=260",{cache:"no-store"});
     if(!response.ok)throw new Error("HTTP "+response.status);
     const payload=await response.json();
     if(!payload||!Array.isArray(payload.categories)||!Array.isArray(payload.characters))throw new Error("Formato JSON no válido");
@@ -25,7 +25,7 @@ async function loadBiblicalCharactersV2252(){
     return BIBLICAL_CHARACTERS_V2242;
   }catch(error){
     biblicalCharactersLoadErrorV2252="No se pudieron cargar los personajes bíblicos.";
-    console.error("Error cargando biblical-characters-v2259.json",error);
+    console.error("Error cargando biblical-characters-v2260.json",error);
     const list=document.getElementById("biblicalCharactersListV2242");
     if(list)list.innerHTML='<div class="biblical-empty-v2242">No se pudieron cargar los personajes. Cierre y vuelva a abrir la aplicación.</div>';
     throw error;
@@ -64,7 +64,22 @@ function renderBiblicalCharactersV2242(){
     if(biblicalCategoryV2242!=='Todos'&&p.categoria!==biblicalCategoryV2242)return false;
     if(!q)return true;
     return normalizeBiblicalTextV2242([p.nombre,p.categoria,p.quienFue,p.importante,p.aprendizaje,p.apariciones,p.frase,p.relacionCristo,p.cronologia,p.canon,p.contextoRapido,(p.mapa||[]).join(" "),(p.cristoClaves||[]).join(" "),(p.lecturas||[]).join(" ")].join(' ')).includes(q);
-  }).sort(function(a,b){return a.nombre.localeCompare(b.nombre,'es')});
+  }).sort(function(a,b){
+    if(!q)return a.nombre.localeCompare(b.nombre,'es');
+    function score(p){
+      const nombre=normalizeBiblicalTextV2242(p.nombre);
+      if(nombre===q)return 0;                         // Coincidencia exacta: Samuel
+      if(nombre.startsWith(q+' '))return 1;          // Samuel profeta / Samuel, hijo de...
+      if(nombre.startsWith(q))return 2;              // Comienzo del nombre
+      if(nombre.split(/[^a-z0-9]+/).includes(q))return 3; // Palabra completa dentro del nombre
+      if(nombre.includes(q))return 4;                // Parte del nombre
+      const resumen=normalizeBiblicalTextV2242([p.categoria,p.quienFue,p.contextoRapido].join(' '));
+      if(resumen.includes(q))return 5;                // Campos principales
+      return 6;                                      // Resto de la ficha
+    }
+    const diff=score(a)-score(b);
+    return diff||a.nombre.localeCompare(b.nombre,'es');
+  });
   const title=document.getElementById('biblicalCharactersListTitleV2242'); if(title)title.textContent=biblicalCategoryV2242==='Todos'?'Todos los personajes':biblicalCategoryV2242;
   const count=document.getElementById('biblicalCharactersCountV2242'); if(count)count.textContent=result.length+' '+(result.length===1?'personaje':'personajes');
   const list=document.getElementById('biblicalCharactersListV2242'); if(!list)return;
