@@ -87,6 +87,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 }
 </style>
 
+<link rel="stylesheet" href="biblical-dictionary-v2264.css?v=264">
 </head>
 <body>
 
@@ -126,6 +127,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
     <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
     <button id="calendarBtn" data-view-btn="calendar" class="btn soft section-frame-orange-calendar-v247" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
     <button id="biblicalCharactersBtnV2242" data-view-btn="biblical-characters" class="btn soft biblical-characters-main-v2242" type="button" onclick="openBiblicalCharactersV2242()"><img class="biblical-characters-button-icon-v2255" src="icon-personajes-biblicos-v2255.png" alt="" aria-hidden="true"> <span>Personajes</span></button>
+    <button id="biblicalDictionaryBtnV2264" data-view-btn="biblical-dictionary" class="btn soft" type="button" onclick="openBiblicalDictionaryV2264()">📖 Diccionario</button>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
       <button id="tabParables" data-view-btn="parables" class="btn soft section-frame-green-parables-v245" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
       <button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176 section-frame-peach-psalms-v247" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
@@ -181,6 +183,41 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
         <div id="biblicalCharactersListV2242" class="biblical-characters-list-v2242"></div>
       </div>
       <article id="biblicalCharacterDetailV2242" class="biblical-character-detail-v2242 hidden"></article>
+    </div>
+
+
+    <div id="biblicalDictionaryViewV2264" class="panel hidden biblical-dictionary-panel-v2264">
+      <div class="dictionary-head-v2264">
+        <button class="btn soft" type="button" onclick="closeBiblicalDictionaryV2264()">← Volver</button>
+        <button class="btn primary" type="button" onclick="newBiblicalDictionaryEntryV2264()">➕ Añadir</button>
+      </div>
+      <div id="biblicalDictionaryHomeV2264">
+        <h1 class="dictionary-title-v2264">Diccionario Bíblico</h1>
+        <p class="dictionary-sub-v2264">Explicaciones sencillas de palabras difíciles y términos de la Biblia. Puede añadir, editar y eliminar sus propias entradas.</p>
+        <label class="dictionary-search-v2264"><span aria-hidden="true">🔎</span><input id="biblicalDictionarySearchV2264" type="search" autocomplete="off" placeholder="Buscar palabra o explicación…" oninput="renderBiblicalDictionaryV2264()"></label>
+        <div class="dictionary-tools-v2264">
+          <button class="btn soft" type="button" onclick="exportBiblicalDictionaryV2264()">📤 Exportar</button>
+          <label class="btn soft">📥 Importar<input type="file" accept="application/json" hidden onchange="importBiblicalDictionaryV2264(this)"></label>
+          <button class="btn soft" type="button" onclick="resetBiblicalDictionaryV2264()">↺ Restaurar</button>
+        </div>
+        <div id="biblicalDictionaryCategoriesV2264" class="dictionary-categories-v2264"></div>
+        <div class="dictionary-list-head-v2264"><strong id="biblicalDictionaryListTitleV2264">Todas las palabras</strong><span id="biblicalDictionaryCountV2264"></span></div>
+        <div id="biblicalDictionaryListV2264" class="dictionary-list-v2264"></div>
+      </div>
+      <article id="biblicalDictionaryDetailV2264" class="dictionary-detail-v2264 hidden"></article>
+      <section id="biblicalDictionaryEditorV2264" class="dictionary-editor-v2264 hidden">
+        <form class="dictionary-editor-card-v2264" onsubmit="return saveBiblicalDictionaryEntryV2264(event)">
+          <h1 id="dictionaryEditorTitleV2264">Añadir palabra</h1>
+          <label for="dictionaryTermV2264">Palabra o término</label>
+          <input id="dictionaryTermV2264" maxlength="120" required>
+          <label for="dictionaryCategoryV2264">Categoría</label>
+          <input id="dictionaryCategoryV2264" maxlength="80" list="dictionaryCategorySuggestionsV2264" required>
+          <datalist id="dictionaryCategorySuggestionsV2264"><option>Palabras antiguas</option><option>Palabras bíblicas</option><option>Pecado y conducta</option><option>Vida cristiana</option><option>Salvación y doctrina</option><option>Ley, pacto y culto</option><option>Personas y grupos</option><option>Objetos y costumbres</option><option>Profecía y vida futura</option></datalist>
+          <label for="dictionaryExplanationV2264">Explicación</label>
+          <textarea id="dictionaryExplanationV2264" required></textarea>
+          <div class="dictionary-editor-actions-v2264"><button class="btn primary" type="submit">💾 Guardar</button><button class="btn soft" type="button" onclick="cancelBiblicalDictionaryEditorV2264()">Cancelar</button></div>
+        </form>
+      </section>
     </div>
 
     <div id="momentsHubV31102" class="panel hidden moments-panel-v31102">
@@ -491,8 +528,9 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=251"></script>
+<script src="app.js?v=264"></script>
 <script src="biblical-characters-v2243.js?v=263"></script>
+<script src="biblical-dictionary-v2264.js?v=264"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
