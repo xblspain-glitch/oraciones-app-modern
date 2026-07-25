@@ -3818,7 +3818,7 @@ function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(IN
 window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
-if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v2-240-sabiduria-selector-img-directa",{updateViaCache:"none"})})}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v2-241-ajuste-dinamico-referencia-fija",{updateViaCache:"none"})})}
 applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
 
 function getCardTextLayout(txt){
@@ -3862,13 +3862,13 @@ function markCurrentVerseCardSentDirect(){
 
 function getThematicCardTextLayoutV2220(txt){
   const n=String(txt||"").length;
-  // V2.220 — texto completamente debajo de la ilustración.
-  // Los pasajes largos se compactan y se limitan para conservar una tarjeta limpia.
-  if(n<=150) return {font:50,line:68,max:5,y:1285};
-  if(n<=240) return {font:44,line:60,max:6,y:1285};
-  if(n<=340) return {font:39,line:53,max:7,y:1275};
-  if(n<=480) return {font:35,line:47,max:8,y:1265};
-  return {font:31,line:41,max:9,y:1255};
+  // V3.1.239 — tamaño inicial generoso. El ajuste definitivo se calcula
+  // con la anchura y la altura reales disponibles, sin cortar el versículo.
+  if(n<=150) return {font:57,y:1285};
+  if(n<=240) return {font:51,y:1285};
+  if(n<=340) return {font:45,y:1275};
+  if(n<=480) return {font:40,y:1265};
+  return {font:36,y:1255};
 }
 
 function getNewJerusalemCardTextLayoutV2217(txt){
@@ -4019,7 +4019,7 @@ async function shareVerseCard(cardStyle="classic"){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src=selectedBackgroundV2219+"?v=v2-239-sabiduria-jpg-real";
+        im.src=selectedBackgroundV2219+"?v=v2-241-ajuste-dinamico-referencia-fija";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
@@ -4125,7 +4125,10 @@ async function shareVerseCard(cardStyle="classic"){
     ctx.textAlign="center";
     ctx.fillText(categoryTextV3200,540,usesNewTextLayoutV2231?1045:742);
 
-    ctx.font="bold 74px Georgia, serif";
+    // V2.241 — referencia bíblica con tamaño fijo y uniforme.
+    // No participa en el ajuste dinámico reservado exclusivamente al cuerpo del versículo.
+    const REFERENCE_FONT_SIZE_V2241=74;
+    ctx.font="bold "+REFERENCE_FONT_SIZE_V2241+"px Georgia, serif";
     ctx.fillText(ref,540,usesNewTextLayoutV2231?1145:865);
 
     // Línea decorativa azul tenue con cruz central
@@ -4143,8 +4146,54 @@ async function shareVerseCard(cardStyle="classic"){
     ctx.restore();
 
     const textLayout=usesNewTextLayoutV2231 ? getThematicCardTextLayoutV2220(body) : getCardTextLayout(body);
-    ctx.font="italic "+textLayout.font+"px Georgia, serif";
-    wrapText(ctx,body,540,textLayout.y,930,textLayout.line,textLayout.max);
+
+    // V2.241 — ajuste dinámico real del versículo.
+    // Se mide el texto completo con el ancho disponible y se reduce la fuente
+    // solo lo necesario hasta que la última línea quede sobre la bendición.
+    function splitTextIntoLinesV2241(ctx,text,maxWidth){
+      const words=String(text||"").replace(/\s+/g," ").trim().split(" ").filter(Boolean);
+      const lines=[];
+      let line="";
+      for(const word of words){
+        const test=line ? line+" "+word : word;
+        if(line && ctx.measureText(test).width>maxWidth){
+          lines.push(line);
+          line=word;
+        }else{
+          line=test;
+        }
+      }
+      if(line) lines.push(line);
+      return lines;
+    }
+
+    function fitVerseTextV2241(ctx,text,initialFont,startY,maxWidth,maxBottomY){
+      let font=Math.max(28,Math.round(initialFont));
+      let lineHeight=0;
+      let lines=[];
+      while(font>=28){
+        lineHeight=Math.round(font*1.39);
+        ctx.font="italic "+font+"px Georgia, serif";
+        lines=splitTextIntoLinesV2241(ctx,text,maxWidth);
+        const lastBaseline=startY+Math.max(0,lines.length-1)*lineHeight;
+        if(lastBaseline<=maxBottomY) break;
+        font--;
+      }
+      return {font,line:lineHeight,lines};
+    }
+
+    if(usesNewTextLayoutV2231){
+      const fitted=fitVerseTextV2241(ctx,body,textLayout.font,textLayout.y,930,1640);
+      ctx.font="italic "+fitted.font+"px Georgia, serif";
+      let verseY=textLayout.y;
+      fitted.lines.forEach(line=>{
+        ctx.fillText(line,540,verseY);
+        verseY+=fitted.line;
+      });
+    }else{
+      ctx.font="italic "+textLayout.font+"px Georgia, serif";
+      wrapText(ctx,body,540,textLayout.y,930,textLayout.line,textLayout.max);
+    }
 
     // Bendición del día: una frase estable durante toda la fecha local.
     // No altera el versículo ni el flujo de compartir; solo se dibuja en el pie de la tarjeta.
