@@ -1,5 +1,5 @@
-/* V2.252 · Personajes bíblicos cargados desde JSON.
-   El diseño y la navegación permanecen en JavaScript; los datos están en biblical-characters-v2256.json. */
+/* V2.258 · Personajes bíblicos cargados desde JSON.
+   El diseño y la navegación permanecen en JavaScript; los datos están en biblical-characters-v2258.json. */
 let BIBLICAL_CHARACTER_CATEGORIES_V2242=[];
 let BIBLICAL_CHARACTERS_V2242=[];
 window.BIBLICAL_CHARACTERS_V2242=BIBLICAL_CHARACTERS_V2242;
@@ -10,7 +10,7 @@ let biblicalCategoryV2242="Todos";
 async function loadBiblicalCharactersV2252(){
   if(biblicalCharactersLoadedV2252)return BIBLICAL_CHARACTERS_V2242;
   try{
-    const response=await fetch("biblical-characters-v2256.json?v=256",{cache:"no-store"});
+    const response=await fetch("biblical-characters-v2258.json?v=258",{cache:"no-store"});
     if(!response.ok)throw new Error("HTTP "+response.status);
     const payload=await response.json();
     if(!payload||!Array.isArray(payload.categories)||!Array.isArray(payload.characters))throw new Error("Formato JSON no válido");
@@ -25,7 +25,7 @@ async function loadBiblicalCharactersV2252(){
     return BIBLICAL_CHARACTERS_V2242;
   }catch(error){
     biblicalCharactersLoadErrorV2252="No se pudieron cargar los personajes bíblicos.";
-    console.error("Error cargando biblical-characters-v2256.json",error);
+    console.error("Error cargando biblical-characters-v2258.json",error);
     const list=document.getElementById("biblicalCharactersListV2242");
     if(list)list.innerHTML='<div class="biblical-empty-v2242">No se pudieron cargar los personajes. Cierre y vuelva a abrir la aplicación.</div>';
     throw error;
