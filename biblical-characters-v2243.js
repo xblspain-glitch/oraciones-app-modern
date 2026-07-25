@@ -25,7 +25,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       " ├─ Caín",
       " ├─ Abel",
       " └─ Set → generaciones de Noé"
-    ]
+    ],
+    "contextoRapido": "Primeros seres humanos · El primer hombre, creado por Dios."
   },
   {
     "id": "eva",
@@ -46,7 +47,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La madre de todos los vivientes."
   },
   {
     "id": "enoc",
@@ -67,7 +69,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960 (Génesis, Hebreos y Judas). Información complementaria: Libro de Enoc, canónico en la Iglesia Ortodoxa Etíope y no incluido en el canon protestante.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Patriarcas · El hombre que caminó con Dios."
   },
   {
     "id": "noé",
@@ -89,7 +92,14 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [
+      "Lamec — padre de Noé",
+      "Noé — esposo y padre de familia",
+      "Sem — hijo de Noé; línea vinculada con Abraham",
+      "Cam — hijo de Noé",
+      "Jafet — hijo de Noé"
+    ],
+    "contextoRapido": "Patriarca · Constructor del arca · Padre de Sem, Cam y Jafet"
   },
   {
     "id": "abraham",
@@ -112,12 +122,16 @@ const BIBLICAL_CHARACTERS_V2242=[
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Su historia contiene promesas mesiánicas cumplidas en Cristo.",
     "mapa": [
-      "Taré",
-      " │",
-      "Abraham ── Sara",
-      " ├─ Ismael (Agar)",
-      " └─ Isaac ── Rebeca"
-    ]
+      "Taré — padre de Abraham",
+      "Abraham — esposo de Sara",
+      "Sara — esposa de Abraham y madre de Isaac",
+      "Agar — sierva de Sara y madre de Ismael",
+      "Ismael — primer hijo de Abraham, nacido de Agar",
+      "Isaac — hijo de Abraham y Sara; esposo de Rebeca",
+      "Lot — sobrino de Abraham",
+      "Melquisedec — rey y sacerdote que bendijo a Abraham"
+    ],
+    "contextoRapido": "Patriarca · Génesis 11–25 · Padre de Isaac y antepasado de Israel"
   },
   {
     "id": "sara",
@@ -133,7 +147,15 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [
+      "Taré — suegro de Sara",
+      "Abraham — esposo de Sara",
+      "Sara — madre de Isaac",
+      "Agar — sierva de Sara y madre de Ismael",
+      "Isaac — hijo de Abraham y Sara",
+      "Rebeca — esposa de Isaac"
+    ],
+    "contextoRapido": "Matriarca · Esposa de Abraham · Madre de Isaac"
   },
   {
     "id": "isaac",
@@ -156,12 +178,13 @@ const BIBLICAL_CHARACTERS_V2242=[
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura de Cristo como Hijo amado ofrecido.",
     "mapa": [
-      "Abraham ── Sara",
-      "      │",
-      "Isaac ── Rebeca",
-      " ├─ Esaú",
-      " └─ Jacob"
-    ]
+      "Abraham — padre de Isaac",
+      "Sara — madre de Isaac",
+      "Rebeca — esposa de Isaac",
+      "Esaú — hijo mayor de Isaac y Rebeca",
+      "Jacob — hijo menor de Isaac y Rebeca"
+    ],
+    "contextoRapido": "Patriarca · Hijo de Abraham y Sara · Padre de Jacob y Esaú"
   },
   {
     "id": "jacob",
@@ -178,13 +201,15 @@ const BIBLICAL_CHARACTERS_V2242=[
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
     "mapa": [
-      "Isaac ── Rebeca",
-      "      │",
-      "Jacob / Israel",
-      " ├─ Lea",
-      " ├─ Raquel",
-      " └─ doce tribus"
-    ]
+      "Isaac — padre de Jacob",
+      "Rebeca — madre de Jacob",
+      "Esaú — hermano gemelo de Jacob",
+      "Lea y Raquel — esposas de Jacob",
+      "Bilha y Zilpa — siervas que también tuvieron hijos con Jacob",
+      "Doce hijos — origen de las tribus de Israel",
+      "José y Benjamín — hijos de Jacob y Raquel"
+    ],
+    "contextoRapido": "Patriarca llamado Israel · Hijo de Isaac · Padre de las doce tribus"
   },
   {
     "id": "josé",
@@ -206,12 +231,14 @@ const BIBLICAL_CHARACTERS_V2242=[
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura de Cristo en su rechazo, sufrimiento, exaltación y perdón.",
     "mapa": [
-      "Jacob",
-      " │",
-      "José → Egipto",
-      " │ salva a",
-      "Familia de Israel"
-    ]
+      "Jacob — padre de José",
+      "Raquel — madre de José",
+      "Benjamín — hermano de madre y padre",
+      "Hermanos de José — lo vendieron y luego fueron salvados del hambre",
+      "Asenat — esposa de José",
+      "Manasés y Efraín — hijos de José"
+    ],
+    "contextoRapido": "Patriarca · Hijo de Jacob y Raquel · Gobernador en Egipto"
   },
   {
     "id": "moisés",
@@ -233,11 +260,14 @@ const BIBLICAL_CHARACTERS_V2242=[
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura de Cristo como libertador, profeta y mediador.",
     "mapa": [
-      "Amram ── Jocabed",
-      " ├─ Miriam",
-      " ├─ Aarón",
-      " └─ Moisés → Josué"
-    ]
+      "Amram — padre de Moisés",
+      "Jocabed — madre de Moisés",
+      "Aarón — hermano mayor de Moisés",
+      "Miriam — hermana de Moisés",
+      "Séfora — esposa de Moisés",
+      "Josué — servidor y sucesor de Moisés"
+    ],
+    "contextoRapido": "Profeta y libertador · Hermano de Aarón y Miriam · Mediador del antiguo pacto"
   },
   {
     "id": "aarón",
@@ -253,7 +283,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Sacerdotes y levitas · El primer sumo sacerdote de Israel."
   },
   {
     "id": "miriam",
@@ -269,7 +300,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La profetisa que cantó después de la liberación."
   },
   {
     "id": "josué",
@@ -285,7 +317,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Jueces · El líder llamado a ser fuerte y valiente."
   },
   {
     "id": "débora",
@@ -301,7 +334,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Jueces · La profetisa que levantó a Israel con valentía."
   },
   {
     "id": "gedeón",
@@ -317,7 +351,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Jueces · El hombre débil a quien Dios hizo valiente."
   },
   {
     "id": "samuel",
@@ -333,7 +368,14 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [
+      "Elcana — padre de Samuel",
+      "Ana — madre de Samuel",
+      "Elí — sacerdote que orientó a Samuel",
+      "Saúl — primer rey ungido por Samuel",
+      "David — rey ungido por Samuel"
+    ],
+    "contextoRapido": "Profeta y juez · Hijo de Ana · Ungió a Saúl y David"
   },
   {
     "id": "rut",
@@ -349,7 +391,15 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [
+      "Noemí — suegra de Rut",
+      "Orfa — cuñada de Rut",
+      "Mahlón — primer esposo de Rut",
+      "Booz — segundo esposo y pariente redentor",
+      "Obed — hijo de Rut y Booz",
+      "David — bisnieto de Rut"
+    ],
+    "contextoRapido": "Moabita fiel · Esposa de Booz · Bisabuela de David"
   },
   {
     "id": "saúl",
@@ -365,7 +415,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Reyes · El primer rey que no perseveró en la obediencia."
   },
   {
     "id": "david",
@@ -388,13 +439,15 @@ const BIBLICAL_CHARACTERS_V2242=[
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura del Mesías como rey ungido y pastor.",
     "mapa": [
-      "Isaí",
-      " │",
-      "David",
-      " ├─ Jonatán (amistad)",
-      " ├─ Natán (profeta)",
-      " └─ Salomón"
-    ]
+      "Isaí — padre de David",
+      "Saúl — primer rey; primero lo acogió y después lo persiguió",
+      "Jonatán — hijo de Saúl y amigo íntimo de David",
+      "Betsabé — esposa de David y madre de Salomón",
+      "Absalón — hijo de David que se rebeló",
+      "Salomón — hijo y sucesor de David",
+      "Natán — profeta que corrigió a David"
+    ],
+    "contextoRapido": "Rey de Israel · Hijo de Isaí · Antepasado del Mesías"
   },
   {
     "id": "salomón",
@@ -410,7 +463,14 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [
+      "David — padre de Salomón",
+      "Betsabé — madre de Salomón",
+      "Natán — profeta que apoyó su sucesión",
+      "Salomón — rey y constructor del templo",
+      "Roboam — hijo y sucesor de Salomón"
+    ],
+    "contextoRapido": "Rey de Israel · Hijo de David y Betsabé · Constructor del templo"
   },
   {
     "id": "elías",
@@ -426,7 +486,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta del fuego y de la voz apacible."
   },
   {
     "id": "ester",
@@ -442,7 +503,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La reina que arriesgó su vida por su pueblo."
   },
   {
     "id": "judit",
@@ -458,7 +520,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Personajes deuterocanónicos · La mujer valiente que defendió a su pueblo."
   },
   {
     "id": "matatías",
@@ -474,7 +537,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Personajes deuterocanónicos · El padre que llamó a defender la alianza."
   },
   {
     "id": "judas-macabeo",
@@ -490,7 +554,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Personajes deuterocanónicos · El guerrero que recuperó y purificó el templo."
   },
   {
     "id": "maría-madre-jesús",
@@ -511,7 +576,14 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [
+      "María — madre de Jesús",
+      "José — esposo de María y padre legal de Jesús",
+      "Jesús — Hijo concebido por obra del Espíritu Santo",
+      "Elisabet — parienta de María",
+      "Juan el Bautista — hijo de Elisabet y precursor de Jesús"
+    ],
+    "contextoRapido": "Madre de Jesús · Esposa de José · Sierva escogida por Dios"
   },
   {
     "id": "juan-bautista",
@@ -532,7 +604,13 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [
+      "Zacarías — padre de Juan",
+      "Elisabet — madre de Juan",
+      "María — parienta de Elisabet",
+      "Jesús — Mesías anunciado y bautizado por Juan"
+    ],
+    "contextoRapido": "Profeta y precursor · Hijo de Zacarías y Elisabet · Preparó el camino de Jesús"
   },
   {
     "id": "pedro",
@@ -553,7 +631,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Apóstoles · El pescador restaurado para cuidar el rebaño."
   },
   {
     "id": "juan-apóstol",
@@ -569,7 +648,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Apóstoles · El discípulo que habló del amor y de la luz."
   },
   {
     "id": "maría-magdalena",
@@ -585,7 +665,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La discípula que anunció que Cristo había resucitado."
   },
   {
     "id": "pablo",
@@ -608,13 +689,14 @@ const BIBLICAL_CHARACTERS_V2242=[
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
     "mapa": [
-      "Bernabé",
-      "   │",
-      "Pablo ── Silas",
-      " ├─ Timoteo",
-      " ├─ Tito",
-      " └─ Lucas"
-    ]
+      "Bernabé — compañero en el primer viaje misionero",
+      "Silas — compañero en el segundo viaje",
+      "Timoteo — discípulo y colaborador cercano",
+      "Tito — colaborador y responsable de iglesias",
+      "Lucas — compañero y autor de Hechos",
+      "Priscila y Aquila — colaboradores en el Evangelio"
+    ],
+    "contextoRapido": "Apóstol a los gentiles · Misionero del siglo I · Autor de epístolas"
   },
   {
     "id": "esteban",
@@ -630,7 +712,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros cristianos · El primer mártir que perdonó a sus perseguidores."
   },
   {
     "id": "priscila",
@@ -646,7 +729,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros cristianos · La colaboradora que enseñó y abrió su hogar."
   },
   {
     "id": "abel",
@@ -666,7 +750,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Su muerte inocente anticipa, de manera limitada, al Justo rechazado.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros seres humanos · El justo cuya sangre clamó desde la tierra."
   },
   {
     "id": "caín",
@@ -686,7 +771,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros seres humanos · El hermano que no dominó el pecado."
   },
   {
     "id": "set",
@@ -706,7 +792,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Patriarcas · La descendencia concedida después de Abel."
   },
   {
     "id": "matusalén",
@@ -725,7 +812,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Patriarcas · El hombre de la vida más larga registrada."
   },
   {
     "id": "sem",
@@ -746,7 +834,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Patriarcas · El hijo de Noé en cuya línea nació Abraham."
   },
   {
     "id": "lot",
@@ -765,7 +854,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Patriarcas · El hombre rescatado de Sodoma."
   },
   {
     "id": "melquisedec",
@@ -783,7 +873,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura explícita del sacerdocio eterno de Cristo.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Sacerdotes y levitas · Rey y sacerdote del Dios Altísimo."
   },
   {
     "id": "rebeca",
@@ -803,7 +894,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La mujer que dejó su tierra para formar una nueva familia."
   },
   {
     "id": "daniel",
@@ -824,7 +916,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960. Las adiciones griegas a Daniel pertenecen al canon deuterocanónico de diversas tradiciones cristianas.",
     "tipoCristo": "Su visión del Hijo del Hombre anuncia el reino de Cristo.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta fiel en tierra extranjera."
   },
   {
     "id": "isaías",
@@ -843,7 +936,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Profecías mesiánicas centrales cumplidas en Cristo.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta que vio al Señor santo y anunció al Siervo."
   },
   {
     "id": "jeremías",
@@ -863,7 +957,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Anuncia el nuevo pacto cumplido por Cristo.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta que lloró y anunció un nuevo pacto."
   },
   {
     "id": "josé-esposo-maría",
@@ -882,7 +977,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Personajes del Nuevo Testamento · El hombre justo que protegió al Salvador."
   },
   {
     "id": "timoteo",
@@ -903,7 +999,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros cristianos · El hijo en la fe formado para cuidar la Iglesia."
   },
   {
     "id": "bernabé",
@@ -923,7 +1020,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros cristianos · El consolador que creyó en otros."
   },
   {
     "id": "lamec",
@@ -943,7 +1041,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros seres humanos · El padre de Noé que esperó consuelo."
   },
   {
     "id": "jafet",
@@ -963,7 +1062,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Patriarcas · El hijo de Noé asociado a pueblos extendidos."
   },
   {
     "id": "esaú",
@@ -983,7 +1083,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Patriarcas · El hermano que menospreció su primogenitura."
   },
   {
     "id": "benjamín",
@@ -1003,7 +1104,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Patriarcas · El hijo menor por quien sus hermanos aprendieron a protegerse."
   },
   {
     "id": "eliseo",
@@ -1023,7 +1125,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Sus obras anticipan aspectos del ministerio de Cristo.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta de la doble porción y la misericordia."
   },
   {
     "id": "ezequiel",
@@ -1043,7 +1146,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Anuncia al buen Pastor y el nuevo pacto.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta que vio vida en los huesos secos."
   },
   {
     "id": "esdras",
@@ -1061,7 +1165,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Sacerdotes y levitas · El escriba que estudió, vivió y enseñó la Palabra."
   },
   {
     "id": "nehemías",
@@ -1080,7 +1185,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El gobernador que oró y reconstruyó."
   },
   {
     "id": "juan-marcos",
@@ -1100,7 +1206,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960. La atribución del Evangelio de Marcos procede de la tradición cristiana antigua.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros cristianos · El colaborador restaurado y vuelto a considerar útil."
   },
   {
     "id": "silas",
@@ -1120,7 +1227,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros cristianos · El misionero que cantó en la cárcel."
   },
   {
     "id": "lucas",
@@ -1140,7 +1248,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960. La autoría de Lucas y Hechos se apoya en la tradición cristiana antigua.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros cristianos · El médico amado y compañero fiel."
   },
   {
     "id": "lidia",
@@ -1160,7 +1269,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La mujer cuyo corazón y hogar se abrieron al Evangelio."
   },
   {
     "id": "cam",
@@ -1180,7 +1290,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Patriarcas · El hijo de Noé del que procedieron varios pueblos."
   },
   {
     "id": "raquel",
@@ -1201,7 +1312,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La esposa amada de Jacob y madre de José y Benjamín."
   },
   {
     "id": "lea",
@@ -1222,7 +1334,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La mujer vista por Dios en medio del rechazo."
   },
   {
     "id": "rahab",
@@ -1242,7 +1355,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Antepasada de Cristo según Mateo 1.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La mujer de Jericó cuya fe salvó a su casa."
   },
   {
     "id": "barac",
@@ -1262,7 +1376,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Jueces · El comandante que combatió junto a Débora."
   },
   {
     "id": "jael",
@@ -1282,7 +1397,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La mujer que puso fin a la amenaza de Sísara."
   },
   {
     "id": "sansón",
@@ -1302,7 +1418,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Contraste parcial con el Salvador que vence mediante su entrega.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Jueces · El juez de gran fuerza y débil dominio propio."
   },
   {
     "id": "ana",
@@ -1322,7 +1439,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Su cántico anticipa el lenguaje de alabanza asociado a la venida del Mesías.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Mujeres destacadas · La mujer que oró por Samuel y lo entregó a Dios."
   },
   {
     "id": "jonatán",
@@ -1342,7 +1460,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Reyes · El príncipe que amó a David como a sí mismo."
   },
   {
     "id": "natán",
@@ -1362,7 +1481,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Anunció la promesa del reino davídico cumplida en Cristo.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta que anunció la promesa davídica y corrigió al rey."
   },
   {
     "id": "job",
@@ -1382,7 +1502,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Figura del justo sufriente y testigo de la esperanza en el Redentor.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Patriarcas · El justo que perseveró en medio del sufrimiento."
   },
   {
     "id": "oseas",
@@ -1402,7 +1523,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Sus profecías son aplicadas a Cristo y al pueblo redimido.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta del amor fiel de Dios."
   },
   {
     "id": "amós",
@@ -1422,7 +1544,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Su promesa davídica es leída en Hechos a la luz de Cristo.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El pastor que clamó por justicia."
   },
   {
     "id": "miqueas",
@@ -1442,7 +1565,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Anunció el nacimiento del gobernante mesiánico en Belén.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta que anunció al gobernante nacido en Belén."
   },
   {
     "id": "zacarías",
@@ -1462,7 +1586,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Profetizó imágenes mesiánicas cumplidas en Jesús.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta del Rey humilde y traspasado."
   },
   {
     "id": "malaquías",
@@ -1482,7 +1607,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Anunció al mensajero que prepararía el camino de Cristo.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Profetas · El profeta que anunció al mensajero preparador."
   },
   {
     "id": "marta",
@@ -1502,7 +1628,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Personajes del Nuevo Testamento · La mujer que sirvió y confesó a Jesús como el Cristo."
   },
   {
     "id": "lázaro",
@@ -1522,7 +1649,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Su resurrección anticipa la victoria de Cristo sobre la muerte.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Personajes del Nuevo Testamento · El amigo a quien Jesús llamó fuera del sepulcro."
   },
   {
     "id": "tomás",
@@ -1542,7 +1670,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "Testigo de la resurrección y de la divinidad de Cristo.",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Apóstoles · El apóstol que confesó: Señor mío y Dios mío."
   },
   {
     "id": "felipe",
@@ -1562,7 +1691,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Apóstoles · El apóstol que invitó: Ven y ve."
   },
   {
     "id": "apolos",
@@ -1582,7 +1712,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
     "tipoCristo": "",
-    "mapa": []
+    "mapa": [],
+    "contextoRapido": "Primeros cristianos · El maestro elocuente que aceptó ser instruido."
   },
   {
     "id": "zorobabel",
@@ -1608,7 +1739,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Zorobabel ── Josué, sumo sacerdote",
       "   │",
       "Reconstrucción del templo"
-    ]
+    ],
+    "contextoRapido": "Reyes · El gobernador que ayudó a reconstruir el templo."
   },
   {
     "id": "hageo",
@@ -1633,7 +1765,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "  ├─ anima a Zorobabel",
       "  ├─ anima a Josué",
       "  └─ impulsa el templo"
-    ]
+    ],
+    "contextoRapido": "Profetas · El profeta que impulsó la reconstrucción del templo."
   },
   {
     "id": "sofonías",
@@ -1658,7 +1791,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Sofonías ── llamado al arrepentimiento",
       "  │",
       "Remanente restaurado"
-    ]
+    ],
+    "contextoRapido": "Profetas · El profeta del día del Señor y de la alegría restauradora de Dios."
   },
   {
     "id": "nahúm",
@@ -1679,7 +1813,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "mapa": [
       "Jonás ── Nínive recibe misericordia",
       "Nahúm ── Nínive recibe juicio"
-    ]
+    ],
+    "contextoRapido": "Profetas · El profeta que anunció el fin de la opresión de Nínive."
   },
   {
     "id": "habacuc",
@@ -1703,7 +1838,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Habacuc",
       "   ↓ espera",
       "Fe y confianza"
-    ]
+    ],
+    "contextoRapido": "Profetas · El profeta que aprendió a vivir por la fe."
   },
   {
     "id": "joel",
@@ -1727,7 +1863,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Derramamiento del Espíritu",
       "   ↓",
       "Pentecostés — Pedro"
-    ]
+    ],
+    "contextoRapido": "Profetas · El profeta que anunció el derramamiento del Espíritu."
   },
   {
     "id": "abdías",
@@ -1751,7 +1888,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Jacob → Israel",
       "   │ conflicto histórico",
       "Abdías anuncia justicia"
-    ]
+    ],
+    "contextoRapido": "Profetas · El profeta que denunció el orgullo de Edom."
   },
   {
     "id": "jonás",
@@ -1775,7 +1913,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Gran pez",
       "  │ señal",
       "Muerte y resurrección de Cristo"
-    ]
+    ],
+    "contextoRapido": "Profetas · El profeta enviado a una ciudad enemiga."
   },
   {
     "id": "simeón",
@@ -1801,7 +1940,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Simeón ── Ana profetisa",
       "      │",
       "Reconocen al Mesías"
-    ]
+    ],
+    "contextoRapido": "Personajes del Nuevo Testamento · El anciano que reconoció al Mesías en el templo."
   },
   {
     "id": "ana-profetisa",
@@ -1825,7 +1965,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Simeón ── Ana profetisa",
       "       │",
       "Jesús presentado en el templo"
-    ]
+    ],
+    "contextoRapido": "Mujeres destacadas · La profetisa que habló del niño Jesús."
   },
   {
     "id": "nicodemo",
@@ -1850,7 +1991,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Escucha a Jesús",
       "        ↓",
       "Honra su cuerpo junto a José de Arimatea"
-    ]
+    ],
+    "contextoRapido": "Personajes del Nuevo Testamento · El maestro que fue de la noche hacia una fe más valiente."
   },
   {
     "id": "josé-de-arimatea",
@@ -1875,7 +2017,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Sepultura de Jesús",
       "           │",
       "Resurrección"
-    ]
+    ],
+    "contextoRapido": "Personajes del Nuevo Testamento · El discípulo que ofreció su sepulcro a Jesús."
   },
   {
     "id": "cleofás",
@@ -1898,7 +2041,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Cleofás + otro discípulo",
       "       │ camina con ellos",
       "Jesús resucitado"
-    ]
+    ],
+    "contextoRapido": "Personajes del Nuevo Testamento · El discípulo cuyo corazón ardió camino de Emaús."
   },
   {
     "id": "aquila",
@@ -1922,7 +2066,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Aquila ── Priscila",
       "    │ colaboran con",
       "Pablo ── forman a Apolos"
-    ]
+    ],
+    "contextoRapido": "Primeros cristianos · El colaborador que puso oficio y hogar al servicio del Evangelio."
   },
   {
     "id": "tito",
@@ -1945,7 +2090,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Pablo",
       " ├─ Timoteo",
       " └─ Tito → Creta"
-    ]
+    ],
+    "contextoRapido": "Primeros cristianos · El colaborador fiel encargado de fortalecer iglesias."
   },
   {
     "id": "filemón",
@@ -1971,7 +2117,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Onésimo",
       "  │ mediación de",
       "Pablo"
-    ]
+    ],
+    "contextoRapido": "Primeros cristianos · El creyente llamado a recibir como hermano a quien antes era esclavo."
   },
   {
     "id": "onésimo",
@@ -1997,7 +2144,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Regresa a Filemón",
       "   │",
       "Ya no solo esclavo: hermano"
-    ]
+    ],
+    "contextoRapido": "Primeros cristianos · El esclavo que regresó como hermano amado."
   },
   {
     "id": "epafras",
@@ -2021,7 +2169,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "  ├─ evangeliza Colosas",
       "  ├─ ora por Laodicea",
       "  └─ colabora con Pablo"
-    ]
+    ],
+    "contextoRapido": "Primeros cristianos · El servidor que luchaba por la iglesia en oración."
   },
   {
     "id": "epafrodito",
@@ -2045,7 +2194,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Epafrodito → sirve a Pablo",
       "       │",
       "Obra de Cristo"
-    ]
+    ],
+    "contextoRapido": "Primeros cristianos · El mensajero que arriesgó su vida por la obra de Cristo."
   },
   {
     "id": "josué-sumo-sacerdote",
@@ -2071,7 +2221,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Renuevo prometido",
       "       │",
       "Cristo, sacerdote y rey"
-    ]
+    ],
+    "contextoRapido": "Sacerdotes y levitas · El sumo sacerdote purificado para servir de nuevo."
   },
   {
     "id": "enós",
@@ -2097,7 +2248,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Set",
       "   │",
       "Enós"
-    ]
+    ],
+    "contextoRapido": "Primeros seres humanos · El descendiente de Set asociado con la invocación del nombre de Dios."
   },
   {
     "id": "taré",
@@ -2122,7 +2274,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       " ├─ Abram / Abraham",
       " ├─ Nacor",
       " └─ Harán → Lot"
-    ]
+    ],
+    "contextoRapido": "Patriarcas · El padre de Abraham que salió de Ur hacia Harán."
   },
   {
     "id": "agar",
@@ -2148,7 +2301,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Agar",
       "   │",
       "Ismael"
-    ]
+    ],
+    "contextoRapido": "Mujeres destacadas · La mujer que llamó a Dios «el Dios que ve»."
   },
   {
     "id": "ismael",
@@ -2172,7 +2326,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Abraham",
       " ├─ Ismael (Agar)",
       " └─ Isaac (Sara)"
-    ]
+    ],
+    "contextoRapido": "Patriarcas · El hijo de Abraham a quien Dios escuchó en el desierto."
   },
   {
     "id": "labán",
@@ -2199,7 +2354,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       " └─ Labán",
       "     ├─ Lea",
       "     └─ Raquel"
-    ]
+    ],
+    "contextoRapido": "Patriarcas · El suegro de Jacob que intentó retenerlo en Harán."
   },
   {
     "id": "booz",
@@ -2225,7 +2381,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Booz ── Rut",
       "   │",
       "Obed → Isaí → David → Cristo"
-    ]
+    ],
+    "contextoRapido": "Patriarcas · El pariente redentor que acogió a Rut."
   },
   {
     "id": "elí",
@@ -2251,7 +2408,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       " ├─ Ofni",
       " ├─ Finees",
       " └─ guía a Samuel"
-    ]
+    ],
+    "contextoRapido": "Sacerdotes y levitas · El sacerdote que orientó a Samuel, pero no gobernó bien su propia casa."
   },
   {
     "id": "ofni",
@@ -2276,7 +2434,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       " ├─ Ofni",
       " └─ Finees",
       "Juicio sobre su casa"
-    ]
+    ],
+    "contextoRapido": "Sacerdotes y levitas · El sacerdote que profanó su responsabilidad sagrada."
   },
   {
     "id": "finees-hijo-elí",
@@ -2302,7 +2461,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       " └─ Finees",
       "      │",
       "Icabod"
-    ]
+    ],
+    "contextoRapido": "Sacerdotes y levitas · El sacerdote cuya muerte acompañó la captura del arca."
   },
   {
     "id": "jefté",
@@ -2327,7 +2487,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Jefté → libera Galaad",
       "      │",
       "Voto precipitado"
-    ]
+    ],
+    "contextoRapido": "Jueces · El juez valiente marcado por un voto imprudente."
   },
   {
     "id": "ezequías",
@@ -2353,7 +2514,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Ezequías ── Isaías",
       "  │",
       "Liberación de Jerusalén"
-    ]
+    ],
+    "contextoRapido": "Reyes · El rey que confió en Dios frente al imperio asirio."
   },
   {
     "id": "josías",
@@ -2380,7 +2542,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       " ├─ reforma",
       " ├─ libro de la ley",
       " └─ Pascua"
-    ]
+    ],
+    "contextoRapido": "Reyes · El rey que se humilló al escuchar el libro de la ley."
   },
   {
     "id": "roboam",
@@ -2406,7 +2569,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Roboam",
       " ├─ Judá",
       " └─ división con Jeroboam"
-    ]
+    ],
+    "contextoRapido": "Reyes · El rey cuya dureza aceleró la división del reino."
   },
   {
     "id": "jeroboam",
@@ -2430,7 +2594,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "   │ división",
       "Jeroboam → Israel norte",
       "Roboam → Judá sur"
-    ]
+    ],
+    "contextoRapido": "Reyes · El rey que desvió a Israel mediante un culto alternativo."
   },
   {
     "id": "acab",
@@ -2456,7 +2621,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Acab ── Jezabel",
       " │",
       "Conflicto con Elías"
-    ]
+    ],
+    "contextoRapido": "Reyes · El rey que promovió el culto a Baal y se enfrentó a Elías."
   },
   {
     "id": "jezabel",
@@ -2480,7 +2646,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "  ├─ culto a Baal",
       "  ├─ persecución",
       "  └─ muerte de Nabot"
-    ]
+    ],
+    "contextoRapido": "Mujeres destacadas · La reina que utilizó su poder contra la verdad y la justicia."
   },
   {
     "id": "josafat",
@@ -2506,7 +2673,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       " ├─ enseñanza de la ley",
       " ├─ oración",
       " └─ alianza con Acab"
-    ]
+    ],
+    "contextoRapido": "Reyes · El rey que puso cantores al frente y vio la liberación de Dios."
   },
   {
     "id": "nabucodonosor",
@@ -2530,7 +2698,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       " ├─ conquista Jerusalén",
       " ├─ exilio de Daniel",
       " └─ humillado por Dios"
-    ]
+    ],
+    "contextoRapido": "Reyes · El emperador orgulloso que terminó reconociendo el dominio del Altísimo."
   },
   {
     "id": "ciro",
@@ -2559,7 +2728,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       " ├─ Josué",
       " ├─ Esdras",
       " └─ Nehemías"
-    ]
+    ],
+    "contextoRapido": "Reyes · El rey persa que autorizó el regreso del exilio."
   },
   {
     "id": "mardoqueo",
@@ -2583,9 +2753,534 @@ const BIBLICAL_CHARACTERS_V2242=[
       "Ester → reina",
       "    │",
       "Liberación del pueblo"
+    ],
+    "contextoRapido": "Reyes · El tutor de Ester que buscó el bien de su pueblo."
+  },
+  {
+    "id": "caleb",
+    "nombre": "Caleb",
+    "categoria": "Patriarcas",
+    "quienFue": "Hijo de Jefone y representante de la tribu de Judá entre los doce exploradores enviados a reconocer Canaán. Junto con Josué confió en que Dios podía entregarles la tierra.",
+    "importante": "Mientras diez exploradores difundieron temor, Caleb animó al pueblo a obedecer. Por su fidelidad recibió la promesa de entrar en Canaán y, ya anciano, pidió Hebrón como heredad.",
+    "aprendizaje": "La fe perseverante no depende de la edad ni de la opinión de la mayoría.",
+    "apariciones": "Números 13–14; 26:65; 32:12; Deuteronomio 1:36; Josué 14–15",
+    "frase": "El explorador que siguió fielmente al Señor.",
+    "relacionCristo": "Perteneció a la tribu de Judá, de la cual vendría Cristo. Su confianza en la promesa de Dios ayuda a comprender la perseverancia de la fe cristiana.",
+    "cronologia": "Época del éxodo y la conquista de Canaán, aproximadamente entre los siglos XV y XIII a. C.",
+    "relacionados": [
+      "josué",
+      "moisés"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Explorador fiel · Tribu de Judá · Compañero de Josué",
+    "mapa": [
+      "Jefone — padre de Caleb",
+      "Caleb — explorador fiel de Judá",
+      "Josué — compañero que también creyó",
+      "Hebrón — heredad concedida a Caleb"
+    ]
+  },
+  {
+    "id": "eleazar",
+    "nombre": "Eleazar",
+    "categoria": "Sacerdotes y levitas",
+    "quienFue": "Hijo de Aarón y Elisabet. Sirvió como sacerdote durante el desierto y sucedió a su padre como sumo sacerdote de Israel.",
+    "importante": "Supervisó tareas sagradas, participó en el reparto de la tierra y acompañó a Josué en la organización de la heredad de las tribus.",
+    "aprendizaje": "La fidelidad en responsabilidades discretas prepara para servir en tareas mayores.",
+    "apariciones": "Éxodo 6:23; Números 3–4; 20:25-28; 26:1; Josué 14:1",
+    "frase": "El hijo de Aarón que llegó a ser sumo sacerdote.",
+    "relacionCristo": "Su sacerdocio pertenece al antiguo pacto y señala la necesidad del sacerdocio perfecto y eterno de Jesucristo.",
+    "cronologia": "Época del éxodo y la conquista de Canaán.",
+    "relacionados": [
+      "aarón",
+      "josué",
+      "finees-nieto-aarón"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Sumo sacerdote · Hijo y sucesor de Aarón · Época de Josué",
+    "mapa": [
+      "Aarón — padre de Eleazar",
+      "Elisabet — madre de Eleazar",
+      "Eleazar — sucesor de Aarón",
+      "Finees — hijo de Eleazar"
+    ]
+  },
+  {
+    "id": "finees-nieto-aarón",
+    "nombre": "Finees, nieto de Aarón",
+    "categoria": "Sacerdotes y levitas",
+    "quienFue": "Hijo de Eleazar y nieto de Aarón. Fue sacerdote y mostró celo por la santidad del pueblo durante la travesía por el desierto.",
+    "importante": "Detuvo una grave rebelión vinculada a la idolatría en Peor y recibió un pacto de sacerdocio perpetuo para su descendencia. Más tarde intervino para evitar una guerra entre las tribus.",
+    "aprendizaje": "El celo por Dios debe ir unido al discernimiento y a la búsqueda de la paz.",
+    "apariciones": "Números 25; 31:6; Josué 22; Jueces 20:28",
+    "frase": "El sacerdote celoso que ayudó a preservar la unidad de Israel.",
+    "relacionCristo": "Su sacerdocio anticipa de manera limitada la mediación santa y perfecta de Cristo, aunque los métodos de su época pertenecen al antiguo pacto.",
+    "cronologia": "Época del éxodo, la conquista y los primeros años en Canaán.",
+    "relacionados": [
+      "eleazar",
+      "aarón",
+      "josué"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Sacerdote · Nieto de Aarón · Defensor de la santidad",
+    "mapa": [
+      "Aarón — abuelo de Finees",
+      "Eleazar — padre de Finees",
+      "Finees — sacerdote de Israel"
+    ]
+  },
+  {
+    "id": "coré",
+    "nombre": "Coré",
+    "categoria": "Sacerdotes y levitas",
+    "quienFue": "Levita de la familia de Coat que encabezó una rebelión contra la autoridad de Moisés y Aarón junto con Datán, Abiram y otros dirigentes.",
+    "importante": "Acusó a Moisés y Aarón de exaltarse sobre la congregación. Dios confirmó el ministerio que había establecido y la rebelión terminó en juicio.",
+    "aprendizaje": "La ambición espiritual y el orgullo pueden disfrazarse de defensa de la igualdad.",
+    "apariciones": "Números 16; 26:9-11; Judas 11",
+    "frase": "El levita que se rebeló contra Moisés y Aarón.",
+    "relacionCristo": "Judas presenta su rebelión como advertencia para la comunidad cristiana. Su historia resalta la necesidad de recibir con humildad la autoridad de Cristo.",
+    "cronologia": "Durante la travesía de Israel por el desierto.",
+    "relacionados": [
+      "moisés",
+      "aarón"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Levita rebelde · Época del desierto · Advertencia contra el orgullo",
+    "mapa": [
+      "Izhar — padre de Coré",
+      "Coré — levita de la familia de Coat",
+      "Datán y Abiram — aliados en la rebelión",
+      "Moisés y Aarón — autoridad cuestionada"
+    ]
+  },
+  {
+    "id": "balaam",
+    "nombre": "Balaam",
+    "categoria": "Profetas",
+    "quienFue": "Adivino procedente de Mesopotamia al que Balac, rey de Moab, quiso contratar para maldecir a Israel. Dios impidió que pronunciara la maldición solicitada.",
+    "importante": "A pesar de su ambición, terminó bendiciendo a Israel. Su asna habló cuando él no percibía al ángel del Señor. Más tarde su consejo quedó asociado con la seducción de Israel hacia la idolatría.",
+    "aprendizaje": "Los dones espirituales no sustituyen un corazón obediente y libre de codicia.",
+    "apariciones": "Números 22–24; 31:8,16; 2 Pedro 2:15; Judas 11; Apocalipsis 2:14",
+    "frase": "El adivino que quiso cobrar por maldecir y terminó bendiciendo.",
+    "relacionCristo": "Una de sus profecías habla de una estrella que saldría de Jacob y un cetro de Israel, texto interpretado tradicionalmente en relación con el Mesías.",
+    "cronologia": "Época de Moisés, poco antes de la entrada en Canaán.",
+    "relacionados": [
+      "balac",
+      "moisés"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Adivino de Mesopotamia · Contratado por Balac · Pronunció bendiciones",
+    "mapa": [
+      "Balac — rey que contrató a Balaam",
+      "Balaam — llamado para maldecir a Israel",
+      "Israel — pueblo que Dios protegió"
+    ]
+  },
+  {
+    "id": "balac",
+    "nombre": "Balac",
+    "categoria": "Reyes",
+    "quienFue": "Rey de Moab que sintió temor ante la llegada de Israel y buscó la ayuda de Balaam para maldecir al pueblo.",
+    "importante": "Envió mensajeros y recompensas a Balaam, levantó altares y esperó una maldición, pero Dios transformó cada intento en bendición.",
+    "aprendizaje": "El temor puede llevar a buscar medios injustos para controlar aquello que no comprendemos.",
+    "apariciones": "Números 22–24; Josué 24:9-10; Miqueas 6:5",
+    "frase": "El rey de Moab cuyos planes no pudieron anular la bendición de Dios.",
+    "relacionCristo": "Su oposición muestra que ninguna maldición humana puede destruir el propósito de Dios, cumplido finalmente en Cristo.",
+    "cronologia": "Época de Moisés, antes de la entrada en Canaán.",
+    "relacionados": [
+      "balaam",
+      "moisés"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Rey de Moab · Adversario de Israel · Contrató a Balaam",
+    "mapa": [
+      "Balac — rey de Moab",
+      "Balaam — adivino contratado",
+      "Israel — pueblo que Balac temía"
+    ]
+  },
+  {
+    "id": "abimelec",
+    "nombre": "Abimelec",
+    "categoria": "Jueces",
+    "quienFue": "Hijo de Gedeón y de una concubina de Siquem. Buscó convertirse en gobernante eliminando violentamente a casi todos sus hermanos.",
+    "importante": "Fue proclamado rey en Siquem, pero su gobierno se sostuvo en la traición y la violencia. Finalmente murió durante el ataque a Tebes después de que una mujer arrojara una piedra de molino sobre su cabeza.",
+    "aprendizaje": "El poder conquistado mediante violencia termina destruyendo a quien lo ejerce.",
+    "apariciones": "Jueces 8:31; 9",
+    "frase": "El hijo de Gedeón que tomó el poder por la fuerza.",
+    "relacionCristo": "Su reinado corrupto contrasta con Jesucristo, Rey justo que entrega su vida en lugar de eliminar a sus hermanos.",
+    "cronologia": "Período de los jueces, después de Gedeón.",
+    "relacionados": [
+      "gedeón"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Gobernante de Siquem · Hijo de Gedeón · Ejemplo de ambición destructiva",
+    "mapa": [
+      "Gedeón — padre de Abimelec",
+      "Abimelec — hijo de una concubina de Siquem",
+      "Jotam — hermano que sobrevivió",
+      "Siquem — ciudad que lo proclamó rey"
+    ]
+  },
+  {
+    "id": "noemí",
+    "nombre": "Noemí",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Israelita de Belén, esposa de Elimelec y suegra de Rut y Orfa. Emigró a Moab durante una época de hambre y regresó viuda y sin sus hijos.",
+    "importante": "Aunque pidió que la llamaran Mara por su amargura, acompañó y aconsejó a Rut. Dios transformó su dolor mediante el matrimonio de Rut con Booz y el nacimiento de Obed.",
+    "aprendizaje": "El duelo puede oscurecer nuestra esperanza, pero Dios puede comenzar una restauración que aún no vemos.",
+    "apariciones": "Rut 1–4",
+    "frase": "La suegra de Rut cuya amargura terminó en consuelo.",
+    "relacionCristo": "Al entrar Rut y Booz en la genealogía de David, Noemí quedó vinculada con la historia familiar que conduce a Jesucristo.",
+    "cronologia": "Período de los jueces, varias generaciones antes de David.",
+    "relacionados": [
+      "rut",
+      "booz",
+      "orfa"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Viuda de Belén · Suegra de Rut · Restaurada mediante Obed",
+    "mapa": [
+      "Elimelec — esposo de Noemí",
+      "Mahlón y Quelión — hijos fallecidos",
+      "Rut y Orfa — nueras de Noemí",
+      "Obed — nieto que trajo consuelo"
+    ]
+  },
+  {
+    "id": "orfa",
+    "nombre": "Orfa",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Mujer moabita, nuera de Noemí y cuñada de Rut. Quedó viuda después de la muerte de su esposo.",
+    "importante": "Inició el regreso hacia Judá con Noemí, pero finalmente aceptó volver a su pueblo cuando su suegra insistió. Su decisión contrasta narrativamente con la fidelidad extraordinaria de Rut.",
+    "aprendizaje": "No todas las decisiones comprensibles conducen al mismo destino; la fidelidad puede exigir dejar atrás lo conocido.",
+    "apariciones": "Rut 1",
+    "frase": "La nuera de Noemí que regresó a Moab.",
+    "relacionCristo": "No se establece una relación directa con Cristo. Su historia sirve de contraste con Rut, quien entró en la genealogía del Mesías.",
+    "cronologia": "Período de los jueces.",
+    "relacionados": [
+      "noemí",
+      "rut"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Moabita · Nuera de Noemí · Cuñada de Rut",
+    "mapa": [
+      "Noemí — suegra de Orfa",
+      "Orfa — volvió a Moab",
+      "Rut — permaneció junto a Noemí"
+    ]
+  },
+  {
+    "id": "goliat",
+    "nombre": "Goliat",
+    "categoria": "Reyes",
+    "quienFue": "Guerrero filisteo de gran estatura procedente de Gat. Desafió durante días al ejército de Israel y sembró temor entre los soldados.",
+    "importante": "David aceptó enfrentarlo confiando en el nombre del Señor. Lo derribó con una piedra lanzada con su honda y su derrota cambió el curso de la batalla.",
+    "aprendizaje": "Los desafíos que parecen invencibles no son mayores que Dios; la confianza no depende del tamaño ni de los recursos.",
+    "apariciones": "1 Samuel 17; 21:9; 22:10",
+    "frase": "El gigante filisteo vencido por David.",
+    "relacionCristo": "La victoria de David sobre el enemigo de Israel puede verse como una figura limitada de Cristo venciendo al pecado, la muerte y al adversario en favor de su pueblo.",
+    "cronologia": "Siglo XI a. C., durante el reinado de Saúl.",
+    "relacionados": [
+      "david",
+      "saúl"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Guerrero filisteo · Natural de Gat · Vencido por David",
+    "mapa": [
+      "Goliat — campeón de los filisteos",
+      "David — joven que confió en Dios",
+      "Saúl — rey y jefe del ejército de Israel"
+    ]
+  },
+  {
+    "id": "joab",
+    "nombre": "Joab",
+    "categoria": "Reyes",
+    "quienFue": "Sobrino de David e hijo de Sarvia. Fue comandante del ejército durante gran parte del reinado de David y destacó por su capacidad militar.",
+    "importante": "Sirvió con eficacia, pero actuó repetidamente con violencia y autonomía: mató a Abner, Absalón y Amasa. Al final apoyó a Adonías contra Salomón y fue ejecutado por orden real.",
+    "aprendizaje": "La habilidad y la lealtad parcial no compensan una vida gobernada por la violencia y la falta de obediencia.",
+    "apariciones": "2 Samuel 2–24; 1 Reyes 1–2",
+    "frase": "El poderoso general de David cuya violencia terminó condenándolo.",
+    "relacionCristo": "Su servicio imperfecto contrasta con la obediencia y la justicia de Cristo, quien no establece su reino mediante ambición personal.",
+    "cronologia": "Siglo X a. C., durante los reinados de David y el comienzo de Salomón.",
+    "relacionados": [
+      "david",
+      "absalón",
+      "salomón"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "General de David · Hijo de Sarvia · Guerrero poderoso y violento",
+    "mapa": [
+      "Sarvia — madre de Joab y hermana de David",
+      "Joab — comandante del ejército",
+      "David — rey y tío de Joab",
+      "Abisai y Asael — hermanos de Joab"
+    ]
+  },
+  {
+    "id": "absalón",
+    "nombre": "Absalón",
+    "categoria": "Reyes",
+    "quienFue": "Hijo del rey David y de Maaca. Fue conocido por su belleza y por una larga cabellera. Después de vengar a su hermana Tamar, huyó y más tarde regresó a Jerusalén.",
+    "importante": "Ganó popularidad y encabezó una rebelión contra su padre. Murió durante la batalla cuando quedó suspendido de un árbol y Joab lo atravesó, pese a que David había pedido que lo trataran con cuidado.",
+    "aprendizaje": "El resentimiento, la vanidad y la ambición pueden destruir una familia y una vida llena de posibilidades.",
+    "apariciones": "2 Samuel 13–19",
+    "frase": "El hijo de David que se rebeló contra su padre.",
+    "relacionCristo": "Su rebelión y muerte muestran el dolor del pecado dentro de la casa de David y la necesidad de un Hijo de David perfectamente obediente: Jesucristo.",
+    "cronologia": "Siglo X a. C., durante el reinado de David.",
+    "relacionados": [
+      "david",
+      "tamar-hija-david",
+      "joab"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Príncipe de Israel · Hijo rebelde de David · Hermano de Tamar",
+    "mapa": [
+      "David — padre de Absalón",
+      "Maaca — madre de Absalón",
+      "Tamar — hermana defendida por Absalón",
+      "Joab — general que causó su muerte"
+    ]
+  },
+  {
+    "id": "betsabé",
+    "nombre": "Betsabé",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Esposa de Urías heteo y posteriormente esposa del rey David. Fue madre de Salomón.",
+    "importante": "David cometió adulterio con ella y provocó la muerte de Urías. Tras el arrepentimiento y las dolorosas consecuencias, Betsabé llegó a ocupar una posición relevante y defendió la sucesión de Salomón.",
+    "aprendizaje": "Dios no llama bueno al pecado, pero puede traer redención incluso después de graves fracasos cuando existe arrepentimiento.",
+    "apariciones": "2 Samuel 11–12; 1 Reyes 1–2; Mateo 1:6",
+    "frase": "La madre de Salomón cuya historia quedó unida al arrepentimiento de David.",
+    "relacionCristo": "Mateo la incluye indirectamente en la genealogía de Jesús como la que había sido mujer de Urías, recordando que Cristo entró en una historia humana marcada por pecado y gracia.",
+    "cronologia": "Siglo X a. C., durante el reinado de David.",
+    "relacionados": [
+      "david",
+      "urías",
+      "salomón"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Reina madre · Esposa de David · Madre de Salomón",
+    "mapa": [
+      "Urías — primer esposo de Betsabé",
+      "David — segundo esposo de Betsabé",
+      "Salomón — hijo y sucesor de David"
+    ]
+  },
+  {
+    "id": "urías",
+    "nombre": "Urías",
+    "categoria": "Reyes",
+    "quienFue": "Soldado heteo del ejército de David y esposo de Betsabé. Formaba parte de los valientes del rey.",
+    "importante": "Cuando David intentó ocultar su adulterio, Urías se negó a disfrutar de comodidad mientras sus compañeros estaban en campaña. David envió entonces instrucciones para colocarlo en el frente y provocar su muerte.",
+    "aprendizaje": "La integridad puede encontrarse donde otros no la esperan, mientras que el poder sin vigilancia moral puede corromper.",
+    "apariciones": "2 Samuel 11; 23:39; 1 Reyes 15:5",
+    "frase": "El soldado fiel traicionado por el rey al que servía.",
+    "relacionCristo": "Su muerte injusta recuerda la gravedad del pecado que Cristo vino a cargar y juzgar. No es presentado directamente como figura de Cristo.",
+    "cronologia": "Siglo X a. C., durante el reinado de David.",
+    "relacionados": [
+      "betsabé",
+      "david",
+      "joab"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Soldado heteo · Esposo de Betsabé · Víctima del pecado de David",
+    "mapa": [
+      "Urías — esposo de Betsabé",
+      "Betsabé — esposa de Urías",
+      "David — rey que ordenó su muerte",
+      "Joab — general que ejecutó la orden"
+    ]
+  },
+  {
+    "id": "naamán",
+    "nombre": "Naamán",
+    "categoria": "Profetas",
+    "quienFue": "Comandante del ejército de Siria, estimado por su rey, pero enfermo de lepra. Una joven israelita cautiva le habló del profeta Eliseo.",
+    "importante": "Viajó a Israel y al principio se indignó por la sencilla instrucción de lavarse siete veces en el Jordán. Cuando se humilló y obedeció, quedó limpio y confesó que no había Dios en toda la tierra sino en Israel.",
+    "aprendizaje": "La humildad permite recibir la gracia que el orgullo rechaza por parecer demasiado sencilla.",
+    "apariciones": "2 Reyes 5; Lucas 4:27",
+    "frase": "El general sirio sanado cuando se humilló y obedeció.",
+    "relacionCristo": "Jesús mencionó a Naamán para mostrar que la gracia de Dios alcanza también a los gentiles y no puede ser reclamada como privilegio exclusivo.",
+    "cronologia": "Siglo IX a. C., durante el ministerio de Eliseo.",
+    "relacionados": [
+      "eliseo"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "General sirio · Sanado de lepra · Ejemplo de gracia para los gentiles",
+    "mapa": [
+      "Joven israelita — señaló el camino hacia Eliseo",
+      "Naamán — comandante enfermo",
+      "Eliseo — profeta que dio la instrucción",
+      "Giezi — siervo que actuó con codicia"
+    ]
+  },
+  {
+    "id": "senaquerib",
+    "nombre": "Senaquerib",
+    "categoria": "Reyes",
+    "quienFue": "Rey de Asiria que invadió Judá durante el reinado de Ezequías y envió amenazas contra Jerusalén.",
+    "importante": "Su portavoz se burló de la confianza del pueblo en Dios. Ezequías llevó la carta al templo y oró; Isaías anunció la respuesta divina y el ejército asirio tuvo que retirarse.",
+    "aprendizaje": "Las amenazas más poderosas no anulan la soberanía de Dios ni hacen inútil la oración.",
+    "apariciones": "2 Reyes 18–19; 2 Crónicas 32; Isaías 36–37",
+    "frase": "El rey asirio cuya amenaza contra Jerusalén fracasó.",
+    "relacionCristo": "Su derrota preservó Jerusalén y la casa de David, dentro de la cual continuaría la línea que conduce al Mesías.",
+    "cronologia": "Finales del siglo VIII y comienzos del VII a. C.",
+    "relacionados": [
+      "ezequías",
+      "isaías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Rey de Asiria · Invasor de Judá · Derrotado tras la oración de Ezequías",
+    "mapa": [
+      "Senaquerib — rey invasor de Asiria",
+      "Ezequías — rey de Judá que oró",
+      "Isaías — profeta que anunció la liberación"
+    ]
+  },
+  {
+    "id": "darío",
+    "nombre": "Darío",
+    "categoria": "Reyes",
+    "quienFue": "Nombre asociado en la Biblia con gobernantes del período medo-persa. En Daniel aparece Darío el medo, y en Esdras un rey Darío confirmó la reconstrucción del templo.",
+    "importante": "Darío el medo fue llevado a promulgar un decreto que terminó enviando a Daniel al foso de los leones, pero después reconoció públicamente el poder del Dios de Daniel.",
+    "aprendizaje": "La presión política no debe desplazar la fidelidad a Dios, y una autoridad puede rectificar cuando presencia la verdad.",
+    "apariciones": "Daniel 5:31–6:28; Esdras 4–6; Hageo 1–2; Zacarías 1",
+    "frase": "El rey relacionado con el foso de los leones y con la reconstrucción del templo.",
+    "relacionCristo": "Sus decretos no tienen una relación directa con Cristo, aunque la preservación de Daniel y la restauración del templo forman parte de la historia que prepara la venida del Mesías.",
+    "cronologia": "Período medo-persa, entre los siglos VI y V a. C.; el nombre puede referirse a más de un gobernante.",
+    "relacionados": [
+      "daniel",
+      "esdras",
+      "hageo"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Rey medo-persa · Relacionado con Daniel y con el segundo templo",
+    "mapa": [
+      "Darío el medo — gobernante en tiempos de Daniel",
+      "Daniel — funcionario fiel librado del foso",
+      "Darío de Persia — confirmó la obra del templo"
+    ]
+  },
+  {
+    "id": "herodes-grande",
+    "nombre": "Herodes el Grande",
+    "categoria": "Reyes",
+    "quienFue": "Rey de Judea bajo autoridad romana en el tiempo del nacimiento de Jesús. Fue conocido por sus grandes construcciones y por su extrema desconfianza y crueldad.",
+    "importante": "Al oír hablar del nacimiento del rey de los judíos, interrogó a los magos y trató de localizar al niño. Ordenó la muerte de los niños de Belén, mientras José llevó a Jesús y María a Egipto.",
+    "aprendizaje": "El poder dominado por el miedo puede atacar incluso a los inocentes para conservar su posición.",
+    "apariciones": "Mateo 2; Lucas 1:5",
+    "frase": "El rey que intentó matar al niño Jesús.",
+    "relacionCristo": "Se opuso directamente a Cristo en su infancia. Su reino violento contrasta con el reinado humilde, justo y eterno de Jesús.",
+    "cronologia": "Finales del siglo I a. C.; murió poco después del nacimiento de Jesús.",
+    "relacionados": [
+      "maría-madre-jesús",
+      "josé-esposo-maría"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Rey de Judea · Época del nacimiento de Jesús · Adversario del Mesías",
+    "mapa": [
+      "Herodes — rey de Judea",
+      "Jesús — niño a quien quiso matar",
+      "José y María — huyeron con Jesús a Egipto",
+      "Magos — buscaron al Rey recién nacido"
+    ]
+  },
+  {
+    "id": "poncio-pilato",
+    "nombre": "Poncio Pilato",
+    "categoria": "Personajes del Nuevo Testamento",
+    "quienFue": "Gobernador romano de Judea durante el ministerio final de Jesús. Presidió el proceso civil que terminó en la crucifixión.",
+    "importante": "Reconoció que no encontraba culpa en Jesús, pero cedió ante la presión de la multitud y de las autoridades. Ordenó la crucifixión y colocó sobre la cruz el título «Jesús Nazareno, Rey de los judíos».",
+    "aprendizaje": "Saber lo que es justo no basta si el miedo y la conveniencia nos impiden actuar conforme a la verdad.",
+    "apariciones": "Mateo 27; Marcos 15; Lucas 23; Juan 18–19; Hechos 3:13; 4:27; 13:28; 1 Timoteo 6:13",
+    "frase": "El gobernador que entregó a Jesús para ser crucificado.",
+    "relacionCristo": "Su relación con Cristo es directa: interrogó a Jesús, declaró no hallar culpa en Él y, sin embargo, autorizó su muerte.",
+    "cronologia": "Primera mitad del siglo I d. C., durante el gobierno del emperador Tiberio.",
+    "relacionados": [
+      "herodes-antipas",
+      "josé-de-arimatea"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Gobernador romano · Juzgó a Jesús · Autorizó la crucifixión",
+    "mapa": [
+      "Poncio Pilato — gobernador de Judea",
+      "Jesús — inocente entregado a la crucifixión",
+      "Autoridades religiosas — acusadores",
+      "José de Arimatea — pidió el cuerpo de Jesús"
+    ]
+  },
+  {
+    "id": "herodes-antipas",
+    "nombre": "Herodes Antipas",
+    "categoria": "Reyes",
+    "quienFue": "Gobernante de Galilea y Perea, hijo de Herodes el Grande. Es llamado tetrarca y también rey en los Evangelios.",
+    "importante": "Mandó encarcelar y decapitar a Juan el Bautista. Durante el proceso de Jesús, Pilato lo envió ante Herodes, quien se burló de Él y lo devolvió vestido con una ropa espléndida.",
+    "aprendizaje": "La curiosidad religiosa sin arrepentimiento puede convivir con la cobardía y la injusticia.",
+    "apariciones": "Mateo 14:1-12; Marcos 6:14-29; Lucas 3:1,19-20; 9:7-9; 13:31-32; 23:6-12",
+    "frase": "El gobernante que mató a Juan el Bautista y se burló de Jesús.",
+    "relacionCristo": "Se relacionó directamente con Cristo durante su juicio y fue llamado «aquella zorra» por Jesús debido a su conducta.",
+    "cronologia": "Primera mitad del siglo I d. C.",
+    "relacionados": [
+      "juan-bautista",
+      "poncio-pilato"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Tetrarca de Galilea · Hijo de Herodes el Grande · Enemigo de Juan el Bautista",
+    "mapa": [
+      "Herodes el Grande — padre de Antipas",
+      "Herodes Antipas — tetrarca de Galilea",
+      "Juan el Bautista — profeta mandado decapitar",
+      "Jesús — interrogado y burlado por Herodes"
+    ]
+  },
+  {
+    "id": "tamar-hija-david",
+    "nombre": "Tamar, hija de David",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Hija del rey David y hermana de Absalón. Fue víctima de la violencia de su medio hermano Amnón.",
+    "importante": "Después del abuso quedó desolada en casa de Absalón. La falta de justicia inmediata dentro de la familia real alimentó el odio y la posterior venganza de Absalón.",
+    "aprendizaje": "Dios ve el sufrimiento de las víctimas; la comunidad no debe silenciar el abuso ni sustituir la justicia por la pasividad.",
+    "apariciones": "2 Samuel 13",
+    "frase": "La hija de David cuya tragedia reveló la ruptura de la familia real.",
+    "relacionCristo": "Su historia no establece una relación tipológica directa con Cristo, pero muestra la necesidad de su justicia, su compasión hacia las víctimas y la sanidad de los quebrantados.",
+    "cronologia": "Siglo X a. C., durante el reinado de David.",
+    "relacionados": [
+      "david",
+      "absalón"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "contextoRapido": "Princesa de Israel · Hija de David · Hermana de Absalón",
+    "mapa": [
+      "David — padre de Tamar",
+      "Maaca — madre de Tamar",
+      "Absalón — hermano protector",
+      "Amnón — medio hermano que abusó de ella"
     ]
   }
 ]
+window.BIBLICAL_CHARACTERS_V2242=BIBLICAL_CHARACTERS_V2242;
 
 let biblicalCategoryV2242="Todos";
 function normalizeBiblicalTextV2242(v){return String(v||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
@@ -2618,7 +3313,7 @@ function renderBiblicalCharactersV2242(){
   const result=BIBLICAL_CHARACTERS_V2242.filter(function(p){
     if(biblicalCategoryV2242!=='Todos'&&p.categoria!==biblicalCategoryV2242)return false;
     if(!q)return true;
-    return normalizeBiblicalTextV2242([p.nombre,p.categoria,p.quienFue,p.importante,p.aprendizaje,p.apariciones,p.frase,p.relacionCristo,p.cronologia,p.canon,(p.mapa||[]).join(" ")].join(' ')).includes(q);
+    return normalizeBiblicalTextV2242([p.nombre,p.categoria,p.quienFue,p.importante,p.aprendizaje,p.apariciones,p.frase,p.relacionCristo,p.cronologia,p.canon,p.contextoRapido,(p.mapa||[]).join(" ")].join(' ')).includes(q);
   }).sort(function(a,b){return a.nombre.localeCompare(b.nombre,'es')});
   const title=document.getElementById('biblicalCharactersListTitleV2242'); if(title)title.textContent=biblicalCategoryV2242==='Todos'?'Todos los personajes':biblicalCategoryV2242;
   const count=document.getElementById('biblicalCharactersCountV2242'); if(count)count.textContent=result.length+' '+(result.length===1?'personaje':'personajes');
@@ -2631,16 +3326,16 @@ function openBiblicalCharacterDetailV2242(id){
   const d=document.getElementById('biblicalCharacterDetailV2242'); if(!d)return;
   const tags=[p.categoria]; if(p.tipoCristo)tags.push('✝ Figura relacionada con Cristo');
   d.innerHTML='<button class="btn soft biblical-detail-back-v2242" type="button" onclick="backBiblicalCharactersV2242()">← Personajes</button>'+
-  '<div class="biblical-detail-top-v2242"><h1>'+escapeBiblicalHtmlV2242(p.nombre)+'</h1><p>'+escapeBiblicalHtmlV2242(p.frase)+'</p><div class="biblical-detail-tags-v2242">'+tags.map(function(t){return '<span>'+escapeBiblicalHtmlV2242(t)+'</span>'}).join('')+'</div></div>'+
+  '<div class="biblical-detail-top-v2242"><h1>'+escapeBiblicalHtmlV2242(p.nombre)+'</h1>'+(p.contextoRapido?'<div class="biblical-quick-context-v2249">'+escapeBiblicalHtmlV2242(p.contextoRapido)+'</div>':'')+'<p>'+escapeBiblicalHtmlV2242(p.frase)+'</p><div class="biblical-detail-tags-v2242">'+tags.map(function(t){return '<span>'+escapeBiblicalHtmlV2242(t)+'</span>'}).join('')+'</div></div>'+
   biblicalDetailCardV2242('Quién fue',p.quienFue)+biblicalDetailCardV2242('Lo más importante de su vida',p.importante)+biblicalDetailCardV2242('Qué podemos aprender de él o ella',p.aprendizaje)+biblicalDetailCardV2242('Dónde aparece en la Biblia',p.apariciones)+(p.relacionCristo?biblicalDetailCardV2242('Relación con Cristo',p.relacionCristo):'')+(p.tipoCristo?biblicalDetailCardV2242('Figura o vínculo profético',p.tipoCristo):'')+biblicalDetailCardV2242('Cronología',p.cronologia)+(p.canon?biblicalDetailCardV2242('Fuente',p.canon):'')+biblicalMapCardV2247(p.mapa)+biblicalRelatedCardV2244(p.relacionados)+biblicalDetailCardV2242('Frase para recordarlo',p.frase);
   d.classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'});
 }
 function biblicalDetailCardV2242(title,body){return '<section class="biblical-detail-card-v2242"><h2>'+escapeBiblicalHtmlV2242(title)+'</h2><p>'+escapeBiblicalHtmlV2242(body)+'</p></section>'}
 
-function biblicalMapCardV2247(lines){if(!lines||!lines.length)return '';return '<section class="biblical-detail-card-v2242 biblical-map-card-v2247"><h2>Árbol familiar o histórico</h2><div class="biblical-map-v2247" role="img" aria-label="Relaciones familiares o históricas">'+lines.map(function(line){return '<div>'+escapeBiblicalHtmlV2242(line)+'</div>'}).join('')+'</div></section>'}
+function biblicalMapCardV2247(lines){if(!lines||!lines.length)return '';return '<section class="biblical-detail-card-v2242 biblical-map-card-v2247"><h2>Familia y relaciones</h2><div class="biblical-map-v2247 biblical-map-didactic-v2249" aria-label="Relaciones familiares o históricas explicadas">'+lines.map(function(line){var parts=String(line).split(' — ');return parts.length>1?'<div class="biblical-relation-row-v2249"><strong>'+escapeBiblicalHtmlV2242(parts.shift())+'</strong><span>'+escapeBiblicalHtmlV2242(parts.join(' — '))+'</span></div>':'<div class="biblical-relation-plain-v2249">'+escapeBiblicalHtmlV2242(line)+'</div>'}).join('')+'</div></section>'}
 
 function biblicalRelatedCardV2244(ids){if(!ids||!ids.length)return '';const items=ids.map(function(id){const x=BIBLICAL_CHARACTERS_V2242.find(function(p){return p.id===id});return x?'<button type="button" class="biblical-related-v2244" onclick="openBiblicalCharacterDetailV2242('+JSON.stringify(x.id).replace(/"/g,'&quot;')+')">'+escapeBiblicalHtmlV2242(x.nombre)+' <span>›</span></button>':''}).filter(Boolean).join('');return items?'<section class="biblical-detail-card-v2242"><h2>Personajes relacionados</h2><div class="biblical-related-list-v2244">'+items+'</div></section>':''}
 function backBiblicalCharactersV2242(){const d=document.getElementById('biblicalCharacterDetailV2242');if(d)d.classList.add('hidden');const h=document.getElementById('biblicalCharactersHomeV2242');if(h)h.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
 
 
-/* V2.248: 120 personajes y marcos uniformes de 2 px. */
+/* V2.249: 140 personajes, relaciones didácticas y contador dinámico. */

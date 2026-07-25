@@ -32,6 +32,8 @@
         '<span class="counter-separator-v3182">|</span>'+
         '<span class="counter-entry-v3182" title="Parábolas"><span class="counter-symbol-v3182">🌱</span><b>'+len(s.parables)+'</b></span>'+
         '<span class="counter-separator-v3182">|</span>'+
+        '<span class="counter-entry-v3182" title="Personajes bíblicos"><span class="counter-symbol-v3182">👥</span><b>'+((window.BIBLICAL_CHARACTERS_V2242&&window.BIBLICAL_CHARACTERS_V2242.length)||141)+'</b></span>'+
+        '<span class="counter-separator-v3182">|</span>'+
         '<span class="counter-entry-v3182" title="Salmos"><span class="counter-symbol-v3182 counter-psalm-v3182">♫</span><b>'+len(s.psalms)+'</b></span>'+
         '<span class="counter-separator-v3182">|</span>'+
         '<span class="counter-entry-v3182" title="Versículos"><span class="counter-symbol-v3182 counter-heart-v3182">💚</span><b>'+len(s.verses)+'</b></span>'+
