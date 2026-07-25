@@ -87,7 +87,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 }
 </style>
 
-<link rel="stylesheet" href="biblical-dictionary-v2264.css?v=264">
+<link rel="stylesheet" href="biblical-dictionary-v2264.css?v=265">
 </head>
 <body>
 
@@ -125,9 +125,11 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
     <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft section-frame-blue-routines-v247" type="button" onclick="openDailyRoutinesV3192()">🌅🌙 Día/Noche</button>
     <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft section-frame-green-moments-v245" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
     <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
-    <button id="calendarBtn" data-view-btn="calendar" class="btn soft section-frame-orange-calendar-v247" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
-    <button id="biblicalCharactersBtnV2242" data-view-btn="biblical-characters" class="btn soft biblical-characters-main-v2242" type="button" onclick="openBiblicalCharactersV2242()"><img class="biblical-characters-button-icon-v2255" src="icon-personajes-biblicos-v2255.png" alt="" aria-hidden="true"> <span>Personajes</span></button>
-    <button id="biblicalDictionaryBtnV2264" data-view-btn="biblical-dictionary" class="btn soft" type="button" onclick="openBiblicalDictionaryV2264()">📖 Diccionario</button>
+    <div class="home-fixed-row-v31763 home-study-row-v2265">
+      <button id="calendarBtn" data-view-btn="calendar" class="btn soft section-frame-orange-calendar-v247" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
+      <button id="biblicalCharactersBtnV2242" data-view-btn="biblical-characters" class="btn soft biblical-characters-main-v2242" type="button" onclick="openBiblicalCharactersV2242()"><img class="biblical-characters-button-icon-v2255" src="icon-personajes-biblicos-v2255.png" alt="" aria-hidden="true"> <span>Personajes</span></button>
+      <button id="biblicalDictionaryBtnV2264" data-view-btn="biblical-dictionary" class="btn soft" type="button" onclick="openBiblicalDictionaryV2264()">📖 Diccionario</button>
+    </div>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
       <button id="tabParables" data-view-btn="parables" class="btn soft section-frame-green-parables-v245" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
       <button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176 section-frame-peach-psalms-v247" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
@@ -196,9 +198,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
         <p class="dictionary-sub-v2264">Explicaciones sencillas de palabras difíciles y términos de la Biblia. Puede añadir, editar y eliminar sus propias entradas.</p>
         <label class="dictionary-search-v2264"><span aria-hidden="true">🔎</span><input id="biblicalDictionarySearchV2264" type="search" autocomplete="off" placeholder="Buscar palabra o explicación…" oninput="renderBiblicalDictionaryV2264()"></label>
         <div class="dictionary-tools-v2264">
-          <button class="btn soft" type="button" onclick="exportBiblicalDictionaryV2264()">📤 Exportar</button>
-          <label class="btn soft">📥 Importar<input type="file" accept="application/json" hidden onchange="importBiblicalDictionaryV2264(this)"></label>
-          <button class="btn soft" type="button" onclick="resetBiblicalDictionaryV2264()">↺ Restaurar</button>
+          <button class="btn soft" type="button" onclick="resetBiblicalDictionaryV2264()">↺ Restaurar diccionario original</button>
         </div>
         <div id="biblicalDictionaryCategoriesV2264" class="dictionary-categories-v2264"></div>
         <div class="dictionary-list-head-v2264"><strong id="biblicalDictionaryListTitleV2264">Todas las palabras</strong><span id="biblicalDictionaryCountV2264"></span></div>
@@ -350,6 +350,10 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
         <button class="btn soft" type="button" onclick="importVersesOnly()">📥 Importar versículos</button>
         <button class="btn soft" type="button" onclick="openBackupFilePicker()">📥 Importar backup JSON</button>
         <button class="btn soft" type="button" onclick="openVersesFilePicker()">❤️ Importar archivo de versículos</button>
+
+        <div class="backup-title-v40">📖 IMPORTAR Y EXPORTAR DICCIONARIO</div>
+        <button class="btn soft" type="button" onclick="exportBiblicalDictionaryV2264()">📤 Exportar diccionario</button>
+        <label class="btn soft" style="display:inline-flex;align-items:center;justify-content:center;cursor:pointer;">📥 Importar diccionario<input type="file" accept=".json,application/json" hidden onchange="importBiblicalDictionaryV2264(this)"></label>
 
         <div class="backup-title-v40">⚙️ AJUSTES DE MOMENTOS</div>
         <button class="btn soft" type="button" onclick="recatalogMomentsV31121()">🔄 Recatalogar automáticamente Salmos y Versículos</button>
@@ -530,7 +534,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
 <script src="app.js?v=264"></script>
 <script src="biblical-characters-v2243.js?v=263"></script>
-<script src="biblical-dictionary-v2264.js?v=264"></script>
+<script src="biblical-dictionary-v2264.js?v=265"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>

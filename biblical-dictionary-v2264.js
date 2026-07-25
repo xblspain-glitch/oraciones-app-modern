@@ -1,4 +1,4 @@
-/* V2.264 · Diccionario bíblico editable */
+/* V2.265 · Diccionario bíblico editable · importación y exportación en Backup */
 (function(){
 'use strict';
 const DATA_URL='biblical-dictionary-v2264.json?v=264';
@@ -104,7 +104,7 @@ window.deleteBiblicalDictionaryEntryV2264=function(id){
   currentId=null;showHome();render();if(typeof showToast==='function')showToast('Entrada eliminada');
 };
 window.exportBiblicalDictionaryV2264=function(){
-  const payload={type:'oraciones-diccionario',version:264,custom:readJSON(CUSTOM_KEY,[]),overrides:readJSON(OVERRIDES_KEY,{}),deleted:readJSON(DELETED_KEY,[])};
+  const payload={type:'oraciones-diccionario',version:265,custom:readJSON(CUSTOM_KEY,[]),overrides:readJSON(OVERRIDES_KEY,{}),deleted:readJSON(DELETED_KEY,[])};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='diccionario-biblico-personal.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
 window.importBiblicalDictionaryV2264=function(input){
