@@ -64,3 +64,9 @@ body.dark #biblicalCharactersBtnV2242{
   border:2px solid #8f7abc!important;
   color:#fff!important;
 }
+
+/* V2.244 · enlaces entre personajes */
+.biblical-related-list-v2244{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
+.biblical-related-v2244{border:1px solid rgba(122,94,184,.35);background:rgba(236,229,255,.72);color:#342653;border-radius:999px;padding:9px 13px;font:inherit;font-weight:700;cursor:pointer}
+.biblical-related-v2244 span{margin-left:5px}
+body.dark .biblical-related-v2244{background:rgba(94,74,133,.45);color:#fff;border-color:rgba(190,168,239,.38)}
