@@ -19,7 +19,13 @@ const BIBLICAL_CHARACTERS_V2242=[
       "set"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Contraste con Cristo, el nuevo Adán."
+    "tipoCristo": "Contraste con Cristo, el nuevo Adán.",
+    "mapa": [
+      "Adán ── Eva",
+      " ├─ Caín",
+      " ├─ Abel",
+      " └─ Set → generaciones de Noé"
+    ]
   },
   {
     "id": "eva",
@@ -39,7 +45,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "set"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "enoc",
@@ -59,7 +66,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "noé"
     ],
     "canon": "Fuente principal: Reina-Valera 1960 (Génesis, Hebreos y Judas). Información complementaria: Libro de Enoc, canónico en la Iglesia Ortodoxa Etíope y no incluido en el canon protestante.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "noé",
@@ -80,7 +88,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jafet"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "abraham",
@@ -101,7 +110,14 @@ const BIBLICAL_CHARACTERS_V2242=[
       "melquisedec"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Su historia contiene promesas mesiánicas cumplidas en Cristo."
+    "tipoCristo": "Su historia contiene promesas mesiánicas cumplidas en Cristo.",
+    "mapa": [
+      "Taré",
+      " │",
+      "Abraham ── Sara",
+      " ├─ Ismael (Agar)",
+      " └─ Isaac ── Rebeca"
+    ]
   },
   {
     "id": "sara",
@@ -116,7 +132,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Génesis 11–23.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "isaac",
@@ -137,7 +154,14 @@ const BIBLICAL_CHARACTERS_V2242=[
       "esaú"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Figura de Cristo como Hijo amado ofrecido."
+    "tipoCristo": "Figura de Cristo como Hijo amado ofrecido.",
+    "mapa": [
+      "Abraham ── Sara",
+      "      │",
+      "Isaac ── Rebeca",
+      " ├─ Esaú",
+      " └─ Jacob"
+    ]
   },
   {
     "id": "jacob",
@@ -152,7 +176,15 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Génesis 25–50.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": [
+      "Isaac ── Rebeca",
+      "      │",
+      "Jacob / Israel",
+      " ├─ Lea",
+      " ├─ Raquel",
+      " └─ doce tribus"
+    ]
   },
   {
     "id": "josé",
@@ -172,7 +204,14 @@ const BIBLICAL_CHARACTERS_V2242=[
       "faraón"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Figura de Cristo en su rechazo, sufrimiento, exaltación y perdón."
+    "tipoCristo": "Figura de Cristo en su rechazo, sufrimiento, exaltación y perdón.",
+    "mapa": [
+      "Jacob",
+      " │",
+      "José → Egipto",
+      " │ salva a",
+      "Familia de Israel"
+    ]
   },
   {
     "id": "moisés",
@@ -192,7 +231,13 @@ const BIBLICAL_CHARACTERS_V2242=[
       "faraón"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Figura de Cristo como libertador, profeta y mediador."
+    "tipoCristo": "Figura de Cristo como libertador, profeta y mediador.",
+    "mapa": [
+      "Amram ── Jocabed",
+      " ├─ Miriam",
+      " ├─ Aarón",
+      " └─ Moisés → Josué"
+    ]
   },
   {
     "id": "aarón",
@@ -207,7 +252,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Éxodo–Números.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "miriam",
@@ -222,7 +268,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Éxodo 2:1-10.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "josué",
@@ -237,7 +284,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Éxodo 17.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "débora",
@@ -252,7 +300,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Jueces 4–5.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "gedeón",
@@ -267,7 +316,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Jueces 6–8.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "samuel",
@@ -282,7 +332,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en 1 Samuel 1–25.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "rut",
@@ -297,7 +348,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Rut.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "saúl",
@@ -312,7 +364,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en 1 Samuel 9–31.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "david",
@@ -333,7 +386,15 @@ const BIBLICAL_CHARACTERS_V2242=[
       "betsabé"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Figura del Mesías como rey ungido y pastor."
+    "tipoCristo": "Figura del Mesías como rey ungido y pastor.",
+    "mapa": [
+      "Isaí",
+      " │",
+      "David",
+      " ├─ Jonatán (amistad)",
+      " ├─ Natán (profeta)",
+      " └─ Salomón"
+    ]
   },
   {
     "id": "salomón",
@@ -348,7 +409,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en 2 Samuel 12.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "elías",
@@ -363,7 +425,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en 1 Reyes 17–19.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "ester",
@@ -378,7 +441,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Ester.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "judit",
@@ -393,7 +457,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Judit.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "matatías",
@@ -408,7 +473,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en 1 Macabeos 2.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "judas-macabeo",
@@ -423,7 +489,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en 1 Macabeos 2–9.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "maría-madre-jesús",
@@ -443,7 +510,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "juan-bautista"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "juan-bautista",
@@ -463,7 +531,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jesús"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "pedro",
@@ -483,7 +552,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "pablo"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "juan-apóstol",
@@ -498,7 +568,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Evangelios.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "maría-magdalena",
@@ -513,7 +584,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Mateo 27–28.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "pablo",
@@ -534,7 +606,15 @@ const BIBLICAL_CHARACTERS_V2242=[
       "pedro"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": [
+      "Bernabé",
+      "   │",
+      "Pablo ── Silas",
+      " ├─ Timoteo",
+      " ├─ Tito",
+      " └─ Lucas"
+    ]
   },
   {
     "id": "esteban",
@@ -549,7 +629,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Hechos 6–8.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "priscila",
@@ -564,7 +645,8 @@ const BIBLICAL_CHARACTERS_V2242=[
     "cronologia": "Personaje situado dentro del período narrado en Hechos 18.",
     "relacionados": [],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "abel",
@@ -583,7 +665,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "caín"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Su muerte inocente anticipa, de manera limitada, al Justo rechazado."
+    "tipoCristo": "Su muerte inocente anticipa, de manera limitada, al Justo rechazado.",
+    "mapa": []
   },
   {
     "id": "caín",
@@ -602,7 +685,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "abel"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "set",
@@ -621,7 +705,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "enoc"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "matusalén",
@@ -639,7 +724,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "noé"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "sem",
@@ -659,7 +745,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "abraham"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "lot",
@@ -677,7 +764,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "sara"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "melquisedec",
@@ -694,7 +782,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "abraham"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Figura explícita del sacerdocio eterno de Cristo."
+    "tipoCristo": "Figura explícita del sacerdocio eterno de Cristo.",
+    "mapa": []
   },
   {
     "id": "rebeca",
@@ -713,7 +802,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "esaú"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "daniel",
@@ -733,7 +823,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "abed-nego"
     ],
     "canon": "Fuente principal: Reina-Valera 1960. Las adiciones griegas a Daniel pertenecen al canon deuterocanónico de diversas tradiciones cristianas.",
-    "tipoCristo": "Su visión del Hijo del Hombre anuncia el reino de Cristo."
+    "tipoCristo": "Su visión del Hijo del Hombre anuncia el reino de Cristo.",
+    "mapa": []
   },
   {
     "id": "isaías",
@@ -751,7 +842,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jeremías"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Profecías mesiánicas centrales cumplidas en Cristo."
+    "tipoCristo": "Profecías mesiánicas centrales cumplidas en Cristo.",
+    "mapa": []
   },
   {
     "id": "jeremías",
@@ -770,7 +862,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "ezequiel"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Anuncia el nuevo pacto cumplido por Cristo."
+    "tipoCristo": "Anuncia el nuevo pacto cumplido por Cristo.",
+    "mapa": []
   },
   {
     "id": "josé-esposo-maría",
@@ -788,7 +881,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jesús"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "timoteo",
@@ -808,7 +902,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "loida"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "bernabé",
@@ -827,7 +922,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "esteban"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "lamec",
@@ -846,7 +942,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "enoc"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "jafet",
@@ -865,7 +962,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "cam"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "esaú",
@@ -884,7 +982,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jacob"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "benjamín",
@@ -903,7 +1002,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "josé"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "eliseo",
@@ -922,7 +1022,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "gehazi"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Sus obras anticipan aspectos del ministerio de Cristo."
+    "tipoCristo": "Sus obras anticipan aspectos del ministerio de Cristo.",
+    "mapa": []
   },
   {
     "id": "ezequiel",
@@ -941,7 +1042,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "nabucodonosor"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Anuncia al buen Pastor y el nuevo pacto."
+    "tipoCristo": "Anuncia al buen Pastor y el nuevo pacto.",
+    "mapa": []
   },
   {
     "id": "esdras",
@@ -958,7 +1060,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "nehemías"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "nehemías",
@@ -976,7 +1079,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "artajerjes"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "juan-marcos",
@@ -995,7 +1099,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "pedro"
     ],
     "canon": "Fuente principal: Reina-Valera 1960. La atribución del Evangelio de Marcos procede de la tradición cristiana antigua.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "silas",
@@ -1014,7 +1119,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "pedro"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "lucas",
@@ -1033,7 +1139,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "silas"
     ],
     "canon": "Fuente principal: Reina-Valera 1960. La autoría de Lucas y Hechos se apoya en la tradición cristiana antigua.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "lidia",
@@ -1052,7 +1159,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "timoteo"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "cam",
@@ -1071,7 +1179,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jafet"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "raquel",
@@ -1091,7 +1200,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "benjamín"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "lea",
@@ -1111,7 +1221,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "leví"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "rahab",
@@ -1130,7 +1241,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "rut"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Antepasada de Cristo según Mateo 1."
+    "tipoCristo": "Antepasada de Cristo según Mateo 1.",
+    "mapa": []
   },
   {
     "id": "barac",
@@ -1149,7 +1261,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "sísara"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "jael",
@@ -1168,7 +1281,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "sísara"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "sansón",
@@ -1187,7 +1301,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "samuel"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Contraste parcial con el Salvador que vence mediante su entrega."
+    "tipoCristo": "Contraste parcial con el Salvador que vence mediante su entrega.",
+    "mapa": []
   },
   {
     "id": "ana",
@@ -1206,7 +1321,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "maría"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Su cántico anticipa el lenguaje de alabanza asociado a la venida del Mesías."
+    "tipoCristo": "Su cántico anticipa el lenguaje de alabanza asociado a la venida del Mesías.",
+    "mapa": []
   },
   {
     "id": "jonatán",
@@ -1225,7 +1341,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "mical"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "natán",
@@ -1244,7 +1361,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "betsabé"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Anunció la promesa del reino davídico cumplida en Cristo."
+    "tipoCristo": "Anunció la promesa del reino davídico cumplida en Cristo.",
+    "mapa": []
   },
   {
     "id": "job",
@@ -1263,7 +1381,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "zofar"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Figura del justo sufriente y testigo de la esperanza en el Redentor."
+    "tipoCristo": "Figura del justo sufriente y testigo de la esperanza en el Redentor.",
+    "mapa": []
   },
   {
     "id": "oseas",
@@ -1282,7 +1401,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "gómer"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Sus profecías son aplicadas a Cristo y al pueblo redimido."
+    "tipoCristo": "Sus profecías son aplicadas a Cristo y al pueblo redimido.",
+    "mapa": []
   },
   {
     "id": "amós",
@@ -1301,7 +1421,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jeroboam"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Su promesa davídica es leída en Hechos a la luz de Cristo."
+    "tipoCristo": "Su promesa davídica es leída en Hechos a la luz de Cristo.",
+    "mapa": []
   },
   {
     "id": "miqueas",
@@ -1320,7 +1441,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "david"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Anunció el nacimiento del gobernante mesiánico en Belén."
+    "tipoCristo": "Anunció el nacimiento del gobernante mesiánico en Belén.",
+    "mapa": []
   },
   {
     "id": "zacarías",
@@ -1339,7 +1461,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "nehemías"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Profetizó imágenes mesiánicas cumplidas en Jesús."
+    "tipoCristo": "Profetizó imágenes mesiánicas cumplidas en Jesús.",
+    "mapa": []
   },
   {
     "id": "malaquías",
@@ -1358,7 +1481,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "zacarías"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Anunció al mensajero que prepararía el camino de Cristo."
+    "tipoCristo": "Anunció al mensajero que prepararía el camino de Cristo.",
+    "mapa": []
   },
   {
     "id": "marta",
@@ -1377,7 +1501,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "maría-magdalena"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "lázaro",
@@ -1396,7 +1521,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "jesús"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Su resurrección anticipa la victoria de Cristo sobre la muerte."
+    "tipoCristo": "Su resurrección anticipa la victoria de Cristo sobre la muerte.",
+    "mapa": []
   },
   {
     "id": "tomás",
@@ -1415,7 +1541,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "felipe"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": "Testigo de la resurrección y de la divinidad de Cristo."
+    "tipoCristo": "Testigo de la resurrección y de la divinidad de Cristo.",
+    "mapa": []
   },
   {
     "id": "felipe",
@@ -1434,7 +1561,8 @@ const BIBLICAL_CHARACTERS_V2242=[
       "tomás"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
   },
   {
     "id": "apolos",
@@ -1453,7 +1581,497 @@ const BIBLICAL_CHARACTERS_V2242=[
       "pablo"
     ],
     "canon": "Fuente principal: Reina-Valera 1960.",
-    "tipoCristo": ""
+    "tipoCristo": "",
+    "mapa": []
+  },
+  {
+    "id": "zorobabel",
+    "nombre": "Zorobabel",
+    "categoria": "Reyes",
+    "quienFue": "Gobernador de Judá después del exilio babilónico y descendiente de la casa de David. Encabezó junto con Josué el sumo sacerdote el primer grupo de repatriados que regresó a Jerusalén.",
+    "importante": "Dirigió la reconstrucción del altar y puso los cimientos del segundo templo pese a la oposición. Los profetas Hageo y Zacarías lo animaron a concluir la obra y lo presentaron como instrumento escogido por Dios.",
+    "aprendizaje": "Dios puede restaurar lo que parecía perdido y usa líderes perseverantes para comenzar de nuevo.",
+    "apariciones": "Esdras 2–5; Hageo 1–2; Zacarías 4; Mateo 1:12-13",
+    "frase": "El gobernador que ayudó a reconstruir el templo.",
+    "relacionCristo": "Aparece en la genealogía de Jesucristo según Mateo. Como descendiente de David, conservó la línea mesiánica durante el retorno del exilio.",
+    "cronologia": "Finales del siglo VI a. C., al comienzo del período posterior al exilio.",
+    "relacionados": [
+      "josué-sumo-sacerdote",
+      "hageo",
+      "zacarías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Salatiel",
+      "   │",
+      "Zorobabel ── Josué, sumo sacerdote",
+      "   │",
+      "Reconstrucción del templo"
+    ]
+  },
+  {
+    "id": "hageo",
+    "nombre": "Hageo",
+    "categoria": "Profetas",
+    "quienFue": "Profeta que ministró en Jerusalén después del regreso del exilio, cuando el pueblo había detenido la reconstrucción del templo.",
+    "importante": "Llamó al pueblo y a sus dirigentes a examinar sus prioridades y reanudar la casa de Dios. Sus mensajes despertaron a Zorobabel, a Josué y al remanente para volver a trabajar.",
+    "aprendizaje": "La obra de Dios no debe quedar relegada por la comodidad o el desánimo.",
+    "apariciones": "Esdras 5–6; Hageo 1–2",
+    "frase": "El profeta que impulsó la reconstrucción del templo.",
+    "relacionCristo": "Anunció que la gloria postrera de la casa sería mayor que la primera y transmitió una promesa especial a Zorobabel, descendiente de David. Los cristianos leen estas esperanzas a la luz de Cristo.",
+    "cronologia": "Año 520 a. C., durante el reinado persa de Darío I.",
+    "relacionados": [
+      "zorobabel",
+      "josué-sumo-sacerdote",
+      "zacarías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Hageo",
+      "  ├─ anima a Zorobabel",
+      "  ├─ anima a Josué",
+      "  └─ impulsa el templo"
+    ]
+  },
+  {
+    "id": "sofonías",
+    "nombre": "Sofonías",
+    "categoria": "Profetas",
+    "quienFue": "Profeta de Judá en tiempos del rey Josías, probablemente de ascendencia real. Su mensaje combina advertencias severas con una gran esperanza de restauración.",
+    "importante": "Proclamó el día del Señor contra el pecado de Judá y de las naciones, pero también anunció que Dios reuniría a un pueblo humilde y se gozaría sobre él con amor.",
+    "aprendizaje": "El arrepentimiento verdadero conduce a buscar humildad, justicia y refugio en Dios.",
+    "apariciones": "Sofonías 1–3",
+    "frase": "El profeta del día del Señor y de la alegría restauradora de Dios.",
+    "relacionCristo": "Su anuncio de un remanente purificado y de la presencia salvadora de Dios en medio de su pueblo se comprende plenamente en la obra del Mesías.",
+    "cronologia": "Siglo VII a. C., durante el reinado de Josías.",
+    "relacionados": [
+      "josías",
+      "jeremías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Josías",
+      "  │",
+      "Sofonías ── llamado al arrepentimiento",
+      "  │",
+      "Remanente restaurado"
+    ]
+  },
+  {
+    "id": "nahúm",
+    "nombre": "Nahúm",
+    "categoria": "Profetas",
+    "quienFue": "Profeta que anunció la caída de Nínive, capital del imperio asirio que había oprimido cruelmente a muchas naciones.",
+    "importante": "Proclamó que Dios es paciente, pero también justo, y que el poder violento de Asiria no permanecería para siempre. Su mensaje dio consuelo a Judá frente a un enemigo aparentemente invencible.",
+    "aprendizaje": "La paciencia de Dios no significa indiferencia ante la injusticia.",
+    "apariciones": "Nahúm 1–3",
+    "frase": "El profeta que anunció el fin de la opresión de Nínive.",
+    "relacionCristo": "Su proclamación de buenas nuevas de paz y liberación anticipa el anuncio definitivo del Evangelio, aunque el cumplimiento central está en Cristo.",
+    "cronologia": "Siglo VII a. C., antes de la caída de Nínive en 612 a. C.",
+    "relacionados": [
+      "jonás"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Jonás ── Nínive recibe misericordia",
+      "Nahúm ── Nínive recibe juicio"
+    ]
+  },
+  {
+    "id": "habacuc",
+    "nombre": "Habacuc",
+    "categoria": "Profetas",
+    "quienFue": "Profeta que dialogó con Dios acerca de la violencia, la injusticia y el aparente triunfo de los malvados.",
+    "importante": "Preguntó por qué Dios permitía el mal y recibió la respuesta de que el juicio llegaría en su tiempo. Terminó pasando de la perplejidad a una confianza profunda y gozosa.",
+    "aprendizaje": "La fe puede llevar nuestras preguntas sinceras a Dios y aprender a esperar en Él.",
+    "apariciones": "Habacuc 1–3; Romanos 1:17; Gálatas 3:11; Hebreos 10:38",
+    "frase": "El profeta que aprendió a vivir por la fe.",
+    "relacionCristo": "La declaración «el justo por su fe vivirá» ocupa un lugar central en la enseñanza apostólica sobre la justificación y la vida recibida por medio de Cristo.",
+    "cronologia": "Finales del siglo VII o comienzos del VI a. C., antes de la invasión babilónica.",
+    "relacionados": [
+      "jeremías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Injusticia",
+      "   ↓ pregunta",
+      "Habacuc",
+      "   ↓ espera",
+      "Fe y confianza"
+    ]
+  },
+  {
+    "id": "joel",
+    "nombre": "Joel",
+    "categoria": "Profetas",
+    "quienFue": "Profeta que interpretó una devastadora plaga de langostas como llamada al arrepentimiento y como imagen del día del Señor.",
+    "importante": "Convocó a sacerdotes y pueblo a volver a Dios de corazón. Anunció restauración, abundancia y el derramamiento del Espíritu sobre toda clase de personas.",
+    "aprendizaje": "Dios desea un arrepentimiento interior, no solo gestos externos.",
+    "apariciones": "Joel 1–3; Hechos 2:16-21",
+    "frase": "El profeta que anunció el derramamiento del Espíritu.",
+    "relacionCristo": "Pedro declaró en Pentecostés que el derramamiento del Espíritu anunciado por Joel se estaba cumpliendo después de la exaltación de Jesucristo.",
+    "cronologia": "Fecha discutida; su ministerio se sitúa en algún momento de la historia de Judá anterior al Nuevo Testamento.",
+    "relacionados": [
+      "pedro"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Joel anuncia",
+      "   ↓",
+      "Derramamiento del Espíritu",
+      "   ↓",
+      "Pentecostés — Pedro"
+    ]
+  },
+  {
+    "id": "abdías",
+    "nombre": "Abdías",
+    "categoria": "Profetas",
+    "quienFue": "Profeta autor del libro más breve del Antiguo Testamento. Su mensaje se dirige principalmente contra Edom por su orgullo y por haberse alegrado de la desgracia de Judá.",
+    "importante": "Anunció que la violencia y la soberbia de Edom volverían sobre él, mientras el monte de Sion recibiría liberación y el reino pertenecería al Señor.",
+    "aprendizaje": "No debemos aprovechar la caída del hermano ni confiar en una seguridad basada en el orgullo.",
+    "apariciones": "Abdías 1",
+    "frase": "El profeta que denunció el orgullo de Edom.",
+    "relacionCristo": "La esperanza final de que el reino sea del Señor apunta al reinado universal que el Nuevo Testamento atribuye a Jesucristo.",
+    "cronologia": "Probablemente relacionado con una época de calamidad y saqueo de Jerusalén.",
+    "relacionados": [
+      "esaú",
+      "jacob"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Esaú → Edom",
+      "Jacob → Israel",
+      "   │ conflicto histórico",
+      "Abdías anuncia justicia"
+    ]
+  },
+  {
+    "id": "jonás",
+    "nombre": "Jonás",
+    "categoria": "Profetas",
+    "quienFue": "Profeta israelita enviado por Dios a Nínive, capital asiria. Intentó huir de su misión, fue arrojado al mar y permaneció dentro de un gran pez antes de obedecer.",
+    "importante": "Predicó en Nínive y la ciudad se arrepintió. Después tuvo que aprender que la compasión de Dios alcanza incluso a pueblos enemigos y que su misericordia supera nuestros prejuicios.",
+    "aprendizaje": "No podemos limitar la misericordia de Dios a quienes consideramos dignos.",
+    "apariciones": "2 Reyes 14:25; Jonás 1–4; Mateo 12:39-41",
+    "frase": "El profeta enviado a una ciudad enemiga.",
+    "relacionCristo": "Jesús llamó «señal de Jonás» a la permanencia del profeta tres días en el pez y la relacionó con su propia muerte, sepultura y resurrección. También afirmó que Él es mayor que Jonás.",
+    "cronologia": "Siglo VIII a. C., durante el reino del norte.",
+    "relacionados": [
+      "nahúm"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Tres días de Jonás anticipan la muerte y resurrección de Cristo.",
+    "mapa": [
+      "Jonás",
+      "  │ tres días",
+      "Gran pez",
+      "  │ señal",
+      "Muerte y resurrección de Cristo"
+    ]
+  },
+  {
+    "id": "simeón",
+    "nombre": "Simeón",
+    "categoria": "Personajes del Nuevo Testamento",
+    "quienFue": "Hombre justo y piadoso de Jerusalén que esperaba la consolación de Israel. El Espíritu Santo le había revelado que no moriría antes de ver al Cristo del Señor.",
+    "importante": "Tomó al niño Jesús en sus brazos en el templo, bendijo a Dios y reconoció en Él la salvación preparada para todos los pueblos, luz para los gentiles y gloria de Israel.",
+    "aprendizaje": "La espera fiel encuentra su plenitud cuando reconoce la obra de Dios.",
+    "apariciones": "Lucas 2:25-35",
+    "frase": "El anciano que reconoció al Mesías en el templo.",
+    "relacionCristo": "Su vida está directamente unida a Cristo: fue guiado por el Espíritu para reconocer al Salvador siendo todavía un niño y profetizó tanto su misión universal como el sufrimiento relacionado con Él.",
+    "cronologia": "Comienzos del siglo I d. C., poco después del nacimiento de Jesús.",
+    "relacionados": [
+      "ana-profetisa",
+      "maría",
+      "josé-esposo-de-maría"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "María y José",
+      "      │ presentan a Jesús",
+      "Simeón ── Ana profetisa",
+      "      │",
+      "Reconocen al Mesías"
+    ]
+  },
+  {
+    "id": "ana-profetisa",
+    "nombre": "Ana, la profetisa",
+    "categoria": "Mujeres destacadas",
+    "quienFue": "Profetisa anciana de la tribu de Aser que permanecía en el templo sirviendo a Dios con ayunos y oraciones.",
+    "importante": "Llegó en el momento en que Jesús fue presentado y dio gracias a Dios. Después habló del niño a quienes esperaban la redención en Jerusalén.",
+    "aprendizaje": "La oración perseverante prepara el corazón para reconocer y anunciar la obra de Dios.",
+    "apariciones": "Lucas 2:36-38",
+    "frase": "La profetisa que habló del niño Jesús.",
+    "relacionCristo": "Reconoció personalmente a Jesucristo y lo anunció a quienes esperaban la redención.",
+    "cronologia": "Comienzos del siglo I d. C., durante la presentación de Jesús en el templo.",
+    "relacionados": [
+      "simeón",
+      "maría",
+      "josé-esposo-de-maría"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Simeón ── Ana profetisa",
+      "       │",
+      "Jesús presentado en el templo"
+    ]
+  },
+  {
+    "id": "nicodemo",
+    "nombre": "Nicodemo",
+    "categoria": "Personajes del Nuevo Testamento",
+    "quienFue": "Fariseo, principal entre los judíos y maestro de Israel que buscó a Jesús de noche para conversar con Él.",
+    "importante": "Escuchó la enseñanza sobre nacer de nuevo, el Espíritu y el amor de Dios. Más tarde defendió un juicio justo para Jesús y finalmente ayudó a preparar su cuerpo para la sepultura.",
+    "aprendizaje": "La fe puede comenzar con preguntas prudentes y crecer hasta expresarse públicamente.",
+    "apariciones": "Juan 3:1-21; 7:45-52; 19:38-42",
+    "frase": "El maestro que fue de la noche hacia una fe más valiente.",
+    "relacionCristo": "Jesús le reveló la necesidad del nuevo nacimiento y anunció que el Hijo del Hombre sería levantado para dar vida eterna a quienes creen. Nicodemo honró después el cuerpo crucificado de Cristo.",
+    "cronologia": "Siglo I d. C., durante el ministerio y la pasión de Jesús.",
+    "relacionados": [
+      "josé-de-arimatea",
+      "jesús"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Nicodemo visita de noche",
+      "        ↓",
+      "Escucha a Jesús",
+      "        ↓",
+      "Honra su cuerpo junto a José de Arimatea"
+    ]
+  },
+  {
+    "id": "josé-de-arimatea",
+    "nombre": "José de Arimatea",
+    "categoria": "Personajes del Nuevo Testamento",
+    "quienFue": "Miembro respetado del concilio que esperaba el reino de Dios y era discípulo de Jesús, aunque inicialmente de manera reservada.",
+    "importante": "Después de la crucifixión se presentó valerosamente ante Pilato, pidió el cuerpo de Jesús y lo colocó en un sepulcro nuevo de su propiedad.",
+    "aprendizaje": "La fidelidad puede exigir dar un paso público precisamente cuando parece más peligroso.",
+    "apariciones": "Mateo 27:57-60; Marcos 15:42-47; Lucas 23:50-56; Juan 19:38-42",
+    "frase": "El discípulo que ofreció su sepulcro a Jesús.",
+    "relacionCristo": "Sirvió directamente a Cristo al cuidar su cuerpo y proporcionar el sepulcro del que Jesús resucitaría.",
+    "cronologia": "Siglo I d. C., en los días de la crucifixión y resurrección.",
+    "relacionados": [
+      "nicodemo",
+      "maría-magdalena"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "José de Arimatea ── Nicodemo",
+      "           │",
+      "Sepultura de Jesús",
+      "           │",
+      "Resurrección"
+    ]
+  },
+  {
+    "id": "cleofás",
+    "nombre": "Cleofás",
+    "categoria": "Personajes del Nuevo Testamento",
+    "quienFue": "Uno de los dos discípulos que viajaban hacia Emaús el día de la resurrección. Iban tristes y confundidos por la muerte de Jesús.",
+    "importante": "El Cristo resucitado caminó con ellos, les explicó las Escrituras y fue reconocido al partir el pan. Cleofás regresó inmediatamente a Jerusalén para compartir la noticia.",
+    "aprendizaje": "Cristo puede transformar el desánimo cuando abre nuestro entendimiento a las Escrituras.",
+    "apariciones": "Lucas 24:13-35",
+    "frase": "El discípulo cuyo corazón ardió camino de Emaús.",
+    "relacionCristo": "Conversó con Jesús resucitado sin reconocerlo al principio y recibió de Él una explicación de cómo Moisés y los profetas hablaban del Mesías sufriente y glorificado.",
+    "cronologia": "Día de la resurrección de Jesucristo, siglo I d. C.",
+    "relacionados": [
+      "jesús"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Jerusalén → Emaús",
+      "Cleofás + otro discípulo",
+      "       │ camina con ellos",
+      "Jesús resucitado"
+    ]
+  },
+  {
+    "id": "aquila",
+    "nombre": "Aquila",
+    "categoria": "Primeros cristianos",
+    "quienFue": "Cristiano judío originario del Ponto, esposo de Priscila y fabricante de tiendas como Pablo.",
+    "importante": "Acogió a Pablo en Corinto, viajó con él y, junto con Priscila, instruyó a Apolos. En su casa se reunió una comunidad cristiana.",
+    "aprendizaje": "El trabajo cotidiano y el hogar pueden convertirse en espacios de servicio a Dios.",
+    "apariciones": "Hechos 18; Romanos 16:3-5; 1 Corintios 16:19; 2 Timoteo 4:19",
+    "frase": "El colaborador que puso oficio y hogar al servicio del Evangelio.",
+    "relacionCristo": "Sirvió a Cristo como compañero de misión de Pablo y maestro de Apolos junto con Priscila.",
+    "cronologia": "Siglo I d. C., durante la expansión de la Iglesia.",
+    "relacionados": [
+      "priscila",
+      "pablo",
+      "apolos"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Aquila ── Priscila",
+      "    │ colaboran con",
+      "Pablo ── forman a Apolos"
+    ]
+  },
+  {
+    "id": "tito",
+    "nombre": "Tito",
+    "categoria": "Primeros cristianos",
+    "quienFue": "Cristiano gentil, colaborador cercano y representante de confianza del apóstol Pablo.",
+    "importante": "Acompañó a Pablo en asuntos delicados, ayudó a reconciliar a la iglesia de Corinto con el apóstol y quedó en Creta para ordenar lo que faltaba y establecer ancianos.",
+    "aprendizaje": "La madurez cristiana se demuestra al asumir responsabilidades difíciles con fidelidad.",
+    "apariciones": "2 Corintios 2; 7–8; 12; Gálatas 2:1-5; Tito 1–3",
+    "frase": "El colaborador fiel encargado de fortalecer iglesias.",
+    "relacionCristo": "Fue hijo espiritual de Pablo en la común fe y sirvió a Cristo organizando comunidades y enseñando una vida coherente con la sana doctrina.",
+    "cronologia": "Siglo I d. C., durante y después de los viajes de Pablo.",
+    "relacionados": [
+      "pablo",
+      "timoteo"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Pablo",
+      " ├─ Timoteo",
+      " └─ Tito → Creta"
+    ]
+  },
+  {
+    "id": "filemón",
+    "nombre": "Filemón",
+    "categoria": "Primeros cristianos",
+    "quienFue": "Cristiano de Colosas, probablemente de buena posición, en cuya casa se reunía una iglesia. Era amigo y colaborador de Pablo.",
+    "importante": "Recibió una carta personal de Pablo pidiéndole que acogiera a Onésimo, antes esclavo suyo, ya no solo como siervo sino como hermano amado en Cristo.",
+    "aprendizaje": "El Evangelio transforma las relaciones de poder en vínculos de fraternidad, perdón y dignidad.",
+    "apariciones": "Filemón 1; Colosenses 4:9",
+    "frase": "El creyente llamado a recibir como hermano a quien antes era esclavo.",
+    "relacionCristo": "Cristo es el fundamento de la nueva relación entre Filemón y Onésimo. Pablo apela al amor, la reconciliación y la igualdad espiritual de ambos en el Señor.",
+    "cronologia": "Siglo I d. C., en tiempos del ministerio de Pablo.",
+    "relacionados": [
+      "onésimo",
+      "pablo",
+      "epafras"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Filemón",
+      "  │ recibe como hermano a",
+      "Onésimo",
+      "  │ mediación de",
+      "Pablo"
+    ]
+  },
+  {
+    "id": "onésimo",
+    "nombre": "Onésimo",
+    "categoria": "Primeros cristianos",
+    "quienFue": "Hombre esclavizado perteneciente a Filemón que, tras separarse de su amo, llegó a estar con Pablo y se convirtió en cristiano.",
+    "importante": "Pablo lo llamó su hijo espiritual y lo envió de regreso con una carta de reconciliación. También aparece como hermano amado y fiel vinculado a la iglesia de Colosas.",
+    "aprendizaje": "En Cristo ninguna vida queda definida para siempre por su pasado o por su condición social.",
+    "apariciones": "Filemón 1; Colosenses 4:9",
+    "frase": "El esclavo que regresó como hermano amado.",
+    "relacionCristo": "Su historia muestra de manera concreta cómo Cristo crea una familia nueva en la que amo y esclavo reciben la misma dignidad espiritual.",
+    "cronologia": "Siglo I d. C., durante un encarcelamiento de Pablo.",
+    "relacionados": [
+      "filemón",
+      "pablo",
+      "tíquico"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Onésimo → Pablo",
+      "   │ conversión",
+      "Regresa a Filemón",
+      "   │",
+      "Ya no solo esclavo: hermano"
+    ]
+  },
+  {
+    "id": "epafras",
+    "nombre": "Epafras",
+    "categoria": "Primeros cristianos",
+    "quienFue": "Cristiano de Colosas, colaborador de Pablo y ministro del Evangelio entre los creyentes de aquella región.",
+    "importante": "Enseñó el Evangelio a los colosenses y luchó constantemente por ellos en oración para que permanecieran firmes, maduros y completos en la voluntad de Dios.",
+    "aprendizaje": "Interceder con perseverancia por la madurez de otros es una forma profunda de servicio.",
+    "apariciones": "Colosenses 1:7-8; 4:12-13; Filemón 23",
+    "frase": "El servidor que luchaba por la iglesia en oración.",
+    "relacionCristo": "Fue ministro fiel de Cristo y trabajó para que los creyentes conocieran la supremacía del Señor y permanecieran firmes en Él.",
+    "cronologia": "Siglo I d. C., durante el ministerio de Pablo.",
+    "relacionados": [
+      "pablo",
+      "filemón"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Epafras",
+      "  ├─ evangeliza Colosas",
+      "  ├─ ora por Laodicea",
+      "  └─ colabora con Pablo"
+    ]
+  },
+  {
+    "id": "epafrodito",
+    "nombre": "Epafrodito",
+    "categoria": "Primeros cristianos",
+    "quienFue": "Miembro de la iglesia de Filipos enviado para asistir a Pablo y entregarle la ayuda de la comunidad.",
+    "importante": "Sirvió a Pablo con tanta entrega que enfermó gravemente y estuvo cerca de la muerte. Dios tuvo misericordia de él, y Pablo lo envió de regreso con gran honra.",
+    "aprendizaje": "El servicio sacrificado merece reconocimiento, cuidado y gratitud dentro de la iglesia.",
+    "apariciones": "Filipenses 2:25-30; 4:18",
+    "frase": "El mensajero que arriesgó su vida por la obra de Cristo.",
+    "relacionCristo": "Pablo lo llamó hermano, colaborador y compañero de milicia. Su entrega fue un servicio directo a la misión de Cristo y a las necesidades del apóstol.",
+    "cronologia": "Siglo I d. C., durante un encarcelamiento de Pablo.",
+    "relacionados": [
+      "pablo"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "",
+    "mapa": [
+      "Iglesia de Filipos",
+      "       │ envía",
+      "Epafrodito → sirve a Pablo",
+      "       │",
+      "Obra de Cristo"
+    ]
+  },
+  {
+    "id": "josué-sumo-sacerdote",
+    "nombre": "Josué, sumo sacerdote",
+    "categoria": "Sacerdotes y levitas",
+    "quienFue": "Sumo sacerdote del período posterior al exilio, hijo de Josadac. Trabajó junto a Zorobabel en la restauración del culto y del templo.",
+    "importante": "Levantó el altar, participó en la colocación de los cimientos del templo y recibió por medio de Zacarías una visión de purificación: sus vestiduras sucias fueron reemplazadas por ropas limpias.",
+    "aprendizaje": "Dios puede quitar la culpa, restaurar al servidor y volver a confiarle una misión.",
+    "apariciones": "Esdras 2–5; Hageo 1–2; Zacarías 3; 6:9-15",
+    "frase": "El sumo sacerdote purificado para servir de nuevo.",
+    "relacionCristo": "En Zacarías, Josué sirve como señal del Renuevo venidero. Su purificación y su oficio sacerdotal anticipan la obra del Mesías, sacerdote y rey.",
+    "cronologia": "Finales del siglo VI a. C., después del regreso del exilio.",
+    "relacionados": [
+      "zorobabel",
+      "hageo",
+      "zacarías"
+    ],
+    "canon": "Fuente principal: Reina-Valera 1960.",
+    "tipoCristo": "Su sacerdocio y la visión del Renuevo apuntan al Mesías.",
+    "mapa": [
+      "Josué, sumo sacerdote",
+      "       │ purificado",
+      "Renuevo prometido",
+      "       │",
+      "Cristo, sacerdote y rey"
+    ]
   }
 ]
 
@@ -1488,7 +2106,7 @@ function renderBiblicalCharactersV2242(){
   const result=BIBLICAL_CHARACTERS_V2242.filter(function(p){
     if(biblicalCategoryV2242!=='Todos'&&p.categoria!==biblicalCategoryV2242)return false;
     if(!q)return true;
-    return normalizeBiblicalTextV2242([p.nombre,p.categoria,p.quienFue,p.importante,p.aprendizaje,p.apariciones,p.frase,p.relacionCristo,p.cronologia,p.canon].join(' ')).includes(q);
+    return normalizeBiblicalTextV2242([p.nombre,p.categoria,p.quienFue,p.importante,p.aprendizaje,p.apariciones,p.frase,p.relacionCristo,p.cronologia,p.canon,(p.mapa||[]).join(" ")].join(' ')).includes(q);
   }).sort(function(a,b){return a.nombre.localeCompare(b.nombre,'es')});
   const title=document.getElementById('biblicalCharactersListTitleV2242'); if(title)title.textContent=biblicalCategoryV2242==='Todos'?'Todos los personajes':biblicalCategoryV2242;
   const count=document.getElementById('biblicalCharactersCountV2242'); if(count)count.textContent=result.length+' '+(result.length===1?'personaje':'personajes');
@@ -1502,12 +2120,15 @@ function openBiblicalCharacterDetailV2242(id){
   const tags=[p.categoria]; if(p.tipoCristo)tags.push('✝ Figura relacionada con Cristo');
   d.innerHTML='<button class="btn soft biblical-detail-back-v2242" type="button" onclick="backBiblicalCharactersV2242()">← Personajes</button>'+
   '<div class="biblical-detail-top-v2242"><h1>'+escapeBiblicalHtmlV2242(p.nombre)+'</h1><p>'+escapeBiblicalHtmlV2242(p.frase)+'</p><div class="biblical-detail-tags-v2242">'+tags.map(function(t){return '<span>'+escapeBiblicalHtmlV2242(t)+'</span>'}).join('')+'</div></div>'+
-  biblicalDetailCardV2242('Quién fue',p.quienFue)+biblicalDetailCardV2242('Lo más importante de su vida',p.importante)+biblicalDetailCardV2242('Qué podemos aprender de él o ella',p.aprendizaje)+biblicalDetailCardV2242('Dónde aparece en la Biblia',p.apariciones)+(p.relacionCristo?biblicalDetailCardV2242('Relación con Cristo',p.relacionCristo):'')+(p.tipoCristo?biblicalDetailCardV2242('Figura o vínculo profético',p.tipoCristo):'')+biblicalDetailCardV2242('Cronología',p.cronologia)+(p.canon?biblicalDetailCardV2242('Fuente',p.canon):'')+biblicalRelatedCardV2244(p.relacionados)+biblicalDetailCardV2242('Frase para recordarlo',p.frase);
+  biblicalDetailCardV2242('Quién fue',p.quienFue)+biblicalDetailCardV2242('Lo más importante de su vida',p.importante)+biblicalDetailCardV2242('Qué podemos aprender de él o ella',p.aprendizaje)+biblicalDetailCardV2242('Dónde aparece en la Biblia',p.apariciones)+(p.relacionCristo?biblicalDetailCardV2242('Relación con Cristo',p.relacionCristo):'')+(p.tipoCristo?biblicalDetailCardV2242('Figura o vínculo profético',p.tipoCristo):'')+biblicalDetailCardV2242('Cronología',p.cronologia)+(p.canon?biblicalDetailCardV2242('Fuente',p.canon):'')+biblicalMapCardV2247(p.mapa)+biblicalRelatedCardV2244(p.relacionados)+biblicalDetailCardV2242('Frase para recordarlo',p.frase);
   d.classList.remove('hidden'); window.scrollTo({top:0,behavior:'smooth'});
 }
 function biblicalDetailCardV2242(title,body){return '<section class="biblical-detail-card-v2242"><h2>'+escapeBiblicalHtmlV2242(title)+'</h2><p>'+escapeBiblicalHtmlV2242(body)+'</p></section>'}
+
+function biblicalMapCardV2247(lines){if(!lines||!lines.length)return '';return '<section class="biblical-detail-card-v2242 biblical-map-card-v2247"><h2>Árbol familiar o histórico</h2><div class="biblical-map-v2247" role="img" aria-label="Relaciones familiares o históricas">'+lines.map(function(line){return '<div>'+escapeBiblicalHtmlV2242(line)+'</div>'}).join('')+'</div></section>'}
+
 function biblicalRelatedCardV2244(ids){if(!ids||!ids.length)return '';const items=ids.map(function(id){const x=BIBLICAL_CHARACTERS_V2242.find(function(p){return p.id===id});return x?'<button type="button" class="biblical-related-v2244" onclick="openBiblicalCharacterDetailV2242('+JSON.stringify(x.id).replace(/"/g,'&quot;')+')">'+escapeBiblicalHtmlV2242(x.nombre)+' <span>›</span></button>':''}).filter(Boolean).join('');return items?'<section class="biblical-detail-card-v2242"><h2>Personajes relacionados</h2><div class="biblical-related-list-v2244">'+items+'</div></section>':''}
 function backBiblicalCharactersV2242(){const d=document.getElementById('biblicalCharacterDetailV2242');if(d)d.classList.add('hidden');const h=document.getElementById('biblicalCharactersHomeV2242');if(h)h.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
 
 
-/* V2.246: 79 personajes únicos, nuevas fichas y duplicados corregidos. */
+/* V2.247: 100 personajes, árboles familiares o históricos y nuevos marcos. */
