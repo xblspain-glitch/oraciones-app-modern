@@ -5145,3 +5145,11 @@ body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(1
 
 /* V2.248 — grosor uniforme: todos los marcos de secciones igual que Personajes */
 #tabPrayers.section-frame-blue-v245,#tabNotes.section-frame-yellow-v245,#tabVerses.section-frame-green-verses-v245,#btnMomentsV31102.section-frame-green-moments-v245,#tabParables.section-frame-green-parables-v245,#btnDaily.section-frame-lavender-v245,#tabGuides.section-frame-gold-guide-v247,#btnDailyRoutinesV3192.section-frame-blue-routines-v247,#calendarBtn.section-frame-orange-calendar-v247,#tabPsalms.section-frame-peach-psalms-v247,#btnMainMark.section-frame-pink-mark-v247{border-width:2px!important}
+
+/* ===== V2.267 — contador completo en pantallas estrechas ===== */
+@media (max-width:430px){
+  body.home-active-v9019 #counterInfo.counter-v66 .counter-items-v3182{
+    position:relative!important;
+    left:-10px!important;
+  }
+}
