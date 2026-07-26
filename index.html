@@ -75,6 +75,47 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
   justify-content:center;
   gap:4px;
 }
+
+.home-daynight-icon-v3252{
+  width:34px;
+  height:34px;
+  object-fit:contain;
+  flex:0 0 34px;
+  display:inline-block;
+  vertical-align:middle;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.12));
+}
+#btnDailyRoutinesV3192{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+}
+@media(max-width:600px){
+  .home-daynight-icon-v3252{width:29px;height:29px;flex-basis:29px}
+}
+@media(max-width:380px){
+  .home-daynight-icon-v3252{width:25px;height:25px;flex-basis:25px}
+}
+.home-own-icon-v3250{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+  flex:0 0 32px;
+  display:inline-block;
+  vertical-align:middle;
+}
+#btnDaily,#biblicalDictionaryBtnV2264{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+@media(max-width:600px){
+  .home-own-icon-v3250{width:27px;height:27px;flex-basis:27px}
+}
+@media(max-width:380px){
+  .home-own-icon-v3250{width:23px;height:23px;flex-basis:23px}
+}
 .biblical-characters-button-icon-v2255{
   width:32px;
   height:30px;
@@ -121,14 +162,14 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
     </div>
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
     <button id="btnRead" data-view-btn="read" class="btn soft" type="button" onclick="enterFullscreenReading()">📖 Leer</button>
-    <button id="btnDaily" data-view-btn="daily" class="btn soft section-frame-lavender-v245" type="button" onclick="openDailyVerse()">📖 Versículo del día</button>
-    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft section-frame-blue-routines-v247" type="button" onclick="openDailyRoutinesV3192()">🌅🌙 Día/Noche</button>
+    <button id="btnDaily" data-view-btn="daily" class="btn soft section-frame-lavender-v245" type="button" onclick="openDailyVerse()"><img class="home-own-icon-v3250" src="icon-versiculo-dia-v3250.png" alt="" aria-hidden="true"> <span>Versículo del día</span></button>
+    <button id="btnDailyRoutinesV3192" data-view-btn="routines" class="btn soft section-frame-blue-routines-v247" type="button" onclick="openDailyRoutinesV3192()"><img class="home-daynight-icon-v3252" src="icon-dia-noche-v3255.png" alt="" aria-hidden="true"><span>Día/Noche</span></button>
     <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft section-frame-green-moments-v245" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
     <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
     <div class="home-fixed-row-v31763 home-study-row-v2265">
       <button id="calendarBtn" data-view-btn="calendar" class="btn soft section-frame-orange-calendar-v247" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
       <button id="biblicalCharactersBtnV2242" data-view-btn="biblical-characters" class="btn soft biblical-characters-main-v2242" type="button" onclick="openBiblicalCharactersV2242()"><img class="biblical-characters-button-icon-v2255" src="icon-personajes-biblicos-v2255.png" alt="" aria-hidden="true"> <span>Personajes</span></button>
-      <button id="biblicalDictionaryBtnV2264" data-view-btn="biblical-dictionary" class="btn soft" type="button" onclick="openBiblicalDictionaryV2264()">📖 Diccionario</button>
+      <button id="biblicalDictionaryBtnV2264" data-view-btn="biblical-dictionary" class="btn soft" type="button" onclick="openBiblicalDictionaryV2264()"><img class="home-own-icon-v3250" src="icon-diccionario-v3250.png" alt="" aria-hidden="true"> <span>Diccionario</span></button>
     </div>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
       <button id="tabParables" data-view-btn="parables" class="btn soft section-frame-green-parables-v245" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
@@ -538,7 +579,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
-<script src="counters-v3183.js?v=251"></script>
+<script src="counters-v3183.js?v=266"></script>
 </body>
 </html>
 

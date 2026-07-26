@@ -32,7 +32,9 @@
         '<span class="counter-separator-v3182">|</span>'+
         '<span class="counter-entry-v3182" title="Parábolas"><span class="counter-symbol-v3182">🌱</span><b>'+len(s.parables)+'</b></span>'+
         '<span class="counter-separator-v3182">|</span>'+
-        '<span class="counter-entry-v3182" title="Personajes bíblicos"><span class="counter-symbol-v3182">👥</span><b>'+((window.BIBLICAL_CHARACTERS_V2242&&window.BIBLICAL_CHARACTERS_V2242.length)||181)+'</b></span>'+
+        '<span class="counter-entry-v3182" title="Personajes bíblicos"><img src="icon-personajes-biblicos-v2255.png" alt=""><b>'+((window.BIBLICAL_CHARACTERS_V2242&&window.BIBLICAL_CHARACTERS_V2242.length)||409)+'</b></span>'+
+        '<span class="counter-separator-v3182">|</span>'+
+        '<span class="counter-entry-v3182" title="Diccionario bíblico"><img src="icon-diccionario-v3250.png" alt=""><b>'+((window.BIBLICAL_DICTIONARY_V2264&&window.BIBLICAL_DICTIONARY_V2264.length)||433)+'</b></span>'+
         '<span class="counter-separator-v3182">|</span>'+
         '<span class="counter-entry-v3182" title="Salmos"><span class="counter-symbol-v3182 counter-psalm-v3182">♫</span><b>'+len(s.psalms)+'</b></span>'+
         '<span class="counter-separator-v3182">|</span>'+
