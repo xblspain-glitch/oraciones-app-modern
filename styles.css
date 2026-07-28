@@ -1,3 +1,8 @@
+@font-face{font-family:"Lora";src:url("Lora-Regular.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"Lora";src:url("Lora-Bold.woff2") format("woff2");font-style:normal;font-weight:700;font-display:swap}
+@font-face{font-family:"Lora";src:url("Lora-Italic.woff2") format("woff2");font-style:italic;font-weight:400;font-display:swap}
+@font-face{font-family:"Lora";src:url("Lora-BoldItalic.woff2") format("woff2");font-style:italic;font-weight:700;font-display:swap}
+
 /* ============================================================
    ORACIONES V3 LAB - STYLES.CSS
    Paso 11: auditoría técnica sin cambios funcionales.
@@ -9,7 +14,7 @@
 body.dark{--bg:#111111;--card:#1a1a1a;--text:#f2eee7;--muted:#b5ab9c;--line:#2f2a24;--primary:#c89763;--soft:#24211d;--danger:#d56d61;--accent:#ffd27d}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;min-height:100%}
-body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+body{font-family:"Lora",serif;background:var(--bg);color:var(--text)}
 button,input,textarea{font-family:inherit}
 .topbar{position:sticky;top:0;z-index:40;padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:rgba(248,246,241,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 body.dark .topbar{background:rgba(17,17,17,.96)}
