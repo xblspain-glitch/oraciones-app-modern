@@ -1495,8 +1495,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "V2.267";
-const APP_VERSION_ZIP = "V2_laboratorio_267_contador_completo_cache_limpia.zip";
+const APP_VERSION_LABEL = "V2.269";
+const APP_VERSION_ZIP = "Oraciones_V2.269_LORA_SOLO_TEXTOS_OFFLINE.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -3821,7 +3821,7 @@ function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(IN
 window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
-if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v2-267-contador-completo-cache-limpia",{updateViaCache:"none"})})}
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v2-269-lora-solo-textos-offline",{updateViaCache:"none"})})}
 applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
 
 function getCardTextLayout(txt){
