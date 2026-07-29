@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Oraciones V3">
-<link rel="manifest" href="manifest.json?v=v2-273-lora-filas-dia-noche-original">
+<link rel="manifest" href="manifest.json?v=v2-275-sin-modulos-estudio">
 <link rel="preload" as="image" href="icon-192.png">
 <link rel="preload" as="image" href="bg-morning.webp">
 <link rel="preload" as="image" href="bg-day.webp">
@@ -20,7 +20,7 @@
 
 <link rel="preload" as="image" href="routine-morning-bible-v2216.webp">
 <link rel="preload" as="image" href="routine-night-bible-v2216.webp">
-<link rel="stylesheet" href="styles.css?v=v2-273-lora-filas-dia-noche-original">
+<link rel="stylesheet" href="styles.css?v=v2-275-sin-modulos-estudio">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 
 <style>
@@ -47,7 +47,6 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 .top-tab-png-v3176 .top-tab-png-icon-v3176{display:block!important;width:27px!important;height:27px!important;object-fit:contain!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.22)) drop-shadow(0 2px 3px rgba(0,0,0,.12))}
 .top-tab-png-v3176 span{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important}
 #tabNotes .top-tab-png-icon-v3176{width:29px!important;height:29px!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 4px rgba(120,97,35,.18))!important;transform:translateY(-1px)!important}
-#tabGuides .top-tab-png-icon-v3176{width:30px!important;height:30px!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 4px rgba(120,87,28,.20))!important;transform:translateY(-1px)!important}
 #tabVerses.tab-verses-heart-v3176{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;padding:7px 7px 9px!important;min-height:68px!important;line-height:1!important;text-align:center!important}
 #tabVerses.tab-verses-heart-v3176::before{content:"💚"!important;display:block!important;width:24px!important;height:24px!important;line-height:24px!important;font-size:20px!important;text-align:center!important;margin:0 auto!important;filter:drop-shadow(0 1px 1px rgba(255,255,255,.25)) drop-shadow(0 2px 3px rgba(0,0,0,.10))}
 #tabVerses.tab-verses-heart-v3176 .tab-verses-label-v3176{display:block!important;width:100%!important;text-align:center!important;white-space:nowrap!important;font-size:.95em!important}
@@ -59,20 +58,12 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 .top-tab-png-v3176 .top-tab-png-icon-v3176{width:25px!important;height:25px!important}
 .top-tab-png-v3176 span{font-size:.92em!important}
 #tabNotes .top-tab-png-icon-v3176{width:27px!important;height:27px!important}
-#tabGuides .top-tab-png-icon-v3176{width:28px!important;height:28px!important}
 #tabVerses.tab-verses-heart-v3176{min-height:64px!important;padding:6px 5px 8px!important;gap:2px!important}
 #tabVerses.tab-verses-heart-v3176::before{width:23px!important;height:23px!important;line-height:23px!important;font-size:19px!important}
 #tabVerses.tab-verses-heart-v3176 .tab-verses-label-v3176{font-size:.92em!important}
 }
 </style>
 <style>
-.biblical-characters-main-v2242{
-  display:inline-flex !important;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-}
-
 .home-daynight-icon-v3252{
   width:34px;
   height:34px;
@@ -102,7 +93,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
   display:inline-block;
   vertical-align:middle;
 }
-#btnDaily,#biblicalDictionaryBtnV2264{
+#btnDaily{
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -113,15 +104,8 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 @media(max-width:380px){
   .home-own-icon-v3250{width:23px;height:23px;flex-basis:23px}
 }
-.biblical-characters-button-icon-v2255{
-  width:32px;
-  height:30px;
-  object-fit:contain;
-  flex:0 0 32px;
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,.18));
-}
 @media(max-width:420px){
-  .biblical-characters-button-icon-v2255{width:30px;height:28px;flex-basis:30px}
+  
 }
 </style>
 </head>
@@ -504,11 +488,11 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=273"></script>
+<script src="app.js?v=274"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
-<script src="counters-v3183.js?v=273"></script>
+<script src="counters-v3183.js?v=274"></script>
 </body>
 </html>
 

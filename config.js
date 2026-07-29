@@ -17,21 +17,14 @@ let state={
   "section":"prayers",
   "currentPrayerId":null,
   "currentNoteId":null,
-  "currentGuideId":null,
   "currentVerseId":null,
-  "currentParableId":null,
   "prayers":[],
   "notes":[],
-  "guides":[],
   "verses":[],
-  "parables":[],
   "verseCategories":[],
   "trashPrayers":[],
   "trashNotes":[],
-  "trashGuides":[],
-  "trashVerses":[],
-  "trashParables":[]
-};
+  "trashVerses":[],};
 let isDirty=false;
 let autosaveTimer=null;
 const seedPrayer=[

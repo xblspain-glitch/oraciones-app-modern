@@ -2,7 +2,7 @@
   "name": "Oraciones V3",
   "short_name": "Oraciones V3",
   "id": "./oraciones-v3-lab",
-  "start_url": "./?v=v2-273-lora-filas-dia-noche-original",
+  "start_url": "./?v=v2-274-limpieza-real-segura",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -23,5 +23,5 @@
     }
   ],
   "version": "2.273",
-  "build": "v2-273-lora-filas-dia-noche-original"
+  "build": "v2-274-limpieza-real-segura"
 }
