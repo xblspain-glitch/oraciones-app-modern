@@ -2,7 +2,7 @@
   "name": "Oraciones V3",
   "short_name": "Oraciones V3",
   "id": "./oraciones-v3-lab",
-  "start_url": "./?v=v2-270-sin-personajes-diccionario",
+  "start_url": "./?v=v2-271-sin-guia-parabolas",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -22,6 +22,6 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "2.270",
-  "build": "v2-270-sin-personajes-diccionario"
+  "version": "2.271",
+  "build": "v2-271-sin-guia-parabolas"
 }

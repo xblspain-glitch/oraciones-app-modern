@@ -152,7 +152,6 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
     <div class="segment">
       <button id="tabPrayers" class="active tab-prayers-v3176 section-frame-blue-v245" type="button" onclick="switchSectionAndReadV90187('prayers')"><span class="prayer-cross-top-v3176" aria-hidden="true"></span><span class="prayer-label-top-v3176">Oraciones</span></button>
       <button id="tabNotes" class="top-tab-png-v3176 section-frame-yellow-v245" type="button" onclick="switchSectionAndReadV90187('notes')"><img src="icon-notas-detallado-v2210.png" class="top-tab-png-icon-v3176" alt=""><span>Notas</span></button>
-      <button id="tabGuides" class="top-tab-png-v3176 section-frame-gold-guide-v247" type="button" onclick="switchSectionAndReadV90187('guides')"><img src="icon-guia-detallado-v2210.png" class="top-tab-png-icon-v3176" alt=""><span>Guía</span></button>
       <button id="tabVerses" class="tab-verses-heart-v3176 section-frame-green-verses-v245" type="button" onclick="switchSection('verses')"><span class="tab-verses-label-v3176">Versículos</span></button>
     </div>
     <button id="btnNew" data-view-btn="new" class="btn primary" type="button" onclick="newItem()">➕ Nueva</button>
@@ -165,7 +164,6 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
       <button id="calendarBtn" data-view-btn="calendar" class="btn soft section-frame-orange-calendar-v247" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
     </div>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763">
-      <button id="tabParables" data-view-btn="parables" class="btn soft section-frame-green-parables-v245" type="button" onclick="switchSectionAndReadV90187('parables')">🌱 Parábolas</button>
       <button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176 section-frame-peach-psalms-v247" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
       <button id="btnMainMark" class="btn soft section-frame-pink-mark-v247" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
       </div>
@@ -448,7 +446,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
       <div class="global-search-title-v3177">🔎 Buscar en toda la app</div>
     </div>
     <div class="global-search-box-v3177">
-      <input id="globalSearchInputV3177" type="search" autocomplete="off" placeholder="Buscar oraciones, salmos, versículos, notas, parábolas y guía…" oninput="renderGlobalSearchV3177()">
+      <input id="globalSearchInputV3177" type="search" autocomplete="off" placeholder="Buscar oraciones, salmos, versículos y notas…" oninput="renderGlobalSearchV3177()">
       <button id="globalSearchClearV3177" type="button" onclick="clearGlobalSearchV3177()" aria-label="Borrar búsqueda">×</button>
     </div>
     <div class="global-search-filters-v3177" id="globalSearchFiltersV3177">
@@ -457,8 +455,6 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
       <button type="button" data-filter="psalms" onclick="setGlobalSearchFilterV3177('psalms',this)">♫ Salmos</button>
       <button type="button" data-filter="verses" onclick="setGlobalSearchFilterV3177('verses',this)">❤️ Versículos</button>
       <button type="button" data-filter="notes" onclick="setGlobalSearchFilterV3177('notes',this)">📝 Notas</button>
-      <button type="button" data-filter="parables" onclick="setGlobalSearchFilterV3177('parables',this)">🌱 Parábolas</button>
-      <button type="button" data-filter="guides" onclick="setGlobalSearchFilterV3177('guides',this)">📜 Guía</button>
     </div>
     <div id="globalSearchSummaryV3177" class="global-search-summary-v3177">Escriba una palabra para buscar en todo su contenido.</div>
     <div id="globalSearchResultsV3177" class="global-search-results-v3177"></div>
@@ -514,7 +510,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
-<script src="counters-v3183.js?v=267"></script>
+<script src="counters-v3183.js?v=271"></script>
 </body>
 </html>
 
