@@ -1,3 +1,4 @@
+@font-face{font-family:'Lora';src:local('Lora');}
 /* ============================================================
    ORACIONES V3 LAB - STYLES.CSS
    Paso 11: auditoría técnica sin cambios funcionales.
@@ -5154,16 +5155,4 @@ body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(1
   }
 }
 
-/* V2.269 — Lora únicamente en el contenido de lectura. La interfaz conserva Arial. */
-@font-face{font-family:'Lora';src:url('./Lora-Regular.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:'Lora';src:url('./Lora-Bold.woff2') format('woff2');font-style:normal;font-weight:700;font-display:swap}
-@font-face{font-family:'Lora';src:url('./Lora-Italic.woff2') format('woff2');font-style:italic;font-weight:400;font-display:swap}
-@font-face{font-family:'Lora';src:url('./Lora-BoldItalic.woff2') format('woff2');font-style:italic;font-weight:700;font-display:swap}
-
-/* Solo título y cuerpo del contenido leído; botones, menús, etiquetas y controles siguen en Arial. */
-#readerView .reader-title,
-#readerView .reader-text,
-#routineReaderV3192 .routine-reader-title-v3192,
-#routineReaderV3192 .routine-reader-text-v3192{
-  font-family:'Lora',Georgia,serif;
-}
+.prayer-content,.oracion-texto,.oracion-contenido,.contenido-oracion,.prayer-body,.texto-oracion,h1.oracion-titulo,.oracion-titulo{font-family:'Lora', Georgia, serif;}

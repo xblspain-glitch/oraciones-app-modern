@@ -1,3 +1,4 @@
+@font-face{font-family:'Lora';src:local('Lora');}
 /* ============================================================
    ORACIONES V3 LAB - THEMES.CSS
    Paso 11: auditoría técnica sin cambios funcionales.
@@ -659,3 +660,5 @@ body.dark .home-card-v9019.home-sky-sunset .home-line-v9019{
 /* V3.1.15: limpieza del arco iris.
    Se retiraron de themes.css todas las pruebas antiguas del arco.
    El único arco activo se inyecta desde patches.js con id v3-1-15-rainbow-clean-single-css. */
+
+.prayer-content,.oracion-texto,.oracion-contenido,.contenido-oracion,.prayer-body,.texto-oracion,h1.oracion-titulo,.oracion-titulo{font-family:'Lora', Georgia, serif;}
