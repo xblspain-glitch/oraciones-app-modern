@@ -2,7 +2,7 @@
   "name": "Oraciones V3",
   "short_name": "Oraciones V3",
   "id": "./oraciones-v3-lab",
-  "start_url": "./?v=v2-274-limpieza-real-segura",
+  "start_url": "./?v=v2-276-tarjetas-fe-dios-sin-iconos",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -22,6 +22,6 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "2.273",
-  "build": "v2-274-limpieza-real-segura"
+  "version": "2.276",
+  "build": "v2-276-tarjetas-fe-dios-sin-iconos"
 }
