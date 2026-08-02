@@ -1,4 +1,4 @@
-/* V3.1.183 · V3.1.259 — contadores solo de módulos activos */
+/* V2.1.183 · V2.1.259 — contadores solo de módulos activos */
 (function(){
   'use strict';
   if(window.__v3183CountersInstalled) return;
@@ -26,7 +26,7 @@
   }
   var painting=false;
   function render(){ var el=document.getElementById('counterInfo'); if(!el)return; var next=html(); if(el.innerHTML===next)return; painting=true; el.innerHTML=next; painting=false; }
-  window.renderHomeCountersV3183=render;
+  window.renderHomeCountersV2183=render;
   function installObserver(){ var el=document.getElementById('counterInfo'); if(!el)return; new MutationObserver(function(){if(!painting)setTimeout(render,0);}).observe(el,{childList:true,subtree:true,characterData:true}); }
   var oldSync=window.syncTabs||(typeof syncTabs!=='undefined'?syncTabs:null);
   window.syncTabs=function(){ var result; if(typeof oldSync==='function')result=oldSync.apply(this,arguments); setTimeout(render,0); return result; };

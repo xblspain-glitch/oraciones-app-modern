@@ -1,4 +1,4 @@
-// Oraciones V3 LAB - Paso 20
+// Oraciones V2 LAB - Paso 20
 // Módulo de modo claro/oscuro.
 // Mantiene las funciones globales applyTheme() y toggleTheme() para no cambiar el comportamiento.
 

@@ -1,4 +1,4 @@
-/* Oraciones V3 LAB - versiculos.js paso 17
+/* Oraciones V2 LAB - versiculos.js paso 17
    Módulo de constantes, normalización e importación/exportación de versículos.
    Separado sin cambiar comportamiento. */
 
@@ -44,10 +44,10 @@ function normalizeVerses(){
     favorite:!!v.favorite,
     shared:!!v.shared,
     lastCardSentAt:v.lastCardSentAt||0,
-    shareStatsV3162:(v.shareStatsV3162 && typeof v.shareStatsV3162 === "object") ? {
-      count: Math.max(0, Number(v.shareStatsV3162.count) || 0),
-      lastDates: Array.isArray(v.shareStatsV3162.lastDates)
-        ? v.shareStatsV3162.lastDates.map(Number).filter(x => Number.isFinite(x) && x > 0).slice(0,3)
+    shareStatsV2162:(v.shareStatsV2162 && typeof v.shareStatsV2162 === "object") ? {
+      count: Math.max(0, Number(v.shareStatsV2162.count) || 0),
+      lastDates: Array.isArray(v.shareStatsV2162.lastDates)
+        ? v.shareStatsV2162.lastDates.map(Number).filter(x => Number.isFinite(x) && x > 0).slice(0,3)
         : []
     } : {count:0,lastDates:[]}
   }));
@@ -61,10 +61,10 @@ function normalizeVerses(){
     favorite:!!v.favorite,
     shared:!!v.shared,
     lastCardSentAt:v.lastCardSentAt||0,
-    shareStatsV3162:(v.shareStatsV3162 && typeof v.shareStatsV3162 === "object") ? {
-      count: Math.max(0, Number(v.shareStatsV3162.count) || 0),
-      lastDates: Array.isArray(v.shareStatsV3162.lastDates)
-        ? v.shareStatsV3162.lastDates.map(Number).filter(x => Number.isFinite(x) && x > 0).slice(0,3)
+    shareStatsV2162:(v.shareStatsV2162 && typeof v.shareStatsV2162 === "object") ? {
+      count: Math.max(0, Number(v.shareStatsV2162.count) || 0),
+      lastDates: Array.isArray(v.shareStatsV2162.lastDates)
+        ? v.shareStatsV2162.lastDates.map(Number).filter(x => Number.isFinite(x) && x > 0).slice(0,3)
         : []
     } : {count:0,lastDates:[]}
   }));
