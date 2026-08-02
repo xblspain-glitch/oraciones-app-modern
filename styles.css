@@ -5165,3 +5165,15 @@ body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(1
   text-align:center!important;
   justify-content:center!important;
 }
+
+
+/* V2.277 · Inicio sin Calendario */
+.home-study-row-v2265{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+.home-study-row-v2265 > *{
+  width:100%!important;
+  min-width:0!important;
+}

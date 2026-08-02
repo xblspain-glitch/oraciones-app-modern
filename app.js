@@ -1,4 +1,7 @@
 const BUILD_V3_1_200="tarjeta-final-limpia";
+
+/* V2.277 · El calendario vive ahora en Mi Biblia de Estudio */
+try{localStorage.removeItem("oraciones_festivity_notes_v44")}catch(_){}
 /* Oraciones V3 LAB - app.js paso 45: limpieza render de versículos */
 
 /* ===== PWA / INSTALACIÓN ===== */
@@ -1082,7 +1085,7 @@ function saveCurrent(stay, silent){
             setSearchVisibleV26(true);
             clearNavModes();
 
-            ["homeView","editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView","welcomeView","momentsView","routineView","routineReaderV3192"].forEach(function(id){
+            ["homeView","editorView","backupView","trashView","titlesView","verseCategoriesView","welcomeView","momentsView","routineView","routineReaderV3192"].forEach(function(id){
               var view=document.getElementById(id);
               if(view) view.classList.add("hidden");
             });
@@ -1492,8 +1495,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "V2.276";
-const APP_VERSION_ZIP = "Oraciones_V2.276_TARJETAS_FE_DIOS_SIN_ICONOS.zip";
+const APP_VERSION_LABEL = "V2.277";
+const APP_VERSION_ZIP = "Oraciones_V2.277_TARJETAS_FE_DIOS_SIN_ICONOS.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -2251,439 +2254,8 @@ function changeReaderSize(delta){
   renderReader();
 }
 
-function padCalendar(n){
-  return String(n).padStart(2,"0");
-}
-function calendarKey(d){
-  return d.getFullYear()+"-"+padCalendar(d.getMonth()+1)+"-"+padCalendar(d.getDate());
-}
-function addCalendarDays(date,days){
-  const d=new Date(date.getFullYear(),date.getMonth(),date.getDate());
-  d.setDate(d.getDate()+days);
-  return d;
-}
-function sameCalendarDay(a,b){
-  return calendarKey(a)===calendarKey(b);
-}
-function formatCalendarDate(d){
-  return d.toLocaleDateString("es-ES",{
-    weekday:"long",
-    day:"numeric",
-    month:"long",
-    year:"numeric"
-  });
-}
-function westernEaster(y){
-  const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;
-  return new Date(y,month-1,day);
-}
-function julianToGregorian(y,m,d){
-  const a=Math.floor((14-m)/12), yy=y+4800-a, mm=m+12*a-3;
-  const jdn=d+Math.floor((153*mm+2)/5)+365*yy+Math.floor(yy/4)-32083;
-  const A=jdn+32044, B=Math.floor((4*A+3)/146097), C=A-Math.floor(146097*B/4), D=Math.floor((4*C+3)/1461), E=C-Math.floor(1461*D/4), M=Math.floor((5*E+2)/153);
-  const day=E-Math.floor((153*M+2)/5)+1, month=M+3-12*Math.floor(M/10), year=100*B+D-4800+Math.floor(M/10);
-  return new Date(year,month-1,day);
-}
-function orthodoxEaster(y){
-  const a=y%4,b=y%7,c=y%19,d=(19*c+15)%30,e=(2*a+4*b-d+34)%7;
-  const month=Math.floor((d+e+114)/31), day=((d+e+114)%31)+1;
-  return julianToGregorian(y,month,day);
-}
-function addEvent(map,date,trad,title,desc){
-  const k=calendarKey(date); if(!map[k])map[k]=[]; map[k].push({trad,title,desc});
-}
-function addFixed(map,y,m,d,trad,title,desc){
-  addEvent(map,new Date(y,m-1,d),trad,title,desc);
-}
-function buildChristianCalendarYear(y){
-  const map={};
-  const west=westernEaster(y), east=orthodoxEaster(y);
-  // General / Católico / Protestante occidental
-  addFixed(map,y,1,6,"catolica","⛪ Epifanía del Señor","Manifestación de Cristo a las naciones.");
-  addFixed(map,y,12,25,"catolica","🎄 Navidad","Celebramos el nacimiento de nuestro Señor Jesucristo.");
-  addFixed(map,y,12,25,"protestante","🎄 Navidad","Celebramos el nacimiento de Jesucristo, Salvador del mundo.");
-  addFixed(map,y,10,31,"protestante","📖 Día de la Reforma","Recuerdo histórico de la Reforma protestante.");
-  addEvent(map,addCalendarDays(west,-46),"catolica","✝️ Miércoles de Ceniza","Comienzo de la Cuaresma en el calendario occidental.");
-  addEvent(map,addCalendarDays(west,-7),"catolica","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
-  addEvent(map,addCalendarDays(west,-7),"protestante","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
-  addEvent(map,addCalendarDays(west,-2),"catolica","✝️ Viernes Santo","Recordamos la pasión y muerte de Cristo.");
-  addEvent(map,addCalendarDays(west,-2),"protestante","✝️ Viernes Santo","Recordamos la cruz de nuestro Señor Jesucristo.");
-  addEvent(map,west,"catolica","🌅 Domingo de Resurrección","Cristo ha resucitado.");
-  addEvent(map,west,"protestante","🌅 Domingo de Resurrección","Cristo ha resucitado.");
-  addEvent(map,addCalendarDays(west,39),"catolica","👑 Ascensión del Señor","Cristo asciende al Padre.");
-  addEvent(map,addCalendarDays(west,39),"protestante","👑 Ascensión del Señor","Cristo asciende al Padre.");
-  addEvent(map,addCalendarDays(west,49),"catolica","🔥 Pentecostés","Venida del Espíritu Santo sobre la Iglesia.");
-  addEvent(map,addCalendarDays(west,49),"protestante","🔥 Pentecostés","Venida del Espíritu Santo.");
-  // Ortodoxo oriental y etíope, con Pascua según cómputo oriental
-  addFixed(map,y,1,7,"ortodoxa","🎄 Navidad ortodoxa","Celebración de la Natividad de Cristo en muchas iglesias de calendario juliano.");
-  addFixed(map,y,1,19,"ortodoxa","💧 Teofanía","Celebración del bautismo del Señor.");
-  addFixed(map,y,1,19,"etiope","💧 Timkat","Celebración etíope del bautismo de nuestro Señor Jesucristo.");
-  addFixed(map,y,9,27,"etiope","✝️ Meskel","Conmemoración del hallazgo de la Vera Cruz en la tradición etíope.");
-  addEvent(map,addCalendarDays(east,-55),"etiope","✝️ Gran Ayuno","Comienza el tiempo de preparación hacia Fasika.");
-  addEvent(map,addCalendarDays(east,-48),"ortodoxa","✝️ Gran Cuaresma","Comienza el camino hacia la Santa Pascua.");
-  addEvent(map,addCalendarDays(east,-7),"etiope","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
-  addEvent(map,addCalendarDays(east,-7),"ortodoxa","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
-  addEvent(map,addCalendarDays(east,-2),"etiope","✝️ Viernes Santo","Recordamos la pasión y muerte de Cristo.");
-  addEvent(map,addCalendarDays(east,-2),"ortodoxa","✝️ Viernes Santo","Recordamos la pasión y muerte de Cristo.");
-  addEvent(map,east,"etiope","🌅 Fasika","Pascua etíope: celebramos la Resurrección de Cristo.");
-  addEvent(map,east,"ortodoxa","🌅 Pascua ortodoxa","Cristo ha resucitado.");
-  addEvent(map,addCalendarDays(east,39),"etiope","👑 Ascensión del Señor","Cristo asciende al Padre.");
-  addEvent(map,addCalendarDays(east,39),"ortodoxa","👑 Ascensión del Señor","Cristo asciende al Padre.");
-  addEvent(map,addCalendarDays(east,49),"etiope","🔥 Pentecostés","Venida del Espíritu Santo sobre la Iglesia.");
-  addEvent(map,addCalendarDays(east,49),"ortodoxa","🔥 Pentecostés","Venida del Espíritu Santo.");
 
-  // v43C - Festividades cristianas universales y bíblicas
-  addFixed(map,y,3,25,"catolica","⛪ Anunciación","El anuncio del ángel Gabriel a María sobre el nacimiento de Jesús.");
-  addFixed(map,y,3,25,"ortodoxa","⛪ Anunciación","El anuncio del ángel Gabriel a María sobre el nacimiento de Cristo.");
-
-  addFixed(map,y,6,24,"catolica","👶 Natividad de San Juan Bautista","Nacimiento de Juan Bautista, el profeta que preparó el camino del Señor.");
-  addFixed(map,y,6,24,"ortodoxa","👶 Natividad de San Juan Bautista","Nacimiento de Juan Bautista, precursor de Cristo.");
-
-  addFixed(map,y,6,29,"catolica","✝️ San Pedro y San Pablo","Conmemoración de los apóstoles Pedro y Pablo.");
-  addFixed(map,y,6,29,"ortodoxa","✝️ San Pedro y San Pablo","Conmemoración de los santos apóstoles Pedro y Pablo.");
-
-  addFixed(map,y,7,25,"catolica","✝️ Santiago el Mayor","Conmemoración de Santiago el Mayor, apóstol de Jesucristo.");
-  addFixed(map,y,7,25,"ortodoxa","✝️ Santiago el Mayor","Conmemoración de Santiago, apóstol del Señor.");
-
-  addFixed(map,y,8,6,"catolica","✨ Transfiguración del Señor","Cristo manifiesta su gloria en el monte.");
-  addFixed(map,y,8,6,"ortodoxa","✨ Transfiguración del Señor","Cristo manifiesta su gloria ante sus discípulos.");
-
-  addFixed(map,y,8,15,"catolica","⛪ Asunción de María","Celebración de María llevada a la gloria de Dios.");
-  addFixed(map,y,8,15,"ortodoxa","☦️ Dormición de la Madre de Dios","Celebración de la Dormición de la Madre de Dios.");
-
-  addFixed(map,y,8,29,"catolica","👶 Martirio de San Juan Bautista","Conmemoración de la muerte de Juan Bautista.");
-  addFixed(map,y,8,29,"ortodoxa","👶 Decapitación de San Juan Bautista","Conmemoración del martirio de Juan Bautista.");
-
-  addFixed(map,y,9,14,"catolica","✝️ Exaltación de la Santa Cruz","Celebración de la cruz de Cristo.");
-  addFixed(map,y,9,14,"ortodoxa","✝️ Exaltación de la Santa Cruz","Celebración de la preciosa y vivificadora Cruz.");
-
-  addFixed(map,y,11,1,"catolica","⛪ Todos los Santos","Conmemoración de todos los fieles que vivieron y murieron en la fe.");
-
-  addFixed(map,y,11,30,"catolica","✝️ San Andrés","Conmemoración de Andrés, apóstol de Jesucristo.");
-  addFixed(map,y,11,30,"ortodoxa","✝️ San Andrés","Conmemoración del apóstol Andrés, el primer llamado.");
-
-  addFixed(map,y,12,27,"catolica","📖 San Juan Evangelista","Conmemoración de Juan, apóstol y evangelista.");
-  addFixed(map,y,12,27,"ortodoxa","📖 San Juan Evangelista","Conmemoración de Juan, apóstol y evangelista.");
-
-return map;
-}
-function getChristianEventsFor(date){
-  const y=date.getFullYear();
-  const all=Object.assign({},buildChristianCalendarYear(y-1),buildChristianCalendarYear(y),buildChristianCalendarYear(y+1));
-  return all[calendarKey(date)]||[];
-}
-function renderCalendarTradition(events,key,label){
-  const ev=events.filter(e=>e.trad===key);
-  let html='<div class="calendar-card"><div class="calendar-card-head">'+label+'</div>';
-  if(!ev.length){html+='<div class="calendar-empty">Sin festividad especial hoy.</div>'}
-  else ev.forEach(e=>{
-    const title=e.title||e.trad||"Festividad cristiana";
-    const desc=e.desc||"";
-    html+='<div class="calendar-event"><div class="calendar-event-title">'+escapeHtml(title)+'</div><div class="calendar-event-desc">'+escapeHtml(desc)+'</div></div>';
-  });
-  return html+'</div>';
-}
-function renderChristianCalendar(date){
-  date=date||new Date();
-  const box=document.getElementById("calendarContent"); if(!box)return;
-  const events=getChristianEventsFor(date);
-  const whenLabel=sameCalendarDay(date,new Date())?'Hoy':'Fecha';
-  box.innerHTML='<div class="calendar-hero"><div class="calendar-title">📅 Calendario Cristiano</div><div class="calendar-date">'+whenLabel+' · '+escapeHtml(formatCalendarDate(date))+'</div></div><div class="calendar-grid">'
-    +renderCalendarTradition(events,"etiope","🇪🇹 Ortodoxo etíope")
-    +renderCalendarTradition(events,"ortodoxa","☦️ Ortodoxo")
-    +renderCalendarTradition(events,"protestante","✝️ Protestante")
-    +renderCalendarTradition(events,"catolica","⛪ Católico")
-    +'</div><div class="calendar-note">Las fechas móviles se calculan según el cómputo occidental u oriental. Algunas iglesias pueden variar celebraciones locales.</div>';
-}
-function openChristianCalendar(){
-  setSearchVisibleV26(false);
-  setActiveView("calendar");
-  clearNavModes();
-  const cal=document.getElementById("calendarView"); if(!cal)return;
-  cal.classList.remove("hidden");
-  document.getElementById("readerView").classList.add("hidden");
-  document.getElementById("editorView").classList.add("hidden");
-  document.getElementById("backupView").classList.add("hidden");
-  document.getElementById("trashView").classList.add("hidden");
-  document.getElementById("titlesView").classList.add("hidden");
-  var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
-  document.body.classList.remove("fullscreen-reading","hide-reading-ui");
-  document.body.classList.add("reading-mobile");
-  renderChristianCalendar(new Date());
-  updateCalendarAlert();
-}
-
-function updateCalendarAlert(){
-  const btn=document.getElementById("calendarBtn");
-  if(!btn || typeof getChristianEventsFor!=="function") return;
-  const hasEvents=getChristianEventsFor(new Date()).length>0;
-  btn.classList.toggle("calendar-alert",hasEvents);
-  btn.dataset.festive = hasEvents ? "1" : "0";
-
-  if(hasEvents){
-    btn.setAttribute("style",
-      "background:#ffffff!important;" +
-      "color:#181818!important;" +
-      "border:3px solid #d88428!important;" +
-      "box-shadow:0 2px 8px rgba(216,132,40,.18)!important;" +
-      "font-weight:700!important;"
-    );
-  }else{
-    btn.removeAttribute("style");
-  }
-}
-
-setTimeout(updateCalendarAlert,300);
-setInterval(updateCalendarAlert,60000);
-
-const FESTIVITY_LIBRARY_V44 = [
-{id:"anunciacion",date:"25 de marzo",title:"⛪ Anunciación",summary:"La Anunciación recuerda el anuncio del ángel Gabriel a María: el Hijo de Dios será concebido por obra del Espíritu Santo.",meaning:"Nos recuerda que la salvación nace de la iniciativa de Dios y de la respuesta humilde de fe.",passages:["Lucas 1:26-38","Mateo 1:18-25","Juan 1:14"]},
-{id:"juan_bautista_natividad",date:"24 de junio",title:"👶 Natividad de San Juan Bautista",summary:"Juan Bautista fue el precursor de Cristo. Su nacimiento fue anunciado por Dios y preparó el camino para la venida del Señor.",meaning:"Esta festividad señala que Dios prepara su obra de salvación antes de que sea visible para todos.",passages:["Lucas 1:5-25","Lucas 1:57-66","Lucas 1:67-80","Mateo 3:1-17","Juan 1:19-34"]},
-{id:"pedro_pablo",date:"29 de junio",title:"✝️ San Pedro y San Pablo",summary:"Pedro y Pablo son dos apóstoles fundamentales en el testimonio de la Iglesia primitiva.",meaning:"Recuerda la misión apostólica y la proclamación de Cristo como Señor.",passages:["Mateo 16:13-19","Hechos 2:14-41","Hechos 9:1-22","Gálatas 2:7-9","2 Timoteo 4:6-8"]},
-{id:"santiago_mayor",date:"25 de julio",title:"✝️ Santiago el Mayor",summary:"Santiago el Mayor fue uno de los apóstoles cercanos a Jesús y testigo de momentos centrales de su ministerio.",meaning:"Recuerda el llamado a seguir a Cristo con fidelidad, incluso en el sufrimiento.",passages:["Mateo 4:18-22","Marcos 5:35-43","Marcos 9:2-8","Marcos 10:35-45","Hechos 12:1-2"]},
-{id:"transfiguracion",date:"6 de agosto",title:"✨ Transfiguración del Señor",summary:"Cristo manifestó su gloria en el monte ante Pedro, Santiago y Juan.",meaning:"Revela la gloria divina de Cristo y anticipa la luz de la Resurrección.",passages:["Mateo 17:1-9","Marcos 9:2-10","Lucas 9:28-36","2 Pedro 1:16-18"]},
-{id:"asuncion_dormicion",date:"15 de agosto",title:"⛪ Asunción / ☦️ Dormición",summary:"Esta festividad recuerda la culminación de la vida terrenal de María, contemplada de modo distinto según las tradiciones cristianas.",meaning:"Invita a mirar la esperanza de la vida en Dios y la fidelidad de María al plan divino.",passages:["Lucas 1:46-55","Juan 19:25-27","Apocalipsis 12:1-6"]},
-{id:"martirio_juan_bautista",date:"29 de agosto",title:"👶 Martirio de San Juan Bautista",summary:"Juan Bautista murió por dar testimonio de la verdad y denunciar el pecado.",meaning:"Recuerda el precio de la fidelidad a Dios y la valentía profética.",passages:["Marcos 6:14-29","Mateo 14:1-12","Lucas 3:18-20"]},
-{id:"exaltacion_cruz",date:"14 de septiembre",title:"✝️ Exaltación de la Santa Cruz",summary:"La cruz, instrumento de muerte, es contemplada por los cristianos como signo de la victoria de Cristo.",meaning:"Centra la mirada en la redención realizada por Cristo mediante su entrega.",passages:["Juan 3:14-17","1 Corintios 1:18-25","Gálatas 6:14","Filipenses 2:5-11"]},
-{id:"todos_los_santos",date:"1 de noviembre",title:"⛪ Todos los Santos",summary:"Todos los Santos recuerda a todos los fieles que vivieron y murieron en la fe, conocidos y desconocidos.",meaning:"Recuerda la esperanza cristiana, la comunión de los creyentes y el llamado universal a la santidad.",passages:["Mateo 5:1-12","Hebreos 12:1-2","Apocalipsis 7:9-17"]},
-{id:"san_andres",date:"30 de noviembre",title:"✝️ San Andrés",summary:"Andrés fue uno de los primeros discípulos llamados por Jesús y hermano de Pedro.",meaning:"Recuerda el llamado inmediato a seguir a Cristo y a conducir a otros hacia Él.",passages:["Juan 1:35-42","Mateo 4:18-22","Juan 6:8-9","Juan 12:20-22"]},
-{id:"san_juan_evangelista",date:"27 de diciembre",title:"📖 San Juan Evangelista",summary:"Juan fue apóstol y testigo de Cristo. La tradición cristiana lo vincula especialmente con el Evangelio de Juan y las cartas joánicas.",meaning:"Su testimonio resalta la divinidad de Cristo, el amor, la luz y la vida eterna.",passages:["Juan 1:1-18","Juan 13:21-30","Juan 19:25-27","Juan 20:1-10","1 Juan 4:7-16"]},
-{id:"navidad",date:"25 de diciembre",title:"🎄 Navidad",summary:"Navidad celebra el nacimiento de Jesucristo, el Hijo de Dios hecho hombre.",meaning:"Dios entra en la historia humana para salvar al mundo por amor.",passages:["Lucas 2:1-20","Mateo 1:18-25","Juan 1:1-14","Isaías 9:6-7"]},
-{id:"epifania_teofania",date:"6 / 19 de enero",title:"💧 Epifanía / Teofanía",summary:"Epifanía recuerda la manifestación de Cristo. En Oriente se centra especialmente en el Bautismo del Señor.",meaning:"Cristo se revela como Salvador y luz para el mundo.",passages:["Mateo 2:1-12","Mateo 3:13-17","Marcos 1:9-11","Lucas 3:21-22"]},
-{id:"domingo_ramos",date:"Variable",title:"🌿 Domingo de Ramos",summary:"Jesús entra en Jerusalén y es recibido como Rey, iniciando los acontecimientos de su pasión.",meaning:"Une la aclamación a Cristo Rey con el camino hacia la cruz.",passages:["Mateo 21:1-11","Marcos 11:1-11","Lucas 19:28-44","Juan 12:12-19"]},
-{id:"viernes_santo",date:"Variable",title:"✝️ Viernes Santo",summary:"Viernes Santo recuerda la pasión y muerte de Jesucristo en la cruz.",meaning:"En la cruz se manifiesta el amor sacrificial de Cristo y la redención del mundo.",passages:["Mateo 27","Marcos 15","Lucas 23","Juan 18:28-40","Juan 19"]},
-{id:"resurreccion",date:"Variable",title:"🌅 Pascua de Resurrección",summary:"La Pascua celebra la resurrección de Jesucristo de entre los muertos.",meaning:"Es el centro de la fe cristiana: Cristo ha vencido la muerte.",passages:["Mateo 28","Marcos 16","Lucas 24","Juan 20","1 Corintios 15:1-28"]},
-{id:"ascension",date:"Variable",title:"👑 Ascensión del Señor",summary:"La Ascensión recuerda que Cristo resucitado sube al Padre y reina glorificado.",meaning:"Cristo no abandona a sus discípulos, sino que los envía y promete el Espíritu Santo.",passages:["Lucas 24:50-53","Hechos 1:1-11","Marcos 16:19-20","Efesios 1:17-23"]},
-{id:"pentecostes",date:"Variable",title:"🔥 Pentecostés",summary:"Pentecostés celebra la venida del Espíritu Santo sobre los discípulos.",meaning:"El Espíritu Santo fortalece a la Iglesia para dar testimonio de Cristo.",passages:["Hechos 2:1-41","Juan 14:15-27","Juan 16:7-15","Romanos 8:1-17"]},
-
-{id:"presentacion_senor",date:"2 de febrero",title:"🕯️ Presentación del Señor",summary:"María y José presentan a Jesús en el Templo conforme a la Ley. Simeón y Ana reconocen al Mesías prometido.",meaning:"Cristo es presentado como luz para las naciones y gloria de Israel.",passages:["Lucas 2:22-38","Malaquías 3:1-4"]},
-{id:"jueves_santo",date:"Variable",title:"🍞 Jueves Santo",summary:"Recuerda la Última Cena de Jesús con sus discípulos y la institución de la Cena del Señor.",meaning:"Cristo entrega su cuerpo y sangre y enseña el servicio humilde.",passages:["Mateo 26:17-30","Marcos 14:12-26","Lucas 22:7-38","Juan 13:1-17","1 Corintios 11:23-26"]},
-{id:"sabado_santo",date:"Variable",title:"⚫ Sábado Santo",summary:"Día de espera y silencio entre la muerte de Cristo y su resurrección.",meaning:"La Iglesia espera con esperanza la victoria de Cristo sobre la muerte.",passages:["Mateo 27:57-66","Lucas 23:50-56","1 Pedro 3:18-20"]},
-{id:"esteban_protomartir",date:"26 de diciembre",title:"🩸 Esteban, primer mártir",summary:"Esteban fue el primer mártir cristiano.",meaning:"Su testimonio muestra la fidelidad a Cristo incluso ante la persecución.",passages:["Hechos 6:1-15","Hechos 7:1-60"]},
-{id:"genna",date:"7 de enero",title:"🇪🇹 Genna (Navidad Etíope)",summary:"Genna es la celebración etíope de la Natividad de Cristo.",meaning:"Recuerda el nacimiento del Salvador según la tradición etíope.",passages:["Lucas 2:1-20","Mateo 1:18-25","Juan 1:1-14"]},
-{id:"fasika",date:"Variable",title:"🇪🇹 Fasika (Pascua de Resurrección)",summary:"Fasika es la Pascua de Resurrección en la tradición etíope.",meaning:"Celebra la victoria de Cristo sobre la muerte.",passages:["Mateo 28","Marcos 16","Lucas 24","Juan 20","1 Corintios 15:1-28"]},
-{id:"timkat",date:"19 de enero",title:"💧 Timkat (Bautismo del Señor / Teofanía)",summary:"Timkat es la celebración etíope del Bautismo del Señor.",meaning:"Recuerda la manifestación de Cristo en el Jordán y la revelación trinitaria.",passages:["Mateo 3:13-17","Marcos 1:9-11","Lucas 3:21-22","Juan 1:29-34"]},
-{id:"meskel",date:"27 de septiembre",title:"✝️ Meskel (Hallazgo de la Santa Cruz)",summary:"Meskel conmemora en la tradición etíope el hallazgo de la Vera Cruz.",meaning:"La cruz es signo de victoria, vida y redención en Cristo.",passages:["Juan 3:14-17","1 Corintios 1:18-25","Gálatas 6:14"]}
-];
-
-let currentFestivityIdV44=null;
-let currentFestivityPassageRefV44=null;
-let currentFestivityNotesEditingV44=false;
-function getFestivityNotesStore(){
-  try{
-    return JSON.parse(localStorage.getItem("oraciones_festivity_notes_v44")||"{}");
-  }catch(e){
-    return {};
-  }
-}
-
-function saveFestivityNotesStore(store){
-  localStorage.setItem("oraciones_festivity_notes_v44",JSON.stringify(store||{}));
-}
-
-function openFestivityLibrary(){
-  const modal=document.getElementById("festivityModal");
-  if(!modal)return;
-  modal.classList.remove("hidden");
-  backToFestivityList();
-}
-
-function closeFestivityModal(){
-  const modal=document.getElementById("festivityModal");
-  if(modal)modal.classList.add("hidden");
-}
-
-function backToFestivityList(){
-  currentFestivityIdV44=null;
-  document.getElementById("festivityListView")?.classList.remove("hidden");
-  document.getElementById("festivityDetailView")?.classList.add("hidden");
-  renderFestivityLibraryList();
-}
-
-function renderFestivityLibraryList(){
-  const box=document.getElementById("festivityLibraryList");
-  if(!box)return;
-  box.innerHTML="";
-
-  FESTIVITY_LIBRARY_V44.forEach(f=>{
-    const div=document.createElement("div");
-    div.className="festivity-row";
-    div.innerHTML='<div class="festivity-row-title">'+escapeHtml(f.title)+'</div><div class="festivity-row-date">'+escapeHtml(f.date)+'</div>';
-    div.onclick=()=>openFestivityDetail(f.id);
-    box.appendChild(div);
-  });
-}
-
-function getFestivityDataV44(id){
-  const store=getFestivityNotesStore();
-  const raw=store[id];
-  if(!raw) return {notes:"",passages:{}};
-  if(typeof raw==="string") return {notes:raw,passages:{}};
-  return {notes:raw.notes||"",passages:raw.passages||{}};
-}
-function setFestivityDataV44(id,data){
-  const store=getFestivityNotesStore();
-  store[id]={notes:(data&&data.notes)||"",passages:(data&&data.passages)||{}};
-  saveFestivityNotesStore(store);
-}
-
-function openFestivityDetail(id,forceEditNotes){
-  const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===id);
-  if(!f)return;
-  currentFestivityIdV44=id;
-  currentFestivityPassageRefV44=null;
-  const listView=document.getElementById("festivityListView");
-  const detailView=document.getElementById("festivityDetailView");
-  const box=document.getElementById("festivityDetailContent");
-  const data=getFestivityDataV44(id);
-  const hasNotes=String(data.notes||"").trim().length>0;
-  currentFestivityNotesEditingV44 = forceEditNotes || !hasNotes;
-  try{addRecentFestivity('read',id,f.title,'');}catch(e){}
-
-  if(listView)listView.classList.add("hidden");
-  if(detailView)detailView.classList.remove("hidden");
-  if(!box)return;
-
-  const notesReadonly = currentFestivityNotesEditingV44 ? "" : " readonly";
-  const notesButton = currentFestivityNotesEditingV44
-    ? '<button class="btn primary" type="button" onclick="saveFestivityNotes()">💾 Guardar notas</button>'
-    : '<button class="btn primary" type="button" onclick="enableFestivityNotesEdit()">✍️ Editar notas</button>';
-
-  box.innerHTML=
-    '<div class="festivity-detail-title">'+escapeHtml(f.title)+'</div>'+
-    '<div class="festivity-detail-date">📅 '+escapeHtml(f.date)+'</div>'+
-    '<div class="festivity-section"><h3>📖 Sentido</h3><p>'+escapeHtml(f.summary)+'</p></div>'+
-    '<div class="festivity-section"><h3>✝️ Significado cristiano</h3><p>'+escapeHtml(f.meaning)+'</p></div>'+
-    '<div class="festivity-section"><h3>📖 Pasajes bíblicos</h3><div id="festivityPassageButtons" class="festivity-passages"></div><div class="festivity-hint">Toca un pasaje para abrirlo, pegar el texto RVR1960 y guardarlo por separado.</div></div>'+
-    '<div class="festivity-section"><h3>✍️ Tus notas</h3><div class="festivity-actions">'+notesButton+'</div>'+
-      '<textarea id="festivityNotesText" class="festivity-notes"'+notesReadonly+' placeholder="Añade aquí comentarios generales de la festividad...">'+escapeHtml(data.notes||"")+'</textarea>'+
-      '<div class="festivity-hint">'+(currentFestivityNotesEditingV44?'Puedes escribir o editar tus notas y guardarlas.':'Modo lectura: las notas están protegidas. Pulsa ✍️ Editar notas para modificarlas.')+'</div></div>';
-
-  const pbox=document.getElementById("festivityPassageButtons");
-  if(pbox){
-    f.passages.forEach(function(ref){
-      const btn=document.createElement("button");
-      btn.type="button";
-      btn.className="festivity-passage";
-      btn.innerHTML='<span>'+escapeHtml(ref)+'</span><span class="edit-mark">✍️</span>';
-      btn.addEventListener("click",function(){openFestivityPassage(id,ref)});
-      pbox.appendChild(btn);
-    });
-  }
-
-  if(currentFestivityNotesEditingV44){
-    setTimeout(function(){try{document.getElementById("festivityNotesText").focus({preventScroll:true})}catch(e){}},80);
-  }
-}
-function enableFestivityNotesEdit(){
-  if(!currentFestivityIdV44)return;
-  openFestivityDetail(currentFestivityIdV44,true);
-}
-
-function openFestivityPassage(id,ref,forceEdit){
-  const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===id);
-  if(!f)return;
-  currentFestivityIdV44=id;
-  currentFestivityPassageRefV44=ref;
-  currentFestivityNotesEditingV44=false;
-  const listView=document.getElementById("festivityListView");
-  const detailView=document.getElementById("festivityDetailView");
-  const box=document.getElementById("festivityDetailContent");
-  const data=getFestivityDataV44(id);
-  const txt=(data.passages&&data.passages[ref])||"";
-  const hasText=String(txt||"").trim().length>0;
-  const editing = forceEdit || !hasText;
-  try{addRecentFestivity('read',id,f.title,ref);}catch(e){}
-
-  if(listView)listView.classList.add("hidden");
-  if(detailView)detailView.classList.remove("hidden");
-  if(!box)return;
-
-  const readonlyAttr = editing ? "" : " readonly";
-  const actionButton = editing
-    ? '<button class="btn primary" type="button" onclick="saveFestivityNotes()">💾 Guardar pasaje</button>'
-    : '<button class="btn primary" type="button" onclick="enableFestivityPassageEdit()">✍️ Editar pasaje</button>';
-
-  box.innerHTML=
-    '<button class="btn soft festivity-back" type="button" id="backToFestivityDetailBtn">← Volver a la festividad</button>'+
-    '<div class="festivity-passage-title">📖 Pasaje bíblico</div>'+
-    '<div class="festivity-passage-ref">'+escapeHtml(ref)+'</div>'+
-    '<div class="festivity-actions">'+actionButton+'</div>'+
-    '<div class="festivity-section"><textarea id="festivityPassageText" class="festivity-passage-textarea"'+readonlyAttr+' placeholder="Pega aquí el texto RVR1960 de '+escapeHtml(ref)+'...">'+escapeHtml(txt)+'</textarea><div class="festivity-hint">'+
-    (editing?'Puedes pegar o editar el texto y guardarlo.':'Modo lectura: el texto está protegido. Pulsa ✍️ Editar pasaje para modificarlo.')+
-    '</div></div>';
-
-  const back=document.getElementById("backToFestivityDetailBtn");
-  if(back)back.addEventListener("click",function(){openFestivityDetail(id)});
-  if(editing){
-    setTimeout(function(){try{document.getElementById("festivityPassageText").focus({preventScroll:true})}catch(e){}},80);
-  }
-}
-function enableFestivityPassageEdit(){
-  if(!currentFestivityIdV44 || !currentFestivityPassageRefV44)return;
-  openFestivityPassage(currentFestivityIdV44,currentFestivityPassageRefV44,true);
-}
-
-function saveFestivityNotes(){
-  if(!currentFestivityIdV44){toast("Elige una festividad");return}
-  const data=getFestivityDataV44(currentFestivityIdV44);
-
-  if(currentFestivityPassageRefV44){
-    const txt=document.getElementById("festivityPassageText");
-    data.passages=data.passages||{};
-    data.passages[currentFestivityPassageRefV44]=txt?txt.value:"";
-    setFestivityDataV44(currentFestivityIdV44,data);
-    try{
-      const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===currentFestivityIdV44);
-      addRecentFestivity('edited',currentFestivityIdV44,f?f.title:'Festividad',currentFestivityPassageRefV44);
-    }catch(e){}
-    toast("Pasaje guardado");
-    openFestivityPassage(currentFestivityIdV44,currentFestivityPassageRefV44,false);
-    return;
-  }
-
-  const txt=document.getElementById("festivityNotesText");
-  data.notes=txt?txt.value:"";
-  setFestivityDataV44(currentFestivityIdV44,data);
-  try{
-    const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===currentFestivityIdV44);
-    addRecentFestivity('edited',currentFestivityIdV44,f?f.title:'Festividad','');
-  }catch(e){}
-  currentFestivityNotesEditingV44=false;
-  toast("Notas guardadas");
-  openFestivityDetail(currentFestivityIdV44,false);
-}
-
-document.addEventListener("click",function(ev){
-  const card=ev.target.closest && ev.target.closest("#calendarContent .calendar-event");
-  if(!card)return;
-  const titleEl=card.querySelector(".calendar-event-title");
-  const title=titleEl?titleEl.textContent:"";
-  if(!title)return;
-  const n=title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-  let id="";
-  if(n.includes("natividad")&&n.includes("juan bautista"))id="juan_bautista_natividad";
-  else if(n.includes("pedro")&&n.includes("pablo"))id="pedro_pablo";
-  else if(n.includes("santiago"))id="santiago_mayor";
-  else if(n.includes("transfiguracion"))id="transfiguracion";
-  else if(n.includes("asuncion")||n.includes("dormicion"))id="asuncion_dormicion";
-  else if((n.includes("martirio")||n.includes("decapitacion"))&&n.includes("juan bautista"))id="martirio_juan_bautista";
-  else if(n.includes("exaltacion")||n.includes("santa cruz"))id="exaltacion_cruz";
-  else if(n.includes("todos los santos"))id="todos_los_santos";
-  else if(n.includes("andres"))id="san_andres";
-  else if(n.includes("juan evangelista"))id="san_juan_evangelista";
-  else if(n.includes("navidad"))id="navidad";
-  else if(n.includes("epifania")||n.includes("teofania")||n.includes("timkat"))id="epifania_teofania";
-  else if(n.includes("ramos"))id="domingo_ramos";
-  else if(n.includes("viernes santo"))id="viernes_santo";
-  else if(n.includes("resurreccion")||n.includes("pascua"))id="resurreccion";
-  else if(n.includes("ascension"))id="ascension";
-  else if(n.includes("pentecostes"))id="pentecostes";
-  if(id){
-    openFestivityLibrary();
-    openFestivityDetail(id);
-  }
-});
+/* Calendario trasladado a Mi Biblia de Estudio. */
 
 function openBackup(){
   setActiveView("backup");
@@ -5325,7 +4897,7 @@ setInterval(updateVersePositionCounter, 1000);
   window.__v74SpecialVerseScreens=true;
 
   function hideOtherPanelsForSpecial(){
-    const ids=["editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"];
+    const ids=["editorView","backupView","trashView","titlesView","verseCategoriesView"];
     ids.forEach(id=>{const el=document.getElementById(id); if(el) el.classList.add("hidden");});
     const rv=document.getElementById("readerView");
     if(rv) rv.classList.remove("hidden");
@@ -5461,7 +5033,7 @@ setInterval(updateVersePositionCounter, 1000);
       reader.style.borderRadius="0";
       reader.style.minHeight="100dvh";
     }
-    ["editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.add("hidden");});
+    ["editorView","backupView","trashView","titlesView","verseCategoriesView"].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.add("hidden");});
   }
 
   function restoreFromSpecialV751(){
@@ -5620,144 +5192,6 @@ setInterval(updateVersePositionCounter, 1000);
   }
 })();
 
-/* v78 - Calendario en pantalla completa real; Volver a pantalla principal */
-(function(){
-  if(window.__v78CalendarFullScreen) return;
-  window.__v78CalendarFullScreen=true;
-
-  const calHiddenNodes=[];
-
-  function hideForCalendarV78(){
-    document.body.classList.add("calendar-fullscreen-v78");
-    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","categories-fullscreen-v73","verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-fullscreen-v76","titles-fullscreen-v72");
-
-    [".topbar",".sidebar","#list"].forEach(sel=>{
-      document.querySelectorAll(sel).forEach(el=>{
-        if(!el.dataset.v78CalDisplaySaved){
-          el.dataset.v78CalDisplaySaved="1";
-          el.dataset.v78CalOldDisplay=el.style.display||"";
-          calHiddenNodes.push(el);
-        }
-        el.style.display="none";
-      });
-    });
-
-    const main=document.querySelector(".main");
-    if(main){
-      if(!main.dataset.v78CalSaved){
-        main.dataset.v78CalSaved="1";
-        main.dataset.v78CalOldDisplay=main.style.display||"";
-        main.dataset.v78CalOldGrid=main.style.gridTemplateColumns||"";
-        main.dataset.v78CalOldMinHeight=main.style.minHeight||"";
-      }
-      main.style.display="block";
-      main.style.gridTemplateColumns="1fr";
-      main.style.minHeight="100dvh";
-    }
-
-    const content=document.querySelector(".content");
-    if(content){
-      if(!content.dataset.v78CalSaved){
-        content.dataset.v78CalSaved="1";
-        content.dataset.v78CalOldPadding=content.style.padding||"";
-        content.dataset.v78CalOldMinHeight=content.style.minHeight||"";
-        content.dataset.v78CalOldWidth=content.style.width||"";
-        content.dataset.v78CalOldMaxWidth=content.style.maxWidth||"";
-      }
-      content.style.padding="0";
-      content.style.minHeight="100dvh";
-      content.style.width="100%";
-      content.style.maxWidth="none";
-    }
-
-    const cal=document.getElementById("calendarView");
-    if(cal){
-      cal.classList.remove("hidden");
-      if(!cal.dataset.v78CalSaved){
-        cal.dataset.v78CalSaved="1";
-        cal.dataset.v78CalOldBorder=cal.style.border||"";
-        cal.dataset.v78CalOldRadius=cal.style.borderRadius||"";
-        cal.dataset.v78CalOldMinHeight=cal.style.minHeight||"";
-      }
-      cal.style.border="none";
-      cal.style.borderRadius="0";
-      cal.style.minHeight="100dvh";
-    }
-
-    ["readerView","editorView","backupView","trashView","titlesView","verseCategoriesView"].forEach(id=>{
-      const el=document.getElementById(id); if(el) el.classList.add("hidden");
-    });
-
-    const backBtn=document.querySelector("#calendarView .panel-head button:first-child");
-    if(backBtn){
-      backBtn.setAttribute("onclick","closeCalendarFullScreenV78()");
-    }
-  }
-
-  function restoreCalendarV78(){
-    calHiddenNodes.splice(0).forEach(el=>{
-      if(el && el.dataset.v78CalDisplaySaved){
-        el.style.display=el.dataset.v78CalOldDisplay||"";
-        delete el.dataset.v78CalDisplaySaved;
-        delete el.dataset.v78CalOldDisplay;
-      }
-    });
-
-    const main=document.querySelector(".main");
-    if(main && main.dataset.v78CalSaved){
-      main.style.display=main.dataset.v78CalOldDisplay||"";
-      main.style.gridTemplateColumns=main.dataset.v78CalOldGrid||"";
-      main.style.minHeight=main.dataset.v78CalOldMinHeight||"";
-      delete main.dataset.v78CalSaved;
-    }
-
-    const content=document.querySelector(".content");
-    if(content && content.dataset.v78CalSaved){
-      content.style.padding=content.dataset.v78CalOldPadding||"";
-      content.style.minHeight=content.dataset.v78CalOldMinHeight||"";
-      content.style.width=content.dataset.v78CalOldWidth||"";
-      content.style.maxWidth=content.dataset.v78CalOldMaxWidth||"";
-      delete content.dataset.v78CalSaved;
-    }
-
-    const cal=document.getElementById("calendarView");
-    if(cal && cal.dataset.v78CalSaved){
-      cal.style.border=cal.dataset.v78CalOldBorder||"";
-      cal.style.borderRadius=cal.dataset.v78CalOldRadius||"";
-      cal.style.minHeight=cal.dataset.v78CalOldMinHeight||"";
-      delete cal.dataset.v78CalSaved;
-    }
-
-    document.body.classList.remove("calendar-fullscreen-v78");
-  }
-
-  window.closeCalendarFullScreenV78=function(){
-    restoreCalendarV78();
-    const cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
-    if(typeof showHomeV9019==="function") showHomeV9019();
-    else if(typeof openReader==="function") openReader();
-  };
-
-  const oldOpenChristianCalendar=window.openChristianCalendar || (typeof openChristianCalendar!=="undefined" ? openChristianCalendar : null);
-  window.openChristianCalendar=function(){
-    if(oldOpenChristianCalendar) oldOpenChristianCalendar.apply(this,arguments);
-    hideForCalendarV78();
-    if(typeof setActiveView==="function") setActiveView("calendar");
-    setTimeout(function(){ hideForCalendarV78(); window.scrollTo({top:0,behavior:"auto"}); },50);
-  };
-  try{openChristianCalendar=window.openChristianCalendar}catch(e){}
-
-  function wrapRestoreV78(name){
-    const old=window[name] || (typeof globalThis[name]!=="undefined" ? globalThis[name] : null);
-    if(typeof old!=="function") return;
-    window[name]=function(){
-      restoreCalendarV78();
-      return old.apply(this,arguments);
-    };
-    try{ eval(name+"=window[\""+name+"\"]") }catch(e){}
-  }
-  ["openReader","openVerseCategories","openTitlesView","openDailyVerse","openRandomVerse","openBackup","openTrash","openEditor","clearNavModes"].forEach(wrapRestoreV78);
-})();
 
 /* v79.1 - Favoritos pantalla completa segura sobre v78; solo Volver; no rompe Títulos */
 (function(){
@@ -5811,7 +5245,7 @@ setInterval(updateVersePositionCounter, 1000);
       content.style.maxWidth="none";
     }
 
-    ["readerView","editorView","backupView","trashView","calendarView","verseCategoriesView"].forEach(id=>{
+    ["readerView","editorView","backupView","trashView","verseCategoriesView"].forEach(id=>{
       const el=document.getElementById(id); if(el) el.classList.add("hidden");
     });
 
@@ -6189,7 +5623,7 @@ setInterval(updateVersePositionCounter, 1000);
       if(main){ main.style.display="block"; main.style.gridTemplateColumns="1fr"; main.style.minHeight="100dvh"; }
       var content=document.querySelector(".content");
       if(content){ content.style.padding="0"; content.style.minHeight="100dvh"; }
-      ["editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(function(id){
+      ["editorView","backupView","trashView","titlesView","verseCategoriesView"].forEach(function(id){
         var el=document.getElementById(id); if(el) el.classList.add("hidden");
       });
       var reader=document.getElementById("readerView");
@@ -7307,7 +6741,7 @@ setInterval(updateVersePositionCounter, 1000);
         });
       }catch(_e){}
 
-      ["readerView","editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView"].forEach(function(id){
+      ["readerView","editorView","backupView","trashView","titlesView","verseCategoriesView"].forEach(function(id){
         var el=document.getElementById(id);
         if(el) el.classList.add("hidden");
       });
@@ -7911,7 +7345,7 @@ setInterval(updateVersePositionCounter, 1000);
       document.body.classList.add('titles-only','titles-fullscreen-v72');
       document.body.classList.remove('reading-mobile','fullscreen-reading','hide-reading-ui','categories-fullscreen-v73','home-active-v9019');
 
-      ['readerView','editorView','backupView','trashView','verseCategoriesView','calendarView','homeView'].forEach(function(id){
+      ['readerView','editorView','backupView','trashView','verseCategoriesView','homeView'].forEach(function(id){
         var el = document.getElementById(id); if(el) el.classList.add('hidden');
       });
       var titles = document.getElementById('titlesView');
@@ -8422,7 +7856,7 @@ setInterval(updateVersePositionCounter, 1000);
       var home = document.getElementById('homeView');
       if(home) home.classList.add('hidden');
 
-      ['editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){
+      ['editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(function(id){
         var el = document.getElementById(id);
         if(el) el.classList.add('hidden');
       });
@@ -8514,7 +7948,7 @@ setInterval(updateVersePositionCounter, 1000);
       var home = document.getElementById('homeView');
       if(home) home.classList.add('hidden');
 
-      ['readerView','editorView','backupView','trashView','titlesView','calendarView'].forEach(function(id){
+      ['readerView','editorView','backupView','trashView','titlesView'].forEach(function(id){
         var el = document.getElementById(id);
         if(el) el.classList.add('hidden');
       });
@@ -8557,7 +7991,7 @@ setInterval(updateVersePositionCounter, 1000);
       var home = document.getElementById('homeView');
       if(home) home.classList.add('hidden');
 
-      ['editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){
+      ['editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(function(id){
         var el = document.getElementById(id);
         if(el) el.classList.add('hidden');
       });
@@ -9520,7 +8954,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 
       var home = document.getElementById('homeView');
       if(home) home.classList.add('hidden');
-      ['editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){
+      ['editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(function(id){
         var el = document.getElementById(id);
         if(el) el.classList.add('hidden');
       });
@@ -11623,7 +11057,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
       );
       document.body.classList.add('home-active-v9019');
 
-      ['readerView','editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView',
+      ['readerView','editorView','backupView','trashView','titlesView','verseCategoriesView',
        'momentsHubV31102','momentPreviewV31102','routineHubV3192','routineEditorV3192','routineReaderV3192']
       .forEach(function(viewId){
         var view=document.getElementById(viewId);

@@ -50,8 +50,6 @@ function addRecent(type, entry){
     entry.kind || "",
     entry.section || "",
     entry.id || "",
-    entry.festivityId || "",
-    entry.passageRef || "",
     entry.title || ""
   ].join("|");
 
@@ -60,8 +58,6 @@ function addRecent(type, entry){
       x.kind || "",
       x.section || "",
       x.id || "",
-      x.festivityId || "",
-      x.passageRef || "",
       x.title || ""
     ].join("|");
 
@@ -95,14 +91,7 @@ function addRecentCurrent(type){
   }catch(e){}
 }
 
-function addRecentFestivity(type, id, title, passageRef){
-  addRecent(type, {
-    kind:passageRef ? "festivityPassage" : "festivity",
-    festivityId:id,
-    passageRef:passageRef || "",
-    title:passageRef ? (title + " · " + passageRef) : title
-  });
-}
+
 
 function openRecentHistory(){
   const modal = document.getElementById("recentModal");
@@ -133,8 +122,6 @@ function clearRecentHistory(){
 
 function recentKindLabel(item){
   if(!item)return "";
-  if(item.kind === "festivityPassage")return "📅 Festividad · 📖 Pasaje";
-  if(item.kind === "festivity")return "📅 Festividad";
   if(item.section === "verses")return "❤️ Versículo";
   if(item.section === "prayers")return "✝️ Oración";
   if(item.section === "notes")return "📝 Nota";
@@ -166,6 +153,7 @@ function renderRecentHistory(){
     wrap.innerHTML = '<div class="recent-section-title">' + escapeHtml(label) + '</div>';
 
     const list = (h[key] || []).filter(item => {
+      if(item?.kind==="festivity"||item?.kind==="festivityPassage")return false;
       const t = item && item.title;
 
       return (
@@ -213,18 +201,6 @@ function openRecentEntry(type, idx){
   closeRecentHistory();
 
   try{
-    if(item.kind === "festivityPassage" && item.festivityId && item.passageRef){
-      openFestivityLibrary();
-      openFestivityPassage(item.festivityId, item.passageRef, false);
-      return;
-    }
-
-    if(item.kind === "festivity" && item.festivityId){
-      openFestivityLibrary();
-      openFestivityDetail(item.festivityId, false);
-      return;
-    }
-
     if(item.kind === "item" && item.section && item.id){
       section = item.section;
 
