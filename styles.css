@@ -5167,7 +5167,7 @@ body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(1
 }
 
 
-/* V2.278 · Inicio sin Calendario */
+/* V2.279 · Inicio sin Calendario */
 .home-study-row-v2265{
   display:grid!important;
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
@@ -5179,7 +5179,7 @@ body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(1
 }
 
 
-/* V2.278 equilibrio filas 2 y 3 */
+/* V2.279 equilibrio filas 2 y 3 */
 #btnDaily,#btnDailyRoutinesV3192,
 #btnMomentsV31102,#btnGlobalSearchV3177{
   flex:1 1 calc(50% - 4px)!important;
