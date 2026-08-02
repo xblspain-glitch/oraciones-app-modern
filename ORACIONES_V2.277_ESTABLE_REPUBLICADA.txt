@@ -1,0 +1,8 @@
+ORACIONES V2.277 · ESTABLE REPUBLICADA
+
+- Base auténtica V2.277 sin calendario.
+- app.js, index.html, styles.css y sw.js coherentes entre sí.
+- No se ha cambiado la interfaz.
+- No se ha cambiado la navegación.
+- No se han cambiado los datos ni el almacenamiento.
+- Solo se ha renovado la firma de caché para GitHub Pages.
