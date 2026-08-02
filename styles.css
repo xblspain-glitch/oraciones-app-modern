@@ -1,5 +1,5 @@
 /* ============================================================
-   ORACIONES V2 LAB - STYLES.CSS
+   ORACIONES V3 LAB - STYLES.CSS
    Paso 11: auditoría técnica sin cambios funcionales.
    Contiene estilos generales de la aplicación.
    Los temas horarios viven en themes.css.
@@ -2500,7 +2500,7 @@ body.dark .reader-end-card::before{
 }
 
 
-/* V2.1.34 - Versículos compartidos/enviados con fondo lavanda (sin tocar botonera principal) */
+/* V3.1.34 - Versículos compartidos/enviados con fondo lavanda (sin tocar botonera principal) */
 .item.verse-sent-bg-v3134,
 .title-row.verse-sent-bg-v3134,
 .category-card.verse-sent-bg-v3134{
@@ -2517,7 +2517,7 @@ body.dark .category-card.verse-sent-bg-v3134{
   border-color:rgba(190,160,245,.38)!important;
 }
 
-/* V2.1.34 - Fondo lavanda también en el versículo abierto si está compartido/enviado */
+/* V3.1.34 - Fondo lavanda también en el versículo abierto si está compartido/enviado */
 #readerView.reader-sent-bg-v3134{
   background:#ebe2ff!important;
   border-color:#cbb8ff!important;
@@ -2533,7 +2533,7 @@ body.dark #readerView.reader-sent-bg-v3134{
 }
 
 
-/* V2.1.44 - microajuste visual: respiro superior del marco de la tarjeta de inicio.
+/* V3.1.44 - microajuste visual: respiro superior del marco de la tarjeta de inicio.
    Solo afecta al Versículo del día de la pantalla principal. */
 #homeView #homeCardV9019.home-card-v9019{
   margin-top:6px!important;
@@ -3310,19 +3310,19 @@ body.dark-mode .recommendation-verse-v3189 .recommendation-category-v3188{
 @media(max-width:600px){.routine-hub-grid-v3192{grid-template-columns:1fr}.routine-hub-card-v3192{min-height:165px}.routine-type-grid-v3192{grid-template-columns:1fr}.routine-item-v3192{grid-template-columns:30px 34px minmax(0,1fr);}.routine-actions-v3192{grid-column:3;justify-content:flex-end}.routine-reader-text-v3192{font-size:18px;line-height:1.75}.routine-start-v3192{flex:1}}
 
 
-/* V2.1.93 — Día/Noche como sección independiente */
+/* V3.1.93 — Día/Noche como sección independiente */
 body.routine-fullscreen-v3193 .topbar,
 body.routine-fullscreen-v3193 .sidebar,
 body.routine-fullscreen-v3193 #list{display:none!important}
 body.routine-fullscreen-v3193 .main{display:block!important;min-height:100dvh!important;grid-template-columns:1fr!important}
 body.routine-fullscreen-v3193 .content{padding:0!important;min-height:100dvh!important;width:100%!important;max-width:none!important}
-body.routine-fullscreen-v3193 #routineHubV2192,
-body.routine-fullscreen-v3193 #routineEditorV2192,
-body.routine-fullscreen-v3193 #routineReaderV2192{border:none!important;border-radius:0!important;min-height:100dvh!important;margin:0!important}
+body.routine-fullscreen-v3193 #routineHubV3192,
+body.routine-fullscreen-v3193 #routineEditorV3192,
+body.routine-fullscreen-v3193 #routineReaderV3192{border:none!important;border-radius:0!important;min-height:100dvh!important;margin:0!important}
 body.routine-fullscreen-v3193 .routine-panel-v3192,
 body.routine-fullscreen-v3193 .routine-reader-v3192{padding:calc(12px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))!important}
 
-/* V2.1.94 — Día/Noche usa el lector habitual */
+/* V3.1.94 — Día/Noche usa el lector habitual */
 body.routine-reading-normal-v3194 #readerView{
   padding-bottom:calc(118px + env(safe-area-inset-bottom));
 }
@@ -3347,7 +3347,7 @@ body.routine-reading-normal-v3194 #readerView{
 .routine-progress-v3194 strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.9rem;color:var(--olive,#5e7352)}
 .routine-progress-v3194 span{display:block;margin-top:3px;font-size:.78rem;color:var(--muted)}
 .routine-normal-nav-v3194 .btn{margin:0;white-space:nowrap}
-/* V2.1.95 — La botonera de la rutina se oculta junto con la barra superior */
+/* V3.1.95 — La botonera de la rutina se oculta junto con la barra superior */
 .routine-normal-nav-v3194{
   transition:opacity .22s ease, transform .22s ease, visibility .22s ease;
 }
@@ -3368,11 +3368,11 @@ body.fullscreen-reading.hide-reading-ui.routine-reading-normal-v3194 #readerView
   .routine-normal-nav-v3194 .btn{padding:10px 8px;font-size:.91rem}
 }
 
-/* V2.1.96 — Títulos completos y legibles en las rutinas */
+/* V3.1.96 — Títulos completos y legibles en las rutinas */
 .routine-item-v3192{align-items:start}
 .routine-kind-v3192,.routine-order-v3192{margin-top:2px}
 .routine-info-v3192 strong{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;display:block!important;-webkit-line-clamp:unset!important;line-clamp:unset!important;max-height:none!important}
-/* V2.1.97 — selector de Oración diaria dentro de rutinas */
+/* V3.1.97 — selector de Oración diaria dentro de rutinas */
 .routine-daily-modal-v3197{position:fixed;inset:0;z-index:10050;background:rgba(22,29,25,.48);display:flex;align-items:center;justify-content:center;padding:22px;backdrop-filter:blur(3px)}
 .routine-daily-modal-v3197.hidden{display:none!important}
 .routine-daily-card-v3197{width:min(92vw,470px);max-height:88vh;overflow:auto;background:linear-gradient(180deg,#fffdf7,#f5f8f2);border:1px solid rgba(93,112,82,.22);border-radius:28px;padding:25px 20px 20px;text-align:center;box-shadow:0 24px 70px rgba(18,28,20,.28)}
@@ -3388,7 +3388,7 @@ body.fullscreen-reading.hide-reading-ui.routine-reading-normal-v3194 #readerView
 .routine-daily-options-v3197 button:disabled{opacity:.45}
 @media (prefers-color-scheme:dark){.routine-daily-card-v3197{background:linear-gradient(180deg,#242724,#1e221e);border-color:#475047}.routine-daily-options-v3197 button{background:#2b302b;border-color:#414a41}.routine-daily-options-v3197 button strong{color:#f2f3ef}.routine-daily-options-v3197 button small,.routine-daily-card-v3197 p{color:#b9beb6}}
 
-/* V2.1.98 — grupos de elección de oraciones */
+/* V3.1.98 — grupos de elección de oraciones */
 .routine-type-grid-v3192{grid-template-columns:repeat(2,minmax(0,1fr))}
 .routine-choice-save-v3198{width:100%;margin-bottom:8px;min-height:48px}
 .prayer-choice-toggle-v3198.selected-v3198{border-color:#718967;background:#eef5e9;box-shadow:inset 0 0 0 1px rgba(83,109,73,.2)}
@@ -3396,12 +3396,12 @@ body.fullscreen-reading.hide-reading-ui.routine-reading-normal-v3194 #readerView
 .dark .prayer-choice-toggle-v3198.selected-v3198{background:#33402f;border-color:#718967}
 @media (min-width:620px){.routine-type-grid-v3192{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
-/* V2.1.100 — botón visible para confirmar un grupo de oraciones */
+/* V3.1.100 — botón visible para confirmar un grupo de oraciones */
 .routine-choice-accept-v3200{width:100%;min-height:52px;margin:0 0 10px;border-radius:15px;font-size:16px;font-weight:800;position:sticky;top:0;z-index:3;box-shadow:0 6px 16px rgba(50,70,45,.14)}
 .routine-choice-accept-v3200:disabled{opacity:.58;box-shadow:none}
 .dark .routine-choice-accept-v3200{box-shadow:0 6px 18px rgba(0,0,0,.28)}
 
-/* V2.1.102 · Momentos */
+/* V3.1.102 · Momentos */
 body.moments-fullscreen-v31102 .topbar{display:none!important}
 .moments-panel-v31102{max-width:850px;margin:0 auto;padding:18px 16px 90px;min-height:100vh}
 .moments-title-v31102{text-align:center;font-size:30px;font-weight:850;margin:18px 0 6px}
@@ -3416,7 +3416,7 @@ body.moments-fullscreen-v31102 .topbar{display:none!important}
 @media(max-width:600px){.moments-grid-v31102{grid-template-columns:1fr}.moments-title-v31102{font-size:26px}.moment-catalog-list-v31102{grid-template-columns:1fr}}
 
 
-/* ===== V2.1.103 — Momentos independiente y lector principal unificado ===== */
+/* ===== V3.1.103 — Momentos independiente y lector principal unificado ===== */
 /* Momentos ocupa toda la pantalla de contenido y oculta por completo la lista lateral. */
 body.moments-fullscreen-v31102 .sidebar{display:none!important}
 body.moments-fullscreen-v31102 .main{grid-template-columns:minmax(0,1fr)!important;min-height:100dvh}
@@ -3464,7 +3464,7 @@ body.dark #readerView .reader-identity-label-v31103,body.dark-mode #readerView .
 }
 
 
-/* ===== V2.1.104 — fondos de lectura por tipo y navegación inmersiva en Momentos ===== */
+/* ===== V3.1.104 — fondos de lectura por tipo y navegación inmersiva en Momentos ===== */
 /* Toda la página de lectura adopta un tono muy suave del color de su sección. */
 #readerView.reader-kind-prayers-v31103{
   --reader-page-bg:#f1f7fd;
@@ -3532,7 +3532,7 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
   background:color-mix(in srgb,var(--reader-page-bg) 90%,#111)!important;
 }
 
-/* V2.1.106 — Mis momentos */
+/* V3.1.106 — Mis momentos */
 .custom-moments-heading-v31106{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:18px;padding-top:20px;border-top:1px solid var(--line)}
 .custom-moments-heading-v31106>div{display:flex;flex-direction:column;gap:4px}.custom-moments-heading-v31106 strong{font-size:22px}.custom-moments-heading-v31106 small{color:var(--muted)}
 .custom-moments-empty-v31106{grid-column:1/-1;display:flex;flex-direction:column;gap:5px;text-align:center;padding:24px;border:1px dashed var(--line);border-radius:18px;color:var(--muted);background:var(--panel)}
@@ -3545,7 +3545,7 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 .custom-choice-cancel-v31106{width:100%;justify-content:center;margin-top:4px}
 @media(max-width:600px){.custom-moments-heading-v31106{align-items:stretch;flex-direction:column}.custom-editor-item-v31106{padding-right:108px}.custom-editor-actions-v31106 button{width:30px;height:30px}}
 
-/* ===== V2.1.108 — tarjetas integradas y fondo de Notas casi marfil ===== */
+/* ===== V3.1.108 — tarjetas integradas y fondo de Notas casi marfil ===== */
 /* El amarillo de toda la página de Notas queda apenas perceptible. */
 #readerView.reader-kind-notes-v31103{
   --reader-page-bg:#fffef9;
@@ -3611,14 +3611,14 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
   }
 }
 
-/* V2.1.110 — selección múltiple de categorías en grupos de Día/Noche */
+/* V3.1.110 — selección múltiple de categorías en grupos de Día/Noche */
 .routine-multicat-info-v31110{display:flex;flex-direction:column;gap:4px;text-align:center;padding:2px 12px 10px;color:var(--muted,#778071)}
 .routine-multicat-info-v31110 strong{color:var(--text,#273126);font-size:16px}
 .routine-category-toggle-v31110.selected-v3198{border-color:#718967;background:#eef5e9;box-shadow:inset 0 0 0 1px rgba(83,109,73,.2)}
 .routine-category-toggle-v31110.selected-v3198>span{color:#58704f;font-weight:900}
 .dark .routine-category-toggle-v31110.selected-v3198{background:#33402f;border-color:#718967}
 
-/* V2.1.111 — tarjeta independiente para Sabbath */
+/* V3.1.111 — tarjeta independiente para Sabbath */
 .routine-hub-grid-v3192{grid-template-columns:repeat(3,minmax(0,1fr));max-width:940px}
 .sabbath-v31111{background:linear-gradient(145deg,#f4fbf1,#dfeeda)}
 .dark .sabbath-v31111{background:linear-gradient(145deg,#30402e,#42563e)}
@@ -3642,12 +3642,12 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 .moment-setting-block-v31115 select{width:100%}
 
 /* v3.1.116: ocultar selectores antiguos sin alterar el DOM */
-#editPrayerCategoriesWrapV2180,
-#editPrayerCategoryWrapV2178,
-#editPsalmCategoryWrapV2177{display:none!important}
+#editPrayerCategoriesWrapV3180,
+#editPrayerCategoryWrapV3178,
+#editPsalmCategoryWrapV3177{display:none!important}
 
 
-/* V2.1.124 stable main menu buttons */
+/* V3.1.124 stable main menu buttons */
 .menu-grid,.home-grid,.main-grid{
   align-items:start;
 }
@@ -3699,7 +3699,7 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
   }
 }
 
-/* ===== V2.1.127 - Recomendaciones plegables al final de la lectura ===== */
+/* ===== V3.1.127 - Recomendaciones plegables al final de la lectura ===== */
 .reader-recommendations-toggle-v31127{
   width:100%;
   min-height:50px;
@@ -3742,7 +3742,7 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
   .reader-recommendations-content-v31127,.reader-recommendations-arrow-v31127{transition:none!important}
 }
 
-/* ===== V2.1.148 - Emergente persistente y composición estable ===== */
+/* ===== V3.1.148 - Emergente persistente y composición estable ===== */
 #readerPopupOverlayV908.v31148-persistent{
   visibility:hidden;
   opacity:0;
@@ -3771,7 +3771,7 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 }
 
 
-/* ===== V2.1.153 - El emergente absorbe los gestos sin mover el fondo ===== */
+/* ===== V3.1.153 - El emergente absorbe los gestos sin mover el fondo ===== */
 #readerPopupOverlayV908.v31148-persistent{
   touch-action:none;
   overscroll-behavior:none;
@@ -3785,7 +3785,7 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
   -webkit-overflow-scrolling:touch;
 }
 
-/* ===== V2.1.170 · BUSCADOR GENERAL ===== */
+/* ===== V3.1.170 · BUSCADOR GENERAL ===== */
 .global-search-main-v3177{font-weight:800!important;border-color:rgba(35,87,104,.45)!important;background:linear-gradient(135deg,rgba(35,87,104,.16),rgba(51,109,126,.08))!important}
 .global-search-modal-v3177{position:fixed;inset:0;z-index:100000;background:var(--bg,#f5f2ea);overflow:auto;overscroll-behavior:contain;padding:calc(10px + env(safe-area-inset-top)) 10px calc(18px + env(safe-area-inset-bottom))}
 .global-search-modal-v3177.hidden{display:none!important}
@@ -3811,7 +3811,7 @@ body.dark-mode #readerView.reader-kind-notes-v31103 .panel-head{
 body.dark .global-search-modal-v3177{background:var(--bg)}
 @media(max-width:600px){.global-search-modal-v3177{padding:0}.global-search-sheet-v3177{border-radius:0;border:0;min-height:100vh;padding:calc(10px + env(safe-area-inset-top)) 10px calc(16px + env(safe-area-inset-bottom))}.global-search-title-v3177{font-size:1.08rem;padding-right:44px}}
 
-/* ===== V2.1.170 · PORTADA COMPACTA SUAVE =====
+/* ===== V3.1.170 · PORTADA COMPACTA SUAVE =====
    Solo reduce espacios verticales del menú principal en móvil.
    Mantiene objetivos táctiles cómodos y no modifica lógica ni contenido. */
 @media (max-width:600px){
@@ -3871,7 +3871,7 @@ body.dark .global-search-modal-v3177{background:var(--bg)}
 }
 
 
-/* V2.1.170 · identidad cromática por sección
+/* V3.1.170 · identidad cromática por sección
    Solo presentación: colores pastel coherentes con cada área. */
 body.home-active-v9019 .segment{
   background:rgba(236,242,248,.78)!important;
@@ -3929,7 +3929,7 @@ body.dark.home-active-v9019 .segment button.active{
 
 
 
-/* V2.1.170 · Día/Noche destacado como llamada serena a la oración
+/* V3.1.170 · Día/Noche destacado como llamada serena a la oración
    Selectores ligados a la acción real de cada botón, nunca a su posición.
    Se incluye la estructura real del menú para superar las reglas generales
    .topbar-row .btn.soft sin modificar lógica ni navegación. */
@@ -3986,7 +3986,7 @@ body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"][on
 body.dark.home-active-v9019 .topbar-row button.btn.soft[onclick*="toggleTheme"]{background:#42395b!important;}
 
 
-/* V2.1.170 — Día/Noche: transición visual de día a noche, solo CSS. */
+/* V3.1.170 — Día/Noche: transición visual de día a noche, solo CSS. */
 body:not(.dark).home-active-v9019 .topbar-row button.btn.soft[data-view-btn="routines"][onclick*="openDailyRoutines"]{
   background:linear-gradient(110deg,#63bceb 0%,#779fdb 52%,#4d5f9f 100%)!important;
   border-color:#526ba8!important;
@@ -4172,7 +4172,7 @@ body.dark.home-active-v9019 .topbar-row button.btn.soft[data-mark-button="1"]{
 }
 
 
-/* ===== V2.1.174 — cruz etíope ampliada en cabeceras ===== */
+/* ===== V3.1.174 — cruz etíope ampliada en cabeceras ===== */
 #readerView .reader-identity-icon-v31103{
   position:relative;
   width:60px;
@@ -4241,7 +4241,7 @@ body.dark-mode #readerView .reader-identity-icon-v31103::before{
 }
 
 
-/* ===== V2.1.175 — tarjeta de despedida con cruz etíope ===== */
+/* ===== V3.1.175 — tarjeta de despedida con cruz etíope ===== */
 .reader-end-card::before{
   content:""!important;
   position:absolute!important;
@@ -4332,7 +4332,7 @@ body.dark-mode .reader-end-card .line::after{
 }
 
 
-/* ===== V2.1.175 — brillo suave y ajuste final de la despedida ===== */
+/* ===== V3.1.175 — brillo suave y ajuste final de la despedida ===== */
 .reader-end-card::before{
   top:19px!important;
   width:84px!important;
@@ -4393,7 +4393,7 @@ body.dark-mode .reader-end-card .line::after{
 }
 
 
-/* ===== V2.1.175 — brillo suave y ajuste final de despedida ===== */
+/* ===== V3.1.175 — brillo suave y ajuste final de despedida ===== */
 .reader-end-card::before{
   top:14px!important;
   width:82px!important;
@@ -4442,7 +4442,7 @@ body.dark-mode .reader-end-card .line::after{
 }
 
 
-/* ===== V2.1.175 — cruz superior por delante del halo ===== */
+/* ===== V3.1.175 — cruz superior por delante del halo ===== */
 .reader-end-card{
   isolation:isolate!important;
 }
@@ -4482,7 +4482,7 @@ body.dark-mode .reader-end-card .end-card-ethiopian-cross-v2194{
 }
 
 
-/* ===== V2.1.175 — proporciones originales y cruz superior ampliada ===== */
+/* ===== V3.1.175 — proporciones originales y cruz superior ampliada ===== */
 .reader-end-card{
   min-height:0!important;
   height:auto!important;
@@ -4536,7 +4536,7 @@ body.dark-mode .reader-end-card::after{
 }
 
 
-/* ===== V2.1.175 — halo superior más discreto ===== */
+/* ===== V3.1.175 — halo superior más discreto ===== */
 .reader-end-card::before{
   top:16px!important;
   width:78px!important;
@@ -4565,7 +4565,7 @@ body.dark-mode .reader-end-card::before{
 }
 
 
-/* ===== V2.1.175 — líneas superiores más hacia los lados ===== */
+/* ===== V3.1.175 — líneas superiores más hacia los lados ===== */
 .reader-end-card .line:first-child,
 .reader-end-card .line:first-of-type,
 .reader-end-card .line:nth-of-type(1),
@@ -4618,7 +4618,7 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
 }
 
 
-/* ===== V2.1.175 — líneas superiores abiertas hacia los lados ===== */
+/* ===== V3.1.175 — líneas superiores abiertas hacia los lados ===== */
 .reader-end-card .line:first-child,
 .reader-end-card .line:first-of-type,
 .reader-end-card .line:nth-of-type(1),
@@ -4671,7 +4671,7 @@ body.dark-mode .reader-end-card .line.reader-line-top-v902011{
 }
 
 
-/* ===== V2.1.177 — Versículos en verde para armonizar con el corazón ===== */
+/* ===== V3.1.177 — Versículos en verde para armonizar con el corazón ===== */
 /* Botón principal de Versículos */
 body.home-active-v9019 .segment #tabVerses{
   background:linear-gradient(110deg,#f4fcec 0%,#dcefcf 56%,#b9dc9e 100%)!important;
@@ -4798,7 +4798,7 @@ body.dark-mode .recommendation-verse-v3189 .recommendation-category-v3188{
 }
 
 
-/* ===== V2.1.178 — Compartido de Versículos vuelve a lavanda ===== */
+/* ===== V3.1.178 — Compartido de Versículos vuelve a lavanda ===== */
 .item.verse-sent-bg-v3134,
 .title-row.verse-sent-bg-v3134,
 .category-card.verse-sent-bg-v3134{
@@ -4833,7 +4833,7 @@ body.dark-mode #readerView.reader-sent-bg-v3134{
 }
 
 
-/* ===== V2.1.179 — Botón superior de Versículos forzado en verde ===== */
+/* ===== V3.1.179 — Botón superior de Versículos forzado en verde ===== */
 .segment #tabVerses,
 #tabVerses.tab-verses-heart-v3176{
   background:linear-gradient(110deg,#f4fcec 0%,#dcefcf 56%,#b9dc9e 100%)!important;
@@ -4864,7 +4864,7 @@ body.dark-mode #tabVerses.tab-verses-heart-v3176.active{
 }
 
 
-/* ===== V2.1.180 — Botón superior de Versículos realmente verde ===== */
+/* ===== V3.1.180 — Botón superior de Versículos realmente verde ===== */
 body.home-active-v9019 .segment #tabVerses,
 body.home-active-v9019 .segment #tabVerses.tab-verses-heart-v3176,
 body:not(.dark).home-active-v9019 .segment #tabVerses,
@@ -4898,7 +4898,7 @@ body.dark-mode.home-active-v9019 .segment #tabVerses.tab-verses-heart-v3176.acti
   color:#f4faef!important;
 }
 
-/* ===== V2.1.182 — iconos propios en contadores, posición original ===== */
+/* ===== V3.1.182 — iconos propios en contadores, posición original ===== */
 #counterInfo.counter-v66{
   text-align:right!important;
   white-space:nowrap!important;
@@ -4961,7 +4961,7 @@ body.dark .counter-cross-v3182,body.dark-mode .counter-cross-v3182{
 }
 
 
-/* ===== V2.1.189 — transición estable al salir de Inicio ===== */
+/* ===== V3.1.189 — transición estable al salir de Inicio ===== */
 body.view-switching-v3189 *,
 body.view-switching-v3189 *::before,
 body.view-switching-v3189 *::after{
@@ -4982,7 +4982,7 @@ body.view-switching-v3189 .topbar{
   pointer-events:none!important;
 }
 
-/* ===== V2.1.190 — imágenes aprobadas para Mañana y Noche ===== */
+/* ===== V3.1.190 — imágenes aprobadas para Mañana y Noche ===== */
 .routine-hub-image-wrap-v3190{
   width:112px!important;
   height:112px!important;
@@ -5002,7 +5002,7 @@ body.view-switching-v3189 .topbar{
 }
 
 
-/* ===== V2.1.199 — iconos ilustrados de categorías ===== */
+/* ===== V3.1.199 — iconos ilustrados de categorías ===== */
 .category-title-v3199{display:flex;align-items:center;gap:12px;min-width:0}
 .category-icon-v3199{width:48px;height:48px;object-fit:contain;flex:0 0 48px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.20))}
 @media (max-width:600px){.category-icon-v3199{width:44px;height:44px;flex-basis:44px}.category-title-v3199{gap:10px}}
@@ -5078,23 +5078,23 @@ img.card-style-preview-v2217.classic-v2217{display:block;width:100%;height:auto;
 #tabPrayers.section-frame-blue-v245{border:2px solid #5f9ed7!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.78),0 3px 9px rgba(61,116,168,.20)!important}
 #tabNotes.section-frame-yellow-v245{border:2px solid #d4ad35!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.78),0 3px 9px rgba(171,134,31,.18)!important}
 #tabVerses.section-frame-green-verses-v245{border:2px solid #70ad4f!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.78),0 3px 9px rgba(75,135,52,.18)!important}
-#btnMomentsV21102.section-frame-green-moments-v245{border:2px solid #7eaa58!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.78),0 3px 9px rgba(77,126,51,.18)!important}
+#btnMomentsV31102.section-frame-green-moments-v245{border:2px solid #7eaa58!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.78),0 3px 9px rgba(77,126,51,.18)!important}
 #btnDaily.section-frame-lavender-v245{border:2px solid #ae8ace!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.80),0 3px 9px rgba(119,83,153,.18)!important}
-body.dark #tabPrayers.section-frame-blue-v245,body.dark #tabNotes.section-frame-yellow-v245,body.dark #tabVerses.section-frame-green-verses-v245,body.dark #btnMomentsV21102.section-frame-green-moments-v245,body.dark #btnDaily.section-frame-lavender-v245{box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),0 3px 9px rgba(0,0,0,.32)!important}
+body.dark #tabPrayers.section-frame-blue-v245,body.dark #tabNotes.section-frame-yellow-v245,body.dark #tabVerses.section-frame-green-verses-v245,body.dark #btnMomentsV31102.section-frame-green-moments-v245,body.dark #btnDaily.section-frame-lavender-v245{box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),0 3px 9px rgba(0,0,0,.32)!important}
 
 
 /* V2.247 — marcos adicionales y árbol familiar/histórico */
-#btnDailyRoutinesV2192.section-frame-blue-routines-v247{border:2px solid #3977bc!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55),0 3px 9px rgba(40,76,148,.25)!important}
+#btnDailyRoutinesV3192.section-frame-blue-routines-v247{border:2px solid #3977bc!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55),0 3px 9px rgba(40,76,148,.25)!important}
 #calendarBtn.section-frame-orange-calendar-v247{border:2px solid #dc861d!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.80),0 3px 9px rgba(171,91,14,.20)!important}
 #tabPsalms.section-frame-peach-psalms-v247{border:2px solid #d89b62!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.80),0 3px 9px rgba(161,94,44,.18)!important}
 #btnMainMark.section-frame-pink-mark-v247{border:2px solid #d795a6!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.80),0 3px 9px rgba(155,77,101,.18)!important}
-body.dark #btnDailyRoutinesV2192.section-frame-blue-routines-v247,body.dark #calendarBtn.section-frame-orange-calendar-v247,body.dark #tabPsalms.section-frame-peach-psalms-v247,body.dark #btnMainMark.section-frame-pink-mark-v247{box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),0 3px 9px rgba(0,0,0,.32)!important}
+body.dark #btnDailyRoutinesV3192.section-frame-blue-routines-v247,body.dark #calendarBtn.section-frame-orange-calendar-v247,body.dark #tabPsalms.section-frame-peach-psalms-v247,body.dark #btnMainMark.section-frame-pink-mark-v247{box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),0 3px 9px rgba(0,0,0,.32)!important}
 .biblical-map-v2247{margin-top:10px;padding:16px 12px;border-radius:16px;background:linear-gradient(180deg,rgba(239,232,255,.72),rgba(248,251,255,.88));border:1px solid rgba(135,105,184,.24);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.94rem;line-height:1.55;text-align:center;white-space:pre;color:var(--text,#253047);overflow-x:auto}
 body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(190,160,230,.28)}
 
 
 /* Grosor uniforme para todos los marcos de secciones */
-#tabPrayers.section-frame-blue-v245,#tabNotes.section-frame-yellow-v245,#tabVerses.section-frame-green-verses-v245,#btnMomentsV21102.section-frame-green-moments-v245,#btnDaily.section-frame-lavender-v245,#btnDailyRoutinesV2192.section-frame-blue-routines-v247,#calendarBtn.section-frame-orange-calendar-v247,#tabPsalms.section-frame-peach-psalms-v247,#btnMainMark.section-frame-pink-mark-v247{border-width:2px!important}
+#tabPrayers.section-frame-blue-v245,#tabNotes.section-frame-yellow-v245,#tabVerses.section-frame-green-verses-v245,#btnMomentsV31102.section-frame-green-moments-v245,#btnDaily.section-frame-lavender-v245,#btnDailyRoutinesV3192.section-frame-blue-routines-v247,#calendarBtn.section-frame-orange-calendar-v247,#tabPsalms.section-frame-peach-psalms-v247,#btnMainMark.section-frame-pink-mark-v247{border-width:2px!important}
 
 /* ===== V2.267 — contador completo en pantallas estrechas ===== */
 @media (max-width:430px){
@@ -5106,7 +5106,7 @@ body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(1
 
 
 
-/* V2.1.259 — Lora offline únicamente en el contenido de lectura. */
+/* V3.1.259 — Lora offline únicamente en el contenido de lectura. */
 @font-face{font-family:'Lora';src:url('./Lora-Regular.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:'Lora';src:url('./Lora-Bold.woff2') format('woff2');font-style:normal;font-weight:700;font-display:swap}
 @font-face{font-family:'Lora';src:url('./Lora-Italic.woff2') format('woff2');font-style:italic;font-weight:400;font-display:swap}
@@ -5115,12 +5115,12 @@ body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(1
 /* Títulos y cuerpos de lectura; botones, menús, etiquetas y controles conservan Arial. */
 #readerView .reader-title,
 #readerView .reader-text,
-#routineReaderV2192 .routine-reader-title-v3192,
-#routineReaderV2192 .routine-reader-text-v3192{
+#routineReaderV3192 .routine-reader-title-v3192,
+#routineReaderV3192 .routine-reader-text-v3192{
   font-family:'Lora',Georgia,serif!important;
 }
 
-/* V2.1.259 — primera de las dos filas finales equilibrada en tres botones. */
+/* V3.1.259 — primera de las dos filas finales equilibrada en tres botones. */
 .home-fixed-row-three-v31763 > #calendarBtn,
 .home-fixed-row-three-v31763 > #tabPsalms,
 .home-fixed-row-three-v31763 > #btnMainMark{
@@ -5130,12 +5130,12 @@ body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(1
 }
 
 
-/* V2.277 · Salmos y Marca ocupan la fila liberada */
+/* V3.1.267 · Salmos y Marca ocupan la fila liberada */
 .home-fixed-row-two-v31263 > #tabPsalms,
 .home-fixed-row-two-v31263 > #btnMainMark{flex:1 1 0!important;text-align:center!important;justify-content:center!important}
 
 
-/* V2.277 · Fila 2 igual de ancha que la fila 1 */
+/* V3.1.267 · Fila 2 igual de ancha que la fila 1 */
 .home-daily-row,
 .home-daily-actions,
 .home-row-daily,
@@ -5166,9 +5166,9 @@ body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(1
 }
 
 
-/* V2.277 · Fila 2 real: Versículo del día y Día/Noche al 50 % */
+/* V3.1.267 · Fila 2 real: Versículo del día y Día/Noche al 50 % */
 body.home-active-v9019 .topbar-row > #btnDaily,
-body.home-active-v9019 .topbar-row > #btnDailyRoutinesV2192{
+body.home-active-v9019 .topbar-row > #btnDailyRoutinesV3192{
   flex:1 1 calc(50% - 4px)!important;
   width:calc(50% - 4px)!important;
   min-width:0!important;
@@ -5182,13 +5182,13 @@ body.home-active-v9019 .topbar-row > #btnDailyRoutinesV2192{
 body.home-active-v9019 .topbar-row > #btnDaily{
   margin-left:0!important;
 }
-body.home-active-v9019 .topbar-row > #btnMomentsV21102{
+body.home-active-v9019 .topbar-row > #btnMomentsV31102{
   clear:both!important;
 }
 
 @media(max-width:420px){
   body.home-active-v9019 .topbar-row > #btnDaily,
-  body.home-active-v9019 .topbar-row > #btnDailyRoutinesV2192{
+  body.home-active-v9019 .topbar-row > #btnDailyRoutinesV3192{
     flex-basis:calc(50% - 3px)!important;
     width:calc(50% - 3px)!important;
     max-width:calc(50% - 3px)!important;
@@ -5196,9 +5196,9 @@ body.home-active-v9019 .topbar-row > #btnMomentsV21102{
 }
 
 
-/* V2.277 · Fila 3: Momentos y Buscar al 50 % */
-body.home-active-v9019 .topbar-row > #btnMomentsV21102,
-body.home-active-v9019 .topbar-row > #btnGlobalSearchV2177{
+/* V3.1.267 · Fila 3: Momentos y Buscar al 50 % */
+body.home-active-v9019 .topbar-row > #btnMomentsV31102,
+body.home-active-v9019 .topbar-row > #btnGlobalSearchV3177{
   flex:1 1 calc(50% - 4px)!important;
   width:calc(50% - 4px)!important;
   min-width:0!important;
@@ -5209,8 +5209,8 @@ body.home-active-v9019 .topbar-row > #btnGlobalSearchV2177{
 }
 
 @media(max-width:420px){
-  body.home-active-v9019 .topbar-row > #btnMomentsV21102,
-  body.home-active-v9019 .topbar-row > #btnGlobalSearchV2177{
+  body.home-active-v9019 .topbar-row > #btnMomentsV31102,
+  body.home-active-v9019 .topbar-row > #btnGlobalSearchV3177{
     flex-basis:calc(50% - 3px)!important;
     width:calc(50% - 3px)!important;
     max-width:calc(50% - 3px)!important;

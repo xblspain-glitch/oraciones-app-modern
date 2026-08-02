@@ -1,5 +1,5 @@
-const BUILD_V2_1_200="tarjeta-final-limpia";
-/* Oraciones V2 LAB - app.js paso 45: limpieza render de versículos */
+const BUILD_V3_1_200="tarjeta-final-limpia";
+/* Oraciones V3 LAB - app.js paso 45: limpieza render de versículos */
 
 /* ===== PWA / INSTALACIÓN ===== */
 function buildInitialState(){
@@ -93,7 +93,7 @@ function restoreAutoBackup(){
       "trashNotes": Array.isArray(parsed.trashNotes) ? parsed.trashNotes : [],
       "trashGuides": Array.isArray(parsed.trashGuides) ? parsed.trashGuides : [],
       "trashVerses": Array.isArray(parsed.trashVerses) ? parsed.trashVerses : [],
-      "titleSeparatorsV2171": parsed.titleSeparatorsV2171 && typeof parsed.titleSeparatorsV2171 === "object" ? parsed.titleSeparatorsV2171 : {}
+      "titleSeparatorsV3171": parsed.titleSeparatorsV3171 && typeof parsed.titleSeparatorsV3171 === "object" ? parsed.titleSeparatorsV3171 : {}
     };
 
     normalizeGuides();
@@ -442,7 +442,7 @@ function highlightBibleReferencesV49(text){
     const cleanRef=String(ref||"").replace(/\s+/g," ").trim();
     return pre+'<span class="bible-ref-highlight">📖 '+cleanRef+'</span>';
   });
-  // V2.1.139: permite destacar la numeración migrada, por ejemplo **1.**
+  // V3.1.139: permite destacar la numeración migrada, por ejemplo **1.**
   return rendered.replace(/\*\*(\d{1,3}\.)\*\*/g,'<strong class="note-number-v3139">$1</strong>');
 }
 function renderCollapsibleBlocksV864(text){
@@ -509,9 +509,9 @@ function renderReader(){
     const readerKindClass = section==="prayers" ? "reader-kind-prayers-v31103" : section==="psalms" ? "reader-kind-psalms-v31103" : section==="verses" ? "reader-kind-verses-v31103" : section==="notes" ? "reader-kind-notes-v31103" : section==="guides" ? "reader-kind-guides-v3192" : section==="parables" ? "reader-kind-parables-v3192" : "reader-kind-neutral-v31103";
     readerPanel.classList.add(readerKindClass);
   }
-  const identity=document.getElementById("readerIdentityV21103");
-  const identityIcon=document.getElementById("readerIdentityIconV21103");
-  const identityLabel=document.getElementById("readerIdentityLabelV21103");
+  const identity=document.getElementById("readerIdentityV31103");
+  const identityIcon=document.getElementById("readerIdentityIconV31103");
+  const identityLabel=document.getElementById("readerIdentityLabelV31103");
   const readerIdentityMeta = section==="prayers" ? {icon:"",label:"Oración"} : section==="psalms" ? {icon:"",label:"Salmo"} : section==="verses" ? {icon:"",label:"Versículo"} : section==="notes" ? {icon:"",label:"Nota"} : section==="guides" ? {icon:"",label:"Guía"} : section==="parables" ? {icon:"",label:"Parábola"} : null;
   if(identity){
     identity.classList.toggle("hidden",!readerIdentityMeta);
@@ -869,14 +869,14 @@ function toggleReadingUI(){
   const willHide = !document.body.classList.contains("hide-reading-ui");
   document.body.classList.toggle("hide-reading-ui");
 
-  // V2.1.126: al ocultar la botonera, acerca automáticamente el inicio
+  // V3.1.126: al ocultar la botonera, acerca automáticamente el inicio
   // de la lectura a la parte superior. Los versículos conservan su
   // comportamiento anterior y al volver a mostrar la botonera no se mueve.
   if(!willHide || section === "verses") return;
 
   window.setTimeout(function(){
     try{
-      const identity = document.getElementById("readerIdentityV21103");
+      const identity = document.getElementById("readerIdentityV31103");
       const identityVisible = identity && !identity.classList.contains("hidden");
       const target = identityVisible
         ? identity
@@ -1081,7 +1081,7 @@ function saveCurrent(stay, silent){
             setSearchVisibleV26(true);
             clearNavModes();
 
-            ["homeView","editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView","welcomeView","momentsView","routineView","routineReaderV2192"].forEach(function(id){
+            ["homeView","editorView","backupView","trashView","titlesView","verseCategoriesView","calendarView","welcomeView","momentsView","routineView","routineReaderV3192"].forEach(function(id){
               var view=document.getElementById(id);
               if(view) view.classList.add("hidden");
             });
@@ -1281,7 +1281,7 @@ async function shareCurrent(){
     }
     if(section==="verses"){
       item.shared=true;
-      if(typeof recordVerseShareV2162 === "function") recordVerseShareV2162(item);
+      if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
       saveState();renderList();renderReader();
     }
     toast(navigator.share?"Compartido":"Copiado");
@@ -1491,8 +1491,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v3.1.259";
-const APP_VERSION_ZIP = "Oraciones_V2.1.259_SIN_MODULOS_ESTUDIO_LORA_FILAS.zip";
+const APP_VERSION_LABEL = "v2.277";
+const APP_VERSION_ZIP = "Oraciones_V2.277.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -2171,7 +2171,7 @@ function copyCurrent(){
   navigator.clipboard.writeText(cleanTextBreaks(text)).then(()=>{
     if(section==="verses"){
       item.shared=true;
-      if(typeof recordVerseShareV2162 === "function") recordVerseShareV2162(item);
+      if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
       saveState();renderList();renderReader();
     }
     toast("Copiado")
@@ -2250,8 +2250,8 @@ function changeReaderSize(delta){
   renderReader();
 }
 
-/* V2.277 · Calendario trasladado a Mi Biblia de Estudio. */
-function removeLegacyCalendarDataV21263(){
+/* V3.1.267 · Calendario trasladado a Mi Biblia de Estudio. */
+function removeLegacyCalendarDataV31263(){
   try{ localStorage.removeItem("oraciones_festivity_notes_v44"); }catch(e){}
   try{
     const raw=JSON.parse(localStorage.getItem("oraciones_recent_history_v47")||"null");
@@ -2265,12 +2265,12 @@ function removeLegacyCalendarDataV21263(){
     }
   }catch(e){}
 }
-removeLegacyCalendarDataV21263();
+removeLegacyCalendarDataV31263();
 
 function openBackup(){
   setActiveView("backup");
   clearNavModes();
-  try{ renderBackupStatusV2149(); }catch(e){}
+  try{ renderBackupStatusV3149(); }catch(e){}
 
   document.body.classList.add("backup-only", "special-view-only");
   document.body.classList.remove("reading-mobile", "fullscreen-reading", "hide-reading-ui");
@@ -3132,7 +3132,7 @@ async function exportAllZip(){
     toast("Preparando ZIP completo…");
     const ZipClass=window.JSZip || JSZip;
     const zip = new ZipClass();
-    const payload = await buildCompleteBackupPayloadV21245();
+    const payload = await buildCompleteBackupPayloadV31245();
     zip.file("backup_completo.json", JSON.stringify(payload, null, 2));
     try{ zip.file("catalogos/personajes_biblicos_409.json", await (await fetch("biblical-characters-v2261.json",{cache:"no-store"})).text()); }catch(e){ console.warn(e); }
     try{ zip.file("catalogos/diccionario_biblico_433.json", await (await fetch("biblical-dictionary-v2264.json",{cache:"no-store"})).text()); }catch(e){ console.warn(e); }
@@ -3154,7 +3154,7 @@ async function exportAllZip(){
     const blob = await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}});
     const ok=downloadBlob(filename, blob);
     if(!ok) throw new Error("No se pudo iniciar la descarga");
-    saveBackupStatusV2149("Exportación ZIP completa", filename);
+    saveBackupStatusV3149("Exportación ZIP completa", filename);
     toast("ZIP completo exportado");
   }catch(e){
     console.error("Error al exportar ZIP completo",e);
@@ -3163,15 +3163,15 @@ async function exportAllZip(){
 }
 
 
-/* ===== V2.1.258 · Descargar copia autosuficiente de la aplicación ===== */
-const APP_VERSION_V21249 = "2.277";
-const FUTURE_HOME_ICONS_V21249 = Object.freeze({
+/* ===== V3.1.258 · Descargar copia autosuficiente de la aplicación ===== */
+const APP_VERSION_V31249 = "2.277";
+const FUTURE_HOME_ICONS_V31249 = Object.freeze({
   dailyVerse:"icon-versiculo-dia-v3250.png",
   dictionary:"icon-diccionario-v3250.png"
 });
-const INSTALLED_APP_FILES_V21249 = ["index.html", "app.js", "styles.css", "themes.css", "welcome.js", "config.js", "utils.js", "recent.js", "versiculos.js", "theme-mode.js", "jszip.min.js", "patches.js", "routines.js", "moments.js", "counters-v3183.js", "sw.js", "manifest.json", "biblical-characters-v2243.css", "biblical-characters-v2243.js", "biblical-characters-v2261.json", "biblical-dictionary-v2264.css", "biblical-dictionary-v2264.js", "biblical-dictionary-v2264.json", "cross-ethiopian-mask.png", "icon-notas-detallado-v2210.png", "icon-guia-detallado-v2210.png", "icon-personajes-biblicos-v2255.png", "icon-versiculo-dia-v3250.png", "icon-diccionario-v3250.png", "icon-dia-noche-v3255.png", "icon-192.png", "icon-512.png", "bg-morning.webp", "bg-day.webp", "bg-sunset.webp", "bg-night.webp", "card-sabiduria-v2240.jpg", "routine-morning-bible-v2216.webp", "routine-night-bible-v2216.webp", "shared-card-new-jerusalem-v2217.png", "card-salvacion-v2219.jpg", "card-oracion-v2219.jpg", "card-espiritu-santo-v2219.jpg", "card-misericordia-v2219.jpg", "card-alabanza-v2219.jpg", "card-fortaleza-v2219.jpg", "card-amor-v2219.jpg", "card-esperanza-v2219.jpg", "card-juicio-v2219.jpg", "card-fe-v2219.jpg", "card-segunda-venida-v2219.jpg", "card-reino-dios-v2230.jpg", "card-santidad-v2230.jpg", "card-cristo-es-dios-v2230.jpg", "card-fe-nueva-v3261.png", "card-dios-v3261.png", "Lora-Regular.woff2", "Lora-Bold.woff2", "Lora-Italic.woff2", "Lora-BoldItalic.woff2"];
+const INSTALLED_APP_FILES_V31249 = ["index.html", "app.js", "styles.css", "themes.css", "welcome.js", "config.js", "utils.js", "recent.js", "versiculos.js", "theme-mode.js", "jszip.min.js", "patches.js", "routines.js", "moments.js", "counters-v3183.js", "sw.js", "manifest.json", "biblical-characters-v2243.css", "biblical-characters-v2243.js", "biblical-characters-v2261.json", "biblical-dictionary-v2264.css", "biblical-dictionary-v2264.js", "biblical-dictionary-v2264.json", "cross-ethiopian-mask.png", "icon-notas-detallado-v2210.png", "icon-guia-detallado-v2210.png", "icon-personajes-biblicos-v2255.png", "icon-versiculo-dia-v3250.png", "icon-diccionario-v3250.png", "icon-dia-noche-v3255.png", "icon-192.png", "icon-512.png", "bg-morning.webp", "bg-day.webp", "bg-sunset.webp", "bg-night.webp", "card-sabiduria-v2240.jpg", "routine-morning-bible-v2216.webp", "routine-night-bible-v2216.webp", "shared-card-new-jerusalem-v2217.png", "card-salvacion-v2219.jpg", "card-oracion-v2219.jpg", "card-espiritu-santo-v2219.jpg", "card-misericordia-v2219.jpg", "card-alabanza-v2219.jpg", "card-fortaleza-v2219.jpg", "card-amor-v2219.jpg", "card-esperanza-v2219.jpg", "card-juicio-v2219.jpg", "card-fe-v2219.jpg", "card-segunda-venida-v2219.jpg", "card-reino-dios-v2230.jpg", "card-santidad-v2230.jpg", "card-cristo-es-dios-v2230.jpg", "card-fe-nueva-v3261.png", "card-dios-v3261.png", "Lora-Regular.woff2", "Lora-Bold.woff2", "Lora-Italic.woff2", "Lora-BoldItalic.woff2"];
 
-async function readInstalledAppFileV21249(fileName){
+async function readInstalledAppFileV31249(fileName){
   const cleanName=String(fileName||"").replace(/^\.\//,"");
   const absoluteUrl=new URL(cleanName,document.baseURI).href;
   if("caches" in window){
@@ -3202,7 +3202,7 @@ async function readInstalledAppFileV21249(fileName){
   throw lastError||new Error(cleanName+" no está disponible");
 }
 
-async function exportInstalledAppZipV21249(){
+async function exportInstalledAppZipV31249(){
   const filename="oraciones_v3_1_263_copia_app.zip";
   try{
     if(typeof window.JSZip==="undefined" && typeof JSZip==="undefined") throw new Error("JSZip no está disponible");
@@ -3210,35 +3210,35 @@ async function exportInstalledAppZipV21249(){
     const ZipClass=window.JSZip||JSZip;
     const zip=new ZipClass();
     const missing=[];
-    for(let i=0;i<INSTALLED_APP_FILES_V21249.length;i++){
-      const fileName=INSTALLED_APP_FILES_V21249[i];
-      try{zip.file(fileName,await readInstalledAppFileV21249(fileName));}
+    for(let i=0;i<INSTALLED_APP_FILES_V31249.length;i++){
+      const fileName=INSTALLED_APP_FILES_V31249[i];
+      try{zip.file(fileName,await readInstalledAppFileV31249(fileName));}
       catch(e){missing.push(fileName);console.error("Recurso ausente",fileName,e);}
-      if(i%8===0) toast("Preparando copia… "+(i+1)+"/"+INSTALLED_APP_FILES_V21249.length);
+      if(i%8===0) toast("Preparando copia… "+(i+1)+"/"+INSTALLED_APP_FILES_V31249.length);
     }
     if(missing.length) throw new Error("Faltan recursos esenciales: "+missing.join(", "));
     zip.file("INFORMACION_COPIA_APP.json",JSON.stringify({
-      type:"oraciones-v3-copia-aplicacion",appVersion:APP_VERSION_V21249,exportedAt:new Date().toISOString(),
-      includedFiles:INSTALLED_APP_FILES_V21249,complete:true,
-      pendingOptionalIcons:FUTURE_HOME_ICONS_V21249
+      type:"oraciones-v3-copia-aplicacion",appVersion:APP_VERSION_V31249,exportedAt:new Date().toISOString(),
+      includedFiles:INSTALLED_APP_FILES_V31249,complete:true,
+      pendingOptionalIcons:FUTURE_HOME_ICONS_V31249
     },null,2));
     zip.file("LEEME_COPIA_APP.txt","ORACIONES V2 · COPIA AUTOSUFICIENTE\n\nVersión: 2.277\n\nIncluye todos los recursos activos de esta versión y no incluye archivos históricos sin uso.\nLos iconos propios de Versículo del día y Diccionario están preparados en el código, pero se integrarán cuando estén disponibles.\n");
     const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}});
     if(!downloadBlob(filename,blob)) throw new Error("No se pudo iniciar la descarga");
-    saveBackupStatusV2149("Copia de la aplicación",filename);
+    saveBackupStatusV3149("Copia de la aplicación",filename);
     toast("Copia completa de la aplicación descargada");
   }catch(e){
     console.error(e);
     alert("No se pudo descargar la copia de la aplicación: "+(e&&e.message?e.message:"error desconocido"));
   }
 }
-const exportInstalledAppZipV21248=exportInstalledAppZipV21249;
-const exportInstalledAppZipV21247=exportInstalledAppZipV21249;
+const exportInstalledAppZipV31248=exportInstalledAppZipV31249;
+const exportInstalledAppZipV31247=exportInstalledAppZipV31249;
 
 /* ===== v3.1.52 - Estado de copia de seguridad pulido ===== */
-const BACKUP_EXPORT_STATUS_KEY_V2149 = "oraciones_v3_last_backup_export_status";
+const BACKUP_EXPORT_STATUS_KEY_V3149 = "oraciones_v3_last_backup_export_status";
 
-function backupCountsV2149(){
+function backupCountsV3149(){
   const count = function(arr){ return Array.isArray(arr) ? arr.length : 0; };
   return {
     prayers: count(state && state.prayers),
@@ -3248,12 +3248,12 @@ function backupCountsV2149(){
   };
 }
 
-function backupTotalV2149(c){
-  c = c || backupCountsV2149();
+function backupTotalV3149(c){
+  c = c || backupCountsV3149();
   return (c.prayers||0) + (c.notes||0) + (c.guides||0) + (c.verses||0) + (c.parables||0) + (c.psalms||0);
 }
 
-function formatBackupDateV2149(iso){
+function formatBackupDateV3149(iso){
   if(!iso) return "Sin exportaciones registradas";
   try{
     const d = new Date(iso);
@@ -3271,7 +3271,7 @@ function formatBackupDateV2149(iso){
   }
 }
 
-function backupAgeTextV2149(iso){
+function backupAgeTextV3149(iso){
   if(!iso) return {tone:"warn", text:"Todavía no hay una copia registrada."};
   const ms = Math.max(0, Date.now() - new Date(iso).getTime());
   const minutes = Math.floor(ms / 60000);
@@ -3286,54 +3286,54 @@ function backupAgeTextV2149(iso){
   return {tone:"bad", text:"Hace " + days + " días"};
 }
 
-function backupStatusLabelV2150(age){
+function backupStatusLabelV3150(age){
   if(!age || age.tone === "warn") return "Estado: ⚪ Sin copia registrada";
   if(age.tone === "ok") return "Estado: ✅ Copia reciente";
   if(age.tone === "mid") return "Estado: 🟡 Conviene hacer una copia";
   return "Estado: 🔴 Copia antigua";
 }
 
-function backupAdviceV2149(age){
+function backupAdviceV3149(age){
   if(!age || age.tone === "warn") return "Cuando descargues o compartas un JSON, guardaré aquí la fecha de la última copia. Se recomienda guardar el archivo también en Google Drive.";
   if(age.tone === "ok") return "Tu copia de seguridad está reciente. Se recomienda guardar también una copia en Google Drive.";
   if(age.tone === "mid") return "Hace un tiempo que no exportas. Sería buena idea guardar un JSON nuevo y conservarlo en Google Drive.";
   return "Conviene hacer una copia nueva antes de seguir añadiendo contenido y guardarla también en Google Drive.";
 }
 
-function readBackupStatusV2149(){
+function readBackupStatusV3149(){
   try{
-    return JSON.parse(localStorage.getItem(BACKUP_EXPORT_STATUS_KEY_V2149) || "null");
+    return JSON.parse(localStorage.getItem(BACKUP_EXPORT_STATUS_KEY_V3149) || "null");
   }catch(e){
     return null;
   }
 }
 
-function saveBackupStatusV2149(method, filename){
-  const counts = backupCountsV2149();
+function saveBackupStatusV3149(method, filename){
+  const counts = backupCountsV3149();
   const payload = {
     exportedAt: new Date().toISOString(),
     method: method || "JSON",
     filename: filename || "",
     counts: counts,
-    total: backupTotalV2149(counts)
+    total: backupTotalV3149(counts)
   };
-  localStorage.setItem(BACKUP_EXPORT_STATUS_KEY_V2149, JSON.stringify(payload));
-  renderBackupStatusV2149();
+  localStorage.setItem(BACKUP_EXPORT_STATUS_KEY_V3149, JSON.stringify(payload));
+  renderBackupStatusV3149();
 }
 
-function renderBackupStatusV2149(){
-  const box = document.getElementById("backupStatusV2149");
+function renderBackupStatusV3149(){
+  const box = document.getElementById("backupStatusV3149");
   if(!box) return;
-  const data = readBackupStatusV2149();
-  const age = backupAgeTextV2149(data && data.exportedAt);
-  const counts = (data && data.counts) || backupCountsV2149();
-  const total = (data && typeof data.total === "number") ? data.total : backupTotalV2149(counts);
+  const data = readBackupStatusV3149();
+  const age = backupAgeTextV3149(data && data.exportedAt);
+  const counts = (data && data.counts) || backupCountsV3149();
+  const total = (data && typeof data.total === "number") ? data.total : backupTotalV3149(counts);
   const file = data && data.filename ? data.filename : "Aún no hay archivo registrado";
   box.innerHTML =
     '<div class="backup-status-card-v3149 backup-status-'+age.tone+'-v3149">' +
       '<div class="backup-status-title-v3149">💾 Estado de la copia de seguridad</div>' +
-      '<div class="backup-status-state-v3150">' + backupStatusLabelV2150(age) + '</div>' +
-      '<div class="backup-status-row-v3149"><strong>Última exportación:</strong><br>' + formatBackupDateV2149(data && data.exportedAt) + '</div>' +
+      '<div class="backup-status-state-v3150">' + backupStatusLabelV3150(age) + '</div>' +
+      '<div class="backup-status-row-v3149"><strong>Última exportación:</strong><br>' + formatBackupDateV3149(data && data.exportedAt) + '</div>' +
       '<div class="backup-status-row-v3149"><strong>Antigüedad:</strong> ' + age.text + '</div>' +
       '<div class="backup-status-row-v3149"><strong>Método:</strong> ' + ((data && data.method) ? data.method : "Aún no registrado") + '</div>' +
       '<div class="backup-status-row-v3149"><strong>Archivo:</strong><br><span class="backup-status-file-v3149">' + file + '</span></div>' +
@@ -3344,15 +3344,15 @@ function renderBackupStatusV2149(){
         '<span>📝 Notas: <strong>' + (counts.notes||0) + '</strong></span>' +
         '<span>📦 Total: <strong>' + total + '</strong></span>' +
       '</div>' +
-      '<div class="backup-status-advice-v3149">' + backupAdviceV2149(age) + '</div>' +
+      '<div class="backup-status-advice-v3149">' + backupAdviceV3149(age) + '</div>' +
     '</div>';
 }
 
-/* ===== V2.1.245 · Backup integral de toda la aplicación ===== */
-const COMPLETE_BACKUP_TYPE_V21245 = "oraciones-v3-backup-completo";
-const COMPLETE_BACKUP_VERSION_V21245 = 31263;
+/* ===== V3.1.245 · Backup integral de toda la aplicación ===== */
+const COMPLETE_BACKUP_TYPE_V31245 = "oraciones-v3-backup-completo";
+const COMPLETE_BACKUP_VERSION_V31245 = 31263;
 
-function readAllAppStorageV21245(){
+function readAllAppStorageV31245(){
   const data = {};
   try{
     for(let i=0;i<localStorage.length;i++){
@@ -3366,7 +3366,7 @@ function readAllAppStorageV21245(){
   return data;
 }
 
-function completeBackupCountsV21245(){
+function completeBackupCountsV31245(){
   const count=a=>Array.isArray(a)?a.length:0;
   let dictionaryCustom=0,dictionaryEdited=0,dictionaryDeleted=0;
   try{dictionaryCustom=count(JSON.parse(localStorage.getItem('oraciones_biblical_dictionary_custom_v264')||'[]'));}catch(e){}
@@ -3376,12 +3376,12 @@ function completeBackupCountsV21245(){
     prayers:count(state&&state.prayers), notes:count(state&&state.notes), guides:count(state&&state.guides),
     verses:count(state&&state.verses), parables:count(state&&state.parables), psalms:count(state&&state.psalms),
     characters:409, dictionary:433, dictionaryCustom, dictionaryEdited, dictionaryDeleted,
-    routines:state&&state.dailyRoutinesV2192?Object.values(state.dailyRoutinesV2192).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0):0,
-    moments:count(state&&state.customMomentsV21106)
+    routines:state&&state.dailyRoutinesV3192?Object.values(state.dailyRoutinesV3192).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0):0,
+    moments:count(state&&state.customMomentsV31106)
   };
 }
 
-async function loadCompleteCatalogsV21247(){
+async function loadCompleteCatalogsV31247(){
   const result={biblicalCharacters:null,biblicalDictionary:null};
   const load=async function(url){
     const response=await fetch(url,{cache:"no-store"});
@@ -3393,26 +3393,26 @@ async function loadCompleteCatalogsV21247(){
   return result;
 }
 
-async function buildCompleteBackupPayloadV21245(){
-  const fullCatalogs=await loadCompleteCatalogsV21247();
+async function buildCompleteBackupPayloadV31245(){
+  const fullCatalogs=await loadCompleteCatalogsV31247();
   return {
-    type: COMPLETE_BACKUP_TYPE_V21245,
+    type: COMPLETE_BACKUP_TYPE_V31245,
     version: 31263,
     exportedAt: new Date().toISOString(),
     appVersion: "2.277",
     description: "Copia integral y autosuficiente: datos, ajustes, 409 personajes completos y 433 entradas completas del diccionario.",
     state: JSON.parse(JSON.stringify(state||{})),
-    localStorage: readAllAppStorageV21245(),
+    localStorage: readAllAppStorageV31245(),
     catalogs: {
       biblicalCharacters: fullCatalogs.biblicalCharacters,
       biblicalDictionary: fullCatalogs.biblicalDictionary
     },
-    counts: completeBackupCountsV21245()
+    counts: completeBackupCountsV31245()
   };
 }
 
 async function buildBackupText(){
-  const payload=await buildCompleteBackupPayloadV21245();
+  const payload=await buildCompleteBackupPayloadV31245();
   const text=JSON.stringify(payload,null,2);
   const box=document.getElementById("backupText");if(box)box.value=text;
   return text;
@@ -3428,7 +3428,7 @@ async function downloadBackupJson(){
     const text=await buildBackupText(),filename=backupFilename();
     const ok=downloadBlob(filename,new Blob([text],{type:"application/json;charset=utf-8"}));
     if(!ok) throw new Error("download-failed");
-    saveBackupStatusV2149("Descarga backup completo autosuficiente",filename);
+    saveBackupStatusV3149("Descarga backup completo autosuficiente",filename);
     toast("Backup completo descargado");
   }catch(e){
     console.error("No se pudo crear el backup completo",e);
@@ -3440,22 +3440,22 @@ async function copyBackupJson(){
     toast("Preparando backup completo…");
     const text=await buildBackupText();
     await navigator.clipboard.writeText(cleanTextBreaks(text));
-    saveBackupStatusV2149("Copia backup completo","Backup completo copiado");toast("Backup completo copiado");
+    saveBackupStatusV3149("Copia backup completo","Backup completo copiado");toast("Backup completo copiado");
   }catch(e){alert("No se pudo copiar automáticamente. El backup queda visible para copiarlo manualmente.");}
 }
 async function shareBackupJson(){
   try{
     toast("Preparando backup completo…");
     const text=await buildBackupText(),filename=backupFilename(),file=new File([text],filename,{type:"application/json"});
-    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({title:"Backup completo Oraciones V2",text:"Copia integral y autosuficiente de toda la aplicación",files:[file]});saveBackupStatusV2149("Compartir backup completo",filename);toast("Backup completo compartido");return;}
-    if(navigator.share){await navigator.share({title:"Backup completo Oraciones V2",text:text});saveBackupStatusV2149("Compartir backup como texto",filename);toast("Compartido como texto");return;}
-    downloadBlob(filename,new Blob([text],{type:"application/json;charset=utf-8"}));saveBackupStatusV2149("Descarga backup completo",filename);alert("Tu navegador no permite compartir desde aquí. Se ha descargado el backup completo.");
+    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({title:"Backup completo Oraciones V3",text:"Copia integral y autosuficiente de toda la aplicación",files:[file]});saveBackupStatusV3149("Compartir backup completo",filename);toast("Backup completo compartido");return;}
+    if(navigator.share){await navigator.share({title:"Backup completo Oraciones V3",text:text});saveBackupStatusV3149("Compartir backup como texto",filename);toast("Compartido como texto");return;}
+    downloadBlob(filename,new Blob([text],{type:"application/json;charset=utf-8"}));saveBackupStatusV3149("Descarga backup completo",filename);alert("Tu navegador no permite compartir desde aquí. Se ha descargado el backup completo.");
   }catch(e){if(e&&e.name==='AbortError'){toast("Compartir cancelado");return;}console.error(e);alert("No se pudo compartir el backup completo.");}
 }
 async function exportBackup(){await downloadBackupJson();}
 
-function normalizeImportedStateV21245(parsed){
-  const src=(parsed&&parsed.type===COMPLETE_BACKUP_TYPE_V21245&&parsed.state)?parsed.state:parsed;
+function normalizeImportedStateV31245(parsed){
+  const src=(parsed&&parsed.type===COMPLETE_BACKUP_TYPE_V31245&&parsed.state)?parsed.state:parsed;
   if(!src||!Array.isArray(src.prayers)||!Array.isArray(src.notes))throw new Error("bad");
   return Object.assign({},src,{
     section:src.section||"prayers",
@@ -3463,12 +3463,12 @@ function normalizeImportedStateV21245(parsed){
     currentNoteId:src.currentNoteId||(src.notes[0]&&src.notes[0].id)||null,
     guides:Array.isArray(src.guides)?src.guides:[],verses:Array.isArray(src.verses)?src.verses:[],parables:Array.isArray(src.parables)?src.parables:[],psalms:Array.isArray(src.psalms)?src.psalms:[],
     verseCategories:Array.isArray(src.verseCategories)?src.verseCategories:[],trashPrayers:Array.isArray(src.trashPrayers)?src.trashPrayers:[],trashNotes:Array.isArray(src.trashNotes)?src.trashNotes:[],trashGuides:Array.isArray(src.trashGuides)?src.trashGuides:[],trashVerses:Array.isArray(src.trashVerses)?src.trashVerses:[],trashParables:Array.isArray(src.trashParables)?src.trashParables:[],trashPsalms:Array.isArray(src.trashPsalms)?src.trashPsalms:[],
-    titleSeparatorsV2171:src.titleSeparatorsV2171&&typeof src.titleSeparatorsV2171==="object"?src.titleSeparatorsV2171:{}
+    titleSeparatorsV3171:src.titleSeparatorsV3171&&typeof src.titleSeparatorsV3171==="object"?src.titleSeparatorsV3171:{}
   });
 }
 function applyImportedData(parsed){
-  const complete=parsed&&parsed.type===COMPLETE_BACKUP_TYPE_V21245;
-  const importedState=normalizeImportedStateV21245(parsed);
+  const complete=parsed&&parsed.type===COMPLETE_BACKUP_TYPE_V31245;
+  const importedState=normalizeImportedStateV31245(parsed);
   if(complete&&parsed.localStorage&&typeof parsed.localStorage==='object'){
     Object.keys(parsed.localStorage).forEach(key=>{
       if((key.indexOf('oraciones_')===0||key.indexOf('biblical_')===0) && key!=='oraciones_festivity_notes_v44'){
@@ -3477,7 +3477,7 @@ function applyImportedData(parsed){
     });
   }
   state=importedState;
-  normalizeGuides();if(typeof normalizeVerses==="function")normalizeVerses();if(typeof ensureVerseCategories==="function")ensureVerseCategories();if(typeof ensureParablesState==="function")ensureParablesState();if(typeof ensurePsalmsStateV2176==="function")ensurePsalmsStateV2176();
+  normalizeGuides();if(typeof normalizeVerses==="function")normalizeVerses();if(typeof ensureVerseCategories==="function")ensureVerseCategories();if(typeof ensureParablesState==="function")ensureParablesState();if(typeof ensurePsalmsStateV3176==="function")ensurePsalmsStateV3176();
   saveState();section=state.section;syncTabs();renderList();renderReader();
   if(complete){toast("Backup completo restaurado");setTimeout(()=>location.reload(),650);}else{openReader();toast("Backup importado");}
 }
@@ -3495,17 +3495,17 @@ document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,70
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
 window.downloadBackupJson=downloadBackupJson;
 window.exportAllZip=exportAllZip;
-window.exportInstalledAppZipV21247=exportInstalledAppZipV21248;
-window.exportInstalledAppZipV21248=exportInstalledAppZipV21249;
-window.exportInstalledAppZipV21249=exportInstalledAppZipV21249;
+window.exportInstalledAppZipV31247=exportInstalledAppZipV31248;
+window.exportInstalledAppZipV31248=exportInstalledAppZipV31249;
+window.exportInstalledAppZipV31249=exportInstalledAppZipV31249;
 
 document.addEventListener("DOMContentLoaded",()=>{
-  const backupBtn=document.getElementById("downloadCompleteBackupBtnV21246");
+  const backupBtn=document.getElementById("downloadCompleteBackupBtnV31246");
   if(backupBtn) backupBtn.addEventListener("click",downloadBackupJson);
-  const zipBtn=document.getElementById("exportCompleteZipBtnV21246");
+  const zipBtn=document.getElementById("exportCompleteZipBtnV31246");
   if(zipBtn) zipBtn.addEventListener("click",exportAllZip);
-  const appZipBtn=document.getElementById("exportInstalledAppBtnV21247");
-  if(appZipBtn) appZipBtn.addEventListener("click",exportInstalledAppZipV21249);
+  const appZipBtn=document.getElementById("exportInstalledAppBtnV31247");
+  if(appZipBtn) appZipBtn.addEventListener("click",exportInstalledAppZipV31249);
 });
 
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v3-1-261-tarjetas-fe-dios-sin-iconos",{updateViaCache:"none"})})}
@@ -3552,7 +3552,7 @@ function markCurrentVerseCardSentDirect(){
 
 function getThematicCardTextLayoutV2220(txt){
   const n=String(txt||"").length;
-  // V2.1.239 — tamaño inicial generoso. El ajuste definitivo se calcula
+  // V3.1.239 — tamaño inicial generoso. El ajuste definitivo se calcula
   // con la anchura y la altura reales disponibles, sin cortar el versículo.
   if(n<=150) return {font:57,y:1285};
   if(n<=240) return {font:51,y:1285};
@@ -3704,7 +3704,7 @@ async function shareVerseCard(cardStyle="classic"){
     canvas.height=1920;
     const ctx=canvas.getContext("2d");
 
-    // V2.1.197 — fondo completo corregido: el azul continúa hasta el borde inferior, sin franja gris.
+    // V3.1.197 — fondo completo corregido: el azul continúa hasta el borde inferior, sin franja gris.
     // La app conserva por encima todos los elementos dinámicos: borde, marca de agua, textos y pie.
     try{
       const cardBackground=await new Promise((resolve,reject)=>{
@@ -3809,18 +3809,18 @@ async function shareVerseCard(cardStyle="classic"){
     const fecha=ds.getDate()+" de "+meses[ds.getMonth()]+" de "+ds.getFullYear();
     ctx.fillText(fecha,540,usesNewTextLayoutV2231?965:655);
 
-    // V2.1.200 — categoría sin icono, en mayúsculas y centrada.
-    const categoryTextV2200=String(category||"")
+    // V3.1.200 — categoría sin icono, en mayúsculas y centrada.
+    const categoryTextV3200=String(category||"")
       .replace(/^[^\p{L}\p{N}]+\s*/u,"")
       .toLocaleUpperCase("es-ES");
     ctx.font="44px Georgia, serif";
     ctx.textAlign="center";
-    ctx.fillText(categoryTextV2200,540,usesNewTextLayoutV2231?1045:742);
+    ctx.fillText(categoryTextV3200,540,usesNewTextLayoutV2231?1045:742);
 
-    // V2.1.243 — referencia bíblica fija y sección final de 409 personajes.
+    // V3.1.243 — referencia bíblica fija y sección final de 409 personajes.
     // No participa en el ajuste dinámico reservado exclusivamente al cuerpo del versículo.
-    const REFERENCE_FONT_SIZE_V2241=74;
-    ctx.font="bold "+REFERENCE_FONT_SIZE_V2241+"px Georgia, serif";
+    const REFERENCE_FONT_SIZE_V3241=74;
+    ctx.font="bold "+REFERENCE_FONT_SIZE_V3241+"px Georgia, serif";
     ctx.fillText(ref,540,usesNewTextLayoutV2231?1145:865);
 
     // Línea decorativa azul tenue con cruz central
@@ -3839,7 +3839,7 @@ async function shareVerseCard(cardStyle="classic"){
 
     const textLayout=usesNewTextLayoutV2231 ? getThematicCardTextLayoutV2220(body) : getCardTextLayout(body);
 
-    // V2.1.241 — ajuste dinámico real del versículo conservado desde V2.1.240.
+    // V3.1.241 — ajuste dinámico real del versículo conservado desde V3.1.240.
     // Se mide el texto completo con el ancho disponible y se reduce la fuente
     // solo lo necesario hasta que la última línea quede sobre la bendición.
     function splitTextIntoLinesV2241(ctx,text,maxWidth){
@@ -3889,7 +3889,7 @@ async function shareVerseCard(cardStyle="classic"){
 
     // Bendición del día: una frase estable durante toda la fecha local.
     // No altera el versículo ni el flujo de compartir; solo se dibuja en el pie de la tarjeta.
-    const dailyBlessingsV2175=[
+    const dailyBlessingsV3175=[
       "Que el amor de Cristo te acompañe hoy.",
       "Que Dios ilumine tu camino y fortalezca tu corazón.",
       "Que la paz del Señor permanezca contigo durante este día.",
@@ -3994,7 +3994,7 @@ async function shareVerseCard(cardStyle="classic"){
     const blessingDateKey=ds.getFullYear()+"-"+(ds.getMonth()+1)+"-"+ds.getDate();
     let blessingHash=0;
     for(let i=0;i<blessingDateKey.length;i++) blessingHash=((blessingHash*31)+blessingDateKey.charCodeAt(i))>>>0;
-    const dailyBlessing=dailyBlessingsV2175[blessingHash % dailyBlessingsV2175.length];
+    const dailyBlessing=dailyBlessingsV3175[blessingHash % dailyBlessingsV3175.length];
 
     // Remate inferior, elevado ligeramente para dejar una zona limpia a la bendición.
     ctx.save();
@@ -4040,7 +4040,7 @@ async function shareVerseCard(cardStyle="classic"){
       if(item){
         item.shared=true;
         item.lastCardSentAt=Date.now();
-        if(typeof recordVerseShareV2162 === "function") recordVerseShareV2162(item);
+        if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
         saveState();
         renderReader();
       }
@@ -4057,7 +4057,7 @@ async function shareVerseCard(cardStyle="classic"){
       if(item){
         item.shared=true;
         item.lastCardSentAt=Date.now();
-        if(typeof recordVerseShareV2162 === "function") recordVerseShareV2162(item);
+        if(typeof recordVerseShareV3162 === "function") recordVerseShareV3162(item);
         saveState();
         renderReader();
       }
@@ -4687,9 +4687,9 @@ setInterval(updateVersePositionCounter, 1000);
   };
 })();
 
-/* v58A eliminado en V2 paso 22: reemplazado por v71 - Refuerzo táctil uniforme. */
+/* v58A eliminado en V3 paso 22: reemplazado por v71 - Refuerzo táctil uniforme. */
 
-/* v59B eliminado en V2 paso 23: sustituido por v59D. */
+/* v59B eliminado en V3 paso 23: sustituido por v59D. */
 
 /* v59D - reparación segura continuar/inicio */
 (function(){
@@ -7022,7 +7022,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v311RandomFromMoreHomeFix) return;
   window.__v311RandomFromMoreHomeFix = true;
 
-  function hideHomeForRandomV211(){
+  function hideHomeForRandomV311(){
     try{
       document.body.classList.remove('home-active-v9019');
       var home = document.getElementById('homeView');
@@ -7030,11 +7030,11 @@ setInterval(updateVersePositionCounter, 1000);
     }catch(e){}
   }
 
-  var oldOpenRandomV211 = window.openRandomVerse || (typeof openRandomVerse !== 'undefined' ? openRandomVerse : null);
-  if(typeof oldOpenRandomV211 === 'function'){
+  var oldOpenRandomV311 = window.openRandomVerse || (typeof openRandomVerse !== 'undefined' ? openRandomVerse : null);
+  if(typeof oldOpenRandomV311 === 'function'){
     window.openRandomVerse = function(){
-      hideHomeForRandomV211();
-      return oldOpenRandomV211.apply(this, arguments);
+      hideHomeForRandomV311();
+      return oldOpenRandomV311.apply(this, arguments);
     };
     try{ openRandomVerse = window.openRandomVerse; }catch(e){}
   }
@@ -7045,29 +7045,29 @@ setInterval(updateVersePositionCounter, 1000);
   document.head.appendChild(style);
 })();
 
-/* V2 paso 16: parches visuales finales movidos a patches.js. */
+/* V3 paso 16: parches visuales finales movidos a patches.js. */
 
 /* v3.1.2 - Arreglo real: Volver desde Títulos a botonera interna de sección */
 (function(){
   if(window.__v312TitlesBackToSectionToolbar) return;
   window.__v312TitlesBackToSectionToolbar = true;
 
-  function isTitlesVisibleV212(){
+  function isTitlesVisibleV312(){
     try{
       var titles = document.getElementById('titlesView');
       return !!(titles && !titles.classList.contains('hidden'));
     }catch(e){ return false; }
   }
 
-  function isNormalSectionV212(){
+  function isNormalSectionV312(){
     try{
       return ['prayers','notes','guides','parables','psalms'].indexOf(section) !== -1;
     }catch(e){ return false; }
   }
 
-  window.backFromTitlesToSectionToolbarV212 = function(){
+  window.backFromTitlesToSectionToolbarV312 = function(){
     try{
-      if(!isNormalSectionV212()){
+      if(!isNormalSectionV312()){
         if(typeof openReader === 'function') openReader();
         return;
       }
@@ -7093,39 +7093,39 @@ setInterval(updateVersePositionCounter, 1000);
         try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
       }, 40);
     }catch(e){
-      console.error('backFromTitlesToSectionToolbarV212', e);
+      console.error('backFromTitlesToSectionToolbarV312', e);
       try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
     }
   };
 
-  function forceTitlesBackButtonV212(){
+  function forceTitlesBackButtonV312(){
     try{
-      if(!isTitlesVisibleV212() || !isNormalSectionV212()) return;
+      if(!isTitlesVisibleV312() || !isNormalSectionV312()) return;
       var backBtn = document.querySelector('#titlesView .panel-head button:first-child');
-      if(backBtn) backBtn.setAttribute('onclick','backFromTitlesToSectionToolbarV212()');
+      if(backBtn) backBtn.setAttribute('onclick','backFromTitlesToSectionToolbarV312()');
     }catch(e){}
   }
 
-  var previousOpenTitlesV212 = window.openTitlesView || (typeof openTitlesView !== 'undefined' ? openTitlesView : null);
-  if(typeof previousOpenTitlesV212 === 'function'){
+  var previousOpenTitlesV312 = window.openTitlesView || (typeof openTitlesView !== 'undefined' ? openTitlesView : null);
+  if(typeof previousOpenTitlesV312 === 'function'){
     window.openTitlesView = function(){
-      var r = previousOpenTitlesV212.apply(this, arguments);
-      setTimeout(forceTitlesBackButtonV212, 30);
-      setTimeout(forceTitlesBackButtonV212, 120);
+      var r = previousOpenTitlesV312.apply(this, arguments);
+      setTimeout(forceTitlesBackButtonV312, 30);
+      setTimeout(forceTitlesBackButtonV312, 120);
       return r;
     };
     try{ openTitlesView = window.openTitlesView; }catch(e){}
   }
 
-  var previousSmartBackV212 = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
-  if(typeof previousSmartBackV212 === 'function'){
+  var previousSmartBackV312 = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
+  if(typeof previousSmartBackV312 === 'function'){
     window.smartBack = function(){
       try{
-        if(isTitlesVisibleV212() && isNormalSectionV212()){
-          return window.backFromTitlesToSectionToolbarV212();
+        if(isTitlesVisibleV312() && isNormalSectionV312()){
+          return window.backFromTitlesToSectionToolbarV312();
         }
       }catch(e){}
-      return previousSmartBackV212.apply(this, arguments);
+      return previousSmartBackV312.apply(this, arguments);
     };
     try{ smartBack = window.smartBack; }catch(e){}
   }
@@ -7133,10 +7133,10 @@ setInterval(updateVersePositionCounter, 1000);
   document.addEventListener('click', function(e){
     try{
       var btn = e.target && e.target.closest ? e.target.closest('#titlesView .panel-head button:first-child') : null;
-      if(btn && isTitlesVisibleV212() && isNormalSectionV212()){
+      if(btn && isTitlesVisibleV312() && isNormalSectionV312()){
         e.preventDefault();
         e.stopPropagation();
-        window.backFromTitlesToSectionToolbarV212();
+        window.backFromTitlesToSectionToolbarV312();
       }
     }catch(_e){}
   }, true);
@@ -7147,14 +7147,14 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v313VerseTitlesBackFix) return;
   window.__v313VerseTitlesBackFix = true;
 
-  function isVerseTitlesVisibleV213(){
+  function isVerseTitlesVisibleV313(){
     try{
       var titles = document.getElementById('titlesView');
       return !!(titles && !titles.classList.contains('hidden') && typeof section !== 'undefined' && section === 'verses');
     }catch(e){ return false; }
   }
 
-  window.backFromVerseTitlesV213 = function(){
+  window.backFromVerseTitlesV313 = function(){
     try{
       var home = document.getElementById('homeView');
       if(home) home.classList.add('hidden');
@@ -7172,37 +7172,37 @@ setInterval(updateVersePositionCounter, 1000);
         openReader();
       }
     }catch(e){
-      console.error('backFromVerseTitlesV213', e);
+      console.error('backFromVerseTitlesV313', e);
       try{ if(typeof openVerseCategories === 'function') openVerseCategories(); }catch(_e){}
     }
   };
 
-  function forceVerseTitlesBackButtonV213(){
+  function forceVerseTitlesBackButtonV313(){
     try{
-      if(!isVerseTitlesVisibleV213()) return;
+      if(!isVerseTitlesVisibleV313()) return;
       var backBtn = document.querySelector('#titlesView .panel-head button:first-child');
-      if(backBtn) backBtn.setAttribute('onclick','backFromVerseTitlesV213()');
+      if(backBtn) backBtn.setAttribute('onclick','backFromVerseTitlesV313()');
     }catch(e){}
   }
 
-  var previousOpenTitlesV213 = window.openTitlesView || (typeof openTitlesView !== 'undefined' ? openTitlesView : null);
-  if(typeof previousOpenTitlesV213 === 'function'){
+  var previousOpenTitlesV313 = window.openTitlesView || (typeof openTitlesView !== 'undefined' ? openTitlesView : null);
+  if(typeof previousOpenTitlesV313 === 'function'){
     window.openTitlesView = function(){
-      var r = previousOpenTitlesV213.apply(this, arguments);
-      setTimeout(forceVerseTitlesBackButtonV213, 40);
-      setTimeout(forceVerseTitlesBackButtonV213, 140);
+      var r = previousOpenTitlesV313.apply(this, arguments);
+      setTimeout(forceVerseTitlesBackButtonV313, 40);
+      setTimeout(forceVerseTitlesBackButtonV313, 140);
       return r;
     };
     try{ openTitlesView = window.openTitlesView; }catch(e){}
   }
 
-  var previousSmartBackV213 = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
-  if(typeof previousSmartBackV213 === 'function'){
+  var previousSmartBackV313 = window.smartBack || (typeof smartBack !== 'undefined' ? smartBack : null);
+  if(typeof previousSmartBackV313 === 'function'){
     window.smartBack = function(){
       try{
-        if(isVerseTitlesVisibleV213()) return window.backFromVerseTitlesV213();
+        if(isVerseTitlesVisibleV313()) return window.backFromVerseTitlesV313();
       }catch(e){}
-      return previousSmartBackV213.apply(this, arguments);
+      return previousSmartBackV313.apply(this, arguments);
     };
     try{ smartBack = window.smartBack; }catch(e){}
   }
@@ -7210,10 +7210,10 @@ setInterval(updateVersePositionCounter, 1000);
   document.addEventListener('click', function(e){
     try{
       var btn = e.target && e.target.closest ? e.target.closest('#titlesView .panel-head button:first-child') : null;
-      if(btn && isVerseTitlesVisibleV213()){
+      if(btn && isVerseTitlesVisibleV313()){
         e.preventDefault();
         e.stopPropagation();
-        window.backFromVerseTitlesV213();
+        window.backFromVerseTitlesV313();
       }
     }catch(_e){}
   }, true);
@@ -7224,7 +7224,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v3135ToggleSharedButton) return;
   window.__v3135ToggleSharedButton = true;
 
-  function currentVerseV2135(){
+  function currentVerseV3135(){
     try{
       if(typeof section !== "undefined" && section !== "verses") return null;
       if(typeof currentItem === "function"){
@@ -7237,27 +7237,27 @@ setInterval(updateVersePositionCounter, 1000);
     }catch(e){ return null; }
   }
 
-  function isSentV2135(v){
+  function isSentV3135(v){
     return !!(v && (v.shared || v.lastCardSentAt));
   }
 
-  function refreshSharedToggleButtonV2135(){
+  function refreshSharedToggleButtonV3135(){
     try{
-      var btn = document.getElementById("readerSharedToggleBtnV2135");
-      var v = currentVerseV2135();
+      var btn = document.getElementById("readerSharedToggleBtnV3135");
+      var v = currentVerseV3135();
       if(!btn || !v) return;
-      var sent = isSentV2135(v);
+      var sent = isSentV3135(v);
       btn.textContent = sent ? "✓ Compartido" : "☐ Compartido";
       btn.title = sent ? "Quitar marca de compartido" : "Marcar como compartido";
       btn.classList.toggle("active-view", sent);
     }catch(e){}
   }
 
-  window.toggleCurrentVerseSharedV2135 = function(){
+  window.toggleCurrentVerseSharedV3135 = function(){
     try{
-      var v = currentVerseV2135();
+      var v = currentVerseV3135();
       if(!v){ if(typeof toast === "function") toast("No hay versículo abierto"); return; }
-      if(isSentV2135(v)){
+      if(isSentV3135(v)){
         v.shared = false;
         v.lastCardSentAt = 0;
         if(typeof toast === "function") toast("Compartido quitado");
@@ -7269,16 +7269,16 @@ setInterval(updateVersePositionCounter, 1000);
       if(typeof saveState === "function") saveState();
       if(typeof renderList === "function") renderList();
       if(typeof renderReader === "function") renderReader();
-      setTimeout(window.ensureSharedToggleButtonV2135, 30);
-      setTimeout(window.ensureSharedToggleButtonV2135, 120);
-    }catch(e){ console.error("toggleCurrentVerseSharedV2135", e); }
+      setTimeout(window.ensureSharedToggleButtonV3135, 30);
+      setTimeout(window.ensureSharedToggleButtonV3135, 120);
+    }catch(e){ console.error("toggleCurrentVerseSharedV3135", e); }
   };
 
-  window.ensureSharedToggleButtonV2135 = function(){
+  window.ensureSharedToggleButtonV3135 = function(){
     try{
-      var v = currentVerseV2135();
+      var v = currentVerseV3135();
       var head = document.querySelector("#readerView .panel-head");
-      var existing = document.getElementById("readerSharedToggleBtnV2135");
+      var existing = document.getElementById("readerSharedToggleBtnV3135");
       if(!head) return;
       if(!v){
         if(existing && existing.parentNode) existing.parentNode.removeChild(existing);
@@ -7286,10 +7286,10 @@ setInterval(updateVersePositionCounter, 1000);
       }
       if(!existing){
         var btn = document.createElement("button");
-        btn.id = "readerSharedToggleBtnV2135";
+        btn.id = "readerSharedToggleBtnV3135";
         btn.className = "btn soft";
         btn.type = "button";
-        btn.setAttribute("onclick", "toggleCurrentVerseSharedV2135()");
+        btn.setAttribute("onclick", "toggleCurrentVerseSharedV3135()");
 
         var buttons = Array.prototype.slice.call(head.querySelectorAll("button"));
         var blockBtn = buttons.find(function(b){ return (b.textContent || "").indexOf("Bloque") !== -1; });
@@ -7301,21 +7301,21 @@ setInterval(updateVersePositionCounter, 1000);
           head.appendChild(btn);
         }
       }
-      refreshSharedToggleButtonV2135();
-    }catch(e){ console.error("ensureSharedToggleButtonV2135", e); }
+      refreshSharedToggleButtonV3135();
+    }catch(e){ console.error("ensureSharedToggleButtonV3135", e); }
   };
 
-  function afterV2135(){
-    setTimeout(window.ensureSharedToggleButtonV2135, 20);
-    setTimeout(window.ensureSharedToggleButtonV2135, 120);
-    setTimeout(window.ensureSharedToggleButtonV2135, 300);
+  function afterV3135(){
+    setTimeout(window.ensureSharedToggleButtonV3135, 20);
+    setTimeout(window.ensureSharedToggleButtonV3135, 120);
+    setTimeout(window.ensureSharedToggleButtonV3135, 300);
   }
 
   var oldRenderReader = window.renderReader || (typeof renderReader !== "undefined" ? renderReader : null);
   if(typeof oldRenderReader === "function"){
     window.renderReader = function(){
       var r = oldRenderReader.apply(this, arguments);
-      afterV2135();
+      afterV3135();
       return r;
     };
     try{ renderReader = window.renderReader; }catch(e){}
@@ -7327,7 +7327,7 @@ setInterval(updateVersePositionCounter, 1000);
       if(typeof old !== "function" || old.__v3135Wrapped) return;
       var wrapped = function(){
         var r = old.apply(this, arguments);
-        afterV2135();
+        afterV3135();
         return r;
       };
       wrapped.__v3135Wrapped = true;
@@ -7336,8 +7336,8 @@ setInterval(updateVersePositionCounter, 1000);
     }catch(e){}
   });
 
-  document.addEventListener("DOMContentLoaded", afterV2135);
-  setTimeout(afterV2135, 250);
+  document.addEventListener("DOMContentLoaded", afterV3135);
+  setTimeout(afterV3135, 250);
 })();
 
 /* v3.1.37 - Botón Buscar todos los versículos con buscador global */
@@ -7345,11 +7345,11 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v3137AllVerseTitles) return;
   window.__v3137AllVerseTitles = true;
 
-  function isVerseSentV2137(v){
+  function isVerseSentV3137(v){
     return !!(v && (v.shared || v.lastCardSentAt));
   }
 
-  function ensureAllVerseTitlesButtonsV2137(){
+  function ensureAllVerseTitlesButtonsV3137(){
     try{
       var targets = [];
       var readerHead = document.querySelector('#readerView .panel-head');
@@ -7357,7 +7357,7 @@ setInterval(updateVersePositionCounter, 1000);
         var readerTitles = Array.prototype.slice.call(readerHead.querySelectorAll('button')).find(function(b){
           return (b.textContent || '').indexOf('Títulos') !== -1;
         });
-        if(readerTitles) targets.push({anchor: readerTitles, id: 'btnReaderAllVerseTitlesV2137'});
+        if(readerTitles) targets.push({anchor: readerTitles, id: 'btnReaderAllVerseTitlesV3137'});
       }
 
       targets.forEach(function(t){
@@ -7369,16 +7369,16 @@ setInterval(updateVersePositionCounter, 1000);
           btn.className = 'btn soft all-verse-titles-btn-v3137';
           btn.type = 'button';
           btn.setAttribute('data-view-btn', 'allVerseTitles');
-          btn.setAttribute('onclick', 'openAllVerseTitlesViewV2137()');
+          btn.setAttribute('onclick', 'openAllVerseTitlesViewV3137()');
           btn.textContent = '🔎 Buscar todos';
           t.anchor.parentNode.insertBefore(btn, t.anchor.nextSibling);
         }
       });
-      updateAllVerseTitlesButtonsV2137();
-    }catch(e){ console.error('ensureAllVerseTitlesButtonsV2137', e); }
+      updateAllVerseTitlesButtonsV3137();
+    }catch(e){ console.error('ensureAllVerseTitlesButtonsV3137', e); }
   }
 
-  function updateAllVerseTitlesButtonsV2137(){
+  function updateAllVerseTitlesButtonsV3137(){
     try{
       var show = (typeof section !== 'undefined' && section === 'verses');
       document.querySelectorAll('.all-verse-titles-btn-v3137').forEach(function(btn){
@@ -7388,7 +7388,7 @@ setInterval(updateVersePositionCounter, 1000);
     }catch(e){}
   }
 
-  window.renderAllVerseTitlesV2137 = function(){
+  window.renderAllVerseTitlesV3137 = function(){
     try{
       var box = document.getElementById('titlesList');
       if(!box) return;
@@ -7419,13 +7419,13 @@ setInterval(updateVersePositionCounter, 1000);
       var current = (typeof currentItem === 'function') ? currentItem() : null;
       verses.forEach(function(v){
         var div = document.createElement('div');
-        div.className = 'title-row' + (current && v.id === current.id ? ' active' : '') + (isVerseSentV2137(v) ? ' verse-sent-bg-v3134' : '');
+        div.className = 'title-row' + (current && v.id === current.id ? ' active' : '') + (isVerseSentV3137(v) ? ' verse-sent-bg-v3134' : '');
         var ref = escapeHtml(v.reference || v.title || 'Sin referencia');
         var cat = '';
         try{ cat = (typeof verseCategoryLabel === 'function') ? verseCategoryLabel(v.category) : (v.category || ''); }catch(e){}
         var preview = escapeHtml(String(v.text || v.content || '').trim().replace(/\n+/g, ' ').slice(0, 90));
         div.innerHTML = '<div class="title-code">' + escapeHtml(v.__code) + '</div>' +
-          '<div class="title-name">' + (isVerseSentV2137(v) ? '✓ ' : '') + ref + '</div>' +
+          '<div class="title-name">' + (isVerseSentV3137(v) ? '✓ ' : '') + ref + '</div>' +
           '<div class="small-note">' + escapeHtml(cat || '') + (preview ? ' · ' + preview : '') + '</div>';
         div.onclick = function(){
           try{
@@ -7446,11 +7446,11 @@ setInterval(updateVersePositionCounter, 1000);
         box.appendChild(div);
       });
     }catch(e){
-      console.error('renderAllVerseTitlesV2137', e);
+      console.error('renderAllVerseTitlesV3137', e);
     }
   };
 
-  window.openAllVerseTitlesViewV2137 = function(){
+  window.openAllVerseTitlesViewV3137 = function(){
     try{
       section = 'verses';
       state.section = 'verses';
@@ -7477,34 +7477,34 @@ setInterval(updateVersePositionCounter, 1000);
         search.placeholder = 'Buscar en todos los versículos';
       }
       var backBtn = document.querySelector('#titlesView .panel-head button:first-child');
-      if(backBtn) backBtn.setAttribute('onclick', 'backFromVerseTitlesV213()');
-      window.renderAllVerseTitlesV2137();
+      if(backBtn) backBtn.setAttribute('onclick', 'backFromVerseTitlesV313()');
+      window.renderAllVerseTitlesV3137();
       setTimeout(function(){ try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){} }, 30);
     }catch(e){
-      console.error('openAllVerseTitlesViewV2137', e);
+      console.error('openAllVerseTitlesViewV3137', e);
       alert('No se pudo abrir Buscar todos.');
     }
   };
 
-  var oldRenderTitlesV2137 = window.renderTitles || (typeof renderTitles !== 'undefined' ? renderTitles : null);
-  if(typeof oldRenderTitlesV2137 === 'function'){
+  var oldRenderTitlesV3137 = window.renderTitles || (typeof renderTitles !== 'undefined' ? renderTitles : null);
+  if(typeof oldRenderTitlesV3137 === 'function'){
     window.renderTitles = function(){
       try{
         if(typeof section !== 'undefined' && section === 'verses' && typeof verseNavigationMode !== 'undefined' && verseNavigationMode === 'allVerseTitles'){
-          return window.renderAllVerseTitlesV2137();
+          return window.renderAllVerseTitlesV3137();
         }
       }catch(e){}
-      return oldRenderTitlesV2137.apply(this, arguments);
+      return oldRenderTitlesV3137.apply(this, arguments);
     };
     try{ renderTitles = window.renderTitles; }catch(e){}
   }
 
-  var oldSyncTabsV2137 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
-  if(typeof oldSyncTabsV2137 === 'function'){
+  var oldSyncTabsV3137 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof oldSyncTabsV3137 === 'function'){
     window.syncTabs = function(){
-      var r = oldSyncTabsV2137.apply(this, arguments);
-      ensureAllVerseTitlesButtonsV2137();
-      updateAllVerseTitlesButtonsV2137();
+      var r = oldSyncTabsV3137.apply(this, arguments);
+      ensureAllVerseTitlesButtonsV3137();
+      updateAllVerseTitlesButtonsV3137();
       return r;
     };
     try{ syncTabs = window.syncTabs; }catch(e){}
@@ -7513,14 +7513,14 @@ setInterval(updateVersePositionCounter, 1000);
   document.addEventListener('input', function(e){
     try{
       if(e.target && e.target.id === 'titlesSearch' && typeof section !== 'undefined' && section === 'verses' && typeof verseNavigationMode !== 'undefined' && verseNavigationMode === 'allVerseTitles'){
-        window.renderAllVerseTitlesV2137();
+        window.renderAllVerseTitlesV3137();
       }
     }catch(_e){}
   }, true);
 
-  document.addEventListener('DOMContentLoaded', ensureAllVerseTitlesButtonsV2137);
-  setTimeout(ensureAllVerseTitlesButtonsV2137, 100);
-  setTimeout(ensureAllVerseTitlesButtonsV2137, 500);
+  document.addEventListener('DOMContentLoaded', ensureAllVerseTitlesButtonsV3137);
+  setTimeout(ensureAllVerseTitlesButtonsV3137, 100);
+  setTimeout(ensureAllVerseTitlesButtonsV3137, 500);
 })();
 
 /* v3.1.38 - Títulos y Buscar todos en pantalla principal de Versículos */
@@ -7528,7 +7528,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v3138VerseCategoriesTitleButtons) return;
   window.__v3138VerseCategoriesTitleButtons = true;
 
-  function ensureVerseCategorySearchButtonsV2138(){
+  function ensureVerseCategorySearchButtonsV3138(){
     try{
       var head = document.querySelector('#verseCategoriesView .categories-head-v73') || document.querySelector('#verseCategoriesView .panel-head');
       if(!head) return;
@@ -7537,10 +7537,10 @@ setInterval(updateVersePositionCounter, 1000);
         return (b.textContent || '').indexOf('Eliminar') !== -1;
       });
 
-      var titlesBtn = document.getElementById('btnVerseCatsTitlesV2138');
+      var titlesBtn = document.getElementById('btnVerseCatsTitlesV3138');
       if(!titlesBtn){
         titlesBtn = document.createElement('button');
-        titlesBtn.id = 'btnVerseCatsTitlesV2138';
+        titlesBtn.id = 'btnVerseCatsTitlesV3138';
         titlesBtn.className = 'btn soft';
         titlesBtn.type = 'button';
         titlesBtn.textContent = '📑 Títulos';
@@ -7548,61 +7548,61 @@ setInterval(updateVersePositionCounter, 1000);
         head.insertBefore(titlesBtn, deleteBtn || null);
       }
 
-      var allBtn = document.getElementById('btnVerseCatsAllTitlesV2138');
+      var allBtn = document.getElementById('btnVerseCatsAllTitlesV3138');
       if(!allBtn){
         allBtn = document.createElement('button');
-        allBtn.id = 'btnVerseCatsAllTitlesV2138';
+        allBtn.id = 'btnVerseCatsAllTitlesV3138';
         allBtn.className = 'btn soft all-verse-titles-btn-v3137';
         allBtn.type = 'button';
         allBtn.textContent = '🔎 Buscar todos';
         allBtn.setAttribute('data-view-btn', 'allVerseTitles');
-        allBtn.setAttribute('onclick', 'openAllVerseTitlesViewV2137()');
+        allBtn.setAttribute('onclick', 'openAllVerseTitlesViewV3137()');
         head.insertBefore(allBtn, deleteBtn || null);
       }
-    }catch(e){ console.error('ensureVerseCategorySearchButtonsV2138', e); }
+    }catch(e){ console.error('ensureVerseCategorySearchButtonsV3138', e); }
   }
 
-  function removeReaderBuscarTodosV2138(){
+  function removeReaderBuscarTodosV3138(){
     try{
-      var btn = document.getElementById('btnReaderAllVerseTitlesV2137');
+      var btn = document.getElementById('btnReaderAllVerseTitlesV3137');
       if(btn && btn.parentNode) btn.parentNode.removeChild(btn);
     }catch(e){}
   }
 
-  function afterV2138(){
-    ensureVerseCategorySearchButtonsV2138();
-    removeReaderBuscarTodosV2138();
+  function afterV3138(){
+    ensureVerseCategorySearchButtonsV3138();
+    removeReaderBuscarTodosV3138();
   }
 
-  var oldOpenVerseCategoriesV2138 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
-  if(typeof oldOpenVerseCategoriesV2138 === 'function' && !oldOpenVerseCategoriesV2138.__v3138Wrapped){
-    var wrappedOpenVerseCategoriesV2138 = function(){
-      var r = oldOpenVerseCategoriesV2138.apply(this, arguments);
-      setTimeout(afterV2138, 20);
-      setTimeout(afterV2138, 120);
+  var oldOpenVerseCategoriesV3138 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
+  if(typeof oldOpenVerseCategoriesV3138 === 'function' && !oldOpenVerseCategoriesV3138.__v3138Wrapped){
+    var wrappedOpenVerseCategoriesV3138 = function(){
+      var r = oldOpenVerseCategoriesV3138.apply(this, arguments);
+      setTimeout(afterV3138, 20);
+      setTimeout(afterV3138, 120);
       return r;
     };
-    wrappedOpenVerseCategoriesV2138.__v3138Wrapped = true;
-    window.openVerseCategories = wrappedOpenVerseCategoriesV2138;
+    wrappedOpenVerseCategoriesV3138.__v3138Wrapped = true;
+    window.openVerseCategories = wrappedOpenVerseCategoriesV3138;
     try{ openVerseCategories = window.openVerseCategories; }catch(e){}
   }
 
-  var oldSyncTabsV2138 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
-  if(typeof oldSyncTabsV2138 === 'function' && !oldSyncTabsV2138.__v3138Wrapped){
-    var wrappedSyncTabsV2138 = function(){
-      var r = oldSyncTabsV2138.apply(this, arguments);
-      setTimeout(afterV2138, 20);
+  var oldSyncTabsV3138 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof oldSyncTabsV3138 === 'function' && !oldSyncTabsV3138.__v3138Wrapped){
+    var wrappedSyncTabsV3138 = function(){
+      var r = oldSyncTabsV3138.apply(this, arguments);
+      setTimeout(afterV3138, 20);
       return r;
     };
-    wrappedSyncTabsV2138.__v3138Wrapped = true;
-    window.syncTabs = wrappedSyncTabsV2138;
+    wrappedSyncTabsV3138.__v3138Wrapped = true;
+    window.syncTabs = wrappedSyncTabsV3138;
     try{ syncTabs = window.syncTabs; }catch(e){}
   }
 
-  document.addEventListener('DOMContentLoaded', afterV2138);
-  setTimeout(afterV2138, 100);
-  setTimeout(afterV2138, 500);
-  setInterval(removeReaderBuscarTodosV2138, 1000);
+  document.addEventListener('DOMContentLoaded', afterV3138);
+  setTimeout(afterV3138, 100);
+  setTimeout(afterV3138, 500);
+  setInterval(removeReaderBuscarTodosV3138, 1000);
 })();
 
 /* ===== v3.1.43 - Inicio completo al volver desde lectores/favoritos ===== */
@@ -7610,7 +7610,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v3143HomeChromeRestore) return;
   window.__v3143HomeChromeRestore = true;
 
-  function restoreHomeChromeV2143(){
+  function restoreHomeChromeV3143(){
     try{
       document.body.classList.remove(
         "favorites-fullscreen-v791",
@@ -7661,12 +7661,12 @@ setInterval(updateVersePositionCounter, 1000);
     }catch(e){}
   }
 
-  var oldShowHomeV2143 = window.showHomeV9019 || (typeof showHomeV9019 !== "undefined" ? showHomeV9019 : null);
-  if(typeof oldShowHomeV2143 === "function"){
+  var oldShowHomeV3143 = window.showHomeV9019 || (typeof showHomeV9019 !== "undefined" ? showHomeV9019 : null);
+  if(typeof oldShowHomeV3143 === "function"){
     window.showHomeV9019 = function(){
-      restoreHomeChromeV2143();
-      var r = oldShowHomeV2143.apply(this, arguments);
-      setTimeout(restoreHomeChromeV2143, 0);
+      restoreHomeChromeV3143();
+      var r = oldShowHomeV3143.apply(this, arguments);
+      setTimeout(restoreHomeChromeV3143, 0);
       return r;
     };
     try{ showHomeV9019 = window.showHomeV9019; }catch(e){}
@@ -7679,7 +7679,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v3153NewVerseFromCategories) return;
   window.__v3153NewVerseFromCategories = true;
 
-  function chooseVerseCategoryForNewV2154(){
+  function chooseVerseCategoryForNewV3154(){
     try{
       if(typeof ensureVerseCategories === 'function') ensureVerseCategories();
       var cats = (state && state.verseCategories && state.verseCategories.length)
@@ -7703,15 +7703,15 @@ setInterval(updateVersePositionCounter, 1000);
       }
       return cats[n - 1];
     }catch(e){
-      console.error('chooseVerseCategoryForNewV2154', e);
+      console.error('chooseVerseCategoryForNewV3154', e);
       return null;
     }
   }
 
-  function newVerseFromCategoriesV2154(){
+  function newVerseFromCategoriesV3154(){
     try{
       if(typeof section !== 'undefined') section = 'verses';
-      var cat = chooseVerseCategoryForNewV2154();
+      var cat = chooseVerseCategoryForNewV3154();
       if(!cat) return;
       if(typeof setActiveView === 'function') setActiveView('new');
       var id = (typeof uid === 'function') ? uid() : String(Date.now());
@@ -7744,18 +7744,18 @@ setInterval(updateVersePositionCounter, 1000);
     }
   }
 
-  function ensureNewVerseButtonInCategoriesV2153(){
+  function ensureNewVerseButtonInCategoriesV3153(){
     try{
       var head = document.querySelector('#verseCategoriesView .categories-head-v73') || document.querySelector('#verseCategoriesView .panel-head');
       if(!head) return;
-      if(document.getElementById('btnVerseCatsNewV2153')) return;
+      if(document.getElementById('btnVerseCatsNewV3153')) return;
 
       var btn = document.createElement('button');
-      btn.id = 'btnVerseCatsNewV2153';
+      btn.id = 'btnVerseCatsNewV3153';
       btn.className = 'btn primary';
       btn.type = 'button';
       btn.textContent = '➕ Nueva';
-      btn.onclick = newVerseFromCategoriesV2154;
+      btn.onclick = newVerseFromCategoriesV3154;
 
       var volver = Array.prototype.slice.call(head.querySelectorAll('button')).find(function(b){
         return (b.textContent || '').indexOf('Volver') !== -1;
@@ -7763,41 +7763,41 @@ setInterval(updateVersePositionCounter, 1000);
       if(volver && volver.nextSibling) head.insertBefore(btn, volver.nextSibling);
       else if(volver) head.appendChild(btn);
       else head.insertBefore(btn, head.firstChild || null);
-    }catch(e){ console.error('ensureNewVerseButtonInCategoriesV2153', e); }
+    }catch(e){ console.error('ensureNewVerseButtonInCategoriesV3153', e); }
   }
 
-  function afterV2153(){
-    ensureNewVerseButtonInCategoriesV2153();
+  function afterV3153(){
+    ensureNewVerseButtonInCategoriesV3153();
   }
 
-  var oldOpenVerseCategoriesV2153 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
-  if(typeof oldOpenVerseCategoriesV2153 === 'function' && !oldOpenVerseCategoriesV2153.__v3153Wrapped){
-    var wrappedOpenVerseCategoriesV2153 = function(){
-      var r = oldOpenVerseCategoriesV2153.apply(this, arguments);
-      setTimeout(afterV2153, 20);
-      setTimeout(afterV2153, 150);
+  var oldOpenVerseCategoriesV3153 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
+  if(typeof oldOpenVerseCategoriesV3153 === 'function' && !oldOpenVerseCategoriesV3153.__v3153Wrapped){
+    var wrappedOpenVerseCategoriesV3153 = function(){
+      var r = oldOpenVerseCategoriesV3153.apply(this, arguments);
+      setTimeout(afterV3153, 20);
+      setTimeout(afterV3153, 150);
       return r;
     };
-    wrappedOpenVerseCategoriesV2153.__v3153Wrapped = true;
-    window.openVerseCategories = wrappedOpenVerseCategoriesV2153;
+    wrappedOpenVerseCategoriesV3153.__v3153Wrapped = true;
+    window.openVerseCategories = wrappedOpenVerseCategoriesV3153;
     try{ openVerseCategories = window.openVerseCategories; }catch(e){}
   }
 
-  var oldSyncTabsV2153 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
-  if(typeof oldSyncTabsV2153 === 'function' && !oldSyncTabsV2153.__v3153Wrapped){
-    var wrappedSyncTabsV2153 = function(){
-      var r = oldSyncTabsV2153.apply(this, arguments);
-      setTimeout(afterV2153, 20);
+  var oldSyncTabsV3153 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof oldSyncTabsV3153 === 'function' && !oldSyncTabsV3153.__v3153Wrapped){
+    var wrappedSyncTabsV3153 = function(){
+      var r = oldSyncTabsV3153.apply(this, arguments);
+      setTimeout(afterV3153, 20);
       return r;
     };
-    wrappedSyncTabsV2153.__v3153Wrapped = true;
-    window.syncTabs = wrappedSyncTabsV2153;
+    wrappedSyncTabsV3153.__v3153Wrapped = true;
+    window.syncTabs = wrappedSyncTabsV3153;
     try{ syncTabs = window.syncTabs; }catch(e){}
   }
 
-  document.addEventListener('DOMContentLoaded', afterV2153);
-  setTimeout(afterV2153, 100);
-  setTimeout(afterV2153, 600);
+  document.addEventListener('DOMContentLoaded', afterV3153);
+  setTimeout(afterV3153, 100);
+  setTimeout(afterV3153, 600);
 })();
 
 /* v3.1.56 - Selector propio de categoría para Nueva en pantalla principal de Versículos */
@@ -7805,7 +7805,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v3156NewVerseCategoryModal) return;
   window.__v3156NewVerseCategoryModal = true;
 
-  function catsV2156(){
+  function catsV3156(){
     try{ if(typeof ensureVerseCategories === 'function') ensureVerseCategories(); }catch(e){}
 
     var out = [];
@@ -7838,7 +7838,7 @@ setInterval(updateVersePositionCounter, 1000);
     return out;
   }
 
-  function createVerseInCategoryV2156(cat){
+  function createVerseInCategoryV3156(cat){
     try{
       if(!cat) return;
       if(typeof section !== 'undefined') section = 'verses';
@@ -7868,24 +7868,24 @@ setInterval(updateVersePositionCounter, 1000);
       if(typeof renderReader === 'function') renderReader();
       if(typeof openEditor === 'function') openEditor();
     }catch(e){
-      console.error('createVerseInCategoryV2156', e);
+      console.error('createVerseInCategoryV3156', e);
       alert('No se pudo crear el versículo.');
     }
   }
 
-  function closeModalV2156(){
-    var old = document.getElementById('verseCategoryModalV2156');
+  function closeModalV3156(){
+    var old = document.getElementById('verseCategoryModalV3156');
     if(old) old.remove();
   }
 
-  function showCategoryModalV2156(){
+  function showCategoryModalV3156(){
     try{
-      closeModalV2156();
-      var cats = catsV2156();
+      closeModalV3156();
+      var cats = catsV3156();
       if(!cats || !cats.length){ alert('No hay categorías disponibles.'); return; }
 
       var overlay = document.createElement('div');
-      overlay.id = 'verseCategoryModalV2156';
+      overlay.id = 'verseCategoryModalV3156';
       overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.42);display:flex;align-items:center;justify-content:center;padding:18px;box-sizing:border-box;';
 
       var card = document.createElement('div');
@@ -7908,7 +7908,7 @@ setInterval(updateVersePositionCounter, 1000);
         btn.type = 'button';
         btn.textContent = cat.label || cat.id || 'Sin categoría';
         btn.style.cssText = 'width:100%;text-align:left;border:1px solid #e2d8c8;background:#faf8f2;border-radius:18px;padding:14px 16px;font-size:18px;font-weight:700;color:#1d2733;box-shadow:0 3px 10px rgba(0,0,0,.04);';
-        btn.onclick = function(){ closeModalV2156(); createVerseInCategoryV2156(cat); };
+        btn.onclick = function(){ closeModalV3156(); createVerseInCategoryV3156(cat); };
         list.appendChild(btn);
       });
       card.appendChild(list);
@@ -7926,45 +7926,45 @@ setInterval(updateVersePositionCounter, 1000);
       cancel.type = 'button';
       cancel.textContent = 'Cancelar';
       cancel.style.cssText = 'border:0;background:#eee7dc;border-radius:16px;padding:12px 18px;font-size:17px;font-weight:700;color:#2b2b2b;';
-      cancel.onclick = closeModalV2156;
+      cancel.onclick = closeModalV3156;
       footer.appendChild(cancel);
       card.appendChild(footer);
 
       overlay.appendChild(card);
-      overlay.addEventListener('click', function(ev){ if(ev.target === overlay) closeModalV2156(); });
+      overlay.addEventListener('click', function(ev){ if(ev.target === overlay) closeModalV3156(); });
       document.body.appendChild(overlay);
     }catch(e){
-      console.error('showCategoryModalV2156', e);
+      console.error('showCategoryModalV3156', e);
       alert('No se pudo abrir el selector de categorías.');
     }
   }
 
-  function bindNewButtonV2156(){
+  function bindNewButtonV3156(){
     try{
-      var btn = document.getElementById('btnVerseCatsNewV2153');
+      var btn = document.getElementById('btnVerseCatsNewV3153');
       if(btn){
-        btn.onclick = showCategoryModalV2156;
+        btn.onclick = showCategoryModalV3156;
         btn.dataset.v3156Bound = '1';
       }
     }catch(e){}
   }
 
-  var oldOpenVerseCategoriesV2156 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
-  if(typeof oldOpenVerseCategoriesV2156 === 'function' && !oldOpenVerseCategoriesV2156.__v3156Wrapped){
-    var wrappedOpenVerseCategoriesV2156 = function(){
-      var r = oldOpenVerseCategoriesV2156.apply(this, arguments);
-      setTimeout(bindNewButtonV2156, 30);
-      setTimeout(bindNewButtonV2156, 180);
+  var oldOpenVerseCategoriesV3156 = window.openVerseCategories || (typeof openVerseCategories !== 'undefined' ? openVerseCategories : null);
+  if(typeof oldOpenVerseCategoriesV3156 === 'function' && !oldOpenVerseCategoriesV3156.__v3156Wrapped){
+    var wrappedOpenVerseCategoriesV3156 = function(){
+      var r = oldOpenVerseCategoriesV3156.apply(this, arguments);
+      setTimeout(bindNewButtonV3156, 30);
+      setTimeout(bindNewButtonV3156, 180);
       return r;
     };
-    wrappedOpenVerseCategoriesV2156.__v3156Wrapped = true;
-    window.openVerseCategories = wrappedOpenVerseCategoriesV2156;
+    wrappedOpenVerseCategoriesV3156.__v3156Wrapped = true;
+    window.openVerseCategories = wrappedOpenVerseCategoriesV3156;
     try{ openVerseCategories = window.openVerseCategories; }catch(e){}
   }
 
-  document.addEventListener('DOMContentLoaded', function(){ setTimeout(bindNewButtonV2156, 200); });
-  setTimeout(bindNewButtonV2156, 300);
-  setTimeout(bindNewButtonV2156, 900);
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(bindNewButtonV3156, 200); });
+  setTimeout(bindNewButtonV3156, 300);
+  setTimeout(bindNewButtonV3156, 900);
 })();
 
 /* v3.1.59 - Eliminar vuelve a la botonera del lector de la sección */
@@ -7972,7 +7972,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v3159DeleteBackToReaderToolbar) return;
   window.__v3159DeleteBackToReaderToolbar = true;
 
-  function backToReaderToolbarV2159(){
+  function backToReaderToolbarV3159(){
     try{
       var home = document.getElementById('homeView');
       if(home) home.classList.add('hidden');
@@ -8005,7 +8005,7 @@ setInterval(updateVersePositionCounter, 1000);
         try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
       }, 30);
     }catch(e){
-      console.error('backToReaderToolbarV2159', e);
+      console.error('backToReaderToolbarV3159', e);
       try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
     }
   }
@@ -8047,7 +8047,7 @@ setInterval(updateVersePositionCounter, 1000);
     if(typeof renderList === 'function') renderList();
     if(typeof renderReader === 'function') renderReader();
     if(typeof applyReaderFont === 'function') applyReaderFont();
-    backToReaderToolbarV2159();
+    backToReaderToolbarV3159();
     if(typeof toast === 'function') toast('Movido a papelera');
   };
 
@@ -8059,7 +8059,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v3160DeleteVerseBackClean) return;
   window.__v3160DeleteVerseBackClean = true;
 
-  function openCleanVerseCategoriesV2160(){
+  function openCleanVerseCategoriesV3160(){
     try{
       section = 'verses';
       if(state) state.section = 'verses';
@@ -8102,12 +8102,12 @@ setInterval(updateVersePositionCounter, 1000);
         try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
       }, 30);
     }catch(e){
-      console.error('openCleanVerseCategoriesV2160', e);
+      console.error('openCleanVerseCategoriesV3160', e);
       try{ if(typeof openVerseCategories === 'function') openVerseCategories(); }catch(_e){}
     }
   }
 
-  function backToReaderToolbarV2160(){
+  function backToReaderToolbarV3160(){
     try{
       var home = document.getElementById('homeView');
       if(home) home.classList.add('hidden');
@@ -8140,7 +8140,7 @@ setInterval(updateVersePositionCounter, 1000);
         try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ window.scrollTo(0,0); }
       }, 30);
     }catch(e){
-      console.error('backToReaderToolbarV2160', e);
+      console.error('backToReaderToolbarV3160', e);
       try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
     }
   }
@@ -8182,12 +8182,12 @@ setInterval(updateVersePositionCounter, 1000);
     if(typeof syncTabs === 'function') syncTabs();
 
     if(currentSection === 'verses'){
-      openCleanVerseCategoriesV2160();
+      openCleanVerseCategoriesV3160();
     }else{
       if(typeof renderList === 'function') renderList();
       if(typeof renderReader === 'function') renderReader();
       if(typeof applyReaderFont === 'function') applyReaderFont();
-      backToReaderToolbarV2160();
+      backToReaderToolbarV3160();
     }
 
     if(typeof toast === 'function') toast('Movido a papelera');
@@ -8205,7 +8205,7 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v3162VerseShareStats) return;
   window.__v3162VerseShareStats = true;
 
-  function currentVerseV2162(){
+  function currentVerseV3162(){
     try{
       if(typeof section !== "undefined" && section !== "verses") return null;
       if(typeof currentItem === "function"){
@@ -8218,28 +8218,28 @@ setInterval(updateVersePositionCounter, 1000);
     }catch(e){ return null; }
   }
 
-  function normalizedStatsV2162(v){
-    var raw = v && v.shareStatsV2162;
+  function normalizedStatsV3162(v){
+    var raw = v && v.shareStatsV3162;
     var count = raw && Number.isFinite(Number(raw.count)) ? Math.max(0, Number(raw.count)) : 0;
     var dates = raw && Array.isArray(raw.lastDates) ? raw.lastDates.map(Number).filter(function(x){ return Number.isFinite(x) && x > 0; }).slice(0,3) : [];
     return {count:count, lastDates:dates};
   }
 
-  window.recordVerseShareV2162 = function(v){
+  window.recordVerseShareV3162 = function(v){
     try{
       if(!v) return;
-      var stats = normalizedStatsV2162(v);
+      var stats = normalizedStatsV3162(v);
       var now = Date.now();
-      v.shareStatsV2162 = {
+      v.shareStatsV3162 = {
         count: stats.count + 1,
         lastDates: [now].concat(stats.lastDates).slice(0,3)
       };
       if(typeof saveState === "function") saveState();
-      setTimeout(window.renderVerseShareStatsV2162, 0);
-    }catch(e){ console.error("recordVerseShareV2162", e); }
+      setTimeout(window.renderVerseShareStatsV3162, 0);
+    }catch(e){ console.error("recordVerseShareV3162", e); }
   };
 
-  function formatShareDateV2162(ts){
+  function formatShareDateV3162(ts){
     try{
       return new Intl.DateTimeFormat("es-ES", {
         day:"2-digit", month:"2-digit", year:"numeric",
@@ -8251,26 +8251,26 @@ setInterval(updateVersePositionCounter, 1000);
     }
   }
 
-  window.renderVerseShareStatsV2162 = function(){
+  window.renderVerseShareStatsV3162 = function(){
     try{
       var reader = document.getElementById("readerView");
       if(!reader) return;
-      var old = document.getElementById("verseShareStatsV2162");
-      var v = currentVerseV2162();
-      var stats = normalizedStatsV2162(v);
+      var old = document.getElementById("verseShareStatsV3162");
+      var v = currentVerseV3162();
+      var stats = normalizedStatsV3162(v);
       if(!v || stats.count < 1){
         if(old && old.parentNode) old.parentNode.removeChild(old);
         return;
       }
       var box = old || document.createElement("div");
-      box.id = "verseShareStatsV2162";
+      box.id = "verseShareStatsV3162";
       box.className = "verse-share-stats-v3162";
       var times = stats.count === 1 ? "1 vez" : stats.count + " veces";
       var html = '<div class="verse-share-count-v3162">📤 Compartido <strong>' + times + '</strong></div>';
       if(stats.lastDates.length){
         html += '<div class="verse-share-last-title-v3162">Últimos envíos</div>';
         html += '<div class="verse-share-dates-v3162">' + stats.lastDates.map(function(ts){
-          return '<span>🗓️ ' + formatShareDateV2162(ts) + '</span>';
+          return '<span>🗓️ ' + formatShareDateV3162(ts) + '</span>';
         }).join('') + '</div>';
       }
       box.innerHTML = html;
@@ -8278,37 +8278,37 @@ setInterval(updateVersePositionCounter, 1000);
         var anchor = document.getElementById("readerCategory") || document.getElementById("readerCode");
         if(anchor && anchor.parentNode) anchor.parentNode.insertBefore(box, anchor.nextSibling);
       }
-    }catch(e){ console.error("renderVerseShareStatsV2162", e); }
+    }catch(e){ console.error("renderVerseShareStatsV3162", e); }
   };
 
   try{
-    var originalRenderReaderV2162 = renderReader;
+    var originalRenderReaderV3162 = renderReader;
     window.renderReader = function(){
-      var result = originalRenderReaderV2162.apply(this, arguments);
-      setTimeout(window.renderVerseShareStatsV2162, 0);
+      var result = originalRenderReaderV3162.apply(this, arguments);
+      setTimeout(window.renderVerseShareStatsV3162, 0);
       return result;
     };
     try{ renderReader = window.renderReader; }catch(e){}
   }catch(e){}
 
   document.addEventListener("DOMContentLoaded", function(){
-    setTimeout(window.renderVerseShareStatsV2162, 120);
+    setTimeout(window.renderVerseShareStatsV3162, 120);
   });
 })();
 
 
 /* ===== v3.1.66 - Compartir bonito como HTML (oraciones, notas, guías y parábolas) ===== */
 (function(){
-  if(window.__shareBeautifulV2166Installed) return;
-  window.__shareBeautifulV2166Installed = true;
+  if(window.__shareBeautifulV3166Installed) return;
+  window.__shareBeautifulV3166Installed = true;
 
-  function escV2166(value){
+  function escV3166(value){
     return String(value == null ? "" : value)
       .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
       .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
   }
 
-  function fileNameV2166(title){
+  function fileNameV3166(title){
     var base = String(title || "lectura")
       .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
       .replace(/[^a-zA-Z0-9\s_-]/g,"")
@@ -8317,7 +8317,7 @@ setInterval(updateVersePositionCounter, 1000);
     return (base || "lectura") + ".html";
   }
 
-  function sectionMetaV2166(){
+  function sectionMetaV3166(){
     if(section === "prayers") return {label:"Oración", icon:"🙏", accent:"#8a6a3f"};
     if(section === "notes") return {label:"Nota", icon:"📝", accent:"#55735d"};
     if(section === "guides") return {label:"Guía", icon:"📜", accent:"#596f8f"};
@@ -8325,13 +8325,13 @@ setInterval(updateVersePositionCounter, 1000);
     return null;
   }
 
-  function inlineFormatV2166(text){
-    var safe=escV2166(text);
+  function inlineFormatV3166(text){
+    var safe=escV3166(text);
     safe=safe.replace(/\*\*([^*\n]+)\*\*/g,"<strong>$1</strong>");
     return safe;
   }
 
-  function textToHtmlV2166(text){
+  function textToHtmlV3166(text){
     var normalized=String(text||"").replace(/\r\n?/g,"\n").trim();
     if(!normalized) return '<p class="empty">Sin contenido.</p>';
     var chunks=normalized.split(/\n{2,}/);
@@ -8340,54 +8340,54 @@ setInterval(updateVersePositionCounter, 1000);
       if(!line) return "";
       var lines=line.split("\n");
       if(lines.length===1 && /^#{1,3}\s+/.test(line)){
-        return '<h2>'+inlineFormatV2166(line.replace(/^#{1,3}\s+/,""))+'</h2>';
+        return '<h2>'+inlineFormatV3166(line.replace(/^#{1,3}\s+/,""))+'</h2>';
       }
       if(lines.length===1 && /^(📖|🙏|📝|🌿|✝️|🌱|💡|📜|❤️|🕊️|🌍|⭐|👉)\s*/.test(line) && line.length<120){
-        return '<h2>'+inlineFormatV2166(line)+'</h2>';
+        return '<h2>'+inlineFormatV3166(line)+'</h2>';
       }
       if(lines.every(function(x){return /^\s*[-•]\s+/.test(x)})){
-        return '<ul>'+lines.map(function(x){return '<li>'+inlineFormatV2166(x.replace(/^\s*[-•]\s+/,""))+'</li>';}).join("")+'</ul>';
+        return '<ul>'+lines.map(function(x){return '<li>'+inlineFormatV3166(x.replace(/^\s*[-•]\s+/,""))+'</li>';}).join("")+'</ul>';
       }
-      return '<p>'+lines.map(inlineFormatV2166).join('<br>')+'</p>';
+      return '<p>'+lines.map(inlineFormatV3166).join('<br>')+'</p>';
     }).join("\n");
   }
 
-  function contentToHtmlV2166(content){
+  function contentToHtmlV3166(content){
     var raw=String(content||"").replace(/\r\n?/g,"\n");
     var re=/\[(desplegable|emergente)\s+titulo="([^"]*)"\]([\s\S]*?)\[\/\1\]/gi;
     var out="", last=0, match;
     while((match=re.exec(raw))){
       var before=raw.slice(last,match.index).trim();
-      if(before) out += '<div class="prose">'+textToHtmlV2166(before)+'</div>';
+      if(before) out += '<div class="prose">'+textToHtmlV3166(before)+'</div>';
       var title=match[2]||"Apartado";
       var body=match[3]||"";
-      out += '<section class="content-section"><div class="section-title">'+escV2166(title)+'</div><div class="section-body prose">'+textToHtmlV2166(body)+'</div></section>';
+      out += '<section class="content-section"><div class="section-title">'+escV3166(title)+'</div><div class="section-body prose">'+textToHtmlV3166(body)+'</div></section>';
       last=re.lastIndex;
     }
     var after=raw.slice(last).trim();
-    if(after) out += '<div class="prose">'+textToHtmlV2166(after)+'</div>';
+    if(after) out += '<div class="prose">'+textToHtmlV3166(after)+'</div>';
     return out || '<p class="empty">Sin contenido.</p>';
   }
 
-  function buildBeautifulHtmlV2166(item, meta){
-    var title=escV2166(item.title||"Sin título");
-    var content=contentToHtmlV2166(item.content||item.text||"");
+  function buildBeautifulHtmlV3166(item, meta){
+    var title=escV3166(item.title||"Sin título");
+    var content=contentToHtmlV3166(item.content||item.text||"");
     var date=new Intl.DateTimeFormat("es-ES",{day:"numeric",month:"long",year:"numeric"}).format(new Date());
     return '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="light"><title>'+title+'</title><style>'+
       ':root{--accent:'+meta.accent+';--ink:#29302c;--muted:#6f7871;--paper:#fffefb;--wash:#f4f1e9;--line:#ded8ca}*{box-sizing:border-box}html{background:var(--wash)}body{margin:0;color:var(--ink);background:radial-gradient(circle at 10% 0,#fff 0,transparent 34%),linear-gradient(180deg,#f7f4ed,#ece8de);font-family:Georgia,"Times New Roman",serif;-webkit-font-smoothing:antialiased}.page{max-width:780px;margin:0 auto;padding:28px 16px 42px}.sheet{overflow:hidden;background:var(--paper);border:1px solid rgba(120,110,90,.18);border-radius:24px;box-shadow:0 18px 55px rgba(63,55,40,.13)}.hero{padding:38px 30px 30px;text-align:center;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(245,241,231,.96));border-bottom:1px solid var(--line)}.icon{font-size:34px;line-height:1;margin-bottom:13px}.kind{font:700 12px/1.2 Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}.hero h1{font-size:clamp(27px,6vw,42px);line-height:1.16;margin:0;overflow-wrap:anywhere}.ornament{width:86px;height:2px;margin:22px auto 0;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.62}.content{padding:30px clamp(22px,6vw,52px) 42px}.prose{font-size:clamp(18px,4.4vw,21px);line-height:1.78}.prose p{margin:0 0 1.22em}.prose h2{font-size:1.08em;line-height:1.4;color:var(--accent);margin:1.7em 0 .7em}.prose ul{padding-left:1.25em;margin:0 0 1.3em}.prose li{margin:.42em 0}.content-section{margin:28px 0;border:1px solid var(--line);border-radius:18px;background:#fcfaf5;overflow:hidden;box-shadow:0 7px 22px rgba(73,63,44,.055)}.section-title{padding:15px 18px;font:700 17px/1.35 Arial,sans-serif;color:var(--accent);background:linear-gradient(90deg,rgba(255,255,255,.92),rgba(245,241,231,.88));border-bottom:1px solid var(--line)}.section-body{padding:20px 20px 5px}.empty{color:var(--muted);font-style:italic}.footer{text-align:center;padding:19px 24px 22px;border-top:1px solid var(--line);font:13px/1.5 Arial,sans-serif;color:var(--muted);background:#faf8f2}.footer strong{color:var(--accent)}@media(max-width:480px){.page{padding:0}.sheet{border:0;border-radius:0;min-height:100vh}.hero{padding:32px 21px 25px}.content{padding:25px 20px 34px}.content-section{margin:23px 0}.section-body{padding:18px 17px 3px}}@media print{html,body{background:#fff}.page{padding:0;max-width:none}.sheet{border:0;box-shadow:none}.footer{break-inside:avoid}.content-section{break-inside:avoid}}'+
-      '</style></head><body><main class="page"><article class="sheet"><header class="hero"><div class="icon">'+meta.icon+'</div><div class="kind">'+escV2166(meta.label)+'</div><h1>'+title+'</h1><div class="ornament"></div></header><div class="content">'+content+'</div><footer class="footer">Compartido con cariño · <strong>Oraciones</strong><br>'+escV2166(date)+'</footer></article></main></body></html>';
+      '</style></head><body><main class="page"><article class="sheet"><header class="hero"><div class="icon">'+meta.icon+'</div><div class="kind">'+escV3166(meta.label)+'</div><h1>'+title+'</h1><div class="ornament"></div></header><div class="content">'+content+'</div><footer class="footer">Compartido con cariño · <strong>Oraciones</strong><br>'+escV3166(date)+'</footer></article></main></body></html>';
   }
 
-  window.shareBeautifulHTMLV2166=async function(){
-    var meta=sectionMetaV2166();
+  window.shareBeautifulHTMLV3166=async function(){
+    var meta=sectionMetaV3166();
     if(!meta){
       if(typeof toast==="function") toast("Disponible en oraciones, notas, guías, parábolas y salmos");
       return;
     }
     var item=typeof currentItem==="function"?currentItem():null;
     if(!item) return;
-    var html=buildBeautifulHtmlV2166(item,meta);
-    var filename=fileNameV2166(item.title);
+    var html=buildBeautifulHtmlV3166(item,meta);
+    var filename=fileNameV3166(item.title);
     var file=new File([html],filename,{type:"text/html"});
     try{
       if(navigator.share && (!navigator.canShare || navigator.canShare({files:[file]}))){
@@ -8408,17 +8408,17 @@ setInterval(updateVersePositionCounter, 1000);
     }
   };
 
-  function syncButtonV2166(){
-    var b=document.getElementById("shareBeautifulBtnV2166");
+  function syncButtonV3166(){
+    var b=document.getElementById("shareBeautifulBtnV3166");
     if(!b) return;
     b.style.display=(section==="prayers"||section==="notes"||section==="guides"||section==="parables"||section==="psalms")?"":"none";
   }
-  var oldSyncTabsV2166=window.syncTabs||(typeof syncTabs!=="undefined"?syncTabs:null);
-  if(typeof oldSyncTabsV2166==="function"){
-    window.syncTabs=function(){var r=oldSyncTabsV2166.apply(this,arguments);syncButtonV2166();return r;};
+  var oldSyncTabsV3166=window.syncTabs||(typeof syncTabs!=="undefined"?syncTabs:null);
+  if(typeof oldSyncTabsV3166==="function"){
+    window.syncTabs=function(){var r=oldSyncTabsV3166.apply(this,arguments);syncButtonV3166();return r;};
     try{syncTabs=window.syncTabs;}catch(e){}
   }
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",syncButtonV2166); else setTimeout(syncButtonV2166,0);
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",syncButtonV3166); else setTimeout(syncButtonV3166,0);
 })();
 
 /* v3.1.70 - Organización manual: mantener visible el título movido */
@@ -8426,26 +8426,26 @@ setInterval(updateVersePositionCounter, 1000);
   if(window.__v3168TitleOrganizer) return;
   window.__v3168TitleOrganizer = true;
 
-  var organizeModeV2168 = false;
+  var organizeModeV3168 = false;
 
-  function supportsTitleOrderV2168(){
+  function supportsTitleOrderV3168(){
     try{ return ['prayers','notes','guides','parables','psalms'].indexOf(section) !== -1; }
     catch(e){ return false; }
   }
 
-  function ensureOrganizeButtonV2168(){
+  function ensureOrganizeButtonV3168(){
     var head = document.querySelector('#titlesView .titles-head-v72');
     if(!head) return null;
-    var btn = document.getElementById('organizeTitlesBtnV2168');
+    var btn = document.getElementById('organizeTitlesBtnV3168');
     if(!btn){
       btn = document.createElement('button');
-      btn.id = 'organizeTitlesBtnV2168';
+      btn.id = 'organizeTitlesBtnV3168';
       btn.type = 'button';
       btn.className = 'btn soft organize-titles-btn-v3168';
       btn.onclick = function(e){
         if(e){ e.preventDefault(); e.stopPropagation(); }
-        organizeModeV2168 = !organizeModeV2168;
-        updateOrganizeButtonV2168();
+        organizeModeV3168 = !organizeModeV3168;
+        updateOrganizeButtonV3168();
         if(typeof window.renderTitles === 'function') window.renderTitles();
       };
       var search = document.getElementById('titlesSearch');
@@ -8455,28 +8455,28 @@ setInterval(updateVersePositionCounter, 1000);
     return btn;
   }
 
-  function updateOrganizeButtonV2168(){
-    var btn = ensureOrganizeButtonV2168();
+  function updateOrganizeButtonV3168(){
+    var btn = ensureOrganizeButtonV3168();
     if(!btn) return;
-    var show = supportsTitleOrderV2168();
+    var show = supportsTitleOrderV3168();
     btn.style.display = show ? '' : 'none';
-    btn.textContent = organizeModeV2168 ? 'Finalizar' : 'Ordenar';
-    btn.classList.toggle('active-organize-v3168', organizeModeV2168);
-    document.body.classList.toggle('organizing-titles-v3168', show && organizeModeV2168);
+    btn.textContent = organizeModeV3168 ? 'Finalizar' : 'Ordenar';
+    btn.classList.toggle('active-organize-v3168', organizeModeV3168);
+    document.body.classList.toggle('organizing-titles-v3168', show && organizeModeV3168);
   }
 
-  function displayCodeV2168(index){
+  function displayCodeV3168(index){
     try{ return typeof getDisplayCode === 'function' ? getDisplayCode(index, section) : String(index + 1); }
     catch(e){ return String(index + 1); }
   }
 
-  function titleTextV2168(item){
+  function titleTextV3168(item){
     try{ return typeof displayItemTitle === 'function' ? displayItemTitle(item) : (item.title || item.reference || 'Sin título'); }
     catch(e){ return item.title || item.reference || 'Sin título'; }
   }
 
-  function moveTitleV2168(id, direction){
-    if(!supportsTitleOrderV2168()) return;
+  function moveTitleV3168(id, direction){
+    if(!supportsTitleOrderV3168()) return;
 
     // Guardamos la posición visual exacta de la tarjeta antes de volver a pintar
     // la lista. Así el elemento que se está moviendo permanece bajo la mirada
@@ -8527,11 +8527,11 @@ setInterval(updateVersePositionCounter, 1000);
     if(typeof toast === 'function') toast('Orden actualizado');
   }
 
-  var previousRenderTitlesV2168 = window.renderTitles || (typeof renderTitles !== 'undefined' ? renderTitles : null);
+  var previousRenderTitlesV3168 = window.renderTitles || (typeof renderTitles !== 'undefined' ? renderTitles : null);
   window.renderTitles = function(){
-    updateOrganizeButtonV2168();
-    if(!organizeModeV2168 || !supportsTitleOrderV2168()){
-      return typeof previousRenderTitlesV2168 === 'function' ? previousRenderTitlesV2168.apply(this, arguments) : undefined;
+    updateOrganizeButtonV3168();
+    if(!organizeModeV3168 || !supportsTitleOrderV3168()){
+      return typeof previousRenderTitlesV3168 === 'function' ? previousRenderTitlesV3168.apply(this, arguments) : undefined;
     }
 
     var box = document.getElementById('titlesList');
@@ -8542,7 +8542,7 @@ setInterval(updateVersePositionCounter, 1000);
     var source = typeof getItems === 'function' ? getItems() : [];
     var items = source.map(function(item, index){ return {item:item, index:index}; });
     if(q){
-      items = items.filter(function(entry){ return titleTextV2168(entry.item).toLowerCase().indexOf(q) !== -1; });
+      items = items.filter(function(entry){ return titleTextV3168(entry.item).toLowerCase().indexOf(q) !== -1; });
     }
 
     if(!items.length){
@@ -8559,11 +8559,11 @@ setInterval(updateVersePositionCounter, 1000);
 
       var code = document.createElement('div');
       code.className = 'title-code';
-      code.textContent = displayCodeV2168(index);
+      code.textContent = displayCodeV3168(index);
 
       var name = document.createElement('div');
       name.className = 'title-name';
-      name.textContent = titleTextV2168(item);
+      name.textContent = titleTextV3168(item);
 
       var controls = document.createElement('div');
       controls.className = 'title-order-controls-v3168';
@@ -8575,7 +8575,7 @@ setInterval(updateVersePositionCounter, 1000);
       up.title = 'Subir';
       up.setAttribute('aria-label', 'Subir título');
       up.disabled = index === 0;
-      up.onclick = function(e){ e.preventDefault(); e.stopPropagation(); moveTitleV2168(item.id, -1); };
+      up.onclick = function(e){ e.preventDefault(); e.stopPropagation(); moveTitleV3168(item.id, -1); };
 
       var down = document.createElement('button');
       down.type = 'button';
@@ -8584,7 +8584,7 @@ setInterval(updateVersePositionCounter, 1000);
       down.title = 'Bajar';
       down.setAttribute('aria-label', 'Bajar título');
       down.disabled = index === source.length - 1;
-      down.onclick = function(e){ e.preventDefault(); e.stopPropagation(); moveTitleV2168(item.id, 1); };
+      down.onclick = function(e){ e.preventDefault(); e.stopPropagation(); moveTitleV3168(item.id, 1); };
 
       controls.appendChild(up);
       controls.appendChild(down);
@@ -8596,58 +8596,58 @@ setInterval(updateVersePositionCounter, 1000);
   };
   try{ renderTitles = window.renderTitles; }catch(e){}
 
-  var previousOpenTitlesV2168 = window.openTitlesView || (typeof openTitlesView !== 'undefined' ? openTitlesView : null);
-  if(typeof previousOpenTitlesV2168 === 'function'){
+  var previousOpenTitlesV3168 = window.openTitlesView || (typeof openTitlesView !== 'undefined' ? openTitlesView : null);
+  if(typeof previousOpenTitlesV3168 === 'function'){
     window.openTitlesView = function(){
-      organizeModeV2168 = false;
-      var result = previousOpenTitlesV2168.apply(this, arguments);
-      updateOrganizeButtonV2168();
+      organizeModeV3168 = false;
+      var result = previousOpenTitlesV3168.apply(this, arguments);
+      updateOrganizeButtonV3168();
       return result;
     };
     try{ openTitlesView = window.openTitlesView; }catch(e){}
   }
 
-  var previousSyncTabsV2168 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
-  if(typeof previousSyncTabsV2168 === 'function'){
+  var previousSyncTabsV3168 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  if(typeof previousSyncTabsV3168 === 'function'){
     window.syncTabs = function(){
-      var result = previousSyncTabsV2168.apply(this, arguments);
-      if(!supportsTitleOrderV2168()) organizeModeV2168 = false;
-      updateOrganizeButtonV2168();
+      var result = previousSyncTabsV3168.apply(this, arguments);
+      if(!supportsTitleOrderV3168()) organizeModeV3168 = false;
+      updateOrganizeButtonV3168();
       return result;
     };
     try{ syncTabs = window.syncTabs; }catch(e){}
   }
 
   if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', function(){ ensureOrganizeButtonV2168(); updateOrganizeButtonV2168(); });
+    document.addEventListener('DOMContentLoaded', function(){ ensureOrganizeButtonV3168(); updateOrganizeButtonV3168(); });
   }else{
-    setTimeout(function(){ ensureOrganizeButtonV2168(); updateOrganizeButtonV2168(); }, 0);
+    setTimeout(function(){ ensureOrganizeButtonV3168(); updateOrganizeButtonV3168(); }, 0);
   }
 })();
 
-window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=="undefined"?renderTitles:null);
+window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=="undefined"?renderTitles:null);
 
 /* v3.1.71 - Separadores visuales en Títulos */
 (function(){
-  var organizerActiveV2171 = false;
-  var supportedSectionsV2171 = ['prayers','notes','guides','parables','psalms'];
+  var organizerActiveV3171 = false;
+  var supportedSectionsV3171 = ['prayers','notes','guides','parables','psalms'];
 
-  function supportedV2171(){ return supportedSectionsV2171.indexOf(section) !== -1; }
-  function ensureStoreV2171(){
-    if(!state.titleSeparatorsV2171 || typeof state.titleSeparatorsV2171 !== 'object') state.titleSeparatorsV2171 = {};
-    supportedSectionsV2171.forEach(function(s){
-      if(!state.titleSeparatorsV2171[s] || !Array.isArray(state.titleSeparatorsV2171[s].separators) || !Array.isArray(state.titleSeparatorsV2171[s].layout)){
-        state.titleSeparatorsV2171[s] = {separators:[], layout:[]};
+  function supportedV3171(){ return supportedSectionsV3171.indexOf(section) !== -1; }
+  function ensureStoreV3171(){
+    if(!state.titleSeparatorsV3171 || typeof state.titleSeparatorsV3171 !== 'object') state.titleSeparatorsV3171 = {};
+    supportedSectionsV3171.forEach(function(s){
+      if(!state.titleSeparatorsV3171[s] || !Array.isArray(state.titleSeparatorsV3171[s].separators) || !Array.isArray(state.titleSeparatorsV3171[s].layout)){
+        state.titleSeparatorsV3171[s] = {separators:[], layout:[]};
       }
     });
   }
-  function storeV2171(){ ensureStoreV2171(); return state.titleSeparatorsV2171[section]; }
-  function uidV2171(){ return 'sep_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
-  function tokenItemV2171(id){ return 'i:'+id; }
-  function tokenSepV2171(id){ return 's:'+id; }
+  function storeV3171(){ ensureStoreV3171(); return state.titleSeparatorsV3171[section]; }
+  function uidV3171(){ return 'sep_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
+  function tokenItemV3171(id){ return 'i:'+id; }
+  function tokenSepV3171(id){ return 's:'+id; }
 
-  function normalizedSequenceV2171(){
-    var st = storeV2171();
+  function normalizedSequenceV3171(){
+    var st = storeV3171();
     var items = (typeof getItems === 'function' ? getItems() : []).slice();
     var itemMap = {};
     items.forEach(function(it){ if(it && it.id) itemMap[it.id] = it; });
@@ -8664,19 +8664,19 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       if(tok.indexOf('i:')===0 && itemMap[tok.slice(2)]){ seen[tok]=1; seq.push({type:'item', value:itemMap[tok.slice(2)], token:tok}); }
       else if(tok.indexOf('s:')===0 && sepMap[tok.slice(2)]){ seen[tok]=1; seq.push({type:'separator', value:sepMap[tok.slice(2)], token:tok}); }
     });
-    items.forEach(function(it){ var tok=tokenItemV2171(it.id); if(!seen[tok]){ seen[tok]=1; seq.push({type:'item',value:it,token:tok}); } });
-    st.separators.forEach(function(sep){ var tok=tokenSepV2171(sep.id); if(!seen[tok]){ seen[tok]=1; seq.push({type:'separator',value:sep,token:tok}); } });
+    items.forEach(function(it){ var tok=tokenItemV3171(it.id); if(!seen[tok]){ seen[tok]=1; seq.push({type:'item',value:it,token:tok}); } });
+    st.separators.forEach(function(sep){ var tok=tokenSepV3171(sep.id); if(!seen[tok]){ seen[tok]=1; seq.push({type:'separator',value:sep,token:tok}); } });
     st.layout = seq.map(function(x){ return x.token; });
     return seq;
   }
-  function persistSequenceV2171(seq){
-    var st = storeV2171();
+  function persistSequenceV3171(seq){
+    var st = storeV3171();
     st.layout = seq.map(function(x){return x.token;});
     var orderedItems = seq.filter(function(x){return x.type==='item';}).map(function(x){return x.value;});
     if(typeof setItems === 'function') setItems(orderedItems);
     if(typeof saveState === 'function') saveState();
   }
-  function itemCodeV2171(item, seq){
+  function itemCodeV3171(item, seq){
     var n=0;
     for(var i=0;i<seq.length;i++){
       if(seq[i].type==='item') n++;
@@ -8687,95 +8687,95 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     }
     return '';
   }
-  function titleV2171(item){
+  function titleV3171(item){
     try{return typeof displayItemTitle==='function'?displayItemTitle(item):(item.title||'Sin título');}
     catch(e){return item.title||'Sin título';}
   }
-  function ensureButtonsV2171(){
+  function ensureButtonsV3171(){
     var head=document.querySelector('#titlesView .titles-head-v72');
     if(!head) return;
-    var old=document.getElementById('organizeTitlesBtnV2168');
+    var old=document.getElementById('organizeTitlesBtnV3168');
     if(old){
-      old.onclick=function(e){ if(e){e.preventDefault();e.stopPropagation();} organizerActiveV2171=!organizerActiveV2171; updateButtonsV2171(); window.renderTitles(); };
+      old.onclick=function(e){ if(e){e.preventDefault();e.stopPropagation();} organizerActiveV3171=!organizerActiveV3171; updateButtonsV3171(); window.renderTitles(); };
     }
-    var btn=document.getElementById('addSeparatorBtnV2171');
+    var btn=document.getElementById('addSeparatorBtnV3171');
     if(!btn){
       btn=document.createElement('button');
-      btn.id='addSeparatorBtnV2171'; btn.type='button'; btn.className='btn soft add-separator-btn-v3171'; btn.textContent='+ Separador';
-      btn.onclick=function(e){ if(e){e.preventDefault();e.stopPropagation();} createSeparatorV2171(); };
+      btn.id='addSeparatorBtnV3171'; btn.type='button'; btn.className='btn soft add-separator-btn-v3171'; btn.textContent='+ Separador';
+      btn.onclick=function(e){ if(e){e.preventDefault();e.stopPropagation();} createSeparatorV3171(); };
       var search=document.getElementById('titlesSearch');
       if(search) head.insertBefore(btn,search); else head.appendChild(btn);
     }
-    updateButtonsV2171();
+    updateButtonsV3171();
   }
-  function updateButtonsV2171(){
-    var show=supportedV2171();
-    var sep=document.getElementById('addSeparatorBtnV2171'); if(sep) sep.style.display=show?'':'none';
-    var org=document.getElementById('organizeTitlesBtnV2168');
-    if(org){ org.style.display=show?'':'none'; org.textContent=organizerActiveV2171?'Finalizar':'Ordenar'; org.classList.toggle('active-organize-v3168',organizerActiveV2171); }
-    document.body.classList.toggle('organizing-titles-v3168',show&&organizerActiveV2171);
+  function updateButtonsV3171(){
+    var show=supportedV3171();
+    var sep=document.getElementById('addSeparatorBtnV3171'); if(sep) sep.style.display=show?'':'none';
+    var org=document.getElementById('organizeTitlesBtnV3168');
+    if(org){ org.style.display=show?'':'none'; org.textContent=organizerActiveV3171?'Finalizar':'Ordenar'; org.classList.toggle('active-organize-v3168',organizerActiveV3171); }
+    document.body.classList.toggle('organizing-titles-v3168',show&&organizerActiveV3171);
   }
-  function createSeparatorV2171(){
-    if(!supportedV2171()) return;
+  function createSeparatorV3171(){
+    if(!supportedV3171()) return;
     var title=prompt('Título del separador:','');
     if(title===null) return;
     title=title.trim();
     if(!title) return alert('Escribe un título para el separador.');
-    var st=storeV2171();
-    var sep={id:uidV2171(),title:title,createdAt:Date.now()};
+    var st=storeV3171();
+    var sep={id:uidV3171(),title:title,createdAt:Date.now()};
     st.separators.push(sep);
-    st.layout.push(tokenSepV2171(sep.id));
+    st.layout.push(tokenSepV3171(sep.id));
     saveState(); window.renderTitles();
     if(typeof toast==='function') toast('Separador creado');
   }
-  function renameSeparatorV2171(id){
-    var st=storeV2171(); var sep=st.separators.find(function(x){return x.id===id;}); if(!sep)return;
+  function renameSeparatorV3171(id){
+    var st=storeV3171(); var sep=st.separators.find(function(x){return x.id===id;}); if(!sep)return;
     var title=prompt('Título del separador:',sep.title||''); if(title===null)return; title=title.trim(); if(!title)return;
     sep.title=title; saveState(); window.renderTitles(); if(typeof toast==='function')toast('Separador actualizado');
   }
-  function deleteSeparatorV2171(id){
-    var st=storeV2171(); var sep=st.separators.find(function(x){return x.id===id;}); if(!sep)return;
+  function deleteSeparatorV3171(id){
+    var st=storeV3171(); var sep=st.separators.find(function(x){return x.id===id;}); if(!sep)return;
     if(!confirm('¿Eliminar el separador "'+(sep.title||'')+'"?'))return;
     st.separators=st.separators.filter(function(x){return x.id!==id;});
-    st.layout=st.layout.filter(function(t){return t!==tokenSepV2171(id);});
+    st.layout=st.layout.filter(function(t){return t!==tokenSepV3171(id);});
     saveState(); window.renderTitles(); if(typeof toast==='function')toast('Separador eliminado');
   }
-  function moveV2171(token,dir){
-    var seq=normalizedSequenceV2171(); var idx=seq.findIndex(function(x){return x.token===token;}); var ni=idx+dir;
+  function moveV3171(token,dir){
+    var seq=normalizedSequenceV3171(); var idx=seq.findIndex(function(x){return x.token===token;}); var ni=idx+dir;
     if(idx<0||ni<0||ni>=seq.length)return;
     var row=document.querySelector('#titlesList [data-layout-token="'+CSS.escape(token)+'"]');
     var top=row?row.getBoundingClientRect().top:null;
     var root=document.scrollingElement||document.documentElement; var scroll=root?root.scrollTop:(window.pageYOffset||0);
-    var tmp=seq[idx];seq[idx]=seq[ni];seq[ni]=tmp;persistSequenceV2171(seq);window.renderTitles();
+    var tmp=seq[idx];seq[idx]=seq[ni];seq[ni]=tmp;persistSequenceV3171(seq);window.renderTitles();
     if(root)root.scrollTop=scroll;
     requestAnimationFrame(function(){var r=document.querySelector('#titlesList [data-layout-token="'+CSS.escape(token)+'"]');if(r&&top!==null){var d=r.getBoundingClientRect().top-top;if(Math.abs(d)>1)root.scrollTop+=d;}});
     if(typeof toast==='function')toast('Orden actualizado');
   }
 
   window.renderTitles=function(){
-    ensureButtonsV2171();
-    if(!supportedV2171()){
-      var base=window.__renderTitlesBeforeV2171;
+    ensureButtonsV3171();
+    if(!supportedV3171()){
+      var base=window.__renderTitlesBeforeV3171;
       if(typeof base==='function') return base.apply(this,arguments);
       return;
     }
     var box=document.getElementById('titlesList'); if(!box)return; box.innerHTML='';
-    var seq=normalizedSequenceV2171();
-    var separatorCountsV2173={};
-    var activeSeparatorIdV2173=null;
+    var seq=normalizedSequenceV3171();
+    var separatorCountsV3173={};
+    var activeSeparatorIdV3173=null;
     seq.forEach(function(entry){
       if(entry.type==='separator'){
-        activeSeparatorIdV2173=entry.value.id;
-        separatorCountsV2173[activeSeparatorIdV2173]=0;
-      }else if(activeSeparatorIdV2173){
-        separatorCountsV2173[activeSeparatorIdV2173]++;
+        activeSeparatorIdV3173=entry.value.id;
+        separatorCountsV3173[activeSeparatorIdV3173]=0;
+      }else if(activeSeparatorIdV3173){
+        separatorCountsV3173[activeSeparatorIdV3173]++;
       }
     });
     var q=((document.getElementById('titlesSearch')||{}).value||'').trim().toLowerCase();
     var filtered=seq.filter(function(entry){
       if(!q)return true;
       if(entry.type==='separator')return (entry.value.title||'').toLowerCase().indexOf(q)!==-1;
-      var it=entry.value; return [titleV2171(it),it.content,it.reference,it.category].filter(Boolean).join(' ').toLowerCase().indexOf(q)!==-1;
+      var it=entry.value; return [titleV3171(it),it.content,it.reference,it.category].filter(Boolean).join(' ').toLowerCase().indexOf(q)!==-1;
     });
     if(!filtered.length){box.innerHTML='<div class="empty">No hay resultados.</div>';return;}
     var current=typeof currentItem==='function'?currentItem():null;
@@ -8792,58 +8792,58 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
         }else label.textContent=sepTitle;
         var count=document.createElement('span');
         count.className='title-separator-count-v3173';
-        count.textContent=' ('+(separatorCountsV2173[entry.value.id]||0)+')';
+        count.textContent=' ('+(separatorCountsV3173[entry.value.id]||0)+')';
         label.appendChild(count);
         sepRow.appendChild(label);
         var actions=document.createElement('div'); actions.className='title-separator-actions-v3171';
-        if(organizerActiveV2171){
+        if(organizerActiveV3171){
           var idx=seq.findIndex(function(x){return x.token===entry.token;});
-          var up=document.createElement('button');up.type='button';up.className='title-order-arrow-v3168';up.textContent='↑';up.disabled=idx===0;up.onclick=function(e){e.preventDefault();e.stopPropagation();moveV2171(entry.token,-1);};
-          var down=document.createElement('button');down.type='button';down.className='title-order-arrow-v3168';down.textContent='↓';down.disabled=idx===seq.length-1;down.onclick=function(e){e.preventDefault();e.stopPropagation();moveV2171(entry.token,1);};
+          var up=document.createElement('button');up.type='button';up.className='title-order-arrow-v3168';up.textContent='↑';up.disabled=idx===0;up.onclick=function(e){e.preventDefault();e.stopPropagation();moveV3171(entry.token,-1);};
+          var down=document.createElement('button');down.type='button';down.className='title-order-arrow-v3168';down.textContent='↓';down.disabled=idx===seq.length-1;down.onclick=function(e){e.preventDefault();e.stopPropagation();moveV3171(entry.token,1);};
           actions.appendChild(up);actions.appendChild(down);
         }else{
-          var edit=document.createElement('button');edit.type='button';edit.className='separator-mini-action-v3171';edit.textContent='✎';edit.title='Cambiar título';edit.onclick=function(e){e.preventDefault();e.stopPropagation();renameSeparatorV2171(entry.value.id);};
-          var del=document.createElement('button');del.type='button';del.className='separator-mini-action-v3171';del.textContent='×';del.title='Eliminar';del.onclick=function(e){e.preventDefault();e.stopPropagation();deleteSeparatorV2171(entry.value.id);};
+          var edit=document.createElement('button');edit.type='button';edit.className='separator-mini-action-v3171';edit.textContent='✎';edit.title='Cambiar título';edit.onclick=function(e){e.preventDefault();e.stopPropagation();renameSeparatorV3171(entry.value.id);};
+          var del=document.createElement('button');del.type='button';del.className='separator-mini-action-v3171';del.textContent='×';del.title='Eliminar';del.onclick=function(e){e.preventDefault();e.stopPropagation();deleteSeparatorV3171(entry.value.id);};
           actions.appendChild(edit);actions.appendChild(del);
         }
         sepRow.appendChild(actions);box.appendChild(sepRow);return;
       }
-      var item=entry.value; var row=document.createElement('div'); row.className='title-row'+(current&&current.id===item.id?' active':'')+(organizerActiveV2171?' title-row-organize-v3168':''); row.setAttribute('data-layout-token',entry.token);
-      var code=document.createElement('div');code.className='title-code';code.textContent=itemCodeV2171(item,seq);
+      var item=entry.value; var row=document.createElement('div'); row.className='title-row'+(current&&current.id===item.id?' active':'')+(organizerActiveV3171?' title-row-organize-v3168':''); row.setAttribute('data-layout-token',entry.token);
+      var code=document.createElement('div');code.className='title-code';code.textContent=itemCodeV3171(item,seq);
       var name=document.createElement('div');name.className='title-name';
-      if(section==='psalms' && item.category && typeof window.psalmCategoryMetaV2177==='function'){
-        var catMetaV2177=window.psalmCategoryMetaV2177(item.category);
-        if(catMetaV2177 && (catMetaV2177.icon || catMetaV2177.label)){
-          var catPrefixV2181=document.createElement('span');
-          catPrefixV2181.className='psalm-category-prefix-v3181';
+      if(section==='psalms' && item.category && typeof window.psalmCategoryMetaV3177==='function'){
+        var catMetaV3177=window.psalmCategoryMetaV3177(item.category);
+        if(catMetaV3177 && (catMetaV3177.icon || catMetaV3177.label)){
+          var catPrefixV3181=document.createElement('span');
+          catPrefixV3181.className='psalm-category-prefix-v3181';
 
-          if(catMetaV2177.icon){
-            var catIconV2177=document.createElement('span');
-            catIconV2177.className='psalm-category-icon-v3177';
-            catIconV2177.textContent=catMetaV2177.icon;
-            catPrefixV2181.appendChild(catIconV2177);
+          if(catMetaV3177.icon){
+            var catIconV3177=document.createElement('span');
+            catIconV3177.className='psalm-category-icon-v3177';
+            catIconV3177.textContent=catMetaV3177.icon;
+            catPrefixV3181.appendChild(catIconV3177);
           }
 
-          if(catMetaV2177.label){
-            var catLabelV2181=document.createElement('span');
-            catLabelV2181.className='psalm-category-label-v3181';
-            catLabelV2181.textContent=catMetaV2177.label;
-            catPrefixV2181.appendChild(catLabelV2181);
+          if(catMetaV3177.label){
+            var catLabelV3181=document.createElement('span');
+            catLabelV3181.className='psalm-category-label-v3181';
+            catLabelV3181.textContent=catMetaV3177.label;
+            catPrefixV3181.appendChild(catLabelV3181);
           }
 
-          var catSeparatorV2181=document.createElement('span');
-          catSeparatorV2181.className='psalm-category-separator-v3181';
-          catSeparatorV2181.textContent=' · ';
-          catPrefixV2181.appendChild(catSeparatorV2181);
-          name.appendChild(catPrefixV2181);
+          var catSeparatorV3181=document.createElement('span');
+          catSeparatorV3181.className='psalm-category-separator-v3181';
+          catSeparatorV3181.textContent=' · ';
+          catPrefixV3181.appendChild(catSeparatorV3181);
+          name.appendChild(catPrefixV3181);
         }
       }
-      name.appendChild(document.createTextNode(titleV2171(item)));
+      name.appendChild(document.createTextNode(titleV3171(item)));
       row.appendChild(code);row.appendChild(name);
-      if(organizerActiveV2171){
+      if(organizerActiveV3171){
         var controls=document.createElement('div');controls.className='title-order-controls-v3168';var idx2=seq.findIndex(function(x){return x.token===entry.token;});
-        var u=document.createElement('button');u.type='button';u.className='title-order-arrow-v3168';u.textContent='↑';u.disabled=idx2===0;u.onclick=function(e){e.preventDefault();e.stopPropagation();moveV2171(entry.token,-1);};
-        var d=document.createElement('button');d.type='button';d.className='title-order-arrow-v3168';d.textContent='↓';d.disabled=idx2===seq.length-1;d.onclick=function(e){e.preventDefault();e.stopPropagation();moveV2171(entry.token,1);};
+        var u=document.createElement('button');u.type='button';u.className='title-order-arrow-v3168';u.textContent='↑';u.disabled=idx2===0;u.onclick=function(e){e.preventDefault();e.stopPropagation();moveV3171(entry.token,-1);};
+        var d=document.createElement('button');d.type='button';d.className='title-order-arrow-v3168';d.textContent='↓';d.disabled=idx2===seq.length-1;d.onclick=function(e){e.preventDefault();e.stopPropagation();moveV3171(entry.token,1);};
         controls.appendChild(u);controls.appendChild(d);row.appendChild(controls);
       }else{
         row.onclick=function(){setCurrentId(item.id);renderList();renderReader();enterFullscreenReading();};
@@ -8854,11 +8854,11 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   try{renderTitles=window.renderTitles;}catch(e){}
 
   var oldOpen=window.openTitlesView||openTitlesView;
-  window.openTitlesView=function(){ organizerActiveV2171=false; var r=oldOpen.apply(this,arguments); ensureButtonsV2171(); window.renderTitles(); return r; };
+  window.openTitlesView=function(){ organizerActiveV3171=false; var r=oldOpen.apply(this,arguments); ensureButtonsV3171(); window.renderTitles(); return r; };
   try{openTitlesView=window.openTitlesView;}catch(e){}
 
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){ensureStoreV2171();ensureButtonsV2171();});
-  else setTimeout(function(){ensureStoreV2171();ensureButtonsV2171();},0);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){ensureStoreV3171();ensureButtonsV3171();});
+  else setTimeout(function(){ensureStoreV3171();ensureButtonsV3171();},0);
 })();
 
 
@@ -8867,20 +8867,20 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   if(window.__v3176PsalmsCloneInstalled) return;
   window.__v3176PsalmsCloneInstalled=true;
 
-  function ensurePsalmsStateV2176(){
+  function ensurePsalmsStateV3176(){
     try{
       if(!state) return;
       if(!Array.isArray(state.psalms)) state.psalms=[];
       if(!Array.isArray(state.trashPsalms)) state.trashPsalms=[];
       if(!('currentPsalmId' in state)) state.currentPsalmId=null;
       if(!state.currentPsalmId && state.psalms.length) state.currentPsalmId=state.psalms[0].id;
-    }catch(e){ console.error('ensurePsalmsStateV2176',e); }
+    }catch(e){ console.error('ensurePsalmsStateV3176',e); }
   }
-  window.ensurePsalmsStateV2176=ensurePsalmsStateV2176;
+  window.ensurePsalmsStateV3176=ensurePsalmsStateV3176;
 
-  var oldBuildInitialStateV2176=window.buildInitialState||(typeof buildInitialState!=='undefined'?buildInitialState:null);
+  var oldBuildInitialStateV3176=window.buildInitialState||(typeof buildInitialState!=='undefined'?buildInitialState:null);
   window.buildInitialState=function(){
-    var st=typeof oldBuildInitialStateV2176==='function'?oldBuildInitialStateV2176.apply(this,arguments):{};
+    var st=typeof oldBuildInitialStateV3176==='function'?oldBuildInitialStateV3176.apply(this,arguments):{};
     if(!Array.isArray(st.psalms)) st.psalms=[];
     if(!Array.isArray(st.trashPsalms)) st.trashPsalms=[];
     if(!('currentPsalmId' in st)) st.currentPsalmId=null;
@@ -8888,22 +8888,22 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   };
   try{buildInitialState=window.buildInitialState;}catch(e){}
 
-  var oldNormalizeGuidesV2176=window.normalizeGuides||(typeof normalizeGuides!=='undefined'?normalizeGuides:null);
+  var oldNormalizeGuidesV3176=window.normalizeGuides||(typeof normalizeGuides!=='undefined'?normalizeGuides:null);
   window.normalizeGuides=function(){
-    if(typeof oldNormalizeGuidesV2176==='function') oldNormalizeGuidesV2176.apply(this,arguments);
-    ensurePsalmsStateV2176();
+    if(typeof oldNormalizeGuidesV3176==='function') oldNormalizeGuidesV3176.apply(this,arguments);
+    ensurePsalmsStateV3176();
   };
   try{normalizeGuides=window.normalizeGuides;}catch(e){}
 
-  var oldLabelV2176=window.sectionLabelV85;
+  var oldLabelV3176=window.sectionLabelV85;
   window.sectionLabelV85=function(s){
     if(s==='psalms') return {sing:'salmo',empty:'Nuevo salmo',code:'S',search:'Buscar salmo o código (ej. S23)'};
-    return typeof oldLabelV2176==='function'?oldLabelV2176(s):{sing:'elemento',empty:'Nuevo elemento',code:'',search:'Buscar...'};
+    return typeof oldLabelV3176==='function'?oldLabelV3176(s):{sing:'elemento',empty:'Nuevo elemento',code:'',search:'Buscar...'};
   };
   try{sectionLabelV85=window.sectionLabelV85;}catch(e){}
 
   window.getItems=function(){
-    ensurePsalmsStateV2176();
+    ensurePsalmsStateV3176();
     if(section==='prayers') return state.prayers;
     if(section==='notes') return state.notes;
     if(section==='guides') return state.guides;
@@ -8913,7 +8913,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   }; try{getItems=window.getItems;}catch(e){}
 
   window.setItems=function(items){
-    ensurePsalmsStateV2176();
+    ensurePsalmsStateV3176();
     if(section==='prayers') state.prayers=items;
     else if(section==='notes') state.notes=items;
     else if(section==='guides') state.guides=items;
@@ -8923,7 +8923,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   }; try{setItems=window.setItems;}catch(e){}
 
   window.getTrash=function(){
-    ensurePsalmsStateV2176();
+    ensurePsalmsStateV3176();
     if(section==='prayers') return state.trashPrayers;
     if(section==='notes') return state.trashNotes;
     if(section==='guides') return state.trashGuides;
@@ -8933,7 +8933,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   }; try{getTrash=window.getTrash;}catch(e){}
 
   window.setTrash=function(items){
-    ensurePsalmsStateV2176();
+    ensurePsalmsStateV3176();
     if(section==='prayers') state.trashPrayers=items;
     else if(section==='notes') state.trashNotes=items;
     else if(section==='guides') state.trashGuides=items;
@@ -8943,7 +8943,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   }; try{setTrash=window.setTrash;}catch(e){}
 
   window.currentItem=function(){
-    ensurePsalmsStateV2176();
+    ensurePsalmsStateV3176();
     var items=getItems();
     var id=section==='prayers'?state.currentPrayerId:section==='notes'?state.currentNoteId:section==='guides'?state.currentGuideId:section==='parables'?state.currentParableId:section==='psalms'?state.currentPsalmId:state.currentVerseId;
     var found=(items||[]).find(function(x){return x.id===id;});
@@ -8961,7 +8961,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   }; try{currentItem=window.currentItem;}catch(e){}
 
   window.setCurrentId=function(id){
-    ensurePsalmsStateV2176();
+    ensurePsalmsStateV3176();
     if(section==='prayers') state.currentPrayerId=id;
     else if(section==='notes') state.currentNoteId=id;
     else if(section==='guides') state.currentGuideId=id;
@@ -8971,26 +8971,26 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     saveState();
   }; try{setCurrentId=window.setCurrentId;}catch(e){}
 
-  var oldRecentKindLabelV2176=window.recentKindLabel;
+  var oldRecentKindLabelV3176=window.recentKindLabel;
   window.recentKindLabel=function(item){
     if(item&&item.section==='psalms') return '♫ Salmo';
-    return typeof oldRecentKindLabelV2176==='function'?oldRecentKindLabelV2176(item):'Elemento';
+    return typeof oldRecentKindLabelV3176==='function'?oldRecentKindLabelV3176(item):'Elemento';
   }; try{recentKindLabel=window.recentKindLabel;}catch(e){}
 
-  var oldSyncTabsV2176=window.syncTabs;
+  var oldSyncTabsV3176=window.syncTabs;
   window.syncTabs=function(){
-    ensurePsalmsStateV2176();
-    if(typeof oldSyncTabsV2176==='function') oldSyncTabsV2176.apply(this,arguments);
+    ensurePsalmsStateV3176();
+    if(typeof oldSyncTabsV3176==='function') oldSyncTabsV3176.apply(this,arguments);
     var ps=document.getElementById('tabPsalms'); if(ps) ps.classList.toggle('active',section==='psalms');
     var search=document.getElementById('search'); if(search&&section==='psalms') search.placeholder='Buscar salmo o código (ej. S23)';
     var c=document.getElementById('counterInfo');
     if(c) c.textContent='📖 '+(state.prayers||[]).length+' | 📝 '+(state.notes||[]).length+' | 📜 '+(state.guides||[]).length+' | 🌱 '+(state.parables||[]).length+' | ♫ '+(state.psalms||[]).length+' | ❤️ '+(state.verses||[]).length;
   }; try{syncTabs=window.syncTabs;}catch(e){}
 
-  var oldRenderReaderV2176=window.renderReader;
+  var oldRenderReaderV3176=window.renderReader;
   window.renderReader=function(){
-    ensurePsalmsStateV2176();
-    if(typeof oldRenderReaderV2176==='function') oldRenderReaderV2176.apply(this,arguments);
+    ensurePsalmsStateV3176();
+    if(typeof oldRenderReaderV3176==='function') oldRenderReaderV3176.apply(this,arguments);
     try{
       if(section==='psalms'&&!currentItem()){
         var code=document.getElementById('readerCode'); if(code) code.textContent='';
@@ -9001,9 +9001,9 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     }catch(e){console.error('renderReader psalms',e);}
   }; try{renderReader=window.renderReader;}catch(e){}
 
-  var oldMoveToTrashV2176=window.moveToTrash;
+  var oldMoveToTrashV3176=window.moveToTrash;
   window.moveToTrash=function(){
-    if(section!=='psalms') return typeof oldMoveToTrashV2176==='function'?oldMoveToTrashV2176.apply(this,arguments):undefined;
+    if(section!=='psalms') return typeof oldMoveToTrashV3176==='function'?oldMoveToTrashV3176.apply(this,arguments):undefined;
     var item=currentItem(); if(!item) return;
     var items=getItems();
     if(items.length===1) return alert('Debe quedar al menos un elemento.');
@@ -9014,9 +9014,9 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     saveState(); syncTabs(); renderList(); renderReader(); applyReaderFont(); openReader(); toast('Movido a papelera');
   }; try{moveToTrash=window.moveToTrash;}catch(e){}
 
-  var oldDiscardV2176=window.discardEditorChanges;
+  var oldDiscardV3176=window.discardEditorChanges;
   window.discardEditorChanges=function(){
-    if(section!=='psalms') return typeof oldDiscardV2176==='function'?oldDiscardV2176.apply(this,arguments):undefined;
+    if(section!=='psalms') return typeof oldDiscardV3176==='function'?oldDiscardV3176.apply(this,arguments):undefined;
     if(!confirm('¿Descartar cambios?')) return;
     if(autosaveTimer) clearTimeout(autosaveTimer);
     var item=currentItem();
@@ -9030,16 +9030,16 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     isDirty=false; renderReader(); openReader(); toast('Cambios descartados');
   }; try{discardEditorChanges=window.discardEditorChanges;}catch(e){}
 
-  var oldBeautifulMetaV2176=window.beautifulSectionMetaV2166;
-  if(typeof oldBeautifulMetaV2176==='function'){
-    window.beautifulSectionMetaV2166=function(){
+  var oldBeautifulMetaV3176=window.beautifulSectionMetaV3166;
+  if(typeof oldBeautifulMetaV3176==='function'){
+    window.beautifulSectionMetaV3166=function(){
       if(section==='psalms') return {label:'Salmo',icon:'♫',accent:'#66805a'};
-      return oldBeautifulMetaV2176.apply(this,arguments);
+      return oldBeautifulMetaV3176.apply(this,arguments);
     };
-    try{beautifulSectionMetaV2166=window.beautifulSectionMetaV2166;}catch(e){}
+    try{beautifulSectionMetaV3166=window.beautifulSectionMetaV3166;}catch(e){}
   }
 
-  var oldOpenRecentEntryV2176=window.openRecentEntry;
+  var oldOpenRecentEntryV3176=window.openRecentEntry;
   window.openRecentEntry=function(type,idx){
     try{
       var h=typeof getRecentHistory==='function'?getRecentHistory():null;
@@ -9052,14 +9052,14 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
         return;
       }
     }catch(e){}
-    return typeof oldOpenRecentEntryV2176==='function'?oldOpenRecentEntryV2176.apply(this,arguments):undefined;
+    return typeof oldOpenRecentEntryV3176==='function'?oldOpenRecentEntryV3176.apply(this,arguments):undefined;
   }; try{openRecentEntry=window.openRecentEntry;}catch(e){}
 
-  function initPsalmsV2176(){
-    ensurePsalmsStateV2176();
-    try{syncTabs();renderList();renderReader();}catch(e){console.error('initPsalmsV2176',e);}
+  function initPsalmsV3176(){
+    ensurePsalmsStateV3176();
+    try{syncTabs();renderList();renderReader();}catch(e){console.error('initPsalmsV3176',e);}
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initPsalmsV2176); else setTimeout(initPsalmsV2176,0);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initPsalmsV3176); else setTimeout(initPsalmsV3176,0);
 })();
 
 /* ===== v3.1.76.1 - Ajustes finales de Salmos y cuadrícula fija del inicio ===== */
@@ -9067,7 +9067,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   if(window.__v31761PsalmsFinalFixes) return;
   window.__v31761PsalmsFinalFixes = true;
 
-  function backToPsalmsToolbarV21761(){
+  function backToPsalmsToolbarV31761(){
     try{
       section = 'psalms';
       if(state) state.section = 'psalms';
@@ -9093,16 +9093,16 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       if(typeof enterFullscreenReading === 'function') enterFullscreenReading();
       else if(typeof openReader === 'function') openReader();
     }catch(err){
-      console.error('backToPsalmsToolbarV21761', err);
+      console.error('backToPsalmsToolbarV31761', err);
       try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
     }
   }
-  window.backToPsalmsToolbarV21761 = backToPsalmsToolbarV21761;
+  window.backToPsalmsToolbarV31761 = backToPsalmsToolbarV31761;
 
-  var previousSyncTabsV21761 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
+  var previousSyncTabsV31761 = window.syncTabs || (typeof syncTabs !== 'undefined' ? syncTabs : null);
   window.syncTabs = function(){
-    var result = typeof previousSyncTabsV21761 === 'function'
-      ? previousSyncTabsV21761.apply(this, arguments)
+    var result = typeof previousSyncTabsV31761 === 'function'
+      ? previousSyncTabsV31761.apply(this, arguments)
       : undefined;
     try{
       var btnNew = document.getElementById('btnNew');
@@ -9115,7 +9115,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   };
   try{ syncTabs = window.syncTabs; }catch(e){}
 
-  var previousLeaveEditorV21761 = window.leaveEditor || (typeof leaveEditor !== 'undefined' ? leaveEditor : null);
+  var previousLeaveEditorV31761 = window.leaveEditor || (typeof leaveEditor !== 'undefined' ? leaveEditor : null);
   window.leaveEditor = function(){
     if(typeof section !== 'undefined' && section === 'psalms'){
       try{
@@ -9123,20 +9123,20 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
           if(typeof saveCurrent === 'function') return saveCurrent(false, true);
         }
       }catch(e){}
-      backToPsalmsToolbarV21761();
+      backToPsalmsToolbarV31761();
       return;
     }
-    return typeof previousLeaveEditorV21761 === 'function'
-      ? previousLeaveEditorV21761.apply(this, arguments)
+    return typeof previousLeaveEditorV31761 === 'function'
+      ? previousLeaveEditorV31761.apply(this, arguments)
       : undefined;
   };
   try{ leaveEditor = window.leaveEditor; }catch(e){}
 
-  var previousDiscardV21761 = window.discardEditorChanges || (typeof discardEditorChanges !== 'undefined' ? discardEditorChanges : null);
+  var previousDiscardV31761 = window.discardEditorChanges || (typeof discardEditorChanges !== 'undefined' ? discardEditorChanges : null);
   window.discardEditorChanges = function(){
     if(typeof section === 'undefined' || section !== 'psalms'){
-      return typeof previousDiscardV21761 === 'function'
-        ? previousDiscardV21761.apply(this, arguments)
+      return typeof previousDiscardV31761 === 'function'
+        ? previousDiscardV31761.apply(this, arguments)
         : undefined;
     }
 
@@ -9147,7 +9147,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       var item = typeof currentItem === 'function' ? currentItem() : null;
       if(!item){
         isDirty = false;
-        backToPsalmsToolbarV21761();
+        backToPsalmsToolbarV31761();
         if(typeof toast === 'function') toast('Cambios descartados');
         return;
       }
@@ -9166,24 +9166,24 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       }
 
       isDirty = false;
-      backToPsalmsToolbarV21761();
+      backToPsalmsToolbarV31761();
       if(typeof toast === 'function') toast(isNew ? 'Descartado' : 'Cambios descartados');
     }catch(err){
       console.error('discard psalms v3.1.76.1', err);
       try{ isDirty = false; }catch(_e){}
-      backToPsalmsToolbarV21761();
+      backToPsalmsToolbarV31761();
       if(typeof toast === 'function') toast('Cambios descartados');
     }
   };
   try{ discardEditorChanges = window.discardEditorChanges; }catch(e){}
 
-  function refreshPsalmsUiV21761(){
+  function refreshPsalmsUiV31761(){
     try{ if(typeof syncTabs === 'function') syncTabs(); }catch(e){}
   }
   if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', refreshPsalmsUiV21761);
+    document.addEventListener('DOMContentLoaded', refreshPsalmsUiV31761);
   }else{
-    setTimeout(refreshPsalmsUiV21761, 0);
+    setTimeout(refreshPsalmsUiV31761, 0);
   }
 })();
 
@@ -9192,7 +9192,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   if(window.__v31763PsalmCreationFix) return;
   window.__v31763PsalmCreationFix = true;
 
-  function normalizePsalmDraftV21763(item){
+  function normalizePsalmDraftV31763(item){
     try{
       if(!item || typeof section === 'undefined' || section !== 'psalms') return item;
       var legacy = item.title === 'Nueva referencia' || item.reference === 'Nueva referencia';
@@ -9203,14 +9203,14 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
         item.updatedAt = Date.now();
         if(typeof saveState === 'function') saveState();
       }
-    }catch(e){ console.error('normalizePsalmDraftV21763', e); }
+    }catch(e){ console.error('normalizePsalmDraftV31763', e); }
     return item;
   }
 
-  var oldNewItemV21763 = window.newItem || (typeof newItem !== 'undefined' ? newItem : null);
+  var oldNewItemV31763 = window.newItem || (typeof newItem !== 'undefined' ? newItem : null);
   window.newItem = function(){
     if(typeof section === 'undefined' || section !== 'psalms'){
-      return typeof oldNewItemV21763 === 'function' ? oldNewItemV21763.apply(this, arguments) : undefined;
+      return typeof oldNewItemV31763 === 'function' ? oldNewItemV31763.apply(this, arguments) : undefined;
     }
     try{
       if(typeof setActiveView === 'function') setActiveView('new');
@@ -9231,16 +9231,16 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   };
   try{ newItem = window.newItem; }catch(e){}
 
-  var oldOpenEditorV21763 = window.openEditor || (typeof openEditor !== 'undefined' ? openEditor : null);
+  var oldOpenEditorV31763 = window.openEditor || (typeof openEditor !== 'undefined' ? openEditor : null);
   window.openEditor = function(){
     if(typeof section !== 'undefined' && section === 'psalms'){
-      try{ normalizePsalmDraftV21763(typeof currentItem === 'function' ? currentItem() : null); }catch(e){}
+      try{ normalizePsalmDraftV31763(typeof currentItem === 'function' ? currentItem() : null); }catch(e){}
     }
-    return typeof oldOpenEditorV21763 === 'function' ? oldOpenEditorV21763.apply(this, arguments) : undefined;
+    return typeof oldOpenEditorV31763 === 'function' ? oldOpenEditorV31763.apply(this, arguments) : undefined;
   };
   try{ openEditor = window.openEditor; }catch(e){}
 
-  function repairExistingPsalmDraftsV21763(){
+  function repairExistingPsalmDraftsV31763(){
     try{
       if(typeof state === 'undefined' || !state || !Array.isArray(state.psalms)) return;
       var changed=false;
@@ -9254,10 +9254,10 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
         }
       });
       if(changed && typeof saveState === 'function') saveState();
-    }catch(e){ console.error('repairExistingPsalmDraftsV21763', e); }
+    }catch(e){ console.error('repairExistingPsalmDraftsV31763', e); }
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', repairExistingPsalmDraftsV21763);
-  else setTimeout(repairExistingPsalmDraftsV21763,0);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', repairExistingPsalmDraftsV31763);
+  else setTimeout(repairExistingPsalmDraftsV31763,0);
 })();
 
 
@@ -9266,7 +9266,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   if(window.__v3177PsalmCategoriesInstalled) return;
   window.__v3177PsalmCategoriesInstalled=true;
 
-  var PSALM_CATEGORIES_V2177 = [
+  var PSALM_CATEGORIES_V3177 = [
     {id:'', icon:'', label:'Sin categoría'},
     {id:'alabanza', icon:'👑', label:'Alabanza y adoración'},
     {id:'gratitud', icon:'🙏🏾', label:'Gratitud'},
@@ -9292,21 +9292,21 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     {id:'manana', icon:'🌅', label:'Mañana y nuevo día'},
     {id:'noche', icon:'🌙', label:'Noche y descanso'}
 ];
-  window.PSALM_CATEGORIES_V2177=PSALM_CATEGORIES_V2177;
-  window.psalmCategoryMetaV2177=function(id){
-    return PSALM_CATEGORIES_V2177.find(function(x){return x.id===String(id||'');}) || PSALM_CATEGORIES_V2177[0];
+  window.PSALM_CATEGORIES_V3177=PSALM_CATEGORIES_V3177;
+  window.psalmCategoryMetaV3177=function(id){
+    return PSALM_CATEGORIES_V3177.find(function(x){return x.id===String(id||'');}) || PSALM_CATEGORIES_V3177[0];
   };
 
-  function ensurePsalmCategoryFieldV2177(){
+  function ensurePsalmCategoryFieldV3177(){
     try{
       if(!state || !Array.isArray(state.psalms)) return;
       state.psalms.forEach(function(item){
         if(item && typeof item.category!=='string') item.category='';
       });
-    }catch(e){ console.error('ensurePsalmCategoryFieldV2177',e); }
+    }catch(e){ console.error('ensurePsalmCategoryFieldV3177',e); }
   }
 
-  var CATEGORY_MIGRATION_V2179 = {
+  var CATEGORY_MIGRATION_V3179 = {
     alabanza:'alabanza_adoracion',
     adoracion:'alabanza_adoracion',
     confianza:'confianza_entrega',
@@ -9321,7 +9321,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     victoria:'fortaleza',
     peregrinacion:'guia_voluntad'
   };
-  function migrateSharedCategoriesV2179(){
+  function migrateSharedCategoriesV3179(){
     try{
       if(!state) return;
       var changed=false;
@@ -9330,31 +9330,31 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
         list.forEach(function(item){
           if(!item) return;
           var current=String(item.category||'');
-          if(CATEGORY_MIGRATION_V2179[current]){
-            item.category=CATEGORY_MIGRATION_V2179[current];
+          if(CATEGORY_MIGRATION_V3179[current]){
+            item.category=CATEGORY_MIGRATION_V3179[current];
             changed=true;
           }
         });
       });
       if(changed && typeof saveState==='function') saveState();
-    }catch(e){ console.error('migrateSharedCategoriesV2179',e); }
+    }catch(e){ console.error('migrateSharedCategoriesV3179',e); }
   }
 
-  function buildPsalmCategoryEditorV2177(){
-    var existing=document.getElementById('editPsalmCategoryWrapV2177');
+  function buildPsalmCategoryEditorV3177(){
+    var existing=document.getElementById('editPsalmCategoryWrapV3177');
     if(existing) return existing;
     var title=document.getElementById('editTitle');
     if(!title || !title.parentNode) return null;
     var wrap=document.createElement('div');
-    wrap.id='editPsalmCategoryWrapV2177';
+    wrap.id='editPsalmCategoryWrapV3177';
     wrap.className='psalm-category-editor-v3177 hidden';
     var label=document.createElement('label');
-    label.setAttribute('for','editPsalmCategoryV2177');
+    label.setAttribute('for','editPsalmCategoryV3177');
     label.textContent='Categoría del salmo';
     var select=document.createElement('select');
-    select.id='editPsalmCategoryV2177';
+    select.id='editPsalmCategoryV3177';
     select.className='search psalm-category-select-v3177';
-    PSALM_CATEGORIES_V2177.forEach(function(cat){
+    PSALM_CATEGORIES_V3177.forEach(function(cat){
       var opt=document.createElement('option');
       opt.value=cat.id;
       opt.textContent=cat.id ? (cat.icon+' '+cat.label) : '— Sin categoría —';
@@ -9368,17 +9368,17 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     return wrap;
   }
 
-  var oldOpenEditorV2177=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  var oldOpenEditorV3177=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
   window.openEditor=function(){
-    ensurePsalmCategoryFieldV2177();
-    var result=typeof oldOpenEditorV2177==='function'?oldOpenEditorV2177.apply(this,arguments):undefined;
-    var wrap=buildPsalmCategoryEditorV2177();
+    ensurePsalmCategoryFieldV3177();
+    var result=typeof oldOpenEditorV3177==='function'?oldOpenEditorV3177.apply(this,arguments):undefined;
+    var wrap=buildPsalmCategoryEditorV3177();
     if(wrap){
       var isPsalm=(typeof section!=='undefined' && section==='psalms');
       wrap.classList.toggle('hidden',!isPsalm);
       if(isPsalm){
         var item=typeof currentItem==='function'?currentItem():null;
-        var select=document.getElementById('editPsalmCategoryV2177');
+        var select=document.getElementById('editPsalmCategoryV3177');
         if(select) select.value=(item&&item.category)||'';
       }
     }
@@ -9386,31 +9386,31 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   };
   try{openEditor=window.openEditor;}catch(e){}
 
-  var oldSaveCurrentOriginalV2177=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
+  var oldSaveCurrentOriginalV3177=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
   window.saveCurrentOriginal=function(stay,silent){
     if(typeof section!=='undefined' && section==='psalms'){
       try{
         var item=typeof currentItem==='function'?currentItem():null;
-        var select=document.getElementById('editPsalmCategoryV2177');
+        var select=document.getElementById('editPsalmCategoryV3177');
         if(item) item.category=select ? (select.value||'') : (item.category||'');
       }catch(e){ console.error('save psalm category',e); }
     }
-    return typeof oldSaveCurrentOriginalV2177==='function'?oldSaveCurrentOriginalV2177.apply(this,arguments):undefined;
+    return typeof oldSaveCurrentOriginalV3177==='function'?oldSaveCurrentOriginalV3177.apply(this,arguments):undefined;
   };
   try{saveCurrentOriginal=window.saveCurrentOriginal;}catch(e){}
 
-  var oldNewItemV2177=window.newItem || (typeof newItem!=='undefined'?newItem:null);
+  var oldNewItemV3177=window.newItem || (typeof newItem!=='undefined'?newItem:null);
   window.newItem=function(){
     var wasPsalm=(typeof section!=='undefined' && section==='psalms');
-    var result=typeof oldNewItemV2177==='function'?oldNewItemV2177.apply(this,arguments):undefined;
+    var result=typeof oldNewItemV3177==='function'?oldNewItemV3177.apply(this,arguments):undefined;
     if(wasPsalm){
       try{
         var item=typeof currentItem==='function'?currentItem():null;
         if(item && typeof item.category!=='string') item.category='';
         if(typeof saveState==='function') saveState();
-        var wrap=buildPsalmCategoryEditorV2177();
+        var wrap=buildPsalmCategoryEditorV3177();
         if(wrap) wrap.classList.remove('hidden');
-        var select=document.getElementById('editPsalmCategoryV2177');
+        var select=document.getElementById('editPsalmCategoryV3177');
         if(select) select.value=(item&&item.category)||'';
       }catch(e){ console.error('new psalm category',e); }
     }
@@ -9418,20 +9418,20 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   };
   try{newItem=window.newItem;}catch(e){}
 
-  var oldRenderTitlesV2177=window.renderTitles || (typeof renderTitles!=='undefined'?renderTitles:null);
+  var oldRenderTitlesV3177=window.renderTitles || (typeof renderTitles!=='undefined'?renderTitles:null);
   window.renderTitles=function(){
-    ensurePsalmCategoryFieldV2177();
-    return typeof oldRenderTitlesV2177==='function'?oldRenderTitlesV2177.apply(this,arguments):undefined;
+    ensurePsalmCategoryFieldV3177();
+    return typeof oldRenderTitlesV3177==='function'?oldRenderTitlesV3177.apply(this,arguments):undefined;
   };
   try{renderTitles=window.renderTitles;}catch(e){}
 
-  function initV2177(){
-    ensurePsalmCategoryFieldV2177();
-    migrateSharedCategoriesV2179();
-    buildPsalmCategoryEditorV2177();
+  function initV3177(){
+    ensurePsalmCategoryFieldV3177();
+    migrateSharedCategoriesV3179();
+    buildPsalmCategoryEditorV3177();
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV2177);
-  else setTimeout(initV2177,0);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3177);
+  else setTimeout(initV3177,0);
 })();
 
 
@@ -9440,36 +9440,36 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   if(window.__v3178PrayerCategoriesInstalled) return;
   window.__v3178PrayerCategoriesInstalled=true;
 
-  function categoriesV2178(){
-    return Array.isArray(window.PSALM_CATEGORIES_V2177) ? window.PSALM_CATEGORIES_V2177 : [
+  function categoriesV3178(){
+    return Array.isArray(window.PSALM_CATEGORIES_V3177) ? window.PSALM_CATEGORIES_V3177 : [
       {id:'',icon:'',label:'Sin categoría'}
     ];
   }
 
-  function ensurePrayerCategoryFieldV2178(){
+  function ensurePrayerCategoryFieldV3178(){
     try{
       if(!state || !Array.isArray(state.prayers)) return;
       state.prayers.forEach(function(item){
         if(item && typeof item.category!=='string') item.category='';
       });
-    }catch(e){ console.error('ensurePrayerCategoryFieldV2178',e); }
+    }catch(e){ console.error('ensurePrayerCategoryFieldV3178',e); }
   }
 
-  function buildPrayerCategoryEditorV2178(){
-    var existing=document.getElementById('editPrayerCategoryWrapV2178');
+  function buildPrayerCategoryEditorV3178(){
+    var existing=document.getElementById('editPrayerCategoryWrapV3178');
     if(existing) return existing;
     var title=document.getElementById('editTitle');
     if(!title || !title.parentNode) return null;
     var wrap=document.createElement('div');
-    wrap.id='editPrayerCategoryWrapV2178';
+    wrap.id='editPrayerCategoryWrapV3178';
     wrap.className='psalm-category-editor-v3177 hidden';
     var label=document.createElement('label');
-    label.setAttribute('for','editPrayerCategoryV2178');
+    label.setAttribute('for','editPrayerCategoryV3178');
     label.textContent='Categoría de la oración';
     var select=document.createElement('select');
-    select.id='editPrayerCategoryV2178';
+    select.id='editPrayerCategoryV3178';
     select.className='search psalm-category-select-v3177';
-    categoriesV2178().forEach(function(cat){
+    categoriesV3178().forEach(function(cat){
       var opt=document.createElement('option');
       opt.value=cat.id;
       opt.textContent=cat.id ? (cat.icon+' '+cat.label) : '— Sin categoría —';
@@ -9480,7 +9480,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     });
     wrap.appendChild(label);
     wrap.appendChild(select);
-    var psalmWrap=document.getElementById('editPsalmCategoryWrapV2177');
+    var psalmWrap=document.getElementById('editPsalmCategoryWrapV3177');
     if(psalmWrap && psalmWrap.parentNode===title.parentNode){
       psalmWrap.parentNode.insertBefore(wrap,psalmWrap.nextSibling);
     }else{
@@ -9489,17 +9489,17 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     return wrap;
   }
 
-  var oldOpenEditorV2178=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  var oldOpenEditorV3178=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
   window.openEditor=function(){
-    ensurePrayerCategoryFieldV2178();
-    var result=typeof oldOpenEditorV2178==='function'?oldOpenEditorV2178.apply(this,arguments):undefined;
-    var wrap=buildPrayerCategoryEditorV2178();
+    ensurePrayerCategoryFieldV3178();
+    var result=typeof oldOpenEditorV3178==='function'?oldOpenEditorV3178.apply(this,arguments):undefined;
+    var wrap=buildPrayerCategoryEditorV3178();
     if(wrap){
       var isPrayer=(typeof section!=='undefined' && section==='prayers');
       wrap.classList.toggle('hidden',!isPrayer);
       if(isPrayer){
         var item=typeof currentItem==='function'?currentItem():null;
-        var select=document.getElementById('editPrayerCategoryV2178');
+        var select=document.getElementById('editPrayerCategoryV3178');
         if(select) select.value=(item&&item.category)||'';
       }
     }
@@ -9507,31 +9507,31 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   };
   try{openEditor=window.openEditor;}catch(e){}
 
-  var oldSaveCurrentOriginalV2178=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
+  var oldSaveCurrentOriginalV3178=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
   window.saveCurrentOriginal=function(stay,silent){
     if(typeof section!=='undefined' && section==='prayers'){
       try{
         var item=typeof currentItem==='function'?currentItem():null;
-        var select=document.getElementById('editPrayerCategoryV2178');
+        var select=document.getElementById('editPrayerCategoryV3178');
         if(item) item.category=select ? (select.value||'') : (item.category||'');
       }catch(e){ console.error('save prayer category',e); }
     }
-    return typeof oldSaveCurrentOriginalV2178==='function'?oldSaveCurrentOriginalV2178.apply(this,arguments):undefined;
+    return typeof oldSaveCurrentOriginalV3178==='function'?oldSaveCurrentOriginalV3178.apply(this,arguments):undefined;
   };
   try{saveCurrentOriginal=window.saveCurrentOriginal;}catch(e){}
 
-  var oldNewItemV2178=window.newItem || (typeof newItem!=='undefined'?newItem:null);
+  var oldNewItemV3178=window.newItem || (typeof newItem!=='undefined'?newItem:null);
   window.newItem=function(){
     var wasPrayer=(typeof section!=='undefined' && section==='prayers');
-    var result=typeof oldNewItemV2178==='function'?oldNewItemV2178.apply(this,arguments):undefined;
+    var result=typeof oldNewItemV3178==='function'?oldNewItemV3178.apply(this,arguments):undefined;
     if(wasPrayer){
       try{
         var item=typeof currentItem==='function'?currentItem():null;
         if(item && typeof item.category!=='string') item.category='';
         if(typeof saveState==='function') saveState();
-        var wrap=buildPrayerCategoryEditorV2178();
+        var wrap=buildPrayerCategoryEditorV3178();
         if(wrap) wrap.classList.remove('hidden');
-        var select=document.getElementById('editPrayerCategoryV2178');
+        var select=document.getElementById('editPrayerCategoryV3178');
         if(select) select.value=(item&&item.category)||'';
       }catch(e){ console.error('new prayer category',e); }
     }
@@ -9539,19 +9539,19 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   };
   try{newItem=window.newItem;}catch(e){}
 
-  var oldRenderTitlesV2178=window.renderTitles || (typeof renderTitles!=='undefined'?renderTitles:null);
+  var oldRenderTitlesV3178=window.renderTitles || (typeof renderTitles!=='undefined'?renderTitles:null);
   window.renderTitles=function(){
-    ensurePrayerCategoryFieldV2178();
-    return typeof oldRenderTitlesV2178==='function'?oldRenderTitlesV2178.apply(this,arguments):undefined;
+    ensurePrayerCategoryFieldV3178();
+    return typeof oldRenderTitlesV3178==='function'?oldRenderTitlesV3178.apply(this,arguments):undefined;
   };
   try{renderTitles=window.renderTitles;}catch(e){}
 
-  function initV2178(){
-    ensurePrayerCategoryFieldV2178();
-    buildPrayerCategoryEditorV2178();
+  function initV3178(){
+    ensurePrayerCategoryFieldV3178();
+    buildPrayerCategoryEditorV3178();
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV2178);
-  else setTimeout(initV2178,0);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3178);
+  else setTimeout(initV3178,0);
 })();
 
 /* ===== v3.1.80 - Selección múltiple de categorías para Oraciones ===== */
@@ -9559,17 +9559,17 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   if(window.__v3180PrayerMultiCategoriesInstalled) return;
   window.__v3180PrayerMultiCategoriesInstalled=true;
 
-  function categoryListV2180(){
-    return (Array.isArray(window.PSALM_CATEGORIES_V2177) ? window.PSALM_CATEGORIES_V2177 : []).filter(function(cat){ return cat && cat.id; });
+  function categoryListV3180(){
+    return (Array.isArray(window.PSALM_CATEGORIES_V3177) ? window.PSALM_CATEGORIES_V3177 : []).filter(function(cat){ return cat && cat.id; });
   }
 
-  function normalizePrayerCategoriesV2180(item){
+  function normalizePrayerCategoriesV3180(item){
     if(!item) return [];
     var values=[];
     if(Array.isArray(item.categories)) values=item.categories.slice();
     else if(typeof item.category==='string' && item.category) values=[item.category];
     var valid={};
-    categoryListV2180().forEach(function(cat){ valid[cat.id]=true; });
+    categoryListV3180().forEach(function(cat){ valid[cat.id]=true; });
     values=values.map(function(value){ return String(value||''); }).filter(function(value,index,array){ return valid[value] && array.indexOf(value)===index; });
     item.categories=values;
     /* Compatibilidad con versiones anteriores: conserva como principal la primera marcada. */
@@ -9577,30 +9577,30 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     return values;
   }
 
-  function ensurePrayerCategoriesV2180(){
+  function ensurePrayerCategoriesV3180(){
     try{
       if(!state || !Array.isArray(state.prayers)) return;
       var changed=false;
       state.prayers.forEach(function(item){
         if(!item) return;
         var before=JSON.stringify(item.categories||null)+'|'+String(item.category||'');
-        normalizePrayerCategoriesV2180(item);
+        normalizePrayerCategoriesV3180(item);
         var after=JSON.stringify(item.categories||null)+'|'+String(item.category||'');
         if(before!==after) changed=true;
       });
       if(changed && typeof saveState==='function') saveState();
-    }catch(e){ console.error('ensurePrayerCategoriesV2180',e); }
+    }catch(e){ console.error('ensurePrayerCategoriesV3180',e); }
   }
 
-  function buildPrayerMultiEditorV2180(){
-    var existing=document.getElementById('editPrayerCategoriesWrapV2180');
+  function buildPrayerMultiEditorV3180(){
+    var existing=document.getElementById('editPrayerCategoriesWrapV3180');
     if(existing) return existing;
-    var oldWrap=document.getElementById('editPrayerCategoryWrapV2178');
+    var oldWrap=document.getElementById('editPrayerCategoryWrapV3178');
     var title=document.getElementById('editTitle');
     if(!title || !title.parentNode) return null;
 
     var wrap=document.createElement('div');
-    wrap.id='editPrayerCategoriesWrapV2180';
+    wrap.id='editPrayerCategoriesWrapV3180';
     wrap.className='prayer-categories-editor-v3180 hidden';
 
     var header=document.createElement('div');
@@ -9608,7 +9608,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     var label=document.createElement('strong');
     label.textContent='Categorías de la oración';
     var counter=document.createElement('span');
-    counter.id='prayerCategoryCountV2180';
+    counter.id='prayerCategoryCountV3180';
     counter.className='prayer-category-count-v3180';
     header.appendChild(label);
     header.appendChild(counter);
@@ -9618,10 +9618,10 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     help.textContent='Puedes seleccionar una o varias categorías.';
 
     var grid=document.createElement('div');
-    grid.id='editPrayerCategoriesV2180';
+    grid.id='editPrayerCategoriesV3180';
     grid.className='prayer-categories-grid-v3180';
 
-    categoryListV2180().forEach(function(cat){
+    categoryListV3180().forEach(function(cat){
       var option=document.createElement('label');
       option.className='prayer-category-option-v3180';
       var input=document.createElement('input');
@@ -9630,7 +9630,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       input.dataset.categoryId=cat.id;
       input.addEventListener('change',function(){
         option.classList.toggle('selected',input.checked);
-        updateCountV2180();
+        updateCountV3180();
         try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
       });
       var text=document.createElement('span');
@@ -9652,94 +9652,94 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     return wrap;
   }
 
-  function checkedCategoriesV2180(){
-    var grid=document.getElementById('editPrayerCategoriesV2180');
+  function checkedCategoriesV3180(){
+    var grid=document.getElementById('editPrayerCategoriesV3180');
     if(!grid) return [];
     return Array.prototype.slice.call(grid.querySelectorAll('input[type="checkbox"]:checked')).map(function(input){ return input.value; });
   }
 
-  function updateCountV2180(){
-    var count=checkedCategoriesV2180().length;
-    var counter=document.getElementById('prayerCategoryCountV2180');
+  function updateCountV3180(){
+    var count=checkedCategoriesV3180().length;
+    var counter=document.getElementById('prayerCategoryCountV3180');
     if(counter) counter.textContent=count ? (count+(count===1?' seleccionada':' seleccionadas')) : 'Ninguna seleccionada';
   }
 
-  function loadPrayerCategoriesV2180(item){
-    var selected=normalizePrayerCategoriesV2180(item||{});
+  function loadPrayerCategoriesV3180(item){
+    var selected=normalizePrayerCategoriesV3180(item||{});
     var selectedMap={};
     selected.forEach(function(id){ selectedMap[id]=true; });
-    var grid=document.getElementById('editPrayerCategoriesV2180');
+    var grid=document.getElementById('editPrayerCategoriesV3180');
     if(!grid) return;
     Array.prototype.forEach.call(grid.querySelectorAll('input[type="checkbox"]'),function(input){
       input.checked=!!selectedMap[input.value];
       if(input.parentNode) input.parentNode.classList.toggle('selected',input.checked);
     });
-    updateCountV2180();
+    updateCountV3180();
   }
 
-  function savePrayerCategoriesV2180(){
+  function savePrayerCategoriesV3180(){
     try{
       if(typeof section==='undefined' || section!=='prayers') return;
       var item=typeof currentItem==='function'?currentItem():null;
       if(!item) return;
-      var values=checkedCategoriesV2180();
+      var values=checkedCategoriesV3180();
       item.categories=values;
       item.category=values[0]||'';
-    }catch(e){ console.error('savePrayerCategoriesV2180',e); }
+    }catch(e){ console.error('savePrayerCategoriesV3180',e); }
   }
 
-  var previousOpenEditorV2180=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  var previousOpenEditorV3180=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
   window.openEditor=function(){
-    var result=typeof previousOpenEditorV2180==='function'?previousOpenEditorV2180.apply(this,arguments):undefined;
-    var wrap=buildPrayerMultiEditorV2180();
+    var result=typeof previousOpenEditorV3180==='function'?previousOpenEditorV3180.apply(this,arguments):undefined;
+    var wrap=buildPrayerMultiEditorV3180();
     var isPrayer=(typeof section!=='undefined' && section==='prayers');
-    var oldWrap=document.getElementById('editPrayerCategoryWrapV2178');
+    var oldWrap=document.getElementById('editPrayerCategoryWrapV3178');
     if(oldWrap) oldWrap.classList.add('hidden');
     if(wrap){
       wrap.classList.toggle('hidden',!isPrayer);
-      if(isPrayer) loadPrayerCategoriesV2180(typeof currentItem==='function'?currentItem():null);
+      if(isPrayer) loadPrayerCategoriesV3180(typeof currentItem==='function'?currentItem():null);
     }
     return result;
   };
   try{openEditor=window.openEditor;}catch(e){}
 
-  var previousSaveCurrentOriginalV2180=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
+  var previousSaveCurrentOriginalV3180=window.saveCurrentOriginal || (typeof saveCurrentOriginal!=='undefined'?saveCurrentOriginal:null);
   window.saveCurrentOriginal=function(stay,silent){
-    savePrayerCategoriesV2180();
+    savePrayerCategoriesV3180();
     /* Sincroniza el selector antiguo oculto para que su envoltorio no sobrescriba la categoría principal. */
     if(typeof section!=='undefined' && section==='prayers'){
-      var legacy=document.getElementById('editPrayerCategoryV2178');
-      var values=checkedCategoriesV2180();
+      var legacy=document.getElementById('editPrayerCategoryV3178');
+      var values=checkedCategoriesV3180();
       if(legacy) legacy.value=values[0]||'';
     }
-    var result=typeof previousSaveCurrentOriginalV2180==='function'?previousSaveCurrentOriginalV2180.apply(this,arguments):undefined;
-    savePrayerCategoriesV2180();
+    var result=typeof previousSaveCurrentOriginalV3180==='function'?previousSaveCurrentOriginalV3180.apply(this,arguments):undefined;
+    savePrayerCategoriesV3180();
     return result;
   };
   try{saveCurrentOriginal=window.saveCurrentOriginal;}catch(e){}
 
-  var previousNewItemV2180=window.newItem || (typeof newItem!=='undefined'?newItem:null);
+  var previousNewItemV3180=window.newItem || (typeof newItem!=='undefined'?newItem:null);
   window.newItem=function(){
     var wasPrayer=(typeof section!=='undefined' && section==='prayers');
-    var result=typeof previousNewItemV2180==='function'?previousNewItemV2180.apply(this,arguments):undefined;
+    var result=typeof previousNewItemV3180==='function'?previousNewItemV3180.apply(this,arguments):undefined;
     if(wasPrayer){
       var item=typeof currentItem==='function'?currentItem():null;
       if(item){ item.categories=[]; item.category=''; }
-      var wrap=buildPrayerMultiEditorV2180();
+      var wrap=buildPrayerMultiEditorV3180();
       if(wrap) wrap.classList.remove('hidden');
-      loadPrayerCategoriesV2180(item);
+      loadPrayerCategoriesV3180(item);
       if(typeof saveState==='function') saveState();
     }
     return result;
   };
   try{newItem=window.newItem;}catch(e){}
 
-  function initV2180(){
-    ensurePrayerCategoriesV2180();
-    buildPrayerMultiEditorV2180();
+  function initV3180(){
+    ensurePrayerCategoriesV3180();
+    buildPrayerMultiEditorV3180();
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV2180);
-  else setTimeout(initV2180,0);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3180);
+  else setTimeout(initV3180,0);
 })();
 
 /* ===== v3.1.81 - Nombre de categoría visible en títulos de Salmos ===== */
@@ -9748,10 +9748,10 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   window.__v3181PsalmCategoryTitlesInstalled=true;
 
   /* Reutilizable por la futura tarjeta de Salmo recomendado. */
-  window.formatPsalmRecommendationTitleV2181=function(item){
+  window.formatPsalmRecommendationTitleV3181=function(item){
     var title=(item && (item.title||item.reference)) || 'Salmo';
-    if(!item || !item.category || typeof window.psalmCategoryMetaV2177!=='function') return title;
-    var meta=window.psalmCategoryMetaV2177(item.category);
+    if(!item || !item.category || typeof window.psalmCategoryMetaV3177!=='function') return title;
+    var meta=window.psalmCategoryMetaV3177(item.category);
     if(!meta) return title;
     var prefix=[meta.icon||'',meta.label||''].filter(Boolean).join(' ');
     return prefix ? (prefix+' · '+title) : title;
@@ -9773,10 +9773,10 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   function writeRecent(ids){
     try{localStorage.setItem(RECENT_KEY,JSON.stringify((ids||[]).slice(0,12)))}catch(e){}
   }
-  function inferPrayerCategoriesV2114(item){
+  function inferPrayerCategoriesV3114(item){
     if(!item) return [];
     var values=[];
-    if(Array.isArray(item.momentCategoriesV21102)) values=values.concat(item.momentCategoriesV21102);
+    if(Array.isArray(item.momentCategoriesV31102)) values=values.concat(item.momentCategoriesV31102);
     if(Array.isArray(item.categories)) values=values.concat(item.categories);
     if(item.category) values.push(item.category);
     var text=[item.title,item.content,item.text].filter(Boolean).join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -9800,7 +9800,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     var seen={};
     return values.map(function(x){var v=String(x||'').trim();return aliases[v]||v;}).filter(function(x){if(!x||seen[x])return false;seen[x]=true;return true;});
   }
-  function prayerCategories(item){ return inferPrayerCategoriesV2114(item); }
+  function prayerCategories(item){ return inferPrayerCategoriesV3114(item); }
   function chooseRelatedPsalm(prayer){
     try{
       if(typeof state==='undefined' || !state || !Array.isArray(state.psalms) || !state.psalms.length) return null;
@@ -9860,8 +9860,8 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       button.setAttribute('role','button');
       button.setAttribute('tabindex','0');
       button.dataset.v3182Psalm=psalm.id;
-      button.textContent=typeof window.formatPsalmRecommendationTitleV2181==='function'
-        ? window.formatPsalmRecommendationTitleV2181(psalm)
+      button.textContent=typeof window.formatPsalmRecommendationTitleV3181==='function'
+        ? window.formatPsalmRecommendationTitleV3181(psalm)
         : (psalm.title||'Salmo');
 
       var insertBefore=top||null;
@@ -9905,11 +9905,11 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   window.__v3188RecommendationModalInstalled=true;
 
   var VERSE_RECENT_KEY='oraciones_recent_related_verses_v3188';
-  var pendingTimerV2188=null;
-  var previousBodyOverflowV2188='';
-  var recommendationScrollPositionV2171=null;
+  var pendingTimerV3188=null;
+  var previousBodyOverflowV3188='';
+  var recommendationScrollPositionV3171=null;
 
-  var VERSE_CATEGORY_MAP_V2188={
+  var VERSE_CATEGORY_MAP_V3188={
     alabanza_adoracion:['alabanza'], amor:['amor'], salvacion_vida_eterna:['salvacion','esperanza'],
     consagracion_santidad:['santidad'], confianza_entrega:['fe','descanso','esperanza'],
     arrepentimiento_perdon:['salvacion','santidad'], proteccion:['fe','fortaleza'],
@@ -9929,14 +9929,14 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     tristeza:['descanso','esperanza','amor'], intercesion:['amor','reino'], manana:['esperanza','alabanza'], noche:['descanso','fe']
   };
 
-  function escapeV2188(value){
+  function escapeV3188(value){
     try{return escapeHtml(String(value==null?'':value));}
     catch(e){return String(value==null?'':value).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];});}
   }
-  function prayerCategoriesV2188(item){
+  function prayerCategoriesV3188(item){
     if(!item) return [];
     var list=[];
-    if(Array.isArray(item.momentCategoriesV21102)) list=list.concat(item.momentCategoriesV21102);
+    if(Array.isArray(item.momentCategoriesV31102)) list=list.concat(item.momentCategoriesV31102);
     if(Array.isArray(item.categories)) list=list.concat(item.categories);
     if(item.category) list.unshift(item.category);
     var text=[item.title,item.content,item.text].filter(Boolean).join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
@@ -9944,26 +9944,26 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     Object.keys(rules).forEach(function(cat){if(rules[cat].some(function(k){return text.indexOf(k)>=0;}))list.push(cat);});
     var seen={};return list.map(function(x){return String(x||'').trim();}).filter(function(x){if(!x||seen[x])return false;seen[x]=true;return true;});
   }
-  function readRecentV2188(){
+  function readRecentV3188(){
     try{return JSON.parse(localStorage.getItem(VERSE_RECENT_KEY)||'[]');}catch(e){return [];}
   }
-  function writeRecentV2188(list){
+  function writeRecentV3188(list){
     try{localStorage.setItem(VERSE_RECENT_KEY,JSON.stringify((list||[]).slice(0,18)));}catch(e){}
   }
-  function verseCategoryMetaV2188(id){
+  function verseCategoryMetaV3188(id){
     var label='📖 Sin categoría';
     try{if(typeof verseCategoryLabel==='function') label=verseCategoryLabel(id)||label;}catch(e){}
     var match=String(label).match(/^([^\p{L}\p{N}]+)\s*(.*)$/u);
     return {icon:match&&match[1]?match[1].trim():'📖',label:match&&match[2]?match[2].trim():String(label)};
   }
-  function chooseRelatedVerseV2188(prayer){
+  function chooseRelatedVerseV3188(prayer){
     try{
       if(!state || !Array.isArray(state.verses) || !state.verses.length) return null;
       var target=[];
-      prayerCategoriesV2188(prayer).forEach(function(cat){
-        (VERSE_CATEGORY_MAP_V2188[cat]||[]).forEach(function(v){if(target.indexOf(v)<0)target.push(v);});
+      prayerCategoriesV3188(prayer).forEach(function(cat){
+        (VERSE_CATEGORY_MAP_V3188[cat]||[]).forEach(function(v){if(target.indexOf(v)<0)target.push(v);});
       });
-      var recent=readRecentV2188();
+      var recent=readRecentV3188();
       var pool=target.length?state.verses.filter(function(v){return v&&target.indexOf(String(v.category||''))>=0&&recent.indexOf(v.id)<0;}):[];
       if(!pool.length&&target.length) pool=state.verses.filter(function(v){return v&&target.indexOf(String(v.category||''))>=0;});
       /* Si no hay coincidencia exacta, siempre recomienda automáticamente un versículo disponible. */
@@ -9972,58 +9972,58 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       return pool.length?pool[Math.floor(Math.random()*pool.length)]:null;
     }catch(e){return null;}
   }
-  function modalTextV2188(text){
+  function modalTextV3188(text){
     var raw=String(text||'').replace(/\r\n?/g,'\n');
     var formatted='';
     try{
       formatted=typeof highlightBibleReferencesV49==='function'
         ? highlightBibleReferencesV49(raw)
-        : escapeV2188(raw);
-    }catch(e){formatted=escapeV2188(raw);}
+        : escapeV3188(raw);
+    }catch(e){formatted=escapeV3188(raw);}
     /* Conserva exactamente los saltos y separaciones del texto original. */
     return formatted.replace(/\n/g,'<br>');
   }
-  function ensureModalV2188(){
-    var modal=document.getElementById('recommendationModalV2188');
+  function ensureModalV3188(){
+    var modal=document.getElementById('recommendationModalV3188');
     if(modal) return modal;
     modal=document.createElement('div');
-    modal.id='recommendationModalV2188';
+    modal.id='recommendationModalV3188';
     modal.className='recommendation-modal-v3188 hidden';
     modal.setAttribute('aria-hidden','true');
     modal.innerHTML=
-      '<div class="recommendation-dialog-v3188" role="dialog" aria-modal="true" aria-labelledby="recommendationTitleV2188">'+
+      '<div class="recommendation-dialog-v3188" role="dialog" aria-modal="true" aria-labelledby="recommendationTitleV3188">'+
         '<div class="recommendation-head-v3188">'+
           '<div class="recommendation-heading-wrap-v3188">'+
             '<div class="recommendation-cross-v3190" aria-hidden="true">✝</div>'+
-            '<div id="recommendationKindV2188" class="recommendation-kind-v3188"></div>'+
-            '<h2 id="recommendationTitleV2188" class="recommendation-title-v3188"></h2>'+
-            '<div id="recommendationCategoryV2188" class="recommendation-category-v3188"></div>'+
+            '<div id="recommendationKindV3188" class="recommendation-kind-v3188"></div>'+
+            '<h2 id="recommendationTitleV3188" class="recommendation-title-v3188"></h2>'+
+            '<div id="recommendationCategoryV3188" class="recommendation-category-v3188"></div>'+
           '</div>'+
-          '<button id="recommendationCloseXV2188" class="recommendation-close-x-v3188" type="button" aria-label="Cerrar">×</button>'+
+          '<button id="recommendationCloseXV3188" class="recommendation-close-x-v3188" type="button" aria-label="Cerrar">×</button>'+
         '</div>'+
-        '<div id="recommendationContentV2188" class="recommendation-content-v3188"></div>'+
-        '<div class="recommendation-footer-v3188"><button id="recommendationCloseV2188" class="btn soft recommendation-close-v3188" type="button">Cerrar y volver a la oración</button></div>'+
+        '<div id="recommendationContentV3188" class="recommendation-content-v3188"></div>'+
+        '<div class="recommendation-footer-v3188"><button id="recommendationCloseV3188" class="btn soft recommendation-close-v3188" type="button">Cerrar y volver a la oración</button></div>'+
       '</div>';
     document.body.appendChild(modal);
-    modal.addEventListener('click',function(e){if(e.target===modal) closeRecommendationModalV2188();});
-    modal.querySelector('#recommendationCloseXV2188').addEventListener('click',closeRecommendationModalV2188);
+    modal.addEventListener('click',function(e){if(e.target===modal) closeRecommendationModalV3188();});
+    modal.querySelector('#recommendationCloseXV3188').addEventListener('click',closeRecommendationModalV3188);
     /* El botón inferior comparte estilos con otros botones de navegación.
        Cerramos aquí el evento por completo para que ningún manejador global
        actúe después de ocultar el modal y lleve el lector al inicio. */
-    modal.querySelector('#recommendationCloseV2188').addEventListener('click',function(e){
+    modal.querySelector('#recommendationCloseV3188').addEventListener('click',function(e){
       if(e){e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();}
-      closeRecommendationModalV2188();
+      closeRecommendationModalV3188();
     });
     return modal;
   }
-  function restoreRecommendationScrollV2171(){
-    var pos=recommendationScrollPositionV2171;
+  function restoreRecommendationScrollV3171(){
+    var pos=recommendationScrollPositionV3171;
     if(!pos) return;
     try{window.scrollTo(pos.x,pos.y);}catch(e){try{window.scrollTo(0,pos.y);}catch(e2){}}
     try{if(pos.reader)pos.reader.scrollTop=pos.readerTop;}catch(e){}
   }
-  function closeRecommendationModalV2188(){
-    var modal=document.getElementById('recommendationModalV2188');
+  function closeRecommendationModalV3188(){
+    var modal=document.getElementById('recommendationModalV3188');
     if(!modal) return;
     /* Evita que Android intente recolocar en pantalla el botón enfocado
        cuando su modal pasa a estar oculto. */
@@ -10031,56 +10031,56 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     modal.classList.add('hidden');
     modal.setAttribute('aria-hidden','true');
     document.body.classList.remove('recommendation-open-v3188');
-    document.body.style.overflow=previousBodyOverflowV2188;
-    restoreRecommendationScrollV2171();
+    document.body.style.overflow=previousBodyOverflowV3188;
+    restoreRecommendationScrollV3171();
     requestAnimationFrame(function(){
-      restoreRecommendationScrollV2171();
-      requestAnimationFrame(restoreRecommendationScrollV2171);
+      restoreRecommendationScrollV3171();
+      requestAnimationFrame(restoreRecommendationScrollV3171);
     });
     /* Android/Chrome puede reajustar la ventana al terminar el evento táctil
        del botón inferior; repetimos la restauración tras esos reajustes. */
-    setTimeout(restoreRecommendationScrollV2171,0);
-    setTimeout(restoreRecommendationScrollV2171,80);
-    setTimeout(restoreRecommendationScrollV2171,220);
+    setTimeout(restoreRecommendationScrollV3171,0);
+    setTimeout(restoreRecommendationScrollV3171,80);
+    setTimeout(restoreRecommendationScrollV3171,220);
   }
-  window.closeRecommendationModalV2188=closeRecommendationModalV2188;
+  window.closeRecommendationModalV3188=closeRecommendationModalV3188;
 
-  function openRecommendationModalV2188(kind,item){
+  function openRecommendationModalV3188(kind,item){
     if(!item) return;
-    var modal=ensureModalV2188();
+    var modal=ensureModalV3188();
     var isPsalm=kind==='psalm';
     var categoryMeta=isPsalm
-      ? (typeof window.psalmCategoryMetaV2177==='function'?window.psalmCategoryMetaV2177(item.category):{icon:'♫',label:''})
-      : verseCategoryMetaV2188(item.category);
+      ? (typeof window.psalmCategoryMetaV3177==='function'?window.psalmCategoryMetaV3177(item.category):{icon:'♫',label:''})
+      : verseCategoryMetaV3188(item.category);
     var title=isPsalm?(item.title||item.reference||'Salmo'):(item.reference||item.title||'Versículo');
     var content=isPsalm?(item.content||item.text||''):(item.text||item.content||'');
     modal.classList.toggle('recommendation-psalm-v3189',isPsalm);
     modal.classList.toggle('recommendation-verse-v3189',!isPsalm);
-    modal.querySelector('#recommendationKindV2188').textContent=isPsalm?'📖 Salmo relacionado':'✨ Versículo relacionado';
-    modal.querySelector('#recommendationTitleV2188').textContent=title;
-    modal.querySelector('#recommendationCategoryV2188').textContent=[categoryMeta.icon||'',categoryMeta.label||''].filter(Boolean).join(' ');
-    modal.querySelector('#recommendationContentV2188').innerHTML=modalTextV2188(content);
-    var rootV2171=document.scrollingElement||document.documentElement;
-    var readerV2171=document.getElementById('readerText');
-    recommendationScrollPositionV2171={
-      x:window.pageXOffset||rootV2171.scrollLeft||0,
-      y:window.pageYOffset||rootV2171.scrollTop||0,
-      reader:readerV2171,
-      readerTop:readerV2171?readerV2171.scrollTop:0
+    modal.querySelector('#recommendationKindV3188').textContent=isPsalm?'📖 Salmo relacionado':'✨ Versículo relacionado';
+    modal.querySelector('#recommendationTitleV3188').textContent=title;
+    modal.querySelector('#recommendationCategoryV3188').textContent=[categoryMeta.icon||'',categoryMeta.label||''].filter(Boolean).join(' ');
+    modal.querySelector('#recommendationContentV3188').innerHTML=modalTextV3188(content);
+    var rootV3171=document.scrollingElement||document.documentElement;
+    var readerV3171=document.getElementById('readerText');
+    recommendationScrollPositionV3171={
+      x:window.pageXOffset||rootV3171.scrollLeft||0,
+      y:window.pageYOffset||rootV3171.scrollTop||0,
+      reader:readerV3171,
+      readerTop:readerV3171?readerV3171.scrollTop:0
     };
-    previousBodyOverflowV2188=document.body.style.overflow||'';
+    previousBodyOverflowV3188=document.body.style.overflow||'';
     document.body.classList.add('recommendation-open-v3188');
     document.body.style.overflow='hidden';
     modal.classList.remove('hidden');
     modal.setAttribute('aria-hidden','false');
     modal.querySelector('.recommendation-content-v3188').scrollTop=0;
-    setTimeout(function(){try{modal.querySelector('#recommendationCloseXV2188').focus();}catch(e){}},30);
+    setTimeout(function(){try{modal.querySelector('#recommendationCloseXV3188').focus();}catch(e){}},30);
   }
 
-  function findPsalmV2188(id){
+  function findPsalmV3188(id){
     try{return (state.psalms||[]).find(function(p){return p&&String(p.id)===String(id);})||null;}catch(e){return null;}
   }
-  function findVerseV2188(id){
+  function findVerseV3188(id){
     try{return (state.verses||[]).find(function(v){return v&&String(v.id)===String(id);})||null;}catch(e){return null;}
   }
 
@@ -10089,34 +10089,34 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     var btn=e.target&&e.target.closest?e.target.closest('[data-v3182-psalm]'):null;
     if(!btn) return;
     e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
-    var item=findPsalmV2188(btn.getAttribute('data-v3182-psalm'));
-    if(item) openRecommendationModalV2188('psalm',item);
+    var item=findPsalmV3188(btn.getAttribute('data-v3182-psalm'));
+    if(item) openRecommendationModalV3188('psalm',item);
   },true);
   document.addEventListener('keydown',function(e){
     var btn=e.target&&e.target.closest?e.target.closest('[data-v3182-psalm]'):null;
     if(btn&&(e.key==='Enter'||e.key===' ')){
       e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
-      var item=findPsalmV2188(btn.getAttribute('data-v3182-psalm'));
-      if(item) openRecommendationModalV2188('psalm',item);
+      var item=findPsalmV3188(btn.getAttribute('data-v3182-psalm'));
+      if(item) openRecommendationModalV3188('psalm',item);
       return;
     }
-    if(e.key==='Escape') closeRecommendationModalV2188();
+    if(e.key==='Escape') closeRecommendationModalV3188();
   },true);
 
-  function augmentVerseRecommendationV2188(){
+  function augmentVerseRecommendationV3188(){
     try{
       if(typeof section==='undefined'||section!=='prayers') return;
       var box=document.querySelector('.reader-next');
       if(!box||box.dataset.v3188VerseReady==='1') return;
       var prayer=typeof currentItem==='function'?currentItem():null;
-      var verse=chooseRelatedVerseV2188(prayer);
+      var verse=chooseRelatedVerseV3188(prayer);
       if(!verse) return;
       box.dataset.v3188VerseReady='1';
       var top=box.querySelector('[data-v59d-top]');
       var label=document.createElement('div');
       label.className='reader-verse-label-v3188';
       label.textContent='✨ También puede meditar un versículo relacionado';
-      var meta=verseCategoryMetaV2188(verse.category);
+      var meta=verseCategoryMetaV3188(verse.category);
       var button=document.createElement('div');
       button.className='reader-next-link reader-recommendation-button-v3182 reader-verse-link-v3188';
       button.setAttribute('role','button');button.setAttribute('tabindex','0');
@@ -10125,27 +10125,27 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       box.insertBefore(label,top||null);box.insertBefore(button,top||null);
       function activate(){
         var id=button.dataset.v3188Verse;
-        var recent=readRecentV2188().filter(function(x){return String(x)!==String(id);});
-        recent.unshift(id);writeRecentV2188(recent);
-        openRecommendationModalV2188('verse',findVerseV2188(id));
+        var recent=readRecentV3188().filter(function(x){return String(x)!==String(id);});
+        recent.unshift(id);writeRecentV3188(recent);
+        openRecommendationModalV3188('verse',findVerseV3188(id));
       }
       button.addEventListener('click',activate);
       button.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
     }catch(e){console.error('verse recommendation v3.1.90',e);}
   }
-  function scheduleV2188(){clearTimeout(pendingTimerV2188);pendingTimerV2188=setTimeout(augmentVerseRecommendationV2188,520);}
-  var previousRenderV2188=window.renderReader||(typeof renderReader!=='undefined'?renderReader:null);
-  if(typeof previousRenderV2188==='function'){
-    window.renderReader=function(){var result=previousRenderV2188.apply(this,arguments);scheduleV2188();return result;};
+  function scheduleV3188(){clearTimeout(pendingTimerV3188);pendingTimerV3188=setTimeout(augmentVerseRecommendationV3188,520);}
+  var previousRenderV3188=window.renderReader||(typeof renderReader!=='undefined'?renderReader:null);
+  if(typeof previousRenderV3188==='function'){
+    window.renderReader=function(){var result=previousRenderV3188.apply(this,arguments);scheduleV3188();return result;};
     try{renderReader=window.renderReader;}catch(e){}
   }
-  var observerV2188=new MutationObserver(scheduleV2188);
-  function initV2188(){
-    ensureModalV2188();
-    try{observerV2188.observe(document.body,{childList:true,subtree:true});}catch(e){}
-    scheduleV2188();
+  var observerV3188=new MutationObserver(scheduleV3188);
+  function initV3188(){
+    ensureModalV3188();
+    try{observerV3188.observe(document.body,{childList:true,subtree:true});}catch(e){}
+    scheduleV3188();
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV2188); else initV2188();
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initV3188); else initV3188();
 })();
 
 
@@ -10154,7 +10154,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   if(window.__v3113PrayerCategorySelectorInstalled) return;
   window.__v3113PrayerCategorySelectorInstalled=true;
 
-  var FINAL_PRAYER_CATEGORIES_V2113 = [
+  var FINAL_PRAYER_CATEGORIES_V3113 = [
     {id:'alabanza', icon:'👑', label:'Alabanza y adoración'},
     {id:'gratitud', icon:'🙏🏾', label:'Gratitud'},
     {id:'fe', icon:'✨', label:'Fe y esperanza'},
@@ -10187,13 +10187,13 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     return values;
   }
 
-  function rebuildPrayerCategoryGridV2113(){
-    var grid=document.getElementById('editPrayerCategoriesV2180');
+  function rebuildPrayerCategoryGridV3113(){
+    var grid=document.getElementById('editPrayerCategoriesV3180');
     if(!grid) return;
     var selected={};
     selectedIds().forEach(function(id){ selected[String(id||'')]=true; });
     grid.innerHTML='';
-    FINAL_PRAYER_CATEGORIES_V2113.forEach(function(cat){
+    FINAL_PRAYER_CATEGORIES_V3113.forEach(function(cat){
       var option=document.createElement('label');
       option.className='prayer-category-option-v3180'+(selected[cat.id]?' selected':'');
       var input=document.createElement('input');
@@ -10204,7 +10204,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       input.addEventListener('change',function(){
         option.classList.toggle('selected',input.checked);
         var checked=grid.querySelectorAll('input[type="checkbox"]:checked').length;
-        var counter=document.getElementById('prayerCategoryCountV2180');
+        var counter=document.getElementById('prayerCategoryCountV3180');
         if(counter) counter.textContent=checked ? (checked+(checked===1?' seleccionada':' seleccionadas')) : 'Ninguna seleccionada';
         try{ if(typeof scheduleAutosave==='function') scheduleAutosave(); }catch(e){}
       });
@@ -10215,21 +10215,21 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       grid.appendChild(option);
     });
     var checked=grid.querySelectorAll('input[type="checkbox"]:checked').length;
-    var counter=document.getElementById('prayerCategoryCountV2180');
+    var counter=document.getElementById('prayerCategoryCountV3180');
     if(counter) counter.textContent=checked ? (checked+(checked===1?' seleccionada':' seleccionadas')) : 'Ninguna seleccionada';
   }
 
-  var previousOpenEditorV2113=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
+  var previousOpenEditorV3113=window.openEditor || (typeof openEditor!=='undefined'?openEditor:null);
   window.openEditor=function(){
-    var result=typeof previousOpenEditorV2113==='function' ? previousOpenEditorV2113.apply(this,arguments) : undefined;
-    if(typeof section!=='undefined' && section==='prayers') rebuildPrayerCategoryGridV2113();
+    var result=typeof previousOpenEditorV3113==='function' ? previousOpenEditorV3113.apply(this,arguments) : undefined;
+    if(typeof section!=='undefined' && section==='prayers') rebuildPrayerCategoryGridV3113();
     return result;
   };
   try{openEditor=window.openEditor;}catch(e){}
 
   function init(){
-    window.PSALM_CATEGORIES_V2177=[{id:'',icon:'',label:'Sin categoría'}].concat(FINAL_PRAYER_CATEGORIES_V2113);
-    rebuildPrayerCategoryGridV2113();
+    window.PSALM_CATEGORIES_V3177=[{id:'',icon:'',label:'Sin categoría'}].concat(FINAL_PRAYER_CATEGORIES_V3113);
+    rebuildPrayerCategoryGridV3113();
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
   else setTimeout(init,0);
@@ -10240,67 +10240,67 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   if(window.__v31116MomentCatalogCleanupInstalled)return;
   window.__v31116MomentCatalogCleanupInstalled=true;
 
-  function currentMomentCountV21116(){
+  function currentMomentCountV31116(){
     try{
       var it=typeof currentItem==='function'?currentItem():null;
-      return it&&Array.isArray(it.momentCategoriesV21102)?it.momentCategoriesV21102.length:0;
+      return it&&Array.isArray(it.momentCategoriesV31102)?it.momentCategoriesV31102.length:0;
     }catch(e){return 0;}
   }
 
-  function cleanupLegacyCategoriesV21116(){
+  function cleanupLegacyCategoriesV31116(){
     try{
-      var prayer=document.getElementById('editPrayerCategoriesWrapV2180');
+      var prayer=document.getElementById('editPrayerCategoriesWrapV3180');
       if(prayer&&!prayer.classList.contains('hidden'))prayer.classList.add('hidden');
-      var prayerOld=document.getElementById('editPrayerCategoryWrapV2178');
+      var prayerOld=document.getElementById('editPrayerCategoryWrapV3178');
       if(prayerOld&&!prayerOld.classList.contains('hidden'))prayerOld.classList.add('hidden');
-      var psalm=document.getElementById('editPsalmCategoryWrapV2177');
+      var psalm=document.getElementById('editPsalmCategoryWrapV3177');
       if(psalm&&!psalm.classList.contains('hidden'))psalm.classList.add('hidden');
-    }catch(e){console.error('cleanupLegacyCategoriesV21116',e);}
+    }catch(e){console.error('cleanupLegacyCategoriesV31116',e);}
   }
 
-  window.updateMomentCatalogButtonV21115=function(){
+  window.updateMomentCatalogButtonV31115=function(){
     try{
-      cleanupLegacyCategoriesV21116();
-      var btn=document.querySelector('#editorView button[onclick="openMomentCatalogV21102()"]');
+      cleanupLegacyCategoriesV31116();
+      var btn=document.querySelector('#editorView button[onclick="openMomentCatalogV31102()"]');
       if(!btn)return;
       var allowed=(typeof section!=='undefined'&&['prayers','psalms','verses'].indexOf(section)>=0);
       btn.classList.toggle('hidden',!allowed);
-      var nextText='🏷️ Momentos ('+currentMomentCountV21116()+')';
+      var nextText='🏷️ Momentos ('+currentMomentCountV31116()+')';
       if(btn.textContent!==nextText)btn.textContent=nextText;
-    }catch(e){console.error('updateMomentCatalogButtonV21116',e);}
+    }catch(e){console.error('updateMomentCatalogButtonV31116',e);}
   };
 
-  function refreshSoonV21116(){setTimeout(function(){window.updateMomentCatalogButtonV21115();},0);}
+  function refreshSoonV31116(){setTimeout(function(){window.updateMomentCatalogButtonV31115();},0);}
 
-  var oldOpenV21116=window.openEditor||(typeof openEditor!=='undefined'?openEditor:null);
-  if(typeof oldOpenV21116==='function'){
+  var oldOpenV31116=window.openEditor||(typeof openEditor!=='undefined'?openEditor:null);
+  if(typeof oldOpenV31116==='function'){
     window.openEditor=function(){
-      var result=oldOpenV21116.apply(this,arguments);
-      refreshSoonV21116();
+      var result=oldOpenV31116.apply(this,arguments);
+      refreshSoonV31116();
       return result;
     };
     try{openEditor=window.openEditor;}catch(e){}
   }
 
-  var oldNewV21116=window.newItem||(typeof newItem!=='undefined'?newItem:null);
-  if(typeof oldNewV21116==='function'){
+  var oldNewV31116=window.newItem||(typeof newItem!=='undefined'?newItem:null);
+  if(typeof oldNewV31116==='function'){
     window.newItem=function(){
-      var result=oldNewV21116.apply(this,arguments);
-      refreshSoonV21116();
+      var result=oldNewV31116.apply(this,arguments);
+      refreshSoonV31116();
       return result;
     };
     try{newItem=window.newItem;}catch(e){}
   }
 
-  function initV21116(){
-    cleanupLegacyCategoriesV21116();
-    window.updateMomentCatalogButtonV21115();
+  function initV31116(){
+    cleanupLegacyCategoriesV31116();
+    window.updateMomentCatalogButtonV31115();
   }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initV21116);
-  else setTimeout(initV21116,0);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initV31116);
+  else setTimeout(initV31116,0);
 })();
 
-/* ===== V2.1.134 - Recomendaciones completas sin espera fija ===== */
+/* ===== V3.1.134 - Recomendaciones completas sin espera fija ===== */
 (function(){
   if(window.__v31134ReadingComfortInstalled) return;
   window.__v31134ReadingComfortInstalled=true;
@@ -10312,7 +10312,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     if(!willHide) return;
     window.setTimeout(function(){
       try{
-        var identity=document.getElementById('readerIdentityV21103');
+        var identity=document.getElementById('readerIdentityV31103');
         var identityVisible=identity && !identity.classList.contains('hidden');
         var target=identityVisible ? identity : (document.getElementById('readerTitle') || document.getElementById('readerText'));
         if(!target) return;
@@ -10449,7 +10449,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V2.1.140 - Migración única de flechas antiguas en Notas ===== */
+/* ===== V3.1.140 - Migración única de flechas antiguas en Notas ===== */
 (function(){
   if(window.__v31140NoteArrowMigrationInstalled) return;
   window.__v31140NoteArrowMigrationInstalled=true;
@@ -10542,7 +10542,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V2.1.141 - Migración única de 🔟 ===== */
+/* ===== V3.1.141 - Migración única de 🔟 ===== */
 (function(){
  if(window.__v31141TenMigrationInstalled)return;
  window.__v31141TenMigrationInstalled=true;
@@ -10570,12 +10570,12 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
  else setTimeout(run,500);
 })();
 
-/* ===== V2.1.143 - Posición estable sin pequeño salto ===== */
+/* ===== V3.1.143 - Posición estable sin pequeño salto ===== */
 (function(){
   if(window.__v31143ScrollStable) return;
   window.__v31143ScrollStable = true;
 
-  function captureV21143(){
+  function captureV31143(){
     var root=document.scrollingElement || document.documentElement;
     var reader=document.getElementById('readerText');
     return {
@@ -10589,35 +10589,35 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     };
   }
 
-  function lockAnchoringV21143(pos){
+  function lockAnchoringV31143(pos){
     var root=document.scrollingElement || document.documentElement;
     try{ root.style.overflowAnchor='none'; }catch(e){}
     try{ if(document.body) document.body.style.overflowAnchor='none'; }catch(e){}
     try{ if(pos && pos.reader) pos.reader.style.overflowAnchor='none'; }catch(e){}
   }
 
-  function putBackV21143(pos){
+  function putBackV31143(pos){
     if(!pos) return;
     try{ window.scrollTo(pos.x,pos.y); }catch(e){ try{window.scrollTo(0,pos.y);}catch(e2){} }
     try{ if(pos.reader && pos.readerTop!==null) pos.reader.scrollTop=pos.readerTop; }catch(e){}
   }
 
-  function unlockAnchoringV21143(pos){
+  function unlockAnchoringV31143(pos){
     var root=document.scrollingElement || document.documentElement;
     try{ root.style.overflowAnchor=pos.rootAnchor||''; }catch(e){}
     try{ if(document.body) document.body.style.overflowAnchor=pos.bodyAnchor||''; }catch(e){}
     try{ if(pos.reader) pos.reader.style.overflowAnchor=pos.readerAnchor||''; }catch(e){}
   }
 
-  function settleV21143(pos){
+  function settleV31143(pos){
     // Se restaura en el mismo ciclo y una vez tras el recálculo de diseño.
     // Se evita la cadena de temporizadores que producía el pequeño “bote”.
-    putBackV21143(pos);
+    putBackV31143(pos);
     requestAnimationFrame(function(){
-      putBackV21143(pos);
+      putBackV31143(pos);
       requestAnimationFrame(function(){
-        putBackV21143(pos);
-        unlockAnchoringV21143(pos);
+        putBackV31143(pos);
+        unlockAnchoringV31143(pos);
       });
     });
   }
@@ -10629,21 +10629,21 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     if(!details || details.tagName!=='DETAILS') return;
     ev.preventDefault();
     ev.stopPropagation();
-    var pos=captureV21143();
-    lockAnchoringV21143(pos);
+    var pos=captureV31143();
+    lockAnchoringV31143(pos);
     details.open=!details.open;
-    settleV21143(pos);
+    settleV31143(pos);
   },true);
 
-  function wrapV21143(name){
+  function wrapV31143(name){
     var original=window[name];
     if(typeof original!=='function' || original.__v31143Wrapped) return;
     var wrapped=function(){
-      var pos=captureV21143();
-      lockAnchoringV21143(pos);
+      var pos=captureV31143();
+      lockAnchoringV31143(pos);
       var result;
       try{ result=original.apply(this,arguments); }
-      finally{ settleV21143(pos); }
+      finally{ settleV31143(pos); }
       return result;
     };
     wrapped.__v31143Wrapped=true;
@@ -10651,15 +10651,15 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     try{ eval(name+'=window["'+name+'"]'); }catch(e){}
   }
 
-  wrapV21143('openReaderPopupBlockV908');
-  wrapV21143('closeReaderPopupBlockV908');
+  wrapV31143('openReaderPopupBlockV908');
+  wrapV31143('closeReaderPopupBlockV908');
   setTimeout(function(){
-    wrapV21143('openReaderPopupBlockV908');
-    wrapV21143('closeReaderPopupBlockV908');
+    wrapV31143('openReaderPopupBlockV908');
+    wrapV31143('closeReaderPopupBlockV908');
   },300);
 })();
 
-/* ===== V2.1.144 - Emergentes: conservar posición desde pointerdown ===== */
+/* ===== V3.1.144 - Emergentes: conservar posición desde pointerdown ===== */
 (function(){
   if(window.__v31144PopupPointerScrollFix) return;
   window.__v31144PopupPointerScrollFix = true;
@@ -10779,7 +10779,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       document.body.appendChild(wrap);
       keepPosition(pos);
     }catch(e){
-      console.error('openReaderPopupBlockV21144',e);
+      console.error('openReaderPopupBlockV31144',e);
       if(activeSnapshot){unlock(activeSnapshot);restore(activeSnapshot);activeSnapshot=null;}
     }
   };
@@ -10801,7 +10801,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   try{closeReaderPopupBlockV908=window.closeReaderPopupBlockV908;}catch(e){}
 })();
 
-/* ===== V2.1.153 - Emergente persistente con fondo inmóvil sin overflow:hidden ===== */
+/* ===== V3.1.153 - Emergente persistente con fondo inmóvil sin overflow:hidden ===== */
 (function(){
   if(window.__v31148StablePopup) return;
   window.__v31148StablePopup=true;
@@ -10863,7 +10863,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     try{
       if(p.host && p.host.style){
         p.host.style.overflowAnchor='none';
-        /* V2.1.152: no tocar overflow del contenedor raíz. En Android,
+        /* V3.1.152: no tocar overflow del contenedor raíz. En Android,
            overflow:hidden iniciaba un desplazamiento nativo diferido que
            luego era corregido por el temporizador, produciendo el temblor. */
       }
@@ -10931,7 +10931,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   document.addEventListener('touchstart',preCapture,{capture:true,passive:true});
   document.addEventListener('mousedown',preCapture,true);
 
-  /* V2.1.153: bloquear únicamente los gestos que intentarían desplazar el
+  /* V3.1.153: bloquear únicamente los gestos que intentarían desplazar el
      documento situado detrás del emergente. No se cambia overflow, position,
      height ni scrollTop del fondo, por lo que su posición permanece intacta. */
   var lastTouchY=null;
@@ -11009,7 +11009,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
         el.setAttribute('aria-hidden','false');
         stabilize(p);
       }catch(e){
-        console.error('openReaderPopupBlockV21148',e);
+        console.error('openReaderPopupBlockV31148',e);
         unlock(p);restoreOnlyIfNeeded(p);active=null;
       }
     };
@@ -11037,7 +11037,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   else setTimeout(install,380);
 })();
 
-/* ===== V2.1.167 - MODO RESCATE DE EMERGENTES GUARDADOS ===== */
+/* ===== V3.1.167 - MODO RESCATE DE EMERGENTES GUARDADOS ===== */
 (function(){
   'use strict';
   function getCurrentTextSafe(){
@@ -11096,27 +11096,27 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
         if(Math.abs(now-before)>0.5) window.scrollTo(0,before);
       });
     }catch(e){
-      console.error('V2.1.167 rescue popup',e);
+      console.error('V3.1.167 rescue popup',e);
       alert('No se pudo abrir este emergente. Puede estar dañado, pero sus datos no se han borrado.');
     }
   };
 })();
 
-/* ===== V2.1.171 · Corrección de posición al cerrar recomendaciones ===== */
+/* ===== V3.1.171 · Corrección de posición al cerrar recomendaciones ===== */
 
-/* ===== V2.1.170 · BUSCADOR GENERAL ===== */
+/* ===== V3.1.170 · BUSCADOR GENERAL ===== */
 (function(){
-  var filterV2177='all';
-  function escV2177(v){
+  var filterV3177='all';
+  function escV3177(v){
     return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});
   }
-  function plainV2177(v){
+  function plainV3177(v){
     var d=document.createElement('div'); d.innerHTML=String(v==null?'':v); return (d.textContent||d.innerText||'').replace(/\s+/g,' ').trim();
   }
-  function foldV2177(v){
-    return plainV2177(v).normalize ? plainV2177(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase() : plainV2177(v).toLowerCase();
+  function foldV3177(v){
+    return plainV3177(v).normalize ? plainV3177(v).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase() : plainV3177(v).toLowerCase();
   }
-  function sourcesV2177(){
+  function sourcesV3177(){
     return [
       {key:'prayers',label:'✝️ Oraciones',items:(state&&state.prayers)||[],title:function(x){return x.title||'Oración sin título';}},
       {key:'psalms',label:'♫ Salmos',items:(state&&state.psalms)||[],title:function(x,i){return x.title||('Salmo '+(i+1));}},
@@ -11124,49 +11124,49 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       {key:'notes',label:'📝 Notas',items:(state&&state.notes)||[],title:function(x){return x.title||'Nota sin título';}}
     ];
   }
-  window.openGlobalSearchV2177=function(){
-    var m=document.getElementById('globalSearchModalV2177'); if(!m)return;
-    filterV2177='all';
-    var buttons=document.querySelectorAll('#globalSearchFiltersV2177 button'); buttons.forEach(function(b){b.classList.toggle('active',b.dataset.filter==='all');});
+  window.openGlobalSearchV3177=function(){
+    var m=document.getElementById('globalSearchModalV3177'); if(!m)return;
+    filterV3177='all';
+    var buttons=document.querySelectorAll('#globalSearchFiltersV3177 button'); buttons.forEach(function(b){b.classList.toggle('active',b.dataset.filter==='all');});
     m.classList.remove('hidden');
     document.body.style.overflow='hidden';
-    var input=document.getElementById('globalSearchInputV2177'); if(input){input.value='';setTimeout(function(){try{input.focus({preventScroll:true});}catch(e){input.focus();}},80);}
-    window.renderGlobalSearchV2177();
+    var input=document.getElementById('globalSearchInputV3177'); if(input){input.value='';setTimeout(function(){try{input.focus({preventScroll:true});}catch(e){input.focus();}},80);}
+    window.renderGlobalSearchV3177();
   };
-  window.closeGlobalSearchV2177=function(){
-    var m=document.getElementById('globalSearchModalV2177'); if(m)m.classList.add('hidden');
+  window.closeGlobalSearchV3177=function(){
+    var m=document.getElementById('globalSearchModalV3177'); if(m)m.classList.add('hidden');
     document.body.style.overflow='';
     try{document.activeElement.blur();}catch(e){}
   };
-  window.clearGlobalSearchV2177=function(){var i=document.getElementById('globalSearchInputV2177');if(i){i.value='';i.focus();}window.renderGlobalSearchV2177();};
-  window.setGlobalSearchFilterV2177=function(f,btn){filterV2177=f||'all';document.querySelectorAll('#globalSearchFiltersV2177 button').forEach(function(b){b.classList.toggle('active',b===btn);});window.renderGlobalSearchV2177();};
-  window.renderGlobalSearchV2177=function(){
-    var input=document.getElementById('globalSearchInputV2177'), box=document.getElementById('globalSearchResultsV2177'), sum=document.getElementById('globalSearchSummaryV2177');
+  window.clearGlobalSearchV3177=function(){var i=document.getElementById('globalSearchInputV3177');if(i){i.value='';i.focus();}window.renderGlobalSearchV3177();};
+  window.setGlobalSearchFilterV3177=function(f,btn){filterV3177=f||'all';document.querySelectorAll('#globalSearchFiltersV3177 button').forEach(function(b){b.classList.toggle('active',b===btn);});window.renderGlobalSearchV3177();};
+  window.renderGlobalSearchV3177=function(){
+    var input=document.getElementById('globalSearchInputV3177'), box=document.getElementById('globalSearchResultsV3177'), sum=document.getElementById('globalSearchSummaryV3177');
     if(!input||!box||!sum)return;
-    var raw=input.value.trim(), q=foldV2177(raw); box.innerHTML='';
+    var raw=input.value.trim(), q=foldV3177(raw); box.innerHTML='';
     if(!q){sum.textContent='Escriba una palabra para buscar en todo su contenido.';box.innerHTML='<div class="global-search-empty-v3177">🔎 Puede buscar por título, referencia, categoría o cualquier palabra del contenido.</div>';return;}
     var total=0, html='';
-    sourcesV2177().forEach(function(src){
-      if(filterV2177!=='all'&&filterV2177!==src.key)return;
+    sourcesV3177().forEach(function(src){
+      if(filterV3177!=='all'&&filterV3177!==src.key)return;
       var matches=[];
       src.items.forEach(function(item,idx){
         if(!item)return;
-        var title=src.title(item,idx), content=item.content||item.text||item.body||item.verse||'', hay=foldV2177([title,content,item.reference,item.category,(item.momentCategoriesV21102||[]).join(' ')].join(' '));
-        if(hay.indexOf(q)!==-1)matches.push({item:item,idx:idx,title:title,content:plainV2177(content)});
+        var title=src.title(item,idx), content=item.content||item.text||item.body||item.verse||'', hay=foldV3177([title,content,item.reference,item.category,(item.momentCategoriesV31102||[]).join(' ')].join(' '));
+        if(hay.indexOf(q)!==-1)matches.push({item:item,idx:idx,title:title,content:plainV3177(content)});
       });
       if(!matches.length)return;
       total+=matches.length;
       html+='<section class="global-search-group-v3177"><div class="global-search-group-title-v3177">'+src.label+' · '+matches.length+'</div>';
       matches.slice(0,60).forEach(function(r){
-        var snippet=r.content||plainV2177(r.item.category||r.item.reference||'');
-        html+='<button class="global-search-result-v3177" type="button" onclick="openGlobalSearchResultV2177(\''+src.key+'\',\''+String(r.item.id).replace(/'/g,"\\'")+'\')"><div class="global-search-result-title-v3177">'+escV2177(r.title)+'</div>'+(snippet?'<div class="global-search-result-snippet-v3177">'+escV2177(snippet)+'</div>':'')+'</button>';
+        var snippet=r.content||plainV3177(r.item.category||r.item.reference||'');
+        html+='<button class="global-search-result-v3177" type="button" onclick="openGlobalSearchResultV3177(\''+src.key+'\',\''+String(r.item.id).replace(/'/g,"\\'")+'\')"><div class="global-search-result-title-v3177">'+escV3177(r.title)+'</div>'+(snippet?'<div class="global-search-result-snippet-v3177">'+escV3177(snippet)+'</div>':'')+'</button>';
       });
       html+='</section>';
     });
     sum.textContent=total===1?'1 resultado encontrado':total+' resultados encontrados';
-    box.innerHTML=html||'<div class="global-search-empty-v3177">No se ha encontrado contenido con “'+escV2177(raw)+'”.</div>';
+    box.innerHTML=html||'<div class="global-search-empty-v3177">No se ha encontrado contenido con “'+escV3177(raw)+'”.</div>';
   };
-  window.returnFromGlobalSearchV2215=function(){
+  window.returnFromGlobalSearchV3215=function(){
     try{
       /* Regreso exclusivo desde un resultado del buscador a la portada. */
       document.body.classList.remove(
@@ -11179,7 +11179,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       document.body.classList.add('home-active-v9019');
 
       ['readerView','editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView',
-       'momentsHubV21102','momentPreviewV21102','routineHubV2192','routineEditorV2192','routineReaderV2192']
+       'momentsHubV31102','momentPreviewV31102','routineHubV3192','routineEditorV3192','routineReaderV3192']
       .forEach(function(viewId){
         var view=document.getElementById(viewId);
         if(view)view.classList.add('hidden');
@@ -11204,18 +11204,18 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       /* El botón recupera su funcionamiento habitual para próximas aperturas. */
       var back=document.querySelector('#readerView .panel-head button:first-child');
       if(back)back.setAttribute('onclick','smartBack()');
-      window.__openedFromGlobalSearchV2215=false;
+      window.__openedFromGlobalSearchV3215=false;
 
-      function confirmHomeV2215(){
+      function confirmHomeV3215(){
         var h=document.getElementById('homeView');
         var c=document.getElementById('homeCardV9019');
         document.body.classList.add('home-active-v9019');
         if(h){h.classList.remove('hidden');h.style.removeProperty('display');}
         if(c){c.classList.remove('hidden');c.style.removeProperty('display');}
       }
-      requestAnimationFrame(confirmHomeV2215);
-      setTimeout(confirmHomeV2215,60);
-      setTimeout(confirmHomeV2215,220);
+      requestAnimationFrame(confirmHomeV3215);
+      setTimeout(confirmHomeV3215,60);
+      setTimeout(confirmHomeV3215,220);
       try{window.scrollTo({top:0,behavior:'auto'});}catch(_e){window.scrollTo(0,0);}
     }catch(e){
       console.error('Volver desde buscador',e);
@@ -11223,9 +11223,9 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     }
   };
 
-  window.openGlobalSearchResultV2177=function(sec,id){
-    window.closeGlobalSearchV2177();
-    window.__openedFromGlobalSearchV2215=true;
+  window.openGlobalSearchResultV3177=function(sec,id){
+    window.closeGlobalSearchV3177();
+    window.__openedFromGlobalSearchV3215=true;
     section=sec; state.section=sec;
     if(sec==='prayers')state.currentPrayerId=id;
     else if(sec==='notes')state.currentNoteId=id;
@@ -11236,15 +11236,15 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
     try{
       saveState();syncTabs();renderList();renderReader();openReader();
       var back=document.querySelector('#readerView .panel-head button:first-child');
-      if(back)back.setAttribute('onclick','returnFromGlobalSearchV2215()');
+      if(back)back.setAttribute('onclick','returnFromGlobalSearchV3215()');
       setTimeout(function(){
         try{enterFullscreenReading();}catch(e){}
         var currentBack=document.querySelector('#readerView .panel-head button:first-child');
-        if(currentBack)currentBack.setAttribute('onclick','returnFromGlobalSearchV2215()');
+        if(currentBack)currentBack.setAttribute('onclick','returnFromGlobalSearchV3215()');
       },0);
     }catch(e){console.error('Buscador general',e);}
   };
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'){var m=document.getElementById('globalSearchModalV2177');if(m&&!m.classList.contains('hidden'))window.closeGlobalSearchV2177();}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){var m=document.getElementById('globalSearchModalV3177');if(m&&!m.classList.contains('hidden'))window.closeGlobalSearchV3177();}});
 })();
 
 /* =========================================================
@@ -11293,7 +11293,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       return;
     }
 
-    /* V2.1.212: el parche de transición oculta la tarjeta antes del click.
+    /* V3.1.212: el parche de transición oculta la tarjeta antes del click.
        La clase home-active conserva la intención real de volver al inicio. */
     if((snapshot.bodyClass || '').split(/\s+/).indexOf('home-active-v9019') !== -1){
       document.body.classList.remove('utility-fullscreen-v2189','special-view-only','backup-only');
@@ -11343,7 +11343,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   try{ openTrash = window.openTrash; }catch(e){}
 })();
 
-/* ===== V2.1.189 — evita el pequeño salto al abrir algunas secciones ===== */
+/* ===== V3.1.189 — evita el pequeño salto al abrir algunas secciones ===== */
 (function(){
   if(window.__v3189StableViewSwitch) return;
   window.__v3189StableViewSwitch = true;
@@ -11355,7 +11355,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
       if(!btn) return;
       var inMainNavigation = btn.matches('[data-view-btn], #tabPrayers, #tabNotes, #tabGuides, #tabVerses, #tabParables, #tabPsalms');
       if(!inMainNavigation) return;
-      if(btn.id === 'btnTheme' || btn.id === 'btnMainMore' || btn.id === 'btnGlobalSearchV2177') return;
+      if(btn.id === 'btnTheme' || btn.id === 'btnMainMore' || btn.id === 'btnGlobalSearchV3177') return;
 
       document.body.classList.add('view-switching-v3189');
       var home = document.getElementById('homeView');
@@ -11373,7 +11373,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V2.1.193 — iconos ilustrados globales: Mañana, Noche y Cruz ===== */
+/* ===== V3.1.193 — iconos ilustrados globales: Mañana, Noche y Cruz ===== */
 (function(){
   const ICONS={
     '✝️':{kind:'cross',cls:'inline-faith-cross-v3193',label:'Cruz'},
@@ -11421,7 +11421,7 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V2.1.259 · Retirada definitiva de Guía y Parábolas ===== */
+/* ===== V3.1.259 · Retirada definitiva de Guía y Parábolas ===== */
 (function(){
   'use strict';
   var retired={guides:true,parables:true};
@@ -11444,10 +11444,10 @@ window.__renderTitlesBeforeV2171 = window.renderTitles || (typeof renderTitles!=
   function removeRetiredUi(){
     ['tabGuides','tabParables'].forEach(function(id){var el=document.getElementById(id);if(el)el.remove();});
     document.querySelectorAll('[data-filter="guides"],[data-filter="parables"]').forEach(function(el){el.remove();});
-    var input=document.getElementById('globalSearchInputV2177');
+    var input=document.getElementById('globalSearchInputV3177');
     if(input) input.placeholder='Buscar oraciones, salmos, versículos y notas…';
     cleanRetiredState();
-    if(typeof window.renderHomeCountersV2183==='function') window.renderHomeCountersV2183();
+    if(typeof window.renderHomeCountersV3183==='function') window.renderHomeCountersV3183();
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',removeRetiredUi); else removeRetiredUi();
   setTimeout(removeRetiredUi,100); setTimeout(removeRetiredUi,700);

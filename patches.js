@@ -1,4 +1,4 @@
-/* Oraciones V2 LAB - Paso 16: parches visuales finales separados. */
+/* Oraciones V3 LAB - Paso 16: parches visuales finales separados. */
 /* ===== v90-20-7-fin-lectura-redisenyo-js ===== */
 
 /* v90.20.7 - Pulido del texto de fin de lectura, sin tocar navegación */
@@ -217,7 +217,7 @@ body.dark .home-card-v9019.home-sky-sunset::before{
 })();
 
 
-/* ===== V2.1.21 fondos ilustrados vivos ===== */
+/* ===== V3.1.21 fondos ilustrados vivos ===== */
 (function(){
   var ids = [
     'v3-1-19-illustrated-backgrounds-css',
@@ -318,7 +318,7 @@ body.dark .home-card-v9019.home-sky-night{
 })();
 
 
-/* ===== V2.1.22 fondos más vivos y sin línea inferior ===== */
+/* ===== V3.1.22 fondos más vivos y sin línea inferior ===== */
 (function(){
   var ids = [
     'v3-1-21-vivid-illustrated-backgrounds-css',
@@ -421,7 +421,7 @@ body.dark .home-card-v9019.home-sky-night{
   document.head.appendChild(style);
 })();
 
-/* ===== V2.1.23 pulido visual de tarjeta ilustrada ===== */
+/* ===== V3.1.23 pulido visual de tarjeta ilustrada ===== */
 (function(){
   var ids = [
     'v3-1-23-illustrated-card-polish-css'
@@ -472,7 +472,7 @@ body.dark .home-card-v9019.home-sky-night{
 })();
 
 
-/* ===== V2.1.24 ajustes finales Versículo del día =====
+/* ===== V3.1.24 ajustes finales Versículo del día =====
    Ajuste visual pequeño y reversible: fecha ligeramente más alta, referencia con más aire,
    frase inferior subida, márgenes equilibrados y encuadre mínimo del fondo de día. */
 (function(){
@@ -537,7 +537,7 @@ body.dark .home-card-v9019.home-sky-day{
 })();
 
 
-/* ===== V2.1.25 ajuste final: frase inferior blanca solo en fondo Día =====
+/* ===== V3.1.25 ajuste final: frase inferior blanca solo en fondo Día =====
    Cambio mínimo y reversible. No modifica imágenes ni estructura. */
 (function(){
   var old = document.getElementById('v3-1-25-daily-day-white-phrase-css');
@@ -561,12 +561,12 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
   if(window.__v3126EditorBackToSectionToolbar) return;
   window.__v3126EditorBackToSectionToolbar = true;
 
-  function isNormalSectionV2126(){
+  function isNormalSectionV3126(){
     try{ return ['prayers','notes','guides','parables'].indexOf(section) !== -1; }
     catch(e){ return false; }
   }
 
-  function hideHomeAndAuxViewsV2126(){
+  function hideHomeAndAuxViewsV3126(){
     try{ var home=document.getElementById('homeView'); if(home) home.classList.add('hidden'); }catch(e){}
     try{
       ['editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(function(id){
@@ -581,14 +581,14 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
     }catch(e){}
   }
 
-  window.backFromEditorToSectionToolbarV2126 = function(){
+  window.backFromEditorToSectionToolbarV3126 = function(){
     try{
-      if(!isNormalSectionV2126()){
+      if(!isNormalSectionV3126()){
         if(typeof openReader === 'function') openReader();
         return;
       }
 
-      hideHomeAndAuxViewsV2126();
+      hideHomeAndAuxViewsV3126();
       try{ if(typeof syncTabs === 'function') syncTabs(); }catch(e){}
       try{ if(typeof renderList === 'function') renderList(); }catch(e){}
       try{ if(typeof renderReader === 'function') renderReader(); }catch(e){}
@@ -597,7 +597,7 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
         enterFullscreenReading();
       }else if(typeof openReader === 'function'){
         openReader();
-        hideHomeAndAuxViewsV2126();
+        hideHomeAndAuxViewsV3126();
         try{ document.body.classList.add('fullscreen-reading'); }catch(e){}
       }
 
@@ -605,25 +605,25 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
         try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ try{ window.scrollTo(0,0); }catch(_e){} }
       },40);
     }catch(e){
-      console.error('backFromEditorToSectionToolbarV2126', e);
+      console.error('backFromEditorToSectionToolbarV3126', e);
       try{ if(typeof openReader === 'function') openReader(); }catch(_e){}
     }
   };
 
-  var previousLeaveEditorV2126 = window.leaveEditor || (typeof leaveEditor !== 'undefined' ? leaveEditor : null);
+  var previousLeaveEditorV3126 = window.leaveEditor || (typeof leaveEditor !== 'undefined' ? leaveEditor : null);
   window.leaveEditor = function(){
     try{
-      if(isNormalSectionV2126()){
+      if(isNormalSectionV3126()){
         try{
           if(typeof isDirty !== 'undefined' && isDirty && typeof saveCurrent === 'function'){
             saveCurrent(true, true);
           }
         }catch(e){}
         try{ isDirty = false; }catch(e){}
-        return window.backFromEditorToSectionToolbarV2126();
+        return window.backFromEditorToSectionToolbarV3126();
       }
     }catch(e){}
-    if(typeof previousLeaveEditorV2126 === 'function') return previousLeaveEditorV2126.apply(this, arguments);
+    if(typeof previousLeaveEditorV3126 === 'function') return previousLeaveEditorV3126.apply(this, arguments);
     if(typeof openReader === 'function') return openReader();
   };
   try{ leaveEditor = window.leaveEditor; }catch(e){}
@@ -634,7 +634,7 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
       if(!btn) return;
       var label = (btn.textContent || '').trim();
       if(label.indexOf('Volver') === -1) return;
-      if(!isNormalSectionV2126()) return;
+      if(!isNormalSectionV3126()) return;
       e.preventDefault();
       e.stopPropagation();
       window.leaveEditor();
@@ -647,14 +647,14 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
   if(window.__v3127EditorBackVerseCategories) return;
   window.__v3127EditorBackVerseCategories = true;
 
-  function isVerseEditorV2127(){
+  function isVerseEditorV3127(){
     try{
       var editor = document.getElementById('editorView');
       return !!(editor && !editor.classList.contains('hidden') && typeof section !== 'undefined' && section === 'verses');
     }catch(e){ return false; }
   }
 
-  function cleanBeforeVerseCategoriesV2127(){
+  function cleanBeforeVerseCategoriesV3127(){
     try{ var home=document.getElementById('homeView'); if(home) home.classList.add('hidden'); }catch(e){}
     try{ var editor=document.getElementById('editorView'); if(editor) editor.classList.add('hidden'); }catch(e){}
     try{ var reader=document.getElementById('readerView'); if(reader) reader.classList.add('hidden'); }catch(e){}
@@ -670,7 +670,7 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
     }catch(e){}
   }
 
-  window.backFromVerseEditorToCategoriesV2127 = function(){
+  window.backFromVerseEditorToCategoriesV3127 = function(){
     try{
       try{
         if(typeof isDirty !== 'undefined' && isDirty && typeof saveCurrent === 'function'){
@@ -686,7 +686,7 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
       try{ verseNavigationMode = 'categories'; }catch(_e6){}
       try{ categoryListActive = true; }catch(_e7){}
 
-      cleanBeforeVerseCategoriesV2127();
+      cleanBeforeVerseCategoriesV3127();
       try{ if(typeof syncTabs === 'function') syncTabs(); }catch(_syncErr){}
       if(typeof openVerseCategories === 'function'){
         openVerseCategories();
@@ -697,17 +697,17 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
         try{ window.scrollTo({top:0, behavior:'auto'}); }catch(e){ try{ window.scrollTo(0,0); }catch(_e){} }
       }, 40);
     }catch(e){
-      console.error('backFromVerseEditorToCategoriesV2127', e);
+      console.error('backFromVerseEditorToCategoriesV3127', e);
       try{ if(typeof openVerseCategories === 'function') openVerseCategories(); }catch(_e){}
     }
   };
 
-  var previousLeaveEditorV2127 = window.leaveEditor || (typeof leaveEditor !== 'undefined' ? leaveEditor : null);
+  var previousLeaveEditorV3127 = window.leaveEditor || (typeof leaveEditor !== 'undefined' ? leaveEditor : null);
   window.leaveEditor = function(){
     try{
-      if(isVerseEditorV2127()) return window.backFromVerseEditorToCategoriesV2127();
+      if(isVerseEditorV3127()) return window.backFromVerseEditorToCategoriesV3127();
     }catch(e){}
-    if(typeof previousLeaveEditorV2127 === 'function') return previousLeaveEditorV2127.apply(this, arguments);
+    if(typeof previousLeaveEditorV3127 === 'function') return previousLeaveEditorV3127.apply(this, arguments);
     if(typeof openReader === 'function') return openReader();
   };
   try{ leaveEditor = window.leaveEditor; }catch(e){}
@@ -715,12 +715,12 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
   document.addEventListener('click', function(e){
     try{
       var btn = e.target && e.target.closest ? e.target.closest('#editorView .panel-head button') : null;
-      if(!btn || !isVerseEditorV2127()) return;
+      if(!btn || !isVerseEditorV3127()) return;
       var label = (btn.textContent || '').trim();
       if(label.indexOf('Volver') === -1) return;
       e.preventDefault();
       e.stopPropagation();
-      window.backFromVerseEditorToCategoriesV2127();
+      window.backFromVerseEditorToCategoriesV3127();
     }catch(_e){}
   }, true);
 })();

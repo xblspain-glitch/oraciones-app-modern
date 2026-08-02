@@ -1,4 +1,4 @@
-/* Oraciones V2 LAB - utils.js paso 21
+/* Oraciones V3 LAB - utils.js paso 21
    Utilidades generales separadas desde app.js.
    No cambia comportamiento: mantiene funciones globales usadas por la app. */
 
