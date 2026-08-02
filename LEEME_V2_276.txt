@@ -1,8 +1,0 @@
-ORACIONES V2.276
-
-Cambios:
-- Añadidas las tarjetas temáticas Fe y Dios.
-- Eliminados los iconos/emojis de todos los nombres del selector de tarjetas.
-- Corregida la asociación de Fe y Dios para que cada una comparta su imagen propia.
-- Ambas tarjetas quedan disponibles sin conexión.
-- Caché y versión actualizados.
