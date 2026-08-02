@@ -1,6 +1,6 @@
 const BUILD_V3_1_200="tarjeta-final-limpia";
 
-/* V2.277 · El calendario vive ahora en Mi Biblia de Estudio */
+/* V2.278 · El calendario vive ahora en Mi Biblia de Estudio */
 try{localStorage.removeItem("oraciones_festivity_notes_v44")}catch(_){}
 /* Oraciones V3 LAB - app.js paso 45: limpieza render de versículos */
 
@@ -1495,8 +1495,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "V2.277";
-const APP_VERSION_ZIP = "Oraciones_V2.277_TARJETAS_FE_DIOS_SIN_ICONOS.zip";
+const APP_VERSION_LABEL = "V2.278";
+const APP_VERSION_ZIP = "Oraciones_V2.278_TARJETAS_FE_DIOS_SIN_ICONOS.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
