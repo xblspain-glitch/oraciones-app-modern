@@ -165,7 +165,6 @@ function setActiveView(view){
     new: 'btnNew',
     read: 'btnRead',
     daily: 'btnDaily',
-    calendar: 'calendarBtn',
     random: 'btnRandom',
     titles: 'btnTitles',
     edit: 'btnEdit',
@@ -1492,8 +1491,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "V2.276";
-const APP_VERSION_ZIP = "Oraciones_V2.276_TARJETAS_FE_DIOS_SIN_ICONOS.zip";
+const APP_VERSION_LABEL = "v3.1.259";
+const APP_VERSION_ZIP = "Oraciones_V3.1.259_SIN_MODULOS_ESTUDIO_LORA_FILAS.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -2251,439 +2250,22 @@ function changeReaderSize(delta){
   renderReader();
 }
 
-function padCalendar(n){
-  return String(n).padStart(2,"0");
-}
-function calendarKey(d){
-  return d.getFullYear()+"-"+padCalendar(d.getMonth()+1)+"-"+padCalendar(d.getDate());
-}
-function addCalendarDays(date,days){
-  const d=new Date(date.getFullYear(),date.getMonth(),date.getDate());
-  d.setDate(d.getDate()+days);
-  return d;
-}
-function sameCalendarDay(a,b){
-  return calendarKey(a)===calendarKey(b);
-}
-function formatCalendarDate(d){
-  return d.toLocaleDateString("es-ES",{
-    weekday:"long",
-    day:"numeric",
-    month:"long",
-    year:"numeric"
-  });
-}
-function westernEaster(y){
-  const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),month=Math.floor((h+l-7*m+114)/31),day=((h+l-7*m+114)%31)+1;
-  return new Date(y,month-1,day);
-}
-function julianToGregorian(y,m,d){
-  const a=Math.floor((14-m)/12), yy=y+4800-a, mm=m+12*a-3;
-  const jdn=d+Math.floor((153*mm+2)/5)+365*yy+Math.floor(yy/4)-32083;
-  const A=jdn+32044, B=Math.floor((4*A+3)/146097), C=A-Math.floor(146097*B/4), D=Math.floor((4*C+3)/1461), E=C-Math.floor(1461*D/4), M=Math.floor((5*E+2)/153);
-  const day=E-Math.floor((153*M+2)/5)+1, month=M+3-12*Math.floor(M/10), year=100*B+D-4800+Math.floor(M/10);
-  return new Date(year,month-1,day);
-}
-function orthodoxEaster(y){
-  const a=y%4,b=y%7,c=y%19,d=(19*c+15)%30,e=(2*a+4*b-d+34)%7;
-  const month=Math.floor((d+e+114)/31), day=((d+e+114)%31)+1;
-  return julianToGregorian(y,month,day);
-}
-function addEvent(map,date,trad,title,desc){
-  const k=calendarKey(date); if(!map[k])map[k]=[]; map[k].push({trad,title,desc});
-}
-function addFixed(map,y,m,d,trad,title,desc){
-  addEvent(map,new Date(y,m-1,d),trad,title,desc);
-}
-function buildChristianCalendarYear(y){
-  const map={};
-  const west=westernEaster(y), east=orthodoxEaster(y);
-  // General / Católico / Protestante occidental
-  addFixed(map,y,1,6,"catolica","⛪ Epifanía del Señor","Manifestación de Cristo a las naciones.");
-  addFixed(map,y,12,25,"catolica","🎄 Navidad","Celebramos el nacimiento de nuestro Señor Jesucristo.");
-  addFixed(map,y,12,25,"protestante","🎄 Navidad","Celebramos el nacimiento de Jesucristo, Salvador del mundo.");
-  addFixed(map,y,10,31,"protestante","📖 Día de la Reforma","Recuerdo histórico de la Reforma protestante.");
-  addEvent(map,addCalendarDays(west,-46),"catolica","✝️ Miércoles de Ceniza","Comienzo de la Cuaresma en el calendario occidental.");
-  addEvent(map,addCalendarDays(west,-7),"catolica","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
-  addEvent(map,addCalendarDays(west,-7),"protestante","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
-  addEvent(map,addCalendarDays(west,-2),"catolica","✝️ Viernes Santo","Recordamos la pasión y muerte de Cristo.");
-  addEvent(map,addCalendarDays(west,-2),"protestante","✝️ Viernes Santo","Recordamos la cruz de nuestro Señor Jesucristo.");
-  addEvent(map,west,"catolica","🌅 Domingo de Resurrección","Cristo ha resucitado.");
-  addEvent(map,west,"protestante","🌅 Domingo de Resurrección","Cristo ha resucitado.");
-  addEvent(map,addCalendarDays(west,39),"catolica","👑 Ascensión del Señor","Cristo asciende al Padre.");
-  addEvent(map,addCalendarDays(west,39),"protestante","👑 Ascensión del Señor","Cristo asciende al Padre.");
-  addEvent(map,addCalendarDays(west,49),"catolica","🔥 Pentecostés","Venida del Espíritu Santo sobre la Iglesia.");
-  addEvent(map,addCalendarDays(west,49),"protestante","🔥 Pentecostés","Venida del Espíritu Santo.");
-  // Ortodoxo oriental y etíope, con Pascua según cómputo oriental
-  addFixed(map,y,1,7,"ortodoxa","🎄 Navidad ortodoxa","Celebración de la Natividad de Cristo en muchas iglesias de calendario juliano.");
-  addFixed(map,y,1,19,"ortodoxa","💧 Teofanía","Celebración del bautismo del Señor.");
-  addFixed(map,y,1,19,"etiope","💧 Timkat","Celebración etíope del bautismo de nuestro Señor Jesucristo.");
-  addFixed(map,y,9,27,"etiope","✝️ Meskel","Conmemoración del hallazgo de la Vera Cruz en la tradición etíope.");
-  addEvent(map,addCalendarDays(east,-55),"etiope","✝️ Gran Ayuno","Comienza el tiempo de preparación hacia Fasika.");
-  addEvent(map,addCalendarDays(east,-48),"ortodoxa","✝️ Gran Cuaresma","Comienza el camino hacia la Santa Pascua.");
-  addEvent(map,addCalendarDays(east,-7),"etiope","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
-  addEvent(map,addCalendarDays(east,-7),"ortodoxa","🌿 Domingo de Ramos","Entrada de Cristo en Jerusalén.");
-  addEvent(map,addCalendarDays(east,-2),"etiope","✝️ Viernes Santo","Recordamos la pasión y muerte de Cristo.");
-  addEvent(map,addCalendarDays(east,-2),"ortodoxa","✝️ Viernes Santo","Recordamos la pasión y muerte de Cristo.");
-  addEvent(map,east,"etiope","🌅 Fasika","Pascua etíope: celebramos la Resurrección de Cristo.");
-  addEvent(map,east,"ortodoxa","🌅 Pascua ortodoxa","Cristo ha resucitado.");
-  addEvent(map,addCalendarDays(east,39),"etiope","👑 Ascensión del Señor","Cristo asciende al Padre.");
-  addEvent(map,addCalendarDays(east,39),"ortodoxa","👑 Ascensión del Señor","Cristo asciende al Padre.");
-  addEvent(map,addCalendarDays(east,49),"etiope","🔥 Pentecostés","Venida del Espíritu Santo sobre la Iglesia.");
-  addEvent(map,addCalendarDays(east,49),"ortodoxa","🔥 Pentecostés","Venida del Espíritu Santo.");
-
-  // v43C - Festividades cristianas universales y bíblicas
-  addFixed(map,y,3,25,"catolica","⛪ Anunciación","El anuncio del ángel Gabriel a María sobre el nacimiento de Jesús.");
-  addFixed(map,y,3,25,"ortodoxa","⛪ Anunciación","El anuncio del ángel Gabriel a María sobre el nacimiento de Cristo.");
-
-  addFixed(map,y,6,24,"catolica","👶 Natividad de San Juan Bautista","Nacimiento de Juan Bautista, el profeta que preparó el camino del Señor.");
-  addFixed(map,y,6,24,"ortodoxa","👶 Natividad de San Juan Bautista","Nacimiento de Juan Bautista, precursor de Cristo.");
-
-  addFixed(map,y,6,29,"catolica","✝️ San Pedro y San Pablo","Conmemoración de los apóstoles Pedro y Pablo.");
-  addFixed(map,y,6,29,"ortodoxa","✝️ San Pedro y San Pablo","Conmemoración de los santos apóstoles Pedro y Pablo.");
-
-  addFixed(map,y,7,25,"catolica","✝️ Santiago el Mayor","Conmemoración de Santiago el Mayor, apóstol de Jesucristo.");
-  addFixed(map,y,7,25,"ortodoxa","✝️ Santiago el Mayor","Conmemoración de Santiago, apóstol del Señor.");
-
-  addFixed(map,y,8,6,"catolica","✨ Transfiguración del Señor","Cristo manifiesta su gloria en el monte.");
-  addFixed(map,y,8,6,"ortodoxa","✨ Transfiguración del Señor","Cristo manifiesta su gloria ante sus discípulos.");
-
-  addFixed(map,y,8,15,"catolica","⛪ Asunción de María","Celebración de María llevada a la gloria de Dios.");
-  addFixed(map,y,8,15,"ortodoxa","☦️ Dormición de la Madre de Dios","Celebración de la Dormición de la Madre de Dios.");
-
-  addFixed(map,y,8,29,"catolica","👶 Martirio de San Juan Bautista","Conmemoración de la muerte de Juan Bautista.");
-  addFixed(map,y,8,29,"ortodoxa","👶 Decapitación de San Juan Bautista","Conmemoración del martirio de Juan Bautista.");
-
-  addFixed(map,y,9,14,"catolica","✝️ Exaltación de la Santa Cruz","Celebración de la cruz de Cristo.");
-  addFixed(map,y,9,14,"ortodoxa","✝️ Exaltación de la Santa Cruz","Celebración de la preciosa y vivificadora Cruz.");
-
-  addFixed(map,y,11,1,"catolica","⛪ Todos los Santos","Conmemoración de todos los fieles que vivieron y murieron en la fe.");
-
-  addFixed(map,y,11,30,"catolica","✝️ San Andrés","Conmemoración de Andrés, apóstol de Jesucristo.");
-  addFixed(map,y,11,30,"ortodoxa","✝️ San Andrés","Conmemoración del apóstol Andrés, el primer llamado.");
-
-  addFixed(map,y,12,27,"catolica","📖 San Juan Evangelista","Conmemoración de Juan, apóstol y evangelista.");
-  addFixed(map,y,12,27,"ortodoxa","📖 San Juan Evangelista","Conmemoración de Juan, apóstol y evangelista.");
-
-return map;
-}
-function getChristianEventsFor(date){
-  const y=date.getFullYear();
-  const all=Object.assign({},buildChristianCalendarYear(y-1),buildChristianCalendarYear(y),buildChristianCalendarYear(y+1));
-  return all[calendarKey(date)]||[];
-}
-function renderCalendarTradition(events,key,label){
-  const ev=events.filter(e=>e.trad===key);
-  let html='<div class="calendar-card"><div class="calendar-card-head">'+label+'</div>';
-  if(!ev.length){html+='<div class="calendar-empty">Sin festividad especial hoy.</div>'}
-  else ev.forEach(e=>{
-    const title=e.title||e.trad||"Festividad cristiana";
-    const desc=e.desc||"";
-    html+='<div class="calendar-event"><div class="calendar-event-title">'+escapeHtml(title)+'</div><div class="calendar-event-desc">'+escapeHtml(desc)+'</div></div>';
-  });
-  return html+'</div>';
-}
-function renderChristianCalendar(date){
-  date=date||new Date();
-  const box=document.getElementById("calendarContent"); if(!box)return;
-  const events=getChristianEventsFor(date);
-  const whenLabel=sameCalendarDay(date,new Date())?'Hoy':'Fecha';
-  box.innerHTML='<div class="calendar-hero"><div class="calendar-title">📅 Calendario Cristiano</div><div class="calendar-date">'+whenLabel+' · '+escapeHtml(formatCalendarDate(date))+'</div></div><div class="calendar-grid">'
-    +renderCalendarTradition(events,"etiope","🇪🇹 Ortodoxo etíope")
-    +renderCalendarTradition(events,"ortodoxa","☦️ Ortodoxo")
-    +renderCalendarTradition(events,"protestante","✝️ Protestante")
-    +renderCalendarTradition(events,"catolica","⛪ Católico")
-    +'</div><div class="calendar-note">Las fechas móviles se calculan según el cómputo occidental u oriental. Algunas iglesias pueden variar celebraciones locales.</div>';
-}
-function openChristianCalendar(){
-  setSearchVisibleV26(false);
-  setActiveView("calendar");
-  clearNavModes();
-  const cal=document.getElementById("calendarView"); if(!cal)return;
-  cal.classList.remove("hidden");
-  document.getElementById("readerView").classList.add("hidden");
-  document.getElementById("editorView").classList.add("hidden");
-  document.getElementById("backupView").classList.add("hidden");
-  document.getElementById("trashView").classList.add("hidden");
-  document.getElementById("titlesView").classList.add("hidden");
-  var vc=document.getElementById("verseCategoriesView");if(vc)vc.classList.add("hidden");
-  document.body.classList.remove("fullscreen-reading","hide-reading-ui");
-  document.body.classList.add("reading-mobile");
-  renderChristianCalendar(new Date());
-  updateCalendarAlert();
-}
-
-function updateCalendarAlert(){
-  const btn=document.getElementById("calendarBtn");
-  if(!btn || typeof getChristianEventsFor!=="function") return;
-  const hasEvents=getChristianEventsFor(new Date()).length>0;
-  btn.classList.toggle("calendar-alert",hasEvents);
-  btn.dataset.festive = hasEvents ? "1" : "0";
-
-  if(hasEvents){
-    btn.setAttribute("style",
-      "background:#ffffff!important;" +
-      "color:#181818!important;" +
-      "border:3px solid #d88428!important;" +
-      "box-shadow:0 2px 8px rgba(216,132,40,.18)!important;" +
-      "font-weight:700!important;"
-    );
-  }else{
-    btn.removeAttribute("style");
-  }
-}
-
-setTimeout(updateCalendarAlert,300);
-setInterval(updateCalendarAlert,60000);
-
-const FESTIVITY_LIBRARY_V44 = [
-{id:"anunciacion",date:"25 de marzo",title:"⛪ Anunciación",summary:"La Anunciación recuerda el anuncio del ángel Gabriel a María: el Hijo de Dios será concebido por obra del Espíritu Santo.",meaning:"Nos recuerda que la salvación nace de la iniciativa de Dios y de la respuesta humilde de fe.",passages:["Lucas 1:26-38","Mateo 1:18-25","Juan 1:14"]},
-{id:"juan_bautista_natividad",date:"24 de junio",title:"👶 Natividad de San Juan Bautista",summary:"Juan Bautista fue el precursor de Cristo. Su nacimiento fue anunciado por Dios y preparó el camino para la venida del Señor.",meaning:"Esta festividad señala que Dios prepara su obra de salvación antes de que sea visible para todos.",passages:["Lucas 1:5-25","Lucas 1:57-66","Lucas 1:67-80","Mateo 3:1-17","Juan 1:19-34"]},
-{id:"pedro_pablo",date:"29 de junio",title:"✝️ San Pedro y San Pablo",summary:"Pedro y Pablo son dos apóstoles fundamentales en el testimonio de la Iglesia primitiva.",meaning:"Recuerda la misión apostólica y la proclamación de Cristo como Señor.",passages:["Mateo 16:13-19","Hechos 2:14-41","Hechos 9:1-22","Gálatas 2:7-9","2 Timoteo 4:6-8"]},
-{id:"santiago_mayor",date:"25 de julio",title:"✝️ Santiago el Mayor",summary:"Santiago el Mayor fue uno de los apóstoles cercanos a Jesús y testigo de momentos centrales de su ministerio.",meaning:"Recuerda el llamado a seguir a Cristo con fidelidad, incluso en el sufrimiento.",passages:["Mateo 4:18-22","Marcos 5:35-43","Marcos 9:2-8","Marcos 10:35-45","Hechos 12:1-2"]},
-{id:"transfiguracion",date:"6 de agosto",title:"✨ Transfiguración del Señor",summary:"Cristo manifestó su gloria en el monte ante Pedro, Santiago y Juan.",meaning:"Revela la gloria divina de Cristo y anticipa la luz de la Resurrección.",passages:["Mateo 17:1-9","Marcos 9:2-10","Lucas 9:28-36","2 Pedro 1:16-18"]},
-{id:"asuncion_dormicion",date:"15 de agosto",title:"⛪ Asunción / ☦️ Dormición",summary:"Esta festividad recuerda la culminación de la vida terrenal de María, contemplada de modo distinto según las tradiciones cristianas.",meaning:"Invita a mirar la esperanza de la vida en Dios y la fidelidad de María al plan divino.",passages:["Lucas 1:46-55","Juan 19:25-27","Apocalipsis 12:1-6"]},
-{id:"martirio_juan_bautista",date:"29 de agosto",title:"👶 Martirio de San Juan Bautista",summary:"Juan Bautista murió por dar testimonio de la verdad y denunciar el pecado.",meaning:"Recuerda el precio de la fidelidad a Dios y la valentía profética.",passages:["Marcos 6:14-29","Mateo 14:1-12","Lucas 3:18-20"]},
-{id:"exaltacion_cruz",date:"14 de septiembre",title:"✝️ Exaltación de la Santa Cruz",summary:"La cruz, instrumento de muerte, es contemplada por los cristianos como signo de la victoria de Cristo.",meaning:"Centra la mirada en la redención realizada por Cristo mediante su entrega.",passages:["Juan 3:14-17","1 Corintios 1:18-25","Gálatas 6:14","Filipenses 2:5-11"]},
-{id:"todos_los_santos",date:"1 de noviembre",title:"⛪ Todos los Santos",summary:"Todos los Santos recuerda a todos los fieles que vivieron y murieron en la fe, conocidos y desconocidos.",meaning:"Recuerda la esperanza cristiana, la comunión de los creyentes y el llamado universal a la santidad.",passages:["Mateo 5:1-12","Hebreos 12:1-2","Apocalipsis 7:9-17"]},
-{id:"san_andres",date:"30 de noviembre",title:"✝️ San Andrés",summary:"Andrés fue uno de los primeros discípulos llamados por Jesús y hermano de Pedro.",meaning:"Recuerda el llamado inmediato a seguir a Cristo y a conducir a otros hacia Él.",passages:["Juan 1:35-42","Mateo 4:18-22","Juan 6:8-9","Juan 12:20-22"]},
-{id:"san_juan_evangelista",date:"27 de diciembre",title:"📖 San Juan Evangelista",summary:"Juan fue apóstol y testigo de Cristo. La tradición cristiana lo vincula especialmente con el Evangelio de Juan y las cartas joánicas.",meaning:"Su testimonio resalta la divinidad de Cristo, el amor, la luz y la vida eterna.",passages:["Juan 1:1-18","Juan 13:21-30","Juan 19:25-27","Juan 20:1-10","1 Juan 4:7-16"]},
-{id:"navidad",date:"25 de diciembre",title:"🎄 Navidad",summary:"Navidad celebra el nacimiento de Jesucristo, el Hijo de Dios hecho hombre.",meaning:"Dios entra en la historia humana para salvar al mundo por amor.",passages:["Lucas 2:1-20","Mateo 1:18-25","Juan 1:1-14","Isaías 9:6-7"]},
-{id:"epifania_teofania",date:"6 / 19 de enero",title:"💧 Epifanía / Teofanía",summary:"Epifanía recuerda la manifestación de Cristo. En Oriente se centra especialmente en el Bautismo del Señor.",meaning:"Cristo se revela como Salvador y luz para el mundo.",passages:["Mateo 2:1-12","Mateo 3:13-17","Marcos 1:9-11","Lucas 3:21-22"]},
-{id:"domingo_ramos",date:"Variable",title:"🌿 Domingo de Ramos",summary:"Jesús entra en Jerusalén y es recibido como Rey, iniciando los acontecimientos de su pasión.",meaning:"Une la aclamación a Cristo Rey con el camino hacia la cruz.",passages:["Mateo 21:1-11","Marcos 11:1-11","Lucas 19:28-44","Juan 12:12-19"]},
-{id:"viernes_santo",date:"Variable",title:"✝️ Viernes Santo",summary:"Viernes Santo recuerda la pasión y muerte de Jesucristo en la cruz.",meaning:"En la cruz se manifiesta el amor sacrificial de Cristo y la redención del mundo.",passages:["Mateo 27","Marcos 15","Lucas 23","Juan 18:28-40","Juan 19"]},
-{id:"resurreccion",date:"Variable",title:"🌅 Pascua de Resurrección",summary:"La Pascua celebra la resurrección de Jesucristo de entre los muertos.",meaning:"Es el centro de la fe cristiana: Cristo ha vencido la muerte.",passages:["Mateo 28","Marcos 16","Lucas 24","Juan 20","1 Corintios 15:1-28"]},
-{id:"ascension",date:"Variable",title:"👑 Ascensión del Señor",summary:"La Ascensión recuerda que Cristo resucitado sube al Padre y reina glorificado.",meaning:"Cristo no abandona a sus discípulos, sino que los envía y promete el Espíritu Santo.",passages:["Lucas 24:50-53","Hechos 1:1-11","Marcos 16:19-20","Efesios 1:17-23"]},
-{id:"pentecostes",date:"Variable",title:"🔥 Pentecostés",summary:"Pentecostés celebra la venida del Espíritu Santo sobre los discípulos.",meaning:"El Espíritu Santo fortalece a la Iglesia para dar testimonio de Cristo.",passages:["Hechos 2:1-41","Juan 14:15-27","Juan 16:7-15","Romanos 8:1-17"]},
-
-{id:"presentacion_senor",date:"2 de febrero",title:"🕯️ Presentación del Señor",summary:"María y José presentan a Jesús en el Templo conforme a la Ley. Simeón y Ana reconocen al Mesías prometido.",meaning:"Cristo es presentado como luz para las naciones y gloria de Israel.",passages:["Lucas 2:22-38","Malaquías 3:1-4"]},
-{id:"jueves_santo",date:"Variable",title:"🍞 Jueves Santo",summary:"Recuerda la Última Cena de Jesús con sus discípulos y la institución de la Cena del Señor.",meaning:"Cristo entrega su cuerpo y sangre y enseña el servicio humilde.",passages:["Mateo 26:17-30","Marcos 14:12-26","Lucas 22:7-38","Juan 13:1-17","1 Corintios 11:23-26"]},
-{id:"sabado_santo",date:"Variable",title:"⚫ Sábado Santo",summary:"Día de espera y silencio entre la muerte de Cristo y su resurrección.",meaning:"La Iglesia espera con esperanza la victoria de Cristo sobre la muerte.",passages:["Mateo 27:57-66","Lucas 23:50-56","1 Pedro 3:18-20"]},
-{id:"esteban_protomartir",date:"26 de diciembre",title:"🩸 Esteban, primer mártir",summary:"Esteban fue el primer mártir cristiano.",meaning:"Su testimonio muestra la fidelidad a Cristo incluso ante la persecución.",passages:["Hechos 6:1-15","Hechos 7:1-60"]},
-{id:"genna",date:"7 de enero",title:"🇪🇹 Genna (Navidad Etíope)",summary:"Genna es la celebración etíope de la Natividad de Cristo.",meaning:"Recuerda el nacimiento del Salvador según la tradición etíope.",passages:["Lucas 2:1-20","Mateo 1:18-25","Juan 1:1-14"]},
-{id:"fasika",date:"Variable",title:"🇪🇹 Fasika (Pascua de Resurrección)",summary:"Fasika es la Pascua de Resurrección en la tradición etíope.",meaning:"Celebra la victoria de Cristo sobre la muerte.",passages:["Mateo 28","Marcos 16","Lucas 24","Juan 20","1 Corintios 15:1-28"]},
-{id:"timkat",date:"19 de enero",title:"💧 Timkat (Bautismo del Señor / Teofanía)",summary:"Timkat es la celebración etíope del Bautismo del Señor.",meaning:"Recuerda la manifestación de Cristo en el Jordán y la revelación trinitaria.",passages:["Mateo 3:13-17","Marcos 1:9-11","Lucas 3:21-22","Juan 1:29-34"]},
-{id:"meskel",date:"27 de septiembre",title:"✝️ Meskel (Hallazgo de la Santa Cruz)",summary:"Meskel conmemora en la tradición etíope el hallazgo de la Vera Cruz.",meaning:"La cruz es signo de victoria, vida y redención en Cristo.",passages:["Juan 3:14-17","1 Corintios 1:18-25","Gálatas 6:14"]}
-];
-
-let currentFestivityIdV44=null;
-let currentFestivityPassageRefV44=null;
-let currentFestivityNotesEditingV44=false;
-function getFestivityNotesStore(){
+/* V3.1.267 · Calendario trasladado a Mi Biblia de Estudio. */
+function removeLegacyCalendarDataV31263(){
+  try{ localStorage.removeItem("oraciones_festivity_notes_v44"); }catch(e){}
   try{
-    return JSON.parse(localStorage.getItem("oraciones_festivity_notes_v44")||"{}");
-  }catch(e){
-    return {};
-  }
-}
-
-function saveFestivityNotesStore(store){
-  localStorage.setItem("oraciones_festivity_notes_v44",JSON.stringify(store||{}));
-}
-
-function openFestivityLibrary(){
-  const modal=document.getElementById("festivityModal");
-  if(!modal)return;
-  modal.classList.remove("hidden");
-  backToFestivityList();
-}
-
-function closeFestivityModal(){
-  const modal=document.getElementById("festivityModal");
-  if(modal)modal.classList.add("hidden");
-}
-
-function backToFestivityList(){
-  currentFestivityIdV44=null;
-  document.getElementById("festivityListView")?.classList.remove("hidden");
-  document.getElementById("festivityDetailView")?.classList.add("hidden");
-  renderFestivityLibraryList();
-}
-
-function renderFestivityLibraryList(){
-  const box=document.getElementById("festivityLibraryList");
-  if(!box)return;
-  box.innerHTML="";
-
-  FESTIVITY_LIBRARY_V44.forEach(f=>{
-    const div=document.createElement("div");
-    div.className="festivity-row";
-    div.innerHTML='<div class="festivity-row-title">'+escapeHtml(f.title)+'</div><div class="festivity-row-date">'+escapeHtml(f.date)+'</div>';
-    div.onclick=()=>openFestivityDetail(f.id);
-    box.appendChild(div);
-  });
-}
-
-function getFestivityDataV44(id){
-  const store=getFestivityNotesStore();
-  const raw=store[id];
-  if(!raw) return {notes:"",passages:{}};
-  if(typeof raw==="string") return {notes:raw,passages:{}};
-  return {notes:raw.notes||"",passages:raw.passages||{}};
-}
-function setFestivityDataV44(id,data){
-  const store=getFestivityNotesStore();
-  store[id]={notes:(data&&data.notes)||"",passages:(data&&data.passages)||{}};
-  saveFestivityNotesStore(store);
-}
-
-function openFestivityDetail(id,forceEditNotes){
-  const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===id);
-  if(!f)return;
-  currentFestivityIdV44=id;
-  currentFestivityPassageRefV44=null;
-  const listView=document.getElementById("festivityListView");
-  const detailView=document.getElementById("festivityDetailView");
-  const box=document.getElementById("festivityDetailContent");
-  const data=getFestivityDataV44(id);
-  const hasNotes=String(data.notes||"").trim().length>0;
-  currentFestivityNotesEditingV44 = forceEditNotes || !hasNotes;
-  try{addRecentFestivity('read',id,f.title,'');}catch(e){}
-
-  if(listView)listView.classList.add("hidden");
-  if(detailView)detailView.classList.remove("hidden");
-  if(!box)return;
-
-  const notesReadonly = currentFestivityNotesEditingV44 ? "" : " readonly";
-  const notesButton = currentFestivityNotesEditingV44
-    ? '<button class="btn primary" type="button" onclick="saveFestivityNotes()">💾 Guardar notas</button>'
-    : '<button class="btn primary" type="button" onclick="enableFestivityNotesEdit()">✍️ Editar notas</button>';
-
-  box.innerHTML=
-    '<div class="festivity-detail-title">'+escapeHtml(f.title)+'</div>'+
-    '<div class="festivity-detail-date">📅 '+escapeHtml(f.date)+'</div>'+
-    '<div class="festivity-section"><h3>📖 Sentido</h3><p>'+escapeHtml(f.summary)+'</p></div>'+
-    '<div class="festivity-section"><h3>✝️ Significado cristiano</h3><p>'+escapeHtml(f.meaning)+'</p></div>'+
-    '<div class="festivity-section"><h3>📖 Pasajes bíblicos</h3><div id="festivityPassageButtons" class="festivity-passages"></div><div class="festivity-hint">Toca un pasaje para abrirlo, pegar el texto RVR1960 y guardarlo por separado.</div></div>'+
-    '<div class="festivity-section"><h3>✍️ Tus notas</h3><div class="festivity-actions">'+notesButton+'</div>'+
-      '<textarea id="festivityNotesText" class="festivity-notes"'+notesReadonly+' placeholder="Añade aquí comentarios generales de la festividad...">'+escapeHtml(data.notes||"")+'</textarea>'+
-      '<div class="festivity-hint">'+(currentFestivityNotesEditingV44?'Puedes escribir o editar tus notas y guardarlas.':'Modo lectura: las notas están protegidas. Pulsa ✍️ Editar notas para modificarlas.')+'</div></div>';
-
-  const pbox=document.getElementById("festivityPassageButtons");
-  if(pbox){
-    f.passages.forEach(function(ref){
-      const btn=document.createElement("button");
-      btn.type="button";
-      btn.className="festivity-passage";
-      btn.innerHTML='<span>'+escapeHtml(ref)+'</span><span class="edit-mark">✍️</span>';
-      btn.addEventListener("click",function(){openFestivityPassage(id,ref)});
-      pbox.appendChild(btn);
-    });
-  }
-
-  if(currentFestivityNotesEditingV44){
-    setTimeout(function(){try{document.getElementById("festivityNotesText").focus({preventScroll:true})}catch(e){}},80);
-  }
-}
-function enableFestivityNotesEdit(){
-  if(!currentFestivityIdV44)return;
-  openFestivityDetail(currentFestivityIdV44,true);
-}
-
-function openFestivityPassage(id,ref,forceEdit){
-  const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===id);
-  if(!f)return;
-  currentFestivityIdV44=id;
-  currentFestivityPassageRefV44=ref;
-  currentFestivityNotesEditingV44=false;
-  const listView=document.getElementById("festivityListView");
-  const detailView=document.getElementById("festivityDetailView");
-  const box=document.getElementById("festivityDetailContent");
-  const data=getFestivityDataV44(id);
-  const txt=(data.passages&&data.passages[ref])||"";
-  const hasText=String(txt||"").trim().length>0;
-  const editing = forceEdit || !hasText;
-  try{addRecentFestivity('read',id,f.title,ref);}catch(e){}
-
-  if(listView)listView.classList.add("hidden");
-  if(detailView)detailView.classList.remove("hidden");
-  if(!box)return;
-
-  const readonlyAttr = editing ? "" : " readonly";
-  const actionButton = editing
-    ? '<button class="btn primary" type="button" onclick="saveFestivityNotes()">💾 Guardar pasaje</button>'
-    : '<button class="btn primary" type="button" onclick="enableFestivityPassageEdit()">✍️ Editar pasaje</button>';
-
-  box.innerHTML=
-    '<button class="btn soft festivity-back" type="button" id="backToFestivityDetailBtn">← Volver a la festividad</button>'+
-    '<div class="festivity-passage-title">📖 Pasaje bíblico</div>'+
-    '<div class="festivity-passage-ref">'+escapeHtml(ref)+'</div>'+
-    '<div class="festivity-actions">'+actionButton+'</div>'+
-    '<div class="festivity-section"><textarea id="festivityPassageText" class="festivity-passage-textarea"'+readonlyAttr+' placeholder="Pega aquí el texto RVR1960 de '+escapeHtml(ref)+'...">'+escapeHtml(txt)+'</textarea><div class="festivity-hint">'+
-    (editing?'Puedes pegar o editar el texto y guardarlo.':'Modo lectura: el texto está protegido. Pulsa ✍️ Editar pasaje para modificarlo.')+
-    '</div></div>';
-
-  const back=document.getElementById("backToFestivityDetailBtn");
-  if(back)back.addEventListener("click",function(){openFestivityDetail(id)});
-  if(editing){
-    setTimeout(function(){try{document.getElementById("festivityPassageText").focus({preventScroll:true})}catch(e){}},80);
-  }
-}
-function enableFestivityPassageEdit(){
-  if(!currentFestivityIdV44 || !currentFestivityPassageRefV44)return;
-  openFestivityPassage(currentFestivityIdV44,currentFestivityPassageRefV44,true);
-}
-
-function saveFestivityNotes(){
-  if(!currentFestivityIdV44){toast("Elige una festividad");return}
-  const data=getFestivityDataV44(currentFestivityIdV44);
-
-  if(currentFestivityPassageRefV44){
-    const txt=document.getElementById("festivityPassageText");
-    data.passages=data.passages||{};
-    data.passages[currentFestivityPassageRefV44]=txt?txt.value:"";
-    setFestivityDataV44(currentFestivityIdV44,data);
-    try{
-      const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===currentFestivityIdV44);
-      addRecentFestivity('edited',currentFestivityIdV44,f?f.title:'Festividad',currentFestivityPassageRefV44);
-    }catch(e){}
-    toast("Pasaje guardado");
-    openFestivityPassage(currentFestivityIdV44,currentFestivityPassageRefV44,false);
-    return;
-  }
-
-  const txt=document.getElementById("festivityNotesText");
-  data.notes=txt?txt.value:"";
-  setFestivityDataV44(currentFestivityIdV44,data);
-  try{
-    const f=FESTIVITY_LIBRARY_V44.find(x=>x.id===currentFestivityIdV44);
-    addRecentFestivity('edited',currentFestivityIdV44,f?f.title:'Festividad','');
+    const raw=JSON.parse(localStorage.getItem("oraciones_recent_history_v47")||"null");
+    if(raw&&typeof raw==="object"){
+      ["read","added","edited"].forEach(function(key){
+        if(Array.isArray(raw[key])) raw[key]=raw[key].filter(function(item){
+          return item && item.kind!=="festivity" && item.kind!=="festivityPassage";
+        });
+      });
+      localStorage.setItem("oraciones_recent_history_v47",JSON.stringify(raw));
+    }
   }catch(e){}
-  currentFestivityNotesEditingV44=false;
-  toast("Notas guardadas");
-  openFestivityDetail(currentFestivityIdV44,false);
 }
-
-document.addEventListener("click",function(ev){
-  const card=ev.target.closest && ev.target.closest("#calendarContent .calendar-event");
-  if(!card)return;
-  const titleEl=card.querySelector(".calendar-event-title");
-  const title=titleEl?titleEl.textContent:"";
-  if(!title)return;
-  const n=title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-  let id="";
-  if(n.includes("natividad")&&n.includes("juan bautista"))id="juan_bautista_natividad";
-  else if(n.includes("pedro")&&n.includes("pablo"))id="pedro_pablo";
-  else if(n.includes("santiago"))id="santiago_mayor";
-  else if(n.includes("transfiguracion"))id="transfiguracion";
-  else if(n.includes("asuncion")||n.includes("dormicion"))id="asuncion_dormicion";
-  else if((n.includes("martirio")||n.includes("decapitacion"))&&n.includes("juan bautista"))id="martirio_juan_bautista";
-  else if(n.includes("exaltacion")||n.includes("santa cruz"))id="exaltacion_cruz";
-  else if(n.includes("todos los santos"))id="todos_los_santos";
-  else if(n.includes("andres"))id="san_andres";
-  else if(n.includes("juan evangelista"))id="san_juan_evangelista";
-  else if(n.includes("navidad"))id="navidad";
-  else if(n.includes("epifania")||n.includes("teofania")||n.includes("timkat"))id="epifania_teofania";
-  else if(n.includes("ramos"))id="domingo_ramos";
-  else if(n.includes("viernes santo"))id="viernes_santo";
-  else if(n.includes("resurreccion")||n.includes("pascua"))id="resurreccion";
-  else if(n.includes("ascension"))id="ascension";
-  else if(n.includes("pentecostes"))id="pentecostes";
-  if(id){
-    openFestivityLibrary();
-    openFestivityDetail(id);
-  }
-});
+removeLegacyCalendarDataV31263();
 
 function openBackup(){
   setActiveView("backup");
@@ -2706,14 +2288,24 @@ function openBackup(){
   if(cal) cal.classList.add("hidden");
 }
 function downloadBlob(filename, blob){
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 1500);
+  try{
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.rel = "noopener";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.dispatchEvent(new MouseEvent("click", {bubbles:true, cancelable:true, view:window}));
+    setTimeout(()=>{
+      try{ a.remove(); }catch(e){}
+      try{ URL.revokeObjectURL(url); }catch(e){}
+    }, 15000);
+    return true;
+  }catch(e){
+    console.error("Error al descargar", e);
+    return false;
+  }
 }
 function buildReadingHTML(item, folderLabel, code){const title=item.favorite?'⭐ '+item.title:item.title;const bg=document.body.classList.contains("dark") ? "#111111" : "#f8f6f1";const card=document.body.classList.contains("dark") ? "#1a1a1a" : "#ffffff";const text=document.body.classList.contains("dark") ? "#f2eee7" : "#181818";return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><title>${escapeHtml(item.title)}</title><style>body{margin:0;background:${bg};color:${text};font-family:Arial,sans-serif}.wrap{max-width:900px;margin:0 auto;padding:24px}.card{background:${card};border-radius:20px;padding:24px}.badge{font-size:13px;opacity:.7;margin-bottom:10px}h1{font-size:24px;margin:0 0 18px 0}.content{white-space:pre-wrap;font-size:${readerSize}px;line-height:2.05}body.dark .segment button{color:var(--text)}body.dark .segment button.active{color:var(--text)}
 .category-grid{padding:12px;display:flex;flex-direction:column;gap:10px}
@@ -3532,34 +3124,116 @@ async function exportCurrentHTML(){
   toast("Lectura exportada");
 }
 async function exportAllZip(){
-  if(typeof JSZip === "undefined"){
-    alert("No se pudo cargar el exportador ZIP.");
-    return;
-  }
+  const filename="exportacion_completa_oraciones_v3.zip";
+  try{
+    if(typeof window.JSZip === "undefined" && typeof JSZip === "undefined"){
+      throw new Error("JSZip no está disponible");
+    }
+    toast("Preparando ZIP completo…");
+    const ZipClass=window.JSZip || JSZip;
+    const zip = new ZipClass();
+    const payload = await buildCompleteBackupPayloadV31245();
+    zip.file("backup_completo.json", JSON.stringify(payload, null, 2));
+    try{ zip.file("catalogos/personajes_biblicos_409.json", await (await fetch("biblical-characters-v2261.json",{cache:"no-store"})).text()); }catch(e){ console.warn(e); }
+    try{ zip.file("catalogos/diccionario_biblico_433.json", await (await fetch("biblical-dictionary-v2264.json",{cache:"no-store"})).text()); }catch(e){ console.warn(e); }
 
-  const zip = new JSZip();
-  const payload = {"exportedAt":new Date().toISOString(), ...state};
-  zip.file("backup.json", JSON.stringify(payload, null, 2));
-
-  const folders = [
-    ["oraciones", state.prayers, "Oración", "O"],
-    ["notas", state.notes, "Nota", "N"],
-    ["papelera/oraciones", state.trashPrayers, "Oración eliminada", "O"],
-    ["papelera/notas", state.trashNotes, "Nota eliminada", "N"]
-  ];
-
-  folders.forEach(([folder, items, label, prefix]) => {
-    items.forEach((item, idx) => {
-      const code = prefix + (idx + 1);
-      const name = (code + "-" + slugify(item.title)) + ".html";
-      zip.folder(folder).file(name, buildReadingHTML(item, label, code));
+    const folders = [
+      ["oraciones", state.prayers, "Oración", "O"],
+      ["notas", state.notes, "Nota", "N"],
+      ["papelera/oraciones", state.trashPrayers, "Oración eliminada", "O"],
+      ["papelera/notas", state.trashNotes, "Nota eliminada", "N"]
+    ];
+    folders.forEach(([folder, items, label, prefix]) => {
+      (Array.isArray(items)?items:[]).forEach((item, idx) => {
+        const code = prefix + (idx + 1);
+        const name = (code + "-" + slugify(item.title||"sin-titulo")) + ".html";
+        zip.folder(folder).file(name, buildReadingHTML(item, label, code));
+      });
     });
-  });
 
-  const blob = await zip.generateAsync({type:"blob"});
-  downloadBlob("exportacion_oraciones_notas.zip", blob);
-  toast("ZIP exportado");
+    const blob = await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}});
+    const ok=downloadBlob(filename, blob);
+    if(!ok) throw new Error("No se pudo iniciar la descarga");
+    saveBackupStatusV3149("Exportación ZIP completa", filename);
+    toast("ZIP completo exportado");
+  }catch(e){
+    console.error("Error al exportar ZIP completo",e);
+    alert("No se pudo exportar el ZIP completo: "+(e&&e.message?e.message:"error desconocido"));
+  }
 }
+
+
+/* ===== V3.1.258 · Descargar copia autosuficiente de la aplicación ===== */
+const APP_VERSION_V31249 = "2.277";
+const FUTURE_HOME_ICONS_V31249 = Object.freeze({
+  dailyVerse:"icon-versiculo-dia-v3250.png",
+  dictionary:"icon-diccionario-v3250.png"
+});
+const INSTALLED_APP_FILES_V31249 = ["index.html", "app.js", "styles.css", "themes.css", "welcome.js", "config.js", "utils.js", "recent.js", "versiculos.js", "theme-mode.js", "jszip.min.js", "patches.js", "routines.js", "moments.js", "counters-v3183.js", "sw.js", "manifest.json", "biblical-characters-v2243.css", "biblical-characters-v2243.js", "biblical-characters-v2261.json", "biblical-dictionary-v2264.css", "biblical-dictionary-v2264.js", "biblical-dictionary-v2264.json", "cross-ethiopian-mask.png", "icon-notas-detallado-v2210.png", "icon-guia-detallado-v2210.png", "icon-personajes-biblicos-v2255.png", "icon-versiculo-dia-v3250.png", "icon-diccionario-v3250.png", "icon-dia-noche-v3255.png", "icon-192.png", "icon-512.png", "bg-morning.webp", "bg-day.webp", "bg-sunset.webp", "bg-night.webp", "card-sabiduria-v2240.jpg", "routine-morning-bible-v2216.webp", "routine-night-bible-v2216.webp", "shared-card-new-jerusalem-v2217.png", "card-salvacion-v2219.jpg", "card-oracion-v2219.jpg", "card-espiritu-santo-v2219.jpg", "card-misericordia-v2219.jpg", "card-alabanza-v2219.jpg", "card-fortaleza-v2219.jpg", "card-amor-v2219.jpg", "card-esperanza-v2219.jpg", "card-juicio-v2219.jpg", "card-fe-v2219.jpg", "card-segunda-venida-v2219.jpg", "card-reino-dios-v2230.jpg", "card-santidad-v2230.jpg", "card-cristo-es-dios-v2230.jpg", "card-fe-nueva-v3261.png", "card-dios-v3261.png", "Lora-Regular.woff2", "Lora-Bold.woff2", "Lora-Italic.woff2", "Lora-BoldItalic.woff2"];
+
+async function readInstalledAppFileV31249(fileName){
+  const cleanName=String(fileName||"").replace(/^\.\//,"");
+  const absoluteUrl=new URL(cleanName,document.baseURI).href;
+  if("caches" in window){
+    try{
+      const direct=await caches.match(absoluteUrl,{ignoreSearch:true});
+      if(direct && direct.ok) return await direct.arrayBuffer();
+      for(const cacheName of await caches.keys()){
+        const cache=await caches.open(cacheName);
+        for(const request of await cache.keys()){
+          try{
+            if(new URL(request.url).pathname.endsWith("/"+cleanName)){
+              const response=await cache.match(request);
+              if(response && response.ok) return await response.arrayBuffer();
+            }
+          }catch(_){}
+        }
+      }
+    }catch(e){console.warn("No se pudo leer de caché",cleanName,e);}
+  }
+  let lastError=null;
+  for(const options of [{cache:"default",credentials:"same-origin"},{cache:"reload",credentials:"same-origin"},{cache:"no-store",credentials:"same-origin"}]){
+    try{
+      const response=await fetch(absoluteUrl,options);
+      if(response && response.ok) return await response.arrayBuffer();
+      lastError=new Error(cleanName+" · HTTP "+(response?response.status:"sin respuesta"));
+    }catch(e){lastError=e;}
+  }
+  throw lastError||new Error(cleanName+" no está disponible");
+}
+
+async function exportInstalledAppZipV31249(){
+  const filename="oraciones_v3_1_263_copia_app.zip";
+  try{
+    if(typeof window.JSZip==="undefined" && typeof JSZip==="undefined") throw new Error("JSZip no está disponible");
+    toast("Preparando copia de la aplicación…");
+    const ZipClass=window.JSZip||JSZip;
+    const zip=new ZipClass();
+    const missing=[];
+    for(let i=0;i<INSTALLED_APP_FILES_V31249.length;i++){
+      const fileName=INSTALLED_APP_FILES_V31249[i];
+      try{zip.file(fileName,await readInstalledAppFileV31249(fileName));}
+      catch(e){missing.push(fileName);console.error("Recurso ausente",fileName,e);}
+      if(i%8===0) toast("Preparando copia… "+(i+1)+"/"+INSTALLED_APP_FILES_V31249.length);
+    }
+    if(missing.length) throw new Error("Faltan recursos esenciales: "+missing.join(", "));
+    zip.file("INFORMACION_COPIA_APP.json",JSON.stringify({
+      type:"oraciones-v3-copia-aplicacion",appVersion:APP_VERSION_V31249,exportedAt:new Date().toISOString(),
+      includedFiles:INSTALLED_APP_FILES_V31249,complete:true,
+      pendingOptionalIcons:FUTURE_HOME_ICONS_V31249
+    },null,2));
+    zip.file("LEEME_COPIA_APP.txt","ORACIONES V2 · COPIA AUTOSUFICIENTE\n\nVersión: 2.277\n\nIncluye todos los recursos activos de esta versión y no incluye archivos históricos sin uso.\nLos iconos propios de Versículo del día y Diccionario están preparados en el código, pero se integrarán cuando estén disponibles.\n");
+    const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}});
+    if(!downloadBlob(filename,blob)) throw new Error("No se pudo iniciar la descarga");
+    saveBackupStatusV3149("Copia de la aplicación",filename);
+    toast("Copia completa de la aplicación descargada");
+  }catch(e){
+    console.error(e);
+    alert("No se pudo descargar la copia de la aplicación: "+(e&&e.message?e.message:"error desconocido"));
+  }
+}
+const exportInstalledAppZipV31248=exportInstalledAppZipV31249;
+const exportInstalledAppZipV31247=exportInstalledAppZipV31249;
 
 /* ===== v3.1.52 - Estado de copia de seguridad pulido ===== */
 const BACKUP_EXPORT_STATUS_KEY_V3149 = "oraciones_v3_last_backup_export_status";
@@ -3674,157 +3348,177 @@ function renderBackupStatusV3149(){
     '</div>';
 }
 
-function buildBackupText(){
-  const payload = {
-    "exportedAt": new Date().toISOString(),
-    ...state
-  };
+/* ===== V3.1.245 · Backup integral de toda la aplicación ===== */
+const COMPLETE_BACKUP_TYPE_V31245 = "oraciones-v3-backup-completo";
+const COMPLETE_BACKUP_VERSION_V31245 = 31263;
 
-  const text = JSON.stringify(payload, null, 2);
-  document.getElementById("backupText").value = text;
+function readAllAppStorageV31245(){
+  const data = {};
+  try{
+    for(let i=0;i<localStorage.length;i++){
+      const key=localStorage.key(i);
+      if(!key) continue;
+      if((key.indexOf("oraciones_")===0 || key.indexOf("biblical_")===0) && key!=="oraciones_festivity_notes_v44"){
+        data[key]=localStorage.getItem(key);
+      }
+    }
+  }catch(e){}
+  return data;
+}
+
+function completeBackupCountsV31245(){
+  const count=a=>Array.isArray(a)?a.length:0;
+  let dictionaryCustom=0,dictionaryEdited=0,dictionaryDeleted=0;
+  try{dictionaryCustom=count(JSON.parse(localStorage.getItem('oraciones_biblical_dictionary_custom_v264')||'[]'));}catch(e){}
+  try{dictionaryEdited=Object.keys(JSON.parse(localStorage.getItem('oraciones_biblical_dictionary_overrides_v264')||'{}')||{}).length;}catch(e){}
+  try{dictionaryDeleted=count(JSON.parse(localStorage.getItem('oraciones_biblical_dictionary_deleted_v264')||'[]'));}catch(e){}
+  return {
+    prayers:count(state&&state.prayers), notes:count(state&&state.notes), guides:count(state&&state.guides),
+    verses:count(state&&state.verses), parables:count(state&&state.parables), psalms:count(state&&state.psalms),
+    characters:409, dictionary:433, dictionaryCustom, dictionaryEdited, dictionaryDeleted,
+    routines:state&&state.dailyRoutinesV3192?Object.values(state.dailyRoutinesV3192).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0):0,
+    moments:count(state&&state.customMomentsV31106)
+  };
+}
+
+async function loadCompleteCatalogsV31247(){
+  const result={biblicalCharacters:null,biblicalDictionary:null};
+  const load=async function(url){
+    const response=await fetch(url,{cache:"no-store"});
+    if(!response.ok) throw new Error("No se pudo cargar "+url);
+    return await response.json();
+  };
+  result.biblicalCharacters=await load("biblical-characters-v2261.json");
+  result.biblicalDictionary=await load("biblical-dictionary-v2264.json");
+  return result;
+}
+
+async function buildCompleteBackupPayloadV31245(){
+  const fullCatalogs=await loadCompleteCatalogsV31247();
+  return {
+    type: COMPLETE_BACKUP_TYPE_V31245,
+    version: 31263,
+    exportedAt: new Date().toISOString(),
+    appVersion: "2.277",
+    description: "Copia integral y autosuficiente: datos, ajustes, 409 personajes completos y 433 entradas completas del diccionario.",
+    state: JSON.parse(JSON.stringify(state||{})),
+    localStorage: readAllAppStorageV31245(),
+    catalogs: {
+      biblicalCharacters: fullCatalogs.biblicalCharacters,
+      biblicalDictionary: fullCatalogs.biblicalDictionary
+    },
+    counts: completeBackupCountsV31245()
+  };
+}
+
+async function buildBackupText(){
+  const payload=await buildCompleteBackupPayloadV31245();
+  const text=JSON.stringify(payload,null,2);
+  const box=document.getElementById("backupText");if(box)box.value=text;
   return text;
 }
 function backupFilename(){
-  const now = new Date();
-  const stamp =
-    now.getFullYear().toString() +
-    String(now.getMonth() + 1).padStart(2, "0") +
-    String(now.getDate()).padStart(2, "0") +
-    "_" +
-    String(now.getHours()).padStart(2, "0") +
-    String(now.getMinutes()).padStart(2, "0");
-
-  return "backup_oraciones_notas_" + stamp + ".json";
+  const now=new Date();
+  const stamp=now.getFullYear().toString()+String(now.getMonth()+1).padStart(2,"0")+String(now.getDate()).padStart(2,"0")+"_"+String(now.getHours()).padStart(2,"0")+String(now.getMinutes()).padStart(2,"0");
+  return "backup_completo_oraciones_v3_"+stamp+".json";
 }
-function downloadBackupJson(){
-  const text = buildBackupText();
-  const filename = backupFilename();
-  downloadBlob(
-    filename,
-    new Blob([text], {type: "application/json;charset=utf-8"})
-  );
-  saveBackupStatusV3149("Descarga JSON", filename);
-  toast("JSON descargado");
+async function downloadBackupJson(){
+  try{
+    toast("Preparando backup completo…");
+    const text=await buildBackupText(),filename=backupFilename();
+    const ok=downloadBlob(filename,new Blob([text],{type:"application/json;charset=utf-8"}));
+    if(!ok) throw new Error("download-failed");
+    saveBackupStatusV3149("Descarga backup completo autosuficiente",filename);
+    toast("Backup completo descargado");
+  }catch(e){
+    console.error("No se pudo crear el backup completo",e);
+    alert("No se pudo descargar el backup completo: "+(e&&e.message?e.message:"error desconocido"));
+  }
 }
 async function copyBackupJson(){
-  const text=buildBackupText();
   try{
+    toast("Preparando backup completo…");
+    const text=await buildBackupText();
     await navigator.clipboard.writeText(cleanTextBreaks(text));
-    saveBackupStatusV3149("Copia JSON", "JSON copiado al portapapeles");
-    toast("JSON copiado");
-  }catch(e){
-    alert("No se pudo copiar automáticamente. El JSON queda visible para copiarlo manualmente.");
-  }
+    saveBackupStatusV3149("Copia backup completo","Backup completo copiado");toast("Backup completo copiado");
+  }catch(e){alert("No se pudo copiar automáticamente. El backup queda visible para copiarlo manualmente.");}
 }
 async function shareBackupJson(){
-  const text=buildBackupText();
-  const filename=backupFilename();
-  const file=new File([text], filename, {type:"application/json"});
   try{
-    if(navigator.canShare && navigator.canShare({files:[file]})){
-      await navigator.share({title:"Backup Oraciones y Notas", text:"Backup de Oraciones y Notas", files:[file]});
-      saveBackupStatusV3149("Compartir JSON", filename);
-      toast("Compartido");
-      return;
-    }
-    if(navigator.share){
-      await navigator.share({title:"Backup Oraciones y Notas", text:text});
-      saveBackupStatusV3149("Compartir JSON como texto", filename);
-      toast("Compartido como texto");
-      return;
-    }
-    downloadBlob(filename, new Blob([text],{type:"application/json;charset=utf-8"}));
-    saveBackupStatusV3149("Descarga JSON", filename);
-    alert("Tu navegador no permite compartir desde aquí. Se ha descargado el JSON.");
-  }catch(e){
-    downloadBlob(filename, new Blob([text],{type:"application/json;charset=utf-8"}));
-    saveBackupStatusV3149("Descarga JSON", filename);
-    toast("Compartir cancelado o no disponible");
-  }
+    toast("Preparando backup completo…");
+    const text=await buildBackupText(),filename=backupFilename(),file=new File([text],filename,{type:"application/json"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({title:"Backup completo Oraciones V3",text:"Copia integral y autosuficiente de toda la aplicación",files:[file]});saveBackupStatusV3149("Compartir backup completo",filename);toast("Backup completo compartido");return;}
+    if(navigator.share){await navigator.share({title:"Backup completo Oraciones V3",text:text});saveBackupStatusV3149("Compartir backup como texto",filename);toast("Compartido como texto");return;}
+    downloadBlob(filename,new Blob([text],{type:"application/json;charset=utf-8"}));saveBackupStatusV3149("Descarga backup completo",filename);alert("Tu navegador no permite compartir desde aquí. Se ha descargado el backup completo.");
+  }catch(e){if(e&&e.name==='AbortError'){toast("Compartir cancelado");return;}console.error(e);alert("No se pudo compartir el backup completo.");}
 }
-async function exportBackup(){
-  downloadBackupJson();
+async function exportBackup(){await downloadBackupJson();}
+
+function normalizeImportedStateV31245(parsed){
+  const src=(parsed&&parsed.type===COMPLETE_BACKUP_TYPE_V31245&&parsed.state)?parsed.state:parsed;
+  if(!src||!Array.isArray(src.prayers)||!Array.isArray(src.notes))throw new Error("bad");
+  return Object.assign({},src,{
+    section:src.section||"prayers",
+    currentPrayerId:src.currentPrayerId||(src.prayers[0]&&src.prayers[0].id)||null,
+    currentNoteId:src.currentNoteId||(src.notes[0]&&src.notes[0].id)||null,
+    guides:Array.isArray(src.guides)?src.guides:[],verses:Array.isArray(src.verses)?src.verses:[],parables:Array.isArray(src.parables)?src.parables:[],psalms:Array.isArray(src.psalms)?src.psalms:[],
+    verseCategories:Array.isArray(src.verseCategories)?src.verseCategories:[],trashPrayers:Array.isArray(src.trashPrayers)?src.trashPrayers:[],trashNotes:Array.isArray(src.trashNotes)?src.trashNotes:[],trashGuides:Array.isArray(src.trashGuides)?src.trashGuides:[],trashVerses:Array.isArray(src.trashVerses)?src.trashVerses:[],trashParables:Array.isArray(src.trashParables)?src.trashParables:[],trashPsalms:Array.isArray(src.trashPsalms)?src.trashPsalms:[],
+    titleSeparatorsV3171:src.titleSeparatorsV3171&&typeof src.titleSeparatorsV3171==="object"?src.titleSeparatorsV3171:{}
+  });
 }
 function applyImportedData(parsed){
-  if(!Array.isArray(parsed.prayers)||!Array.isArray(parsed.notes)) throw new Error("bad");
-  state={
-    "section":parsed.section||"prayers",
-    "currentPrayerId":parsed.currentPrayerId||(parsed.prayers[0]&&parsed.prayers[0].id)||null,
-    "currentNoteId":parsed.currentNoteId||(parsed.notes[0]&&parsed.notes[0].id)||null,
-    "currentGuideId":parsed.currentGuideId||(Array.isArray(parsed.guides)&&parsed.guides[0]&&parsed.guides[0].id)||null,
-    "currentVerseId":parsed.currentVerseId||(Array.isArray(parsed.verses)&&parsed.verses[0]&&parsed.verses[0].id)||null,
-    "currentParableId":parsed.currentParableId||(Array.isArray(parsed.parables)&&parsed.parables[0]&&parsed.parables[0].id)||null,
-    "currentPsalmId":parsed.currentPsalmId||(Array.isArray(parsed.psalms)&&parsed.psalms[0]&&parsed.psalms[0].id)||null,
-    "prayers":parsed.prayers,
-    "notes":parsed.notes,
-    "guides":Array.isArray(parsed.guides)?parsed.guides:[],
-    "verses":Array.isArray(parsed.verses)?parsed.verses:[],
-    "parables":Array.isArray(parsed.parables)?parsed.parables:[],
-    "psalms":Array.isArray(parsed.psalms)?parsed.psalms:[],
-    "verseCategories":Array.isArray(parsed.verseCategories)?parsed.verseCategories:[],
-    "trashPrayers":Array.isArray(parsed.trashPrayers)?parsed.trashPrayers:[],
-    "trashNotes":Array.isArray(parsed.trashNotes)?parsed.trashNotes:[],
-    "trashGuides":Array.isArray(parsed.trashGuides)?parsed.trashGuides:[],
-    "trashVerses":Array.isArray(parsed.trashVerses)?parsed.trashVerses:[],
-    "trashParables":Array.isArray(parsed.trashParables)?parsed.trashParables:[],
-    "trashPsalms":Array.isArray(parsed.trashPsalms)?parsed.trashPsalms:[],
-    "titleSeparatorsV3171":parsed.titleSeparatorsV3171&&typeof parsed.titleSeparatorsV3171==="object"?parsed.titleSeparatorsV3171:{}
-  };
-  normalizeGuides();
-  if(typeof normalizeVerses==="function") normalizeVerses();
-  if(typeof ensureVerseCategories==="function") ensureVerseCategories();
-  if(typeof ensureParablesState==="function") ensureParablesState();
-  if(typeof ensurePsalmsStateV3176==="function") ensurePsalmsStateV3176();
-  saveState();
-  section=state.section;
-  syncTabs();
-  renderList();
-  renderReader();
-  openReader();
-  toast("Backup importado")
+  const complete=parsed&&parsed.type===COMPLETE_BACKUP_TYPE_V31245;
+  const importedState=normalizeImportedStateV31245(parsed);
+  if(complete&&parsed.localStorage&&typeof parsed.localStorage==='object'){
+    Object.keys(parsed.localStorage).forEach(key=>{
+      if((key.indexOf('oraciones_')===0||key.indexOf('biblical_')===0) && key!=='oraciones_festivity_notes_v44'){
+        const value=parsed.localStorage[key];if(value===null||typeof value==='undefined')localStorage.removeItem(key);else localStorage.setItem(key,String(value));
+      }
+    });
+  }
+  state=importedState;
+  normalizeGuides();if(typeof normalizeVerses==="function")normalizeVerses();if(typeof ensureVerseCategories==="function")ensureVerseCategories();if(typeof ensureParablesState==="function")ensureParablesState();if(typeof ensurePsalmsStateV3176==="function")ensurePsalmsStateV3176();
+  saveState();section=state.section;syncTabs();renderList();renderReader();
+  if(complete){toast("Backup completo restaurado");setTimeout(()=>location.reload(),650);}else{openReader();toast("Backup importado");}
 }
 function importBackupFromText(){
-  const text = document.getElementById("backupText").value.trim();
-  if(!text) return alert("Pega primero una copia.");
-
-  try{
-    applyImportedData(JSON.parse(text));
-  }catch(e){
-    alert("La copia no es válida.");
-  }
+  const text=document.getElementById("backupText").value.trim();if(!text)return alert("Pega primero una copia.");
+  try{applyImportedData(JSON.parse(text));}catch(e){alert("La copia no es válida.");}
 }
 function importBackupFromFile(file){
-  const reader = new FileReader();
-
-  reader.onload = () => {
-    try{
-      const text = String(reader.result || "");
-      document.getElementById("backupText").value = text;
-      applyImportedData(JSON.parse(text));
-    }catch(e){
-      alert("El archivo no es un JSON válido.");
-    }
-  };
-
-  reader.onerror = () => alert("No se pudo leer el archivo.");
-  reader.readAsText(file, "utf-8");
+  const reader=new FileReader();reader.onload=()=>{try{const text=String(reader.result||"");document.getElementById("backupText").value=text;applyImportedData(JSON.parse(text));}catch(e){alert("El archivo no es un backup JSON válido.");}};reader.onerror=()=>alert("No se pudo leer el archivo.");reader.readAsText(file,"utf-8");
 }
 function dismissInstall(){localStorage.setItem(INSTALL_DISMISSED_KEY,"1");document.getElementById("installBanner").classList.add("hidden")}
 function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(INSTALL_DISMISSED_KEY)==="1") return;document.getElementById("installBanner").classList.remove("hidden");const help=document.getElementById("installHelp");if(deferredPrompt) help.textContent="Pulsa Instalar. Si no te deja, usa el menú del navegador y elige Añadir a pantalla de inicio.";else help.textContent="Si no aparece el instalador automático, usa el menú del navegador y elige Añadir a pantalla de inicio."}
 window.addEventListener("beforeinstallprompt", e=>{e.preventDefault();deferredPrompt=e;maybeShowInstall()})
 document.addEventListener("DOMContentLoaded",()=>{setTimeout(maybeShowInstall,700);document.getElementById("installBtn").addEventListener("click", async ()=>{if(!deferredPrompt){toast("Usa el menú del navegador: Añadir a pantalla de inicio");return}deferredPrompt.prompt();try{await deferredPrompt.userChoice}catch(e){}deferredPrompt=null;document.getElementById("installBanner").classList.add("hidden")});document.getElementById("editTitle").addEventListener("input",scheduleAutosave);document.getElementById("editText").addEventListener("input",scheduleAutosave);const input=document.getElementById("jsonFileInput");if(input)input.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Backup seleccionado: "+file.name;importBackupFromFile(file);input.value=""});const versesInput=document.getElementById("versesFileInput");if(versesInput)versesInput.addEventListener("change",(e)=>{const file=e.target.files && e.target.files[0];if(!file) return;document.getElementById("fileNameInfo").textContent="Versículos seleccionados: "+file.name;importVersesFromFile(file);versesInput.value=""});if(isStandalone()) document.body.classList.add("standalone")})
 window.addEventListener("appinstalled",()=>{document.getElementById("installBanner").classList.add("hidden");toast("App instalada")})
-if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v2-276-tarjetas-fe-dios-sin-iconos",{updateViaCache:"none"})})}
-applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();updateCalendarAlert();maybeShowInstall();
+window.downloadBackupJson=downloadBackupJson;
+window.exportAllZip=exportAllZip;
+window.exportInstalledAppZipV31247=exportInstalledAppZipV31248;
+window.exportInstalledAppZipV31248=exportInstalledAppZipV31249;
+window.exportInstalledAppZipV31249=exportInstalledAppZipV31249;
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const backupBtn=document.getElementById("downloadCompleteBackupBtnV31246");
+  if(backupBtn) backupBtn.addEventListener("click",downloadBackupJson);
+  const zipBtn=document.getElementById("exportCompleteZipBtnV31246");
+  if(zipBtn) zipBtn.addEventListener("click",exportAllZip);
+  const appZipBtn=document.getElementById("exportInstalledAppBtnV31247");
+  if(appZipBtn) appZipBtn.addEventListener("click",exportInstalledAppZipV31249);
+});
+
+if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v3-1-261-tarjetas-fe-dios-sin-iconos",{updateViaCache:"none"})})}
+applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();maybeShowInstall();
 
 function getCardTextLayout(txt){
   const n = String(txt || "").length;
   // V2.218 — aumenta únicamente el cuerpo del versículo en la tarjeta Biblia.
-  if(n <= 150) return {font:54, line:77, max:7, y:1015};
+  if(n <= 150) return {font:52, line:77, max:7, y:1015};
   if(n <= 240) return {font:50, line:71, max:9, y:1015};
   if(n <= 340) return {font:45, line:64, max:11, y:1000};
   if(n <= 480) return {font:41, line:58, max:13, y:985};
-  return {font:38, line:53, max:15, y:970};
+  return {font:37, line:53, max:15, y:970};
 }
 
 function markCurrentVerseCardSentDirect(){
@@ -3873,7 +3567,7 @@ function getNewJerusalemCardTextLayoutV2217(txt){
   // para que respire respecto a la línea decorativa con la cruz.
   if(n<=150) return {font:52,line:73,max:7,y:1190};
   if(n<=240) return {font:48,line:67,max:9,y:1180};
-  if(n<=340) return {font:43,line:60,max:11,y:1170};
+  if(n<=340) return {font:41,line:60,max:11,y:1170};
   if(n<=480) return {font:39,line:54,max:13,y:1160};
   return {font:34,line:47,max:15,y:1150};
 }
@@ -4017,7 +3711,7 @@ async function shareVerseCard(cardStyle="classic"){
         const im=new Image();
         im.onload=()=>resolve(im);
         im.onerror=reject;
-        im.src=selectedBackgroundV2219+"?v=v2-241-ajuste-dinamico-referencia-fija";
+        im.src=selectedBackgroundV2219+"?v=v3-1-243-revision-final-409";
       });
       ctx.drawImage(cardBackground,0,0,1080,1920);
     }catch(e){
@@ -4123,10 +3817,10 @@ async function shareVerseCard(cardStyle="classic"){
     ctx.textAlign="center";
     ctx.fillText(categoryTextV3200,540,usesNewTextLayoutV2231?1045:742);
 
-    // V2.241 — referencia bíblica con tamaño fijo y uniforme.
+    // V3.1.243 — referencia bíblica fija y sección final de 409 personajes.
     // No participa en el ajuste dinámico reservado exclusivamente al cuerpo del versículo.
-    const REFERENCE_FONT_SIZE_V2241=74;
-    ctx.font="bold "+REFERENCE_FONT_SIZE_V2241+"px Georgia, serif";
+    const REFERENCE_FONT_SIZE_V3241=74;
+    ctx.font="bold "+REFERENCE_FONT_SIZE_V3241+"px Georgia, serif";
     ctx.fillText(ref,540,usesNewTextLayoutV2231?1145:865);
 
     // Línea decorativa azul tenue con cruz central
@@ -4145,7 +3839,7 @@ async function shareVerseCard(cardStyle="classic"){
 
     const textLayout=usesNewTextLayoutV2231 ? getThematicCardTextLayoutV2220(body) : getCardTextLayout(body);
 
-    // V2.241 — ajuste dinámico real del versículo.
+    // V3.1.241 — ajuste dinámico real del versículo conservado desde V3.1.240.
     // Se mide el texto completo con el ancho disponible y se reduce la fuente
     // solo lo necesario hasta que la última línea quede sobre la bendición.
     function splitTextIntoLinesV2241(ctx,text,maxWidth){
@@ -5620,145 +5314,6 @@ setInterval(updateVersePositionCounter, 1000);
   }
 })();
 
-/* v78 - Calendario en pantalla completa real; Volver a pantalla principal */
-(function(){
-  if(window.__v78CalendarFullScreen) return;
-  window.__v78CalendarFullScreen=true;
-
-  const calHiddenNodes=[];
-
-  function hideForCalendarV78(){
-    document.body.classList.add("calendar-fullscreen-v78");
-    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","categories-fullscreen-v73","verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-fullscreen-v76","titles-fullscreen-v72");
-
-    [".topbar",".sidebar","#list"].forEach(sel=>{
-      document.querySelectorAll(sel).forEach(el=>{
-        if(!el.dataset.v78CalDisplaySaved){
-          el.dataset.v78CalDisplaySaved="1";
-          el.dataset.v78CalOldDisplay=el.style.display||"";
-          calHiddenNodes.push(el);
-        }
-        el.style.display="none";
-      });
-    });
-
-    const main=document.querySelector(".main");
-    if(main){
-      if(!main.dataset.v78CalSaved){
-        main.dataset.v78CalSaved="1";
-        main.dataset.v78CalOldDisplay=main.style.display||"";
-        main.dataset.v78CalOldGrid=main.style.gridTemplateColumns||"";
-        main.dataset.v78CalOldMinHeight=main.style.minHeight||"";
-      }
-      main.style.display="block";
-      main.style.gridTemplateColumns="1fr";
-      main.style.minHeight="100dvh";
-    }
-
-    const content=document.querySelector(".content");
-    if(content){
-      if(!content.dataset.v78CalSaved){
-        content.dataset.v78CalSaved="1";
-        content.dataset.v78CalOldPadding=content.style.padding||"";
-        content.dataset.v78CalOldMinHeight=content.style.minHeight||"";
-        content.dataset.v78CalOldWidth=content.style.width||"";
-        content.dataset.v78CalOldMaxWidth=content.style.maxWidth||"";
-      }
-      content.style.padding="0";
-      content.style.minHeight="100dvh";
-      content.style.width="100%";
-      content.style.maxWidth="none";
-    }
-
-    const cal=document.getElementById("calendarView");
-    if(cal){
-      cal.classList.remove("hidden");
-      if(!cal.dataset.v78CalSaved){
-        cal.dataset.v78CalSaved="1";
-        cal.dataset.v78CalOldBorder=cal.style.border||"";
-        cal.dataset.v78CalOldRadius=cal.style.borderRadius||"";
-        cal.dataset.v78CalOldMinHeight=cal.style.minHeight||"";
-      }
-      cal.style.border="none";
-      cal.style.borderRadius="0";
-      cal.style.minHeight="100dvh";
-    }
-
-    ["readerView","editorView","backupView","trashView","titlesView","verseCategoriesView"].forEach(id=>{
-      const el=document.getElementById(id); if(el) el.classList.add("hidden");
-    });
-
-    const backBtn=document.querySelector("#calendarView .panel-head button:first-child");
-    if(backBtn){
-      backBtn.setAttribute("onclick","closeCalendarFullScreenV78()");
-    }
-  }
-
-  function restoreCalendarV78(){
-    calHiddenNodes.splice(0).forEach(el=>{
-      if(el && el.dataset.v78CalDisplaySaved){
-        el.style.display=el.dataset.v78CalOldDisplay||"";
-        delete el.dataset.v78CalDisplaySaved;
-        delete el.dataset.v78CalOldDisplay;
-      }
-    });
-
-    const main=document.querySelector(".main");
-    if(main && main.dataset.v78CalSaved){
-      main.style.display=main.dataset.v78CalOldDisplay||"";
-      main.style.gridTemplateColumns=main.dataset.v78CalOldGrid||"";
-      main.style.minHeight=main.dataset.v78CalOldMinHeight||"";
-      delete main.dataset.v78CalSaved;
-    }
-
-    const content=document.querySelector(".content");
-    if(content && content.dataset.v78CalSaved){
-      content.style.padding=content.dataset.v78CalOldPadding||"";
-      content.style.minHeight=content.dataset.v78CalOldMinHeight||"";
-      content.style.width=content.dataset.v78CalOldWidth||"";
-      content.style.maxWidth=content.dataset.v78CalOldMaxWidth||"";
-      delete content.dataset.v78CalSaved;
-    }
-
-    const cal=document.getElementById("calendarView");
-    if(cal && cal.dataset.v78CalSaved){
-      cal.style.border=cal.dataset.v78CalOldBorder||"";
-      cal.style.borderRadius=cal.dataset.v78CalOldRadius||"";
-      cal.style.minHeight=cal.dataset.v78CalOldMinHeight||"";
-      delete cal.dataset.v78CalSaved;
-    }
-
-    document.body.classList.remove("calendar-fullscreen-v78");
-  }
-
-  window.closeCalendarFullScreenV78=function(){
-    restoreCalendarV78();
-    const cal=document.getElementById("calendarView"); if(cal) cal.classList.add("hidden");
-    if(typeof showHomeV9019==="function") showHomeV9019();
-    else if(typeof openReader==="function") openReader();
-  };
-
-  const oldOpenChristianCalendar=window.openChristianCalendar || (typeof openChristianCalendar!=="undefined" ? openChristianCalendar : null);
-  window.openChristianCalendar=function(){
-    if(oldOpenChristianCalendar) oldOpenChristianCalendar.apply(this,arguments);
-    hideForCalendarV78();
-    if(typeof setActiveView==="function") setActiveView("calendar");
-    setTimeout(function(){ hideForCalendarV78(); window.scrollTo({top:0,behavior:"auto"}); },50);
-  };
-  try{openChristianCalendar=window.openChristianCalendar}catch(e){}
-
-  function wrapRestoreV78(name){
-    const old=window[name] || (typeof globalThis[name]!=="undefined" ? globalThis[name] : null);
-    if(typeof old!=="function") return;
-    window[name]=function(){
-      restoreCalendarV78();
-      return old.apply(this,arguments);
-    };
-    try{ eval(name+"=window[\""+name+"\"]") }catch(e){}
-  }
-  ["openReader","openVerseCategories","openTitlesView","openDailyVerse","openRandomVerse","openBackup","openTrash","openEditor","clearNavModes"].forEach(wrapRestoreV78);
-})();
-
 /* v79.1 - Favoritos pantalla completa segura sobre v78; solo Volver; no rompe Títulos */
 (function(){
   if(window.__v791FavoritesFullScreen) return;
@@ -5770,7 +5325,7 @@ setInterval(updateVersePositionCounter, 1000);
 
   function hideForFavoritesV791(){
     document.body.classList.add("favorites-fullscreen-v791");
-    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","calendar-fullscreen-v78","categories-fullscreen-v73","verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-fullscreen-v76");
+    document.body.classList.remove("reading-mobile","fullscreen-reading","hide-reading-ui","categories-fullscreen-v73","verse-special-fullscreen-v74","verse-special-fullscreen-v751","sent-fullscreen-v76");
 
     [".topbar",".sidebar","#list"].forEach(sel=>{
       document.querySelectorAll(sel).forEach(el=>{
@@ -5915,7 +5470,7 @@ setInterval(updateVersePositionCounter, 1000);
     };
     try{ eval(name+"=window[\""+name+"\"]") }catch(e){}
   }
-  ["openReader","openVerseCategories","openTitlesView","openDailyVerse","openRandomVerse","openBackup","openTrash","openEditor","openChristianCalendar","clearNavModes"].forEach(wrapRestoreV791);
+  ["openReader","openVerseCategories","openTitlesView","openDailyVerse","openRandomVerse","openBackup","openTrash","openEditor","clearNavModes"].forEach(wrapRestoreV791);
 })();
 
 /* v80 - Favoritos abre en Leer + favoritos de Versículos/Categorías corregidos */
@@ -7328,7 +6883,7 @@ setInterval(updateVersePositionCounter, 1000);
     }catch(e){}
   }
 
-  ["openReader","enterFullscreenReading","openEditor","openBackup","openTrash","openTitlesView","openVerseCategories","openChristianCalendar"].forEach(function(fnName){
+  ["openReader","enterFullscreenReading","openEditor","openBackup","openTrash","openTitlesView","openVerseCategories"].forEach(function(fnName){
     var old = window[fnName] || (typeof window[fnName] !== "undefined" ? window[fnName] : null);
     if(typeof old === "function"){
       window[fnName] = function(){
@@ -8063,7 +7618,7 @@ setInterval(updateVersePositionCounter, 1000);
         "sent-reader-v903",
         "verse-special-fullscreen-v74",
         "verse-special-fullscreen-v751",
-        "calendar-fullscreen-v78",
+        
         "titles-fullscreen-v72",
         "categories-fullscreen-v73",
         "backup-only",
@@ -11866,7 +11421,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
 })();
 
 
-/* ===== V2.271 · Retirada definitiva de Guía y Parábolas ===== */
+/* ===== V3.1.259 · Retirada definitiva de Guía y Parábolas ===== */
 (function(){
   'use strict';
   var retired={guides:true,parables:true};
@@ -11881,10 +11436,10 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   }
   cleanRetiredState();
   var oldSwitch=window.switchSection||(typeof switchSection!=='undefined'?switchSection:null);
-  window.switchSection=function(s){ if(retired[s]) s='prayers'; return typeof oldSwitch==='function'?oldSwitch.call(this,s):undefined; };
+  window.switchSection=function(section){ if(retired[section]) section='prayers'; return typeof oldSwitch==='function'?oldSwitch.call(this,section):undefined; };
   try{switchSection=window.switchSection;}catch(e){}
   var oldSwitchRead=window.switchSectionAndReadV90187||(typeof switchSectionAndReadV90187!=='undefined'?switchSectionAndReadV90187:null);
-  window.switchSectionAndReadV90187=function(s){ if(retired[s]) s='prayers'; return typeof oldSwitchRead==='function'?oldSwitchRead.call(this,s):undefined; };
+  window.switchSectionAndReadV90187=function(section){ if(retired[section]) section='prayers'; return typeof oldSwitchRead==='function'?oldSwitchRead.call(this,section):undefined; };
   try{switchSectionAndReadV90187=window.switchSectionAndReadV90187;}catch(e){}
   function removeRetiredUi(){
     ['tabGuides','tabParables'].forEach(function(id){var el=document.getElementById(id);if(el)el.remove();});

@@ -569,7 +569,7 @@ body.dark .home-card-v9019.home-sky-day .home-phrase-v9019{
   function hideHomeAndAuxViewsV3126(){
     try{ var home=document.getElementById('homeView'); if(home) home.classList.add('hidden'); }catch(e){}
     try{
-      ['editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){
+      ['editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(function(id){
         var el=document.getElementById(id); if(el) el.classList.add('hidden');
       });
     }catch(e){}

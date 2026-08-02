@@ -102,7 +102,7 @@
   }
 
   function hideMainViews(){
-    ['homeView','readerView','editorView','backupView','trashView','titlesView','verseCategoriesView','calendarView'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.add('hidden');});
+    ['homeView','readerView','editorView','backupView','trashView','titlesView','verseCategoriesView'].forEach(function(id){var e=document.getElementById(id);if(e)e.classList.add('hidden');});
     document.body.classList.remove('fullscreen-reading','reading-mobile','titles-fullscreen-v72','categories-fullscreen-v73','home-active-v9019');
     document.body.classList.add('routine-fullscreen-v3193');
   }

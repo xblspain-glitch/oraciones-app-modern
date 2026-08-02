@@ -3,11 +3,15 @@
 /* ===== HISTORIAL RECIENTE ===== */
 function getRecentHistory(){
   try{
-    return JSON.parse(
+    const history=JSON.parse(
       localStorage.getItem("oraciones_recent_history_v47") ||
       localStorage.getItem("oraciones_recent_history_v46") ||
       '{"read":[],"added":[],"edited":[]}'
     );
+    ["read","added","edited"].forEach(key=>{
+      if(Array.isArray(history[key])) history[key]=history[key].filter(item=>item&&item.kind!=="festivity"&&item.kind!=="festivityPassage");
+    });
+    return history;
   }catch(e){
     return {read:[],added:[],edited:[]};
   }
@@ -95,14 +99,6 @@ function addRecentCurrent(type){
   }catch(e){}
 }
 
-function addRecentFestivity(type, id, title, passageRef){
-  addRecent(type, {
-    kind:passageRef ? "festivityPassage" : "festivity",
-    festivityId:id,
-    passageRef:passageRef || "",
-    title:passageRef ? (title + " · " + passageRef) : title
-  });
-}
 
 function openRecentHistory(){
   const modal = document.getElementById("recentModal");
@@ -133,8 +129,6 @@ function clearRecentHistory(){
 
 function recentKindLabel(item){
   if(!item)return "";
-  if(item.kind === "festivityPassage")return "📅 Festividad · 📖 Pasaje";
-  if(item.kind === "festivity")return "📅 Festividad";
   if(item.section === "verses")return "❤️ Versículo";
   if(item.section === "prayers")return "✝️ Oración";
   if(item.section === "notes")return "📝 Nota";
@@ -213,17 +207,6 @@ function openRecentEntry(type, idx){
   closeRecentHistory();
 
   try{
-    if(item.kind === "festivityPassage" && item.festivityId && item.passageRef){
-      openFestivityLibrary();
-      openFestivityPassage(item.festivityId, item.passageRef, false);
-      return;
-    }
-
-    if(item.kind === "festivity" && item.festivityId){
-      openFestivityLibrary();
-      openFestivityDetail(item.festivityId, false);
-      return;
-    }
 
     if(item.kind === "item" && item.section && item.id){
       section = item.section;

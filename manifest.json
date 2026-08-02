@@ -1,8 +1,8 @@
 {
-  "name": "Oraciones V3",
-  "short_name": "Oraciones V3",
-  "id": "./oraciones-v3-lab",
-  "start_url": "./?v=v2-276-tarjetas-fe-dios-sin-iconos",
+  "name": "Oraciones V2",
+  "short_name": "Oraciones V2",
+  "id": "./oraciones-v2",
+  "start_url": "./?v=v2-277-igual-v3-1-267-sin-calendario",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -22,6 +22,6 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "2.276",
-  "build": "v2-276-tarjetas-fe-dios-sin-iconos"
+  "version": "2.277",
+  "build": "v2-277-igual-v3-1-267-sin-calendario"
 }
