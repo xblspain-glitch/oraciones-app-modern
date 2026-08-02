@@ -2,7 +2,7 @@
   "name": "Oraciones V2",
   "short_name": "Oraciones V2",
   "id": "./oraciones-v2",
-  "start_url": "./?v=v2-277-igual-v3-1-267-sin-calendario",
+  "start_url": "./?v=v2-278-backup-naranja-legible",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -22,6 +22,6 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "2.277",
-  "build": "v2-277-igual-v3-1-267-sin-calendario"
+  "version": "2.278",
+  "build": "v2-278-backup-naranja-legible"
 }

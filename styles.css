@@ -5216,3 +5216,40 @@ body.home-active-v9019 .topbar-row > #btnGlobalSearchV3177{
     max-width:calc(50% - 3px)!important;
   }
 }
+
+
+/* V3.1.270 · Botón Backup naranja con texto oscuro legible */
+#btnBackup.backup-pending-v31268{
+  background:linear-gradient(135deg,#f5a12a,#d96f0b)!important;
+  color:#3a1b00!important;
+  text-shadow:none!important;
+  border-color:#bd5d08!important;
+  box-shadow:0 6px 18px rgba(224,118,13,.38)!important;
+  font-weight:800!important;
+}
+#btnBackup.backup-pending-v31268:hover,
+#btnBackup.backup-pending-v31268:focus{
+  background:linear-gradient(135deg,#ffb342,#e57a10)!important;
+}
+
+#btnBackup.backup-pending-v31268,
+#btnBackup.backup-pending-v31268 *{
+  color:#3a1b00!important;
+  -webkit-text-fill-color:#3a1b00!important;
+  text-shadow:none!important;
+}
+
+
+/* V3.1.271 · Selector exacto del botón Backup pendiente */
+html body.home-active-v9019 .topbar-row > button#btnBackup.backup-pending-v31268,
+html body:not(.dark).home-active-v9019 .topbar-row > button#btnBackup.backup-pending-v31268,
+html body.dark.home-active-v9019 .topbar-row > button#btnBackup.backup-pending-v31268,
+html body .topbar-row > button#btnBackup.backup-pending-v31268.active-view{
+  background:linear-gradient(135deg,#ff9f1a 0%,#f47b00 100%)!important;
+  color:#2b1600!important;
+  -webkit-text-fill-color:#2b1600!important;
+  text-shadow:none!important;
+  border-color:#d76500!important;
+  box-shadow:0 6px 18px rgba(244,123,0,.42)!important;
+  font-weight:800!important;
+}

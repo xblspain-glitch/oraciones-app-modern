@@ -41,11 +41,68 @@ function normalizeGuides(){
   normalizeVerses();
 }
 
+
+/* ===== V3.1.271 · Aviso naranja de copia pendiente ===== */
+const BACKUP_PENDING_KEY_V31268 = "oraciones_backup_pending_v31268";
+let backupTrackingReadyV31268 = false;
+
+function backupComparableStateV31268(value){
+  try{
+    const src = typeof value === "string" ? JSON.parse(value) : (value || {});
+    const copy = JSON.parse(JSON.stringify(src));
+    delete copy.section;
+    delete copy.currentPrayerId;
+    delete copy.currentNoteId;
+    delete copy.currentGuideId;
+    delete copy.currentVerseId;
+    return JSON.stringify(copy);
+  }catch(e){ return String(value || ""); }
+}
+function setBackupPendingV31268(pending){
+  try{ localStorage.setItem(BACKUP_PENDING_KEY_V31268, pending ? "1" : "0"); }catch(e){}
+  renderBackupPendingV31268();
+}
+function isBackupPendingV31268(){
+  try{ return localStorage.getItem(BACKUP_PENDING_KEY_V31268) === "1"; }catch(e){ return false; }
+}
+function renderBackupPendingV31268(){
+  const btn=document.getElementById("btnBackup");
+  if(!btn) return;
+  const pending=isBackupPendingV31268();
+  btn.classList.toggle("backup-pending-v31268", pending);
+  btn.setAttribute("aria-label", pending ? "Backup: hay cambios pendientes de exportar" : "Backup");
+  btn.title = pending ? "Hay cambios pendientes de exportar" : "Backup";
+
+  if(pending){
+    btn.style.setProperty("background", "linear-gradient(135deg,#ff9f1a 0%,#f47b00 100%)", "important");
+    btn.style.setProperty("color", "#2b1600", "important");
+    btn.style.setProperty("-webkit-text-fill-color", "#2b1600", "important");
+    btn.style.setProperty("text-shadow", "none", "important");
+    btn.style.setProperty("border-color", "#d76500", "important");
+    btn.style.setProperty("box-shadow", "0 6px 18px rgba(244,123,0,.42)", "important");
+    btn.style.setProperty("font-weight", "800", "important");
+  }else{
+    btn.style.removeProperty("background");
+    btn.style.removeProperty("color");
+    btn.style.removeProperty("-webkit-text-fill-color");
+    btn.style.removeProperty("text-shadow");
+    btn.style.removeProperty("border-color");
+    btn.style.removeProperty("box-shadow");
+    btn.style.removeProperty("font-weight");
+  }
+}
+
 function saveState(){
   cleanAllVerseBreaks();
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const nextState = JSON.stringify(state);
+  let previousState = null;
+  try{ previousState = localStorage.getItem(STORAGE_KEY); }catch(e){}
+  localStorage.setItem(STORAGE_KEY, nextState);
   const backup = {"exportedAt": new Date().toISOString(), ...state};
   localStorage.setItem(AUTO_BACKUP_KEY, JSON.stringify(backup));
+  if(backupTrackingReadyV31268 && backupComparableStateV31268(previousState) !== backupComparableStateV31268(nextState)){
+    setBackupPendingV31268(true);
+  }
 }
 
 function loadState(){
@@ -962,6 +1019,7 @@ function saveCurrentOriginal(stay, silent){
   setSaveStatus("Guardado");
 
   saveState();
+  setBackupPendingV31268(true);
   renderList();
   renderReader();
 
@@ -1229,6 +1287,7 @@ function newItem(){
   setCurrentId(id);
   normalizeGuides();
   saveState();
+  setBackupPendingV31268(true);
   renderList();
   renderReader();
   openEditor();
@@ -1491,8 +1550,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v2.277";
-const APP_VERSION_ZIP = "Oraciones_V2.277.zip";
+const APP_VERSION_LABEL = "v2.278";
+const APP_VERSION_ZIP = "Oraciones_V2.278_BACKUP_NARANJA_LEGIBLE.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -3164,7 +3223,7 @@ async function exportAllZip(){
 
 
 /* ===== V3.1.258 · Descargar copia autosuficiente de la aplicación ===== */
-const APP_VERSION_V31249 = "2.277";
+const APP_VERSION_V31249 = "2.278";
 const FUTURE_HOME_ICONS_V31249 = Object.freeze({
   dailyVerse:"icon-versiculo-dia-v3250.png",
   dictionary:"icon-diccionario-v3250.png"
@@ -3222,7 +3281,7 @@ async function exportInstalledAppZipV31249(){
       includedFiles:INSTALLED_APP_FILES_V31249,complete:true,
       pendingOptionalIcons:FUTURE_HOME_ICONS_V31249
     },null,2));
-    zip.file("LEEME_COPIA_APP.txt","ORACIONES V2 · COPIA AUTOSUFICIENTE\n\nVersión: 2.277\n\nIncluye todos los recursos activos de esta versión y no incluye archivos históricos sin uso.\nLos iconos propios de Versículo del día y Diccionario están preparados en el código, pero se integrarán cuando estén disponibles.\n");
+    zip.file("LEEME_COPIA_APP.txt","ORACIONES V3 · COPIA AUTOSUFICIENTE\n\nVersión: 3.1.267\n\nIncluye todos los recursos activos de esta versión y no incluye archivos históricos sin uso.\nLos iconos propios de Versículo del día y Diccionario están preparados en el código, pero se integrarán cuando estén disponibles.\n");
     const blob=await zip.generateAsync({type:"blob",compression:"DEFLATE",compressionOptions:{level:6}});
     if(!downloadBlob(filename,blob)) throw new Error("No se pudo iniciar la descarga");
     saveBackupStatusV3149("Copia de la aplicación",filename);
@@ -3318,6 +3377,7 @@ function saveBackupStatusV3149(method, filename){
     total: backupTotalV3149(counts)
   };
   localStorage.setItem(BACKUP_EXPORT_STATUS_KEY_V3149, JSON.stringify(payload));
+  setBackupPendingV31268(false);
   renderBackupStatusV3149();
 }
 
@@ -3399,7 +3459,7 @@ async function buildCompleteBackupPayloadV31245(){
     type: COMPLETE_BACKUP_TYPE_V31245,
     version: 31263,
     exportedAt: new Date().toISOString(),
-    appVersion: "2.277",
+    appVersion: "3.1.267",
     description: "Copia integral y autosuficiente: datos, ajustes, 409 personajes completos y 433 entradas completas del diccionario.",
     state: JSON.parse(JSON.stringify(state||{})),
     localStorage: readAllAppStorageV31245(),
@@ -3447,8 +3507,8 @@ async function shareBackupJson(){
   try{
     toast("Preparando backup completo…");
     const text=await buildBackupText(),filename=backupFilename(),file=new File([text],filename,{type:"application/json"});
-    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({title:"Backup completo Oraciones V3",text:"Copia integral y autosuficiente de toda la aplicación",files:[file]});saveBackupStatusV3149("Compartir backup completo",filename);toast("Backup completo compartido");return;}
-    if(navigator.share){await navigator.share({title:"Backup completo Oraciones V3",text:text});saveBackupStatusV3149("Compartir backup como texto",filename);toast("Compartido como texto");return;}
+    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({title:"Backup completo Oraciones V2",text:"Copia integral y autosuficiente de toda la aplicación",files:[file]});saveBackupStatusV3149("Compartir backup completo",filename);toast("Backup completo compartido");return;}
+    if(navigator.share){await navigator.share({title:"Backup completo Oraciones V2",text:text});saveBackupStatusV3149("Compartir backup como texto",filename);toast("Compartido como texto");return;}
     downloadBlob(filename,new Blob([text],{type:"application/json;charset=utf-8"}));saveBackupStatusV3149("Descarga backup completo",filename);alert("Tu navegador no permite compartir desde aquí. Se ha descargado el backup completo.");
   }catch(e){if(e&&e.name==='AbortError'){toast("Compartir cancelado");return;}console.error(e);alert("No se pudo compartir el backup completo.");}
 }
@@ -3509,7 +3569,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v3-1-261-tarjetas-fe-dios-sin-iconos",{updateViaCache:"none"})})}
-applyTheme();loadState();syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();maybeShowInstall();
+applyTheme();loadState();backupTrackingReadyV31268=true;syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();renderBackupPendingV31268();maybeShowInstall();
 
 function getCardTextLayout(txt){
   const n = String(txt || "").length;
