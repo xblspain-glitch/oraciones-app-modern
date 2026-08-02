@@ -5165,3 +5165,91 @@ body.dark .biblical-map-v2247{background:rgba(80,65,105,.28);border-color:rgba(1
   text-align:center!important;
   justify-content:center!important;
 }
+
+
+/* V2.277 · Salmos y Marca ocupan la fila liberada */
+.home-fixed-row-two-v31263 > #tabPsalms,
+.home-fixed-row-two-v31263 > #btnMainMark{flex:1 1 0!important;text-align:center!important;justify-content:center!important}
+
+
+/* V2.277 · Fila 2 igual de ancha que la fila 1 */
+.home-daily-row,
+.home-daily-actions,
+.home-row-daily,
+.home-verse-theme-row{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+  width:100%!important;
+}
+.home-daily-row > *,
+.home-daily-actions > *,
+.home-row-daily > *,
+.home-verse-theme-row > *{
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  flex:1 1 0!important;
+}
+#dailyVerseBtn,
+#dayNightBtn,
+#themeBtn,
+#verseOfDayBtn{
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  flex:1 1 0!important;
+  box-sizing:border-box!important;
+}
+
+
+/* V2.277 · Fila 2 real: Versículo del día y Día/Noche al 50 % */
+body.home-active-v9019 .topbar-row > #btnDaily,
+body.home-active-v9019 .topbar-row > #btnDailyRoutinesV3192{
+  flex:1 1 calc(50% - 4px)!important;
+  width:calc(50% - 4px)!important;
+  min-width:0!important;
+  max-width:calc(50% - 4px)!important;
+  box-sizing:border-box!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+
+/* Impide que otros botones entren en esta misma fila */
+body.home-active-v9019 .topbar-row > #btnDaily{
+  margin-left:0!important;
+}
+body.home-active-v9019 .topbar-row > #btnMomentsV31102{
+  clear:both!important;
+}
+
+@media(max-width:420px){
+  body.home-active-v9019 .topbar-row > #btnDaily,
+  body.home-active-v9019 .topbar-row > #btnDailyRoutinesV3192{
+    flex-basis:calc(50% - 3px)!important;
+    width:calc(50% - 3px)!important;
+    max-width:calc(50% - 3px)!important;
+  }
+}
+
+
+/* V2.277 · Fila 3: Momentos y Buscar al 50 % */
+body.home-active-v9019 .topbar-row > #btnMomentsV31102,
+body.home-active-v9019 .topbar-row > #btnGlobalSearchV3177{
+  flex:1 1 calc(50% - 4px)!important;
+  width:calc(50% - 4px)!important;
+  min-width:0!important;
+  max-width:calc(50% - 4px)!important;
+  box-sizing:border-box!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+
+@media(max-width:420px){
+  body.home-active-v9019 .topbar-row > #btnMomentsV31102,
+  body.home-active-v9019 .topbar-row > #btnGlobalSearchV3177{
+    flex-basis:calc(50% - 3px)!important;
+    width:calc(50% - 3px)!important;
+    max-width:calc(50% - 3px)!important;
+  }
+}
