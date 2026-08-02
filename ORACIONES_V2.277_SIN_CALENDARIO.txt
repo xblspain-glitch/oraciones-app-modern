@@ -1,0 +1,12 @@
+ORACIONES V2.277 · SIN CALENDARIO
+
+- Eliminado el botón Calendario.
+- Eliminada la pantalla del calendario.
+- Eliminada la biblioteca de festividades.
+- Eliminadas alertas, fechas, notas y pasajes del calendario.
+- Eliminado el parche de calendario a pantalla completa.
+- Recientes deja de mostrar festividades antiguas.
+- Eliminada la clave oraciones_festivity_notes_v44.
+- Salmos y Marca quedan equilibrados en dos columnas.
+- JavaScript validado: 13 archivos.
+- Todos los archivos permanecen en la raíz.
