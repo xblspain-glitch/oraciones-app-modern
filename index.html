@@ -20,7 +20,7 @@
 
 <link rel="preload" as="image" href="routine-morning-bible-v2216.webp">
 <link rel="preload" as="image" href="routine-night-bible-v2216.webp">
-<link rel="stylesheet" href="styles.css?v=v2-277-1-fila-salmos-marca">
+<link rel="stylesheet" href="styles.css?v=v2-275-sin-modulos-estudio">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 
 <style>
@@ -145,7 +145,8 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
     <button id="btnMomentsV31102" data-view-btn="moments" class="btn soft section-frame-green-moments-v245" type="button" onclick="openMomentsV31102()">🌿 Momentos</button>
     <button id="btnGlobalSearchV3177" data-view-btn="global-search" class="btn soft global-search-main-v3177" type="button" onclick="openGlobalSearchV3177()">🔎 Buscar en toda la app</button>
     <div class="home-fixed-row-v31763 home-fixed-row-three-v31763 home-study-row-v2265">
-<button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176 section-frame-peach-psalms-v247" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
+      <button id="calendarBtn" data-view-btn="calendar" class="btn soft section-frame-orange-calendar-v247" type="button" onclick="openChristianCalendar()">📅 Calendario</button>
+      <button id="tabPsalms" data-view-btn="psalms" class="btn soft psalms-main-btn-v3176 section-frame-peach-psalms-v247" type="button" onclick="switchSectionAndReadV90187('psalms')"><span class="psalms-note-v3176">♫</span> Salmos</button>
       <button id="btnMainMark" class="btn soft section-frame-pink-mark-v247" type="button" data-mark-button="1" onclick="openReadingMarkMenu(event)">📍 Marca</button>
     </div>
         <button id="btnTitles" data-view-btn="titles" class="btn soft" type="button" onclick="openTitlesView()">📑 Títulos</button>
@@ -328,7 +329,15 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
       <div class="small-note">El backup incluye oraciones, notas, las dos papeleras y además se guarda una copia automática local en cada cambio.</div>
     </div>
 
-    
+    <div id="calendarView" class="panel hidden">
+      <div class="panel-head">
+        <button class="btn soft" type="button" onclick="showHomeV9019()">← Volver</button>
+        <button class="btn soft" type="button" onclick="renderChristianCalendar(new Date())">📅 Hoy</button>
+        <button class="btn soft" type="button" onclick="renderChristianCalendar(addCalendarDays(new Date(),1))">Mañana</button>
+        <button class="btn soft" type="button" onclick="openFestivityLibrary()">📚 Festividades</button>
+      </div>
+      <div id="calendarContent" class="calendar-wrap"></div>
+    </div>
 
     <div id="verseCategoriesView" class="panel hidden categories-screen-v73">
       <div class="panel-head categories-head-v73">
@@ -366,7 +375,23 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
   </section>
 </div>
 
+<div id="festivityModal" class="festivity-modal hidden">
+  <div class="festivity-sheet">
+    <div class="festivity-head">
+      <button class="btn soft" type="button" onclick="closeFestivityModal()">← Cerrar</button>
 
+    </div>
+    <div id="festivityListView">
+      <div class="festivity-title-main">📚 Festividades cristianas</div>
+      <div class="festivity-sub">Selecciona una festividad para ver su explicación y completar sus pasajes bíblicos.</div>
+      <div id="festivityLibraryList" class="festivity-list"></div>
+    </div>
+    <div id="festivityDetailView" class="hidden">
+      <button class="btn soft festivity-back" type="button" onclick="backToFestivityList()">← Festividades</button>
+      <div id="festivityDetailContent"></div>
+    </div>
+  </div>
+</div>
 
 <div id="recentModal" class="recent-modal hidden">
   <div class="recent-sheet">
