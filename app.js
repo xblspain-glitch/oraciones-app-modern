@@ -44,6 +44,7 @@ function normalizeGuides(){
 
 /* ===== V3.1.271 · Aviso naranja de copia pendiente ===== */
 const BACKUP_PENDING_KEY_V31268 = "oraciones_backup_pending_v31268";
+const BACKUP_EXPORTED_FINGERPRINT_KEY_V31275 = "oraciones_backup_exported_fingerprint_v31275";
 let backupTrackingReadyV31268 = false;
 
 function backupComparableStateV31268(value){
@@ -58,8 +59,38 @@ function backupComparableStateV31268(value){
     return JSON.stringify(copy);
   }catch(e){ return String(value || ""); }
 }
+function currentBackupFingerprintV31275(){
+  try{
+    return backupComparableStateV31268(state || {});
+  }catch(e){
+    return "";
+  }
+}
+
 function setBackupPendingV31268(pending){
-  try{ localStorage.setItem(BACKUP_PENDING_KEY_V31268, pending ? "1" : "0"); }catch(e){}
+  try{
+    const currentFingerprint = currentBackupFingerprintV31275();
+
+    if(!pending){
+      localStorage.setItem(BACKUP_EXPORTED_FINGERPRINT_KEY_V31275, currentFingerprint);
+      localStorage.setItem(BACKUP_PENDING_KEY_V31268, "0");
+    }else{
+      let exportedFingerprint = localStorage.getItem(BACKUP_EXPORTED_FINGERPRINT_KEY_V31275);
+
+      /* Primera apertura tras actualizar:
+         si la copia figuraba al día, toma el estado actual como referencia
+         para que los guardados automáticos de inicio no enciendan el aviso. */
+      if(!exportedFingerprint && localStorage.getItem(BACKUP_PENDING_KEY_V31268) !== "1"){
+        exportedFingerprint = currentFingerprint;
+        localStorage.setItem(BACKUP_EXPORTED_FINGERPRINT_KEY_V31275, currentFingerprint);
+      }
+
+      localStorage.setItem(
+        BACKUP_PENDING_KEY_V31268,
+        currentFingerprint !== exportedFingerprint ? "1" : "0"
+      );
+    }
+  }catch(e){}
   renderBackupPendingV31268();
 }
 function isBackupPendingV31268(){
@@ -3462,7 +3493,7 @@ async function buildCompleteBackupPayloadV31245(){
     type: COMPLETE_BACKUP_TYPE_V31245,
     version: 31263,
     exportedAt: new Date().toISOString(),
-    appVersion: "2.280",
+    appVersion: "2.284",
     description: "Copia integral y autosuficiente: datos, ajustes y 433 entradas completas del diccionario.",
     state: JSON.parse(JSON.stringify(state||{})),
     localStorage: readAllAppStorageV31245(),
@@ -3571,7 +3602,43 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 
 if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v3-1-261-tarjetas-fe-dios-sin-iconos",{updateViaCache:"none"})})}
-applyTheme();loadState();backupTrackingReadyV31268=true;syncTabs();renderList();renderReader();applyReaderFont();openReader();updateSearchForReaderV26();renderBackupPendingV31268();maybeShowInstall();
+applyTheme();
+backupTrackingReadyV31268=false;
+loadState();
+syncTabs();
+renderList();
+renderReader();
+applyReaderFont();
+openReader();
+updateSearchForReaderV26();
+renderBackupPendingV31268();
+maybeShowInstall();
+
+/* V2.284:
+   Durante el arranque la app normaliza y migra datos automáticamente.
+   Esas escrituras técnicas no deben encender el aviso de Backup.
+   Tras finalizar el inicio se fija la referencia real y se activa
+   el seguimiento únicamente para cambios posteriores del usuario. */
+setTimeout(function(){
+  try{
+    const wasPending = isBackupPendingV31268();
+    const currentFingerprint = currentBackupFingerprintV31275();
+
+    if(!wasPending){
+      localStorage.setItem(
+        BACKUP_EXPORTED_FINGERPRINT_KEY_V31275,
+        currentFingerprint
+      );
+      localStorage.setItem(BACKUP_PENDING_KEY_V31268, "0");
+    }
+
+    backupTrackingReadyV31268=true;
+    renderBackupPendingV31268();
+  }catch(e){
+    backupTrackingReadyV31268=true;
+    renderBackupPendingV31268();
+  }
+},1800);
 
 function getCardTextLayout(txt){
   const n = String(txt || "").length;
