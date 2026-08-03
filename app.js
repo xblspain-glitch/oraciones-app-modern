@@ -126,14 +126,9 @@ function renderBackupPendingV31268(){
 function saveState(){
   cleanAllVerseBreaks();
   const nextState = JSON.stringify(state);
-  let previousState = null;
-  try{ previousState = localStorage.getItem(STORAGE_KEY); }catch(e){}
   localStorage.setItem(STORAGE_KEY, nextState);
   const backup = {"exportedAt": new Date().toISOString(), ...state};
   localStorage.setItem(AUTO_BACKUP_KEY, JSON.stringify(backup));
-  if(backupTrackingReadyV31268 && backupComparableStateV31268(previousState) !== backupComparableStateV31268(nextState)){
-    setBackupPendingV31268(true);
-  }
 }
 
 function loadState(){
@@ -3493,7 +3488,7 @@ async function buildCompleteBackupPayloadV31245(){
     type: COMPLETE_BACKUP_TYPE_V31245,
     version: 31263,
     exportedAt: new Date().toISOString(),
-    appVersion: "2.284",
+    appVersion: "2.285",
     description: "Copia integral y autosuficiente: datos, ajustes y 433 entradas completas del diccionario.",
     state: JSON.parse(JSON.stringify(state||{})),
     localStorage: readAllAppStorageV31245(),
@@ -3614,7 +3609,7 @@ updateSearchForReaderV26();
 renderBackupPendingV31268();
 maybeShowInstall();
 
-/* V2.284:
+/* V2.285:
    Durante el arranque la app normaliza y migra datos automáticamente.
    Esas escrituras técnicas no deben encender el aviso de Backup.
    Tras finalizar el inicio se fija la referencia real y se activa
@@ -11581,3 +11576,86 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',removeRetiredUi); else removeRetiredUi();
   setTimeout(removeRetiredUi,100); setTimeout(removeRetiredUi,700);
 })();
+
+
+/* ===== V2.285 · Backup solo por cambios reales =====
+   Navegar, abrir pantallas o normalizar datos no activa el aviso.
+   Únicamente se comparan el estado anterior y posterior de acciones
+   concretas que pueden modificar contenido del usuario. */
+(function installExplicitBackupTrackingV2285(){
+  const mutationFunctions = [
+    "saveCurrent",
+    "saveCurrentOriginal",
+    "newItem",
+    "moveToTrash",
+    "restoreFromTrash",
+    "deleteForever",
+    "emptyTrash",
+    "toggleFavorite",
+    "createVerseCategory",
+    "renameVerseCategory",
+    "deleteVerseCategory",
+    "moveVerseToCategory",
+    "saveCollapsibleBlockV864",
+    "setCurrentContentTextV865",
+    "saveMomentCatalogV31102",
+    "markCurrentVerseCardSentDirect",
+    "clearSentMark",
+    "createSeparatorV3171",
+    "renameSeparatorV3171",
+    "deleteSeparatorV3171",
+    "moveV3171",
+    "savePrayerCategoriesV3180"
+  ];
+
+  function snapshot(){
+    try{
+      return JSON.stringify(state || {});
+    }catch(e){
+      return "";
+    }
+  }
+
+  function wrap(name){
+    const original = window[name];
+    if(typeof original !== "function" || original.__backupWrappedV2285) return;
+
+    function wrapped(){
+      const before = snapshot();
+      const result = original.apply(this, arguments);
+
+      const finish = function(){
+        const after = snapshot();
+        if(before !== after){
+          setBackupPendingV31268(true);
+        }
+      };
+
+      if(result && typeof result.then === "function"){
+        return result.then(function(value){
+          finish();
+          return value;
+        }, function(error){
+          finish();
+          throw error;
+        });
+      }
+
+      finish();
+      return result;
+    }
+
+    wrapped.__backupWrappedV2285 = true;
+    window[name] = wrapped;
+  }
+
+  function install(){
+    mutationFunctions.forEach(wrap);
+  }
+
+  install();
+  document.addEventListener("DOMContentLoaded", install, {once:true});
+  setTimeout(install, 500);
+  setTimeout(install, 1800);
+})();
+
