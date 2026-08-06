@@ -20,7 +20,7 @@
 
 <link rel="preload" as="image" href="routine-morning-bible-v2216.webp">
 <link rel="preload" as="image" href="routine-night-bible-v2216.webp">
-<link rel="stylesheet" href="styles.css?v=3.1.267">
+<link rel="stylesheet" href="styles.css?v=2.286">
 <link rel="stylesheet" href="themes.css?v=v3-1-63-share-history-persist">
 
 <style>
@@ -418,36 +418,12 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 <div id="cardStyleModalV2217" class="card-style-modal-v2217 hidden" role="dialog" aria-modal="true" aria-labelledby="cardStyleTitleV2217">
   <div class="card-style-sheet-v2217">
     <div class="card-style-head-v2217">
-      <h2 id="cardStyleTitleV2217">🖼️ Elegir estilo de tarjeta</h2>
+      <button id="cardStyleBackV31282" class="card-style-back-v31282" type="button" onclick="backToCardCategoriesV31282()" aria-label="Volver a categorías" hidden>←</button>
+      <h2 id="cardStyleTitleV2217">🖼️ Elegir categoría de tarjeta</h2>
       <button class="card-style-close-v2217" type="button" onclick="closeCardStyleSelectorV2217()" aria-label="Cerrar">×</button>
     </div>
-    <p class="card-style-sub-v2217">Seleccione el diseño que desea compartir.</p>
-    <div class="card-style-grid-v2217">
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('classic')">
-        <img class="card-style-preview-v2217 classic-v2217" src="card-sabiduria-v2240.jpg?v=v2-241-ajuste-dinamico-referencia-fija" alt="Sabiduría">
-        <span><strong>Sabiduría</strong><small>Tarjeta temática</small></span>
-      </button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('jerusalem')">
-        <span class="card-style-preview-v2217 jerusalem-v2217"></span>
-        <span><strong>Vida eterna</strong><small>Tarjeta temática</small></span>
-      </button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('salvacion')"><span class="card-style-preview-v2217 salvacion-v2219"></span><span><strong>Alabanza</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('oracion')"><span class="card-style-preview-v2217 oracion-v2219"></span><span><strong>Amor</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('espiritu-santo')"><span class="card-style-preview-v2217 espiritu-santo-v2219"></span><span><strong>Juicio</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('misericordia')"><span class="card-style-preview-v2217 misericordia-v2219"></span><span><strong>Esperanza</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('alabanza')"><span class="card-style-preview-v2217 alabanza-v2219"></span><span><strong>Oración</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('fortaleza')"><span class="card-style-preview-v2217 fortaleza-v2219"></span><span><strong>Descanso</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('amor')"><span class="card-style-preview-v2217 amor-v2219"></span><span><strong>Fortaleza</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('esperanza')"><span class="card-style-preview-v2217 esperanza-v2219"></span><span><strong>Misericordia</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('juicio')"><span class="card-style-preview-v2217 juicio-v2219"></span><span><strong>Espíritu Santo</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('fe')"><span class="card-style-preview-v2217 fe-v2219"></span><span><strong>Salvación</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('segunda-venida')"><span class="card-style-preview-v2217 segunda-venida-v2219"></span><span><strong>Segunda venida</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('reino-dios')"><span class="card-style-preview-v2217 reino-dios-v2230"></span><span><strong>Reino de Dios</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('santidad')"><span class="card-style-preview-v2217 santidad-v2230"></span><span><strong>Santidad</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('cristo-es-dios')"><span class="card-style-preview-v2217 cristo-es-dios-v2230"></span><span><strong>Cristo Jesús es Dios</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('fe-nueva')"><span class="card-style-preview-v2217 fe-nueva-v3261"></span><span><strong>Fe</strong><small>Tarjeta temática</small></span></button>
-      <button class="card-style-option-v2217" type="button" onclick="chooseCardStyleV2217('dios')"><span class="card-style-preview-v2217 dios-v3261"></span><span><strong>Dios</strong><small>Tarjeta temática</small></span></button>
-    </div>
+    <p id="cardStyleSubV2217" class="card-style-sub-v2217">Abra una categoría para ver sus diseños disponibles.</p>
+    <div id="cardStyleGridV2217" class="card-style-grid-v2217 card-category-grid-v31282"></div>
     <button class="btn soft card-style-cancel-v2217" type="button" onclick="closeCardStyleSelectorV2217()">Cancelar</button>
   </div>
 </div>
@@ -462,7 +438,7 @@ button .inline-faith-cross-v3193{width:1em;height:1.12em}
 <script src="versiculos.js?v=v3-1-64-share-history-persistence-fix"></script>
 <script src="theme-mode.js?v=v3-1-54-new-verse-category-choice"></script>
 <script src="jszip.min.js?v=v3-1-63-share-history-persist"></script>
-<script src="app.js?v=3.1.268"></script>
+<script src="app.js?v=2.286"></script>
 <script src="patches.js?v=v3-1-63-share-history-persist"></script>
 <script src="routines.js?v=v2-215-busqueda-tarjeta-fix-directo"></script>
 <script src="moments.js?v=v3-1-123-catalogacion-mejorada"></script>
