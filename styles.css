@@ -5255,7 +5255,9 @@ html body .topbar-row > button#btnBackup.backup-pending-v31268.active-view{
 }
 
 
-/* V2.286 · Selector múltiple de tarjetas portado desde V3 */
+/* V3.1.282 · Categorías con múltiples miniaturas de tarjeta */
+.card-style-head-v2217{position:relative;align-items:center}
+.card-style-head-v2217 h2{flex:1;min-width:0}
 .card-style-back-v31282{flex:0 0 auto;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:24px;line-height:1;display:grid;place-items:center;cursor:pointer}
 .card-style-back-v31282[hidden]{display:none!important}
 .card-category-grid-v31282{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
