@@ -3648,7 +3648,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 
-// V2.293 · Aviso de actualización controlado: la nueva versión espera hasta que el usuario decida.
+// V2.294 · Aviso de actualización controlado: la nueva versión espera hasta que el usuario decida.
 let updateNoticeShownV2293=false;
 let pendingServiceWorkerV2293=null;
 function showUpdateNoticeV2293(worker){
@@ -3667,6 +3667,9 @@ function showUpdateNoticeV2293(worker){
   document.getElementById('updateLaterV2293').onclick=()=>{modal.classList.add('hidden');updateNoticeShownV2293=false;};
   document.getElementById('updateNowV2293').onclick=()=>{
     const waiting=pendingServiceWorkerV2293;
+    modal.classList.add('hidden');
+    updateNoticeShownV2293=true;
+    sessionStorage.setItem('oracionesUpdateApplyingV2293','1');
     if(waiting) waiting.postMessage({type:'SKIP_WAITING'});
     else location.reload();
   };
@@ -3677,12 +3680,13 @@ function showUpdateNoticeV2293(worker){
   navigator.serviceWorker.addEventListener('controllerchange',()=>{
     if(reloading)return;
     reloading=true;
+    sessionStorage.removeItem('oracionesUpdateApplyingV2293');
     location.reload();
   });
   window.addEventListener('load',async()=>{
     try{
-      const reg=await navigator.serviceWorker.register('sw.js?v=2.293',{updateViaCache:'none'});
-      const detectWaiting=()=>{if(reg.waiting&&navigator.serviceWorker.controller)showUpdateNoticeV2293(reg.waiting);};
+      const reg=await navigator.serviceWorker.register('sw.js?v=2.294',{updateViaCache:'none'});
+      const detectWaiting=()=>{if(reg.waiting&&navigator.serviceWorker.controller&&!sessionStorage.getItem('oracionesUpdateApplyingV2293'))showUpdateNoticeV2293(reg.waiting);};
       detectWaiting();
       reg.addEventListener('updatefound',()=>{
         const worker=reg.installing;
@@ -3690,7 +3694,7 @@ function showUpdateNoticeV2293(worker){
         worker.addEventListener('statechange',()=>{
           if(worker.state==='installed'&&navigator.serviceWorker.controller){
             pendingServiceWorkerV2293=worker;
-            showUpdateNoticeV2293(worker);
+            if(!sessionStorage.getItem('oracionesUpdateApplyingV2293'))showUpdateNoticeV2293(worker);
           }
         });
       });
@@ -3702,7 +3706,7 @@ function showUpdateNoticeV2293(worker){
 })();
 
 
-if("serviceWorker" in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js?v=v3-1-261-tarjetas-fe-dios-sin-iconos",{updateViaCache:"none"})})}
+
 applyTheme();
 backupTrackingReadyV31268=false;
 loadState();
