@@ -5342,3 +5342,28 @@ body.dark .card-category-option-v31282,body.dark .card-design-option-v31282,body
     font-size:15px!important;
   }
 }
+
+
+/* V2.293 · Google Drive y aviso de actualización */
+.drive-backup-status-v2293{
+  margin:12px 6px 22px;
+  padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.14);
+  text-align:center;
+  color:var(--muted);
+  font-size:.94rem;
+  line-height:1.4;
+}
+.drive-backup-status-v2293.error{color:#ef5350;}
+.update-modal-v2293{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:22px;background:rgba(20,28,38,.46);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);}
+.update-modal-v2293.hidden{display:none;}
+.update-sheet-v2293{width:min(92vw,430px);border:1px solid var(--line);border-radius:22px;padding:23px 22px 21px;background:var(--card);color:var(--text);box-shadow:0 18px 50px rgba(24,45,68,.28);text-align:center;position:relative;overflow:hidden;}
+.update-sheet-v2293::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#2f78bf,#66b5f2);}
+.update-sheet-v2293 h2{margin:4px 0 9px;font-size:1.35rem;color:var(--text);}
+.update-sheet-v2293 p{margin:0 0 20px;color:var(--muted);line-height:1.45;}
+.update-actions-v2293{display:flex;gap:12px;}
+.update-actions-v2293 .btn{flex:1;min-height:44px;}
+.update-actions-v2293 .btn.primary{background:linear-gradient(135deg,#2f78bf,#4fa3ff);color:#fff;border-color:#2f78bf;}
+.update-actions-v2293 .btn.soft{background:var(--soft);color:var(--text);border-color:var(--line);}
+body.dark .update-modal-v2293{background:rgba(0,0,0,.56);}
+body.dark .update-sheet-v2293{background:var(--card);border-color:var(--line);box-shadow:0 18px 55px rgba(0,0,0,.46);}
