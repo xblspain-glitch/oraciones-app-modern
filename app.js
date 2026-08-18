@@ -56,7 +56,18 @@ function backupComparableStateV31268(value){
     delete copy.currentNoteId;
     delete copy.currentGuideId;
     delete copy.currentVerseId;
-    return JSON.stringify(copy);
+    const comparable = JSON.stringify(copy);
+    /* V2.297: antes se guardaba aquí otra copia completa de todos los datos.
+       Una huella corta detecta cambios sin consumir varios MB de localStorage. */
+    let hashA = 2166136261;
+    let hashB = 5381;
+    for(let i=0;i<comparable.length;i++){
+      const code = comparable.charCodeAt(i);
+      hashA ^= code;
+      hashA = Math.imul(hashA, 16777619);
+      hashB = Math.imul(hashB, 33) ^ code;
+    }
+    return "v2:" + comparable.length + ":" + (hashA>>>0).toString(16) + ":" + (hashB>>>0).toString(16);
   }catch(e){ return String(value || ""); }
 }
 function currentBackupFingerprintV31275(){
@@ -126,9 +137,29 @@ function renderBackupPendingV31268(){
 function saveState(){
   cleanAllVerseBreaks();
   const nextState = JSON.stringify(state);
-  localStorage.setItem(STORAGE_KEY, nextState);
-  const backup = {"exportedAt": new Date().toISOString(), ...state};
-  localStorage.setItem(AUTO_BACKUP_KEY, JSON.stringify(backup));
+  let primarySaved = false;
+  try{
+    localStorage.setItem(STORAGE_KEY, nextState);
+    primarySaved = true;
+  }catch(e){
+    console.error("No se pudo guardar el estado principal", e);
+    setTimeout(function(){
+      try{ toast("Sin espacio local: exporta una copia antes de añadir más datos"); }
+      catch(_){ }
+    },0);
+  }
+
+  /* La copia automática es auxiliar. Si la cuota está llena, se conserva la
+     anterior y la app continúa usando el estado principal ya guardado. */
+  if(primarySaved){
+    try{
+      const backup = {"exportedAt": new Date().toISOString(), ...state};
+      localStorage.setItem(AUTO_BACKUP_KEY, JSON.stringify(backup));
+    }catch(e){
+      console.warn("No se pudo actualizar la copia automática; se conserva la anterior", e);
+    }
+  }
+  return primarySaved;
 }
 
 function loadState(){
@@ -138,7 +169,14 @@ function loadState(){
       state = JSON.parse(raw);
       if(!state || !Array.isArray(state.prayers) || !Array.isArray(state.notes)) throw new Error("bad");
     }catch(e){
-      state = buildInitialState();
+      /* Nunca reinicializar a vacío si existe una copia automática válida. */
+      let recovered = null;
+      try{
+        const backupRaw = localStorage.getItem(AUTO_BACKUP_KEY);
+        const parsedBackup = backupRaw ? JSON.parse(backupRaw) : null;
+        if(parsedBackup && Array.isArray(parsedBackup.prayers) && Array.isArray(parsedBackup.notes)) recovered = parsedBackup;
+      }catch(_){ }
+      state = recovered || buildInitialState();
       saveState();
     }
   }else{
@@ -1576,8 +1614,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v2.296";
-const APP_VERSION_ZIP = "Oraciones_V2.296_REFERENCIAS_LARGAS_AJUSTADAS.zip";
+const APP_VERSION_LABEL = "v2.297";
+const APP_VERSION_ZIP = "Oraciones_V2.297_ALMACENAMIENTO_CORREGIDO.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -3248,7 +3286,7 @@ async function exportAllZip(){
 
 
 /* ===== V3.1.258 · Descargar copia autosuficiente de la aplicación ===== */
-const APP_VERSION_V31249 = "2.296";
+const APP_VERSION_V31249 = "2.297";
 const FUTURE_HOME_ICONS_V31249 = Object.freeze({
   dailyVerse:"icon-versiculo-dia-v3250.png",
   dictionary:"icon-diccionario-v3250.png"
@@ -3489,7 +3527,7 @@ async function buildCompleteBackupPayloadV31245(){
     type: COMPLETE_BACKUP_TYPE_V31245,
     version: 31263,
     exportedAt: new Date().toISOString(),
-    appVersion: "2.285",
+    appVersion: "2.297",
     description: "Copia integral y autosuficiente: datos, ajustes y 433 entradas completas del diccionario.",
     state: JSON.parse(JSON.stringify(state||{})),
     localStorage: readAllAppStorageV31245(),
@@ -3686,7 +3724,7 @@ function showUpdateNoticeV2293(worker){
   });
   window.addEventListener('load',async()=>{
     try{
-      const reg=await navigator.serviceWorker.register('sw.js?v=2.296',{updateViaCache:'none'});
+      const reg=await navigator.serviceWorker.register('sw.js?v=2.297',{updateViaCache:'none'});
       const detectWaiting=()=>{if(reg.waiting&&navigator.serviceWorker.controller&&!sessionStorage.getItem('oracionesUpdateApplyingV2293'))showUpdateNoticeV2293(reg.waiting);};
       detectWaiting();
       reg.addEventListener('updatefound',()=>{
@@ -3736,6 +3774,13 @@ setTimeout(function(){
         currentFingerprint
       );
       localStorage.setItem(BACKUP_PENDING_KEY_V31268, "0");
+    }else{
+      /* Si quedó una huella antigua de tamaño completo, ya no hace falta para
+         conservar el estado "pendiente" y se libera ese espacio con seguridad. */
+      const oldFingerprint = localStorage.getItem(BACKUP_EXPORTED_FINGERPRINT_KEY_V31275) || "";
+      if(oldFingerprint && oldFingerprint.indexOf("v2:") !== 0){
+        localStorage.removeItem(BACKUP_EXPORTED_FINGERPRINT_KEY_V31275);
+      }
     }
 
     backupTrackingReadyV31268=true;
@@ -3848,7 +3893,7 @@ function renderCardCategoriesV31282(){
   grid.classList.add('card-category-grid-v31282');
   grid.innerHTML=CARD_CATEGORY_CATALOG_V31282.map(category=>{
     const first=category.designs[0];
-    return `<button class="card-category-option-v31282" type="button" onclick="openCardCategoryV31282('${category.id}')"><strong class="card-category-title-v31285">${cardCategoryEscapeV31282(category.label)}</strong><img src="${first.src}?v=2.296" alt="" aria-hidden="true"><span class="card-category-footer-v31285"><small>${category.designs.length} diseños</small><b aria-hidden="true">›</b></span></button>`;
+    return `<button class="card-category-option-v31282" type="button" onclick="openCardCategoryV31282('${category.id}')"><strong class="card-category-title-v31285">${cardCategoryEscapeV31282(category.label)}</strong><img src="${first.src}?v=2.297" alt="" aria-hidden="true"><span class="card-category-footer-v31285"><small>${category.designs.length} diseños</small><b aria-hidden="true">›</b></span></button>`;
   }).join('');
 }
 function openCardCategoryV31282(categoryId){
@@ -3865,7 +3910,7 @@ function openCardCategoryV31282(categoryId){
   if(!grid)return;
   grid.classList.remove('card-category-grid-v31282');
   grid.classList.add('card-design-grid-v31282');
-  grid.innerHTML=category.designs.map((design,index)=>`<button class="card-design-option-v31282" type="button" onclick="chooseCardStyleV2217('${design.style}')"><img src="${design.src}?v=2.296" alt="Diseño ${index+1} de ${cardCategoryEscapeV31282(category.label)}"><span><strong>Diseño ${index+1}</strong><small>${cardCategoryEscapeV31282(category.label)}</small></span></button>`).join('');
+  grid.innerHTML=category.designs.map((design,index)=>`<button class="card-design-option-v31282" type="button" onclick="chooseCardStyleV2217('${design.style}')"><img src="${design.src}?v=2.297" alt="Diseño ${index+1} de ${cardCategoryEscapeV31282(category.label)}"><span><strong>Diseño ${index+1}</strong><small>${cardCategoryEscapeV31282(category.label)}</small></span></button>`).join('');
 }
 function backToCardCategoriesV31282(){renderCardCategoriesV31282();}
 
