@@ -1583,8 +1583,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v2.298";
-const APP_VERSION_ZIP = "Oraciones_V2.298_INDEXEDDB_SIN_LIMITE_LOCAL.zip";
+const APP_VERSION_LABEL = "v2.299";
+const APP_VERSION_ZIP = "Oraciones_V2.299_DRIVE_CORREGIDO.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -3255,7 +3255,7 @@ async function exportAllZip(){
 
 
 /* ===== V3.1.258 · Descargar copia autosuficiente de la aplicación ===== */
-const APP_VERSION_V31249 = "2.298";
+const APP_VERSION_V31249 = "2.299";
 const FUTURE_HOME_ICONS_V31249 = Object.freeze({
   dailyVerse:"icon-versiculo-dia-v3250.png",
   dictionary:"icon-diccionario-v3250.png"
@@ -3499,7 +3499,7 @@ async function buildCompleteBackupPayloadV31245(){
     type: COMPLETE_BACKUP_TYPE_V31245,
     version: 20298,
     exportedAt: new Date().toISOString(),
-    appVersion: "2.298",
+    appVersion: "2.299",
     storageEngine: "indexeddb-v1",
     description: "Copia integral y autosuficiente: datos sin duplicar, ajustes y 433 entradas completas del diccionario.",
     state: JSON.parse(JSON.stringify(state||{})),
@@ -3647,9 +3647,12 @@ async function findOrCreateDriveFolderV2293(){
   const r=await driveFetchV2293('https://www.googleapis.com/drive/v3/files?fields=id,name,mimeType',{method:'POST',headers:{'Content-Type':'application/json;charset=UTF-8'},body:JSON.stringify({name:DRIVE_BACKUP_FOLDER_V2293,mimeType:'application/vnd.google-apps.folder',appProperties:{app:'oraciones-v2',purpose:'backup'}})});const f=await r.json();localStorage.setItem(DRIVE_FOLDER_ID_KEY_V2293,f.id);return f;
 }
 async function uploadBackupToDriveV2293(folderId,name,backup){const boundary=`oraciones_backup_${Date.now().toString(16)}_${Math.random().toString(16).slice(2)}`;const metadata={name,mimeType:'application/json',parents:[folderId],appProperties:{app:'oraciones-v2',purpose:'complete-backup'}};const body=new Blob([`--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n`,JSON.stringify(metadata),`\r\n--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n`,JSON.stringify(backup,null,2),`\r\n--${boundary}--`],{type:`multipart/related; boundary=${boundary}`});const r=await driveFetchV2293('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webViewLink',{method:'POST',headers:{'Content-Type':`multipart/related; boundary=${boundary}`},body});return r.json();}
-document.addEventListener('DOMContentLoaded',()=>{
+function initDriveBackupButtonV2293(){
   refreshDriveBackupStatusV2293();
-  document.getElementById('saveDriveBackup')?.addEventListener('click',async()=>{
+  const driveButton=document.getElementById('saveDriveBackup');
+  if(!driveButton||driveButton.dataset.driveReadyV2293==='1')return;
+  driveButton.dataset.driveReadyV2293='1';
+  driveButton.addEventListener('click',async()=>{
     const button=document.getElementById('saveDriveBackup');const originalText=button?.textContent||'Guardar copia en Google Drive';if(button){button.disabled=true;button.textContent='Guardando en Drive…';}setDriveBackupStatusV2293('Conectando con Google Drive…');
     try{
       // Una selección de cuenta por copia; el mismo token se reutiliza hasta terminarla.
@@ -3659,7 +3662,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     }catch(error){console.error('No se pudo guardar la copia en Drive',error);setDriveBackupStatusV2293(error?.message||'No se pudo guardar la copia en Google Drive.',true);toast('No se pudo guardar la copia en Drive');}
     finally{if(button){button.disabled=false;button.textContent=originalText;}}
   });
-});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initDriveBackupButtonV2293,{once:true});
+else initDriveBackupButtonV2293();
 
 // V2.294 · Aviso de actualización controlado: la nueva versión espera hasta que el usuario decida.
 let updateNoticeShownV2293=false;
@@ -3698,7 +3703,7 @@ function showUpdateNoticeV2293(worker){
   });
   window.addEventListener('load',async()=>{
     try{
-      const reg=await navigator.serviceWorker.register('sw.js?v=2.298',{updateViaCache:'none'});
+      const reg=await navigator.serviceWorker.register('sw.js?v=2.299',{updateViaCache:'none'});
       const detectWaiting=()=>{if(reg.waiting&&navigator.serviceWorker.controller&&!sessionStorage.getItem('oracionesUpdateApplyingV2293'))showUpdateNoticeV2293(reg.waiting);};
       detectWaiting();
       reg.addEventListener('updatefound',()=>{
@@ -3867,7 +3872,7 @@ function renderCardCategoriesV31282(){
   grid.classList.add('card-category-grid-v31282');
   grid.innerHTML=CARD_CATEGORY_CATALOG_V31282.map(category=>{
     const first=category.designs[0];
-    return `<button class="card-category-option-v31282" type="button" onclick="openCardCategoryV31282('${category.id}')"><strong class="card-category-title-v31285">${cardCategoryEscapeV31282(category.label)}</strong><img src="${first.src}?v=2.298" alt="" aria-hidden="true"><span class="card-category-footer-v31285"><small>${category.designs.length} diseños</small><b aria-hidden="true">›</b></span></button>`;
+    return `<button class="card-category-option-v31282" type="button" onclick="openCardCategoryV31282('${category.id}')"><strong class="card-category-title-v31285">${cardCategoryEscapeV31282(category.label)}</strong><img src="${first.src}?v=2.299" alt="" aria-hidden="true"><span class="card-category-footer-v31285"><small>${category.designs.length} diseños</small><b aria-hidden="true">›</b></span></button>`;
   }).join('');
 }
 function openCardCategoryV31282(categoryId){
@@ -3884,7 +3889,7 @@ function openCardCategoryV31282(categoryId){
   if(!grid)return;
   grid.classList.remove('card-category-grid-v31282');
   grid.classList.add('card-design-grid-v31282');
-  grid.innerHTML=category.designs.map((design,index)=>`<button class="card-design-option-v31282" type="button" onclick="chooseCardStyleV2217('${design.style}')"><img src="${design.src}?v=2.298" alt="Diseño ${index+1} de ${cardCategoryEscapeV31282(category.label)}"><span><strong>Diseño ${index+1}</strong><small>${cardCategoryEscapeV31282(category.label)}</small></span></button>`).join('');
+  grid.innerHTML=category.designs.map((design,index)=>`<button class="card-design-option-v31282" type="button" onclick="chooseCardStyleV2217('${design.style}')"><img src="${design.src}?v=2.299" alt="Diseño ${index+1} de ${cardCategoryEscapeV31282(category.label)}"><span><strong>Diseño ${index+1}</strong><small>${cardCategoryEscapeV31282(category.label)}</small></span></button>`).join('');
 }
 function backToCardCategoriesV31282(){renderCardCategoriesV31282();}
 
