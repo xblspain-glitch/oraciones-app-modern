@@ -2,6 +2,9 @@
 
 let categoryListActive=false;
 
+window.ORACIONES_APP_CHANNEL_V1="v2";
+window.ORACIONES_APP_VERSION_V1="2.298";
+
 let sentListActive=false;
 
 const STORAGE_KEY="oraciones_full_numeracion_v1";

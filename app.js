@@ -136,49 +136,18 @@ function renderBackupPendingV31268(){
 
 function saveState(){
   cleanAllVerseBreaks();
-  const nextState = JSON.stringify(state);
-  let primarySaved = false;
-  try{
-    localStorage.setItem(STORAGE_KEY, nextState);
-    primarySaved = true;
-  }catch(e){
-    console.error("No se pudo guardar el estado principal", e);
-    setTimeout(function(){
-      try{ toast("Sin espacio local: exporta una copia antes de añadir más datos"); }
-      catch(_){ }
-    },0);
-  }
-
-  /* La copia automática es auxiliar. Si la cuota está llena, se conserva la
-     anterior y la app continúa usando el estado principal ya guardado. */
-  if(primarySaved){
-    try{
-      const backup = {"exportedAt": new Date().toISOString(), ...state};
-      localStorage.setItem(AUTO_BACKUP_KEY, JSON.stringify(backup));
-    }catch(e){
-      console.warn("No se pudo actualizar la copia automática; se conserva la anterior", e);
-    }
-  }
-  return primarySaved;
+  if(!window.OracionesStorageV1) return false;
+  window.OracionesStorageV1.saveState(state).catch(function(e){
+    console.error("No se pudo guardar en IndexedDB",e);
+    try{ toast("No se pudo guardar el último cambio. Conserva tu backup y vuelve a intentarlo"); }catch(_){ }
+  });
+  return true;
 }
 
 function loadState(){
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if(raw){
-    try{
-      state = JSON.parse(raw);
-      if(!state || !Array.isArray(state.prayers) || !Array.isArray(state.notes)) throw new Error("bad");
-    }catch(e){
-      /* Nunca reinicializar a vacío si existe una copia automática válida. */
-      let recovered = null;
-      try{
-        const backupRaw = localStorage.getItem(AUTO_BACKUP_KEY);
-        const parsedBackup = backupRaw ? JSON.parse(backupRaw) : null;
-        if(parsedBackup && Array.isArray(parsedBackup.prayers) && Array.isArray(parsedBackup.notes)) recovered = parsedBackup;
-      }catch(_){ }
-      state = recovered || buildInitialState();
-      saveState();
-    }
+  const boot = window.__ORACIONES_BOOTSTRAP_V1__;
+  if(boot && window.OracionesStorageV1 && window.OracionesStorageV1.isValidState(boot.state)){
+    state = boot.state;
   }else{
     state = buildInitialState();
     saveState();
@@ -193,13 +162,13 @@ function openBackupFilePicker(){
   input.value="";
   input.click();
 }
-function restoreAutoBackup(){
-  const raw = localStorage.getItem(AUTO_BACKUP_KEY);
-  if(!raw) return alert("No hay backup automático.");
+async function restoreAutoBackup(){
+  let parsed = null;
+  try{ parsed = await window.OracionesStorageV1.readAutomatic(); }catch(e){ console.error(e); }
+  if(!parsed) return alert("No hay backup automático.");
   if(!confirm("¿Restaurar el backup automático?")) return;
 
   try{
-    const parsed = JSON.parse(raw);
     state = {
       "section": parsed.section || "prayers",
       "currentPrayerId": parsed.currentPrayerId || null,
@@ -218,7 +187,7 @@ function restoreAutoBackup(){
     };
 
     normalizeGuides();
-    saveState();
+    await window.OracionesStorageV1.replaceState(state);
     section = state.section;
     syncTabs();
     renderList();
@@ -1614,8 +1583,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v2.297";
-const APP_VERSION_ZIP = "Oraciones_V2.297_ALMACENAMIENTO_CORREGIDO.zip";
+const APP_VERSION_LABEL = "v2.298";
+const APP_VERSION_ZIP = "Oraciones_V2.298_INDEXEDDB_SIN_LIMITE_LOCAL.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -3286,13 +3255,15 @@ async function exportAllZip(){
 
 
 /* ===== V3.1.258 · Descargar copia autosuficiente de la aplicación ===== */
-const APP_VERSION_V31249 = "2.297";
+const APP_VERSION_V31249 = "2.298";
 const FUTURE_HOME_ICONS_V31249 = Object.freeze({
   dailyVerse:"icon-versiculo-dia-v3250.png",
   dictionary:"icon-diccionario-v3250.png"
 });
 const INSTALLED_APP_FILES_V31249 = ["index.html", "app.js", "styles.css", "themes.css", "welcome.js", "config.js", "utils.js", "recent.js", "versiculos.js", "theme-mode.js", "jszip.min.js", "patches.js", "routines.js", "moments.js", "counters-v3183.js", "sw.js", "manifest.json", "biblical-dictionary-v2264.css", "biblical-dictionary-v2264.js", "biblical-dictionary-v2264.json", "cross-ethiopian-mask.png", "icon-notas-detallado-v2210.png", "icon-guia-detallado-v2210.png", "icon-versiculo-dia-v3250.png", "icon-diccionario-v3250.png", "icon-dia-noche-v3255.png", "icon-192.png", "icon-512.png", "bg-morning.webp", "bg-day.webp", "bg-sunset.webp", "bg-night.webp", "card-sabiduria-v2240.jpg", "routine-morning-bible-v2216.webp", "routine-night-bible-v2216.webp", "shared-card-new-jerusalem-v2217.png", "card-salvacion-v2219.jpg", "card-oracion-v2219.jpg", "card-espiritu-santo-v2219.jpg", "card-misericordia-v2219.jpg", "card-alabanza-v2219.jpg", "card-fortaleza-v2219.jpg", "card-amor-v2219.jpg", "card-esperanza-v2219.jpg", "card-juicio-v2219.jpg", "card-fe-v2219.jpg", "card-segunda-venida-v2219.jpg", "card-reino-dios-v2230.jpg", "card-santidad-v2230.jpg", "card-cristo-es-dios-v2230.jpg", "card-fe-nueva-v3261.png", "card-dios-v3261.png", "Lora-Regular.woff2", "Lora-Bold.woff2", "Lora-Italic.woff2", "Lora-BoldItalic.woff2", "card-sabiduria-2-v31282.png", "card-vida-eterna-2-v31282.png", "card-alabanza-2-v31282.png", "card-amor-2-v31282.png", "card-juicio-2-v31282.png", "card-esperanza-2-v31282.png", "card-oracion-2-v31282.png", "card-descanso-2-v31282.png", "card-fortaleza-2-v31282.png", "card-espiritu-santo-2-v31282.png", "card-misericordia-2-v31282.png", "card-salvacion-2-v31282.png", "card-segunda-venida-2-v31282.png", "card-reino-dios-2-v31282.png", "card-santidad-2-v31282.png", "card-cristo-es-dios-2-v31282.png", "card-fe-2-v31282.png", "card-dios-2-v31282.png", "card-amor-3-v2287.png", "card-salvacion-3-v2287.png", "card-vida-eterna-3-v2287.png"];
 INSTALLED_APP_FILES_V31249.push("card-segunda-venida-3-v31301.png","card-fe-3-v31301.png","card-cristo-es-dios-3-v31301.png","card-dios-3-v31301.png","card-salvacion-4-v31301.png","card-oracion-3-v31301.png");
+
+INSTALLED_APP_FILES_V31249.splice(2,0,"app-loader.js","storage-idb.js");
 
 async function readInstalledAppFileV31249(fileName){
   const cleanName=String(fileName||"").replace(/^\.\//,"");
@@ -3482,7 +3453,8 @@ function readAllAppStorageV31245(){
     for(let i=0;i<localStorage.length;i++){
       const key=localStorage.key(i);
       if(!key) continue;
-      if((key.indexOf("oraciones_")===0 || key.indexOf("biblical_")===0) && key!=="oraciones_festivity_notes_v44"){
+      const isContentStore = key===STORAGE_KEY || key===AUTO_BACKUP_KEY || key.indexOf("oraciones_idb_v1_")===0;
+      if(!isContentStore && (key.indexOf("oraciones_")===0 || key.indexOf("biblical_")===0) && key!=="oraciones_festivity_notes_v44"){
         data[key]=localStorage.getItem(key);
       }
     }
@@ -3525,10 +3497,11 @@ async function buildCompleteBackupPayloadV31245(){
   const fullCatalogs=await loadCompleteCatalogsV31247();
   return {
     type: COMPLETE_BACKUP_TYPE_V31245,
-    version: 31263,
+    version: 20298,
     exportedAt: new Date().toISOString(),
-    appVersion: "2.297",
-    description: "Copia integral y autosuficiente: datos, ajustes y 433 entradas completas del diccionario.",
+    appVersion: "2.298",
+    storageEngine: "indexeddb-v1",
+    description: "Copia integral y autosuficiente: datos sin duplicar, ajustes y 433 entradas completas del diccionario.",
     state: JSON.parse(JSON.stringify(state||{})),
     localStorage: readAllAppStorageV31245(),
     catalogs: {
@@ -3593,27 +3566,28 @@ function normalizeImportedStateV31245(parsed){
     titleSeparatorsV3171:src.titleSeparatorsV3171&&typeof src.titleSeparatorsV3171==="object"?src.titleSeparatorsV3171:{}
   });
 }
-function applyImportedData(parsed){
+async function applyImportedData(parsed){
   const complete=parsed&&parsed.type===COMPLETE_BACKUP_TYPE_V31245;
   const importedState=normalizeImportedStateV31245(parsed);
   if(complete&&parsed.localStorage&&typeof parsed.localStorage==='object'){
     Object.keys(parsed.localStorage).forEach(key=>{
-      if((key.indexOf('oraciones_')===0||key.indexOf('biblical_')===0) && key!=='oraciones_festivity_notes_v44'){
+      const isContentStore=key===STORAGE_KEY||key===AUTO_BACKUP_KEY||key.indexOf('oraciones_idb_v1_')===0;
+      if(!isContentStore&&(key.indexOf('oraciones_')===0||key.indexOf('biblical_')===0) && key!=='oraciones_festivity_notes_v44'){
         const value=parsed.localStorage[key];if(value===null||typeof value==='undefined')localStorage.removeItem(key);else localStorage.setItem(key,String(value));
       }
     });
   }
   state=importedState;
   normalizeGuides();if(typeof normalizeVerses==="function")normalizeVerses();if(typeof ensureVerseCategories==="function")ensureVerseCategories();if(typeof ensureParablesState==="function")ensureParablesState();if(typeof ensurePsalmsStateV3176==="function")ensurePsalmsStateV3176();
-  saveState();section=state.section;syncTabs();renderList();renderReader();
+  await window.OracionesStorageV1.replaceState(state);section=state.section;syncTabs();renderList();renderReader();
   if(complete){toast("Backup completo restaurado");setTimeout(()=>location.reload(),650);}else{openReader();toast("Backup importado");}
 }
 function importBackupFromText(){
   const text=document.getElementById("backupText").value.trim();if(!text)return alert("Pega primero una copia.");
-  try{applyImportedData(JSON.parse(text));}catch(e){alert("La copia no es válida.");}
+  try{Promise.resolve(applyImportedData(JSON.parse(text))).catch(function(e){console.error(e);alert("La copia no es válida.");});}catch(e){alert("La copia no es válida.");}
 }
 function importBackupFromFile(file){
-  const reader=new FileReader();reader.onload=()=>{try{const text=String(reader.result||"");document.getElementById("backupText").value=text;applyImportedData(JSON.parse(text));}catch(e){alert("El archivo no es un backup JSON válido.");}};reader.onerror=()=>alert("No se pudo leer el archivo.");reader.readAsText(file,"utf-8");
+  const reader=new FileReader();reader.onload=()=>{try{const text=String(reader.result||"");document.getElementById("backupText").value=text;Promise.resolve(applyImportedData(JSON.parse(text))).catch(function(e){console.error(e);alert("El archivo no es un backup JSON válido.");});}catch(e){alert("El archivo no es un backup JSON válido.");}};reader.onerror=()=>alert("No se pudo leer el archivo.");reader.readAsText(file,"utf-8");
 }
 function dismissInstall(){localStorage.setItem(INSTALL_DISMISSED_KEY,"1");document.getElementById("installBanner").classList.add("hidden")}
 function maybeShowInstall(){if(isStandalone()) return;if(localStorage.getItem(INSTALL_DISMISSED_KEY)==="1") return;document.getElementById("installBanner").classList.remove("hidden");const help=document.getElementById("installHelp");if(deferredPrompt) help.textContent="Pulsa Instalar. Si no te deja, usa el menú del navegador y elige Añadir a pantalla de inicio.";else help.textContent="Si no aparece el instalador automático, usa el menú del navegador y elige Añadir a pantalla de inicio."}
@@ -3724,7 +3698,7 @@ function showUpdateNoticeV2293(worker){
   });
   window.addEventListener('load',async()=>{
     try{
-      const reg=await navigator.serviceWorker.register('sw.js?v=2.297',{updateViaCache:'none'});
+      const reg=await navigator.serviceWorker.register('sw.js?v=2.298',{updateViaCache:'none'});
       const detectWaiting=()=>{if(reg.waiting&&navigator.serviceWorker.controller&&!sessionStorage.getItem('oracionesUpdateApplyingV2293'))showUpdateNoticeV2293(reg.waiting);};
       detectWaiting();
       reg.addEventListener('updatefound',()=>{
@@ -3893,7 +3867,7 @@ function renderCardCategoriesV31282(){
   grid.classList.add('card-category-grid-v31282');
   grid.innerHTML=CARD_CATEGORY_CATALOG_V31282.map(category=>{
     const first=category.designs[0];
-    return `<button class="card-category-option-v31282" type="button" onclick="openCardCategoryV31282('${category.id}')"><strong class="card-category-title-v31285">${cardCategoryEscapeV31282(category.label)}</strong><img src="${first.src}?v=2.297" alt="" aria-hidden="true"><span class="card-category-footer-v31285"><small>${category.designs.length} diseños</small><b aria-hidden="true">›</b></span></button>`;
+    return `<button class="card-category-option-v31282" type="button" onclick="openCardCategoryV31282('${category.id}')"><strong class="card-category-title-v31285">${cardCategoryEscapeV31282(category.label)}</strong><img src="${first.src}?v=2.298" alt="" aria-hidden="true"><span class="card-category-footer-v31285"><small>${category.designs.length} diseños</small><b aria-hidden="true">›</b></span></button>`;
   }).join('');
 }
 function openCardCategoryV31282(categoryId){
@@ -3910,7 +3884,7 @@ function openCardCategoryV31282(categoryId){
   if(!grid)return;
   grid.classList.remove('card-category-grid-v31282');
   grid.classList.add('card-design-grid-v31282');
-  grid.innerHTML=category.designs.map((design,index)=>`<button class="card-design-option-v31282" type="button" onclick="chooseCardStyleV2217('${design.style}')"><img src="${design.src}?v=2.297" alt="Diseño ${index+1} de ${cardCategoryEscapeV31282(category.label)}"><span><strong>Diseño ${index+1}</strong><small>${cardCategoryEscapeV31282(category.label)}</small></span></button>`).join('');
+  grid.innerHTML=category.designs.map((design,index)=>`<button class="card-design-option-v31282" type="button" onclick="chooseCardStyleV2217('${design.style}')"><img src="${design.src}?v=2.298" alt="Diseño ${index+1} de ${cardCategoryEscapeV31282(category.label)}"><span><strong>Diseño ${index+1}</strong><small>${cardCategoryEscapeV31282(category.label)}</small></span></button>`).join('');
 }
 function backToCardCategoriesV31282(){renderCardCategoriesV31282();}
 

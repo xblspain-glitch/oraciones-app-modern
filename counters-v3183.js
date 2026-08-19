@@ -5,6 +5,7 @@
   window.__v3183CountersInstalled = true;
   function len(value){ return Array.isArray(value) ? value.length : 0; }
   function readState(){
+    try{ if(typeof state!=='undefined' && state && typeof state === 'object') return state; }catch(e){}
     try{ if(window.state && typeof window.state === 'object') return window.state; }catch(e){}
     try{
       var raw=localStorage.getItem('oraciones_full_numeracion_v1');
