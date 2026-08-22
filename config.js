@@ -3,7 +3,7 @@
 let categoryListActive=false;
 
 window.ORACIONES_APP_CHANNEL_V1="v2";
-window.ORACIONES_APP_VERSION_V1="2.299";
+window.ORACIONES_APP_VERSION_V1="2.300";
 
 let sentListActive=false;
 
