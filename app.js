@@ -1580,8 +1580,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v2.302";
-const APP_VERSION_ZIP = "Oraciones_V2.302_RECUPERACION_GUIADA.zip";
+const APP_VERSION_LABEL = "v2.303";
+const APP_VERSION_ZIP = "Oraciones_V2.303_FRASES_TEMATICAS_SIN_REPETIR.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -3252,7 +3252,7 @@ async function exportAllZip(){
 
 
 /* ===== V3.1.258 · Descargar copia autosuficiente de la aplicación ===== */
-const APP_VERSION_V31249 = "2.302";
+const APP_VERSION_V31249 = "2.303";
 const FUTURE_HOME_ICONS_V31249 = Object.freeze({
   dailyVerse:"icon-versiculo-dia-v3250.png",
   dictionary:"icon-diccionario-v3250.png"
@@ -3496,7 +3496,7 @@ async function buildCompleteBackupPayloadV31245(){
     type: COMPLETE_BACKUP_TYPE_V31245,
     version: 20298,
     exportedAt: new Date().toISOString(),
-    appVersion: "2.302",
+    appVersion: "2.303",
     storageEngine: "indexeddb-v1",
     description: "Copia integral y autosuficiente: datos sin duplicar, ajustes y 433 entradas completas del diccionario.",
     state: JSON.parse(JSON.stringify(state||{})),
@@ -3700,7 +3700,7 @@ function showUpdateNoticeV2293(worker){
   });
   window.addEventListener('load',async()=>{
     try{
-      const reg=await navigator.serviceWorker.register('sw.js?v=2.302',{updateViaCache:'none'});
+      const reg=await navigator.serviceWorker.register('sw.js?v=2.303',{updateViaCache:'none'});
       const detectWaiting=()=>{if(reg.waiting&&navigator.serviceWorker.controller&&!sessionStorage.getItem('oracionesUpdateApplyingV2293'))showUpdateNoticeV2293(reg.waiting);};
       detectWaiting();
       reg.addEventListener('updatefound',()=>{
@@ -3850,6 +3850,7 @@ const CARD_CATEGORY_CATALOG_V31282=[
 ];
 const CARD_STYLE_BACKGROUNDS_V31282=Object.fromEntries(CARD_CATEGORY_CATALOG_V31282.flatMap(category=>category.designs.map(design=>[design.style,design.src])));
 const CARD_STYLE_CATEGORY_LABELS_V31283=Object.fromEntries(CARD_CATEGORY_CATALOG_V31282.flatMap(category=>category.designs.map(design=>[design.style,category.label])));
+const CARD_STYLE_CATEGORY_IDS_V31315=Object.fromEntries(CARD_CATEGORY_CATALOG_V31282.flatMap(category=>category.designs.map(design=>[design.style,category.id])));
 let activeCardCategoryV31282=null;
 
 function cardCategoryEscapeV31282(value){
@@ -3869,7 +3870,7 @@ function renderCardCategoriesV31282(){
   grid.classList.add('card-category-grid-v31282');
   grid.innerHTML=CARD_CATEGORY_CATALOG_V31282.map(category=>{
     const first=category.designs[0];
-    return `<button class="card-category-option-v31282" type="button" onclick="openCardCategoryV31282('${category.id}')"><strong class="card-category-title-v31285">${cardCategoryEscapeV31282(category.label)}</strong><img src="${first.src}?v=2.302" alt="" aria-hidden="true"><span class="card-category-footer-v31285"><small>${category.designs.length} diseños</small><b aria-hidden="true">›</b></span></button>`;
+    return `<button class="card-category-option-v31282" type="button" onclick="openCardCategoryV31282('${category.id}')"><strong class="card-category-title-v31285">${cardCategoryEscapeV31282(category.label)}</strong><img src="${first.src}?v=2.303" alt="" aria-hidden="true"><span class="card-category-footer-v31285"><small>${category.designs.length} diseños</small><b aria-hidden="true">›</b></span></button>`;
   }).join('');
 }
 function openCardCategoryV31282(categoryId){
@@ -3886,7 +3887,7 @@ function openCardCategoryV31282(categoryId){
   if(!grid)return;
   grid.classList.remove('card-category-grid-v31282');
   grid.classList.add('card-design-grid-v31282');
-  grid.innerHTML=category.designs.map((design,index)=>`<button class="card-design-option-v31282" type="button" onclick="chooseCardStyleV2217('${design.style}')"><img src="${design.src}?v=2.302" alt="Diseño ${index+1} de ${cardCategoryEscapeV31282(category.label)}"><span><strong>Diseño ${index+1}</strong><small>${cardCategoryEscapeV31282(category.label)}</small></span></button>`).join('');
+  grid.innerHTML=category.designs.map((design,index)=>`<button class="card-design-option-v31282" type="button" onclick="chooseCardStyleV2217('${design.style}')"><img src="${design.src}?v=2.303" alt="Diseño ${index+1} de ${cardCategoryEscapeV31282(category.label)}"><span><strong>Diseño ${index+1}</strong><small>${cardCategoryEscapeV31282(category.label)}</small></span></button>`).join('');
 }
 function backToCardCategoriesV31282(){renderCardCategoriesV31282();}
 
@@ -4303,10 +4304,266 @@ async function shareVerseCard(cardStyle="classic"){
       "Que Cristo permanezca a tu lado y te conceda su paz.",
       "Que Dios ilumine tu día y haga firme tu esperanza."
     ];
-    const blessingDateKey=ds.getFullYear()+"-"+(ds.getMonth()+1)+"-"+ds.getDate();
-    let blessingHash=0;
-    for(let i=0;i<blessingDateKey.length;i++) blessingHash=((blessingHash*31)+blessingDateKey.charCodeAt(i))>>>0;
-    const dailyBlessing=dailyBlessingsV3175[blessingHash % dailyBlessingsV3175.length];
+    // Número consecutivo del día local. Al aumentar exactamente en uno cada
+    // fecha, permite avanzar por las frases sin repetir hasta completar el grupo.
+    const blessingDayNumberV31317=Math.floor(Date.UTC(ds.getFullYear(),ds.getMonth(),ds.getDate())/86400000);
+    // V3.1.315 — la bendición acompaña al tema visual elegido. Las 100 frases
+    // generales anteriores se conservan como respaldo para diseños antiguos o
+    // categorías que el usuario pueda incorporar en el futuro.
+    const thematicBlessingsV31315={
+      sabiduria:[
+        "Que el Señor te conceda sabiduría en cada decisión.",
+        "Que Dios ilumine tu mente y serene tu corazón.",
+        "Que el Espíritu Santo te conceda discernimiento y paz.",
+        "Que Dios te conceda sabiduría para hablar y humildad para escuchar.",
+        "Que la Palabra del Señor sea lámpara para tus pasos.",
+        "Que Cristo ilumine tus pensamientos y guíe tus palabras.",
+        "Que Dios te ayude a reconocer el camino recto.",
+        "Que hoy puedas escuchar con paciencia y responder con sabiduría.",
+        "Que el Señor dirija tu entendimiento hacia la verdad.",
+        "Que la sabiduría de Dios acompañe cada uno de tus pasos."
+      ],
+      "vida-eterna":[
+        "Que la promesa de la vida eterna llene tu corazón de esperanza.",
+        "Que hoy vivas con la mirada puesta en las promesas de Cristo.",
+        "Que la victoria de Cristo renueve tu esperanza cada día.",
+        "Que Dios afirme en tu corazón la esperanza de la vida eterna.",
+        "Que la luz de Cristo te recuerde el hogar que Dios ha preparado.",
+        "Que hoy encuentres consuelo en la promesa de estar con el Señor.",
+        "Que la eternidad junto a Dios dé propósito a tu camino.",
+        "Que Cristo mantenga viva en ti la esperanza de la resurrección.",
+        "Que la promesa del Señor te dé paz más allá de toda dificultad.",
+        "Que hoy tu corazón se alegre en la vida que Cristo nos ofrece."
+      ],
+      alabanza:[
+        "Que hoy tu corazón se llene de gratitud y alabanza.",
+        "Que cada bendición recibida despierte en ti gratitud a Dios.",
+        "Que la alegría del Señor inspire hoy tu alabanza.",
+        "Que tus palabras proclamen la bondad y fidelidad de Dios.",
+        "Que hoy puedas reconocer las maravillas del Señor a tu alrededor.",
+        "Que la alabanza renueve tu ánimo y llene de gozo tu corazón.",
+        "Que tu vida refleje hoy la grandeza y el amor de Dios.",
+        "Que la presencia del Señor haga brotar gratitud en tu interior.",
+        "Que hoy celebres con alegría todo lo que Dios ha hecho por ti.",
+        "Que Cristo sea la razón de tu gozo y de tu alabanza."
+      ],
+      amor:[
+        "Que el amor de Cristo te acompañe hoy.",
+        "Que el amor de Dios transforme todo cuanto hagas hoy.",
+        "Que el amor de Cristo inspire cada una de tus acciones.",
+        "Que hoy tu vida refleje el amor y la bondad de Dios.",
+        "Que Cristo te dé un corazón dispuesto a perdonar y servir.",
+        "Que el Señor te ayude a amar con paciencia y sinceridad.",
+        "Que hoy puedas compartir con otros el amor que Dios te ofrece.",
+        "Que el amor de Cristo guíe tus palabras y tus decisiones.",
+        "Que Dios ensanche tu corazón para cuidar a quienes te rodean.",
+        "Que hoy el amor del Señor renueve tu manera de mirar."
+      ],
+      juicio:[
+        "Que el Señor te conceda un corazón justo y misericordioso.",
+        "Que Dios te ayude a juzgar con verdad, humildad y compasión.",
+        "Que hoy recuerdes que todos compareceremos ante el Señor.",
+        "Que Cristo guíe tus decisiones por caminos de justicia y amor.",
+        "Que Dios te conceda sabiduría para distinguir lo recto.",
+        "Que la misericordia del Señor acompañe siempre tu sentido de justicia.",
+        "Que hoy puedas examinar tu corazón con sinceridad ante Dios.",
+        "Que Cristo te libre de condenar y te enseñe a restaurar.",
+        "Que la verdad de Dios te impulse a vivir con integridad.",
+        "Que el Señor te ayude a actuar con justicia sin olvidar la misericordia."
+      ],
+      esperanza:[
+        "Que la esperanza en Cristo renueve tus fuerzas en este nuevo día.",
+        "Que Cristo renueve tu ánimo y afirme tu esperanza.",
+        "Que la esperanza del Evangelio ilumine tu jornada.",
+        "Que Dios haga florecer la esperanza en tu corazón.",
+        "Que hoy puedas mirar el futuro confiando en las promesas del Señor.",
+        "Que la fidelidad de Dios mantenga firme tu esperanza.",
+        "Que Cristo ilumine con esperanza aquello que hoy te preocupa.",
+        "Que hoy encuentres nuevas razones para confiar en Dios.",
+        "Que la esperanza del Señor te sostenga en cada dificultad.",
+        "Que Dios llene tu camino de luz, esperanza y amor."
+      ],
+      oracion:[
+        "Que hoy encuentres paz al abrir tu corazón delante de Dios.",
+        "Que el Señor escuche tu oración y serene tu corazón.",
+        "Que la oración te mantenga cerca de Dios durante este día.",
+        "Que hoy puedas hablar con el Señor con confianza y sinceridad.",
+        "Que Cristo fortalezca tu fe cada vez que te acerques en oración.",
+        "Que el Espíritu Santo guíe tus palabras y también tu silencio.",
+        "Que hoy encuentres respuesta, consuelo y dirección junto a Dios.",
+        "Que la presencia del Señor haga de tu oración un lugar de descanso.",
+        "Que Dios ponga en tu corazón palabras de vida y de esperanza.",
+        "Que hoy puedas perseverar en oración con una esperanza firme."
+      ],
+      descanso:[
+        "Que hoy puedas descansar en la fidelidad de Dios.",
+        "Que hoy encuentres descanso bajo el cuidado de Dios.",
+        "Que la paz de Cristo serene hoy tu corazón.",
+        "Que hoy puedas confiar y descansar en las promesas del Señor.",
+        "Que la presencia de Dios alivie todas tus preocupaciones.",
+        "Que hoy tu corazón repose seguro en las manos de Dios.",
+        "Que Cristo te conceda calma en medio de cada dificultad.",
+        "Que la fidelidad del Señor te dé seguridad y descanso.",
+        "Que hoy encuentres refugio y serenidad junto a Dios.",
+        "Que la paz del Señor acompañe cada momento de tu día."
+      ],
+      fortaleza:[
+        "Que Cristo sea tu refugio y tu fortaleza durante este día.",
+        "Que el Señor fortalezca tu fe ante cada dificultad.",
+        "Que Cristo te sostenga cuando te sientas débil.",
+        "Que Dios te conceda fortaleza para superar cada prueba.",
+        "Que el Señor renueve tus fuerzas y afirme tus pasos.",
+        "Que hoy encuentres en Dios la fuerza que necesitas.",
+        "Que Cristo fortalezca tus manos para servir con amor.",
+        "Que la presencia del Señor te dé valor para continuar.",
+        "Que hoy puedas avanzar sostenido por el poder de Dios.",
+        "Que Cristo fortalezca tu corazón y avive tu fe."
+      ],
+      misericordia:[
+        "Que la misericordia de Dios te abrace y te sostenga.",
+        "Que la misericordia de Cristo te acompañe durante este día.",
+        "Que hoy puedas recibir y compartir la compasión del Señor.",
+        "Que Dios te ayude a mirar a los demás con misericordia.",
+        "Que la bondad del Señor sane y renueve hoy tu corazón.",
+        "Que Cristo te enseñe a perdonar como tú has sido perdonado.",
+        "Que hoy encuentres refugio en la inmensa misericordia de Dios.",
+        "Que la compasión del Señor inspire cada uno de tus actos.",
+        "Que Dios te conceda un corazón sensible al dolor de los demás.",
+        "Que la gracia y la misericordia de Cristo acompañen tu camino."
+      ],
+      "espiritu-santo":[
+        "Que el Espíritu Santo guíe tus pensamientos y decisiones.",
+        "Que el Espíritu Santo te conceda discernimiento y paz.",
+        "Que el Espíritu Santo renueve hoy tu interior.",
+        "Que el Espíritu Santo te guíe por el camino de la verdad.",
+        "Que hoy puedas reconocer la voz y la dirección del Espíritu Santo.",
+        "Que el Espíritu de Dios fortalezca tu fe y serene tu corazón.",
+        "Que el Espíritu Santo produzca en ti amor, gozo y paz.",
+        "Que hoy el Espíritu Santo ilumine tus palabras y tus decisiones.",
+        "Que la presencia del Espíritu de Dios te acompañe en cada paso.",
+        "Que el Espíritu Santo te dé valor para vivir conforme a la verdad."
+      ],
+      salvacion:[
+        "Que hoy recuerdes con gratitud la salvación que Cristo te ofrece.",
+        "Que la gracia de Cristo afirme tu fe y llene tu corazón de paz.",
+        "Que la obra de Jesús renueve hoy tu esperanza.",
+        "Que Cristo te recuerde cuánto te ama Dios.",
+        "Que hoy vivas con alegría la libertad que recibes en Cristo.",
+        "Que la salvación del Señor sea siempre el fundamento de tu esperanza.",
+        "Que Dios te ayude a caminar cada día cerca de Cristo.",
+        "Que la cruz de Jesús te recuerde la profundidad del amor de Dios.",
+        "Que hoy encuentres seguridad en la gracia salvadora de Cristo.",
+        "Que el Evangelio llene tu vida de gratitud, fe y esperanza."
+      ],
+      "segunda-venida":[
+        "Que la promesa del regreso de Cristo mantenga viva tu esperanza.",
+        "Que hoy vivas preparado y con la mirada puesta en el Señor.",
+        "Que la venida de Cristo llene tu corazón de esperanza y gozo.",
+        "Que Dios te ayude a permanecer fiel mientras esperas al Señor.",
+        "Que la promesa de Cristo fortalezca tu paciencia y tu fe.",
+        "Que hoy tu vida refleje la esperanza de su glorioso regreso.",
+        "Que el Señor te encuentre caminando en amor, verdad y fidelidad.",
+        "Que la espera de Cristo renueve tu deseo de hacer el bien.",
+        "Que hoy recuerdes que las promesas del Señor son fieles.",
+        "Que la esperanza del regreso de Jesús ilumine tu camino."
+      ],
+      "reino-dios":[
+        "Que el reino de Dios crezca hoy en tu corazón y en tus acciones.",
+        "Que Cristo reine en tus pensamientos, palabras y decisiones.",
+        "Que hoy puedas sembrar la paz y la justicia del reino de Dios.",
+        "Que el Señor te ayude a buscar primero su reino y su justicia.",
+        "Que tu vida refleje hoy el amor y la verdad del reino de Dios.",
+        "Que Dios te use para llevar esperanza allí donde estés.",
+        "Que hoy puedas servir con humildad como ciudadano del reino de Cristo.",
+        "Que la voluntad de Dios encuentre lugar en cada área de tu vida.",
+        "Que Cristo dirija tus pasos hacia todo lo bueno y verdadero.",
+        "Que el reino del Señor transforme tu manera de vivir y de amar."
+      ],
+      santidad:[
+        "Que Dios te fortalezca para caminar conforme a su voluntad.",
+        "Que hoy tu corazón permanezca limpio y cercano al Señor.",
+        "Que Cristo te ayude a escoger lo bueno, justo y verdadero.",
+        "Que la Palabra de Dios transforme tus pensamientos y tus acciones.",
+        "Que hoy puedas vivir de una manera digna del llamado del Señor.",
+        "Que el Espíritu Santo forme en ti un carácter semejante al de Cristo.",
+        "Que Dios te conceda firmeza para apartarte de todo mal.",
+        "Que la gracia del Señor te enseñe a vivir con integridad.",
+        "Que hoy cada decisión te acerque más al corazón de Dios.",
+        "Que Cristo santifique tu vida y dirija todos tus caminos."
+      ],
+      "cristo-es-dios":[
+        "Que hoy reconozcas en Cristo la plenitud del amor de Dios.",
+        "Que Jesús, Dios con nosotros, llene tu corazón de paz.",
+        "Que la gloria de Cristo ilumine hoy tu vida.",
+        "Que tu fe en Jesucristo permanezca firme en todo momento.",
+        "Que hoy encuentres en Jesús el camino, la verdad y la vida.",
+        "Que Cristo sea el centro de tus pensamientos y decisiones.",
+        "Que la presencia de Jesús afirme tu esperanza y tu fe.",
+        "Que hoy puedas contemplar en Cristo el rostro amoroso de Dios.",
+        "Que Jesucristo reine con poder y amor en tu corazón.",
+        "Que la verdad de quién es Cristo transforme cada día tu vida."
+      ],
+      fe:[
+        "Que hoy tu corazón permanezca firme en el amor de Dios.",
+        "Que el Señor fortalezca tu fe ante cada dificultad.",
+        "Que la fidelidad de Dios sea hoy tu seguridad.",
+        "Que Cristo fortalezca tu corazón y avive tu fe.",
+        "Que la gracia de Cristo te ayude a afrontar este día con fe.",
+        "Que hoy puedas confiar plenamente en las promesas del Señor.",
+        "Que Dios aumente tu fe cuando el camino parezca incierto.",
+        "Que tu confianza en Cristo permanezca firme en toda circunstancia.",
+        "Que hoy la Palabra de Dios alimente y fortalezca tu fe.",
+        "Que el Señor te recuerde que nunca caminas a solas."
+      ],
+      dios:[
+        "Que Dios ilumine tu camino y fortalezca tu corazón.",
+        "Que hoy puedas reconocer la bondad de Dios a tu alrededor.",
+        "Que la presencia de Dios llene de paz tu hogar.",
+        "Que Dios bendiga tus pensamientos, palabras y acciones.",
+        "Que el Señor llene tu camino de luz, esperanza y amor.",
+        "Que hoy puedas caminar confiando en el cuidado de Dios.",
+        "Que la fidelidad del Señor sea el fundamento de tu día.",
+        "Que Dios dirija tus pasos por caminos de paz y de bien.",
+        "Que hoy tu corazón se alegre en la cercanía de Dios.",
+        "Que la bondad del Señor te acompañe durante toda la jornada."
+      ]
+    };
+    // V3.1.316 — incorpora también las 100 bendiciones originales a las
+    // categorías donde su sentido encaja. Una frase puede acompañar a más de
+    // un tema; si es general, permanece disponible en Dios como respaldo.
+    function legacyBlessingCategoriesV31316(phrase){
+      const value=String(phrase||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("es-ES");
+      const categories=[];
+      const add=id=>{if(!categories.includes(id))categories.push(id);};
+
+      if(/espiritu santo/.test(value)) add("espiritu-santo");
+      if(/misericordia|compasion/.test(value)) add("misericordia");
+      if(/sabiduria|discernimiento|claridad|decision|pensamiento|palabra/.test(value)) add("sabiduria");
+      if(/esperanza|animo|florecer/.test(value)) add("esperanza");
+      if(/\bfe\b|fidelidad|confi|promesa|seguridad/.test(value)) add("fe");
+      if(/descans|seren|calma|preocupacion|paz|refugio|ligero/.test(value)) add("descanso");
+      if(/amor|bondad|perdon|servir|ternura/.test(value)) add("amor");
+      if(/fortal|fuerza|debil|prueba|persever|valor|sosten|afirme|firme/.test(value)) add("fortaleza");
+      if(/gracia|evangelio|cristo te recuerde cuanto te ama/.test(value)) add("salvacion");
+      if(/agradecid|alegria|bendicion de dios/.test(value)) add("alabanza");
+      if(/verdad|voluntad|hacer el bien|caminar conforme/.test(value)) add("santidad");
+      if(/hogar|familia|trabajo de tus manos|proyecto|salida y tu entrada/.test(value)) add("dios");
+      if(/cristo sea|presencia de cristo|luz de cristo|cristo ilumine/.test(value)) add("cristo-es-dios");
+
+      // Las frases completamente generales siguen participando, pero solo en
+      // la categoría Dios para no producir asociaciones temáticas artificiales.
+      if(!categories.length) add("dios");
+      return categories;
+    }
+    const blessingCategoryIdV31315=CARD_STYLE_CATEGORY_IDS_V31315[cardStyle]||"";
+    const categoryBlessingsV31315=thematicBlessingsV31315[blessingCategoryIdV31315];
+    const legacyCategoryBlessingsV31316=dailyBlessingsV3175.filter(phrase=>legacyBlessingCategoriesV31316(phrase).includes(blessingCategoryIdV31315));
+    const blessingPoolV31315=Array.isArray(categoryBlessingsV31315)&&categoryBlessingsV31315.length
+      ? [...new Set([...categoryBlessingsV31315,...legacyCategoryBlessingsV31316])]
+      : dailyBlessingsV3175;
+    let categoryHashV31315=0;
+    for(let i=0;i<blessingCategoryIdV31315.length;i++) categoryHashV31315=((categoryHashV31315*31)+blessingCategoryIdV31315.charCodeAt(i))>>>0;
+    const dailyBlessing=blessingPoolV31315[(blessingDayNumberV31317+categoryHashV31315)%blessingPoolV31315.length];
 
     // Remate inferior, elevado ligeramente para dejar una zona limpia a la bendición.
     ctx.save();
