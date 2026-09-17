@@ -1580,8 +1580,8 @@ function openMoreMenu(ev){
   }
 }
 
-const APP_VERSION_LABEL = "v2.308";
-const APP_VERSION_ZIP = "Oraciones_V2.308_DISENO_2_JUICIO_ACTUALIZADO.zip";
+const APP_VERSION_LABEL = "v2.309";
+const APP_VERSION_ZIP = "Oraciones_V2.309_SEPARADORES_DESPLEGABLES.zip";
 const APP_BASE_ZIP = "oraciones_v2_v89_2_tarjeta_ajuste_cabecera.zip";
 function closeAppCredits(){
   const el=document.getElementById("appCreditsOverlay");
@@ -3252,7 +3252,7 @@ async function exportAllZip(){
 
 
 /* ===== V3.1.258 · Descargar copia autosuficiente de la aplicación ===== */
-const APP_VERSION_V31249 = "2.308";
+const APP_VERSION_V31249 = "2.309";
 const FUTURE_HOME_ICONS_V31249 = Object.freeze({
   dailyVerse:"icon-versiculo-dia-v3250.png",
   dictionary:"icon-diccionario-v3250.png"
@@ -3497,7 +3497,7 @@ async function buildCompleteBackupPayloadV31245(){
     type: COMPLETE_BACKUP_TYPE_V31245,
     version: 20298,
     exportedAt: new Date().toISOString(),
-    appVersion: "2.308",
+    appVersion: "2.309",
     storageEngine: "indexeddb-v1",
     description: "Copia integral y autosuficiente: datos sin duplicar, ajustes y 433 entradas completas del diccionario.",
     state: JSON.parse(JSON.stringify(state||{})),
@@ -3701,7 +3701,7 @@ function showUpdateNoticeV2293(worker){
   });
   window.addEventListener('load',async()=>{
     try{
-      const reg=await navigator.serviceWorker.register('sw.js?v=2.308',{updateViaCache:'none'});
+      const reg=await navigator.serviceWorker.register('sw.js?v=2.309',{updateViaCache:'none'});
       const detectWaiting=()=>{if(reg.waiting&&navigator.serviceWorker.controller&&!sessionStorage.getItem('oracionesUpdateApplyingV2293'))showUpdateNoticeV2293(reg.waiting);};
       detectWaiting();
       reg.addEventListener('updatefound',()=>{
@@ -3872,7 +3872,7 @@ function renderCardCategoriesV31282(){
   grid.classList.add('card-category-grid-v31282');
   grid.innerHTML=CARD_CATEGORY_CATALOG_V31282.map(category=>{
     const first=category.designs[0];
-    return `<button class="card-category-option-v31282" type="button" onclick="openCardCategoryV31282('${category.id}')"><strong class="card-category-title-v31285">${cardCategoryEscapeV31282(category.label)}</strong><img src="${first.src}?v=2.308" alt="" aria-hidden="true"><span class="card-category-footer-v31285"><small>${category.designs.length} diseños</small><b aria-hidden="true">›</b></span></button>`;
+    return `<button class="card-category-option-v31282" type="button" onclick="openCardCategoryV31282('${category.id}')"><strong class="card-category-title-v31285">${cardCategoryEscapeV31282(category.label)}</strong><img src="${first.src}?v=2.309" alt="" aria-hidden="true"><span class="card-category-footer-v31285"><small>${category.designs.length} diseños</small><b aria-hidden="true">›</b></span></button>`;
   }).join('');
 }
 function openCardCategoryV31282(categoryId){
@@ -3889,7 +3889,7 @@ function openCardCategoryV31282(categoryId){
   if(!grid)return;
   grid.classList.remove('card-category-grid-v31282');
   grid.classList.add('card-design-grid-v31282');
-  grid.innerHTML=category.designs.map((design,index)=>`<button class="card-design-option-v31282" type="button" onclick="chooseCardStyleV2217('${design.style}')"><img src="${design.src}?v=2.308" alt="Diseño ${index+1} de ${cardCategoryEscapeV31282(category.label)}"><span><strong>Diseño ${index+1}</strong><small>${cardCategoryEscapeV31282(category.label)}</small></span></button>`).join('');
+  grid.innerHTML=category.designs.map((design,index)=>`<button class="card-design-option-v31282" type="button" onclick="chooseCardStyleV2217('${design.style}')"><img src="${design.src}?v=2.309" alt="Diseño ${index+1} de ${cardCategoryEscapeV31282(category.label)}"><span><strong>Diseño ${index+1}</strong><small>${cardCategoryEscapeV31282(category.label)}</small></span></button>`).join('');
 }
 function backToCardCategoriesV31282(){renderCardCategoriesV31282();}
 
@@ -9007,6 +9007,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
   var supportedSectionsV3171 = ['prayers','notes','guides','parables','psalms'];
 
   function supportedV3171(){ return supportedSectionsV3171.indexOf(section) !== -1; }
+  function collapsibleV31323(){ return section==='prayers' || section==='notes'; }
   function ensureStoreV3171(){
     if(!state.titleSeparatorsV3171 || typeof state.titleSeparatorsV3171 !== 'object') state.titleSeparatorsV3171 = {};
     supportedSectionsV3171.forEach(function(s){
@@ -9114,6 +9115,16 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     st.layout=st.layout.filter(function(t){return t!==tokenSepV3171(id);});
     saveState(); window.renderTitles(); if(typeof toast==='function')toast('Separador eliminado');
   }
+
+  function toggleSeparatorV31323(id){
+    if(!collapsibleV31323() || organizerActiveV3171) return;
+    var st=storeV3171();
+    var sep=st.separators.find(function(x){return x.id===id;});
+    if(!sep)return;
+    sep.collapsed=!sep.collapsed;
+    saveState();
+    window.renderTitles();
+  }
   function moveV3171(token,dir){
     var seq=normalizedSequenceV3171(); var idx=seq.findIndex(function(x){return x.token===token;}); var ni=idx+dir;
     if(idx<0||ni<0||ni>=seq.length)return;
@@ -9153,17 +9164,34 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
     });
     if(!filtered.length){box.innerHTML='<div class="empty">No hay resultados.</div>';return;}
     var current=typeof currentItem==='function'?currentItem():null;
+    var collapsedGroupV31323=false;
     filtered.forEach(function(entry){
       if(entry.type==='separator'){
-        var sepRow=document.createElement('div'); sepRow.className='title-separator-v3171'; sepRow.setAttribute('data-layout-token',entry.token);
+        collapsedGroupV31323=!q && !organizerActiveV3171 && collapsibleV31323() && entry.value.collapsed===true;
+        var sepRow=document.createElement('div'); sepRow.className='title-separator-v3171'+(collapsedGroupV31323?' separator-collapsed-v31323':''); sepRow.setAttribute('data-layout-token',entry.token);
+        if(collapsibleV31323() && !organizerActiveV3171){
+          sepRow.classList.add('title-separator-toggleable-v31323');
+          sepRow.setAttribute('role','button');
+          sepRow.setAttribute('tabindex','0');
+          sepRow.setAttribute('aria-expanded',collapsedGroupV31323?'false':'true');
+          sepRow.onclick=function(){toggleSeparatorV31323(entry.value.id);};
+          sepRow.onkeydown=function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleSeparatorV31323(entry.value.id);}};
+        }
         var label=document.createElement('div'); label.className='title-separator-label-v3171';
+        if(collapsibleV31323() && !organizerActiveV3171){
+          var toggle=document.createElement('span');
+          toggle.className='separator-toggle-v31323';
+          toggle.textContent=collapsedGroupV31323?'›':'⌄';
+          toggle.setAttribute('aria-hidden','true');
+          label.appendChild(toggle);
+        }
         var sepTitle=String(entry.value.title||'');
         var emojiMatch=sepTitle.match(/^(\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic})*)\s*/u);
         if(emojiMatch){
           var emoji=document.createElement('span'); emoji.className='title-separator-emoji-v3172'; emoji.textContent=emojiMatch[1];
           var text=document.createElement('span'); text.textContent=sepTitle.slice(emojiMatch[0].length);
           label.appendChild(emoji); label.appendChild(document.createTextNode(' ')); label.appendChild(text);
-        }else label.textContent=sepTitle;
+        }else label.appendChild(document.createTextNode(sepTitle));
         var count=document.createElement('span');
         count.className='title-separator-count-v3173';
         count.textContent=' ('+(separatorCountsV3173[entry.value.id]||0)+')';
@@ -9182,6 +9210,7 @@ window.__renderTitlesBeforeV3171 = window.renderTitles || (typeof renderTitles!=
         }
         sepRow.appendChild(actions);box.appendChild(sepRow);return;
       }
+      if(collapsedGroupV31323)return;
       var item=entry.value; var row=document.createElement('div'); row.className='title-row'+(current&&current.id===item.id?' active':'')+(organizerActiveV3171?' title-row-organize-v3168':''); row.setAttribute('data-layout-token',entry.token);
       var code=document.createElement('div');code.className='title-code';code.textContent=itemCodeV3171(item,seq);
       var name=document.createElement('div');name.className='title-name';

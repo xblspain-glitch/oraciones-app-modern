@@ -2768,6 +2768,14 @@ body.dark .separator-mini-action-v3171{color:#c2c9c0}
   opacity:.78;
 }
 
+/* v2.309 - Separadores desplegables en Oraciones y Notas */
+.title-separator-toggleable-v31323{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:filter .16s ease,transform .12s ease}
+.title-separator-toggleable-v31323:active{transform:scale(.992);filter:brightness(.97)}
+.title-separator-toggleable-v31323:focus-visible{outline:3px solid rgba(92,128,62,.28);outline-offset:3px}
+.separator-toggle-v31323{display:inline-flex;align-items:center;justify-content:center;width:22px;margin-right:4px;color:inherit;font:900 22px/1 system-ui;vertical-align:-.06em;transition:transform .16s ease}
+.separator-collapsed-v31323 .separator-toggle-v31323{transform:translateX(1px)}
+body.dark .title-separator-toggleable-v31323:focus-visible{outline-color:rgba(190,220,157,.35)}
+
 /* v3.1.76 - botón Salmos */
 .psalms-note-v3176{color:#66805a;font-weight:900;font-size:1.18em;line-height:1}
 body.dark .psalms-note-v3176{color:#a8c792}
